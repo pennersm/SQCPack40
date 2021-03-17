@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_2130a">
+    
+	<formula>
+    100*decode(
+	(VLR1MSC.ATI_FOR_PSI_SGS_ATTEMPT),0,null, 
+
+	(VLR1MSC.ATI_FOR_PSI_SGS_SUCCESS)
+	/ 
+	(VLR1MSC.ATI_FOR_PSI_SGS_ATTEMPT))
+	</formula>
+
+	<kpi_info>
+      <title><![CDATA[ATI for PSI over SGs success ratio.]]></title>
+      <use><![CDATA[ATI (Any Time Interrogation) for PSI (Provide Subscriber Information) for the UEs registered over SGs interface success ratio. This KPI is applicable to the cases when the PSI paging over SGs interface causes CS fallback to a different MSS.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>
+		<br>This KPI needs an optional feature (L.1630 => FN1914: CS Fallback in EPS for MSC Server). 
+		<br>
+		<br>PUBLISHED: M15.1
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part one (M82)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt;
+		&lt;br&gt; SUM( ATI_FOR_PSI_SGS_SUCCESS ) 
+		&lt;br&gt;-------------------------------- * 100 
+		&lt;br&gt;SUM( ATI_FOR_PSI_SGS_ATTEMPT ) 
+		&lt;br&gt;
+		&lt;br&gt;Counters from AGGREGATED view(s) 
+		&lt;br&gt;
+		</formula>
+
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[AvgSubs LAC Aux]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

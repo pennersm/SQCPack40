@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LRDB (LTE Radio Bearer)</header>
+    <csv_title>LRDB (LTE Radio Bearer)</csv_title>
+    <report-description>LTE Radio Bearer measurement (M8007) measures Radio Bearer related measurements.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DATA_RB_STP_ATT />
+    <DATA_RB_STP_COMP />
+    <DATA_RB_STP_FAIL />
+    <RB_REL_REQ_NORM_REL />
+    <RB_REL_REQ_DETACH_PROC />
+    <RB_REL_REQ_RNL />
+    <RB_REL_REQ_OTHER />
+    <SRB1_SETUP_ATT />
+    <SRB1_SETUP_SUCC />
+    <SRB1_SETUP_FAIL />
+    <SRB2_SETUP_ATT />
+    <SRB2_SETUP_SUCC />
+    <SRB2_SETUP_FAIL />
+    <RB_REL_REQ_RNL_REDIR />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LRDB" meas_level="PLMN/MRBTS/LNBTS/LNCEL" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LRDB</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="DATA_RB_STP_ATT" symmetrical="true">SUM(DATA_RB_STP_ATT)</counter>
+	  <counter alias="DATA_RB_STP_COMP" symmetrical="true">SUM(DATA_RB_STP_COMP)</counter>
+	  <counter alias="DATA_RB_STP_FAIL" symmetrical="true">SUM(DATA_RB_STP_FAIL)</counter>
+	  <counter alias="RB_REL_REQ_NORM_REL" symmetrical="true">SUM(RB_REL_REQ_NORM_REL)</counter>
+	  <counter alias="RB_REL_REQ_DETACH_PROC" symmetrical="true">SUM(RB_REL_REQ_DETACH_PROC)</counter>
+	  <counter alias="RB_REL_REQ_RNL" symmetrical="true">SUM(RB_REL_REQ_RNL)</counter>
+	  <counter alias="RB_REL_REQ_OTHER" symmetrical="true">SUM(RB_REL_REQ_OTHER)</counter>
+	  <counter alias="SRB1_SETUP_ATT" symmetrical="true">SUM(SRB1_SETUP_ATT)</counter>
+	  <counter alias="SRB1_SETUP_SUCC" symmetrical="true">SUM(SRB1_SETUP_SUCC)</counter>
+	  <counter alias="SRB1_SETUP_FAIL" symmetrical="true">SUM(SRB1_SETUP_FAIL)</counter>
+	  <counter alias="SRB2_SETUP_ATT" symmetrical="true">SUM(SRB2_SETUP_ATT)</counter>
+	  <counter alias="SRB2_SETUP_SUCC" symmetrical="true">SUM(SRB2_SETUP_SUCC)</counter>
+	  <counter alias="SRB2_SETUP_FAIL" symmetrical="true">SUM(SRB2_SETUP_FAIL)</counter>
+	  <counter alias="RB_REL_REQ_RNL_REDIR" symmetrical="true">SUM(RB_REL_REQ_RNL_REDIR)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LRDB</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LRDB.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DATA_RB_STP_ATT">
+    <formula>LRDB.DATA_RB_STP_ATT</formula>
+    <kpi_info>
+      <title>DATA_RB_STP_ATT</title>
+      <use>The number of Data Radio Bearers attempted to  set up per cell. 
+
+It comprises also attempted Data Radio Bearer setups up during an incoming Handover at the target cell. UPDATED: Transmission of an RRC CONNECTION RECONFIGURATION message sent by eNB to the UE during the Data Radio Bearer (DRB) setup procedure. For incoming Handover the counter is pegged in case of a successful handover preparation procedure indicated for example by the transmission of  the HANDOVER REQUEST ACKNOWLEDGE message.
+
+If the DRB setup procedure is executed for more than one DRB the counter is pegged for each DRB attempted to set up.
+
+RRC CONNECTION RECONFIGURATION messages used for other purposes than DRB setup (that is DRB release, DRB configuration changes, transmission of security information) will not be counted.
+
+3GPP TS36.331 (RRC CONNECTION RECONFIGURATION)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DATA_RB_STP_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATA_RB_STP_ATT (M8007C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DATA_RB_STP_COMP">
+    <formula>LRDB.DATA_RB_STP_COMP</formula>
+    <kpi_info>
+      <title>DATA_RB_STP_COMP</title>
+      <use>The number of successfully established Data Radio Bearers per cell. 
+
+It comprises also the successfully established Data Radio Bearers due to an incoming Handover at the target cell. UPDATED: Reception of an RRC CONNECTION RECONFIGURATION COMPLETE message sent from the UE to the eNB during the Data Radio Bearer (DRB) setup procedure.
+
+If the RRC Reconfiguration procedure is executed for more than one DRB the counter is pegged for each successfully set up DRB.
+
+RRC CONNECTION RECONFIGURATION COMPLETE messages used for other purposes than DRB setup (that is DRB release, DRB configuration changes, transmission of security information) will not be counted.
+
+3GPP TS36.331 (RRC CONNECTION RECONFIGURATION COMPLETE)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DATA_RB_STP_COMP)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATA_RB_STP_COMP (M8007C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DATA_RB_STP_FAIL">
+    <formula>LRDB.DATA_RB_STP_FAIL</formula>
+    <kpi_info>
+      <title>DATA_RB_STP_FAIL</title>
+      <use>The number of Data Radio Bearers failed to setup per cell. 
+
+It comprises also the Data Radio Bearers failed to setup during an incoming Handover at the target cell. UPDATED: Expiration of RRC Guard timer used for the supervision of the RRC Connection Reconfiguration procedure for Data Radio Bearer (DRB) setup.
+
+For incoming Handover the counter is pegged in case of a not successfully completed Handover Execution phase at the target eNB (for example expiration of TS1Relocexec/Tx2Relocexec). 
+
+If the RRC Reconfiguration procedure is executed for more than one DRB the counter is pegged for each DRB  with unsuccessful setup.
+
+RRC Guard Timer expirations of RRC Reconfiguration procedures for other purposes than DRB setup  (that is DRB release, DRB configuration changes, transmission of security information) will not be counted.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DATA_RB_STP_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATA_RB_STP_FAIL (M8007C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RB_REL_REQ_NORM_REL">
+    <formula>LRDB.RB_REL_REQ_NORM_REL</formula>
+    <kpi_info>
+      <title>RB_REL_REQ_NORM_REL</title>
+      <use>The number of released Data Radio Bearers due to &quot;normal release&quot; per cell. 
+
+It comprises also the released Data Radio Bearers originally setup due to an incoming  Handover. UPDATED: Transmission of S1AP E-RAB RELEASE INDICATION or S1AP UE CONTEXT RELEASE REQUEST message from eNB to MME due to user inactivity
+or
+reception of S1AP UE CONTEXT RELEASE COMMAND or S1AP E-RAB RELEASE COMMAND with release cause &quot;normal&quot; and not received as a response to a Release message previously sent to the MME
+or
+reception of X2AP UE CONTEXT RELEASE message due to outgoing X2-Handover (also intra eNB HO is included).
+
+If the release procedure is executed for more than one Data Radio Bearer (DRB), the counter is pegged for each released DRB. 
+
+3GPP TS36.413  (S1AP E-RAB RELEASE INDICATION,
+S1AP UE CONTEXT RELEASE REQUEST,
+S1AP E-RAB RELEASE COMMAND,
+S1AP UE CONTEXT RELEASE COMMAND)
+3GPP TS36423 (X2AP UE CONTEXT RELEASE)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RB_REL_REQ_NORM_REL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RB_REL_REQ_NORM_REL (M8007C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RB_REL_REQ_DETACH_PROC">
+    <formula>LRDB.RB_REL_REQ_DETACH_PROC</formula>
+    <kpi_info>
+      <title>RB_REL_REQ_DETACH_PROC</title>
+      <use>The number of Radio Bearer Release requests due to Detach procedure UPDATED: Transmission of an RRC CONNECTION RELEASE message due to reception of S1AP:UE CONTEXT RELEASE COMMAND.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RB_REL_REQ_DETACH_PROC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RB_REL_REQ_DETACH_PROC (M8007C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RB_REL_REQ_RNL">
+    <formula>LRDB.RB_REL_REQ_RNL</formula>
+    <kpi_info>
+      <title>RB_REL_REQ_RNL</title>
+      <use>The number of released Data Radio Bearers due to &quot;lost radio connection&quot; between UE and eNB.
+
+It comprises also the release of  Data Radio Bearers originally setup due to an incoming Handover. UPDATED: Transmission of  S1AP UE CONTEXT RELEASE REQUEST message from eNB to MME due to lost radio connection. 
+
+If the release procedure is executed for more than one Data Radio Bearer (DRB) the counter is pegged for each released DRB. 
+
+3GPP TS36.413  ( S1AP UE CONTEXT RELEASE REQUEST)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RB_REL_REQ_RNL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RB_REL_REQ_RNL (M8007C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RB_REL_REQ_OTHER">
+    <formula>LRDB.RB_REL_REQ_OTHER</formula>
+    <kpi_info>
+      <title>RB_REL_REQ_OTHER</title>
+      <use>The number of released Data Radio Bearers due to &quot;other reasons&quot;. 
+
+It comprises also the release of Data Radio Bearers originally setup due to an incoming Handover. UPDATED: Transmission of S1AP E-RAB RELEASE INDICATION or S1AP UE CONTEXT RELEASE REQUEST message from eNB to MME due to for example Transport Network failure or any reason different to &quot;user inactivity&quot; or &quot;lost radio connection&quot;.
+
+If the release procedure is executed for more than one Data Radio Bearer (DRB) the counter is pegged for each released DRB. 
+
+3GPP TS36.413  (S1AP E-RAB RELEASE INDICATION, S1AP UE CONTEXT RELEASE REQUEST)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RB_REL_REQ_OTHER)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RB_REL_REQ_OTHER (M8007C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRB1_SETUP_ATT">
+    <formula>LRDB.SRB1_SETUP_ATT</formula>
+    <kpi_info>
+      <title>SRB1_SETUP_ATT</title>
+      <use>The number of Signaling Radio Bearer 1 setup attempts. SRB1 for most RRC messages using the DCCH. UPDATED: This counter is updated on the transmission of an RRC CONNECTION SETUP message sent by eNB to the UE, containing SRB1-specific configurations.
+Note: If a UE (erroneously) sends RRC CONNECTION REQUEST message several times in a row without waiting the proper time for the response from eNB (RRCConnectionSetup), only the last message of RRC CONNECTION SETUP will be counted.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRB1_SETUP_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRB1_SETUP_ATT (M8007C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRB1_SETUP_SUCC">
+    <formula>LRDB.SRB1_SETUP_SUCC</formula>
+    <kpi_info>
+      <title>SRB1_SETUP_SUCC</title>
+      <use>The number of Signaling Radio Bearer 1 setup completions. SRB1 for most RRC messages using the DCCH. UPDATED: This counter is updated on the reception of an RRC CONNECTION SETUP COMPLETE message sent by UE to eNB on SRB1/DCCH (carrying the initial NAS message).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRB1_SETUP_SUCC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRB1_SETUP_SUCC (M8007C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRB1_SETUP_FAIL">
+    <formula>LRDB.SRB1_SETUP_FAIL</formula>
+    <kpi_info>
+      <title>SRB1_SETUP_FAIL</title>
+      <use>The number of Signaling Radio Bearer 1 setup failures. SRB1 for most RRC messages using the DCCH. UPDATED: This counter is updated on the reception of an erroneous or incomplete RRC CONNECTION SETUP COMPLETE message sent by UE to eNB.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRB1_SETUP_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRB1_SETUP_FAIL (M8007C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRB2_SETUP_ATT">
+    <formula>LRDB.SRB2_SETUP_ATT</formula>
+    <kpi_info>
+      <title>SRB2_SETUP_ATT</title>
+      <use>The number of Signaling Radio Bearer 2 setup attempts. SRB2 is for NAS messages using the DCCH (if AS security has been activated). UPDATED: This counter is updated at the transmission of an RRC CONNECTION RECONFIGURATION message sent by eNB to the UE, containing SRB2-specific configurations.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRB2_SETUP_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRB2_SETUP_ATT (M8007C10)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRB2_SETUP_SUCC">
+    <formula>LRDB.SRB2_SETUP_SUCC</formula>
+    <kpi_info>
+      <title>SRB2_SETUP_SUCC</title>
+      <use>The number of Signaling Radio Bearer 2 setup completions. SRB2 is for NAS messages using the DCCH (if AS security has been activated). UPDATED: This counter is updated at the reception of an RRC CONNECTION RECONFIGURATION COMPLETE message sent by UE to eNB on SRB1/DCCH.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRB2_SETUP_SUCC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRB2_SETUP_SUCC (M8007C11)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRB2_SETUP_FAIL">
+    <formula>LRDB.SRB2_SETUP_FAIL</formula>
+    <kpi_info>
+      <title>SRB2_SETUP_FAIL</title>
+      <use>The number of Signaling Radio Bearer 2 setup failures. SRB2 is for NAS messages using the DCCH (if AS security has been activated). UPDATED: Internal trigger - for example upon expiration of RRC Guard timer used for the supervision of the RRC Reconfiguration procedure.
+
+The expiration during RRC Reconfiguration procedure used for other purposes than bearer setup (that is DRB release, DRB configuration changes, transmission of security information in case of HO) will not be counted.
+
+Also the expiration during bearer setup due to incoming HO will not be counted.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRB2_SETUP_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRB2_SETUP_FAIL (M8007C12)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RB_REL_REQ_RNL_REDIR">
+    <formula>LRDB.RB_REL_REQ_RNL_REDIR</formula>
+    <kpi_info>
+      <title>RB_REL_REQ_RNL_REDIR</title>
+      <use>The number of released Data Radio Bearers due to Radio Network Layer cause Redirect. UPDATED: Transmission of S1AP: UE CONTEXT RELEASE REQUEST message from eNB to MME due to redirect. In this case either RNL cause 'RNL E-UTRAN Generated Reason' or 'RNL Inter-RAT Redirection' are used.
+
+If the release procedure is executed for more than one Data Radio Bearer (DRB), the counter is incremented for each released DRB.
+
+3GPP TS36.413 (S1AP: UE CONTEXT RELEASE REQUEST)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RB_REL_REQ_RNL_REDIR)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RB_REL_REQ_RNL_REDIR (M8007C13)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LRDB.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+	  <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lrdb_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

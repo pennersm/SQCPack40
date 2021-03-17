@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LVLIP (LTE VLAN IP Statistics)</header>
+    <csv_title>LVLIP (LTE VLAN IP Statistics)</csv_title>
+    <report-description>LTE VLAN IP statistics measurement (M51127) contains PM counters to monitor the performance of the IP Iub functionality per VLAN interface.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ifInPackets15 />
+    <ifInOctets15 />
+    <ifOutPackets15 />
+    <ifOutOctets15 />
+    <ifInErrors15 />
+    <ifOutDroppedPackets />
+    <ifOutDroppedOctets />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LVLIP" meas_level="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-IPPM1" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LVLIP</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="ifInPackets15" symmetrical="true">SUM(ifInPackets15)</counter>
+	  <counter alias="ifInOctets15" symmetrical="true">SUM(ifInOctets15)</counter>
+	  <counter alias="ifOutPackets15" symmetrical="true">SUM(ifOutPackets15)</counter>
+	  <counter alias="ifOutOctets15" symmetrical="true">SUM(ifOutOctets15)</counter>
+	  <counter alias="ifInErrors15" symmetrical="true">SUM(ifInErrors15)</counter>
+	  <counter alias="ifOutDroppedPackets" symmetrical="true">SUM(ifOutDroppedPackets)</counter>
+	  <counter alias="ifOutDroppedOctets" symmetrical="true">SUM(ifOutDroppedOctets)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LVLIP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LVLIP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInPackets15">
+    <formula>LVLIP.ifInPackets15</formula>
+    <kpi_info>
+      <title>ifInPackets15</title>
+      <use>The number of  packets received on the VLAN IP interface that were delivered
+to higher-layer protocols. UPDATED: The counter is updated when an inbound packet has been delivered to higher-layer protocols.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInPackets15)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInPackets15 (M51127C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInOctets15">
+    <formula>LVLIP.ifInOctets15</formula>
+    <kpi_info>
+      <title>ifInOctets15</title>
+      <use>The total number of kilo-octets received on the VLAN IP interface, including framing characters. UPDATED: The counter is updated whenever a kilo-octet is received on the VLAN IP interface.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInOctets15)</formula>
+      <unit>kB</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInOctets15 (M51127C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutPackets15">
+    <formula>LVLIP.ifOutPackets15</formula>
+    <kpi_info>
+      <title>ifOutPackets15</title>
+      <use>The number of packets that were successfully transmitted over the VLAN IP interface UPDATED: The counter is updated whenever a packet has been transmitted successfully over the VLAN interface.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutPackets15)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutPackets15 (M51127C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutOctets15">
+    <formula>LVLIP.ifOutOctets15</formula>
+    <kpi_info>
+      <title>ifOutOctets15</title>
+      <use>The total number of kilo-octets transmitted over the VLAN IP the interface, including framing characters. UPDATED: The counter is updated whenever a kilo-octet is transmitted over the VLAN IP interface.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutOctets15)</formula>
+      <unit>kB</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutOctets15 (M51127C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInErrors15">
+    <formula>LVLIP.ifInErrors15</formula>
+    <kpi_info>
+      <title>ifInErrors15</title>
+      <use>The number of received IP packets or fragments that are discarded for one or more of the following reasons shall be counted in one aggregate counter for each IP transport interface:
+	- Time-To-Live exceeded (TTL=0 or TTL=1 for routed SSE traffic 	(LTE only)) 
+	- IP header checksum failure
+	- ICMPv4 checksum failure (for ICMPv4 packets only)
+
+IPv6 specific discard reasons :
+	- Unspecified as destination address
+	- Multicast destination address and &quot;scope&quot; field = 0
+	- Any IPv6 packet that contains an unsupported extension header
+	- Any IPv6 packet that contains a supported extension header more than once.
+	- ICMPv6 checksum failure .
+
+Fragments shall be counted as individual IP packets. UPDATED: The counter is updated whenever an erroneous packets is received on the VLAN IP interface.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInErrors15)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInErrors15 (M51127C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutDroppedPackets">
+    <formula>LVLIP.ifOutDroppedPackets</formula>
+    <kpi_info>
+      <title>ifOutDroppedPackets</title>
+      <use>The number of total outbound packets that were dropped in the IP scheduler due to congestion. UPDATED: The counter is updated when an outbound packet needs to be dropped due to congestion.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutDroppedPackets)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutDroppedPackets (M51127C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutDroppedOctets">
+    <formula>LVLIP.ifOutDroppedOctets</formula>
+    <kpi_info>
+      <title>ifOutDroppedOctets</title>
+      <use>The number of total outbound kilo-octets that were dropped in the IP scheduler due to congestion. UPDATED: The counter is updated when a kilo-octet of outbound data needs to be dropped due to congestion.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutDroppedOctets)</formula>
+      <unit>kB</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutDroppedOctets (M51127C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LVLIP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

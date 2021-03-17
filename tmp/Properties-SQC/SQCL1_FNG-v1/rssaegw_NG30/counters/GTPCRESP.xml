@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTP_C_v1_response GTPCRESP measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTP_C_v1_response GTPCRESP measurement dump</csv_title>
+    <report-description>Gtpcv1 response statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <GTPC_CREATE_RESP_SENT />
+    <GTPC_CREATE_RESP_SENT_ALL />
+	<GTPC_DELETE_RESP_RECV />
+	<GTPC_DELETE_RESP_RECV_ALL />
+	<GTPC_DELETE_RESP_SENT />
+	<GTPC_DELETE_RESP_SENT_ALL />
+	<GTPC_UPDATE_RESP_SENT />
+	<GTPC_UPDATE_RESP_SENT_ALL />
+	<GTPC_UPDATE_PDP_RESP_RECV />
+	<GTPC_UPDATE_PDP_RESP_RECV_ALL />
+  </column_order>
+  <temp_table name="GTPCRESP" meas_level="PLMN/FING/FNODE/GTPC/GTPCCC" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="GTPC_CREATE_RESP_SENT" time-alias="GTPC_CREATE_RESP_SENT" timeagg="SUM(GTPC_CREATE_RESP_SENT)">SUM(GTPC_CREATE_RESP_SENT)</counter>
+	  <counter alias="GTPC_DELETE_RESP_RECV" time-alias="GTPC_DELETE_RESP_RECV" timeagg="SUM(GTPC_DELETE_RESP_RECV)">SUM(GTPC_DELETE_RESP_RECV)</counter>
+	  <counter alias="GTPC_DELETE_RESP_SENT" time-alias="GTPC_DELETE_RESP_SENT" timeagg="SUM(GTPC_DELETE_RESP_SENT)">SUM(GTPC_DELETE_RESP_SENT)</counter>
+	  <counter alias="GTPC_UPDATE_RESP_SENT" time-alias="GTPC_UPDATE_RESP_SENT" timeagg="SUM(GTPC_UPDATE_RESP_SENT)">SUM(GTPC_UPDATE_RESP_SENT)</counter>
+	  <counter alias="GTPC_UPDATE_PDP_RESP_RECV" time-alias="GTPC_UPDATE_PDP_RESP_RECV" timeagg="SUM(GTPC_UPDATE_PDP_RESP_RECV)">SUM(GTPC_UPDATE_PDP_RESP_RECV)</counter>
+	  <!-- Auxiliary Counters -->
+	  <counter alias="GTPC_CREATE_RESP_SENT_ALL">MAX(GTPC_CREATE_RESP_SENT_ALL)</counter>
+	  <counter alias="GTPC_DELETE_RESP_RECV_ALL">MAX(GTPC_DELETE_RESP_RECV_ALL)</counter>
+	  <counter alias="GTPC_DELETE_RESP_SENT_ALL">MAX(GTPC_DELETE_RESP_SENT_ALL)</counter>
+	  <counter alias="GTPC_UPDATE_RESP_SENT_ALL">MAX(GTPC_UPDATE_RESP_SENT_ALL)</counter>
+	  <counter alias="GTPC_UPDATE_PDP_RESP_RECV_ALL">MAX(GTPC_UPDATE_PDP_RESP_RECV_ALL)</counter>
+    </counters>
+    <table_name>{TIME_AGG}</table_name>
+    <alias_name>GTPCRESP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>GTPCRESP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit>[min]</unit>
+      <tables>pcofng_ps_gtpccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_CREATE_RESP_SENT">
+    <formula>GTPCRESP.GTPC_CREATE_RESP_SENT</formula>
+    <kpi_info>
+      <title>GTPC_CREATE_RESP_SENT</title>
+      <use>This counter contains the number of sent Create PDP Context Response messages by the cause code. UPDATED: Updated when a Create PDP Context Response message (by the cause code) is sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPC_CREATE_RESP_SENT)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_gtpccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_CREATE_RESP_SENT (m3004c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_DELETE_RESP_RECV">
+    <formula>GTPCRESP.GTPC_DELETE_RESP_RECV</formula>
+    <kpi_info>
+      <title>GTPC_DELETE_RESP_RECV</title>
+      <use>This counter contains the number of received Delete PDP Context responses by the cause code. UPDATED: Updated when a Delete PDP Context response is received by the cause code.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPC_DELETE_RESP_RECV)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_drr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_DELETE_RESP_RECV (m3007c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_DELETE_RESP_SENT">
+    <formula>GTPCRESP.GTPC_DELETE_RESP_SENT</formula>
+    <kpi_info>
+      <title>GTPC_DELETE_RESP_SENT</title>
+      <use>This counter contains number of sent Delete PDP Context responses by cause code UPDATED: Updated when Delete PDP Context response is sent</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPC_DELETE_RESP_SENT)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_drs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_DELETE_RESP_SENT (m3006c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_UPDATE_RESP_SENT">
+    <formula>GTPCRESP.GTPC_UPDATE_RESP_SENT</formula>
+    <kpi_info>
+      <title>GTPC_UPDATE_RESP_SENT</title>
+      <use>This counter contains the number of sent Update PDP Context Responses grouped by the cause code. UPDATED: Updated when a Update PDP Context Response is sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPC_UPDATE_RESP_SENT)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_urs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_UPDATE_RESP_SENT (m3005c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_UPDATE_PDP_RESP_RECV">
+    <formula>GTPCRESP.GTPC_UPDATE_PDP_RESP_RECV</formula>
+    <kpi_info>
+      <title>GTPC_UPDATE_PDP_RESP_RECV</title>
+      <use>The number of received Update PDP Context Response messages by cause code. UPDATED: Updated when a Update PDP Context response is received by the cause code.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPC_UPDATE_PDP_RESP_RECV)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_uprr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_UPDATE_PDP_RESP_RECV (m3037c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!-- Auxiliary Counters -->
+  <kpi name="GTPC_CREATE_RESP_SENT_ALL">
+    <formula>GTPCRESP.GTPC_CREATE_RESP_SENT_ALL</formula>
+    <kpi_info>
+      <title>GTPC_CREATE_RESP_SENT_ALL</title>
+      <use>This counter contains the number of sent Create PDP Context Response messages by the cause code. UPDATED: Updated when a Create PDP Context Response message (by the cause code) is sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(GTPC_CREATE_RESP_SENT)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_gtpccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_CREATE_RESP_SENT_ALL (m3004c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_DELETE_RESP_RECV_ALL">
+    <formula>GTPCRESP.GTPC_DELETE_RESP_RECV_ALL</formula>
+    <kpi_info>
+      <title>GTPC_DELETE_RESP_RECV_ALL</title>
+      <use>This counter contains the number of received Delete PDP Context responses by the cause code. UPDATED: Updated when a Delete PDP Context response is received by the cause code.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(GTPC_DELETE_RESP_RECV)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_drr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_DELETE_RESP_RECV_ALL (m3007c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_DELETE_RESP_SENT_ALL">
+    <formula>GTPCRESP.GTPC_DELETE_RESP_SENT_ALL</formula>
+    <kpi_info>
+      <title>GTPC_DELETE_RESP_SENT_ALL</title>
+      <use>This counter contains number of sent Delete PDP Context responses by cause code UPDATED: Updated when Delete PDP Context response is sent</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(GTPC_DELETE_RESP_SENT)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_drs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_DELETE_RESP_SENT_ALL (m3006c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_UPDATE_RESP_SENT_ALL">
+    <formula>GTPCRESP.GTPC_UPDATE_RESP_SENT_ALL</formula>
+    <kpi_info>
+      <title>GTPC_UPDATE_RESP_SENT_ALL</title>
+      <use>This counter contains the number of sent Update PDP Context Responses grouped by the cause code. UPDATED: Updated when a Update PDP Context Response is sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(GTPC_UPDATE_RESP_SENT)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_urs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_UPDATE_RESP_SENT_ALL (m3005c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPC_UPDATE_PDP_RESP_RECV_ALL">
+    <formula>GTPCRESP.GTPC_UPDATE_PDP_RESP_RECV_ALL</formula>
+    <kpi_info>
+      <title>GTPC_UPDATE_PDP_RESP_RECV_ALL</title>
+      <use>The number of received Update PDP Context Response messages by cause code. UPDATED: Updated when a Update PDP Context response is received by the cause code.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(GTPC_UPDATE_PDP_RESP_RECV)</formula>
+      <unit>[#]</unit>
+      <tables>pcofng_ps_uprr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPC_UPDATE_PDP_RESP_RECV_ALL (m3037c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

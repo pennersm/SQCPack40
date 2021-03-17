@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_660c">
+    <formula>decode(
+			(traffic.allo_hs_dsch_flow_int + 
+			traffic.allo_hs_dsch_flow_bgr + 
+			traffic.allo_hs_dsch_flow_str + 
+			traffic.dch_sel_max_hsdpa_users_int + 
+			traffic.dch_sel_max_hsdpa_users_bgr + 
+			traffic.dch_sel_max_hsdpa_users_str + 
+			traffic.rej_hs_dsch_ret_int + 
+			traffic.rej_hs_dsch_ret_bgr + 
+			traffic.rej_hs_dsch_ret_str + 
+			traffic.setup_fail_rnc_hs_dsch_int + 
+			traffic.setup_fail_ue_hs_dsch_int + 
+			traffic.setup_fail_bts_hs_dsch_int + 
+			traffic.setup_fail_iub_hs_total_int + 
+			traffic.setup_fail_rnc_hs_dsch_bgr + 
+			traffic.setup_fail_ue_hs_dsch_bgr + 
+			traffic.setup_fail_bts_hs_dsch_bgr + 
+			traffic.setup_fail_iub_hs_total_bgr + 
+			traffic.setup_fail_rnc_hs_dsch_str + 
+			traffic.setup_fail_iub_hs_total_str + 
+			traffic.setup_fail_ue_hs_dsch_str + 
+			traffic.setup_fail_bts_hs_dsch_str),0,null, 
+
+			(100*(traffic.dch_sel_max_hsdpa_users_int + 
+			traffic.dch_sel_max_hsdpa_users_bgr)
+			 / 
+			(traffic.allo_hs_dsch_flow_int + 
+			traffic.allo_hs_dsch_flow_bgr + 
+			traffic.allo_hs_dsch_flow_str + 
+			traffic.dch_sel_max_hsdpa_users_int + 
+			traffic.dch_sel_max_hsdpa_users_bgr + 
+			traffic.dch_sel_max_hsdpa_users_str + 
+			traffic.rej_hs_dsch_ret_int + 
+			traffic.rej_hs_dsch_ret_bgr + 
+			traffic.rej_hs_dsch_ret_str + 
+			traffic.setup_fail_rnc_hs_dsch_int + 
+			traffic.setup_fail_ue_hs_dsch_int + 
+			traffic.setup_fail_bts_hs_dsch_int + 
+			traffic.setup_fail_iub_hs_total_int + 
+			traffic.setup_fail_rnc_hs_dsch_bgr + 
+			traffic.setup_fail_ue_hs_dsch_bgr + 
+			traffic.setup_fail_bts_hs_dsch_bgr + 
+			traffic.setup_fail_iub_hs_total_bgr + 
+			traffic.setup_fail_rnc_hs_dsch_str + 
+			traffic.setup_fail_iub_hs_total_str + 
+			traffic.setup_fail_ue_hs_dsch_str + 
+			traffic.setup_fail_bts_hs_dsch_str)))</formula>
+    <kpi_info>
+      <title><![CDATA[DCH Selected due to too many HSDPA users]]></title>
+      <use><![CDATA[Congestion due to too many allocated users - ratio of allocation requests that are directed to DCH (due to too many HSDPA users) over all HSDPA allocations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum (DCH_SEL_MAX_HSDPA_USERS_INT 
+&lt;br&gt;     + DCH_SEL_MAX_HSDPA_USERS_BGR )
+&lt;br&gt;------------------------------------
+&lt;br&gt;RNC_614b</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DCH slct many HSDPA usr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPCAC.xml" />
+  <kpi name="MGW_1007a">
+    <formula>decode(
+			(ipcac.ip_attempts),0,null, 
+
+			(100*(ipcac.ip_atts_rejected_ext_ip_cac)
+			 / 
+			(ipcac.ip_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[External IP CAC rejection ratio]]></title>
+      <use><![CDATA[Indicates rejection ratio of all IP reservation attempts, where rejection has been made by external IP CAC functionality in MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;            sum (IP_ATTS_REJECTED_EXT_IP_CAC)
+&lt;br&gt;100 x -------------------------------------------
+&lt;br&gt;            sum (IP_ATTEMPTS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ipcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[External IP CAC rejection ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

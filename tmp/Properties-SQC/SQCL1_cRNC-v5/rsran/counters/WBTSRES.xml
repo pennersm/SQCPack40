@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>WBTSRES (WBTS Resource)</header>
+    <csv_title>WBTSRES (WBTS Resource)</csv_title>
+    <report-description>WBTS Resource</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <MAX_HSDPA_USERS_PER_WBTS/>
+    <MAX_HSUPA_USERS_PER_WBTS/>
+    <SUM_HSDPA_USERS_PER_WBTS/>
+    <SUM_HSUPA_USERS_PER_WBTS/>
+    <DENOM_HSPA_USERS_PER_WBTS/>
+    <SUCC_HSPA05_RECONF_SHUTD/>
+    <UNSUCC_HSPA05_RECONF_SHUTD/>
+    <SUCC_HSPA05_RECONF_ACT/>
+    <UNSUCC_HSPA05_RECONF_ACT/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="WBTSRES" omes_name="WBTS_resource" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS_A2" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>WBTSRES</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="MAX_HSDPA_USERS_PER_WBTS" symmetrical="true">MAX(MAX_HSDPA_USERS_PER_WBTS)</counter>
+          <counter alias="MAX_HSUPA_USERS_PER_WBTS" symmetrical="true">MAX(MAX_HSUPA_USERS_PER_WBTS)</counter>
+          <counter alias="SUM_HSDPA_USERS_PER_WBTS" symmetrical="true">SUM(SUM_HSDPA_USERS_PER_WBTS)</counter>
+          <counter alias="SUM_HSUPA_USERS_PER_WBTS" symmetrical="true">SUM(SUM_HSUPA_USERS_PER_WBTS)</counter>
+          <counter alias="DENOM_HSPA_USERS_PER_WBTS" symmetrical="true">SUM(DENOM_HSPA_USERS_PER_WBTS)</counter>
+          <counter alias="SUCC_HSPA05_RECONF_SHUTD" symmetrical="true">SUM(SUCC_HSPA05_RECONF_SHUTD)</counter>
+          <counter alias="UNSUCC_HSPA05_RECONF_SHUTD" symmetrical="true">SUM(UNSUCC_HSPA05_RECONF_SHUTD)</counter>
+          <counter alias="SUCC_HSPA05_RECONF_ACT" symmetrical="true">SUM(SUCC_HSPA05_RECONF_ACT)</counter>
+          <counter alias="UNSUCC_HSPA05_RECONF_ACT" symmetrical="true">SUM(UNSUCC_HSPA05_RECONF_ACT)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>WBTSRES</alias_name>
+    <ui_name>WBTS Resource</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>WBTSRES.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MAX_HSDPA_USERS_PER_WBTS">
+    <formula>WBTSRES.MAX_HSDPA_USERS_PER_WBTS</formula>
+    <kpi_info>
+      <title>MAX_HSDPA_USERS_PER_WBTS (M1031C0)</title>
+      <use>The maximum number of simultaneous HSDPA users per WBTS. In this context ""HSDPA user"" means a user whose HS-DSCH serving cell is located in the BTS, regardless of whether the uplink is Rel99 or E-DCH. UPDATED:The number of HSDPA users is sampled with one-second interval.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(MAX_HSDPA_USERS_PER_WBTS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_HSDPA_USERS_PER_WBTS (M1031C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MAX_HSUPA_USERS_PER_WBTS">
+    <formula>WBTSRES.MAX_HSUPA_USERS_PER_WBTS</formula>
+    <kpi_info>
+      <title>MAX_HSUPA_USERS_PER_WBTS (M1031C1)</title>
+      <use>The maximum number of simultaneous HSUPA users per WBTS. In this context ""HSUPA user"" means a user who has got have at least one E-DCH radio link in the BTS, either in the serving radio link set, or in a non-serving radio link set. UPDATED:The number of HSUPA users is sampled with one-second interval.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(MAX_HSUPA_USERS_PER_WBTS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_HSUPA_USERS_PER_WBTS (M1031C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUM_HSDPA_USERS_PER_WBTS">
+    <formula>WBTSRES.SUM_HSDPA_USERS_PER_WBTS</formula>
+    <kpi_info>
+      <title>SUM_HSDPA_USERS_PER_WBTS (M1031C2)</title>
+      <use>The sum of sampled values for measuring the number of simultaneous HSDPA users in the WBTS. This counter, divided by the denominator M1031C4, provides the average number of HSDPA users per WBTS. In this context ""HSDPA user"" means a user whose HS-DSCH serving cell is located in the BTS, regardless of whether the uplink is Rel99 or E-DCH. UPDATED:The number of HSDPA users is sampled with one-second interval and summed to this counter.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUM_HSDPA_USERS_PER_WBTS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_HSDPA_USERS_PER_WBTS (M1031C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUM_HSUPA_USERS_PER_WBTS">
+    <formula>WBTSRES.SUM_HSUPA_USERS_PER_WBTS</formula>
+    <kpi_info>
+      <title>SUM_HSUPA_USERS_PER_WBTS (M1031C3)</title>
+      <use>The sum of sampled values for measuring the number of simultaneous HSUPA users in the WBTS. This counter, divided by the denominator M1031C4, provides the average number of HSUPA users per WBTS. In this context ""HSUPA user"" means a user who has got have at least one E-DCH radio link in the BTS, either in the serving radio link set, or in a non-serving radio link set. UPDATED:The number of HSUPA users is sampled with one-second interval and summed to this counter.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUM_HSUPA_USERS_PER_WBTS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_HSUPA_USERS_PER_WBTS (M1031C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DENOM_HSPA_USERS_PER_WBTS">
+    <formula>WBTSRES.DENOM_HSPA_USERS_PER_WBTS</formula>
+    <kpi_info>
+      <title>DENOM_HSPA_USERS_PER_WBTS (M1031C4)</title>
+      <use>The number of samples taken for counter M1031C2 and M1031C3, used as a denominator for average calculation. UPDATED:This counter is updated by one when the number of HSDPA or HSUPA users is summed to counters M1031C2 and M1031C3, even if the amount of users would be zero.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DENOM_HSPA_USERS_PER_WBTS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DENOM_HSPA_USERS_PER_WBTS (M1031C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_HSPA05_RECONF_SHUTD">
+    <formula>WBTSRES.SUCC_HSPA05_RECONF_SHUTD</formula>
+    <kpi_info>
+      <title>SUCC_HSPA05_RECONF_SHUTD (M1031C5)</title>
+      <use>The number of successful cell HSPA capability reconfigurations due to cell shutdown triggered by feature Power Saving Mode for BTS. UPDATED:When either HSPA0 to HSPA5 or HSPA5 to HSPA0 reconfiguration is successful and it was triggered by cell shutdown initiated by feature Power Saving Mode for BTS.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_HSPA05_RECONF_SHUTD)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_HSPA05_RECONF_SHUTD (M1031C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUCC_HSPA05_RECONF_SHUTD">
+    <formula>WBTSRES.UNSUCC_HSPA05_RECONF_SHUTD</formula>
+    <kpi_info>
+      <title>UNSUCC_HSPA05_RECONF_SHUTD (M1031C6)</title>
+      <use>The number of unsuccessful cell HSPA capability reconfigurations due to cell shutdown triggered by feature Power Saving Mode for BTS. UPDATED:When either HSPA0 to HSPA5 or HSPA5 to HSPA0 reconfiguration fails and it was triggered by cell shutdown initiated by feature Power Saving Mode for BTS.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUCC_HSPA05_RECONF_SHUTD)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUCC_HSPA05_RECONF_SHUTD (M1031C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_HSPA05_RECONF_ACT">
+    <formula>WBTSRES.SUCC_HSPA05_RECONF_ACT</formula>
+    <kpi_info>
+      <title>SUCC_HSPA05_RECONF_ACT (M1031C7)</title>
+      <use>The number of successful cell HSPA capability reconfigurations due to cell activation triggered by feature Power Saving Mode for BTS. UPDATED:When either HSPA0 to HSPA5 or HSPA5 to HSPA0 reconfiguration is successful and it was triggered by cell activation initiated by feature Power Saving Mode for BTS.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_HSPA05_RECONF_ACT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_HSPA05_RECONF_ACT (M1031C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUCC_HSPA05_RECONF_ACT">
+    <formula>WBTSRES.UNSUCC_HSPA05_RECONF_ACT</formula>
+    <kpi_info>
+      <title>UNSUCC_HSPA05_RECONF_ACT (M1031C8)</title>
+      <use>The number of unsuccessful cell HSPA capability reconfigurations due to cell activation triggered by feature Power Saving Mode for BTS. UPDATED:When either HSPA0 to HSPA5 or HSPA5 to HSPA0 reconfiguration fails and it was triggered by cell activation initiated by feature Power Saving Mode for BTS
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUCC_HSPA05_RECONF_ACT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUCC_HSPA05_RECONF_ACT (M1031C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>WBTSRES.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_wbtsres_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <kpi name="RNC_606e">
+    <formula>decode(
+			(hsdpaw.period_duration * 60),0,null, 
+
+			(hsdpaw.received_hs_macd_bits - 
+			hsdpaw.discarded_hs_macd_bits + 
+			(celtpw.mc_hsdpa_orig_data_pri + 
+			celtpw.mc_hsdpa_orig_data_sec) * 8)
+			 / 
+			(hsdpaw.period_duration * 60))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA MAC-d average net throughput at BTS]]></title>
+      <use><![CDATA[HSDPA MAC-d net throughput i.e.successfully delivered MAC-d PDU data to HSDPA Capable UEs assuming that MAC-hs is capable of delivering the PDUs.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(RECEIVED_HS_MACD_BITS - DISCARDED_HS_MACD_BITS +
+&lt;br&gt;(MC_HSDPA_ORIG_DATA_PRI + MC_HSDPA_ORIG_DATA_SEC) * 8)
+&lt;br&gt;/
+&lt;br&gt;sum(PERIOD_DURATION * 60) 
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg},nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.821 +0100</date>
+          <comment><![CDATA[Source: RSRAN070.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSDPA MAC-d avg thp BTS]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

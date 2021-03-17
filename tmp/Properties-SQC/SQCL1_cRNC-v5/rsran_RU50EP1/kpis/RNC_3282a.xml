@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPROUT.xml"/>
+  <kpi name="RNC_3282a">
+    <formula>
+    decode(
+			(iprout.period_duration *iprout.ip_eg_bw_config),0,null, 
+
+			(100*8*(iprout.out_data_ip_route)
+			 / 
+			(60 * iprout.period_duration * iprout.ip_eg_bw_config)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP traffic load - egress]]></title>
+      <use><![CDATA[IP traffic load in egress direction. It compares the egress traffic throughput against the available bandwith.]]></use>
+      <use_experience><![CDATA[This KPI can potentailly provide results higher than 100 %. Explanation:
+M568C2 COMMITTED_BIT_RATE_IP_ROUTE - This counter is calculated using the following formulae:
+"IP based route CAC bandwidth" - "signalling bandwidth" - "DCN bandwidth"
+Since the total egress traffic of the IP based route presented by M568C0 OUT_DATA_IP_ROUTE can be higher than the configured IP Based Route Committed Bit Rate of the IP based route presented by M568C2 COMMITTED_BIT_RATE_IP_ROUTE, this can lead to KPI values higher than 100%.]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;               8* SUM( OUT_DATA_IP_ROUTE) 
+&lt;br&gt;100*  ------------------------------------------------------
+&lt;br&gt;          (60 * SUM(PERIOD_DURATION) *SUM(IP_EG_BW_CONFIG))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP traffic load DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

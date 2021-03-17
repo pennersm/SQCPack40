@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/USER.xml" />
+  <kpi name="sgsn_59a">
+    <formula>decode(
+			(jflx_user.ggsn_pdp_act_total),0,NULL, 
+
+			(100*(jflx_user.ggsn_pdp_act_context_not_found + 
+			jflx_user.ggsn_pdp_act_no_resource_avail + 
+			jflx_user.ggsn_pdp_act_all_dyn_addr_occu + 
+			jflx_user.ggsn_pdp_act_no_memory_avail + 
+			jflx_user.ggsn_pdp_act_missing_apn + 
+			jflx_user.ggsn_pdp_act_unknown_pdp_addr + 
+			jflx_user.ggsn_pdp_act_user_auth_failure + 
+			jflx_user.ggsn_pdp_act_system_failure + 
+			jflx_user.ggsn_pdp_act_sem_tft_error + 
+			jflx_user.ggsn_pdp_act_syn_tft_error + 
+			jflx_user.ggsn_pdp_act_sem_pack_filt_err + 
+			jflx_user.ggsn_pdp_act_syn_pack_filt_err + 
+			jflx_user.ggsn_pdp_act_mandator_ie_incur + 
+			jflx_user.ggsn_pdp_act_mandator_ie_miss + 
+			jflx_user.ggsn_pdp_act_opt_ie_incur + 
+			jflx_user.ggsn_pdp_act_inval_msg_format + 
+			jflx_user.ggsn_pdp_act_wo_tft_alread_act + 
+			jflx_user.ggsn_pdp_act_apn_access_denied)
+			 / 
+			(jflx_user.ggsn_pdp_act_total)))</formula>
+    <kpi_info>
+      <title><![CDATA[GGSN PDP context creation failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of GGSN PDP context creation operations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GGSN_PDP_ACT_CONTEXT_NOT_FOUND +  
+&lt;br&gt;   GGSN_PDP_ACT_NO_RESOURCE_AVAIL +
+&lt;br&gt;   GGSN_PDP_ACT_ALL_DYN_ADDR_OCCU +
+&lt;br&gt;   GGSN_PDP_ACT_NO_MEMORY_AVAIL +
+&lt;br&gt;   GGSN_PDP_ACT_MISSING_APN +
+&lt;br&gt;   GGSN_PDP_ACT_UNKNOWN_PDP_ADDR +
+&lt;br&gt;   GGSN_PDP_ACT_USER_AUTH_FAILURE +
+&lt;br&gt;   GGSN_PDP_ACT_SYSTEM_FAILURE +
+&lt;br&gt;   GGSN_PDP_ACT_SEM_TFT_ERROR +
+&lt;br&gt;   GGSN_PDP_ACT_SYN_TFT_ERROR +
+&lt;br&gt;   GGSN_PDP_ACT_SEM_PACK_FILT_ERR +
+&lt;br&gt;   GGSN_PDP_ACT_SYN_PACK_FILT_ERR +
+&lt;br&gt;   GGSN_PDP_ACT_MANDATOR_IE_INCUR +
+&lt;br&gt;   GGSN_PDP_ACT_MANDATOR_IE_MISS +
+&lt;br&gt;   GGSN_PDP_ACT_OPT_IE_INCUR +
+&lt;br&gt;   GGSN_PDP_ACT_INVAL_MSG_FORMAT +
+&lt;br&gt;   GGSN_PDP_ACT_WO_TFT_ALREAD_ACT +
+&lt;br&gt;   GGSN_PDP_ACT_APN_ACCESS_DENIED) 
+&lt;br&gt;---------------------------------------- *100
+&lt;br&gt;sum(GGSN_PDP_ACT_TOTAL)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_user</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_user_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>GGSN PDP ctx creation FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

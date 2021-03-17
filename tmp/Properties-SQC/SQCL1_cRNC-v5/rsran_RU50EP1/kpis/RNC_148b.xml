@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+    <kpi name="RNC_148b">
+    <formula>decode(
+			(servlev.rab_act_comp_cs_strea +
+			servlev.rab_act_rel_cs_strea_p_emp +
+			servlev.rab_act_rel_cs_strea_srnc +
+			servlev.rab_act_fail_cs_strea_iu +
+			servlev.rab_act_fail_cs_strea_radio +
+			servlev.rab_act_fail_cs_strea_bts +
+			servlev.rab_act_fail_cs_strea_iur +
+			servlev.rab_act_fail_cs_strea_rnc +
+			servlev.rab_act_fail_cs_strea_ue),0,null,
+
+			100*(servlev.rab_act_rel_cs_strea_p_emp +
+			servlev.rab_act_fail_cs_strea_iu +
+			servlev.rab_act_fail_cs_strea_radio +
+			servlev.rab_act_fail_cs_strea_bts +
+			servlev.rab_act_fail_cs_strea_iur +
+			servlev.rab_act_fail_cs_strea_rnc +
+			servlev.rab_act_fail_cs_strea_ue)
+			 /
+			(servlev.rab_act_comp_cs_strea +
+			servlev.rab_act_rel_cs_strea_p_emp +
+			servlev.rab_act_rel_cs_strea_srnc +
+			servlev.rab_act_fail_cs_strea_iu +
+			servlev.rab_act_fail_cs_strea_radio +
+			servlev.rab_act_fail_cs_strea_bts +
+			servlev.rab_act_fail_cs_strea_iur +
+			servlev.rab_act_fail_cs_strea_rnc +
+			servlev.rab_act_fail_cs_strea_ue))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Drop Ratio, RT service of Streaming class]]></title>
+      <use><![CDATA[This is sub-KPI of RAB drop ratio, RT service other than voice]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(RAB_ACT_REL_CS_STREA_P_EMP
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_IU
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_RADIO
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_BTS
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_IUR
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_RNC
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_UE)
+&lt;br&gt;          ------------------------------------------------------------------------
+&lt;br&gt;         sum(RAB_ACT_COMP_CS_STREA
+&lt;br&gt;             + RAB_ACT_REL_CS_STREA_P_EMP
+&lt;br&gt;             + RAB_ACT_REL_CS_STREA_SRNC
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_IU
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_RADIO
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_BTS
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_IUR
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_RNC
+&lt;br&gt;             + RAB_ACT_FAIL_CS_STREA_UE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Drop Ratio, RT service of Streaming class]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

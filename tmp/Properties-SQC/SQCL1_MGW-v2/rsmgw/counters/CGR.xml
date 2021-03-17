@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>CGR (Circuit group)</header>
+    <csv_title>CGR (Circuit group)</csv_title>
+    <report-description>Circuit group measurement (534)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CGRCGROUP_NOF_CIRCUITS />
+    <CGRCGROUP_NOF_WOEX_CRTS_OUT />
+    <CGRCGROUP_TIMECONG_PERCENT />
+    <CGRCGROUP_CALL_CONG />
+    <CGRCGROUP_MIN_FREE />
+    <CGRCGROUP_ALL_BUSY />
+  </column_order>
+  <temp_table name="CGR" meas_level="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>CGR</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="CGRCGROUP_NOF_CIRCUITS"  time-alias="CGRCGROUP_NOF_CIRCUITS" time-formula="AVG(CGRCGROUP_NOF_CIRCUITS)" object-formula="SUM(CGRCGROUP_NOF_CIRCUITS)"  itk_id="CGRCGROUP_NOF_CIRCUITS">SUM(CGRCGROUP_NOF_CIRCUITS)</counter>
+          <counter alias="CGRCGROUP_NOF_WOEX_CRTS_OUT"  time-alias="CGRCGROUP_NOF_WOEX_CRTS_OUT" time-formula="AVG(CGRCGROUP_NOF_WOEX_CRTS_OUT)" object-formula="SUM(CGRCGROUP_NOF_WOEX_CRTS_OUT)"  itk_id="CGRCGROUP_NOF_WOEX_CRTS_OUT">SUM(CGRCGROUP_NOF_WOEX_CRTS_OUT)</counter>
+          <counter alias="CGRCGROUP_TIMECONG_PERCENT"  symmetrical="true"  itk_id="CGRCGROUP_TIMECONG_PERCENT">AVG(CGRCGROUP_TIMECONG_PERCENT)</counter>
+          <counter alias="CGRCGROUP_CALL_CONG"  symmetrical="true"  itk_id="CGRCGROUP_CALL_CONG">SUM(CGRCGROUP_CALL_CONG)</counter>
+          <counter alias="CGRCGROUP_MIN_FREE"  time-alias="CGRCGROUP_MIN_FREE" time-formula="MIN(CGRCGROUP_MIN_FREE)" object-formula="SUM(CGRCGROUP_MIN_FREE)"  itk_id="CGRCGROUP_MIN_FREE">SUM(CGRCGROUP_MIN_FREE)</counter>
+          <counter alias="CGRCGROUP_ALL_BUSY"  symmetrical="true"  itk_id="CGRCGROUP_ALL_BUSY">SUM(CGRCGROUP_ALL_BUSY)</counter>
+    </counters>
+    <table_name>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CGR</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>CGR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CGRCGROUP_NOF_CIRCUITS" itk_id="CGRCGROUP_NOF_CIRCUITS">
+    <formula>CGR.CGRCGROUP_NOF_CIRCUITS</formula>
+    <kpi_info>
+      <title>CGRCGROUP_NOF_CIRCUITS (M534C0)</title>
+      <use>The number of circuits in the circuit group.Updated:when the number of circuits configured for a given circuit group increases or decreases.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="AVG(CGRCGROUP_NOF_CIRCUITS)">SUM(CGRCGROUP_NOF_CIRCUITS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRCGROUP_NOF_CIRCUITS (M534C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CGRCGROUP_NOF_WOEX_CRTS_OUT" itk_id="CGRCGROUP_NOF_WOEX_CRTS_OUT">
+    <formula>CGR.CGRCGROUP_NOF_WOEX_CRTS_OUT</formula>
+    <kpi_info>
+      <title>CGRCGROUP_NOF_WOEX_CRTS_OUT (M534C1)</title>
+      <use>The average number of working circuits on CGR during the measurement period.Update:This is the average amount of WO-EX circuits for traffic during one measurement period. This average amount is calculated by sampling number of WO-EX circuits on a circuit group.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="AVG(CGRCGROUP_NOF_WOEX_CRTS_OUT)">SUM(CGRCGROUP_NOF_WOEX_CRTS_OUT)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRCGROUP_NOF_WOEX_CRTS_OUT (M534C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CGRCGROUP_TIMECONG_PERCENT" itk_id="CGRCGROUP_TIMECONG_PERCENT">
+    <formula>CGR.CGRCGROUP_TIMECONG_PERCENT</formula>
+    <kpi_info>
+      <title>CGRCGROUP_TIMECONG_PERCENT (M534C2)</title>
+      <use>The number of Time Congestion (TC) percentage in the circuit group in relation to the results accumulation period.Update: Time congestion is calculated when all time slots available on the circuit group are in use or the state of circuits prevents its use for outgoing traffic. The time congestion calculation is stopped when the time slots are available again: one or more calls are released, the circuits are added, or the state of the circuit changes and the circuit becomes available for outgoing traffic. The time congestion is updated if the congestion in the CGR lasts for 0.01 second.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CGRCGROUP_TIMECONG_PERCENT)</formula>
+      <unit>%</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRCGROUP_TIMECONG_PERCENT (M534C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CGRCGROUP_CALL_CONG" itk_id="CGRCGROUP_CALL_CONG">
+    <formula>CGR.CGRCGROUP_CALL_CONG</formula>
+    <kpi_info>
+      <title>CGRCGROUP_CALL_CONG (M534C3)</title>
+      <use>The number of call attempts terminated in call congestion.Update:The call congestion counter is updated for all circuit groups when the circuit reservation attempt leads to congestion. This is done even if alternative circuit groups have been defined.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CGRCGROUP_CALL_CONG)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRCGROUP_CALL_CONG (M534C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CGRCGROUP_MIN_FREE" itk_id="CGRCGROUP_MIN_FREE">
+    <formula>CGR.CGRCGROUP_MIN_FREE</formula>
+    <kpi_info>
+      <title>CGRCGROUP_MIN_FREE (M534C4)</title>
+      <use>The number of minimum free circuits in the circuit group during the measurement period.Update:Updated when the circuit is reserved for a call, or when the state of circuits changes so that the circuit is not available for calls (for example, the circuit state changes to BA-SY).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="MIN(CGRCGROUP_MIN_FREE)">SUM(CGRCGROUP_MIN_FREE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRCGROUP_MIN_FREE (M534C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CGRCGROUP_ALL_BUSY" itk_id="CGRCGROUP_ALL_BUSY">
+    <formula>CGR.CGRCGROUP_ALL_BUSY</formula>
+    <kpi_info>
+      <title>CGRCGROUP_ALL_BUSY (M534C5)</title>
+      <use>The number of times when all circuits on the circuit group are busy.Update:All the busy counters are updated when the amount of the free circuits reaches zero. For example, if there is only one circuit idle on the CGR, then the counter is increased if - a new call is set up for the CGR - circuits become unavailable for calls due to the system state (for example, BA-SY) - circuits become unavailable due to the user state change (for example, BA-US)
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CGRCGROUP_ALL_BUSY)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_cgr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRCGROUP_ALL_BUSY (M534C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

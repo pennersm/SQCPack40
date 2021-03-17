@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5025a">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir +
+			lepsb.enb_eps_bearer_rel_req_norm +
+			lepsb.enb_eps_bearer_rel_req_rnl +
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth),0,null, 
+
+			(lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth)
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir +
+			lepsb.enb_eps_bearer_rel_req_norm +
+			lepsb.enb_eps_bearer_rel_req_rnl +
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth))</formula>
+    <kpi_info>
+      <title><![CDATA[E-RAB Drop Ratio]]></title>
+      <use><![CDATA[This KPI describes the ratio of abnormally released (dropped) E-RABs]]></use>
+      <use_experience>Each bearer of the "Bearer to be Released List" IE is counted RAN point of view means that as abnormal E-RAB drops only those initiated by eNB are counted</use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(ENB_EPS_BEARER_REL_REQ_RNL_RLF+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_TNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_OTH) /
+&lt;br&gt;(EPC_EPS_BEARER_REL_REQ_NORM+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_DETACH+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_RNL+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_OTH
+&lt;br&gt;ENB_EPSBEAR_REL_REQ_RNL_REDIR+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_NORM +
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_RNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_TNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_OTH+)
+	  </formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/08/03 17:59:22.973 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB DR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

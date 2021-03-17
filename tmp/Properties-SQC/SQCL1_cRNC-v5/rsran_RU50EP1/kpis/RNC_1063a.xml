@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMVP.xml" />
+	<kpi name="RNC_1063a">
+		<formula>
+			decode((atmvp.eg_rec_cells_vp),0,null,(100*((atmvp.eg_rec_cells_vp-atmvp.eg_tot_cells_vp-atmvp.eg_queued_cells_vp)/atmvp.eg_rec_cells_vp)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average VPC egress cell drop ratio]]>
+			</title>
+			<use>
+				<![CDATA[Number of cells dropped in the egress compared to number of received cells.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum (( EG_REC_CELLS_VP 
+-EG_TOT_CELLS_VP 
+- EG_QUEUED_CELLS_VP )
+--------------------- 
+sum (EG_REC_CELLS_VP ))
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_atmvp_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average VPC egress cell drop ratio]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

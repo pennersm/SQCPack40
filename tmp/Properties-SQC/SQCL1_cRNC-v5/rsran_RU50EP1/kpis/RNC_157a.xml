@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+    <kpi name="RNC_157a">
+    <formula>100*decode(
+			(servlev.rab_stp_att_ps_inter +
+			servlev.rab_stp_att_ps_backg),0,null,
+
+			(servlev.rab_acc_comp_ps_inter +
+			servlev.rab_acc_comp_ps_backg)
+			 /
+			(servlev.rab_stp_att_ps_inter +
+			servlev.rab_stp_att_ps_backg))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup and Access Complete Ratio for NRT Service]]></title>
+      <use><![CDATA[RAB Setup and Access Complete Ratio [%] for NRT services over the reporting period. Covers RAB Setup and Access phases (From RAB Assignment Request to Radio Bearer Setup Complete).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(RAB_ACC_COMP_PS_INTER + 
+&lt;br&gt;RAB_ACC_COMP_PS_BACKG)
+&lt;br&gt;/
+&lt;br&gt;sum(RAB_STP_ATT_PS_INTER + 
+&lt;br&gt;RAB_STP_ATT_PS_BACKG)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Setup and Access Complete Ratio for NRT Service from User perspective]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

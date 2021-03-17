@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>MPCALL (Multiparty Call)</header>
+    <csv_title>MPCALL (Multiparty Call)</csv_title>
+    <report-description>644/284H Multi-party Call Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <MP_TOTAL />
+    <MP_CURRENT />
+    <MP_PEAK />
+    <MP_FAILURE />
+    <MP_AVERAGE />
+  </column_order>
+  <temp_table name="MPCALL" meas_level="PLMN/RSMGW-MGW_A1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>MPCALL</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="MP_TOTAL"  symmetrical="true"  itk_id="MP_TOTAL">SUM(MP_TOTAL)</counter>
+          <counter alias="MP_CURRENT"  symmetrical="true"  itk_id="MP_CURRENT">AVG(MP_CURRENT)</counter>
+          <counter alias="MP_PEAK"  symmetrical="true"  itk_id="MP_PEAK">MAX(MP_PEAK)</counter>
+          <counter alias="MP_FAILURE"  symmetrical="true"  itk_id="MP_FAILURE">SUM(MP_FAILURE)</counter>
+          <counter alias="MP_AVERAGE"  symmetrical="true"  itk_id="MP_AVERAGE">AVG(MP_AVERAGE)</counter>
+    </counters>
+    <table_name>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MPCALL</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>MPCALL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MP_TOTAL" itk_id="MP_TOTAL">
+    <formula>MPCALL.MP_TOTAL</formula>
+    <kpi_info>
+      <title>MP_TOTAL (M644C0)</title>
+      <use>Total number of multi-party calls. This represents the number of mpty-contexts created.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MP_TOTAL)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MP_TOTAL (M644C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MP_CURRENT" itk_id="MP_CURRENT">
+    <formula>MPCALL.MP_CURRENT</formula>
+    <kpi_info>
+      <title>MP_CURRENT (M644C1)</title>
+      <use>Current number of multi-party calls (count of Context H.248). This represents the number of simultaneous mpty-contexts at the time the report is generated.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(MP_CURRENT)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MP_CURRENT (M644C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MP_PEAK" itk_id="MP_PEAK">
+    <formula>MPCALL.MP_PEAK</formula>
+    <kpi_info>
+      <title>MP_PEAK (M644C2)</title>
+      <use>Highest value of simultaneous multi-party calls in one result accumulation period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MP_PEAK)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MP_PEAK (M644C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MP_FAILURE" itk_id="MP_FAILURE">
+    <formula>MPCALL.MP_FAILURE</formula>
+    <kpi_info>
+      <title>MP_FAILURE (M644C3)</title>
+      <use>There are no resources for new multi-party call or creating a new multi-party call has failed. Also, if connecting a new subscriber to existing multi-party call fails.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MP_FAILURE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MP_FAILURE (M644C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MP_AVERAGE" itk_id="MP_AVERAGE">
+    <formula>MPCALL.MP_AVERAGE</formula>
+    <kpi_info>
+      <title>MP_AVERAGE (M644C4)</title>
+      <use>Average value of simultaneously active Multi Party calls in one Result Accumulation Period. Samples are taken in every 20 seconds from corresponding current-counter and average value is calculated at the end of each Result Accumulation Period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(MP_AVERAGE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_mpcall_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MP_AVERAGE (M644C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

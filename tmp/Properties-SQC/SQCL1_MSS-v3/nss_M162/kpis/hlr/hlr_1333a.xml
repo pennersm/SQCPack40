@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HLRSZV.xml" />
+  <kpi name="hlr_1333a">
+    <formula>
+    	decode( hlrszv.HLR_SZ_OPERATION_SUCC + hlrszv.HLR_SZ_OPERATION_FAIL + hlrszv.HLR_SZ_TIMEOUT
+    		, 0
+    		, 0
+    		, 100 * ( hlrszv.HLR_SZ_OPERATION_SUCC  / (hlrszv.HLR_SZ_OPERATION_SUCC + hlrszv.HLR_SZ_OPERATION_FAIL + hlrszv.HLR_SZ_TIMEOUT) )
+    		)
+   	</formula>
+    <kpi_info>
+      <title><![CDATA[Sz interface operations success ratio]]></title>
+      <use><![CDATA[Indicates the success ratio of operations in Sz interface.]]></use>
+
+      <use_experience><![CDATA[ 
+ 	  <br>This KPI is similar to msc_1333a. New KPI ID reference.
+ 	  <br>This new KPI ID reference is to to be used starting from M15.1 report sets. 
+ 	  <br> 
+	  <br>RECOMMENDED SUMMARY LEVELS: HLR; VIEWID
+	  <br>
+	  <br>KPI CLASS: Resource
+	  <br>MEASUREMENT(S): HLR measurement, Sz Interface (M397)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          SUM( HLR_SZ_OPERATION_SUCC )
+&lt;br&gt;------------------------------------------------------------------ * 100
+&lt;br&gt; SUM( HLR_SZ_OPERATION_SUCC + HLR_SZ_OPERATION_FAIL + HLR_SZ_TIMEOUT )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_HLRSZV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Sz oper SR HLR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="msc_2059c">
+    <formula>100*nvl(decode(
+	                       (VLRNMSC.SIM_AVG_REG_TOTAL + 
+						   VLRNMSC.USIM_AVG_REG_TOTAL + 
+						   VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null,
+						   (VLRNMSC.REG_SIM_AVG_INT_TOTAL + 
+						   VLRNMSC.REG_USIM_AVG_INT_TOTAL + 
+						   VLRNMSC.REG_UNKNOWN_AVG_INT_TOTAL)
+						   / 
+						   (VLRNMSC.SIM_AVG_REG_TOTAL + 
+						   VLRNMSC.USIM_AVG_REG_TOTAL + 
+						   VLRNMSC.UNKNOWN_AVG_REG_TOTAL)
+						   ),
+					decode(
+						  (VLRNMSC.REG_AVG_TOTAL),0,null, 
+						  (VLRNMSC.REG_AVG_INT_TOTAL)
+						  / 
+						  (VLRNMSC.REG_AVG_TOTAL)
+						  )
+					)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of International roamer subscribers in VLR. Parameter superset.]]></title>
+      <use><![CDATA[The ratio of the international roamer registered normal subscribers related to the number of normal registered subscribers in VLR during the reporting time.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>This KPI was a merge of 2 previously existent KPIs: msc_2059a, msc_2059b.
+		<br>This 2 to 1 KPI approach is achieved by taking advantage of the NVL function: NVL( msc_2059a , msc_2059b ) 
+		<br>
+		<br>This KPI is applicable if (SIM_USIM_MEAS_PER_LAI) + (ENH_VLR_MEAS_PER_LAC) FIFILE parameters are activated and if parameter (ENH_VLR_MEAS_PER_LAC) is activated but (SIM_USIM_MEAS_PER_LAI) is not activated.
+		<br>
+		<br>The implemented formula covers two different KPI specifications: 
+		<br>
+		<br>=>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are activated, the KPI formula is specified by "msc_2059a" 
+		<br>=>If ENH_VLR_MEAS_PER_LAC is activated but SIM_USIM_MEAS_PER_LAI is not activated, the KPI formula is specified by "msc_2059b"
+		<br>=>If ENH_VLR_MEAS_PER_LAC is not activated it's not possible to calculate this KPI.
+		<br>
+		<br>This KPI depends on the parameters SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE.
+		<br>
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Subscriber
+		<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+		<br>
+		<br>NOTES: This KPI includes optional features.
+		<br>
+		<br>The SIM_USIM_MEAS_PER_LAI FIFILE functionality must be provided and active in order for the SIM + USIM + UNKNOWN counter details to be available.
+		<br>The ENH_VLR_MEAS_PER_LAC FIFILE functionality must be provided and active in order to have ATTACHED + REGISTERED + NATIONAL ROAMING + INTERNATIONAL ROAMING counter details to be available.
+		<br>
+		]]>
+		</use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+
+      	<formula>
+		&lt;br&gt; 
+		&lt;br&gt;                  ( REG_SIM_AVG_INT_TOTAL + REG_USIM_AVG_INT_TOTAL + REG_UNKNOWN_AVG_INT_TOTAL )
+		&lt;br&gt;msc_2059a = 100 * ---------------------------------------------------------------------------------------------------------
+		&lt;br&gt;                  ( SIM_AVG_REG_TOTAL + USIM_AVG_REG_TOTAL + UNKNOWN_AVG_REG_TOTAL ) 
+		&lt;br&gt; 
+		&lt;br&gt; 
+		&lt;br&gt;
+		&lt;br&gt;                   REG_AVG_INT_TOTAL 
+		&lt;br&gt;msc_2059b = 100 * --------------------
+		&lt;br&gt;                   REG_AVG_TOTAL 
+		&lt;br&gt;
+		&lt;br&gt;KPI formula:
+		&lt;br&gt;
+		&lt;br&gt; nvl( decode( 
+		&lt;br&gt;          ( VLRNMSC.SIM_AVG_REG_TOTAL +  
+		&lt;br&gt;            VLRNMSC.USIM_AVG_REG_TOTAL +  
+		&lt;br&gt;            VLRNMSC.UNKNOWN_AVG_REG_TOTAL ), 0, null, 
+		&lt;br&gt;      100 *       
+		&lt;br&gt;           (VLRNMSC.REG_SIM_AVG_INT_TOTAL +  
+		&lt;br&gt;            VLRNMSC.REG_USIM_AVG_INT_TOTAL +  
+		&lt;br&gt;            VLRNMSC.REG_UNKNOWN_AVG_INT_TOTAL ) 
+		&lt;br&gt;          /  
+		&lt;br&gt;          ( VLRNMSC.SIM_AVG_REG_TOTAL +  
+		&lt;br&gt;            VLRNMSC.USIM_AVG_REG_TOTAL +  
+		&lt;br&gt;            VLRNMSC.UNKNOWN_AVG_REG_TOTAL ) 
+		&lt;br&gt;          ), 
+		&lt;br&gt;      decode( 
+		&lt;br&gt;         ( VLRNMSC.REG_AVG_TOTAL), 0, null,  
+		&lt;br&gt;      100 *  
+		&lt;br&gt;         ( VLRNMSC.REG_AVG_INT_TOTAL ) 
+		&lt;br&gt;         /  
+		&lt;br&gt;         ( VLRNMSC.REG_AVG_TOTAL ) 
+		&lt;br&gt;         ) )
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[INT Roam Subs Rt in VLR Param SuperSet]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

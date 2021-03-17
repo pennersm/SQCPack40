@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <temp_table_ref src="nss/counters/VLR1MSC.xml">
+    <counters>
+      <!-- msc_433b -->
+      <counter alias="msc_433b">
+		sum(intravlrintraplmnhsumtsattempt + 
+			intravlrintraplmnrsumtsattempt + 
+			intravlrinterplmnhsumtsattempt + 
+			intravlrinterplmnrsumtsattempt + 
+			periodiclocregumtsattempt)
+	  </counter>
+	  <!-- msc_435a -->
+      <counter alias="msc_435a">
+		sum(InterVLRHsumTSAttempt + 
+			InterVLRRsumTSAttempt)
+	  </counter>
+    </counters>
+  </temp_table_ref>
+  
+  <kpi name="msc_437b">
+    <formula>decode(
+			(vlr1msc.msc_433b + 
+			vlr1msc.msc_435a),0,null, 
+
+			(100*(vlr1msc.intravlrintraplmnhsumtssucc + 
+			vlr1msc.intravlrintraplmnrsumtssucc + 
+			vlr1msc.intravlrinterplmnhsumtssucc + 
+			vlr1msc.intravlrinterplmnrsumtssucc + 
+			vlr1msc.periodiclocregumtssucc + 
+			vlr1msc.intervlrhsumtssucc + 
+			vlr1msc.intervlrrsumtssucc)
+			 / 
+			(vlr1msc.msc_433b + 
+			vlr1msc.msc_435a)))</formula>
+    <kpi_info>
+      <title><![CDATA[LU success ratio in the target VLR (UMTS)]]></title>
+      <use><![CDATA[Indicates the share of successful location updates. For UMTS]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.6, the UMTS LU attempts also count the I-HSPA related events (LU attempts via I-HSPA).
+<br>PUBLISHED: M14
+<br>LAST UPDATE: 03-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;LUP Success Ratio&quot; (3G) KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       sum(
+&lt;br&gt;            IntraVLRIntraPLMNHSUMTSSucc
+&lt;br&gt;          + IntraVLRIntraPLMNRSUMTSSucc 
+&lt;br&gt;          + IntraVLRInterPLMNHSUMTSSucc
+&lt;br&gt;          + IntraVLRInterPLMNRSUMTSSucc 
+&lt;br&gt;          + PeriodicLocRegUMTSSucc)
+&lt;br&gt;      +sum(
+&lt;br&gt;            InterVLRHSUMTSSucc
+&lt;br&gt;          + InterVLRRSUMTSSucc)
+&lt;br&gt;100 * --------------------------------------------------------------
+&lt;br&gt;                        msc_433b + msc_435a
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}
+&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[LU success ratio in the target VLR (UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

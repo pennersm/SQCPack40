@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN6.0_2.0 and mcRN2.0;RN6.0_2.0;RN6.0_1.0;RN6.0;RN5.0;RN4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 DSCPSTA (DSCP Statistic)</header>
+    <csv_title>Nokia Siemens RNC RN6.0_2.0 and mcRN2.0;RN6.0_2.0;RN6.0_1.0;RN6.0;RN5.0;RN4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 DSCPSTA (DSCP Statistic)</csv_title>
+    <report-description>DSCP Statistic</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <RX_PACKETS_TOTAL_HSPA />
+    <RX_PACKETS_PROMOTED_SPI_IUB />
+    <RX_PACKETS_DEMOTED_SPI_IUB />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="DSCPSTA" meas_level="PLMN/RNC/DSCP" type="PM" master="yes" pragma="oss4ran" create="yes">
+
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="RX_PACKETS_TOTAL_HSPA">SUM(RX_PACKETS_TOTAL_HSPA)</counter>
+      <counter alias="RX_PACKETS_PROMOTED_SPI_IUB">SUM(RX_PACKETS_PROMOTED_SPI_IUB)</counter>
+      <counter alias="RX_PACKETS_DEMOTED_SPI_IUB">SUM(RX_PACKETS_DEMOTED_SPI_IUB)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DSCPSTA</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DSCPSTA.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RX_PACKETS_TOTAL_HSPA">
+    <formula>DSCPSTA.RX_PACKETS_TOTAL_HSPA</formula>
+    <kpi_info>
+      <title>RX_PACKETS_TOTAL_HSPA</title>
+      <use>The number of received user plane packets from the Iu-PS interface  mapped to HS-DSCH transport channel. This is the total amount of packets regardless of what SPI is used in the air interface. UPDATED: When Iu-PS user plane IP-packet is received from the CN and it is mapped to HS-DSCH transport channel.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RX_PACKETS_TOTAL_HSPA)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_TOTAL_HSPA (M1035C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RX_PACKETS_PROMOTED_SPI_IUB">
+    <formula>DSCPSTA.RX_PACKETS_PROMOTED_SPI_IUB</formula>
+    <kpi_info>
+      <title>RX_PACKETS_PROMOTED_SPI_IUB</title>
+      <use>The number of received user plane packets from the Iu-PS interface  that were promoted to higher SPI class on the Iub. UPDATED: When Iu-PS user plane IP-packet is received from the CN and the RNC decides that the packet will be handled in the air interface with higher SPI than the initial SPI.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RX_PACKETS_PROMOTED_SPI_IUB)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_PROMOTED_SPI_IUB (M1035C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RX_PACKETS_DEMOTED_SPI_IUB">
+    <formula>DSCPSTA.RX_PACKETS_DEMOTED_SPI_IUB</formula>
+    <kpi_info>
+      <title>RX_PACKETS_DEMOTED_SPI_IUB</title>
+      <use>The number of received user plane packets from the Iu-PS interface  that were demoted to lower SPI class on the Iub. UPDATED: When Iu-PS user plane IP-packet is received from the CN and the RNC decides that the packet will be handled in the air interface with lower SPI than the initial SPI.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RX_PACKETS_DEMOTED_SPI_IUB)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_DEMOTED_SPI_IUB (M1035C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>DSCPSTA.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

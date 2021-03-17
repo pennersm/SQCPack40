@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/MGWCU_ext.xml"/>
+  <kpi name="msc_410b">
+    <formula>100*(decode(
+			mgwc1.mgwc_bids_tot,0,0, 
+
+			mgwc1.mgwc_bids
+			 / 
+			mgwc1.mgwc_bids_tot))</formula>
+    <kpi_info>
+      <title><![CDATA[Different MGW codecs used ratio]]></title>
+      <use><![CDATA[This KPI shows the percentage values of different MGW codecs used. This KPI is valid with MSS and GCS network elements, not with MSC.]]></use>
+      <use_experience><![CDATA[
+<BR>Possible Codecs to be used/considered:
+<BR>
+<BR>=> Up to M14.0:
+<BR>
+<BR>( GSM FR ) = GSM full rate codec
+<BR>( GSM EFR ) = GSM Enhanced full rate codec
+<BR>( FR AMR ) = Full rate AMR codec. It is used for Edge calls
+<BR>( HR AMR ) = Half rate AMR codec. It is used for Edge calls
+<BR>( UMTS AMR ) = UMTS AMR codec
+<BR>( UMTS AMR 2 ) = UMTS AMR codec in mode 2. This codec is compatible with FR AMR, HR AMR, and UMTS AMR codecs
+<BR>( G711 A ) = G711 codec used for TDM connections with A-law coding
+<BR>( G711 U ) = G711 codec used for TDM connections with µ-law codings
+<BR>
+<BR>=> From M14.1 up to M14.4 the following next ones shall also be considered:
+<BR>( CLEARMODE ) = CLEARMODE pseudo-codec used for 64 kbit/s data streams carried transparently in RTP packets.
+<BR>( G7231 ) = G.723.1 Codec used over IP especially for Audio+Video conferencing
+<BR>( G 7231ANNA ) = G.723.1 Annex A Codec used over IP especially for Audio+Video conferencing equipped with silence compression.
+<BR>( G729A ) = G.729A Codec. SIP terminal codec used over IP.
+<BR>( G729AANNB ) = G.729A Annex B Codec. SIP terminal codec used over IP equipped with silence compression.
+<BR>( iLBC ) = internet Low Bitrate Codec.Dual rate speech codec designed to be used in Internet.
+<BR>( UMTS AMR WB ) = UMTS Wideband AMR Codec. Adaptive multirate codec to be used in UMTS (under WB-AMR license option).
+<BR>
+<BR>=> From M14.5 onwards the following next ones shall also be considered:
+<BR>( GSM HR ) = GSM half rate codec
+<BR>( FR AMR WB ) = Full rate AMR Codec ]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;SUM( MGWC_BIDS ) 
+&lt;br&gt;        ;WHERE Codec_ID =  
+&lt;br&gt;        Codecs possible to be used => refer to KPI comments 
+&lt;br&gt;100 * ---------------------------------                   
+&lt;br&gt;        SUM( MGWC_BIDS )                  
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_mgwcu_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Different MGW codecs used ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

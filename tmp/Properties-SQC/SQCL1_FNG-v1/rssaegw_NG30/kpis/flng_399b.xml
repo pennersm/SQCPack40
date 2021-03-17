@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GREtun.xml"/>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml"/>
+  <kpi name="flng_399b">
+    <formula>decode(
+			((PMIP.PMIP_BYTES_IN_SENT_PMIP_MSGS + 
+			GREtun.GRE_TUN_S5_IPV4_BYTES_SENT + 
+			GREtun.GRE_TUN_S5_IPV6_BYTES_SENT)),0,NULL, 
+
+			((PMIP.PMIP_BYTES_IN_SENT_PMIP_MSGS))
+			 / 
+			((PMIP.PMIP_BYTES_IN_SENT_PMIP_MSGS + 
+			GREtun.GRE_TUN_S5_IPV4_BYTES_SENT + 
+			GREtun.GRE_TUN_S5_IPV6_BYTES_SENT)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP signaling to data sent ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 data signaling sent when compared to all sent PMIPv6 data (sign+user).
+If the ratio of signaling to data bandwidth usage is too high, some abnormal events are possible happened in S5-PMIP interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>  sum( PMIP_BYTES_IN_SENT_PMIP_MSGS )       
+&lt;br&gt;-------------------------------------------- *100     
+&lt;br&gt; sum( PMIP_BYTES_IN_SENT_PMIP_MSGS +
+&lt;br&gt;      GRE_TUN_S5_IPV4_BYTES_SENT  +         
+&lt;br&gt;      GRE_TUN_S5_IPV6_BYTES_SENT    )       
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GREtun_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_PMIP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP sig-data sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

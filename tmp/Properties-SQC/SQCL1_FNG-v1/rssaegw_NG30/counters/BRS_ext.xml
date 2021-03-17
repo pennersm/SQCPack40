@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="BRS_ext" meas_level="PLMN/FING/FNODE/PMIP/BRS" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="pmip_bra_resp_sent">SUM(pmip_bra_resp_sent)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="pmip_bra_resp_sent_all">MAX(pmip_bra_resp_sent_all)</counter>
+			<counter alias="pmip_bra_resp_sent_0">SUM(decode(brs_id,'0',pmip_bra_resp_sent,0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		brs.*,
+		pmip_bra_resp_sent_all,
+		pmip_bra_resp_sent_0_all
+FROM
+	pcofng_ps_brs_brs_{TIME_AGG} brs,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(pmip_bra_resp_sent) pmip_bra_resp_sent_all,
+			SUM(DECODE(BRS_ID,'0',pmip_bra_resp_sent,0)) pmip_bra_resp_sent_0_all
+		FROM
+			pcofng_ps_brs_brs_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	brs.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = brs.fnode_id and
+	brs.period_start_time = fnode_level.period_start_time AND
+	brs.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	brs.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+			]]>
+		</table_name>
+		<alias_name>BRS_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>BRS_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_brs_{OBJ_AGG}_{TIME_AGG}
+			</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="PMIP_BRA_RESP_SENT">
+		<formula>BRS_ext.PMIP_BRA_RESP_SENT</formula>
+		<kpi_info>
+			<title>PMIP_BRA_RESP_SENT</title>
+			<use>This counter contains the number of sent Binding Revocation
+				Acknowledgement (BRA) response messages. Each cause code has a
+				separate counter. The counters apply to Flexi NG as a whole.&lt;br/&gt;
+				UPDATED: The value is updated when a BRA response message is
+				generated.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(PMIP_BRA_RESP_SENT)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_brs_{OBJ_AGG}_{TIME_AGG}
+			</tables>
+		</kpi_info>
+		<kpi_alias>PMIP_BRA_RESP_SENT (m3025c0001)
+		</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<!-- Auxiliary Counters -->
+	<kpi name="PMIP_BRA_RESP_SENT_ALL">
+		<formula>BRS_ext.PMIP_BRA_RESP_SENT_ALL</formula>
+		<kpi_info>
+			<title>PMIP_BRA_RESP_SENT</title>
+			<use>This counter contains the number of sent Binding Revocation
+				Acknowledgement (BRA) response messages. Each cause code has a
+				separate counter. The counters apply to Flexi NG as a whole.&lt;br/&gt;
+				UPDATED: The value is updated when a BRA response message is
+				generated. This is for all Cause codes</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(PMIP_BRA_RESP_SENT)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_brs_{OBJ_AGG}_{TIME_AGG}
+			</tables>
+		</kpi_info>
+		<kpi_alias>PMIP_BRA_RESP_SENT (m3025c0001)
+		</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="PMIP_BRA_RESP_SENT_0">
+		<formula>BRS_ext.PMIP_BRA_RESP_SENT_0</formula>
+		<kpi_info>
+			<title>PMIP_BRA_RESP_SENT_0</title>
+			<use>This counter contains the number of sent Binding Revocation
+				Acknowledgement (BRA) response messages. Each cause code has a
+				separate counter. The counters apply to Flexi NG as a whole.&lt;br/&gt;
+				UPDATED: The value is updated when a BRA response message is
+				generated.  This is for Cause Code 16.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(DECODE(BRS_ID,0,PMIP_BRA_RESP_SENT,0))</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_brs_{OBJ_AGG}_{TIME_AGG}
+			</tables>
+		</kpi_info>
+		<kpi_alias>PMIP_BRA_RESP_SENT_0 (m3025c0001)
+		</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

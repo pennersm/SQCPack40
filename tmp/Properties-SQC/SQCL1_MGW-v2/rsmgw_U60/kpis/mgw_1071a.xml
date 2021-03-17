@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="mgw_1071a">
+    <formula>decode(
+			(signtrc.mgw_1002b),0,null, 
+
+			(100*(signtrc.cat1_to_cat2_iu_ip + 
+			signtrc.cat2_to_cat1_iu_ip + 
+			signtrc.inside_cat1_iu_ip + 
+			signtrc.inside_cat2_iu_ip)
+			 / 
+			signtrc.mgw_1002b))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful codec modification in Iu-IP interface]]></title>
+      <use><![CDATA[Indicates share of successful codec modification in Iu-IP interface of all successful codec modifications in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(CAT1_TO_CAT2_IU_IP + CAT2_TO_CAT1_IU_IP + 
+&lt;br&gt;          INSIDE_CAT1_IU_IP  + INSIDE_CAT2_IU_IP)
+&lt;br&gt;100 * --------------------------------------------- 
+&lt;br&gt;                       mgw_1002b
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shar Succ Codec Modf Iu IP If</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_2113a">
+    <formula>decode(
+			((CELLTP.period_duration_sum)*60*1000),0,null, 
+
+			(8*(celltp.amr_hs_dsch_data_vol_1))
+			 / 
+			((CELLTP.period_duration_sum)*60*1000))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA CS voice Cell throughput in DL]]></title>
+      <use><![CDATA[HSPA CS voice Cell throughput in DL.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>8 * sum (amr_hs_dsch_data_vol)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;sum (period_duration_sum) * 60 * 1000
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Kbit/s]</unit>
+      <tables>NOKRWW_PS_CELLTP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSPA CS Voice Cell thp DL]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/CELLTP_ext.xml" />
+</conf_file>
+

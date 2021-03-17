@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M35 ITHR measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M35 ITHR measurement dump</csv_title>
+    <report-description>IPPU throughput by class measurement(ITHR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IU_GTP_PACKETS_SENT_IN_DL />
+    <IU_GTP_BYTES_SENT_IN_DL />
+    <IU_GTP_BYTES_SENT_IN_DL_OFL />
+    <IU_GTP_PACKETS_SENT_IN_UL />
+    <IU_GTP_BYTES_SENT_IN_UL />
+    <IU_GTP_BYTES_SENT_IN_UL_OFL />
+    <IU_AVG_PDP_AMOUNT_SUM />
+    <IU_AVG_PDP_AMOUNT_DEN />
+    <IU_AVG_PDP_AMOUNT_PEAK />
+    <IU_AVG_RAB_AMOUNT_SUM />
+    <IU_AVG_RAB_AMOUNT_DEN />
+    <IU_AVG_RAB_AMOUNT_PEAK />
+    <IU_PMM_CONNECTED_TIME />
+  </column_order>
+  <temp_table name="ITHR" meas_level="PLMN/SGSN/IPPU/TC/BC" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="IU_GTP_PACKETS_SENT_IN_DL" symmetrical="true">SUM(IU_GTP_PACKETS_SENT_IN_DL)</counter>
+      <counter alias="IU_GTP_BYTES_SENT_IN_DL" symmetrical="true">SUM(IU_GTP_BYTES_SENT_IN_DL)</counter>
+      <counter alias="IU_GTP_BYTES_SENT_IN_DL_OFL" symmetrical="true">SUM(IU_GTP_BYTES_SENT_IN_DL_OFL)</counter>
+      <counter alias="IU_GTP_PACKETS_SENT_IN_UL" symmetrical="true">SUM(IU_GTP_PACKETS_SENT_IN_UL)</counter>
+      <counter alias="IU_GTP_BYTES_SENT_IN_UL" symmetrical="true">SUM(IU_GTP_BYTES_SENT_IN_UL)</counter>
+      <counter alias="IU_GTP_BYTES_SENT_IN_UL_OFL" symmetrical="true">SUM(IU_GTP_BYTES_SENT_IN_UL_OFL)</counter>
+      <counter alias="IU_AVG_PDP_AMOUNT_SUM" symmetrical="true">SUM(IU_AVG_PDP_AMOUNT_SUM)</counter>
+      <counter alias="IU_AVG_PDP_AMOUNT_DEN" time-alias="IU_AVG_PDP_AMOUNT_DEN" time-formula="SUM(IU_AVG_PDP_AMOUNT_DEN)" object-formula="AVG(IU_AVG_PDP_AMOUNT_DEN)">AVG(IU_AVG_PDP_AMOUNT_DEN)*count(distinct period_start_time)</counter>
+      <counter alias="IU_AVG_PDP_AMOUNT_PEAK" symmetrical="true">MAX(IU_AVG_PDP_AMOUNT_PEAK)</counter>
+      <counter alias="IU_AVG_RAB_AMOUNT_SUM" symmetrical="true">SUM(IU_AVG_RAB_AMOUNT_SUM)</counter>
+      <counter alias="IU_AVG_RAB_AMOUNT_DEN" time-alias="IU_AVG_RAB_AMOUNT_DEN" time-formula="SUM(IU_AVG_RAB_AMOUNT_DEN)" object-formula="AVG(IU_AVG_RAB_AMOUNT_DEN)">AVG(IU_AVG_RAB_AMOUNT_DEN)*count(distinct period_start_time)</counter>
+      <counter alias="IU_AVG_RAB_AMOUNT_PEAK" symmetrical="true">MAX(IU_AVG_RAB_AMOUNT_PEAK)</counter>
+      <counter alias="IU_PMM_CONNECTED_TIME" symmetrical="true">SUM(IU_PMM_CONNECTED_TIME)</counter>
+    </counters>
+    <table_name>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ITHR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ITHR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_GTP_PACKETS_SENT_IN_DL">
+    <formula>ITHR.IU_GTP_PACKETS_SENT_IN_DL</formula>
+    <kpi_info>
+      <title>IU_GTP_PACKETS_SENT_IN_DL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_GTP_PACKETS_SENT_IN_DL)</formula>
+      <unit>packets</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_GTP_PACKETS_SENT_IN_DL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_GTP_BYTES_SENT_IN_DL">
+    <formula>ITHR.IU_GTP_BYTES_SENT_IN_DL</formula>
+    <kpi_info>
+      <title>IU_GTP_BYTES_SENT_IN_DL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_GTP_BYTES_SENT_IN_DL)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_GTP_BYTES_SENT_IN_DL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_GTP_BYTES_SENT_IN_DL_OFL">
+    <formula>ITHR.IU_GTP_BYTES_SENT_IN_DL_OFL</formula>
+    <kpi_info>
+      <title>IU_GTP_BYTES_SENT_IN_DL_OFL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_GTP_BYTES_SENT_IN_DL_OFL)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_GTP_BYTES_SENT_IN_DL_OFL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_GTP_PACKETS_SENT_IN_UL">
+    <formula>ITHR.IU_GTP_PACKETS_SENT_IN_UL</formula>
+    <kpi_info>
+      <title>IU_GTP_PACKETS_SENT_IN_UL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_GTP_PACKETS_SENT_IN_UL)</formula>
+      <unit>packets</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_GTP_PACKETS_SENT_IN_UL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_GTP_BYTES_SENT_IN_UL">
+    <formula>ITHR.IU_GTP_BYTES_SENT_IN_UL</formula>
+    <kpi_info>
+      <title>IU_GTP_BYTES_SENT_IN_UL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_GTP_BYTES_SENT_IN_UL)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_GTP_BYTES_SENT_IN_UL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_GTP_BYTES_SENT_IN_UL_OFL">
+    <formula>ITHR.IU_GTP_BYTES_SENT_IN_UL_OFL</formula>
+    <kpi_info>
+      <title>IU_GTP_BYTES_SENT_IN_UL_OFL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_GTP_BYTES_SENT_IN_UL_OFL)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_GTP_BYTES_SENT_IN_UL_OFL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_AVG_PDP_AMOUNT_SUM">
+    <formula>ITHR.IU_AVG_PDP_AMOUNT_SUM</formula>
+    <kpi_info>
+      <title>IU_AVG_PDP_AMOUNT_SUM</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_AVG_PDP_AMOUNT_SUM)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_AVG_PDP_AMOUNT_SUM</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_AVG_PDP_AMOUNT_DEN">
+    <formula>ITHR.IU_AVG_PDP_AMOUNT_DEN</formula>
+    <kpi_info>
+      <title>IU_AVG_PDP_AMOUNT_DEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(IU_AVG_PDP_AMOUNT_DEN)">AVG(IU_AVG_PDP_AMOUNT_DEN)*count(distinct period_start_time)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_AVG_PDP_AMOUNT_DEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_AVG_PDP_AMOUNT_PEAK">
+    <formula>ITHR.IU_AVG_PDP_AMOUNT_PEAK</formula>
+    <kpi_info>
+      <title>IU_AVG_PDP_AMOUNT_PEAK</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IU_AVG_PDP_AMOUNT_PEAK)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_AVG_PDP_AMOUNT_PEAK</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_AVG_RAB_AMOUNT_SUM">
+    <formula>ITHR.IU_AVG_RAB_AMOUNT_SUM</formula>
+    <kpi_info>
+      <title>IU_AVG_RAB_AMOUNT_SUM</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_AVG_RAB_AMOUNT_SUM)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_AVG_RAB_AMOUNT_SUM</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_AVG_RAB_AMOUNT_DEN">
+    <formula>ITHR.IU_AVG_RAB_AMOUNT_DEN</formula>
+    <kpi_info>
+      <title>IU_AVG_RAB_AMOUNT_DEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(IU_AVG_RAB_AMOUNT_DEN)">AVG(IU_AVG_RAB_AMOUNT_DEN)*count(distinct period_start_time)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_AVG_RAB_AMOUNT_DEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_AVG_RAB_AMOUNT_PEAK">
+    <formula>ITHR.IU_AVG_RAB_AMOUNT_PEAK</formula>
+    <kpi_info>
+      <title>IU_AVG_RAB_AMOUNT_PEAK</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IU_AVG_RAB_AMOUNT_PEAK)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_AVG_RAB_AMOUNT_PEAK</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_PMM_CONNECTED_TIME">
+    <formula>ITHR.IU_PMM_CONNECTED_TIME</formula>
+    <kpi_info>
+      <title>IU_PMM_CONNECTED_TIME</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_PMM_CONNECTED_TIME)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_ithr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_PMM_CONNECTED_TIME</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

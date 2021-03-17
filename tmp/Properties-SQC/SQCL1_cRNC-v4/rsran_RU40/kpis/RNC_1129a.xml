@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMIF.xml" />
+	<kpi name="RNC_1129a">
+		<formula>
+			decode((atmif.in_tot_rec_cell),0,null,100*((atmif.in_tot_rec_cell-atmif.in_tot_tr_cell-atmif.in_tot_queued_cell)/(atmif.in_tot_rec_cell)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average ATM interface ingress cell drop ratio]]>
+			</title>
+			<use>
+				<![CDATA[Percentage of cells dropped in the ATM interface in the ingress direction compared to number of received cells.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum ( (IN_TOT_REC_CELL 
+-IN_TOT_TR_CELL 
+- IN_TOT_QUEUED_CELL)
+--------------------- 
+sum(IN_TOT_REC_CELL)
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_atmif_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average ATM interface ingress cell drop ratio]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <temp_table_ref src="rssaegw/counters/QOS.xml"/>
+  <kpi name="flng_340a">
+    <formula>decode(
+			((GTPU.gtpu_gpdu_pkts_sent_qos_iact1 + 
+			QOS.qos_dl_drop_intact_class_thp1)),0,NULL, 
+
+			((QOS.qos_dl_drop_intact_class_thp1))
+			 / 
+			((GTPU.gtpu_gpdu_pkts_sent_qos_iact1 + 
+			QOS.qos_dl_drop_intact_class_thp1)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Priority 1 DL packets drop ratio due to QoS policy]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped interactive priority 1 downlink packets due to QoS policy when compared to all interactive priority 1 donwlink packets.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum (qos_dl_drop_intact_class_thp1)
+&lt;br&gt;------------------------------------------------------------------- * 100
+&lt;br&gt;sum (gtpu_gpdu_pkts_sent_qos_iact1 + qos_dl_drop_intact_class_thp1)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_QOS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Prio1 DL pkt DR, QoS pol]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

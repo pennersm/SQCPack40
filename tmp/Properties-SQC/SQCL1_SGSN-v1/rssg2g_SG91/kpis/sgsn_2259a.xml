@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_2259a">
+    <formula>decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM2.IU_SUCC_OG_INTE_SGSN_3G2G_ISHO + 
+			IUMM2.IU_FAIL_OG_INTE_SGSN_3G2G_ISHO))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))</formula>
+    <kpi_info>
+      <title><![CDATA[3G to 2G outgoing Inter SGSN RAU (with contexts) requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of outgoing 3G to 2G inter SGSN routing area update request procedures with PDP contexts per second.
+This KPI can be used to measure the signaling transaction load/capacity.
+]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( IU_SUCC_OG_INTE_SGSN_3G2G_ISHO + 
+&lt;br&gt;   IU_FAIL_OG_INTE_SGSN_3G2G_ISHO )
+&lt;br&gt;-------------------------------------- *
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;max( PEAK_IU_PDP_CONT ) 
+&lt;br&gt;----------------------------
+&lt;br&gt;max( PEAK_ATTACH_IU_USERS )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[32 out interSGS RA wctx /s]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_5260a">
+    <formula>100*decode(
+			(lcelld.pdcp_sdu_dl + 
+			lcelld.pdcp_sdu_loss_dl - 
+			(lcelld.pdcp_sdu_dl_qci_1 + 
+			lcelld.pdcp_sdu_loss_dl_qci_1) - 
+			(lcelld.pdcp_sdu_dl_qci_2 + 
+			lcelld.pdcp_sdu_loss_dl_qci_2) - 
+			(lcelld.pdcp_sdu_dl_qci_3 + 
+			lcelld.pdcp_sdu_loss_dl_qci_3) - 
+			(lcelld.pdcp_sdu_dl_qci_4 + 
+			lcelld.pdcp_sdu_loss_dl_qci_4) + 
+			lcelld.pdcp_sdu_dl_disc - 
+			lcelld.pdcp_sdu_disc_dl_qci_1 - 
+			lcelld.pdcp_sdu_disc_dl_qci_2 - 
+			lcelld.pdcp_sdu_disc_dl_qci_3 - 
+			lcelld.pdcp_sdu_disc_dl_qci_4),0,null, 
+
+			(lcelld.pdcp_sdu_dl_disc - 
+			lcelld.pdcp_sdu_disc_dl_qci_1 - 
+			lcelld.pdcp_sdu_disc_dl_qci_2 - 
+			lcelld.pdcp_sdu_disc_dl_qci_3 - 
+			lcelld.pdcp_sdu_disc_dl_qci_4)
+			 / 
+			(lcelld.pdcp_sdu_dl + 
+			lcelld.pdcp_sdu_loss_dl - 
+			(lcelld.pdcp_sdu_dl_qci_1 + 
+			lcelld.pdcp_sdu_loss_dl_qci_1) - 
+			(lcelld.pdcp_sdu_dl_qci_2 + 
+			lcelld.pdcp_sdu_loss_dl_qci_2) - 
+			(lcelld.pdcp_sdu_dl_qci_3 + 
+			lcelld.pdcp_sdu_loss_dl_qci_3) - 
+			(lcelld.pdcp_sdu_dl_qci_4 + 
+			lcelld.pdcp_sdu_loss_dl_qci_4) + 
+			lcelld.pdcp_sdu_dl_disc - 
+			lcelld.pdcp_sdu_disc_dl_qci_1 - 
+			lcelld.pdcp_sdu_disc_dl_qci_2 - 
+			lcelld.pdcp_sdu_disc_dl_qci_3 - 
+			lcelld.pdcp_sdu_disc_dl_qci_4))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN PDCP SDU Discard Ratio in DL, non GBR]]></title>
+      <use><![CDATA[This KPI provides the ratio of the number of discarded to total number of PDCP SDUs in DL per non GBR services.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(PDCP_SDU_DL_DISC-PDCP_SDU_DISC_DL_QCI_1-PDCP_SDU_DISC_DL_QCI_2-PDCP_SDU_DISC_DL_QCI_3-PDCP_SDU_DISC_DL_QCI_4)/ sum(PDCP_SDU_DL+PDCP_SDU_LOSS_DL-(PDCP_SDU_DL_QCI_1+PDCP_SDU_LOSS_DL_QCI_1)-(PDCP_SDU_DL_QCI_2+PDCP_SDU_LOSS_DL_QCI_2)- (PDCP_SDU_DL_QCI_3+PDCP_SDU_LOSS_DL_QCI_3)-(PDCP_SDU_DL_QCI_4+PDCP_SDU_LOSS_DL_QCI_4)+PDCP_SDU_DL_DISC-PDCP_SDU_DISC_DL_QCI_1-PDCP_SDU_DISC_DL_QCI_2-PDCP_SDU_DISC_DL_QCI_3-PDCP_SDU_DISC_DL_QCI_4)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/10/02 15:01:58.358 +0100</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[E-UTRAN PDCP SDU Discard Ratio in DL, non GBR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

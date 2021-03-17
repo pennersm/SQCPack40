@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/M3UAMI.xml" />
+  <kpi name="msc_749b">
+    <formula>greatest(m3uami.m3ua_octets_received,m3uami.m3ua_octets_sent)*8
+ / 
+1000</formula>
+    <kpi_info>
+      <title><![CDATA[Maximum M3UA Association traffic]]></title>
+      <use><![CDATA[M3UA Association  Traffic]]></use>
+
+<use_experience><![CDATA[ 
+<br>We cannot sum sent+received side, as then the KPI does not correspond to the hw capabilities (two-way processing capacity e.g. 400kb/s per CCSU). We need to define these as max(xxx_sent; xxx_received)
+<br>As the hw capacities are mentioned in [kbit/sec], we need to define KPIs too in same units (not [Bytes/sec]). Therefore counters of xxx_octets must be multiplied by 8 in order to keep consistency and decrease any error probability in planning work.
+<br>PUBLISHED: M14.0
+<br>LAST UPDATE: 08-02-2010
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC - ASSO_SETNAME - ASSO_INDEX, 
+<br>HLR - ASSO_SETNAME - ASSO_INDEX, 
+<br>SRR - ASSO_SETNAME - ASSO_INDEX
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): M3UA association set measurement M661
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature. For HLR this KPI is only valid for M14. SRR: not supported by NE but supported in the adaptation.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;Max (m3ua_octets_received, m3ua_octets_sent) *8
+&lt;br&gt;-------------------------------------------------
+&lt;br&gt;          1.000
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_M3UAMS_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UAMI_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UAHS_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UAHI_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UASS_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UASI_{obj_agg}_{time_agg}</formula>
+      <unit>[kB]</unit>
+      <tables>rns_ps_m3uami_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Maximum M3UA Association traffic]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

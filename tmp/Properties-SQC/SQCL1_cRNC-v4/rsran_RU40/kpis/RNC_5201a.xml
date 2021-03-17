@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_5201a">
+    <formula>100*decode(
+			(cellres.tx_cr_pwr_class_0 + 
+			cellres.tx_cr_pwr_class_1 + 
+			cellres.tx_cr_pwr_class_2 + 
+			cellres.tx_cr_pwr_class_3 + 
+			cellres.tx_cr_pwr_class_4 + 
+			cellres.tx_cr_pwr_class_5 + 
+			cellres.tx_cr_pwr_class_6 + 
+			cellres.tx_cr_pwr_class_7 + 
+			cellres.tx_cr_pwr_class_8 + 
+			cellres.tx_cr_pwr_class_9 + 
+			cellres.tx_cr_pwr_class_10),0,null, 
+
+			(cellres.tx_cr_pwr_class_7 + 
+			cellres.tx_cr_pwr_class_8)
+			 / 
+			(cellres.tx_cr_pwr_class_0 + 
+			cellres.tx_cr_pwr_class_1 + 
+			cellres.tx_cr_pwr_class_2 + 
+			cellres.tx_cr_pwr_class_3 + 
+			cellres.tx_cr_pwr_class_4 + 
+			cellres.tx_cr_pwr_class_5 + 
+			cellres.tx_cr_pwr_class_6 + 
+			cellres.tx_cr_pwr_class_7 + 
+			cellres.tx_cr_pwr_class_8 + 
+			cellres.tx_cr_pwr_class_9 + 
+			cellres.tx_cr_pwr_class_10))</formula>
+    <kpi_info>
+      <title><![CDATA[Marginal Transmitted Carrier Power Time Share DL]]></title>
+      <use><![CDATA[Share of time when Transmitted Carrier Power (TxCrPwr) is in classes 7-8. The mapping to power value depends on WCEL parameter PRACHDelayRange setting.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum (TX_CR_PWR_CLASS_7+TX_CR_PWR_CLASS_8)/
+&lt;br&gt;sum (TX_CR_PWR_CLASS_0+TX_CR_PWR_CLASS_1+
+&lt;br&gt;TX_CR_PWR_CLASS_2+TX_CR_PWR_CLASS_3+
+&lt;br&gt;TX_CR_PWR_CLASS_4+TX_CR_PWR_CLASS_5+
+&lt;br&gt;TX_CR_PWR_CLASS_6+TX_CR_PWR_CLASS_7+
+&lt;br&gt;TX_CR_PWR_CLASS_8+TX_CR_PWR_CLASS_9+
+&lt;br&gt;TX_CR_PWR_CLASS_10)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_CELLRES_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:48.285 +0100</date>
+          <comment><![CDATA[Source: RSRAN086.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mrg TxCrPwr time share DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

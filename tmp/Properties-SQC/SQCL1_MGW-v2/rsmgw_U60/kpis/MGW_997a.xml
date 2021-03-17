@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TRFOTFO.xml" />
+  <kpi name="MGW_997a">
+    <formula>decode(
+			(trfotfo.tfo_gsm_hr + 
+			trfotfo.tfo_gsm_efr + 
+			trfotfo.tfo_gsm_fr + 
+			trfotfo.tfo_amr_nb + 
+			trfotfo.tfo_amr_wb),0,null, 
+
+			(100*(trfotfo.tfo_gsm_fr)
+			 / 
+			(trfotfo.tfo_gsm_hr + 
+			trfotfo.tfo_gsm_efr + 
+			trfotfo.tfo_gsm_fr + 
+			trfotfo.tfo_amr_nb + 
+			trfotfo.tfo_amr_wb)))</formula>
+    <kpi_info>
+      <title><![CDATA[Connection changes after codec modification between two audio/speech call terminations]]></title>
+      <use><![CDATA[Connection changes after codec modification between two audio/speech call terminations]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(TFO_GSM_FR)/ sum(TFO_GSM_HR+TFO_GSM_EFR+TFO_GSM_FR+ TFO_AMR_NB + TFO_AMR_WB)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_trfotfo_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Connection changes after codec modification between two audio/speech call terminations]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

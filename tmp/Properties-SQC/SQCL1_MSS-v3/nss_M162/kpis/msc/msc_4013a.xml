@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <kpi name="msc_4013a">
+    <formula>
+decode(SERVI_ext.MSCSSM_USAGE_10,0,null,
+	100 * (1 - SERVI_ext.MSCSSM_USAGE_11 / SERVI_ext.MSCSSM_USAGE_10)
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Assignment Setup Failure Ratio (MTC)]]></title>
+      <use><![CDATA[Indicates the failure ratio of RAB assignment setup for mobile terminated calls (3G).]]></use>
+
+<use_experience><![CDATA[ 
+<br>Service Ids:
+<br>   10A = RAB ASSIGNMENT REQUEST MTC
+<br>   10B = RAB ASSIGNMENT RESPONSE MTC
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC - Service
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Service measurement  (M128/80H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;RAB Assignment Setup Failure Ratio&quot; (MTC) KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           SUM( MSCSSM_USAGE )  ;WHERE service_ID = 10BH
+&lt;br&gt;100 * (1 - ------------------------------------------ )
+&lt;br&gt;           SUM( MSCSSM_USAGE )  ;WHERE service_ID = 10AH
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTC RAB assign setup FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

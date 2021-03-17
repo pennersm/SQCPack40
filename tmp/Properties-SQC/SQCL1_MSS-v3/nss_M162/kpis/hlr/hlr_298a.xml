@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/MTPNHLR.xml"/>
+  <kpi name="hlr_298a">
+    <formula>100*(decode(
+			(mtpnhlr.period_duration*60*mtpnhlr.bitrate*1000),0,null,
+
+			((mtpnhlr.msus_transmitted*6 +
+			mtpnhlr.sif_and_sio_octets_transmitted +
+			mtpnhlr.octets_retransmitted)*8)
+			 /
+			(mtpnhlr.period_duration*60*mtpnhlr.bitrate*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[MTP utilisation in transmit]]></title>
+      <use><![CDATA[Indicates utilisation of MTP in transmitting.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>
+	  <br>This KPI is similar with tra_msc298b but, this one, is to be used only for the HLR NE. This new KPI ID reference is to to be used starting from M15.1 report sets.  
+	  <br>
+	  <br>Formula: (Logical)
+	  <br>
+	  <br> (MSUs transmit * 6 octets + SIF and SIO octets transmit + retransmit. octets) * 8  
+	  <br>--------------------------------------------------------------------------------------------------------------------------------- * 100  
+      <br>                    period duration (sec) * bit rate (bit/s)
+      <br>  
+	  <br>RECOMMENDED SUMMARY LEVELS: HLR; SLN; SLSN
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(s): MTP signalling link utilization (210/D2H)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+		<formula>
+		&lt;br&gt; sum(MSUS_TRANSMITTED * 6
+		&lt;br&gt;+ SIF_AND_SIO_OCTETS_TRANSMITTED
+		&lt;br&gt;+ OCTETS_RETRANSMITTED) * 8
+		&lt;br&gt;------------------------------------------------------------------------ * 100
+		&lt;br&gt;  PERIOD DURATION(min) * 60 * BITRATE(kbit/s) * 1000)
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_MTPHLR_{obj_agg}_{time_agg}
+		&lt;br&gt;RNS_PS_MTPNHLR_{obj_agg}_{time_agg}
+		&lt;br&gt;
+		</formula>
+		
+      <unit>[%]</unit>
+      <tables>rns_ps_mtphlr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[MTP util in transmit HLR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

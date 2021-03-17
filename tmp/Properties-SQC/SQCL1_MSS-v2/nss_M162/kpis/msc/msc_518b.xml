@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/MEGMGW.xml" />
+  <kpi name="msc_518b">
+    <formula>
+		decode( megmgw.tot_hand_transactions_inc_rep, 0, null,
+			100 * (megmgw.tot_succ_transactions_inc_rep)
+			/ (megmgw.tot_hand_transactions_inc_rep)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Megaco transaction success ratio in replies]]></title>
+      <use><![CDATA[The KPI indicates success rate of handled transactions in incoming replies.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.4, the counter&#039;s source aggregated tables do change.
+<br>LAST UPDATE: 17-11-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC; MGWMNAME;MGW_ID
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; MGWMNAME; MGW_ID
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MEGACO measurement M354
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+      	<![CDATA[
+<br>      SUM(TOT_SUCC_TRANSACTIONS_INC_REP )  
+<br>100 * -------------------------------------
+<br>      SUM(TOT_HAND_TRANSACTIONS_INC_REP ) 
+<br>
+<br>Counters from view(s):
+<br>RNS_PS_MEGMGW_&lt;Object&gt;_&lt;Time&gt;
+		]]>
+	  </formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_MEGMGW_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:57.870 +0000</date>
+          <comment><![CDATA[Source: RSMSC044.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Megaco trans SR replies</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

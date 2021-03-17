@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LRDB.xml" />
+  <kpi name="LTE_5005a">
+    <formula>100*decode(
+			(lrdb.rb_rel_req_norm_rel + 
+			lrdb.rb_rel_req_detach_proc + 
+			lrdb.rb_rel_req_rnl + 
+			lrdb.rb_rel_req_other + 
+			lrdb.rb_rel_req_rnl_redir),0,null, 
+
+			(lrdb.rb_rel_req_rnl + 
+			lrdb.rb_rel_req_other)
+			 / 
+			(lrdb.rb_rel_req_norm_rel + 
+			lrdb.rb_rel_req_detach_proc + 
+			lrdb.rb_rel_req_rnl + 
+			lrdb.rb_rel_req_other + 
+			lrdb.rb_rel_req_rnl_redir))</formula>
+    <kpi_info>
+      <title><![CDATA[RB success ratio]]></title>
+      <use><![CDATA[This KPI show the RB success ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(RB_REL_REQ_RNL+RB_REL_REQ_OTHER)/sum(RB_REL_REQ_NORM_REL+RB_REL_REQ_DETACH_PROC+RB_REL_REQ_RNL+RB_REL_REQ_OTHER+RB_REL_REQ_RNL_REDIR)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LRDB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.238 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RB SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

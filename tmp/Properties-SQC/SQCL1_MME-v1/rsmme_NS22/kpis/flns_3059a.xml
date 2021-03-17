@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3059a">
+    <formula>decode(
+			(mmmt.eps_to_3g_gn_isho_succ + 
+			mmmt.eps_to_3g_gn_isho_fail + 
+			mmmt.eps_to_3g_gn_isho_trgt_reje + 
+			mmmt.eps_to_3g_gn_isho_enb_cncl),0,null,
+
+			(mmmt.eps_to_3g_gn_isho_enb_cncl
+			/ 
+			(mmmt.eps_to_3g_gn_isho_succ + 
+			mmmt.eps_to_3g_gn_isho_fail + 
+			mmmt.eps_to_3g_gn_isho_trgt_reje + 
+			mmmt.eps_to_3g_gn_isho_enb_cncl)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[EPS to 3G Gn based ISHO cancelled by enodeB failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of the Gn based EPS to 3G inter system handover procedures that are cancelled by enodeB.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(EPS_TO_3G_GN_ISHO_ENB_CNCL)
+&lt;br&gt;--------------------------------- *100
+&lt;br&gt;sum(EPS_TO_3G_GN_ISHO_SUCC +
+&lt;br&gt;   EPS_TO_3G_GN_ISHO_FAIL +
+&lt;br&gt;   EPS_TO_3G_GN_ISHO_TRGT_REJE +
+&lt;br&gt;   EPS_TO_3G_GN_ISHO_ENB_CNCL)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:36:00.772 +0100</date>
+          <comment><![CDATA[Source: RSMME001.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS-3G Gn ISHO can enB FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

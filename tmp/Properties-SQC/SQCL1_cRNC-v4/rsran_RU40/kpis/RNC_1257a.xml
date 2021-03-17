@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FRPRW.xml" />
+  <kpi name="RNC_1257a">
+    <formula>decode(
+			(frprw.cch_fp_rec_data_frms + 
+			frprw.cch_fp_frms_w_crc_error + 
+			frprw.cch_fp_frms_w_delay + 
+			frprw.cch_fp_frms_w_oth_err),0,null, 
+
+			(100*(frprw.cch_fp_frms_w_crc_error + 
+			frprw.cch_fp_frms_w_delay + 
+			frprw.cch_fp_frms_w_oth_err)
+			 / 
+			(frprw.cch_fp_rec_data_frms + 
+			frprw.cch_fp_frms_w_crc_error + 
+			frprw.cch_fp_frms_w_delay + 
+			frprw.cch_fp_frms_w_oth_err)))</formula>
+    <kpi_info>
+      <title><![CDATA[CCH Frame Protocol error ratio]]></title>
+      <use><![CDATA[This KPI monitors the Frame Protocol level error rate in Iub for CCH in BTS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(CCH_FP_FRMS_W_CRC_ERROR
+&lt;br&gt;              +CCH_FP_FRMS_W_DELAY
+&lt;br&gt;              +CCH_FP_FRMS_W_OTH_ERR)
+&lt;br&gt;----------------------
+&lt;br&gt;SUM(CCH_FP_REC_DATA_FRMS
+&lt;br&gt;       +CCH_FP_FRMS_W_CRC_ERROR
+&lt;br&gt;       +CCH_FP_FRMS_W_DELAY
+&lt;br&gt;       +CCH_FP_FRMS_W_OTH_ERR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_frprw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>FP Error Ratio CCH</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

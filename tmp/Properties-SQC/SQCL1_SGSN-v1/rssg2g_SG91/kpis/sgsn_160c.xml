@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUOV.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_160c">
+    <formula>decode(
+			((IUMM1.IU_SUCC_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_SUCC_PERIODIC_RA_UPD + 
+			IUMM1.IU_FAIL_PERIODIC_RA_UPD + 
+			IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTER_PAPU_2G3G_ISHO + 
+			nvl(IUMM1.SUCC_IN_RAU_MME_TO_3GSGSN,0) + 
+			nvl(IUMM1.FAIL_IN_RAU_MME_TO_3GSGSN,0) + 
+			IUOV.REJ_IU_RA_UPDATE_ATTEMPTS_EP + 
+			IUOV.REJ_IU_RA_UPDATE_ATTEMPTS)),0,NULL,((IUOV.REJ_IU_RA_UPDATE_ATTEMPTS_EP + 
+			IUOV.REJ_IU_RA_UPDATE_ATTEMPTS))
+			 / 
+			((IUMM1.IU_SUCC_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_SUCC_PERIODIC_RA_UPD + 
+			IUMM1.IU_FAIL_PERIODIC_RA_UPD + 
+			IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTER_PAPU_2G3G_ISHO + 
+			nvl(IUMM1.SUCC_IN_RAU_MME_TO_3GSGSN,0) + 
+			nvl(IUMM1.FAIL_IN_RAU_MME_TO_3GSGSN,0) + 
+			IUOV.REJ_IU_RA_UPDATE_ATTEMPTS_EP + 
+			IUOV.REJ_IU_RA_UPDATE_ATTEMPTS)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Iu RAU attempts not processed due to processor overload ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Iu RA update attempts not processed due to processor overload when compared to all Iu RA update attempts.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(a.REJ_IU_RA_UPDATE_ATTEMPTS_EP + a.REJ_IU_RA_UPDATE_ATTEMPTS)
+&lt;br&gt;---------------------------------------------------------------------- *100
+&lt;br&gt;sum(b.IU_SUCC_IN_INTRA_PAPU_RA_UPD + b.IU_FAIL_IN_INTRA_PAPU_RA_UPD +
+&lt;br&gt;   b.IU_SUCC_IN_INTER_PAPU_RA_UPD + b.IU_FAIL_IN_INTER_PAPU_RA_UPD +
+&lt;br&gt;   b.IU_SUCC_IN_INTER_SGSN_RA_UPD + b.IU_FAIL_IN_INTER_SGSN_RA_UPD +
+&lt;br&gt;   b.IU_SUCC_PERIODIC_RA_UPD + b.IU_FAIL_PERIODIC_RA_UPD +
+&lt;br&gt;   b.IU_SUCC_INTRA_PAPU_2G3G_ISHO + b.IU_FAIL_INTRA_PAPU_2G3G_ISHO +
+&lt;br&gt;   b.IU_SUCC_INTER_PAPU_2G3G_ISHO + b.IU_FAIL_INTER_PAPU_2G3G_ISHO +
+&lt;br&gt;   b.SUCC_IN_RAU_MME_TO_3GSGSN + b.FAIL_IN_RAU_MME_TO_3GSGSN +
+&lt;br&gt;   a.REJ_IU_RA_UPDATE_ATTEMPTS_EP + a.REJ_IU_RA_UPDATE_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):
+&lt;br&gt;a = p_sgsn_iu_overload
+&lt;br&gt;b = p_sgsn_iu_mobility_management
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IUOV_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Iu RAU att no proc ovld]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

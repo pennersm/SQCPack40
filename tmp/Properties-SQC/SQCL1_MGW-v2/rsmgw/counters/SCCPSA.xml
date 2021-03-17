@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>SCCPSA (SCCP local subsystem availability)</header>
+    <csv_title>SCCPSA (SCCP local subsystem availability)</csv_title>
+    <report-description>218/DAH SCCP local subsystem availability measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <START_LOC_SCCP_UNAV_FAILURE />
+    <START_LOC_SCCP_UNAV_MAINT_BUSY />
+    <START_LOC_SCCP_UNAV_MAINT_CONG />
+    <STOP_OF_LOCAL_SCCP_UNAVAILABLE />
+    <DURA_OF_LOCAL_SCCP_UNAVAILABLE />
+  </column_order>
+  <temp_table name="SCCPSA" meas_level="PLMN/RSMGW-MGW/RSMGW-SNET-1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>SCCPSA</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="START_LOC_SCCP_UNAV_FAILURE"  symmetrical="true"  itk_id="START_LOC_SCCP_UNAV_FAILURE">SUM(START_LOC_SCCP_UNAV_FAILURE)</counter>
+          <counter alias="START_LOC_SCCP_UNAV_MAINT_BUSY"  symmetrical="true"  itk_id="START_LOC_SCCP_UNAV_MAINT_BUSY">SUM(START_LOC_SCCP_UNAV_MAINT_BUSY)</counter>
+          <counter alias="START_LOC_SCCP_UNAV_MAINT_CONG"  symmetrical="true"  itk_id="START_LOC_SCCP_UNAV_MAINT_CONG">SUM(START_LOC_SCCP_UNAV_MAINT_CONG)</counter>
+          <counter alias="STOP_OF_LOCAL_SCCP_UNAVAILABLE"  symmetrical="true"  itk_id="STOP_OF_LOCAL_SCCP_UNAVAILABLE">SUM(STOP_OF_LOCAL_SCCP_UNAVAILABLE)</counter>
+          <counter alias="DURA_OF_LOCAL_SCCP_UNAVAILABLE"  symmetrical="true"  itk_id="DURA_OF_LOCAL_SCCP_UNAVAILABLE">SUM(DURA_OF_LOCAL_SCCP_UNAVAILABLE)</counter>
+    </counters>
+    <table_name>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SCCPSA</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>SCCPSA.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="START_LOC_SCCP_UNAV_FAILURE" itk_id="START_LOC_SCCP_UNAV_FAILURE">
+    <formula>SCCPSA.START_LOC_SCCP_UNAV_FAILURE</formula>
+    <kpi_info>
+      <title>START_LOC_SCCP_UNAV_FAILURE (M218B2C1)</title>
+      <use>Start of unavailability of a local SCCP due to failure, 8.1 in ITU-T Q.752.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(START_LOC_SCCP_UNAV_FAILURE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>START_LOC_SCCP_UNAV_FAILURE (M218B2C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="START_LOC_SCCP_UNAV_MAINT_BUSY" itk_id="START_LOC_SCCP_UNAV_MAINT_BUSY">
+    <formula>SCCPSA.START_LOC_SCCP_UNAV_MAINT_BUSY</formula>
+    <kpi_info>
+      <title>START_LOC_SCCP_UNAV_MAINT_BUSY (M218B2C2)</title>
+      <use>Start of unavailability of a local SCCP due to maintenance busy, 8.2 in ITU-T Q.752.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(START_LOC_SCCP_UNAV_MAINT_BUSY)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>START_LOC_SCCP_UNAV_MAINT_BUSY (M218B2C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="START_LOC_SCCP_UNAV_MAINT_CONG" itk_id="START_LOC_SCCP_UNAV_MAINT_CONG">
+    <formula>SCCPSA.START_LOC_SCCP_UNAV_MAINT_CONG</formula>
+    <kpi_info>
+      <title>START_LOC_SCCP_UNAV_MAINT_CONG (M218B2C3)</title>
+      <use>Start of unavailability of a local SCCP due to congestion, 8.3 in ITU-T Q.752.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(START_LOC_SCCP_UNAV_MAINT_CONG)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>START_LOC_SCCP_UNAV_MAINT_CONG (M218B2C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STOP_OF_LOCAL_SCCP_UNAVAILABLE" itk_id="STOP_OF_LOCAL_SCCP_UNAVAILABLE">
+    <formula>SCCPSA.STOP_OF_LOCAL_SCCP_UNAVAILABLE</formula>
+    <kpi_info>
+      <title>STOP_OF_LOCAL_SCCP_UNAVAILABLE (M218B2C4)</title>
+      <use>Stop of unavailability of a local SCCP, 8.4 in ITU-T Q.752.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STOP_OF_LOCAL_SCCP_UNAVAILABLE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STOP_OF_LOCAL_SCCP_UNAVAILABLE (M218B2C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURA_OF_LOCAL_SCCP_UNAVAILABLE" itk_id="DURA_OF_LOCAL_SCCP_UNAVAILABLE">
+    <formula>SCCPSA.DURA_OF_LOCAL_SCCP_UNAVAILABLE</formula>
+    <kpi_info>
+      <title>DURA_OF_LOCAL_SCCP_UNAVAILABLE (M218B2C5)</title>
+      <use>Duration of the unavailability of a local SCCP, 8.5 in ITU-T Q.752.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DURA_OF_LOCAL_SCCP_UNAVAILABLE)</formula>
+      <unit>sec</unit>
+      <tables>nokmww_ps_sccpsa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURA_OF_LOCAL_SCCP_UNAVAILABLE (M218B2C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

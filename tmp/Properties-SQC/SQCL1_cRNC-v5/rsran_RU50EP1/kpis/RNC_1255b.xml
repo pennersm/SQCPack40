@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_1255b">
+    <formula><![CDATA[100*decode((HSDPAW.MAC_D_PDU_TOT), 0, NULL, 
+(HSDPAW.HS_DSCH_CREDIT_RDCT_DUE_DLY+HSDPAW.HS_DSCH_CREDIT_RDCT_SVRE_DLY+HSDPAW.HS_DSCH_CREDIT_RDCT_FRM_LOSS+HSDPAW.HS_DSCH_CRDT_RDCT_BUF_CPU_LOAD)/(HSDPAW.MAC_D_PDU_TOT))]]></formula>
+    <kpi_info>
+      <title>HSDPA congestion rate in Iub</title>
+      <use>Ratio between the congestion indications events to the number of received E-DCH Frames 
+
+
+It should be possible to filter out the Iub link by indentifying the relation between WBTS and RNC. 
+
+The HSDPA congestion control in BTS side limits the radio layer throughput in the case Iub HSDPA performance decreases. The HSDPA congestion detection mechanism is similar to the mechanism introduced for the HSUPA in RNC side (RAN992). 
+Iub congestion detection is done at the BTS FP layer using the build-up delay information (DRT) and sequence numbering (FSN) in the downlink FP frames which the RNC includes.The Iub performance is monitored from FP layer delay and traffic loss detected in BTS.</use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[100*SUM(HS_DSCH_CREDIT_RDCT_DUE_DLY 
+       +HS_DSCH_CREDIT_RDCT_SVRE_DLY 
+       +HS_DSCH_CREDIT_RDCT_FRM_LOSS 
+       +HS_DSCH_CRDT_RDCT_BUF_CPU_LOAD) 
+--------------------------------------- 
+        SUM(MAC_D_PDU_TOT)]]></formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_hsdpaw_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromExcelXmlApp]]></author>
+          <date>2014/11/05 15:49:41.693 +0000</date>
+          <comment><![CDATA[Source: excel_reports/kpis_RU50 EP1.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSDPA congestion rate in Iub</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

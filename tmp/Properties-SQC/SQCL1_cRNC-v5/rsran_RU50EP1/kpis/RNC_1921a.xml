@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1921a">
+    <formula>decode(
+			(servlev.rab_stp_att_cs_conv),0,null, 
+
+			(100*(servlev.rab_stp_fail_cs_conv_frozbs)
+			 / 
+			(servlev.rab_stp_att_cs_conv)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB setup Failure Ratio for CS Conversational calls caused by Frozen BTS]]></title>
+      <use><![CDATA[RAB setup failure ratio for CS conversational calls caused by Frozen BTS]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(RAB_STP_FAIL_CS_CONV_FROZBS)
+&lt;br&gt;---------------------------------------
+&lt;br&gt;sum(RAB_STP_ATT_CS_CONV)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB stp FR CS Conv FrzBTS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

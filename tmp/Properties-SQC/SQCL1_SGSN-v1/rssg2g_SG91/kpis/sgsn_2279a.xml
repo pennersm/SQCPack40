@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2279a">
+    <formula>decode(
+			((PAUS.period_duration*60)),0,NULL,((PAUS.DIRECT_TUN_CHANGES_1T_TO_2T + 
+			PAUS.DIRECT_TUN_CHANGES_2T_TO_1T))
+			 / 
+			((PAUS.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Direct Tunnel / Two Tunnel switches per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of Direct Tunnel / Two Tunnel switches per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( DIRECT_TUN_CHANGES_1T_TO_2T + 
+&lt;br&gt;  DIRECT_TUN_CHANGES_2T_TO_1T )
+&lt;br&gt;------------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DT/2T switches pr sec]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

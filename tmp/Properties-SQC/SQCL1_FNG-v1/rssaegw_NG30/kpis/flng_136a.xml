@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/DSRR_ext.xml" />
+  <kpi name="flng_136a">
+    <formula>decode( ((GTPCV2.gtpcv2_del_sess_req_sent)),0,NULL, ((DSRR_ext.gtpcv2_del_sess_resp_recv_16)) / ((GTPCV2.gtpcv2_del_sess_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Session sent success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 delete session requests sent, i.e., the number of delete session response messages received with cause code 'Request Accepted' when compared to the number of delete session request messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(dsrr_id,'16',b.GTPCV2_DEL_SESS_RESP_RECV,0))) ;Request accepted------------------------------------------------------------------------ *100sum(a.GTPCV2_DEL_SESS_REQ_SENT)counters from measurement(s): a = GTP-C v2 b = GTP-C v2 Delete Session Response received]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_DSRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Session sent SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

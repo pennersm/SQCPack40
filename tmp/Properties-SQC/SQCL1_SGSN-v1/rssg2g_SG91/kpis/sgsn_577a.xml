@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml" />
+  <kpi name="sgsn_577a">
+    <formula>decode(
+			(data.gtp_data_in_bytes_sent_in_ul + 
+			data.gtp_data_in_bytes_sent_in_dl + 
+			4294967296*(data.gtp_data_bytes_sent_in_ul_ofl + 
+			data.gtp_data_bytes_sent_in_dl_ofl)),0,NULL, 
+
+			(100*(data.gtp_data_in_bytes_sent_in_ul + 
+			4294967296*(data.gtp_data_bytes_sent_in_ul_ofl))
+			 / 
+			(data.gtp_data_in_bytes_sent_in_ul + 
+			data.gtp_data_in_bytes_sent_in_dl + 
+			4294967296*(data.gtp_data_bytes_sent_in_ul_ofl + 
+			data.gtp_data_bytes_sent_in_dl_ofl))))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of total GTP data sent UL]]></title>
+      <use><![CDATA[This KPI shows the share of total GTP data sent in UL on both Gb and Iu interfaces]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (GTP_DATA_IN_BYTES_SENT_IN_UL +
+&lt;br&gt;4294967296 * (GTP_DATA_BYTES_SENT_IN_UL_OFL))
+&lt;br&gt;-------------------------------------------------------------------------- * 100
+&lt;br&gt;sum (GTP_DATA_IN_BYTES_SENT_IN_UL + GTP_DATA_IN_BYTES_SENT_IN_DL +
+&lt;br&gt;4294967296 * (GTP_DATA_BYTES_SENT_IN_UL_OFL  + GTP_DATA_BYTES_SENT_IN_DL_OFL))
+&lt;br&gt;counters from table(s): p_sgsn_data</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_data_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of total GTP data sent UL]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

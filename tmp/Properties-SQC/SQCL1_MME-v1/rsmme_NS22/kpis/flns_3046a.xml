@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml"/>
+  <kpi name="flns_3046a">
+    <formula>decode(
+			((MMMT.EPS_PAGING_SUCC)),0,NULL, 
+
+			((MMMT.EPS_PAGING_ATTEMPTS - 
+			  (5 * MMMT.EPS_PAGING_FAIL)))
+			 / 
+			((MMMT.EPS_PAGING_SUCC)))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS PS Paging attempts to page 'reachable' UEs]]></title>
+      <use><![CDATA[This KPI shows the average number of EPS PS paging attempts need in order to contact the 'reachable' UEs.
+This KPI should give a better measure of the radio link quality.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (EPS_PAGING_ATTEMPTS - 5 * EPS_PAGING_FAIL)
+&lt;br&gt;------------------------------------------------
+&lt;br&gt;             sum (EPS_PAGING_SUCC)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Pag att page reachable UE]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

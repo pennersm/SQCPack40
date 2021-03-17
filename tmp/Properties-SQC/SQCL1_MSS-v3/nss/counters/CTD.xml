@@ -1,0 +1,265 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M24 CTD measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M24 CTD measurement dump</csv_title>
+    <report-description>Circuit group to number destination measurement(CTD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CTD_NUM_OF_CALL_ATT/>
+    <CTD_SUCCESSFUL_CALLS/>
+    <CTD_ANSWERED_CALLS/>
+    <CTD_SUBSC_ERROR/>
+    <CTD_INT_ERROR/>
+    <CTD_EXT_ERROR/>
+    <CTD_ERLANGS_x100/>
+    <CTD_INVALID_REC_FOUND/>
+    <CTD_OVERLOAD_CTRL_ACT/>
+    <CTD_DATA_PROV_RESTARTED/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/DEST" name="CTD" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CTD_NUM_OF_CALL_ATT" symmetrical="true">SUM(CTD_NUM_OF_CALL_ATT)</counter>
+      <counter alias="CTD_SUCCESSFUL_CALLS" symmetrical="true">SUM(CTD_SUCCESSFUL_CALLS)</counter>
+      <counter alias="CTD_ANSWERED_CALLS" symmetrical="true">SUM(CTD_ANSWERED_CALLS)</counter>
+      <counter alias="CTD_SUBSC_ERROR" symmetrical="true">SUM(CTD_SUBSC_ERROR)</counter>
+      <counter alias="CTD_INT_ERROR" symmetrical="true">SUM(CTD_INT_ERROR)</counter>
+      <counter alias="CTD_EXT_ERROR" symmetrical="true">SUM(CTD_EXT_ERROR)</counter>
+      <counter alias="CTD_ERLANGS_x100" object-formula="SUM(CTD_ERLANGS_x100)" time-alias="CTD_ERLANGS_x100" time-formula="AVG(CTD_ERLANGS_x100)">SUM(CTD_ERLANGS_x100)</counter>
+      <counter alias="CTD_INVALID_REC_FOUND" symmetrical="true">AVG(CTD_INVALID_REC_FOUND)</counter>
+      <counter alias="CTD_OVERLOAD_CTRL_ACT" symmetrical="true">AVG(CTD_OVERLOAD_CTRL_ACT)</counter>
+      <counter alias="CTD_DATA_PROV_RESTARTED" symmetrical="true">AVG(CTD_DATA_PROV_RESTARTED)</counter>
+    </counters>
+    <table_name>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CTD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CTD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_NUM_OF_CALL_ATT">
+    <formula>CTD.CTD_NUM_OF_CALL_ATT</formula>
+    <kpi_info>
+      <title>CTD_NUM_OF_CALL_ATT</title>
+      <use>Number of call attempts (0...999999).Thefield is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTD_NUM_OF_CALL_ATT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_NUM_OF_CALL_ATT (M24B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_SUCCESSFUL_CALLS">
+    <formula>CTD.CTD_SUCCESSFUL_CALLS</formula>
+    <kpi_info>
+      <title>CTD_SUCCESSFUL_CALLS</title>
+      <use>Number of successful call attempts (0...999999), clear codes 0...3FF.The field is updated when the first released
+circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTD_SUCCESSFUL_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_SUCCESSFUL_CALLS (M24B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_ANSWERED_CALLS">
+    <formula>CTD.CTD_ANSWERED_CALLS</formula>
+    <kpi_info>
+      <title>CTD_ANSWERED_CALLS</title>
+      <use>The number of calls (0...999999) that havereached the conversation state.The field is updated
+when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTD_ANSWERED_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_ANSWERED_CALLS (M24B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_SUBSC_ERROR">
+    <formula>CTD.CTD_SUBSC_ERROR</formula>
+    <kpi_info>
+      <title>CTD_SUBSC_ERROR</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in a subscriber error, clear codes C00...FFF.The
+field is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTD_SUBSC_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_SUBSC_ERROR (M24B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_INT_ERROR">
+    <formula>CTD.CTD_INT_ERROR</formula>
+    <kpi_info>
+      <title>CTD_INT_ERROR</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in an error in the home exchange, clear codes
+400...7FF.The field is updated when the first released
+circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTD_INT_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_INT_ERROR (M24B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_EXT_ERROR">
+    <formula>CTD.CTD_EXT_ERROR</formula>
+    <kpi_info>
+      <title>CTD_EXT_ERROR</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in an error in the trunk circuit, clear codes 800...BFF.The
+field is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTD_EXT_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_EXT_ERROR (M24B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_ERLANGS_x100">
+    <formula>CTD.CTD_ERLANGS_x100</formula>
+    <kpi_info>
+      <title>CTD_ERLANGS_x100</title>
+      <use>The amount of traffic from a circuit groupto a number destination in Erlangs (0.0...9999.9). That means the
+total reservation time of the measured object in relation to the results
+accumulation period.The erlang calculation starts when both
+circuits are seized. The end point of erlang calculation is determined
+by the circuit that is released first.All of the circuit
+reservation time is updated in the results accumulation period in
+which the first released circuit is released. For this reason remarkably
+large values in the ERLANGS field are possible if there are many
+calls that have started before the results accumulation period but
+that end in the results accumulation period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(CTD_ERLANGS_x100)">SUM(CTD_ERLANGS_x100)</formula>
+      <unit>Erl</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_ERLANGS_x100 (M24B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_INVALID_REC_FOUND">
+    <formula>CTD.CTD_INVALID_REC_FOUND</formula>
+    <kpi_info>
+      <title>CTD_INVALID_REC_FOUND</title>
+      <use>The tag appears at the end of the givencounter group with field value 1 when the actual record is invalid.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CTD_INVALID_REC_FOUND)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_INVALID_REC_FOUND (M24B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_OVERLOAD_CTRL_ACT">
+    <formula>CTD.CTD_OVERLOAD_CTRL_ACT</formula>
+    <kpi_info>
+      <title>CTD_OVERLOAD_CTRL_ACT</title>
+      <use>The tag appears at the end of the givencounter group if the field value is 10 (In this case the Automatic Overload
+Control of Statistics has been activated).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CTD_OVERLOAD_CTRL_ACT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_OVERLOAD_CTRL_ACT (M24B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTD_DATA_PROV_RESTARTED">
+    <formula>CTD.CTD_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>CTD_DATA_PROV_RESTARTED</title>
+      <use>Tag appears with value 1 when the dataprovider in the signalling unit or the signalling unit(s) is restarted during
+the period and data might not be reliable.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CTD_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CTD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTD_DATA_PROV_RESTARTED (M24B2C15)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

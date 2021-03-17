@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/USER.xml" />
+  <kpi name="sgsn_578a">
+    <formula>decode(
+			(jflx_user.succ_mt_location_request + 
+			jflx_user.fail_mt_location_request),0,NULL, 
+
+			(100*(jflx_user.succ_mt_location_request)
+			 / 
+			(jflx_user.succ_mt_location_request + 
+			jflx_user.fail_mt_location_request)))</formula>
+    <kpi_info>
+      <title><![CDATA[MT location request success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of mobile-terminated location requests.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_MT_LOCATION_REQUEST)
+&lt;br&gt;------------------------------- *100
+&lt;br&gt;sum(SUCC_MT_LOCATION_REQUEST +
+&lt;br&gt;   FAIL_MT_LOCATION_REQUEST)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_user</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_user_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MT location req SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

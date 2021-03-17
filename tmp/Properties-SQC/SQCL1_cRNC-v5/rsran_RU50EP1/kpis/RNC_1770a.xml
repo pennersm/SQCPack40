@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CAPAUSE.xml" />
+  <kpi name="RNC_1770a">
+    <formula>decode(
+			(capause.period_duration),0,null, 
+
+			(100*(capause.iu_ps_thr_limit_duration)
+			 / 
+			(capause.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-PS throughput over Licensed Capacity]]></title>
+      <use><![CDATA[Percentage of time when Iu-PS throughput was over licensed capacity and therefore rate limiting was active.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(IU_PS_THR_LIMIT_DURATION)
+&lt;br&gt;----------------
+&lt;br&gt;SUM(PERIOD_DURATION * 60)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_capause_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-PS thp over Lic Cap</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/CAPAUSE_ext.xml" />
+</conf_file>
+

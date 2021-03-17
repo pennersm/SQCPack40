@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte/counters/LQOS.xml" />
+  <kpi name="LTE_5258b">
+    <formula>100*decode(
+			(lcelld.pdcp_sdu_dl_qci_3 + 
+			lqos.pdcp_sdu_loss_dl_qci_3_fna + 
+			lcelld.pdcp_sdu_disc_dl_qci_3),0,null, 
+
+			lcelld.pdcp_sdu_disc_dl_qci_3
+			 / 
+			(lcelld.pdcp_sdu_dl_qci_3 + 
+			lqos.pdcp_sdu_loss_dl_qci_3_fna + 
+			lcelld.pdcp_sdu_disc_dl_qci_3))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN PDCP SDU Discard Ratio in DL, QCI3]]></title>
+      <use><![CDATA[This KPI provides the ratio of the number of discarded to total number of PDCP SDUs in DL per QCI3.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(PDCP_SDU_DISC_DL_QCI_3)/ sum(PDCP_SDU_DL_QCI_3+PDCP_SDU_LOSS_DL_QCI_3_FNA+PDCP_SDU_DISC_DL_QCI_3)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg},noklte_ps_LQOS_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/03/20 14:53:29.972 +0000</date>
+          <comment><![CDATA[Source: RSLTE051.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PDCP SDU Discard Ratio in DL, QCI3</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

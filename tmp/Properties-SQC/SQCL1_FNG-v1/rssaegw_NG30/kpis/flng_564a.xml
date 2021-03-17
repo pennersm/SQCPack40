@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DCCDR_ext.xml" />
+  <kpi name="flng_564a">
+    <formula>100*decode(DCCDR_ext.DIA_GXC_CCA_DRA_RECV_ALL,0,null,
+	(
+	 DCCDR_ext.DIA_GXC_CCA_DRA_RECV
+	 /
+	 DCCDR_ext.DIA_GXC_CCA_DRA_RECV_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[Gxc CCA received from DRA cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Diameter Credit-Control-Answer (CCA) response messages received from DRA on Gxc interface for a specific cause code when compared to total number of Diameter CCA response messages received from DRA on Gxc interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(dccdr_id,&amp;#039;x&amp;#039;,DIA_GXC_CCA_DRA_RECV,0))  ;DCCDR for cause code x
+&lt;br&gt;-------------------------------------------------------------------------- *100
+&lt;br&gt;sum(DIA_GXC_CCA_DRA_RECV)  ;all DCCDR&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.772 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW072.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxc CCA rcv DRA ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

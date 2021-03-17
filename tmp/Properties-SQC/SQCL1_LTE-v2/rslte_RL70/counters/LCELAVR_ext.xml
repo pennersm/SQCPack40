@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LCELAV (LTE Cell Availability)</header>
+    <csv_title>LCELAV (LTE Cell Availability)</csv_title>
+    <report-description>LTE Cell Availability measurement (M8020) measures cell availability.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <SUM_WEIGHTED_CELL_AVAIL />
+	<SAMPLES_CELL_UNPLAN_UNAVAIL />
+	<DENOM_CELL_AVAIL />
+	<EPS_BEARER_SETUP_COMPLETIONS />
+	<CELL_COUNT group ="Availability KPIs"/>
+	<WEIGHTED_CELL_AV group ="Availability KPIs"/>
+	<LTE_5752a_inv group ="Availability KPIs"/>
+	<LTE_5750a group ="Availability KPIs"/>
+	<LTE_5239a group ="Availability KPIs"/>
+  </column_order>
+  <temp_table name="LCELAVR_ext" meas_level="PLMN/MRBTS/LNBTS/LNCEL_A2" type="PM" master="yes" pragma="RSLTE" create="yes">
+  <counters>
+          <counter alias="SUM_WEIGHTED_CELL_AVAIL"> SUM(SUM_WEIGHTED_CELL_AVAIL)</counter>
+		  <counter alias="CELL_COUNT"> COUNT(DISTINCT p.LNCEL_ID)</counter>
+		  <counter alias="SAMPLES_CELL_UNPLAN_UNAVAIL"> SUM(SAMPLES_CELL_UNPLAN_UNAVAIL)</counter>
+		   <counter alias="SAMPLES_CELL_PLAN_UNAVAIL"> SUM(SAMPLES_CELL_PLAN_UNAVAIL)</counter>
+		   <counter alias="SAMPLES_CELL_AVAIL"> SUM(SAMPLES_CELL_AVAIL)</counter>
+		  <counter alias="DENOM_CELL_AVAIL"> SUM(DENOM_CELL_AVAIL)</counter>
+		  <counter alias="EPS_BEARER_SETUP_COMPLETIONS"> SUM(EPS_BEARER_SETUP_COMPLETIONS)</counter>
+    </counters>
+    <table_name>{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LCELAVR_ext</alias_name>
+  </temp_table>
+    <kpi name="SUM_WEIGHTED_CELL_AVAIL">
+    <formula>LCELAVR_ext.SUM_WEIGHTED_CELL_AVAIL</formula>
+    <kpi_info>
+      <title>SUM_WEIGHTED_CELL_AVAIL</title>
+      <use>Sum of the weighted Cell availability
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM((1 - LCELAV.SAMPLES_CELL_UNPLAN_UNAVAIL/ NULLIF(LCELAV.DENOM_CELL_AVAIL))*LEPSB.EPS_BEARER_SETUP_COMPLETIONS)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_WEIGHTED_CELL_AVAIL</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+    <kpi name="SAMPLES_CELL_UNPLAN_UNAVAIL">
+    <formula>LCELAVR_ext.SAMPLES_CELL_UNPLAN_UNAVAIL</formula>
+    <kpi_info>
+      <title>SAMPLES_CELL_UNPLAN_UNAVAIL</title>
+      <use>Sum of the weighted Cell availability
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM((1 - LCELAV.SAMPLES_CELL_UNPLAN_UNAVAIL/ NULLIF(LCELAV.DENOM_CELL_AVAIL))*LEPSB.EPS_BEARER_SETUP_COMPLETIONS)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SAMPLES_CELL_UNPLAN_UNAVAIL</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+    <kpi name="DENOM_CELL_AVAIL">
+    <formula>LCELAVR_ext.DENOM_CELL_AVAIL</formula>
+    <kpi_info>
+      <title>DENOM_CELL_AVAILL</title>
+      <use>Sum of the weighted Cell availability
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM((1 - LCELAV.SAMPLES_CELL_UNPLAN_UNAVAIL/ NULLIF(LCELAV.DENOM_CELL_AVAIL))*LEPSB.EPS_BEARER_SETUP_COMPLETIONS)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DENOM_CELL_AVAIL</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+    <kpi name="EPS_BEARER_SETUP_COMPLETIONS">
+    <formula>LCELAVR_ext.EPS_BEARER_SETUP_COMPLETIONS</formula>
+    <kpi_info>
+      <title>EPS_BEARER_SETUP_COMPLETIONS</title>
+      <use>Sum of the weighted Cell availability
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM((1 - LCELAV.SAMPLES_CELL_UNPLAN_UNAVAIL/ NULLIF(LCELAV.DENOM_CELL_AVAIL))*LEPSB.EPS_BEARER_SETUP_COMPLETIONS)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_BEARER_SETUP_COMPLETIONS</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  
+      <kpi name="CELL_COUNT">
+    <formula>LCELAVR_ext.CELL_COUNT</formula>
+    <kpi_info>
+      <title>CELL_COUNT</title>
+      <use>Sum of the weighted Cell availability
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>CELL_COUNT</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELL_COUNT</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  
+        <kpi name="WEIGHTED_CELL_AV">
+    <formula>100*LCELAVR_ext.SUM_WEIGHTED_CELL_AVAIL/NULLIF(LCELAVR_ext.EPS_BEARER_SETUP_COMPLETIONS,0)</formula>
+    <kpi_info>
+      <title>WEIGHTED_CELL_AV</title>
+      <use>Sum of the weighted Cell availability
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM((1 - LCELAV.SAMPLES_CELL_UNPLAN_UNAVAIL/ NULLIF(LCELAV.DENOM_CELL_AVAIL))*LEPSB.EPS_BEARER_SETUP_COMPLETIONS)/SUM(LEPSB.EPS_BEARER_SETUP_COMPLETIONS)</formula>
+      <unit>%</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WEIGHTED_CELL_AV</kpi_alias>
+    <kpi_format>float:5</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  
+    <kpi name="LTE_5752a_inv">
+    <formula>100*decode(
+			(LCELAVR_ext.denom_cell_avail),0,null, 
+			1-
+			(LCELAVR_ext.samples_cell_unplan_unavail)
+			 / 
+			(LCELAVR_ext.denom_cell_avail))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Unplanned Cell av Ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of services in a cell being unplanned 
+unavailable for end-users. ]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SAMPLES_CELL_UNPLAN_UNAVAIL) / 
+sum(DENOM_CELL_AVAIL)*100</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELAV_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.129 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:5</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Cell unplan avail</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+    <kpi name="LTE_5750a">
+    <formula>100*decode(
+			(LCELAVR_ext.denom_cell_avail),0,null, 
+
+			(LCELAVR_ext.samples_cell_avail)
+			 / 
+			(LCELAVR_ext.denom_cell_avail))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Cell Availability Ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of services in a cell being available
+for end-users.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(SAMPLES_CELL_AVAIL)/sum(DENOM_CELL_AVAIL)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELAV_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.129 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:5</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Cell Avail</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="LTE_5239a">
+    <formula>100*decode(
+			(LCELAVR_ext.denom_cell_avail - 
+			LCELAVR_ext.samples_cell_plan_unavail),0,null, 
+
+			(LCELAVR_ext.samples_cell_avail)
+			 / 
+			(LCELAVR_ext.denom_cell_avail - 
+			LCELAVR_ext.samples_cell_plan_unavail))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Cell Availability, excluding blocked by user state (BLU)]]></title>
+      <use><![CDATA[This KPI shows Cell Availability, excluding blocked by user
+state (BLU)" that gives the percent of available time over time
+that should be available.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(SAMPLES_CELL_AVAIL)/sum(DENOM_CELL_AVAIL-SAMPLES_CELL_PLAN_UNAVAIL)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELAV_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.144 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:5</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Cell Avail excl BLU</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

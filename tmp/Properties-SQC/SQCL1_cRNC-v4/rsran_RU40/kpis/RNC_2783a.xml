@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_2783a">
+    <formula>decode(
+				(celltp.period_duration
+				*
+				(servlev.avg_rab_hld_tm_cs_voice + 
+				servlev.rab_hold_time_cs_conv_64 * 64 / 12.2 + 
+				servlev.rab_hold_time_cs_stream_14_4 * 14.4 / 12.2 + 
+				servlev.rab_hold_time_cs_stream_57_6 * 57.6 / 12.2)),0,null,
+
+				(celltp.cs_dch_dl_data_vol * 8 / 1000)
+				/ 
+				(celltp.period_duration
+				*
+				(servlev.avg_rab_hld_tm_cs_voice + 
+				servlev.rab_hold_time_cs_conv_64 * 64 / 12.2 + 
+				servlev.rab_hold_time_cs_stream_14_4 * 14.4 / 12.2 + 
+				servlev.rab_hold_time_cs_stream_57_6 * 57.6 / 12.2))
+				* 
+				(60*100*60)
+					)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[CS Voice DL Average throughput]]></title>
+      <use><![CDATA[CS Voice DL Average throughput]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(CS_DCH_DL_DATA_VOL * 8 / 1000)
+&lt;br&gt;/
+&lt;br&gt;sum(period_duration * ((AVG_RAB_HLD_TM_CS_VOICE +
+&lt;br&gt;RAB_HOLD_TIME_CS_CONV_64 * 64 / 12.2 +
+&lt;br&gt;RAB_HOLD_TIME_CS_STREAM_14_4 * 14.4 / 12.2 +
+&lt;br&gt;RAB_HOLD_TIME_CS_STREAM_57_6 * 57.6 / 12.2)) /
+&lt;br&gt;(60*100*60))</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg},nokrww_ps_CELLTP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:35.955 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg thp serv CS Voice DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

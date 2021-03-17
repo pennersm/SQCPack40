@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LL2SWI (LTE L2 Switch Statistics)</header>
+    <csv_title>LL2SWI (LTE L2 Switch Statistics)</csv_title>
+    <report-description>LTE Layer 2 Switch statistics measurement (M51131) contains PM counters to measure total numbers of received and transmitted octets and packets across the layer 2 switch.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ethIfOutDiscShaping />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LL2SWI" meas_level="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-L2SWI" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LL2SWI</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="ethIfOutDiscShaping" symmetrical="true">SUM(ethIfOutDiscShaping)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_ll2swi_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LL2SWI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LL2SWI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ll2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ethIfOutDiscShaping">
+    <formula>LL2SWI.ethIfOutDiscShaping</formula>
+    <kpi_info>
+      <title>ethIfOutDiscShaping</title>
+      <use>Number of transport frames/packets discarded due to egress shaping (Buffer overflow).
+ UPDATED: The counter is incremented every second by the number of Ethernet packets to be transmitted that were discarded due to egress shaping (Buffer overflow).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ethIfOutDiscShaping)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_ll2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ethIfOutDiscShaping (M51131C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LL2SWI.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ll2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

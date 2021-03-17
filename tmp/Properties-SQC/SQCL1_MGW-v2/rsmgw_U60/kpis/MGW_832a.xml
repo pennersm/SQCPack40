@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/ANNMEAS.xml" />
+  <kpi name="MGW_832a">
+    <formula>decode(
+			(annmeas.signal_list_request),0,null, 
+
+			(100*(annmeas.signal_list_error_stop)
+			 / 
+			(annmeas.signal_list_request)))</formula>
+    <kpi_info>
+      <title><![CDATA[Signal List error stopped requests ratio]]></title>
+      <use><![CDATA[The ratio of Signal List error stopped requests  of all Signal List requests]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum( SIGNAL_LIST_ERROR_STOP)/ sum(SIGNAL_LIST_REQUEST )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_annmeas_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Signal List error stopped requests ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

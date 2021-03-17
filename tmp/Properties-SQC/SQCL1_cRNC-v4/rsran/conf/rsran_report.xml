@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf>
+
+<!-- #################################RNC Levels#################################### -->
+  <report pragma="default">
+    <default-obj-drill-column>RNC name</default-obj-drill-column>
+    <column-to-hide>RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <charts-processor>PLMN NAME</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.rnc_gid = rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+	<!--EX: <report-level id="report_level" add-on-sort="sort_columns" column-to-hide="columns_to_hide" obj-drill-column="column_to_drill" -->
+    <report-level id="PLMN/RNC" />
+    <report-level id="PLMN/RNC/IMAGR" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/CID" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/PHYTTP" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/GRP" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/ROUTE" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/AGPSIF" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/DSPP" add-on-sort="2,1,3,4,5"/>
+	<report-level id="PLMN/RNC/DSPP1" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/SERVT" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/SAS" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/BUND" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/UPTYPE" add-on-sort="2,1,3,4,5"/>
+    <report-level id="PLMN/RNC/FPNODE" add-on-sort="2,1,3,4,5" obj-drill-column="fpnode_id"/>
+    <report-level id="PLMN/RNC/FPNODE/FPIFC" add-on-sort="2,1,3,4,5,6" />
+    <report-level id="PLMN/RNC/FPNODE/FPCPU" add-on-sort="2,1,3,4,5,6"/>
+	<report-level id="PLMN/RNC/FPNODE/FPCPU1" add-on-sort="2,1,3,4,5,6"/>
+    <report-level id="PLMN/RNC/SNET_RAN" add-on-sort="2,1,3,4,5" obj-drill-column="snet_id"/>
+    <report-level id="PLMN/RNC/TR" add-on-sort="2,1,3,4,5" obj-drill-column="tr_id"/>
+    <report-level id="PLMN/RNC/TR/TRSUB" add-on-sort="2,1,3,4,5,6" obj-drill-column="trsub_id"/>
+    <report-level id="PLMN/RNC/TR/TRSUB/THP" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="thp_id"/>
+    <report-level id="PLMN/RNC/TR/TRSUB/THP/RABDL" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="rabdl_id"/>
+    <report-level id="PLMN/RNC/IPROU" add-on-sort="2,1,3,4,5" obj-drill-column="iprou_id"/>
+    <report-level id="PLMN/RNC/RMSC" add-on-sort="2,1,3,4,5" obj-drill-column="rmsc_id"/>
+    <report-level id="PLMN/RNC/RMSC/RSGS" add-on-sort="2,1,3,4,5,6" obj-drill-column="rsgs_id"/>
+    <report-level id="PLMN/RNC/RRNC/RMSC/RSGS" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="rsgs_id"/>
+    <report-level id="PLMN/RNC/HOT/RMSC/RSGS" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="rsgs_id"/>
+    <report-level id="PLMN/RNC/RRNC" add-on-sort="2,1,3,4,5" obj-drill-column="rrnc_id"/>
+    <report-level id="PLMN/RNC/RMSC" add-on-sort="2,1,3,4,5" obj-drill-column="rmsc_id"/>
+    <report-level id="PLMN/RNC/RRNC/RMSC" add-on-sort="2,1,3,4,5,6" obj-drill-column="rmsc_id"/>
+    <report-level id="PLMN/RNC/HOT/RMSC" add-on-sort="2,1,3,4,5" obj-drill-column="rmsc_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/IPIF" add-on-sort="2,1,3,4,5,6" obj-drill-column="ipif_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/IPIF/PHB" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="phb_id"/>
+    <report-level id="PLMN/RNC/ASSNAME_RAN/ASSIND_RAN" add-on-sort="2,1,3,4,5,6" obj-drill-column="assind_id"/>
+    <report-level id="PLMN/RNC/ASSNAME_RAN" add-on-sort="2,1,3,4,5" obj-drill-column="assname_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SIO_RAN/OPC_RAN/DSPC_RAN" add-on-sort="2,1,3,4,5,6,7,8" obj-drill-column="dspc_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SIO_RAN/OPC_RAN" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="opc_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SIO_RAN" add-on-sort="2,1,3,4,5,6" obj-drill-column="sio_id"/>
+    <report-level id="PLMN/RNC/SLN_RAN/SLT/SNET_RAN/SPCD_RAN" add-on-sort="2,1,3,4,5,6,7,8" obj-drill-column="spcd_id"/>
+    <report-level id="PLMN/RNC/SLN_RAN/SLT/SNET_RAN/SPCD_RAN/SLSN_RAN" add-on-sort="2,1,3,4,5,6,7,8,9" obj-drill-column="slsn_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SPCD_RAN" add-on-sort="2,1,3,4,5,6" obj-drill-column="spcd_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SPCD_RAN/SLSN_RAN" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="slsn_id"/>
+    <report-level id="PLMN/RNC/SLN_RAN/SLT/SNET_RAN" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="snet_id"/>
+    <report-level id="PLMN/RNC/SLN_RAN/SLT" add-on-sort="2,1,3,4,5,6" obj-drill-column="slt_id"/>
+    <report-level id="PLMN/RNC/SLN_RAN" add-on-sort="2,1,3,4,5" obj-drill-column="sln_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SSN_RAN/SS_RAN" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="ss_id"/>
+    <report-level id="PLMN/RNC/SNET_RAN/SSN_RAN" add-on-sort="2,1,3,4,5,6" obj-drill-column="ssn_id"/>
+    <report-level id="PLMN/RNC/TR/TRSUB/THP/RABDL/RABUL/RBDL/RBUL" add-on-sort="2,1,3,4,5,6,7,8,9,10,11" obj-drill-column="rbul_id"/>
+    <report-level id="PLMN/RNC/TR/TRSUB/THP/RABDL/RABUL/RBDL" add-on-sort="2,1,3,4,5,6,7,8,9,10" obj-drill-column="rbdl_id"/>
+    <report-level id="PLMN/RNC/TR/TRSUB/THP/RABDL/RABUL" add-on-sort="2,1,3,4,5,6,7,8,9" obj-drill-column="rabul_id"/> 
+    <report-level id="PLMN/RNC/IF/VPI/VCI" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="vci_id"/>
+    <report-level id="PLMN/RNC/IF/VPI" add-on-sort="2,1,3,4,5,6" obj-drill-column="vpi_id"/>
+    <report-level id="PLMN/RNC/IF" add-on-sort="2,1,3,4,5" obj-drill-column="if_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID" add-on-sort="2,1,3,4,5,6" obj-drill-column="unitid_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/WAC" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="wac_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID1" add-on-sort="2,1,3,4,5,6" obj-drill-column="unitid_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/ETHIF" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="ethif_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/IPIF" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="ipif_id"/>
+    <report-level id="PLMN/RNC/SP" add-on-sort="2,1,3,4,5" obj-drill-column="sp_id"/>
+    <report-level id="PLMN/RNC/SP/NET" add-on-sort="2,1,3,4,5,6" obj-drill-column="net_id"/>
+    <report-level id="PLMN/RNC/NETC" add-on-sort="2,1,3,4,5" obj-drill-column="netc_id"/>
+    <report-level id="PLMN/RNC/NETC/SPC" add-on-sort="2,1,3,4,5,6" obj-drill-column="spc_id"/>
+    <report-level id="PLMN/RNC/UTYPE" add-on-sort="2,1,3,4,5" obj-drill-column="utype_id"/>
+    <report-level id="PLMN/RNC/HOS" add-on-sort="2,1,3,4,5" obj-drill-column="hos_id"/>
+    <report-level id="PLMN/RNC/HOS/SCID" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="scid_id"/>
+    <report-level id="PLMN/RNC/HOS/SCID/MCC" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="fpnode_id"/>
+    <report-level id="PLMN/RNC/RMSC/RSGS/MCC1" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="mcc_id"/>
+    <report-level id="PLMN/RNC/RMSC/RSGS/MCC1/MNC1" add-on-sort="2,1,3,4,5,6,7,8" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/RRNC/MCC1/MNC1" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/RRNC/MCC1" add-on-sort="2,1,3,4,5,6" obj-drill-column="mcc_id"/>
+    <report-level id="PLMN/RNC/RRNC/RMSC/RSGS/MCC1/MNC1" add-on-sort="2,1,3,4,5,6,7,8,9" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/RRNC/RMSC/RSGS/MCC1" add-on-sort="2,1,3,4,5,6,7,8" obj-drill-column="mcc_id"/>
+    <report-level id="PLMN/RNC/HOT/RMSC/RSGS/MCC1/MNC1" add-on-sort="2,1,3,4,5,6,7,8,9" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/HOS/SCID/MCC/MNC/SCR" add-on-sort="2,1,3,4,5,6,7,8,9" obj-drill-column="scr_id"/>
+    <report-level id="PLMN/RNC/HOS/SCID/MCC/MNC" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/HOT/RMSC/RSGS/MCC1" add-on-sort="2,1,3,4,5,6,7,8" obj-drill-column="mcc_id"/>
+    <report-level id="PLMN/RNC/HOT/MCC1/MNC1" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/HOT/MCC1" add-on-sort="2,1,3,4,5,6" obj-drill-column="mcc_id"/>
+    <report-level id="PLMN/RNC/HOT" add-on-sort="2,1,3,4,5" obj-drill-column="hot_id"/>
+	<report-level id="PLMN/RNC/DSCP_1" add-on-sort="2,1,3,4,5" obj-drill-column="dscp_id"/>
+	<report-level id="PLMN/RNC/TWSES" add-on-sort="2,1,3,4,5" obj-drill-column="twses_id"/>
+	<report-level id="PLMN/RNC/TWSES/SRCIP" add-on-sort="2,1,3,4,5,6" obj-drill-column="srcip_id"/>
+	<report-level id="PLMN/RNC/TWSES/SRCIP/DSTIP" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="dstip_id"/>
+	<report-level id="PLMN/RNC/TWSES/SRCIP/DSTIP/DSTPOR" add-on-sort="2,1,3,4,5,6,7,8" obj-drill-column="dstpor_id"/>
+	<report-level id="PLMN/RNC/TWSES/SRCIP/DSTIP/DSTPOR/DSCP" add-on-sort="2,1,3,4,5,6,7,8,9" obj-drill-column="dscp_id"/>
+	<report-level id="PLMN/RNC/TWSES/SRCIP/DSTIP/DSTPOR/DSCP/PKTLEN" add-on-sort="2,1,3,4,5,6,7,8,9,10" obj-drill-column="pktlen_id"/>
+  </report>
+<!-- ################################################################################ -->  
+<!-- #################################WBTS Levels#################################### -->
+  <report pragma="default">
+    <default-obj-drill-column>WBTS name</default-obj-drill-column>
+    <column-to-hide>WBTS_GID,RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <charts-processor ignore="wbts_gid=0" remove-keys-selection="rnc_gid" full-hierarchy-selection="false">PLMN NAME,RNC NAME,WBTS ID</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				(select co_name,co_gid, co_parent_gid, co_oc_id,co_mr_gid,co_object_instance from utp_common_objects where co_oc_id=812 union (select 'Anchored WBTS', 0 co_gid,co_gid co_parent_gid, #rh_old_parent_anch# 812 co_oc_id,-1,'---' from utp_common_objects where co_oc_id=811) ) wbts
+				#tmp_meas_tables#
+			where
+				#if# !@withRehoming
+					wbts.co_parent_gid = rnc.co_gid and
+				#fi#
+				rnc.co_parent_gid = plmn.co_gid and
+				#if# @withRehoming
+					(#first_tmp_table#.wbts_gid != 0 or (#first_tmp_table#.wbts_gid=0 and rnc.co_gid = wbts.co_parent_gid)) and
+				#fi#
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				#first_tmp_table#.wbts_gid = wbts.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS" />
+    <report-level id="PLMN/RNC/WBTS/LCG" add-on-sort="2,1,3,4,5,8" obj-drill-column="lcg_id"/>
+    <report-level id="PLMN/RNC/WBTS/HWUNIT" add-on-sort="2,1,3,4,5,8" obj-drill-column="hwunit_id"/>
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>WBTS name</default-obj-drill-column>
+    <column-to-hide>WBTS_GID,RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <charts-processor remove-keys-selection="rnc_gid" full-hierarchy-selection="false">PLMN NAME,RNC NAME,WBTS ID</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#if# !@withRehoming
+					wbts.co_parent_gid = rnc.co_gid and
+				#fi#
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				#first_tmp_table#.wbts_gid = wbts.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+	<report-level id="PLMN/RNC/WBTS/FTM/PWNE/PWMP" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="pwmp_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/PWNE" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="pwne_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/PWNE/PWTIP" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="pwtip_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/VPTT" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="vptt_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/VPTT/VCCT" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="vcct_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/TCTT" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="tctt_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/TCTT/VPCT" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="vpct_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/IEIF/IVIF/IPPM1" add-on-sort="2,1,3,4,5,8,9,10,11,12" obj-drill-column="ippm_id"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/IPNO/IEIF/IVIF/PHBPM1" add-on-sort="2,1,3,4,5,8,9,10,11,12" obj-drill-column="phbpm_id"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/IPNO/IEIF/IVIF" add-on-sort="2,1,3,4,5,8,9,10,11" obj-drill-column="ivif_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/IEIF/IPPM" add-on-sort="2,1,3,4,5,8,9,10,11" obj-drill-column="ippm_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/IEIF/PHBPM" add-on-sort="2,1,3,4,5,8,9,10,11" obj-drill-column="phbpm_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/IEIF" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="ieif_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="ipno_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/TOPIK" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="topik_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/TWAMP1" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="twamp_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPNO/IPRM" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="iprm_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/TOPB" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="topb_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/TOPB/TOPF" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="topf_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/RSTP" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="rstp_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/RSTP/STPORT" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="stport_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/A2NE/A2ST/A2UT" add-on-sort="2,1,3,4,5,8,9,10,11" obj-drill-column="a2ut_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/A2NE/A2ST" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="a2st_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/A2NE" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="a2ne_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/CESIF/CESPWT/CESPW" add-on-sort="2,1,3,4,5,8,9,10,11" obj-drill-column="cespw_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/CESIF/CESPWT" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="cespwt_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM" add-on-sort="2,1,3,4,5,8" obj-drill-column="ftm_id"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/PPTT" add-on-sort="2,1,3,4,5,8,9"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/SVTT" add-on-sort="2,1,3,4,5,8,9"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/ETHLK" add-on-sort="2,1,3,4,5,8,9"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/CESIF" add-on-sort="2,1,3,4,5,8,9"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/IPSECC" add-on-sort="2,1,3,4,5,8,9"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/IPSECC/SPPM" add-on-sort="2,1,3,4,5,8,9,10"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/P3SL" add-on-sort="2,1,3,4,5,8,9"/>
+    <report-level id="PLMN/RNC/WBTS/FTM/P3ML" add-on-sort="2,1,3,4,5,8,9"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/P3ML/IPPM4" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="ippm_id"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/P3ML/PHBPM4" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="phbpm_id"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/P3SL/IPPM5" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="ippm_id"/>
+	<report-level id="PLMN/RNC/WBTS/FTM/P3SL/PHBPM5" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="phbpm_id"/>	
+    <report-level id="PLMN/RNC/WBTS/FTM/L2SWI" add-on-sort="2,1,3,4,5,8,9"/>
+    <report-level id="PLMN/RNC/WBTS/S3ST/SVPI_3" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="svpi_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3ST/SVPI_3/SVCI_3" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="svci_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3ST" add-on-sort="2,1,3,4,5,8" obj-drill-column="s3st_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3IM/SVPI_2" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="svpi_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3IM/SVPI_2/SVCI_2" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="svci_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3IM" add-on-sort="2,1,3,4,5,8" obj-drill-column="s3im_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3J1/SVPI_1" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="svpi_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3J1/SVPI_1/SVCI_1" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="svci_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3J1" add-on-sort="2,1,3,4,5,8" obj-drill-column="s3j1_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3E1/SVPI" add-on-sort="2,1,3,4,5,8,9" obj-drill-column="svpi_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3E1/SVPI/SVCI" add-on-sort="2,1,3,4,5,8,9,10" obj-drill-column="svci_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3E1" add-on-sort="2,1,3,4,5,8" obj-drill-column="s3e1_id"/>
+    <report-level id="PLMN/RNC/WBTS/S3CE" add-on-sort="2,1,3,4,5,8" obj-drill-column="s3ce_id"/>
+  </report>
+<!-- ################################################################################ -->  
+<!-- ##################################AXC Levels#################################### --> 
+  <report pragma="default">
+    <default-obj-drill-column>AXC name</default-obj-drill-column>
+    <column-to-hide>AXC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <charts-processor>PLMN NAME,RNC NAME,WBTS NAME,WBTS ID</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				nvl(axc.co_name, 'NN('||axc.co_gid||')')"AXC name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				utp_common_objects axc
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				axc.co_oc_id=804 and
+				wbts.co_parent_gid = rnc.co_gid and
+				axc.co_parent_gid = wbts.co_gid and
+				#first_tmp_table#.axc_gid = axc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/AXC" />
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1/IEIF1/PHBPM2" add-on-sort="2,1,3,4,5,6,8,9,10" obj-drill-column="phbpm_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1/IEIF1/IVIF1" add-on-sort="2,1,3,4,5,6,8,9,10" obj-drill-column="ivif_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1/IEIF1/IVIF1/IPPM3" add-on-sort="2,1,3,4,5,6,8,9,10,11" obj-drill-column="ippm_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1/IEIF1/IVIF1/PHBPM3" add-on-sort="2,1,3,4,5,6,8,9,10,11" obj-drill-column="phbpm_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/A2NE1/A2ST1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="a2st_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/A2NE1/A2ST1/A2UT1" add-on-sort="2,1,3,4,5,6,8,9,10" obj-drill-column="a2ut_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1/IEIF1/IPPM2" add-on-sort="2,1,3,4,5,6,8,9,10" obj-drill-column="ippm_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1/IEIF1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="ieif_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/A2NE1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="a2ne_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPSECC3" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="ipsecc3_id"/>
+	<report-level id="PLMN/RNC/WBTS/AXC/IPNO1/TOPIK1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="topik_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IPNO1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="ipno_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/PWNE1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="pwne_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/PWNE1/PWMP1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="pwmp_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/PWNE1/PWTIP1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="pwtip_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/ETHLK1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="ethlk_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/CCFA1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="ccfa_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/IMAG1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="imag_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/SVTT1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="svtt_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/PPTT1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="pptt_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/TCTT1/VPCT1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="vpct_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/TCTT1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="tctt_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/VPTT1/VCCT1" add-on-sort="2,1,3,4,5,6,8,9" obj-drill-column="vcct_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/VPTT1" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="vptt_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/L2SWI" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="L2SWI_id"/>
+    <report-level id="PLMN/RNC/WBTS/AXC/TWAMP" add-on-sort="2,1,3,4,5,6,8" obj-drill-column="TWAMP_id"/> />
+  </report>
+<!-- ################################################################################ -->  
+<!-- ##################################WCEL Levels################################### -->   
+<!--  <report pragma="default">-->
+<!--    <default-obj-drill-column>ethlk_id</default-obj-drill-column>-->
+<!--    <column-to-hide>AXC_GID</column-to-hide>-->
+<!--    <default-add-on-sort>2,1,3</default-add-on-sort>-->
+<!--    <sql-kpi><![CDATA[select-->
+<!--				#time#,-->
+<!--				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",-->
+<!--				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",-->
+<!--				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",-->
+<!--				wbts.co_object_instance "WBTS ID",-->
+<!--				nvl(axc.co_name, 'NN('||axc.co_gid||')')"AXC name",-->
+<!--				#keys#,-->
+<!--				#kpis#-->
+<!--			from-->
+<!--				utp_common_objects plmn,-->
+<!--				utp_common_objects rnc,-->
+<!--				utp_common_objects wbts,-->
+<!--				utp_common_objects axc-->
+<!--				#tmp_meas_tables#-->
+<!--			where-->
+<!--				rnc.co_parent_gid = plmn.co_gid and-->
+<!--				wbts.co_parent_gid = rnc.co_gid and-->
+<!--				axc.co_parent_gid = wbts.co_gid and-->
+<!--				#first_tmp_table#.axc_gid = axc.co_gid-->
+<!--				#tmp_table_joins#-->
+<!--				#add_on_criteria#-->
+<!--				order by-->
+<!--				#add_on_sort#-->
+<!--    ]]></sql-kpi>-->
+<!--    <report-level id="PLMN/RNC/WBTS/AXC/ETHLK1" />-->
+<!--    <report-level id="PLMN/RNC/WBTS/AXC/L2SWI" />-->
+<!--    <report-level id="PLMN/RNC/WBTS/AXC/TWAMP" />-->
+<!--    -->
+<!--  </report>-->
+  <report pragma="default">
+    <default-obj-drill-column>WCEL name</default-obj-drill-column>
+    <column-to-hide>WCEL_GID,RNC_GID,WBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5,6,7</default-add-on-sort>
+    <charts-processor ignore="wbts_gid=0" remove-keys-selection="rnc_gid,wbts_gid" full-hierarchy-selection="false">PLMN NAME,RNC NAME,WBTS ID,WBTS NAME,WCEL ID</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				nvl(wcel.co_name, 'NN('||wcel.co_gid||')')"WCEL name",
+				wcel.co_object_instance "WCEL ID",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				(select co_name,co_gid, co_parent_gid, co_oc_id,co_mr_gid,co_object_instance from utp_common_objects where co_oc_id=812 union (select 'Anchored WBTS',0 co_gid,co_gid co_parent_gid ,#rh_old_parent_anch# 812 co_oc_id,-1,'---' from utp_common_objects where co_oc_id=811) ) wbts,
+				(select co_name,co_parent_gid, co_gid,co_oc_id,co_mr_gid,co_object_instance from utp_common_objects where co_oc_id=813 union (select 'Anchored WCEL' co_name,0 co_parent_gid, 0 co_gid,#rh_old_parent_anch# 813 co_oc_id,-1,'---' from dual)) wcel
+				#tmp_meas_tables#
+			where
+				
+
+				rnc.co_parent_gid = plmn.co_gid and
+				#if# !@withRehoming
+					wbts.co_parent_gid = rnc.co_gid and
+					wcel.co_parent_gid = wbts.co_gid and
+				#fi#
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				wcel.co_oc_id=813 and
+				#if# @withRehoming
+				(#first_tmp_table#.wbts_gid != 0 or (#first_tmp_table#.wbts_gid=0 and rnc.co_gid = wbts.co_parent_gid)) and
+				(#first_tmp_table#.wcel_gid != 0 or (#first_tmp_table#.wcel_gid=0 and wbts.co_gid = wcel.co_parent_gid)) and				
+				#fi#
+				#first_tmp_table#.wcel_gid = wcel.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid and
+				#first_tmp_table#.wbts_gid=wbts.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/WCEL" />
+    <report-level id="PLMN/RNC/WBTS/WCEL/OPERID" />
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR" add-on-sort="2,1,3,4,5,6,7,11,12,13"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC" add-on-sort="2,1,3,4,5,6,7,11,12" obj-drill-column="mnc_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC" add-on-sort="2,1,3,4,5,6,7,11" obj-drill-column="mcc_id"/>
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>trsub_id</default-obj-drill-column>
+    <column-to-hide>WCEL_GID,RNC_GID,WBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5,6,7</default-add-on-sort>
+    <charts-processor remove-keys-selection="rnc_gid,wbts_gid" full-hierarchy-selection="false">PLMN NAME,RNC NAME,WBTS ID,WBTS NAME,WCEL ID</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				nvl(wcel.co_name, 'NN('||wcel.co_gid||')')"WCEL name",
+				wcel.co_object_instance "WCEL ID",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				utp_common_objects wcel
+
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#if# !@withRehoming
+				wbts.co_parent_gid = rnc.co_gid and
+				wcel.co_parent_gid = wbts.co_gid and
+				#fi#
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				wcel.co_oc_id=813 and
+				#first_tmp_table#.wcel_gid = wcel.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid and
+				#first_tmp_table#.wbts_gid=wbts.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi> 
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/CHTYP" add-on-sort="2,1,3,4,5,6,7,11,12,13,14,15" obj-drill-column="chtyp_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP/RABDL/RABUL/RBDL/RBUL" add-on-sort="2,1,3,4,5,6,7,11,12,13,14,15,16,17,18,19" obj-drill-column="rbul_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP/RABDL/RABUL/RBDL/RBUL/SDUBER" add-on-sort="2,1,3,4,5,6,7,11,12,13,14,15,16,17,18,19,20" obj-drill-column="sduber_error_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP/RABDL/RABUL/RBDL" add-on-sort="22,1,3,4,5,6,7,11,12,13,14,15,16,17,18" obj-drill-column="rbdl_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP/RABDL/RABUL" add-on-sort="2,1,3,4,5,6,7,11,12,13,14,15,16,17" obj-drill-column="rabul_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP/RABDL" add-on-sort="2,1,3,4,5,6,7,11,12,13,14,15,16" obj-drill-column="rabdl_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP" add-on-sort="2,1,3,4,5,6,7,11,12,13,14,15" obj-drill-column="thp_id"/>
+    <report-level id="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB" add-on-sort="2,1,3,4,5,6,7,11,12,13,14" obj-drill-column="trsub_id"/>
+  </report>
+<!-- ################################################################################ -->  
+<!-- #################################Custom Levels################################## -->
+
+  <report pragma="default">
+    <default-obj-drill-column>RNC name</default-obj-drill-column>
+    <column-to-hide>RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <charts-processor>PLMN NAME</charts-processor>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				decode(#first_tmp_table#.utype_id,'2','OMU','268','MXU','271','NIS1P','284','NPGE','285','NPGEP','286','NPS1','287','NPS1P','301','NIU','324','A2SP','325','NIP1','326','NIS1','327','RSMU','329','ICSU','330','GTPU','331','DMPG','337','SFU','1484','A2SU','1485','SET','1486','PET','1488','DMCU',#first_tmp_table#.utype_id) "Unit Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.rnc_gid = rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+	<report-level id="PLMN/RNC/UTYPE" add-on-sort="2,1,3,4,5" obj-drill-column="utype_id"/>
+	<report-level id="PLMN/RNC/UTYPE/UNITID/IPIF" add-on-sort="2,1,3,4,5,6" obj-drill-column="ipif_id"/>
+	<report-level id="PLMN/RNC/UTYPE/UNITID/IPIF/PHB" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="phb_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID" add-on-sort="2,1,3,4,5,6" obj-drill-column="unitid_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/WAC" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="wac_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID1" add-on-sort="2,1,3,4,5,6" obj-drill-column="unitid_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/ETHIF" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="ethif_id"/>
+    <report-level id="PLMN/RNC/UTYPE/UNITID/IPIF" add-on-sort="2,1,3,4,5,6,7" obj-drill-column="ipif_id"/>
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>rwb_id</default-obj-drill-column>
+    <column-to-hide>RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')') "RWBTS name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts
+				#tmp_meas_tables#
+			where
+				plmn.co_oc_id=16 and rnc.co_oc_id=811 AND wbts.co_oc_id=812 AND
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid= rnc.co_gid and
+				#first_tmp_table#.rwb_id=wbts.co_object_instance and
+				#first_tmp_table#.rnc_gid = rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				UNION ALL
+					select #time#,
+						nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+						nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+						'not_known' "RWBTS name",
+						#keys#,
+						#kpis#
+					FROM
+						utp_common_objects plmn,
+						utp_common_objects rnc
+						#tmp_meas_tables#
+					WHERE
+						plmn.co_oc_id=16 and rnc.co_oc_id=811 and
+						rnc.co_parent_gid = plmn.co_gid and
+						rnc.co_gid=#first_tmp_table#.rnc_gid and
+						#first_tmp_table#.rwb_id = 'not_known'
+						#tmp_table_joins#
+						#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/IF/VPI/VCI/RWB" />
+    <report-level id="PLMN/RNC/IF/VPI/VCI/RWB/ALU" />
+    <report-level id="PLMN/RNC/IPROU/RWB" />
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>rwb_id</default-obj-drill-column>
+    <column-to-hide>RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')') "RWBTS name",
+				#keys#,
+				#first_tmp_table#.intface "Interface",
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts
+				#tmp_meas_tables#
+			where
+				plmn.co_oc_id=16 and rnc.co_oc_id=811 AND wbts.co_oc_id=812 AND
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid= rnc.co_gid and
+				#first_tmp_table#.rwb_id=wbts.co_object_instance and
+				#first_tmp_table#.rnc_gid = rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				UNION ALL
+					select #time#,
+						nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+						nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+						'not_known' "RWBTS name",
+						#keys#,
+						#first_tmp_table#.intface "Interface",
+						#kpis#
+					FROM
+						utp_common_objects plmn,
+						utp_common_objects rnc
+						#tmp_meas_tables#
+					WHERE
+						plmn.co_oc_id=16 and rnc.co_oc_id=811 and
+						rnc.co_parent_gid = plmn.co_gid and
+						rnc.co_gid=#first_tmp_table#.rnc_gid and
+						#first_tmp_table#.rwb_id = 'not_known'
+						#tmp_table_joins#
+						#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+				<report-level id="PLMN/RNC/IPROU/RWB099" />
+    </report>
+    <report pragma="default">
+    <default-obj-drill-column>rwb_id</default-obj-drill-column>
+    <column-to-hide>RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')') "RWBTS name",
+				#keys#,
+				#first_tmp_table#.transport "Transport",
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts
+				#tmp_meas_tables#
+			where
+				plmn.co_oc_id=16 and rnc.co_oc_id=811 AND wbts.co_oc_id=812 AND
+				rnc.co_parent_gid = plmn.co_gid and
+				#if# !@withRehoming
+				wbts.co_parent_gid = rnc.co_gid and
+				#fi#
+				#first_tmp_table#.rwb_id=wbts.co_object_instance and
+				#first_tmp_table#.rnc_gid = rnc.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+				]]></sql-kpi>
+    <report-level id="PLMN/RNC/RWB" />
+  </report>  
+  <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>RNC_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.rnc_gid = rnc.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/ALRMSEV" />
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+    <column-to-hide>RNC_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.rnc_gid = rnc.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/ALRMSEV/ALRMTYPE" />
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>RNC_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')') "RNC name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.alarm "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alr) alrm
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.rnc_gid = rnc.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/ALRMSEV/ALRMTYPE/ALARM" />
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>WBTS_GID,RNC_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid = rnc.co_gid and
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				#first_tmp_table#.wbts_gid = wbts.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/ALRMSEV" />
+  </report>
+  
+    <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+    <column-to-hide>WBTS_GID,RNC_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid = rnc.co_gid and
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				#first_tmp_table#.wbts_gid = wbts.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/ALRMSEV/ALRMTYPE" />
+  </report>
+  
+    <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>WBTS_GID,RNC_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.alarm "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alr) alrm
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid = rnc.co_gid and
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811 and
+				wbts.co_oc_id=812 and
+				#first_tmp_table#.wbts_gid = wbts.co_gid and
+				#first_tmp_table#.rnc_gid=rnc.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/ALRMSEV/ALRMTYPE/ALARM" />
+  </report>
+    
+  <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>RNC_GID,WBTS_GID,WCEL_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				nvl(wcel.co_name, 'NN('||wcel.co_gid||')')"WCEL name",
+				sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				utp_common_objects wcel,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid = rnc.co_gid and
+				wcel.co_parent_gid = wbts.co_gid and
+				#first_tmp_table#.wcel_gid = wcel.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/WCEL/ALRMSEV" />
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+    <column-to-hide>RNC_GID,WBTS_GID,WCEL_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				nvl(wcel.co_name, 'NN('||wcel.co_gid||')')"WCEL name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				utp_common_objects wcel,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid = rnc.co_gid and
+				wcel.co_parent_gid = wbts.co_gid and
+				#first_tmp_table#.wcel_gid = wcel.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/WCEL/ALRMSEV/ALRMTYPE" />
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>RNC_GID,WBTS_GID,WCEL_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(rnc.co_name, 'NN('||rnc.co_gid||')')"RNC name",
+				nvl(wbts.co_name, 'NN('||wbts.co_gid||')')"WBTS name",
+				wbts.co_object_instance "WBTS ID",
+				nvl(wcel.co_name, 'NN('||wcel.co_gid||')')"WCEL name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.alarm "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				utp_common_objects wcel,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alr) alrm
+				#tmp_meas_tables#
+			where
+				rnc.co_parent_gid = plmn.co_gid and
+				wbts.co_parent_gid = rnc.co_gid and
+				wcel.co_parent_gid = wbts.co_gid and
+				#first_tmp_table#.wcel_gid = wcel.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/RNC/WBTS/WCEL/ALRMSEV/ALRMTYPE/ALARM" />
+  </report>
+  
+  <report pragma="default">
+	    <report-level id="PLMN/WS_RNC"/>
+	    <report-level id="PLMN/WS_WBTS"/>
+	    <report-level id="PLMN/WS_WCEL"/>
+	    <report-level id="PLMN/WS_AXC"/>
+	    <report-level id="PLMN/MR_RNC"/>
+	    <report-level id="PLMN/MR_WBTS"/>
+	    <report-level id="PLMN/MR_WCEL"/>
+	    <report-level id="PLMN/MR_AXC"/>
+	    <default-add-on-sort>2,1,3</default-add-on-sort>
+	    <sql-kpi><![CDATA[
+			select
+				#id_pivot#,
+				#kpis#
+			from
+				dual
+				#tmp_meas_tables#
+			where
+				1=1
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+		]]></sql-kpi>
+	</report>
+	<group name="PLMN/WS_AXC">
+	    <supports>
+	        <filter-level>AXC</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>WS_AXC</group-id-ref>
+
+	    <sql><![CDATA[
+	    	select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id
+	    		AND la_object_class=804
+		]]></sql>
+	</group>
+	<group name="PLMN/WS_RNC">
+	    <supports>
+	        <filter-level>RNC</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>WS_RNC</group-id-ref>
+
+	    <sql><![CDATA[
+	    	select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id
+	    		AND la_object_class=811
+		]]></sql>
+	</group>
+	<group name="PLMN/WS_WCEL">
+	    <supports>
+	        <filter-level>WCEL</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>WS_WCEL</group-id-ref>
+
+	    <sql><![CDATA[
+	    	select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg,
+				utp_legacy pleg,
+				utp_legacy gleg
+	    	where
+	    		w.int_id = leg.la_int_id
+	    		AND leg.la_object_class=813
+				AND leg.la_parent_int_id = pleg.la_int_id
+				AND	pleg.la_object_class=812
+				AND	pleg.la_parent_int_id = gleg.la_int_id
+				AND	gleg.la_object_class=811
+		]]></sql>
+	</group>
+	<group name="PLMN/WS_WBTS">
+	    <supports>
+			<filter-level>WBTS</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>WS_WBTS</group-id-ref>
+
+	    <sql><![CDATA[
+	    	select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg,
+				utp_legacy pleg
+	    	where
+	    		w.int_id = leg.la_int_id
+	    		AND leg.la_object_class=812
+				AND	leg.la_parent_int_id = pleg.la_int_id
+				AND	pleg.la_object_class=811
+		]]></sql>
+	</group>
+	<group name="PLMN/MR_RNC">
+	    <supports>
+	        <filter-level>RNC</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>MR_RNC</group-id-ref>
+	    <sql><![CDATA[
+			select
+			    decode(nvl(mr.co_name,'nn ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) mr,
+				o.co_gid ws_gid
+			from
+			    utp_common_objects mr,
+			    utp_common_objects o
+			where
+			    o.co_oc_id=811 and
+			    o.co_mr_gid=mr.co_gid and
+			    mr.co_oc_id=109 and
+			    mr.co_gid<>0 and
+			    mr.co_gid is not null
+		]]></sql>
+	</group>
+	<group name="PLMN/MR_WBTS">
+	    <supports>
+	        <filter-level>WBTS</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>MR_WBTS</group-id-ref>
+	    <sql><![CDATA[
+			select
+			    decode(nvl(mr.co_name,'nn ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) mr,
+				o.co_gid ws_gid
+			from
+			    utp_common_objects mr,
+			    utp_common_objects o
+			where
+			    o.co_oc_id=812 and
+			    o.co_mr_gid=mr.co_gid and
+			    mr.co_oc_id=109 and
+			    mr.co_gid<>0 and
+			    mr.co_gid is not null
+		]]></sql>
+	</group>
+	<group name="PLMN/MR_WCEL">
+	    <supports>
+	        <filter-level>WCEL</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>MR_WCEL</group-id-ref>
+	    <sql><![CDATA[
+			select
+			    decode(nvl(mr.co_name,'nn ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) mr,
+				o.co_gid ws_gid
+			from
+			    utp_common_objects mr,
+			    utp_common_objects o
+			where
+			    o.co_oc_id=813 and
+			    o.co_mr_gid=mr.co_gid and
+			    mr.co_oc_id=109 and
+			    mr.co_gid<>0 and
+			    mr.co_gid is not null
+		]]></sql>
+	</group>
+	<group name="PLMN/MR_AXC">
+	    <supports>
+	        <filter-level>AXC</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>MR_AXC</group-id-ref>
+	    <sql><![CDATA[
+			select
+			    decode(nvl(mr.co_name,'nn ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) mr,
+				o.co_gid ws_gid
+			from
+			    utp_common_objects mr,
+			    utp_common_objects o
+			where
+			    o.co_oc_id=804 and
+			    o.co_mr_gid=mr.co_gid and
+			    mr.co_oc_id=109 and
+			    mr.co_gid<>0 and
+			    mr.co_gid is not null
+		]]></sql>
+	</group>
+</object-conf>

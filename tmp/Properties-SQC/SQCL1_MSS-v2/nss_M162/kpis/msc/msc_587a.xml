@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/RESMSC.xml"/>
+  <kpi name="msc_587a">
+    <formula>100*decode(
+			resmsc.period_duration,0,null, 
+
+			resmsc.rest_disk_time_sec
+			 / 
+			(resmsc.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[Unit disconnected time ratio]]></title>
+      <use><![CDATA[Ratio of unit disconnected time]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      sum(REST_DISK_TIME_SEC)
+&lt;br&gt;100 * ---------------- 
+&lt;br&gt;      (period_duration*60)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_RESMSC_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_RESHLR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_RESSRR_{obj_agg}_{time_agg}
+&lt;br&gt;
+&lt;br&gt;BH counters from view(s):
+&lt;br&gt;RNS_PS_RESHLRBH_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_resmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Unit disconnected time ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

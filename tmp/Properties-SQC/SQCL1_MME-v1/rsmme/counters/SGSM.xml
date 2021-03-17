@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M55 SGSM measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M55 SGSM measurement dump</csv_title>
+    <report-description>SGsAP Measurement (SGSM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SGSAP_UPLINK_SUCC />
+    <SGSAP_UPLINK_FAIL />
+    <SGSAP_DOWNLINK_SUCC />
+    <SGSAP_DOWNLINK_FAIL />
+    <CSFB_PAGING_ATTEMPT />
+    <CSFB_PAGING_FAIL />
+  </column_order>
+  <temp_table name="SGSM" meas_level="PLMN/FLEXINS" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="SGSAP_UPLINK_SUCC" time-alias="SGSAP_UPLINK_SUCC" timeagg="SUM(SGSAP_UPLINK_SUCC)">SUM(SGSAP_UPLINK_SUCC)</counter>
+      <counter alias="SGSAP_UPLINK_FAIL" time-alias="SGSAP_UPLINK_FAIL" timeagg="SUM(SGSAP_UPLINK_FAIL)">SUM(SGSAP_UPLINK_FAIL)</counter>
+      <counter alias="SGSAP_DOWNLINK_SUCC" time-alias="SGSAP_DOWNLINK_SUCC" timeagg="SUM(SGSAP_DOWNLINK_SUCC)">SUM(SGSAP_DOWNLINK_SUCC)</counter>
+      <counter alias="SGSAP_DOWNLINK_FAIL" time-alias="SGSAP_DOWNLINK_FAIL" timeagg="SUM(SGSAP_DOWNLINK_FAIL)">SUM(SGSAP_DOWNLINK_FAIL)</counter>      
+      <counter alias="CSFB_PAGING_ATTEMPT" time-alias="CSFB_PAGING_ATTEMPT" timeagg="SUM(CSFB_PAGING_ATTEMPT)">SUM(CSFB_PAGING_ATTEMPT)</counter>
+      <counter alias="CSFB_PAGING_FAIL" time-alias="CSFB_PAGING_FAIL" timeagg="SUM(CSFB_PAGING_FAIL)">SUM(CSFB_PAGING_FAIL)</counter>
+    </counters>
+    <table_name>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SGSM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SGSM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSAP_UPLINK_SUCC">
+    <formula>SGSM.SGSAP_UPLINK_SUCC</formula>
+    <kpi_info>
+      <title>SGSAP_UPLINK_SUCC</title>
+      <use>The number of successful uplink traffic tunneling procedures. This procedure is used for sending MO SMS messages, acknowledgement messages for received SMS messages, delivery reports and for delivery report acknowledgement messages.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSAP_UPLINK_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSAP_UPLINK_SUCC (M55C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSAP_UPLINK_FAIL">
+    <formula>SGSM.SGSAP_UPLINK_FAIL</formula>
+    <kpi_info>
+      <title>SGSAP_UPLINK_FAIL</title>
+      <use>The number of unsuccessful uplink traffic tunneling procedure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSAP_UPLINK_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSAP_UPLINK_FAIL (M55C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSAP_DOWNLINK_SUCC">
+    <formula>SGSM.SGSAP_DOWNLINK_SUCC</formula>
+    <kpi_info>
+      <title>SGSAP_DOWNLINK_SUCC</title>
+      <use>The number of successful downlink traffic tunneling procedures. This procedure is used for sending MT SMS messages and delivery report.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSAP_DOWNLINK_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSAP_DOWNLINK_SUCC (M55C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSAP_DOWNLINK_FAIL">
+    <formula>SGSM.SGSAP_DOWNLINK_FAIL</formula>
+    <kpi_info>
+      <title>SGSAP_DOWNLINK_FAIL</title>
+      <use>The number of unsuccessful downlink traffic tunneling procedures.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSAP_DOWNLINK_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSAP_DOWNLINK_FAIL (M55C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="CSFB_PAGING_ATTEMPT">
+    <formula>SGSM.CSFB_PAGING_ATTEMPT</formula>
+    <kpi_info>
+      <title>CSFB_PAGING_ATTEMPT</title>
+      <use>Number of Paging Attempts(CSFB) received by MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CSFB_PAGING_ATTEMPT)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSFB_PAGING_ATTEMPT (M55C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CSFB_PAGING_FAIL">
+    <formula>SGSM.CSFB_PAGING_FAIL</formula>
+    <kpi_info>
+      <title>CSFB_PAGING_FAIL</title>
+      <use>Number of failed paging procedures for CSFB.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CSFB_PAGING_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sgsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSFB_PAGING_FAIL (M55C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

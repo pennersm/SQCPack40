@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LQOS.xml" />
+  <kpi name="LTE_1222a">
+    <formula>100*decode(
+			(lqos.pdcp_sdu_loss_ul_qci_6 + 
+			lqos.pdcp_sdu_ul_qci_6),0,null, 
+
+			(lqos.pdcp_sdu_loss_ul_qci_6)
+			 / 
+			(lqos.pdcp_sdu_loss_ul_qci_6 + 
+			lqos.pdcp_sdu_ul_qci_6))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN PDCP SDU Loss Ratio in the UL, QCI6]]></title>
+      <use><![CDATA[This Kpi measures the ratio of number of lost per transmitted PDCP SDUs in the UL per QCI6 services.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(PDCP_SDU_LOSS_UL_QCI_6)
+&lt;br&gt;/
+&lt;br&gt;SUM(PDCP_SDU_LOSS_UL_QCI_6
+&lt;br&gt;+ PDCP_SDU_UL_QCI_6)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LQOS_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/01/09 16:18:22.199 +0000</date>
+          <comment><![CDATA[Source: RSLTE051.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PDCP SDU UL LR QCI6</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_687c">
+    <formula>decode(
+			(traffic.period_duration),0,null, 
+
+			((64*traffic.allo_dur_hs_dsch_ret_64_int + 
+			64*traffic.allo_dur_hs_dsch_ret_64_bgr + 
+			64*traffic.allo_dur_hs_dsch_ret_64_str_1)
+			 / 
+			(traffic.period_duration*100*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH return channel allocations, 64kbit/s]]></title>
+      <use><![CDATA[The allocated HS-DSCH return channel capacity in the SRNC for 64kbits/s connections. Note: these allocations are also included in the old DCH UL allocation counters.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; sum(64*ALLO_DUR_HS_DSCH_RET_64_INT
+&lt;br&gt;     + 64*ALLO_DUR_HS_DSCH_RET_64_BGR
+&lt;br&gt;     + 64*ALLO_DUR_HS_DSCH_RET_64_STR)
+&lt;br&gt;---------------------------------------------------------------
+&lt;br&gt; sum(period_duration)*100*60</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HS-DSCH return channel allocations, 64kbit/s]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <kpi name="MGW_891a">
+    <formula>decode(
+			(signtrc.codec_g711_a_law_error + 
+			signtrc.codec_g711_a_law),0,null, 
+
+			(100*(signtrc.codec_g711_a_law_error)
+			 / 
+			(signtrc.codec_g711_a_law_error + 
+			signtrc.codec_g711_a_law)))</formula>
+    <kpi_info>
+      <title><![CDATA[Unsuccessful ratio of G.711 a-law codecs]]></title>
+      <use><![CDATA[Unsuccessful ratio of G.711 a-law codec]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from U5.0, the CODEC_G711_A_LAW* counters also count the usage of the codec 10 ms packetization.
+<br>LAST UPDATE: 06-05-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN, MGW
+<br>RECOMMENDED TIME SUMMARY LEVELS: Total; day; dailyBH; hour
+<br>KPI CLASS: Resource
+<br>MEASUREMENT(S): Signalling Transcoding Measurement 
+<br>M643
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* SUM(CODEC_G711_A_LAW_ERROR)/ SUM(CODEC_G711_A_LAW_ERROR+CODEC_G711_A_LAW)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Unsuccessful ratio of G.711 a-law codecs]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

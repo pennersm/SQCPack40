@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <kpi name="RNC_2007a">
+    <formula>100*decode(
+			((SERVLEV.rab_stp_att_ps_backg + 
+			SERVLEV.rab_stp_att_ps_inter + 
+			SERVLEV.rab_stp_att_ps_strea)),0,null, 
+
+			((SERVLEV.rab_stp_fail_ps_backg_anch + 
+			SERVLEV.rab_stp_fail_ps_inter_anch))
+			 / 
+			((SERVLEV.rab_stp_att_ps_backg + 
+			SERVLEV.rab_stp_att_ps_inter + 
+			SERVLEV.rab_stp_att_ps_strea)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup FR for PS calls due to ANCH]]></title>
+      <use><![CDATA[RAB setup failure rate for PS interactive and background calls caused by the anchoring RNC reject.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>           sum (rab_stp_fail_ps_backg_anch + rab_stp_fail_ps_inter_anch)
+&lt;br&gt;100 * ------------------------------------------------------------------------
+&lt;br&gt;      sum (rab_stp_att_ps_backg + rab_stp_att_ps_inter + rab_stp_att_ps_strea)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RAB stp FR PS ANCH]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

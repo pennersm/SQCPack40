@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_1884b">
+    <formula>decode(
+			(hsdpaw.mace_pdu_retr_00_counter + 
+			hsdpaw.mace_pdu_retr_01_counter*2 + 
+			hsdpaw.mace_pdu_retr_02_counter*3 + 
+			hsdpaw.mace_pdu_retr_03_counter*4 + 
+			hsdpaw.mace_pdu_retr_04_counter*5 + 
+			hsdpaw.mace_pdu_retr_05_counter*6 + 
+			hsdpaw.mace_pdu_retr_06_counter*7 + 
+			hsdpaw.mace_pdu_retr_07_counter*8 + 
+			hsdpaw.mace_pdu_retr_08_counter*9 + 
+			hsdpaw.mace_pdu_retr_09_counter*10 + 
+			hsdpaw.mace_pdu_retr_10_counter*11 + 
+			hsdpaw.mace_pdu_retr_11_counter*12 + 
+			hsdpaw.mace_pdu_retr_12_counter*13),0,null, 
+
+			((celtpw.edch_data_scell_ul_1)*8
+			 / 
+			((hsdpaw.mace_pdu_retr_00_counter + 
+			hsdpaw.mace_pdu_retr_01_counter*2 + 
+			hsdpaw.mace_pdu_retr_02_counter*3 + 
+			hsdpaw.mace_pdu_retr_03_counter*4 + 
+			hsdpaw.mace_pdu_retr_04_counter*5 + 
+			hsdpaw.mace_pdu_retr_05_counter*6 + 
+			hsdpaw.mace_pdu_retr_06_counter*7 + 
+			hsdpaw.mace_pdu_retr_07_counter*8 + 
+			hsdpaw.mace_pdu_retr_08_counter*9 + 
+			hsdpaw.mace_pdu_retr_09_counter*10 + 
+			hsdpaw.mace_pdu_retr_10_counter*11 + 
+			hsdpaw.mace_pdu_retr_11_counter*12 + 
+			hsdpaw.mace_pdu_retr_12_counter*13)*0.01*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average HSUPA Throughput per Session]]></title>
+      <use><![CDATA[This KPI provides information about the average HSUPA throughput per session by comparing the total amount of E-DCH transmitted data against the actual total amount of time used to transmitt that data.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(EDCH_DATA_SCELL_UL) * 8
+&lt;br&gt;-----------------------------------
+&lt;br&gt;SUM(MACE_PDU_RETR_00_COUNTER
+&lt;br&gt;+ MACE_PDU_RETR_01_COUNTER*2
+&lt;br&gt;+ MACE_PDU_RETR_02_COUNTER*3 
+&lt;br&gt;+ MACE_PDU_RETR_03_COUNTER*4
+&lt;br&gt;+ MACE_PDU_RETR_04_COUNTER*5
+&lt;br&gt;+ MACE_PDU_RETR_05_COUNTER*6
+&lt;br&gt;+ MACE_PDU_RETR_06_COUNTER*7
+&lt;br&gt;+ MACE_PDU_RETR_07_COUNTER*8
+&lt;br&gt;+ MACE_PDU_RETR_08_COUNTER*9
+&lt;br&gt;+ MACE_PDU_RETR_09_COUNTER*10
+&lt;br&gt;+ MACE_PDU_RETR_10_COUNTER*11
+&lt;br&gt;+ MACE_PDU_RETR_11_COUNTER*12
+&lt;br&gt;+ MACE_PDU_RETR_12_COUNTER*13)*0.01*1000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_celtpw_{obj_agg}_{time_agg},nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSUPA thp per session</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/CELTPW_ext.xml" />
+</conf_file>
+

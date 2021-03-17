@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/M3UAHI.xml"/>
+  <kpi name="hlr_2143a">
+    <formula>decode(
+    		(M3UAHI.M3UA_MESSAGES_SENT + M3UAHI.M3UA_MESSAGES_RECEIVED),0,null,
+			100* 
+			( (M3UAHI.M3UA_PACKETS_CONGESTION_DISC)
+			 /
+			(M3UAHI.M3UA_MESSAGES_SENT + M3UAHI.M3UA_MESSAGES_RECEIVED) ) )</formula>
+    <kpi_info>
+      <title><![CDATA[M3UA discard messages ratio - SCTP congestion.]]></title>
+      <use><![CDATA[This KPI provides the M3UA discard messages ratio. These discarded messages are due to SCTP protocol level congestion.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>If the "M3UA_PACKETS_CONGESTION_DISC" counter value is FFFFFFFF, this field is not shown.
+	  <br>
+	  <br>This KPI is similar to msc_2143a. New KPI ID reference (HLR NE). This new KPI ID reference is to to be used starting from M15.1 report sets.
+	  <br>
+	  <br> 
+	  <br>RECOMMENDED SUMMARY LEVELS: ASSO_INDEX
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(s): M3UA association set measurement (M661)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      <formula>&lt;br&gt;
+      &lt;br&gt; SUM( M3UA_PACKETS_CONGESTION_DISC )
+      &lt;br&gt;--------------------------------------------------- * 100
+      &lt;br&gt; SUM( M3UA_MESSAGES_SENT + M3UA_MESSAGES_RECEIVED )
+      &lt;br&gt;
+      &lt;br&gt;Counters from AGGREGATED view(s)
+      &lt;br&gt;
+      </formula>
+      
+      <unit>[%]</unit>
+      <tables>rns_ps_m3uahi_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[M3UA Disc Msg Rt HLR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 RAUS measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 RAUS measurement dump</csv_title>
+    <report-description>RA user measurement(RAUS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ra_user_sim_sum />
+    <ra_user_sim_den />
+    <ra_user_sim_peak />
+    <ra_user_usim_sum />
+    <ra_user_usim_den />
+    <ra_user_usim_peak />
+    <ra_user_sim_and_usim_peak />
+  </column_order>
+  <temp_table name="RAUS" meas_level="PLMN/SGSN/PAPU/LAC/RAC/RAMCC/RA" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="ra_user_sim_sum" symmetrical="true">SUM(ra_user_sim_sum)</counter>
+      <counter alias="ra_user_sim_den" time-alias="ra_user_sim_den" time-formula="SUM(ra_user_sim_den)" object-formula="AVG(ra_user_sim_den)">AVG(ra_user_sim_den)*count(distinct period_start_time)</counter>
+      <counter alias="ra_user_sim_peak" symmetrical="true">MAX(ra_user_sim_peak)</counter>
+      <counter alias="ra_user_usim_sum" symmetrical="true">SUM(ra_user_usim_sum)</counter>
+      <counter alias="ra_user_usim_den" time-alias="ra_user_usim_den" time-formula="SUM(ra_user_usim_den)" object-formula="AVG(ra_user_usim_den)">AVG(ra_user_usim_den)*count(distinct period_start_time)</counter>
+      <counter alias="ra_user_usim_peak" symmetrical="true">MAX(ra_user_usim_peak)</counter>
+      <counter alias="ra_user_sim_and_usim_peak" symmetrical="true">MAX(ra_user_sim_and_usim_peak)</counter>
+    </counters>
+    <table_name>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RAUS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RAUS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_sim_sum">
+    <formula>RAUS.ra_user_sim_sum</formula>
+    <kpi_info>
+      <title>ra_user_sim_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ra_user_sim_sum)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_sim_sum</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_sim_den">
+    <formula>RAUS.ra_user_sim_den</formula>
+    <kpi_info>
+      <title>ra_user_sim_den</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(ra_user_sim_den)">AVG(ra_user_sim_den)*count(distinct period_start_time)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_sim_den</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_sim_peak">
+    <formula>RAUS.ra_user_sim_peak</formula>
+    <kpi_info>
+      <title>ra_user_sim_peak</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(ra_user_sim_peak)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_sim_peak</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_usim_sum">
+    <formula>RAUS.ra_user_usim_sum</formula>
+    <kpi_info>
+      <title>ra_user_usim_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ra_user_usim_sum)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_usim_sum</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_usim_den">
+    <formula>RAUS.ra_user_usim_den</formula>
+    <kpi_info>
+      <title>ra_user_usim_den</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(ra_user_usim_den)">AVG(ra_user_usim_den)*count(distinct period_start_time)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_usim_den</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_usim_peak">
+    <formula>RAUS.ra_user_usim_peak</formula>
+    <kpi_info>
+      <title>ra_user_usim_peak</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(ra_user_usim_peak)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_usim_peak</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_user_sim_and_usim_peak">
+    <formula>RAUS.ra_user_sim_and_usim_peak</formula>
+    <kpi_info>
+      <title>ra_user_sim_and_usim_peak</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(ra_user_sim_and_usim_peak)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_raus_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_user_sim_and_usim_peak</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

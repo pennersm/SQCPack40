@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIANBHO.xml"/>
+  <kpi name="LTE_47a">
+    <formula>decode(
+			((lianbho.tot_not_start_ho_prep + 
+			lianbho.tot_ho_decision)),0,null, 
+
+			(100*(lianbho.tot_ho_decision))
+			 / 
+			((lianbho.tot_not_start_ho_prep + 
+			lianbho.tot_ho_decision)))</formula>
+    <kpi_info>
+      <title><![CDATA[HO decisi ratio]]></title>
+      <use><![CDATA[Percentage of Measurement reports received in the e-NOB that produces an Handover Preparation]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum(TOT_HO_DECISION)                                 
+&lt;br&gt;100      *      -------------------------
+&lt;br&gt;                sum(TOT_NOT_START_HO_PREP +
+&lt;br&gt;                    TOT_HO_DECISION)                      
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LIANBHO_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HO decisi Rate]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

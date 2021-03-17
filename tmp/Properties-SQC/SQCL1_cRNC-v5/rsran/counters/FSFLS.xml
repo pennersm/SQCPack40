@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>FSFLS (Soam Frame Loss statistics)</header>
+    <csv_title>FSFLS (Soam Frame Loss statistics)</csv_title>
+    <report-description>Soam Frame Loss statistics contains Frame loss measurements related to Service OAM PM per measurement.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <soamIngressFramesLost/>
+    <soamIngressTotalFrames/>
+    <soamNearEndFrameLossRatio/>
+    <soamEgressFramesLost/>
+    <soamEgressTotalFrames/>
+    <soamFarEndFrameLossRatio/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="FSFLS" omes_name="FTM_SOAM_FRAMELOSS_STATS" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD/RSRAN-OAMMA/RSRAN-OAMMEP/RSRAN-OAMFLM" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>FSFLS</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="soamIngressFramesLost" symmetrical="true">SUM(soamIngressFramesLost)</counter>
+          <counter alias="soamIngressTotalFrames" symmetrical="true">SUM(soamIngressTotalFrames)</counter>
+          <counter alias="soamNearEndFrameLossRatio" symmetrical="true">AVG(soamNearEndFrameLossRatio)</counter>
+          <counter alias="soamEgressFramesLost" symmetrical="true">SUM(soamEgressFramesLost)</counter>
+          <counter alias="soamEgressTotalFrames" symmetrical="true">SUM(soamEgressTotalFrames)</counter>
+          <counter alias="soamFarEndFrameLossRatio" symmetrical="true">AVG(soamFarEndFrameLossRatio)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FSFLS</alias_name>
+    <ui_name>Soam Frame Loss statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FSFLS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamIngressFramesLost">
+    <formula>FSFLS.soamIngressFramesLost</formula>
+    <kpi_info>
+      <title>soamIngressFramesLost (M5141C0)</title>
+      <use>Frame loss statistics for RX lost frames.This helps to detect and analyze network problems caused by frame loss between two peers. FrameLossCurrentInterval[near-end] = accumulated lost RX frames during the past interval. UPDATED:It is updated in case the RX packet is lost in transit.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(soamIngressFramesLost)</formula>
+      <unit>Eth frames</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamIngressFramesLost (M5141C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamIngressTotalFrames">
+    <formula>FSFLS.soamIngressTotalFrames</formula>
+    <kpi_info>
+      <title>soamIngressTotalFrames (M5141C1)</title>
+      <use>Number of received frames when the past 15 minute interval has started. UPDATED: For every received Frame from remote peer.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(soamIngressTotalFrames)</formula>
+      <unit>Eth frames</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamIngressTotalFrames (M5141C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamNearEndFrameLossRatio">
+    <formula>FSFLS.soamNearEndFrameLossRatio</formula>
+    <kpi_info>
+      <title>soamNearEndFrameLossRatio (M5141C2)</title>
+      <use>The near end frame loss ratio. The formula used is: Frame loss ratio[near-end]= (Lost RX frames from peer / (RX frames from peer + Lost RX frames from peer)) * 100 UPDATED:Updated every 15 mins.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(soamNearEndFrameLossRatio)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamNearEndFrameLossRatio (M5141C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamEgressFramesLost">
+    <formula>FSFLS.soamEgressFramesLost</formula>
+    <kpi_info>
+      <title>soamEgressFramesLost (M5141C3)</title>
+      <use>Frame loss statistics for TX lost frames.This helps to detect and analyze network problems caused by frame loss between two peers. FrameLossCurrentInterval[far-end] = accumulated lost TX frames during the past interval. UPDATED: Updated in case the TX packet is lost in transit.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(soamEgressFramesLost)</formula>
+      <unit>Eth frames</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamEgressFramesLost (M5141C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamEgressTotalFrames">
+    <formula>FSFLS.soamEgressTotalFrames</formula>
+    <kpi_info>
+      <title>soamEgressTotalFrames (M5141C4)</title>
+      <use>Number of transmitted Soam frames. UPDATED: Updated for every Transmitted Frame to the remote peer.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(soamEgressTotalFrames)</formula>
+      <unit>Eth frames</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamEgressTotalFrames (M5141C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamFarEndFrameLossRatio">
+    <formula>FSFLS.soamFarEndFrameLossRatio</formula>
+    <kpi_info>
+      <title>soamFarEndFrameLossRatio (M5141C5)</title>
+      <use>Far end frame loss ratio. The formula used is: sFrame loss ratio[far-end]=(Lost TX frames to peer / TX frames to peer) * 100 UPDATED:Updated every 15mins.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(soamFarEndFrameLossRatio)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamFarEndFrameLossRatio (M5141C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FSFLS.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fsfls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

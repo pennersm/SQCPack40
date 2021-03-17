@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_1277a">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth),0,null, 
+
+			(lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			lepsb.enb_eps_bearer_rel_req_tnl)
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth))</formula>
+    <kpi_info>
+      <title><![CDATA[E-RAB ENB-EPC Abnormal release Ratio]]></title>
+      <use><![CDATA[E-RAB ENB-EPC Abnormal release Ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(ENB_EPS_BEARER_REL_REQ_RNL +
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_OTH +
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_TNL)
+&lt;br&gt;/
+&lt;br&gt;SUM(EPC_EPS_BEARER_REL_REQ_RNL +
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_OTH)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LEPSB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/07/22 18:43:22.461 +0100</date>
+          <comment><![CDATA[Source: RSLTE999.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>ENB-EPC abnorm rel R</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,1496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object-conf>
+  <report pragma="default">
+    <default-obj-drill-column>SGSN name</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN">
+    <add-column id="DN" tooltip-ref="SGSN Name">nvl(sgsn.co_ext_dn, sgsn.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/ATMPRG">
+    <add-column id="DN" tooltip-ref="atmprg_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/ATMPRG-'||#first_tmp_table#.atmprg_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/UNIT_SGSN">
+    <add-column id="DN" tooltip-ref="unit_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/UNIT-'||#first_tmp_table#.unit_id</add-column>
+    </report-level>	
+    <report-level id="PLMN/SGSN/SET">
+    <add-column id="DN" tooltip-ref="set_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/SET-'||#first_tmp_table#.set_id</add-column>
+    </report-level>
+	<report-level id="PLMN/SGSN/OBNAME">
+    <add-column id="DN" tooltip-ref="object_name">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/OBNAME-'||#first_tmp_table#.object_name</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/CU">
+    <add-column id="DN" tooltip-ref="object_index">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/CU-'||#first_tmp_table#.object_index</add-column>
+    </report-level>	
+    <report-level id="PLMN/SGSN/PHYTTP_SGSN"  >
+    <add-column id="DN" tooltip-ref="phyttp_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/PHYTTP-'||#first_tmp_table#.phyttp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/SSIF">
+    <add-column id="DN" tooltip-ref="ssif_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/SSIF-'||#first_tmp_table#.ssif_id</add-column>
+    </report-level>	
+    <report-level id="PLMN/SGSN/PGI">
+    <add-column id="DN" tooltip-ref="pgi_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/PGI-'||#first_tmp_table#.pgi_id</add-column>
+    </report-level>
+	<report-level id="PLMN/SGSN/RSSG2G-MMDU">
+    <add-column id="DN" tooltip-ref="mmdu_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/MMDU-'||#first_tmp_table#.mmdu_id</add-column>
+    </report-level>
+  </report>
+    <report pragma="default">
+    <default-obj-drill-column>SGSN name</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(rnc.co_name, 'NN('||#first_tmp_table#.rnc_id||')')"RNC name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				(select
+				co_object_instance,
+				co_name
+				from
+				utp_common_objects
+				where
+				co_oc_id=811
+				) rnc
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.rnc_id  = rnc.co_object_instance (+) and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/RNC_SGSN">
+    <add-column id="DN" tooltip-ref="rnc_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/RNC-'||#first_tmp_table#.rnc_id</add-column>
+    </report-level>
+  </report>
+    <report pragma="default">
+    <default-obj-drill-column>assoset_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria# order by #add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ASSOSET_SGSN/ASSOIND_SGSN"/>
+    <report-level id="PLMN/SGSN/ASSOSET_SGSN"/>
+  </report>
+   <report pragma="default">
+    <default-obj-drill-column>TC</default-obj-drill-column>
+    <column-to-hide>PAPU_GID,TC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				decode(#first_tmp_table#.tc_id,
+					'0','background',
+					'1','interactive THP 1',
+					'2','interactive THP 2',
+					'3','interactive THP 3',
+					'4','streaming',
+					'5','conversational',
+					#first_tmp_table#.tc_id
+				) "TC",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/TC"/>
+  </report>
+   <report pragma="default">
+    <default-obj-drill-column>BC</default-obj-drill-column>
+    <column-to-hide>PAPU_GID,TC_ID,BC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				decode(#first_tmp_table#.tc_id,
+					'0','background',
+					'1','interactive THP 1',
+					'2','interactive THP 2',
+					'3','interactive THP 3',
+					'4','streaming',
+					'5','conversational',
+					#first_tmp_table#.tc_id
+				) "TC",
+				decode(#first_tmp_table#.bc_id,
+					'0','32 kbps',
+					'1','64 kbps',
+					'2','136 kbps',
+					'3','256 kbps',
+					'4','512 kbps',
+					'5','1 Mbps',
+					'6','1,5 Mbps',
+					'7','2 Mbps',
+					'8','4 Mbps',
+					'9','6 Mbps',
+					'10','8 Mbps',
+					'11','12 Mbps',
+					'12','16 Mbps',
+					'13','21 Mbps',
+                	'14','28 Mbps',
+                	'15','42 Mbps',
+					'16','46 Mbps',
+					'17','84 Mbps',
+					'18','168 Mbps',
+                	#first_tmp_table#.bc_id
+                ) "BC",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/TC/BC" />
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>signal_link_number_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SLN_SGSN"/>
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>snet_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SNET_SGSN"/>
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>sio_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SNET_SGSN/SIO_SGSN" />
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>spc_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SNET_SGSN/SPC_SGSN" />
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>slsn_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SNET_SGSN/SPC_SGSN/SLSN_SGSN"/>
+  </report>
+  
+  
+  <report pragma="default">
+    <default-obj-drill-column>snet_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SLN_SGSN/SNET_SGSN"/>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>spc_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SLN_SGSN/SNET_SGSN/SPC_SGSN"/>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>slsn_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/SLN_SGSN/SNET_SGSN/SPC_SGSN/SLSN_SGSN"/>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>unit_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/UNIT1_SGSN"/>
+  </report>  
+  <report pragma="default">
+    <default-obj-drill-column>piu_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/UNIT1_SGSN/PIU_SGSN"/>
+  </report> 
+  
+    <report pragma="default">
+    <default-obj-drill-column>inf_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/UNIT1_SGSN/INF_SGSN"/>
+  </report>
+
+    <report pragma="default">
+    <default-obj-drill-column>et_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ET_SGSN"/>
+  </report>
+   
+  <report pragma="default">
+    <default-obj-drill-column>interface_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/UNIT1_SGSN/PIU_SGSN/INTERFACE_SGSN"/>
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>vlan_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn
+				#tmp_meas_tables#
+			where
+
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/SGSN/UNIT1_SGSN/PIU_SGSN/VLAN_SGSN"/>
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>PAPU name</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU">
+    <add-column id="DN" tooltip-ref="PAPU Name">nvl(papu.co_ext_dn, papu.co_dn)</add-column>
+    </report-level>
+	
+    <report-level id="PLMN/SGSN/PAPU/SA">
+    <add-column id="DN" tooltip-ref="sa_id">nvl(papu.co_ext_dn, papu.co_dn)||'/SA-'||#first_tmp_table#.sa_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LUDP">
+    <add-column id="DN" tooltip-ref="ludp_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LUDP-'||#first_tmp_table#.ludp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LUDP/LIP">
+    <add-column id="DN" tooltip-ref="lip_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LUDP-'||#first_tmp_table#.ludp_id||'/LIP-'||#first_tmp_table#.lip_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LUDP/LIP/RIP" >
+    <add-column id="DN" tooltip-ref="rip_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LUDP-'||#first_tmp_table#.ludp_id||'/LIP-'||#first_tmp_table#.lip_id||'/RIP-'||#first_tmp_table#.rip_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LUDP/LIP/RIP/IPEPT">
+    <add-column id="DN" tooltip-ref="ipept_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LUDP-'||#first_tmp_table#.ludp_id||'/LIP-'||#first_tmp_table#.lip_id||'/RIP-'||#first_tmp_table#.rip_id||'/IPEPT-'||#first_tmp_table#.ipept_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/NSEI_IPEPT">
+    <add-column id="DN" tooltip-ref="nsei2_id">nvl(papu.co_ext_dn, papu.co_dn)||'/NSEI-'||#first_tmp_table#.nsei2_id</add-column>
+    </report-level>
+  </report>  
+  <report pragma="default">
+    <default-obj-drill-column>nsei2_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/NSEI_IPEPT">
+    <add-column id="DN" tooltip-ref="nsei2_id">nvl(papu.co_ext_dn, papu.co_dn)||'/NSEI-'||#first_tmp_table#.nsei2_id</add-column>
+    </report-level>
+  </report>  
+  <report pragma="default">
+    <default-obj-drill-column>IPEPT</default-obj-drill-column>
+    <column-to-hide>PAPU_GID,LIP_ID,LUDP_ID,RIP_ID,IPEPT_ID,NSEI2_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+                #time#,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+                #first_tmp_table#.NSEI2_ID "NSEI",
+                #first_tmp_table#.lip_id "Local IP",
+                #first_tmp_table#.ludp_id "Local UDP",
+                #first_tmp_table#.rip_id "Remote IP",
+                #first_tmp_table#.ipept_id "Remote UDP - IPETP",
+                #keys#,
+                #kpis#
+            from
+                utp_common_objects sgsn,
+                utp_common_objects papu
+                #tmp_meas_tables#
+            where
+                papu.co_parent_gid = sgsn.co_gid and
+                #first_tmp_table#.papu_gid = papu.co_gid
+                #tmp_table_joins#
+                #add_on_criteria#
+            order by
+                #add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/NSEI_IPEPT/IPEPT">
+    <add-column id="DN" tooltip-ref="ipept_id">nvl(papu.co_ext_dn, papu.co_dn)||'/NSEI-'||#first_tmp_table#.nsei2_id||'/LUDP-'||#first_tmp_table#.ludp_id||'/LIP-'||#first_tmp_table#.lip_id||'/RIP-'||#first_tmp_table#.rip_id||'/IPEPT-'||#first_tmp_table#.ipept_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>rarac_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/RARAC">
+    <add-column id="DN" tooltip-ref="rarac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/RARAC-'||#first_tmp_table#.rarac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/RARAC/RARA">
+    <add-column id="DN" tooltip-ref="rara_id">nvl(papu.co_ext_dn, papu.co_dn)||'/RARAC-'||#first_tmp_table#.rarac_id||'/RARA-'||#first_tmp_table#.rara_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>iu_ra_rnc_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/IURA">
+    <add-column id="DN" tooltip-ref="iu_ra_rnc_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/IURA_RA">
+    <add-column id="DN" tooltip-ref="iu_ra_rnc_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC_RA-'||#first_tmp_table#.iu_ra_rnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/IURA/SA">
+    <add-column id="DN" tooltip-ref="sa_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id||'/SA-'||#first_tmp_table#.sa_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>iulac_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/IURA/IULAC">
+    <add-column id="DN" tooltip-ref="iulac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id||'/IULAC-'||#first_tmp_table#.iulac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/IURA_RA/IULAC_RA">
+    <add-column id="DN" tooltip-ref="iulac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC_RA-'||#first_tmp_table#.iu_ra_rnc_id||'/IULAC_RA-'||#first_tmp_table#.iulac_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>iuraac_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC">
+    <add-column id="DN" tooltip-ref="iuraac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id||'/IULAC-'||#first_tmp_table#.iulac_id||'/IURAC-'||#first_tmp_table#.iuraac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/IURA_RA/IULAC_RA/IURAAC_RA">
+    <add-column id="DN" tooltip-ref="iuraac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC_RA-'||#first_tmp_table#.iu_ra_rnc_id||'/IULAC_RA-'||#first_tmp_table#.iulac_id||'/IURAC_RA-'||#first_tmp_table#.iuraac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA">
+    <add-column id="DN" tooltip-ref="sa_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id||'/SA-'||#first_tmp_table#.sa_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>iumcc_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC">
+    <add-column id="DN" tooltip-ref="iumcc_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id||'/IULAC-'||#first_tmp_table#.iulac_id||'/IURAC-'||#first_tmp_table#.iuraac_id||'/IUMCC-'||#first_tmp_table#.iumcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC/IURAC">
+    <add-column id="DN" tooltip-ref="iurac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/IURARNC-'||#first_tmp_table#.iu_ra_rnc_id||'/IULAC-'||#first_tmp_table#.iulac_id||'/IURAC-'||#first_tmp_table#.iuraac_id||'/IUMCC-'||#first_tmp_table#.iumcc_id||'/IUMNC-'||#first_tmp_table#.iurac_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>lac_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN">
+    <add-column id="DN" tooltip-ref="lac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC-'||#first_tmp_table#.lac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN_RA">
+    <add-column id="DN" tooltip-ref="lac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC_RA-'||#first_tmp_table#.lac_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>rac_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN/RAC">
+    <add-column id="DN" tooltip-ref="lac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC-'||#first_tmp_table#.lac_id||'/RAC-'||#first_tmp_table#.rac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN_RA/RAC_RA">
+    <add-column id="DN" tooltip-ref="lac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC_RA-'||#first_tmp_table#.lac_id||'/RAC_RA-'||#first_tmp_table#.rac_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>ci_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN/RAC/CI_SGSN">
+    <add-column id="DN" tooltip-ref="lac_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC-'||#first_tmp_table#.lac_id||'/RAC-'||#first_tmp_table#.rac_id||'/CI-'||#first_tmp_table#.ci_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>BTS name</default-obj-drill-column>
+    <column-to-hide>PAPU_GID,BTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				nvl(bts.co_name, 'NN('||bts.co_gid||')')"BTS name",
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				utp_common_objects bts
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid and
+				#first_tmp_table#.bts_gid = bts.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN/RAC/CI_SGSN/BTS_SGSN">
+    <add-column id="DN" tooltip-ref="BTS name">nvl(rtrim(substr(bts.co_ext_dn,0,instr(bts.co_ext_dn,' '))), rtrim(substr(bts.co_dn,0,instr(bts.co_dn,' '))))</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>ramcc_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN/RAC/RAMCC">
+    <add-column id="DN" tooltip-ref="ramcc_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC-'||#first_tmp_table#.lac_id||'/RAC-'||#first_tmp_table#.rac_id||'/RAMCC-'||#first_tmp_table#.ramcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/LAC_SGSN/RAC/RAMCC/RA">
+    <add-column id="DN" tooltip-ref="ra_id">nvl(papu.co_ext_dn, papu.co_dn)||'/LAC-'||#first_tmp_table#.lac_id||'/RAC-'||#first_tmp_table#.rac_id||'/RAMCC-'||#first_tmp_table#.ramcc_id||'/RAMNC-'||#first_tmp_table#.ra_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>nse_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/NSEI_SGSN">
+    <add-column id="DN" tooltip-ref="nse_id">nvl(papu.co_ext_dn, papu.co_dn)||'/NSE-'||#first_tmp_table#.nse_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/NSEI_SGSN/NSVC">
+    <add-column id="DN" tooltip-ref="nsvc_id">nvl(papu.co_ext_dn, papu.co_dn)||'/NSE-'||#first_tmp_table#.nse_id||'/NSVC-'||#first_tmp_table#.nsvc_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>rautype_id</default-obj-drill-column>
+    <column-to-hide>PAPU_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/RAUTYPE">
+    <add-column id="DN" tooltip-ref="rautype_id">nvl(papu.co_ext_dn, papu.co_dn)||'/RAUTYPE-'||#first_tmp_table#.rautype_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/PAPU/RAUTYPE/RA1RA2">
+    <add-column id="DN" tooltip-ref="ra1ra2_id">nvl(papu.co_ext_dn, papu.co_dn)||'/RAUTYPE-'||#first_tmp_table#.rautype_id||'/RA1RA2-'||#first_tmp_table#.ra1ra2_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>Access Type</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,ACTC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                decode(#first_tmp_table#.actc_id,
+                    '1', 'UTRAN',
+                    '2', 'GERAN',
+                    #first_tmp_table#.actc_id) "Access Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects o_plmn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = o_plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ACTC">
+    <add-column id="DN" tooltip-ref="actc_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/ACTC-'||#first_tmp_table#.actc_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>PLMN Type</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,ACTC_ID,PLTC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                decode(#first_tmp_table#.actc_id,
+                    '1', 'UTRAN',
+                    '2', 'GERAN',
+                    #first_tmp_table#.actc_id) "Access Type",
+                decode(#first_tmp_table#.pltc_id,
+                    '0', 'ALL',
+                    '1', 'HOME',
+                    '2', 'ROAMING',
+                    '3', 'Specified PLMN',
+                    #first_tmp_table#.pltc_id) "PLMN Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects o_plmn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = o_plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ACTC/PLTC" >
+    <add-column id="DN" tooltip-ref="pltc_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/ACTC-'||#first_tmp_table#.actc_id||'/PLTC-'||#first_tmp_table#.pltc_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>SPECMCC</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,ACTC_ID,PLTC_ID,SPECMCC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                decode(#first_tmp_table#.actc_id,
+                    '1', 'UTRAN',
+                    '2', 'GERAN',
+                    #first_tmp_table#.actc_id) "Access Type",
+                decode(#first_tmp_table#.pltc_id,
+                    '0', 'ALL',
+                    '1', 'HOME',
+                    '2', 'ROAMING',
+                    '3', 'Specified PLMN',
+                    #first_tmp_table#.pltc_id) "PLMN Type",
+                #first_tmp_table#.specmcc_id "SPECMCC",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects o_plmn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = o_plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ACTC/PLTC/SPECMCC">
+    <add-column id="DN" tooltip-ref="specmcc_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/ACTC-'||#first_tmp_table#.actc_id||'/PLTC-'||#first_tmp_table#.pltc_id||'/SPECMCC-'||#first_tmp_table#.specmcc_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>SPECMNC</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,ACTC_ID,PLTC_ID,SPECMCC_ID,SPECMNC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5,6</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                decode(#first_tmp_table#.actc_id,
+                    '1', 'UTRAN',
+                    '2', 'GERAN',
+                    #first_tmp_table#.actc_id) "Access Type",
+                decode(#first_tmp_table#.pltc_id,
+                    '0', 'ALL',
+                    '1', 'HOME',
+                    '2', 'ROAMING',
+                    '3', 'Specified PLMN',
+                    #first_tmp_table#.pltc_id) "PLMN Type",
+                #first_tmp_table#.specmcc_id "SPECMCC",
+                #first_tmp_table#.specmnc_id "SPECMNC",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects o_plmn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = o_plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ACTC/PLTC/SPECMCC/SPECMNC">
+    <add-column id="DN" tooltip-ref="specmnc_id"> nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/ACTC-'||#first_tmp_table#.actc_id||'/PLTC-'||#first_tmp_table#.pltc_id||'/SPECMCC-'||#first_tmp_table#.specmcc_id||'/SPECMNC-'||#first_tmp_table#.specmnc_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>interface_id_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects o_plmn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = o_plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/INTERFACE_ID">
+    <add-column id="DN" tooltip-ref="interface_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/INTERFACE-'||#first_tmp_table#.interface_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>vpi_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects sgsn,
+				utp_common_objects o_plmn
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = o_plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/INTERFACE_ID/VPI_SGSN">
+    <add-column id="DN" tooltip-ref="vpi_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/INTERFACE-'||#first_tmp_table#.interface_id||'/VPI-'||#first_tmp_table#.vpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/SGSN/INTERFACE_ID/VPI_SGSN/VCI_SGSN">
+    <add-column id="DN" tooltip-ref="vci_id">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/INTERFACE-'||#first_tmp_table#.interface_id||'/VPI-'||#first_tmp_table#.vpi_id||'/VCI-'||#first_tmp_table#.vci_id</add-column>
+    </report-level>
+  </report>
+  <!-- Levels for Mesurement ITHR , meas-level PLMN/SGSN/IPPU/TC/BC -->
+  <report pragma="default">
+    <default-obj-drill-column>ippu_id</default-obj-drill-column>
+    <column-to-hide>SGSN_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5,6,7</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+                #time#,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                #keys#,
+                #kpis#
+            from
+                utp_common_objects sgsn,
+                utp_common_objects o_plmn
+                #tmp_meas_tables#
+            where
+                sgsn.co_parent_gid = o_plmn.co_gid and
+                #first_tmp_table#.sgsn_gid = sgsn.co_gid
+                #tmp_table_joins#
+                #add_on_criteria#
+            order by
+                #add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/IPPU">
+    <add-column id="DN" tooltip-ref="ippu">nvl(sgsn.co_ext_dn, sgsn.co_dn)||'/IPPU-'||#first_tmp_table#.ippu</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>TC</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,TC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+                #time#,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                #keys#,
+                decode(#first_tmp_table#.tc_id,
+                    '0', 'background',
+                    '1', 'interactive THP 1',
+                    '2', 'interactive THP 2',
+                    '3', 'interactive THP 3',
+                    '4', 'streaming',
+                    '5', 'conversational',#first_tmp_table#.tc_id) "TC", 
+                #kpis#
+            from
+                utp_common_objects sgsn,
+                utp_common_objects o_plmn
+                #tmp_meas_tables#
+            where
+                sgsn.co_parent_gid = o_plmn.co_gid and
+                #first_tmp_table#.sgsn_gid = sgsn.co_gid
+                #tmp_table_joins#
+                #add_on_criteria#
+            order by
+                #add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/IPPU/TC"/>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>BC</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,TC_ID,BC_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5,6,7</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+                #time#,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                #keys#,
+                decode(#first_tmp_table#.tc_id,
+                    '0', 'background',
+                    '1', 'interactive THP 1',
+                    '2', 'interactive THP 2',
+                    '3', 'interactive THP 3',
+                    '4', 'streaming',
+                    '5', 'conversational',#first_tmp_table#.tc_id) "TC", 
+                decode(#first_tmp_table#.bc_id,
+                    '0', '32 kbps',
+                    '1', '64 kbps',
+                    '2', '136 kbps',
+                    '3', '256 kbps',
+                    '4', '512 kbps',
+                    '5', '1 Mbps',
+                    '6', '1,5 Mbps',
+                    '7', '2 Mbps',
+                    '8', '4 Mbps',
+                    '9', '6 Mbps',
+                    '10', '8 Mbps',
+                    '11', '12 Mbps',
+                    '12', '16 Mbps',
+                    '13', '21 Mbps',
+                    '14', '28 Mbps',
+                    '15', '42 Mbps',
+					'16', '46 Mbps',
+					'17', '84 Mbps',
+					'18', '168 Mbps',
+                    #first_tmp_table#.bc_id) "BC",
+                #kpis#
+            from
+                utp_common_objects sgsn,
+                utp_common_objects o_plmn
+                #tmp_meas_tables#
+            where
+                sgsn.co_parent_gid = o_plmn.co_gid and
+                #first_tmp_table#.sgsn_gid = sgsn.co_gid
+                #tmp_table_joins#
+                #add_on_criteria#
+            order by
+                #add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/IPPU/TC/BC"/>
+  </report>
+   
+   <!-- ALARM_SGSN -->
+   
+   <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+                utp_common_objects sgsn,
+                (select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = plmn.co_gid and
+                #first_tmp_table#.sgsn_gid = sgsn.co_gid and
+                #first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+                    
+                
+                
+    <report-level id="PLMN/SGSN/ALRMSEV_SGSN" />
+  </report>
+   
+         <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+     <column-to-hide>SGSN_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+                utp_common_objects sgsn,
+                (select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = plmn.co_gid and
+                #first_tmp_table#.sgsn_gid = sgsn.co_gid and
+                #first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ALRMSEV_SGSN/ALRMTYPE_SGSN" />
+  </report>
+  
+  
+
+   <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.ALARM "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+                utp_common_objects sgsn,
+                (select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS  alr) alrm
+				#tmp_meas_tables#
+			where
+				sgsn.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.sgsn_gid = sgsn.co_gid and
+                #first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/ALRMSEV_SGSN/ALRMTYPE_SGSN/ALARM_SGSN" />
+  </report>
+  
+  
+  
+ 
+ 
+   <!--    PLMN/SGSN/PAPU/ALRMSEV_SGSN/ALRMTYPE_SGSN/ALARM_SGSN
+    not used as the ALARM_SGSNs under PAPU managed object were not found in the NTN network 
+    and the drill is more user friendly by means of hiding PAPU level
+    
+    
+  <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,PAPU_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+                sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                (select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_parent_gid = plmn.co_gid and
+                #first_tmp_table#.papu_gid = papu.co_gid and
+                #first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/ALRMSEV_SGSN" />
+  </report>
+   
+         <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+     <column-to-hide>SGSN_GID,PAPU_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+                sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                (select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.ALARM_TYPE_ID, 
+				nvl(typ.ALARM_TYPE, 'NN('||typ.ALARM_TYPE_ID||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_parent_gid = plmn.co_gid and
+                #first_tmp_table#.papu_gid = papu.co_gid and
+                #first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.ALARM_TYPE_ID = alrtyp.ALARM_TYPE_ID
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/ALRMSEV_SGSN/ALRMTYPE_SGSN" />
+  </report>
+  
+  
+
+   <report pragma="default">
+    <default-obj-drill-column>ALARM_SGSN</default-obj-drill-column>
+    <column-to-hide>SGSN_GID,PAPU_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_id</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+                nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU name",
+                sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.ALARM "ALARM",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                (select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.ALARM_TYPE_ID, 
+				nvl(typ.ALARM_TYPE, 'NN('||typ.ALARM_TYPE_ID||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.ALARM_id, nvl(alr.text, 'NN('||alr.ALARM_id||')') ALARM
+			from
+				REPALS_D_ALARM_MEMBERS  alr) alrm
+				#tmp_meas_tables#
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.papu_gid = papu.co_gid and
+                #first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.ALARM_TYPE_ID = alrtyp.ALARM_TYPE_ID and
+				#first_tmp_table#.ALARM_id = alrm.ALARM_id
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/SGSN/PAPU/ALRMSEV_SGSN/ALRMTYPE_SGSN/ALARM_SGSN" />
+  </report> -->
+
+  
+<!-- ALARM_SGSN -->
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+</object-conf>

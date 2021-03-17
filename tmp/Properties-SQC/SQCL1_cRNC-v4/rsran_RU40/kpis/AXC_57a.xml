@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/VLIP.xml" />
+  <kpi name="AXC_57a">
+    <formula>100*(decode(
+			(vlip.ifipinoctets15 + 
+			vlip.ifipoutoctets15),0,null, 
+
+			vlip.ifipoutdropoctets
+			 / 
+			(vlip.ifipinoctets15 + 
+			vlip.ifipoutoctets15)))</formula>
+    <kpi_info>
+      <title><![CDATA[VLAN octects Dropped ratio]]></title>
+      <use><![CDATA[Percentage of dropped octets in VLAN]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * ( sum (ifIpOutDropOctets) / ( sum( ifIpInOctets15) + sum (ifIpOutOctets15)))
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokaxc_ps_vlip_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/07/13 12:15:33.974 +0100</date>
+          <comment><![CDATA[Source: RSAXC013.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>VLAN Drop oct R</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

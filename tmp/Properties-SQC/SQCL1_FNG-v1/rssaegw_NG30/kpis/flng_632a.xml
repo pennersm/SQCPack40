@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/MBFIR_ext.xml" />
+  <kpi name="flng_632a">
+    <formula>100*decode(MBFIR_ext.MOD_BEAR_FAIL_IND_RECV_ALL,0,null,
+	(
+	 MBFIR_ext.GTPCV2_MOD_BEAR_FAIL_IND_RECV
+	 /
+	 MBFIR_ext.MOD_BEAR_FAIL_IND_RECV_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer Failure Indications received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 modify bearer failure indications received for a specific cause code when compared to total number of GTP-C v2 modify bearer failure indication messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(mbfir_id,&amp;#039;x&amp;#039;,GTPCV2_MOD_BEAR_FAIL_IND_RECV,0))  ;MBFIR for cause code x
+&lt;br&gt;---------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_MOD_BEAR_FAIL_IND_RECV)  ;all MBFIR&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.335 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW066.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mod Bear Fail Ind rcv rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

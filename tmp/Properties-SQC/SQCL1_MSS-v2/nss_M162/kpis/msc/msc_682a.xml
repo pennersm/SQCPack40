@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/SIP.xml"/>
+  <kpi name="msc_682a">
+    <formula>decode(
+			sip.instant_message_att_auth + 
+			sip.call_setup_att_auth + 
+			sip.user_initiated_dereg_att_auth + 
+			sip.rereg_att_auth + 
+			sip.initial_reg_att_auth,0,null, 
+
+			(100*sip.auth_requests)
+			 /( 
+			sip.instant_message_att_auth + 
+			sip.call_setup_att_auth + 
+			sip.user_initiated_dereg_att_auth + 
+			sip.rereg_att_auth + 
+			sip.initial_reg_att_auth))</formula>
+    <kpi_info>
+      <title><![CDATA[Average 401 messages sent per authentication procedure]]></title>
+      <use><![CDATA[This KPI shows the average 401 messages sent per authentication procedure]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;
+&lt;br&gt;              sum (Auth_Requests) 
+&lt;br&gt;100 *  --------------------------------------------------------------
+&lt;br&gt;                sum (Instant_Message_Att_Auth +  Call_Setup_Att_Auth +  User_Initiated_Dereg_Att_Auth +  Rereg_Att_Auth +  Initial_Reg_Att_Auth) 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_SIP_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_sip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Average 401 messages sent per authentication procedure]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

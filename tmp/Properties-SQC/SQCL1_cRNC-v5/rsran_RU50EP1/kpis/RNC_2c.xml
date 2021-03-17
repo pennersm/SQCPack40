@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2c">
+    <formula>decode(
+			(traffic.period_duration),0,null, 
+
+			((64*traffic.allo_dur_cs_conv_64_in_srnc)
+			 / 
+			(traffic.period_duration*60*100)))</formula>
+    <kpi_info>
+      <title><![CDATA[CS Conversational allocated UL and DL]]></title>
+      <use><![CDATA[Allocated Dedicated Channel Capacity [kbit/s] for CS Conversational  in Serving RNC for the reporting period]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(64*ALLO_DUR_CS_CONV_64_IN_SRNC) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;      SUM(PERIOD_DURATION *60*100)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[CS Conversational allocated UL and DL]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

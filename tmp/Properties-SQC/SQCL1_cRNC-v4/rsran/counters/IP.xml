@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_IP_stats IP measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_IP_stats IP measurement dump</csv_title>
+    <report-description>AXC IP statistics measurement (M5217)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ifIpInPackets15 />
+    <ifIpInOctets15 />
+    <ifIpOutPackets15 />
+    <ifIpOutOctets15 />
+    <ifIpInErrors15 />
+    <ifIpDroppedPacketsRateLimiting />
+    <ifIpDroppedPacketsFiltering />
+    <cacMaxReservedBitRate />
+    <cacMinReservedBitRate />
+    <cacAvgReservedBitRate />
+    <cacMaxCommittedBitRate />
+  </column_order>
+  <temp_table name="IP" meas_level="PLMN/RNC/WBTS/AXC/IPNO/IEIF/IPPM" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ifIpInPackets15" timeagg="SUM(ifIpInPackets15)">SUM(ifIpInPackets15)</counter>
+      <counter alias="ifIpInOctets15" timeagg="SUM(ifIpInOctets15)">SUM(ifIpInOctets15)</counter>
+      <counter alias="ifIpOutPackets15" timeagg="SUM(ifIpOutPackets15)">SUM(ifIpOutPackets15)</counter>
+      <counter alias="ifIpOutOctets15" timeagg="SUM(ifIpOutOctets15)">SUM(ifIpOutOctets15)</counter>
+      <counter alias="ifIpInErrors15" timeagg="SUM(ifIpInErrors15)">SUM(ifIpInErrors15)</counter>
+      <counter alias="ifIpDroppedPacketsRateLimiting" timeagg="SUM(ifIpDroppedPacketsRateLimiting)">SUM(ifIpDroppedPacketsRateLimiting)</counter>
+      <counter alias="ifIpDroppedPacketsFiltering" timeagg="SUM(ifIpDroppedPacketsFiltering)">SUM(ifIpDroppedPacketsFiltering)</counter>
+      <counter alias="cacMaxReservedBitRate" timeagg="MAX(cacMaxReservedBitRate)">MAX(cacMaxReservedBitRate)</counter>
+      <counter alias="cacMinReservedBitRate" timeagg="MIN(cacMinReservedBitRate)">MIN(cacMinReservedBitRate)</counter>
+      <counter alias="cacAvgReservedBitRate" timeagg="AVG(cacAvgReservedBitRate)">AVG(cacAvgReservedBitRate)</counter>
+      <counter alias="cacMaxCommittedBitRate" timeagg="MAX(cacMaxCommittedBitRate)">MAX(cacMaxCommittedBitRate)</counter>
+    </counters>
+    <table_name>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpInPackets15">
+    <formula>IP.ifIpInPackets15</formula>
+    <kpi_info>
+      <title>ifIpInPackets15</title>
+      <use>The number of inbound packets delivered to higher-layer protocols.  This counter is available on AXCF and IFUH units. 
+     	Updated: The counter is updated when an inbound packet has been delivered to higher-layer protocols.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpInPackets15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpInPackets15 (M5217C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpInOctets15">
+    <formula>IP.ifIpInOctets15</formula>
+    <kpi_info>
+      <title>ifIpInOctets15</title>
+      <use>The total number of octects received by the interface, including framing characters. 
+     	This counter is available on AXCF and IFUH units. Updated: The counter is updated when octets are received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpInOctets15)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpInOctets15 (M5217C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutPackets15">
+    <formula>IP.ifIpOutPackets15</formula>
+    <kpi_info>
+      <title>ifIpOutPackets15</title>
+      <use>The number of outbound packets successfully transmitted. This counter is available on AXCF and IFUH units.
+     	Updated: The counter is updated when packets have been transmitted successfully.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutPackets15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutPackets15 (M5217C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutOctets15">
+    <formula>IP.ifIpOutOctets15</formula>
+    <kpi_info>
+      <title>ifIpOutOctets15</title>
+      <use>The total number of octets transmitted by the interface, including framing characters. This counter is available on AXCF and IFUH units. 
+     	Updated: The counter is updated when octets are transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutOctets15)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutOctets15 (M5217C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpInErrors15">
+    <formula>IP.ifIpInErrors15</formula>
+    <kpi_info>
+      <title>ifIpInErrors15</title>
+      <use>The number of inbound packets containing errors that prevented them from being delivered to a higher-layer protocol. This counter is available on AXCF and IFUH units. 
+     	Updated: The counter is updated when erroneous packets are received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpInErrors15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpInErrors15 (M5217C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpDroppedPacketsRateLimiting">
+    <formula>IP.ifIpDroppedPacketsRateLimiting</formula>
+    <kpi_info>
+      <title>ifIpDroppedPacketsRateLimiting</title>
+      <use>The number of dropped packets due to rate limiting. UPDATED:  The counter is updated  every second over a time interval of 15 minutes with the number of dropped packets.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpDroppedPacketsRateLimiting)</formula>
+      <unit>packets</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpDroppedPacketsRateLimiting (M5217C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpDroppedPacketsFiltering">
+    <formula>IP.ifIpDroppedPacketsFiltering</formula>
+    <kpi_info>
+      <title>ifIpDroppedPacketsFiltering</title>
+      <use>The number of packets discarded due filter violations. UPDATED: The counter is updated  every second over a time interval of 15 minutes with the number of dropped packets.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpDroppedPacketsFiltering)</formula>
+      <unit>packets</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpDroppedPacketsFiltering (M5217C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxReservedBitRate">
+    <formula>IP.cacMaxReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxReservedBitRate</title>
+      <use>This is the maximum value of the reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. This counter is available on AXCF and IFUH units. 
+     	UPDATED: The counter is updated when the maximum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxReservedBitRate (M5217C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMinReservedBitRate">
+    <formula>IP.cacMinReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMinReservedBitRate</title>
+      <use>This is the minimum value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. This counter is available on AXCF and IFUH units. 
+     	UPDATED: The counter is updated when the minimum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(cacMinReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMinReservedBitRate (M5217C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacAvgReservedBitRate">
+    <formula>IP.cacAvgReservedBitRate</formula>
+    <kpi_info>
+      <title>cacAvgReservedBitRate</title>
+      <use>This is the average value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. This counter is available on AXCF and IFUH units. 
+     	UPDATED: The counter is updated when the average value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(cacAvgReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacAvgReservedBitRate (M5217C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxCommittedBitRate">
+    <formula>IP.cacMaxCommittedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxCommittedBitRate</title>
+      <use>This is the maximum bit rate (in kbps) which can be allocated by the CAC, i.e. the commited information rate  (CIR) configured per CAC.This counter is available on AXCF and IFUH units. 
+     		UPDATED: The counter is updated when the value of the allocated bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxCommittedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_ip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxCommittedBitRate (M5217C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

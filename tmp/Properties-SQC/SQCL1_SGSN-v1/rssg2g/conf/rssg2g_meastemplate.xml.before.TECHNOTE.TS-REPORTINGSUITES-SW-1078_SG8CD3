@@ -1,0 +1,2090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf>
+  <meas-template priority="5" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="UNIT_SGSN" id="unit_id">p.unit</pivot>
+      <pivot level="ATMPRG" id="atmprg_id">p.atmprg</pivot>
+      <pivot level="IU_MCC" id="iu_mcc_id">p.mcc</pivot>
+      <pivot level="IU_MNC" id="iu_mnc_id">p.mnc</pivot>
+      <pivot level="RNC_SGSN" id="rnc_id">p.rnc_id</pivot>
+      <pivot level="ACTC" id="actc_id">p.ACCESS_TYPE</pivot>
+      <pivot level="PLTC" id="pltc_id">p.PLMN_TYPE</pivot>
+      <pivot level="SPECMCC" id="specmcc_id">p.MCC</pivot>
+      <pivot level="SPECMNC" id="specmnc_id">p.MNC</pivot>
+      <pivot level="SET" id="set_id">p.set_index</pivot>
+      <pivot level="OBNAME" id="object_name">p.object_name</pivot>
+      <pivot level="CU" id="object_index">p.object_index</pivot>
+      <pivot level="PHYTTP_SGSN" id="phyttp_id">p.phyttp</pivot>
+      <pivot level="SSIF" id="ssif_id">p.ssif</pivot>
+      <pivot level="PGI" id="pgi_id">p.pgi</pivot>
+      <pivot level="INTERFACE_ID" id="interface_id">p.interface_id</pivot>
+      <pivot level="VPI_SGSN" id="vpi_id">p.vpi</pivot>
+      <pivot level="VCI_SGSN" id="vci_id">p.vci</pivot>
+      <pivot level="MARKET" id="market">g.market</pivot>
+      <pivot level="REGION" id="region">g.region</pivot>
+      <pivot level="SLN_SGSN" id="signal_link_number_id">p.signal_link_number_id</pivot>
+      <pivot level="SNET_SGSN" id="snet_id">p.snet_id</pivot>
+      <pivot level="SPC_SGSN" id="spc_id">p.spc_id</pivot>
+      <pivot level="SLSN_SGSN" id="slsn_id">p.slsn_id</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+      <pivot level="ASSOSET_SGSN" id="assoset_id">p.assoset_id</pivot>
+      <pivot level="ASSOIND_SGSN" id="assoind_id">p.assoind_id</pivot>
+      <pivot level="IPPU" id="ippu">p.ippu</pivot>
+      <pivot level="TC" id="tc_id">p.tc_id</pivot>
+      <pivot level="BC" id="bc_id">p.bc_id</pivot>
+      <pivot level="SIO_SGSN" id="sio_id">p.sio_id</pivot>
+      <pivot level="UNIT1_SGSN" id="unit_id">p.unt_id</pivot>
+      <pivot level="PIU_SGSN" id="piu_id">p.piu_id</pivot> 
+      <pivot level="INTERFACE_SGSN" id="interface_id">p.interface_id</pivot> 
+      <pivot level="VLAN_SGSN" id="vlan_id">p.vlan_id</pivot> 
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/SGSN">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/SLN/SNET/SPC/SLSN">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,SLN_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN</level>
+        <level keys="SGSN,SLN_SGSN,SNET_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN/SNET_SGSN</level>
+        <level keys="SGSN,SLN_SGSN,SNET_SGSN,SPC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN/SNET_SGSN/SPC_SGSN</level>
+        <level keys="SGSN,SLN_SGSN,SNET_SGSN,SPC_SGSN,SLSN_SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/SLN_SGSN/SNET_SGSN/SPC_SGSN/SLSN_SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+    <base-level id="PLMN/SGSN/SLN/SNET/SPC/SLSN1">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,SLN_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN</level>
+        <level keys="SGSN,SLN_SGSN,SNET_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN/SNET_SGSN</level>
+        <level keys="SGSN,SLN_SGSN,SNET_SGSN,SPC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN/SNET_SGSN/SPC_SGSN</level>
+        <level keys="SGSN,SLN_SGSN,SNET_SGSN,SPC_SGSN,SLSN_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SLN_SGSN/SNET_SGSN/SPC_SGSN/SLSN_SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/SNET/SPC/SLSN">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,SNET_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SNET_SGSN</level>
+        <level keys="SGSN,SNET_SGSN,SPC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SNET_SGSN/SPC_SGSN</level>
+        <level keys="SGSN,SNET_SGSN,SPC_SGSN,SLSN_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SNET_SGSN/SPC_SGSN/SLSN_SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+
+    <base-level id="PLMN/SGSN/SNET/SIO">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,SNET_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SNET_SGSN</level>
+        <level keys="SGSN,SNET_SGSN,SIO_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SNET_SGSN/SIO_SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+
+    <base-level id="PLMN/SGSN/INTERFACE_ID/VPI/VCI">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,INTERFACE_ID" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/INTERFACE_ID</level>
+        <level keys="SGSN,INTERFACE_ID,VPI_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/INTERFACE_ID/VPI_SGSN</level>
+        <level keys="SGSN,INTERFACE_ID,VPI_SGSN,VCI_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/INTERFACE_ID/VPI_SGSN/VCI_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/UNIT">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:unit,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:unit,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:unit,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:unit,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:unit,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/IPPU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,IPPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/IPPU</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ippu,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ippu,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ippu,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ippu,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ippu,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:ippu,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:ippu,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>    <base-level id="PLMN/SGSN/ATMPRG">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,ATMPRG" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/ATMPRG</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:atmprg,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:atmprg,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:atmprg,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:atmprg,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:atmprg,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/RNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,IU_MCC,IU_MNC,RNC_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/RNC_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:rnc,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:rnc,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:rnc,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:rnc,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:rnc,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:rnc,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:rnc,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/ACTC/PLTC/SPECMCC/SPECMNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,ACTC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/ACTC</level>
+        <level keys="SGSN,ACTC,PLTC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/ACTC/PLTC</level>
+        <level keys="SGSN,ACTC,PLTC,SPECMCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/ACTC/PLTC/SPECMCC</level>
+        <level keys="SGSN,ACTC,PLTC,SPECMCC,SPECMNC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/ACTC/PLTC/SPECMCC/SPECMNC</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:specmnc,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/SET">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,SET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SET</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:set,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:set,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:set,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:set,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:set,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/CU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,OBNAME,CU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/CU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:cu,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:cu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:cu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:cu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:cu,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:cu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:cu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PHYTTP">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,PHYTTP_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PHYTTP_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:phyttp,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:phyttp,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:phyttp,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:phyttp,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:phyttp,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+     <base-level id="PLMN/SGSN/SSIF">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,SSIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/SSIF</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ssif,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ssif,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ssif,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ssif,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ssif,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/IPPU/TC/BC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN/SGSN</level>
+        <level keys="SGSN,IPPU" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN/SGSN/IPPU</level>
+        <level keys="SGSN,IPPU,TC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/IPPU/TC</level>
+        <level keys="SGSN,IPPU,TC,BC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/IPPU/TC/BC</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:bc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:bc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:bc2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:bc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:bc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:bc2,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:bc2,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PGI">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,PGI" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PGI</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:pgi,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:pgi,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:pgi,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:pgi,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:pgi,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+     <base-level id="PLMN/SGSN/ASSOSET/ASSOIND">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,ASSOSET_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/ASSOSET_SGSN</level>
+        <level keys="SGSN,ASSOSET_SGSN,ASSOIND_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/ASSOSET_SGSN/ASSOIND_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:assoind1,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/ASSOSET">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,ASSOSET_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/ASSOSET_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:assoset1,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/UNIT/PIU/INTERFACE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN,INTERFACE_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN/INTERFACE_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:interface3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:interface3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:interface3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+  <base-level id="PLMN/SGSN/UNIT/PIU/VLAN">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN,VLAN_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN/VLAN_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <meas-template priority="7" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="PAPU" id="papu_gid">papu.co_gid</pivot>
+      <pivot level="LAC_SGSN" id="lac_id">p.lac</pivot>
+      <pivot level="RAC" id="rac_id">p.rac</pivot>
+      <pivot level="CI_SGSN" id="ci_id">p.ci</pivot>
+      <pivot level="MCC" id="mcc_id">p.mcc</pivot>
+      <pivot level="BTS_SGSN" id="bts_gid">bts.co_gid</pivot>
+      <pivot level="MARKET" id="market">g.market</pivot>
+      <pivot level="REGION" id="region">g.region</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				utp_common_objects bts,
+				roh_c_bts bts_param,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				papu.co_oc_id=462 and
+				papu.co_object_instance=p.papu_index and
+				bts.co_oc_id = 4 and
+				bts_param.la_id_lac = p.lac and
+				bts_param.ra_id_rac = p.rac and
+				bts_param.cell_id = p.ci and
+				bts_param.co_gid = bts.co_gid and
+				bts_param.valid_finish_time>sysdate and
+				p.mcc > -1 and
+				p.mnc > -1 and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+
+      <base-level id="PLMN/SGSN/PAPU/LAC/RAC/BTS">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,LAC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN</level>
+        <level keys="PAPU,LAC_SGSN,RAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN/RAC</level>
+        <level keys="PAPU,LAC_SGSN,RAC,CI_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN/RAC/CI_SGSN</level>
+        <level keys="PAPU,LAC_SGSN,RAC,CI_SGSN,BTS_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/LAC_SGSN/RAC/CI_SGSN/BTS_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:cell,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:cell,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:cell,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:cell,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:cell,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:cell,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:cell,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template><!-- 
+  <meas-template priority="6" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!- - The required number of pivot levels will be generated starting with PLMN - ->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="PAPU" id="papu_gid">papu.co_gid</pivot>
+      <pivot level="LAC_SGSN" id="lac_id">p.lac</pivot>
+      <pivot level="RAC" id="rac_id">p.rac</pivot>
+      <pivot level="CI_SGSN" id="ci_id">p.ci</pivot>
+      <pivot level="MCC" id="mcc_id">p.mcc</pivot>
+      <pivot level="BTS_SGSN" id="bts_gid">bts.co_gid</pivot>
+      <pivot level="MARKET" id="market">g.market</pivot>
+      <pivot level="REGION" id="region">g.region</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				papu.co_oc_id=462 and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p.papu_index and
+				p.mcc > -1 and
+				p.mnc > -1
+			group by
+				#group_by#]]></sql-template>
+  </meas-template>-->
+  <meas-template priority="6" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="PAPU" id="papu_gid">papu.co_gid</pivot>
+      <pivot level="IURA" id="iu_ra_rnc_id">p.iu_ra_rnc_id</pivot>
+      <pivot level="IULAC" id="iulac_id">p.iu_ra_lac</pivot>
+      <pivot level="IURAAC" id="iuraac_id">p.rac</pivot>
+      <pivot level="IURAC" id="iurac_id">p.iu_ra_mnc</pivot>
+      <pivot level="SA" id="sa_id">p.sac</pivot>
+      <pivot level="IUSAC" id="iusac_id">p.iu_sa_mnc</pivot>
+      <pivot level="LAC_SGSN" id="lac_id">p.lac</pivot>
+      <pivot level="RAC" id="rac_id">p.rac</pivot>
+      <pivot level="CI_SGSN" id="ci_id">p.ci</pivot>
+      <pivot level="MCC" id="mcc_id">p.mcc</pivot>
+      <pivot level="BTS_SGSN" id="bts_gid">bts.co_gid</pivot>
+      <pivot level="LUDP" id="ludp_id">p.local_udp</pivot>
+      <pivot level="LIP" id="lip_id">p.local_ip_address</pivot>
+      <pivot level="RIP" id="rip_id">p.remote_ip_address</pivot>
+      <pivot level="IPEPT" id="ipept_id">p.remote_udp</pivot>
+      <pivot level="NSEI_IPEPT" id="nsei2_id">p.nsei2</pivot>
+      <pivot level="MARKET" id="market">g.market</pivot>
+      <pivot level="REGION" id="region">g.region</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">papu.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+                #pivots#,
+                #pi_aggregations#
+            from
+                #grouping_sql#
+                utp_common_objects plmn,
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                #meas_table# p
+            where
+                #add_on_clause# and
+                period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+                period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+                papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_gid = p.sgsn_gid and
+                sgsn.co_parent_gid = plmn.co_gid and
+                papu.co_oc_id=462 and
+                papu.co_object_instance=p.papu_index and
+                plmn.co_oc_id=16 and
+                sgsn.co_oc_id=463
+            group by
+                #group_by#]]>
+    </sql-template>
+    <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,IURA" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA</level>
+        <level keys="PAPU,IURA,IULAC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/IURA/IULAC</level>
+        <level keys="PAPU,IURA,IULAC,IURAAC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/IURA/IULAC/IURAAC</level>
+        <level keys="PAPU,IURA,IULAC,IURAAC,SA" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iusac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iusac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:iusac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:iusac,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:iusac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:iusac,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:iusac,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/LAC/RAC/BTS">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,LAC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN</level>
+        <level keys="PAPU,LAC_SGSN,RAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN/RAC</level>
+        <level keys="PAPU,LAC_SGSN,RAC,CI_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN/RAC/CI_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:cell,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:cell,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:cell,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:cell,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:cell,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:cell,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:cell,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+<!-- level should be PLMN/SGSN/PAPU/NSEI/IPETP where IPEPT is {LUDP,LIP,RIP,RUDP}-->
+    <base-level id="PLMN/SGSN/PAPU/LUDP/LIP/RIP/IPEPT">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,NSEI_IPEPT" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/NSEI_IPEPT</level>
+        <level keys="PAPU,NSEI_IPEPT,LUDP,LIP,RIP,IPEPT" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/NSEI_IPEPT/IPEPT</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ipept,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ipept,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ipept,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ipept,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ipept,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:ipept,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:ipept,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+   
+   <meas-template priority="5" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="PAPU" id="papu_gid">papu.co_gid</pivot>
+      <pivot level="LAC_SGSN" id="lac_id">p.lac</pivot>
+      <pivot level="RAC" id="rac_id">p.rac</pivot>
+      <pivot level="MCC" id="mcc_id">p.mcc</pivot>
+      <pivot level="BTS_SGSN" id="bts_gid">bts.co_gid</pivot>
+      <pivot level="MARKET" id="market">g.market</pivot>
+      <pivot level="REGION" id="region">g.region</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+                #pivots#,
+                #pi_aggregations#
+            from
+                #grouping_sql#
+                utp_common_objects plmn,
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                #meas_table# p
+            where
+                #add_on_clause# and
+                period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+                period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+                papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_gid = p.sgsn_gid and
+                sgsn.co_parent_gid = plmn.co_gid and
+                papu.co_oc_id=462 and
+                plmn.co_oc_id=16 and
+                sgsn.co_oc_id=463 and
+                papu.co_object_instance=p.papu_index and
+                p.mcc > -1 and
+                p.mnc > -1
+            group by
+                #group_by#]]></sql-template>
+
+      <base-level id="PLMN/SGSN/PAPU/LAC/RAC/BTS">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,LAC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN</level>
+        <level keys="PAPU,LAC_SGSN,RAC" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/PAPU/LAC_SGSN/RAC</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ra,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ra,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ra,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ra,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ra,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:ra,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:ra,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <meas-template priority="5" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="PAPU" id="papu_gid">papu.co_gid</pivot>
+      <pivot level="TC" id="tc_id">p.tc_id</pivot>
+      <pivot level="BC" id="bc_id">p.bc_id</pivot>
+      <pivot level="RARAC" id="rarac_id">p.rac</pivot>
+      <pivot level="RARA" id="rara_id">p.old_rac</pivot>
+      <pivot level="LAC_SGSN" id="lac_id">p.lac</pivot>
+      <pivot level="RAC" id="rac_id">p.rac</pivot>
+      <pivot level="IURA" id="iu_ra_rnc_id">p.iu_ra_rnc_id</pivot>
+      <pivot level="IULAC" id="iulac_id">p.iu_ra_lac</pivot>
+      <pivot level="IURAAC" id="iuraac_id">p.rac</pivot>
+      <pivot level="IUMCC" id="iumcc_id">p.iu_ra_mcc</pivot>
+      <pivot level="IURAC" id="iurac_id">p.iu_ra_mnc</pivot>
+      <pivot level="SA" id="sa_id">p.sac</pivot>
+      <pivot level="RAMCC" id="ramcc_id">p.mcc</pivot>
+      <pivot level="RA" id="ra_id">p.mnc</pivot>
+      <pivot level="RAUTYPE" id="rautype_id">p.rau_type</pivot>
+      <pivot level="RA1RA2" id="ra1ra2_id">p.iu_ra_rnc_id</pivot>
+      <pivot level="LUDP" id="ludp_id">p.local_udp</pivot>
+      <pivot level="LIP" id="lip_id">p.local_ip_address</pivot>
+      <pivot level="RIP" id="rip_id">p.remote_ip_address</pivot>
+      <pivot level="NSEI_SGSN" id="nse_id">p.nsei</pivot>
+      <pivot level="IPEPT" id="ipept_id">p.remote_udp</pivot>
+      <pivot level="NSEI_IPEPT" id="nsei2_id">p.nsei2</pivot>
+      <pivot level="NSVC" id="nsvc_id">p.nsvci</pivot>
+      <pivot level="MARKET" id="market">g.market</pivot>
+      <pivot level="REGION" id="region">g.region</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">papu.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				papu.co_oc_id=462 and
+				papu.co_object_instance=p.papu_index and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/SGSN/PAPU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:papu,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:papu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:papu,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:papu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:papu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/TC/BC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+		<level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,TC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/TC</level>
+        <level keys="PAPU,TC,BC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/TC/BC</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:bc1,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:bc1,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:bc1,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:bc1,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:bc1,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:bc1,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:bc1,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/RARAC/RARA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,RARAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/RARAC</level>
+        <level keys="PAPU,RARAC,RARA" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/RARAC/RARA</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:rara,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:rara,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:rara,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:rara,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:rara,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:rara,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:rara,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC/IURAC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,IURA" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA</level>
+        <level keys="PAPU,IURA,IULAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA/IULAC</level>
+        <level keys="PAPU,IURA,IULAC,IURAAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA/IULAC/IURAAC</level>
+        <level keys="PAPU,IURA,IULAC,IURAAC,IUMCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC</level>
+        <level keys="PAPU,IURA,IULAC,IURAAC,IUMCC,IURAC" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC/IURAC</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iurac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:iurac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:iurac,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:iurac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:iurac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:iurac,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:iurac,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,IURA" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA</level>
+        <level keys="PAPU,IURA,SA" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/IURA/SA</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iusac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iusac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:iusac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:iusac,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:iusac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:iusac,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:iusac,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,IURA" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/IURA</level>
+        <level keys="PAPU,IURA,IULAC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/IURA/IULAC</level>
+        <level keys="PAPU,IURA,IULAC,IURAAC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/IURA/IULAC/IURAAC</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iurac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iurac,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:iurac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:iurac,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:iurac,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:iurac,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:iurac,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+    <base-level id="PLMN/SGSN/PAPU/LAC/RAC/RAMCC/RA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,LAC_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN</level>
+        <level keys="PAPU,LAC_SGSN,RAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN/RAC</level>
+        <level keys="PAPU,LAC_SGSN,RAC,RAMCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/LAC_SGSN/RAC/RAMCC</level>
+        <level keys="PAPU,LAC_SGSN,RAC,RAMCC,RA" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/LAC_SGSN/RAC/RAMCC/RA</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ra,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ra,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ra,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ra,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ra,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:ra,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:ra,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/RAUTYPE/RA1RA2">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,RAUTYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/RAUTYPE</level>
+        <level keys="PAPU,RAUTYPE,RA1RA2" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/RAUTYPE/RA1RA2</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:ra1ra2,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <!-- level should be PLMN/SGSN/PAPU/NSEI/IPETP where IPEPT is {LUDP,LIP,RIP,RUDP}-->
+    <base-level id="PLMN/SGSN/PAPU/LUDP/LIP/RIP/IPEPT">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,NSEI_IPEPT" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/PAPU/NSEI_IPEPT</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ipept,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:nsei2,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:nsei2,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:nsei2,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ipept,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:nsei2,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:nsei2,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/NSEI/NSVC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,NSEI_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU/NSEI_SGSN</level>
+        <level keys="PAPU,NSEI_SGSN,NSVC" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/NSEI_SGSN/NSVC</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:nsvc,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <meas-template priority="4" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="UNIT1_SGSN" id="unit_id">p.unt_id</pivot>
+      <pivot level="PIU_SGSN" id="piu_id">p.piu_id</pivot>
+      <pivot level="INF_SGSN" id="inf_id">p.inf_id</pivot>      
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/SGSN/PAPU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/SLN/SNET/SPC/SLSN">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/SLN/SNET/SPC/SLSN1">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SLSN1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/SNET/SPC/SLSN">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SLSN2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+
+    <base-level id="PLMN/SGSN/SNET/SIO">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:SGSN,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:SIO1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+
+    <base-level id="PLMN/SGSN/RNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/ASSOSET/ASSOIND">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/ASSOSET">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/IPPU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="MR_sgs" time-agg-levels="day,whole_period,week">PLMN/MR_sgs</level>
+        <level keys="WS_sgs" time-agg-levels="day,whole_period,week">PLMN/WS_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/UNIT/PIU/INTERFACE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:piu3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:piu3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:piu3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>    
+    
+  <base-level id="PLMN/SGSN/UNIT/PIU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:piu3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:piu3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:piu3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:piu3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:piu3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:piu3,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:piu3,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+     </subst>
+    </base-level>    
+
+  <base-level id="PLMN/SGSN/UNIT/INF">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,INF_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN/INF_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:inf1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:inf1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:inf1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:inf1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:inf1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+     </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/UNIT/PIU/VLAN">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN,PIU_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/UNIT1_SGSN/PIU_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:piu3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:piu3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:piu3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:piu3,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:piu3,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>    
+        
+  </meas-template>
+  <meas-template priority="4" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="PAPU" id="papu_gid">papu.co_gid</pivot>
+      <pivot level="RAUTYPE" id="rautype_id">p.rau_type</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				papu.co_oc_id=462 and
+				papu.co_object_instance=p.papu_index and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/SGSN/PAPU/LAC/RAC/BTS">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:papu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:papu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:papu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="raw" subst="{OBJ_AGG}:cell2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:cell2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC/IURAC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:papu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:papu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:papu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:papu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:papu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:papu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+        <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:papu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:papu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:papu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/LAC/RAC/RAMCC/RA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:papu,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:papu,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:papu,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:papu,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/RAUTYPE/RA1RA2">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="PAPU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/PAPU</level>
+        <level keys="PAPU,RAUTYPE" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/PAPU/RAUTYPE</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:rautype,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:rautype,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:rautype,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:rautype,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:rautype,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <meas-template priority="3" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="UNIT1_SGSN" id="unit_id">p.unt_id</pivot>
+      <pivot level="ET_SGSN" id="et_id">p.et_id</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/SGSN/PAPU/LAC/RAC/BTS">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="raw" subst="{OBJ_AGG}:cell2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:cell2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/IUMCC/IURAC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:iusac2,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/SGSN/PAPU/LAC/RAC/RAMCC/RA">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SEL}:" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/UNIT/PIU/INTERFACE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:unt1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>    
+    
+  <base-level id="PLMN/SGSN/UNIT/PIU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:piu3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:unt1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:piu3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:unt1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:unt1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+     </subst>
+    </base-level>
+
+  <base-level id="PLMN/SGSN/UNIT/INF">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:inf1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:unt1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:inf1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+     </subst>
+    </base-level>    
+
+  <base-level id="PLMN/SGSN/ET">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="SGSN,ET_SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN/ET_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:et2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:et2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:et2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:et2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:et2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+     </subst>
+    </base-level>
+  <base-level id="PLMN/SGSN/UNIT/PIU/VLAN">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="SGSN,UNIT1_SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN/UNIT1_SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:unt1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:unt1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:unt1,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:unt1,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+         
+  </meas-template>
+
+  <meas-template priority="2" pragma="rssg2g">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/MARKET" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/REGION" filter-level="SGSN" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_sgs" filter-level="SGSN" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="SGSN" id="sgsn_gid">sgsn.co_gid</pivot>
+      <pivot level="WS_sgs" id="ws">g.ws</pivot>
+      <pivot level="MR_sgs" id="mr_gid">sgsn.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects sgsn,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				sgsn.co_gid = p.sgsn_gid and
+				sgsn.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				sgsn.co_oc_id=463
+			group by
+				#group_by#]]></sql-template>
+
+
+  <base-level id="PLMN/SGSN/UNIT/PIU/INTERFACE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:interface3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>    
+  <base-level id="PLMN/SGSN/UNIT/PIU">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:piu3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:piu3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+     </subst>
+    </base-level>    
+
+  <base-level id="PLMN/SGSN/UNIT/INF">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:inf1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:inf1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+     </subst>
+    </base-level>
+  <base-level id="PLMN/SGSN/ET">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:et2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:et2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+     </subst>
+    </base-level>
+  <base-level id="PLMN/SGSN/UNIT/PIU/VLAN">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="SGSN" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/SGSN</level>
+        <level keys="WS_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_sgs</level>
+        <level keys="MR_sgs" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_sgs</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:vlan1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:weekbh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:sgsn,{TIME_AGG}:bh,{BH_SUF}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+
+
+   <drill-conf>
+		<object-drill from="PLMN/MR_sgs" to="PLMN/SGSN"/>
+		<object-drill from="PLMN/TC" to="PLMN/SGSN/TC"/>
+		<object-drill from="PLMN/BC" to="PLMN/SGSN/BC"/>
+		<object-drill from="PLMN/SGSN/TC" to="PLMN/SGSN/PAPU/TC"/>
+		<object-drill from="PLMN/SGSN/BC" to="PLMN/SGSN/PAPU/BC"/>
+		<object-drill from="PLMN/WS_sgs" to="PLMN/SGSN"/>
+   </drill-conf>
+	<level name="MR_sgs">
+		<processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+			<id-components>
+				<id level="MR_sgs" column="co_gid"/>
+			</id-components>
+			<name column="name"/>
+			<sql>
+				select co_gid,
+					decode(nvl(co_name,'NN ('||co_gid||')'),' ','NN ('||co_gid||')',nvl(co_name,'NN ('||co_gid||')')) name
+				from utp_common_objects
+				where co_oc_id = 109
+					connect by nocycle prior co_mr_gid = co_gid start with co_gid in
+						(select co_gid from utp_common_objects where co_oc_id = 463)
+				group by co_gid, co_name
+				order by 2
+			</sql>
+		</processor>
+	</level>
+	<report pragma="default">
+		<report-level id="PLMN/MR_sgs">
+			<time-agg-levels>day,hour,raw,whole_period,week</time-agg-levels>
+		</report-level>
+		<default-add-on-sort>2,1,3</default-add-on-sort>
+		<default-obj-drill-column>MR Name</default-obj-drill-column>
+		<column-to-hide>MR_GID</column-to-hide>
+		<sql-kpi><![CDATA[
+			select
+				#id_pivot#,
+				mr.co_name "MR Name",
+				#kpis#
+			from
+				utp_common_objects mr
+				#tmp_meas_tables#
+			where
+				mr.co_oc_id=109 and
+				#first_tmp_table#.mr_gid = mr.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by 2,1,3
+		]]></sql-kpi>
+	</report>
+	<report pragma="default">
+	    <report-level id="PLMN/WS_sgs">
+	        <time-agg-levels>day,hour,raw,whole_period,week</time-agg-levels>
+	    </report-level>
+	    <default-add-on-sort>2,1,3</default-add-on-sort>
+	    <sql-kpi><![CDATA[
+			select
+				#id_pivot#,
+				#kpis#
+			from
+				dual
+				#tmp_meas_tables#
+			where
+				1=1
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#
+		]]></sql-kpi>
+	</report>
+
+	<group name="PLMN/WS_sgs">
+	    <supports>
+	        <filter-level>SGSN</filter-level>
+	    </supports>
+	    <object-id-ref>ws_gid</object-id-ref>
+	    <group-id-ref>ws_sgs</group-id-ref>
+
+	    <sql><![CDATA[
+	    	select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id
+		]]></sql>
+	</group>
+
+	<level name="WS_sgs">
+	    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+	        <id-components>
+	            <id level="WS_sgs" column="ws"/>
+	        </id-components>
+	        <name column="ws"/>
+	        <sql><![CDATA[
+	    	select
+	    		distinct w.setname ws
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+	    		leg.la_object_class = 463
+	    	order by 1
+			]]></sql>
+	    </processor>
+	</level>
+</object-conf>
+

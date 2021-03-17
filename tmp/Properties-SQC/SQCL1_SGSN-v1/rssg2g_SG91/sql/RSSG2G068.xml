@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	
+	<report id="RSSG2G068 - SA Configuration" thresholds="false">
+		<report-level key="PAPU">PLMN/SGSN/PAPU/IURA/SA</report-level>
+		<level>PLMN/SGSN/PAPU/IURA/SA</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSSG2G068 - SA Configuration</title>
+		<help-text>
+			<![CDATA[<br>This is a CM report that gives information about the Service Areas that are available per SGSN/PAPU/RNC/IULAC/IURAC.
+<br>To see this content at SA level the 'Advanced cell & SA level' (898) license item must be activated in SGSN.
+<br>Use case specific instructions:
+<br>To run this report &#034;Iu Mobility Management measurement&#034; (016) must be activated in SGSN.
+<br>
+<br>Report columns:
+<br>
+<br>1. SGSN - &#034;SGSN name&#034;
+<br>- stores the SGSN identifier.
+<br>
+<br>2. PAPU_INDEX - &#034;PAPU logical index&#034; [#]
+<br>- stores the logical PAPU index; Possible values: 0-40; Values of 33-40 are shown if &#034;LRAS enhancement&#034; feature is activated and they indicate PAPU group used.
+<br>
+<br>3. IU_RA_RNC_ID - &#039;RNC id&#039;
+<br>- stores the RNC identifier.
+<br>
+<br>4. IU_RA_LAC - &#034;RA Location Area&#034;
+<br>- stores the RA Location Area Code identifier.
+<br>
+<br>5. RAC - &#034;RA Routing Area&#034;
+<br>- stores the RA Routing Area Code identifier.
+<br>
+<br>6. IU_RA_MCC - &#034;RA Mobile Country Code&#034;
+<br>- stores the RA Mobile Country Code identifier.
+<br>
+<br>7. IU_RA_MNC - &#034;RA Mobile Network Code&#034;
+<br>- stores the RA Mobile Network Code identifier.
+<br>
+<br>8. SAC - &#034;SA Service Area&#034;
+<br>- stores the Service Area identifier.
+<br>
+<br>9. IU_SA_LAC - &#034;SA Location Area Code&#034;
+<br>- stores the SA Location Area Code identifier.
+<br>
+<br>10. IU_SA_MCC - &#034;SA Mobile Country Code&#034;
+<br>- stores the SA Mobile Country Code identifier.
+<br>
+<br>11. IU_SA_MNC - &#034;SA Mobile Network Code&#034;
+<br>- stores the SA Mobile Network Code identifier.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="SGSN">sgsn.co_gid</pivot>
+			<pivot level="PAPU">papu.co_gid</pivot>
+			
+			<pivot level="IURA">iura_id</pivot>
+			<pivot level="SA">sa_id</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="time_stamp" columnType="KEY">
+				<alias>Time stamp</alias>
+			</column>
+			<column col-id="SGSN name" columnType="KEY">
+				<alias>SGSN name</alias>
+			</column>
+			<column col-id="RNC id" columnType="KEY">
+				<alias>RNC id</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="RNC name" columnType="KEY">
+				<alias>RNC name</alias>
+			</column>
+			<column col-id="PAPU logical index" columnType="KEY">
+				<alias>PAPU logical index</alias>
+			</column>
+			<column col-id="RA Location Area" columnType="KEY">
+				<alias>RA Location Area</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="RA Routing Area" columnType="KEY">
+				<alias>RA Routing Area</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>		
+			<column col-id="RA Mobile Country Code" columnType="KEY">
+				<alias>RA Mobile Country Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="RA Mobile Network Code" columnType="KEY">
+				<alias>RA Mobile Network Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="SA Mobile Country Code" columnType="KEY">
+				<alias>SA Mobile Country Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="SA Mobile Network Code" columnType="KEY">
+				<alias>SA Mobile Network Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="SA Service Area" columnType="KEY">
+				<alias>SA Service Area</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="SA Location Area Code" columnType="KEY">
+				<alias>SA Location Area Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+		</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br>
+				<br><br>
+				<br>
+		 		]]>
+		</literal>
+
+		<sql table-width="1200">
+			<![CDATA[
+
+		SELECT
+				p2.time_stamp "Time stamp",
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') "SGSN name", 
+				NVL(papu.co_object_instance, 'NN('||papu.co_gid||')') "PAPU logical index",
+				p2.iura_id "RNC id",
+				NVL(rnc.co_name, 'NN('||p2.iura_id||')') "RNC name",
+				
+				p2.iulac_id "RA Location Area",
+				p2.iuraac_id "RA Routing Area",
+				p2.iumcc_id "RA Mobile Country Code",
+				p2.iurac_id "RA Mobile Network Code",
+				p2.sa_id "SA Service Area",
+				p2.salac_id "SA Location Area Code",
+				p2.samcc_id "SA Mobile Country Code",
+				p2.iusac_id "SA Mobile Network Code"
+				
+				
+			FROM
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				(SELECT
+				co_object_instance,
+				co_name
+				FROM
+				utp_common_objects
+				WHERE
+				co_oc_id=811
+				) rnc,
+				RSG_PD_IUSAC_OBJECTS p2
+			WHERE
+				#object_selection# AND
+				papu.co_parent_gid = sgsn.co_gid AND
+				sgsn.co_oc_id=463 AND
+				papu.co_object_instance=p2.papu_gid AND
+				papu.co_oc_id=462 AND
+				sgsn.co_gid= p2.sgsn_gid AND
+				p2.iura_id  = rnc.co_object_instance (+)
+			ORDER BY 2,3,1
+
+
+	 		]]>
+	 	</sql>	
+	</report>
+</reports>

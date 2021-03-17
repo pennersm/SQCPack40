@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.2;NS2.0;NS1.0 CD4;NS1.0 CD2 M53 UMLM measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.2;NS2.0;NS1.0 CD4;NS1.0 CD2 M53 UMLM measurement dump</csv_title>
+    <report-description>User MME Level Measurement(UMLM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <EPS_ECM_CONN_MIN />
+    <EPS_ECM_CONN_MAX />
+    <EPS_ECM_CONN_SUM />
+    <EPS_ECM_CONN_DENOM />
+    <EPS_ECM_IDLE_MIN />
+    <EPS_ECM_IDLE_MAX />
+    <EPS_ECM_IDLE_SUM />
+    <EPS_ECM_IDLE_DENOM />
+    <EPS_EMM_REG_MIN />
+    <EPS_EMM_REG_MAX />
+    <EPS_EMM_DEREG_MIN />
+    <EPS_EMM_DEREG_MAX />
+	<PROVIDE_SUBS_LOCATION_SUCC />
+    <PROVIDE_SUBS_LOCATION_ABN_SUCC />
+    <PROVIDE_SUBS_LOCATION_ABN_FAIL />
+    <LOCATION_SERVICE_REQ_SUCC />
+    <LOCATION_SERVICE_REQ_FAIL />
+    <SRVCC_PS_AND_CS_HANDOVER_SUCC />
+    <SRVCC_CS_HANDOVER_SUCC />
+    <OVERLOAD_CONTROL_DROP_PROC />
+  </column_order>
+  <temp_table name="UMLM" meas_level="PLMN/FLEXINS" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_ECM_CONN_MIN" time-alias="EPS_ECM_CONN_MIN" timeagg="MIN(EPS_ECM_CONN_MIN)">MIN(EPS_ECM_CONN_MIN)</counter>
+      <counter alias="EPS_ECM_CONN_MAX" time-alias="EPS_ECM_CONN_MAX" timeagg="MAX(EPS_ECM_CONN_MAX)">MAX(EPS_ECM_CONN_MAX)</counter>
+      <counter alias="EPS_ECM_CONN_SUM" time-alias="EPS_ECM_CONN_SUM" timeagg="SUM(EPS_ECM_CONN_SUM)">SUM(EPS_ECM_CONN_SUM)</counter>
+      <counter alias="EPS_ECM_CONN_DENOM" time-alias="EPS_ECM_CONN_DENOM">AVG(EPS_ECM_CONN_DENOM)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_ECM_IDLE_MIN" time-alias="EPS_ECM_IDLE_MIN" timeagg="MIN(EPS_ECM_IDLE_MIN)">MIN(EPS_ECM_IDLE_MIN)</counter>
+      <counter alias="EPS_ECM_IDLE_MAX" time-alias="EPS_ECM_IDLE_MAX" timeagg="MAX(EPS_ECM_IDLE_MAX)">MAX(EPS_ECM_IDLE_MAX)</counter>
+      <counter alias="EPS_ECM_IDLE_SUM" time-alias="EPS_ECM_IDLE_SUM" timeagg="SUM(EPS_ECM_IDLE_SUM)">SUM(EPS_ECM_IDLE_SUM)</counter>
+      <counter alias="EPS_ECM_IDLE_DENOM" time-alias="EPS_ECM_IDLE_DENOM">AVG(EPS_ECM_IDLE_DENOM)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_EMM_REG_MIN" time-alias="EPS_EMM_REG_MIN" timeagg="MIN(EPS_EMM_REG_MIN)">MIN(EPS_EMM_REG_MIN)</counter>
+      <counter alias="EPS_EMM_REG_MAX" time-alias="EPS_EMM_REG_MAX" timeagg="MAX(EPS_EMM_REG_MAX)">MAX(EPS_EMM_REG_MAX)</counter>
+      <counter alias="EPS_EMM_DEREG_MIN" time-alias="EPS_EMM_DEREG_MIN" timeagg="MIN(EPS_EMM_DEREG_MIN)">MIN(EPS_EMM_DEREG_MIN)</counter>
+      <counter alias="EPS_EMM_DEREG_MAX" time-alias="EPS_EMM_DEREG_MAX" timeagg="MAX(EPS_EMM_DEREG_MAX)">MAX(EPS_EMM_DEREG_MAX)</counter>
+	  <counter alias="PROVIDE_SUBS_LOCATION_SUCC">SUM(PROVIDE_SUBS_LOCATION_SUCC)</counter>
+      <counter alias="PROVIDE_SUBS_LOCATION_ABN_SUCC">SUM(PROVIDE_SUBS_LOCATION_ABN_SUCC)</counter>
+      <counter alias="PROVIDE_SUBS_LOCATION_ABN_FAIL">SUM(PROVIDE_SUBS_LOCATION_ABN_FAIL)</counter>
+      <counter alias="LOCATION_SERVICE_REQ_SUCC">SUM(LOCATION_SERVICE_REQ_SUCC)</counter>
+      <counter alias="LOCATION_SERVICE_REQ_FAIL">SUM(LOCATION_SERVICE_REQ_FAIL)</counter>
+      <counter alias="SRVCC_PS_AND_CS_HANDOVER_SUCC">SUM(SRVCC_PS_AND_CS_HANDOVER_SUCC)</counter>
+      <counter alias="SRVCC_CS_HANDOVER_SUCC">SUM(SRVCC_CS_HANDOVER_SUCC)</counter>
+      <counter alias="OVERLOAD_CONTROL_DROP_PROC">SUM(OVERLOAD_CONTROL_DROP_PROC)</counter>
+    </counters>
+    <table_name>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>UMLM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>UMLM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_CONN_MIN">
+    <formula>UMLM.EPS_ECM_CONN_MIN</formula>
+    <kpi_info>
+      <title>EPS_ECM_CONN_MIN</title>
+      <use>The minimum number of users in ECM-CONNECTED state per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_ECM_CONN_MIN)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_CONN_MIN (M53C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_CONN_MAX">
+    <formula>UMLM.EPS_ECM_CONN_MAX</formula>
+    <kpi_info>
+      <title>EPS_ECM_CONN_MAX</title>
+      <use>The maximum number of users in ECM-CONNECTED state per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_ECM_CONN_MAX)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_CONN_MAX (M53C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_CONN_SUM">
+    <formula>UMLM.EPS_ECM_CONN_SUM</formula>
+    <kpi_info>
+      <title>EPS_ECM_CONN_SUM</title>
+      <use>The sum of sampled values for measuring the number of users in ECM-CONNECTED state per MME. This counter, divided by the denominator M53C003, provides the average number of users in ECM-CONNECTED state per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_ECM_CONN_SUM)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_CONN_SUM (M53C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_CONN_DENOM">
+    <formula>UMLM.EPS_ECM_CONN_DENOM</formula>
+    <kpi_info>
+      <title>EPS_ECM_CONN_DENOM</title>
+      <use>The number of samples taken for the counter M53C002, used as a denominator for average calculation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(EPS_ECM_CONN_DENOM)*COUNT(DISTINCT period_start_time)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_CONN_DENOM (M53C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_IDLE_MIN">
+    <formula>UMLM.EPS_ECM_IDLE_MIN</formula>
+    <kpi_info>
+      <title>EPS_ECM_IDLE_MIN</title>
+      <use>The minimum number of users in ECM-IDLE state per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_ECM_IDLE_MIN)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_IDLE_MIN (M53C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_IDLE_MAX">
+    <formula>UMLM.EPS_ECM_IDLE_MAX</formula>
+    <kpi_info>
+      <title>EPS_ECM_IDLE_MAX</title>
+      <use>The maximum number of users in ECM-IDLE state per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_ECM_IDLE_MAX)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_IDLE_MAX (M53C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_IDLE_SUM">
+    <formula>UMLM.EPS_ECM_IDLE_SUM</formula>
+    <kpi_info>
+      <title>EPS_ECM_IDLE_SUM</title>
+      <use>The sum of sampled values for measuring the number of users in ECM-IDLE state per MME. This counter, divided by the denominator M53C007, provides the average number of users in ECM-IDLE state per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_ECM_IDLE_SUM)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_IDLE_SUM (M53C006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_ECM_IDLE_DENOM">
+    <formula>UMLM.EPS_ECM_IDLE_DENOM</formula>
+    <kpi_info>
+      <title>EPS_ECM_IDLE_DENOM</title>
+      <use>The number of samples taken for the counter M53C006, used as a denominator for average calculation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(EPS_ECM_IDLE_DENOM)*COUNT(DISTINCT period_start_time)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_ECM_IDLE_DENOM (M53C007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_REG_MIN">
+    <formula>UMLM.EPS_EMM_REG_MIN</formula>
+    <kpi_info>
+      <title>EPS_EMM_REG_MIN</title>
+      <use>The minimum number of users in EMM state EMM-REGISTERED per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_EMM_REG_MIN)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_REG_MIN (M53C008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_REG_MAX">
+    <formula>UMLM.EPS_EMM_REG_MAX</formula>
+    <kpi_info>
+      <title>EPS_EMM_REG_MAX</title>
+      <use>The maximum number of users in EMM state EMM-REGISTERED per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_EMM_REG_MAX)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_REG_MAX (M53C009)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_DEREG_MIN">
+    <formula>UMLM.EPS_EMM_DEREG_MIN</formula>
+    <kpi_info>
+      <title>EPS_EMM_DEREG_MIN</title>
+      <use>The minimum number of users in EMM state EMM-DEREGISTERED per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_EMM_DEREG_MIN)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_DEREG_MIN (M53C010)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_DEREG_MAX">
+    <formula>UMLM.EPS_EMM_DEREG_MAX</formula>
+    <kpi_info>
+      <title>EPS_EMM_DEREG_MAX</title>
+      <use>The maximum number of users in EMM state EMM-DEREGISTERED per MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_EMM_DEREG_MAX)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_DEREG_MAX (M53C011)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+	<kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PROVIDE_SUBS_LOCATION_SUCC">
+    <formula>UMLM.PROVIDE_SUBS_LOCATION_SUCC</formula>
+    <kpi_info>
+      <title>PROVIDE_SUBS_LOCATION_SUCC</title>
+      <use>Number of successful Provide Subscriber Location procedure,MME responds to GMLC with Result-Code AVP indicating success.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PROVIDE_SUBS_LOCATION_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PROVIDE_SUBS_LOCATION_SUCC (M53C012)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PROVIDE_SUBS_LOCATION_ABN_SUCC">
+    <formula>UMLM.PROVIDE_SUBS_LOCATION_ABN_SUCC</formula>
+    <kpi_info>
+      <title>PROVIDE_SUBS_LOCATION_ABN_SUCC</title>
+      <use>Number of successful Provide Subscriber Location procedure, Location Service Request fails but MME responds to GMLC with E-CGI and indicating success.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PROVIDE_SUBS_LOCATION_ABN_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PROVIDE_SUBS_LOCATION_ABN_SUCC (M53C013)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PROVIDE_SUBS_LOCATION_ABN_FAIL">
+    <formula>UMLM.PROVIDE_SUBS_LOCATION_ABN_FAIL</formula>
+    <kpi_info>
+      <title>PROVIDE_SUBS_LOCATION_ABN_FAIL</title>
+      <use>Number of failed Provide Subscriber Location procedures, MME responds to GMLC with Result-Code AVP indicating failure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PROVIDE_SUBS_LOCATION_ABN_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PROVIDE_SUBS_LOCATION_ABN_FAIL (M53C014)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LOCATION_SERVICE_REQ_SUCC">
+    <formula>UMLM.LOCATION_SERVICE_REQ_SUCC</formula>
+    <kpi_info>
+      <title>LOCATION_SERVICE_REQ_SUCC</title>
+      <use>Number of successful Location service Request procedures, MME receives Location Response message from E-SMLC without LCS Cause IE.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(LOCATION_SERVICE_REQ_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOCATION_SERVICE_REQ_SUCC (M53C015)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LOCATION_SERVICE_REQ_FAIL">
+    <formula>UMLM.LOCATION_SERVICE_REQ_FAIL</formula>
+    <kpi_info>
+      <title>LOCATION_SERVICE_REQ_FAIL</title>
+      <use>Number of failed Location service Request procedures, MME receives Location Response message from E-SMLC with LCS Cause IE or no response is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(LOCATION_SERVICE_REQ_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOCATION_SERVICE_REQ_FAIL (M53C016)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRVCC_PS_AND_CS_HANDOVER_SUCC">
+    <formula>UMLM.SRVCC_PS_AND_CS_HANDOVER_SUCC</formula>
+    <kpi_info>
+      <title>SRVCC_PS_AND_CS_HANDOVER_SUCC</title>
+      <use>Number of successful SRVCC cs and ps handovers to 3G.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRVCC_PS_AND_CS_HANDOVER_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRVCC_PS_AND_CS_HANDOVER_SUCC (M53C017)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SRVCC_CS_HANDOVER_SUCC">
+    <formula>UMLM.SRVCC_CS_HANDOVER_SUCC</formula>
+    <kpi_info>
+      <title>SRVCC_CS_HANDOVER_SUCC</title>
+      <use>Number of successful SRVCC cs only handovers to 3G.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SRVCC_CS_HANDOVER_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SRVCC_CS_HANDOVER_SUCC (M53C018)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVERLOAD_CONTROL_DROP_PROC">
+    <formula>UMLM.OVERLOAD_CONTROL_DROP_PROC</formula>
+    <kpi_info>
+      <title>OVERLOAD_CONTROL_DROP_PROC</title>
+      <use>The number of dropped procedures due to overload control.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(OVERLOAD_CONTROL_DROP_PROC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_umlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>OVERLOAD_CONTROL_DROP_PROC (M53C019)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

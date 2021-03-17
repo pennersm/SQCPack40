@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 IUSS measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 IUSS measurement dump</csv_title>
+    <report-description>Iu SMS measurement dummy SAs filtered(IUSS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IU_SUCC_MO_SMS />
+    <IU_SUCC_MT_SMS />
+    <IU_FAIL_MO_SMS />
+    <IU_FAIL_MT_SMS />
+    <IU_SUCC_MO_SMS_WHEN_CAMEL_USED />
+    <IU_FAIL_MO_SMS_WHEN_CAMEL_USED />
+    <IU_MO_SMS_IN_FAILED_CAMEL />
+    <IU_MO_SMS_BARRED_DUE_ANUM />
+    <IU_MO_SMS_BARRED_BASED_ON_SMSC />
+    <IU_MT_SMS_BARRED_BASED_ON_SMSC />
+    <!--IU_SUCC_GPRS_ATTACH /-->
+  </column_order>
+  <temp_table name="IUSS" meas_level="PLMN/SGSN/PAPU/IURA/IULAC/IURAAC/SA" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="IU_SUCC_MO_SMS" symmetrical="true">SUM(IU_SUCC_MO_SMS)</counter>
+      <counter alias="IU_SUCC_MT_SMS" symmetrical="true">SUM(IU_SUCC_MT_SMS)</counter>
+      <counter alias="IU_FAIL_MO_SMS" symmetrical="true">SUM(IU_FAIL_MO_SMS)</counter>
+      <counter alias="IU_FAIL_MT_SMS" symmetrical="true">SUM(IU_FAIL_MT_SMS)</counter>
+      <counter alias="IU_SUCC_MO_SMS_WHEN_CAMEL_USED" symmetrical="true">SUM(IU_SUCC_MO_SMS_WHEN_CAMEL_USED)</counter>
+      <counter alias="IU_FAIL_MO_SMS_WHEN_CAMEL_USED" symmetrical="true">SUM(IU_FAIL_MO_SMS_WHEN_CAMEL_USED)</counter>
+      <counter alias="IU_MO_SMS_IN_FAILED_CAMEL" symmetrical="true">SUM(IU_MO_SMS_IN_FAILED_CAMEL)</counter>
+      <counter alias="IU_MO_SMS_BARRED_DUE_ANUM" symmetrical="true">SUM(IU_MO_SMS_BARRED_DUE_ANUM)</counter>
+      <counter alias="IU_MO_SMS_BARRED_BASED_ON_SMSC" symmetrical="true">SUM(IU_MO_SMS_BARRED_BASED_ON_SMSC)</counter>
+      <counter alias="IU_MT_SMS_BARRED_BASED_ON_SMSC" symmetrical="true">SUM(IU_MT_SMS_BARRED_BASED_ON_SMSC)</counter>
+<!--      <counter alias="IU_SUCC_GPRS_ATTACH" symmetrical="true">SUM(IU_SUCC_GPRS_ATTACH)</counter> -->
+    </counters>
+    <table_name>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IUSS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IUSS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_SUCC_MO_SMS">
+    <formula>IUSS.IU_SUCC_MO_SMS</formula>
+    <kpi_info>
+      <title>IU_SUCC_MO_SMS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_SUCC_MO_SMS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_SUCC_MO_SMS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_SUCC_MT_SMS">
+    <formula>IUSS.IU_SUCC_MT_SMS</formula>
+    <kpi_info>
+      <title>IU_SUCC_MT_SMS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_SUCC_MT_SMS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_SUCC_MT_SMS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_FAIL_MO_SMS">
+    <formula>IUSS.IU_FAIL_MO_SMS</formula>
+    <kpi_info>
+      <title>IU_FAIL_MO_SMS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_FAIL_MO_SMS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_FAIL_MO_SMS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_FAIL_MT_SMS">
+    <formula>IUSS.IU_FAIL_MT_SMS</formula>
+    <kpi_info>
+      <title>IU_FAIL_MT_SMS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_FAIL_MT_SMS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_FAIL_MT_SMS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_SUCC_MO_SMS_WHEN_CAMEL_USED">
+    <formula>IUSS.IU_SUCC_MO_SMS_WHEN_CAMEL_USED</formula>
+    <kpi_info>
+      <title>IU_SUCC_MO_SMS_WHEN_CAMEL_USED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_SUCC_MO_SMS_WHEN_CAMEL_USED)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_SUCC_MO_SMS_WHEN_CAMEL_USED</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_FAIL_MO_SMS_WHEN_CAMEL_USED">
+    <formula>IUSS.IU_FAIL_MO_SMS_WHEN_CAMEL_USED</formula>
+    <kpi_info>
+      <title>IU_FAIL_MO_SMS_WHEN_CAMEL_USED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_FAIL_MO_SMS_WHEN_CAMEL_USED)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_FAIL_MO_SMS_WHEN_CAMEL_USED</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_MO_SMS_IN_FAILED_CAMEL">
+    <formula>IUSS.IU_MO_SMS_IN_FAILED_CAMEL</formula>
+    <kpi_info>
+      <title>IU_MO_SMS_IN_FAILED_CAMEL</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_MO_SMS_IN_FAILED_CAMEL)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_MO_SMS_IN_FAILED_CAMEL</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_MO_SMS_BARRED_DUE_ANUM">
+    <formula>IUSS.IU_MO_SMS_BARRED_DUE_ANUM</formula>
+    <kpi_info>
+      <title>IU_MO_SMS_BARRED_DUE_ANUM</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_MO_SMS_BARRED_DUE_ANUM)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_MO_SMS_BARRED_DUE_ANUM</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_MO_SMS_BARRED_BASED_ON_SMSC">
+    <formula>IUSS.IU_MO_SMS_BARRED_BASED_ON_SMSC</formula>
+    <kpi_info>
+      <title>IU_MO_SMS_BARRED_BASED_ON_SMSC</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_MO_SMS_BARRED_BASED_ON_SMSC)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_MO_SMS_BARRED_BASED_ON_SMSC</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IU_MT_SMS_BARRED_BASED_ON_SMSC">
+    <formula>IUSS.IU_MT_SMS_BARRED_BASED_ON_SMSC</formula>
+    <kpi_info>
+      <title>IU_MT_SMS_BARRED_BASED_ON_SMSC</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_MT_SMS_BARRED_BASED_ON_SMSC)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_MT_SMS_BARRED_BASED_ON_SMSC</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!--kpi name="IU_SUCC_GPRS_ATTACH">
+    <formula>IUSS.IU_SUCC_GPRS_ATTACH</formula>
+    <kpi_info>
+      <title>IU_SUCC_GPRS_ATTACH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IU_SUCC_GPRS_ATTACH)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_iuss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IU_SUCC_GPRS_ATTACH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+</conf_file>
+

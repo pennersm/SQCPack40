@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/LULAC_ext.xml" />
+  <kpi name="msc_1271b">
+    <formula>decode (((
+			(nvl(lulac_ext.inter_vlr_loc_update_attempt_1,0) + nvl(lulac_ext.inter_vlr_loc_update_attempt_2,0)) -
+			(nvl(lulac_ext.inter_vlr_loc_update_success_1,0) + nvl(lulac_ext.inter_vlr_loc_update_success_2,0))) +
+			(nvl(lulac_ext.ie_vlr_lu_reroute_1,0) + nvl(lulac_ext.ie_vlr_lu_reroute_2,0)))
+			, 0, null, 
+			(100*(nvl(lulac_ext.ie_vlr_lu_reroute_1,0) + nvl(lulac_ext.ie_vlr_lu_reroute_2,0)) / 
+			(((nvl(lulac_ext.inter_vlr_loc_update_attempt_1,0) + nvl(lulac_ext.inter_vlr_loc_update_attempt_2,0)) - 
+			(nvl(lulac_ext.inter_vlr_loc_update_success_1,0) + nvl(lulac_ext.inter_vlr_loc_update_success_2,0))) +
+			(nvl(lulac_ext.ie_vlr_lu_reroute_1,0) + nvl(lulac_ext.ie_vlr_lu_reroute_2,0)))))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of rerouting to failed inter VLR location update (2G/3G) per LAC]]></title>
+      <use><![CDATA[Ratio of the rerouting happened during the normal Location Update procedures compared to the total number of failed Inter-VLR Location Update for the given LAC. Valid for 2G and/or 3G access types.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                     SUM( IE_VLR_LU_REROUTE )
+&lt;br&gt;100 * --------------------------------------------------------------------------------------------
+&lt;br&gt;       SUM( ( INTER_VLR_LOC_UPDATE_ATTEMPT &amp;#150; INTER_VLR_LOC_UPDATE_SUCCESS ) + IE_VLR_LU_REROUTE )
+&lt;br&gt;                            ;Where ACCESS_TYPE = "2G" or "3G" 
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_lulac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Reroute Fail InterVLR LU Per LAC Rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

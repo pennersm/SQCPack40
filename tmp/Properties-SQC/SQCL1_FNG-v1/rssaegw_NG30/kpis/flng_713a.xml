@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml" />
+  <temp_table_ref src="rssaegw/counters/BRR.xml" />
+  <kpi name="flng_713a">
+    <formula>decode(
+			PMIP.pmip_sent_bri_requests,0,null,
+	
+			(BRR.pmip_bra_resp_recv
+			/ 
+			PMIP.pmip_sent_bri_requests))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Ack response received / request sent ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 binding revocation acknowledgement (BRA) response messages received by the P-GW node as response to the binding revocation indication (BRI) request messages sent (including retransmissions).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.PMIP_BRA_RESP_RECV)
+&lt;br&gt;------------------------------- *100
+&lt;br&gt;sum(a.PMIP_SENT_BRI_REQUESTS)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = PMIP
+&lt;br&gt;b = PMIP Binding Revocation Ack received</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_BRR_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:30.31 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW030.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PMIP BRA rsp rcv/req sent</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

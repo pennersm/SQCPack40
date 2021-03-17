@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/RTPRTIP.xml" />
+  <kpi name="mgw_1102a">
+    <formula>decode(
+			(rtprtip.period_duration),0,null, 
+
+			((rtprtip.ipbr_sent_rtp_kbytes + 
+			rtprtip.ipbr_received_rtp_kbytes)*8
+			 / 
+			(rtprtip.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP average bandwidth usage for IP Based Route]]></title>
+      <use><![CDATA[RTP average bandwidth usage for IP Based Route during measurement period]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; SUM(IPBR_SENT_RTP_KBYTES + IPBR_RECEIVED_RTP_KBYTES) * 8
+&lt;br&gt;---------------------------------------------------------
+&lt;br&gt;               SUM(PERIOD_DURATION) *60
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokmww_ps_rtprtip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP avg bndwdth usg IP Route</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw/counters/MBRS.xml" />
+  <kpi name="flng_703a">
+    <formula>decode(
+			GTPCV2.gtpcv2_mod_bearer_req_recv,0,null,
+	
+			(MBRS.gtpcv2_mod_bear_resp_sent
+			/ 
+			GTPCV2.gtpcv2_mod_bearer_req_recv))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer response sent / request received ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 modify bearer response messages sent as response to the modify bearer request messages received (including retransmissions).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.GTPCV2_MOD_BEAR_RESP_SENT)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(a.GTPCV2_MOD_BEARER_REQ_RECV)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v2
+&lt;br&gt;b = GTP-C v2 Modify Bearer Response sent</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_MBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:29.359 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mod Bea resp sent/req rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

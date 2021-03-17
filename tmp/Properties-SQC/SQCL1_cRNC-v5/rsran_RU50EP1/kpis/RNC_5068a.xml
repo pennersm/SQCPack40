@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <kpi name="RNC_5068a">
+    <formula>100*decode(
+			SERVLEV.mtc_low_prior_sign_atts + 
+			SERVLEV.moc_low_prior_sign_atts,0,null, 
+
+			SERVLEV.mtc_low_prior_sign_atts
+			 / 
+			(SERVLEV.mtc_low_prior_sign_atts + 
+			SERVLEV.moc_low_prior_sign_atts))</formula>
+    <kpi_info>
+      <title><![CDATA[MTC share of requested SMS]]></title>
+      <use><![CDATA[MTC share of requested SMS.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                   sum (mtc_low_prior_sign_atts)
+&lt;br&gt;100 * -------------------------------------------------------
+&lt;br&gt;      sum (mtc_low_prior_sign_atts + moc_low_prior_sign_atts)
+&lt;br&gt;
+&lt;br&gt;100* (sum [MTC_LOW_PRIOR_SIGN_ATTS] ) /
+&lt;br&gt;sum ([MTC_LOW_PRIOR_SIGN_ATTS] + [MOC_LOW_PRIOR_SIGN_ATTS] ))</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[MTC share of req SMS]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

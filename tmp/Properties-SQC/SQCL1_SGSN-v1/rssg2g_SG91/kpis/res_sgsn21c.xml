@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml" />
+  <kpi name="res_sgsn21c">
+    <formula>decode((data.ave_bssgb_buff_util_pr1_den),0,NULL, 
+	((data.ave_bssgp_buff_util_pr1_sum)/(data.ave_bssgb_buff_util_pr1_den) ))+
+
+decode((data.ave_bssgb_buff_util_pr2_den),0,NULL, 
+	((data.ave_bssgp_buff_util_pr2_sum)/(data.ave_bssgb_buff_util_pr2_den) ))+
+
+decode((data.ave_bssgb_buff_util_pr3_den),0,NULL, 
+	((data.ave_bssgp_buff_util_pr3_sum)/(data.ave_bssgb_buff_util_pr3_den) ))+
+
+decode((data.ave_bssgb_buff_util_pr4_den),0,NULL, 
+	((data.ave_bssgp_buff_util_pr4_sum)/(data.ave_bssgb_buff_util_pr4_den) ))+
+
+decode((data.ave_bssgp_buff_uti_den_pr_str),0,NULL, 
+	((data.ave_bssgp_buff_uti_sum_pr_str)/(data.ave_bssgp_buff_uti_den_pr_str) ))</formula>
+    <kpi_info>
+      <title><![CDATA[Average BSSGP buffer utilization ratio]]></title>
+      <use><![CDATA[This KPI shows average BSSGP buffer utilization ratio. High values with this KPI indicate capacity problems.                     Only downlink data is stored to buffer.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;avg(sum(AVE_BSSGP_BUFF_UTIL_PR1_SUM)/sum(AVE_BSSGB_BUFF_UTIL_PR1_DEN) +
+&lt;br&gt;      sum((AVE_BSSGP_BUFF_UTIL_PR2_SUM)/sum(AVE_BSSGB_BUFF_UTIL_PR2_DEN) +
+&lt;br&gt;      sum(AVE_BSSGP_BUFF_UTIL_PR3_SUM)/sum(AVE_BSSGB_BUFF_UTIL_PR3_DEN) +
+&lt;br&gt;      sum(AVE_BSSGP_BUFF_UTIL_PR4_SUM)/sum(AVE_BSSGB_BUFF_UTIL_PR4_DEN) +
+&lt;br&gt;      sum(AVE_BSSGP_BUFF_UTI_SUM_PR_STR)/sum(AVE_BSSGP_BUFF_UTI_DEN_PR_STR))
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_data</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_data_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average BSSGP buffer utilization ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

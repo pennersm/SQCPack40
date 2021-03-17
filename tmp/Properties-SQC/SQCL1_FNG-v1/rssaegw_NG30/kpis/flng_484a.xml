@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/BRFIS_ext.xml" />
+  <kpi name="flng_484a">
+    <formula>decode( 
+    		((BRFIS_ext.gtpcv2_bea_resp_f_ind_sent_all)),0,NULL, 
+    		
+    		((BRFIS_ext.gtpcv2_bearer_res_flr_ind_sent)) 
+    		/ 
+    		((BRFIS_ext.gtpcv2_bea_resp_f_ind_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Bearer Resource Failure Indications sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 bearer resource failure indications sent for a specific cause code when compared to total number of GTP-C v2 bearer resource failure indication messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(brfis_id,'x',GTPCV2_BEARER_RES_FLR_IND_SENT,0))  ;BRFIS for cause code x  
+	  <br>---------------------------------------------------------------------------------------- *100 
+
+	  <br>sum(GTPCV2_BEARER_RES_FLR_IND_SENT)  ;all BRFIS's 
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_BRFIS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Bearer Res Fail sent ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1568a">
+    <formula>decode(
+			(servlev.rab_stp_att_cs_voice),0,null, 
+
+			(100*(servlev.rab_stp_fail_cs_voice_iu_cs_1)
+			 / 
+			(servlev.rab_stp_att_cs_voice)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup FR for CS Voice due to lack of Iu-CS transport resources]]></title>
+      <use><![CDATA[This KPI provides information about the RT CS voice RAB setup failure rate due to lack of Iu-CS transport resources]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *  sum(RAB_STP_FAIL_CS_VOICE_IU_CS)
+&lt;br&gt;-----------------
+&lt;br&gt;RNC_346a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB stp FR CS voice Iu-CS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

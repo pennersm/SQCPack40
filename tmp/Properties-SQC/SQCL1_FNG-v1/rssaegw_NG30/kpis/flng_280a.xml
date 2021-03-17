@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/BRR_ext.xml"/>
+  <kpi name="flng_280a">
+    <formula>decode(
+			((BRR_ext.pmip_bra_resp_recv_all)),0,NULL, 
+
+			((BRR_ext.pmip_bra_resp_recv))
+			 / 
+			((BRR_ext.pmip_bra_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Ack responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 Binding Revocation Acknowledgement (BRA) responses received for a specific cause code when compared to total number of PMIP Binding Revocation Acknowledgement (BRA) responses messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(brr_id,'x',PMIP_BRA_RESP_RECV,0))  ;BRR for cause code x
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_BRA_RESP_RECV)  ;all BRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_BRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP BRA resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

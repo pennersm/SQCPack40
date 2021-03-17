@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_L2SWI L2SWI measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_L2SWI L2SWI measurement dump</csv_title>
+    <report-description>AXC L2 Switch Statistics (M5224)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <discardedFramesRateShaping />
+  </column_order>
+  <temp_table name="L2SWI" meas_level="PLMN/RNC/WBTS/AXC/L2SWI" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="discardedFramesRateShaping" timeagg="SUM(discardedFramesRateShaping)">SUM(discardedFramesRateShaping)</counter>
+    </counters>
+    <table_name>nokaxc_ps_l2swi_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>L2SWI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>L2SWI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_l2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="discardedFramesRateShaping">
+    <formula>L2SWI.discardedFramesRateShaping</formula>
+    <kpi_info>
+      <title>discardedFramesRateShaping</title>
+      <use>The total number of discarded frames in the layer 2 switch due to rate shaping. The counter is the sum for all ethernet interfaces participating in the layer 2 switch. This counter is available on the AXCF hardware unit. UPDATED: The counter is updated for every packet that is discarded due to rate shaping.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(discardedFramesRateShaping)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_l2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>discardedFramesRateShaping (M5224C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

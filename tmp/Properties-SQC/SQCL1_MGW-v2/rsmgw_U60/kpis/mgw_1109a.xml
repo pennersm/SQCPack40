@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/PTCAPAL.xml" />
+  <kpi name="mgw_1109a">
+    <formula>decode(
+			(ptcapal.ater_res_attempts),0,null, 
+
+			(100*(ptcapal.ater_reject_no_capa)
+			 / 
+			(ptcapal.ater_res_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ater port type capacity licence rejection ratio]]></title>
+      <use><![CDATA[Indicates rejection ratio of Ater port type capacity reservations, which have been rejected by the capacity limit of the licence in MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM(ATER_REJECT_NO_CAPA) 
+&lt;br&gt;100 *  -----------------------
+&lt;br&gt;       SUM(ATER_RES_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ptcapal_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Ater port type no capa rej rto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

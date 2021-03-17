@@ -1,0 +1,128 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M15.1;M15.1IP M386 CSTSM measurement dump</header>
+    <csv_title>NSN NSS M15.1;M15.1IP M386 CSTSM measurement dump</csv_title>
+    <report-description>Call setup time and success measurement (CSTSM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CSTS_MME_SUCC_EVENTS/>
+    <CSTS_MME_SUCC_AVETIME_X100/>
+    <CSTS_MME_UNSUCC_EVENTS/>
+    <CSTS_MME_UNSUCC_AVETIME_X100/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/MME" name="CSTSM" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CSTS_MME_SUCC_EVENTS" symmetrical="true">SUM(CSTS_MME_SUCC_EVENTS)</counter>
+      <counter alias="CSTS_MME_SUCC_AVETIME_X100" symmetrical="true">AVG(CSTS_MME_SUCC_AVETIME_X100)</counter>
+      <counter alias="CSTS_MME_UNSUCC_EVENTS" symmetrical="true">SUM(CSTS_MME_UNSUCC_EVENTS)</counter>
+      <counter alias="CSTS_MME_UNSUCC_AVETIME_X100" symmetrical="true">AVG(CSTS_MME_UNSUCC_AVETIME_X100)</counter>
+    </counters>
+    <table_name>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CSTSM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CSTSM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_MME_SUCC_EVENTS">
+    <formula>CSTSM.CSTS_MME_SUCC_EVENTS</formula>
+    <kpi_info>
+      <title>CSTS_MME_SUCC_EVENTS</title>
+      <use>Number of successful CS fallback events from LTE to 2G/3G access started from a specific MME (MME is identified by its FQDN, fully qualified domain name).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_MME_SUCC_EVENTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_MME_SUCC_EVENTS (M386B5C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_MME_SUCC_AVETIME_X100">
+    <formula>CSTSM.CSTS_MME_SUCC_AVETIME_X100</formula>
+    <kpi_info>
+      <title>CSTS_MME_SUCC_AVETIME_X100</title>
+      <use>Average duration of successful CS fallback events from LTE to 2G/3G access for a specific MME. (MME is identified by its FQDN, fully qualified domain name).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_MME_SUCC_AVETIME_X100)</formula>
+      <unit>Sec</unit>
+      <tables>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_MME_SUCC_AVETIME_X100 (M386B5C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_MME_UNSUCC_EVENTS">
+    <formula>CSTSM.CSTS_MME_UNSUCC_EVENTS</formula>
+    <kpi_info>
+      <title>CSTS_MME_UNSUCC_EVENTS</title>
+      <use>Number of unsuccessful CS fallback events attempted from LTE to 2G/3G access for a specific MME. (MME is identified by its FQDN, fully qualified domain name).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_MME_UNSUCC_EVENTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_MME_UNSUCC_EVENTS (M386B5C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_MME_UNSUCC_AVETIME_X100">
+    <formula>CSTSM.CSTS_MME_UNSUCC_AVETIME_X100</formula>
+    <kpi_info>
+      <title>CSTS_MME_UNSUCC_AVETIME_X100</title>
+      <use>Average duration of unsuccessful CS fallback events from LTE to 2G/3G access for a specific MME. (MME is identified by its FQDN, fully qualified domain name).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_MME_UNSUCC_AVETIME_X100)</formula>
+      <unit>Sec</unit>
+      <tables>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_MME_UNSUCC_AVETIME_X100 (M386B5C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml">
+    <counters>
+      <!-- sgsn_591a  -->
+      <counter alias="sgsn_591a">sum(gtp_data_in_bytes_sent_in_ul + 4294967296 * gtp_data_bytes_sent_in_ul_ofl)/1048576</counter>
+    </counters>
+  </temp_table_ref>
+  <temp_table_ref src="rssg2g/counters/IUDA.xml">
+    <counters>
+      <!-- sgsn_820a  -->
+      <counter alias="sgsn_820a">sum(iu_gtp_data_bytes_sent_ul_pr1 + iu_gtp_data_bytes_sent_ul_pr2 +
+				iu_gtp_data_bytes_sent_ul_pr3 + iu_gtp_data_bytes_sent_ul_pr4 +
+				iu_gtp_data_bytes_ul_pr_str + iu_gtp_data_bytes_ul_pr_conv +
+				4294967296 *
+				(iu_gtp_dat_byt_sent_ul_pr1_ofl + iu_gtp_dat_byt_sent_ul_pr2_ofl +
+				iu_gtp_dat_byt_sent_ul_pr3_ofl + iu_gtp_dat_byt_sent_ul_pr4_ofl +
+				iu_gtp_dat_byt_ul_pr_str_ofl + iu_gtp_dat_byt_ul_pr_conv_ofl ))/1048576</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="sgsn_593a">
+    <formula>decode(
+			(nvl(data.sgsn_591a,0)),0,NULL,
+
+			(100*iuda.sgsn_820a
+			 /
+			nvl(data.sgsn_591a,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of Iu GTP UL data volume]]></title>
+      <use><![CDATA[This KPI shows the share of 3G uplink GTP data volume when compared to all (2G+3G) uplink GTP data volume.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; sgsn_820a
+&lt;br&gt;----------------- *100
+&lt;br&gt; sgsn_591a</formula>
+      <unit>[%]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of Iu GTP UL data volume]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

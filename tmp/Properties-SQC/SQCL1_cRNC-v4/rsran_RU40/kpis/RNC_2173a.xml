@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+   <temp_table_ref src="rsran_RU40/counters/CAPAUSE_ext2.xml" /> 
+   <temp_table_ref src="rsran_RU40/counters/SERVLEV_OBJCOUNT_ext.xml" /> 
+   <kpi name="RNC_2173a">
+    <formula>decode(
+			(servlev_objcount.rnc_count),0,null, 
+
+			(capause_ext2.sum_of_max_rrc_conn_mode_users
+			 / 
+			servlev_objcount.rnc_count))</formula>
+    <kpi_info>
+      <title><![CDATA[Peak RRC connected mode users per RNC]]></title>
+      <use><![CDATA[The sum of peak RRC connected mode users divided by the number of active RNCs]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>SUM(SUM_OF_MAX_RRC_CONN_MODE_USERS)
+&lt;br&gt;/
+&lt;br&gt;RNC_COUNT</formula>
+      <unit>[#]</unit>
+      <tables>nokrww_ps_CAPAUSE_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Peak # RRC connected users per RNC]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

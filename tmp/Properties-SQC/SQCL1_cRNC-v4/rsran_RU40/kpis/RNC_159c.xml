@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_159c">
+    <formula>decode(
+			(servlev.rab_act_comp_cs_voice + 
+			servlev.rab_act_rel_cs_voice_srnc + 
+			servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_rel_cs_voice_pre_lic_1),0,null, 
+
+			(100*(servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue)
+			 / 
+			(servlev.rab_act_comp_cs_voice + 
+			servlev.rab_act_rel_cs_voice_srnc + 
+			servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_rel_cs_voice_pre_lic_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Drop Ratio, AMR Voice from User Perspective]]></title>
+      <use><![CDATA[RAB Drop Ratio for AMR Voice [%] over the reporting period. Covers RAB Active Phase of a call.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM( RAB_ACT_REL_CS_VOICE_P_EMP
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_IU
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_RADIO 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_BTS 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_IUR  
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_RNC 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_UE) 
+&lt;br&gt;----------------------------------------------
+&lt;br&gt;SUM(RAB_ACT_COMP_CS_VOICE 
+&lt;br&gt;+ RAB_ACT_REL_CS_VOICE_SRNC 
+&lt;br&gt;+ RAB_ACT_REL_CS_VOICE_P_EMP 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_IU 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_RADIO 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_BTS 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_IUR
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_RNC 
+&lt;br&gt;+ RAB_ACT_FAIL_CS_VOICE_UE
+&lt;br&gt;+ RAB_ACT_REL_CS_VOICE_PRE_LIC)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Drop Ratio, AMR Voice from User Perspective]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

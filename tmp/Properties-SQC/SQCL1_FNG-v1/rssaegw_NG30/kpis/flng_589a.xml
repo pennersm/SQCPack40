@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/UPSPR.xml"/>
+  <kpi name="flng_589a">
+    <formula>decode(
+			(UPSPR.period_duration*60*1048576),0,null, 
+
+			(8*(UPSPR.IPV4_T_PDU_BYTES_SENT + 
+			UPSPR.IPV6_T_PDU_BYTES_SENT))
+			 / 
+			(UPSPR.period_duration*60*1048576))</formula>
+    <kpi_info>
+      <title><![CDATA[Gi/SGi T-PDU data throughput sent per SSPROF]]></title>
+      <use><![CDATA[This KPI shows the amount of T-PDU data throughput sent to the Gi/SGi interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(8 * (IPV4_T_PDU_BYTES_SENT +
+&lt;br&gt;   IPV6_T_PDU_BYTES_SENT) )
+&lt;br&gt;---------------------------------------
+&lt;br&gt;sum( period_duration * 60 * 1048576 )</formula>
+      <unit>[Mbit/s]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.600 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW068.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gi/SGi data thp sent,SPROF</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

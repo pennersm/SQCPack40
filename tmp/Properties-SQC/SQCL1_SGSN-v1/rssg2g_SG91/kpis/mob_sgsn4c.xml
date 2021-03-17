@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <kpi name="mob_sgsn4c">
+    <formula>100*decode(
+			(mobmgmnt.succ_imsi_attach + 
+			mobmgmnt.fail_imsi_attach),0,NULL, 
+
+			(mobmgmnt.fail_imsi_attach)
+			 / 
+			(mobmgmnt.succ_imsi_attach + 
+			mobmgmnt.fail_imsi_attach))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb IMSI attach attempts failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio for IMSI attach attempts coming from Gb interface. All the failure causes are included]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(FAIL_IMSI_ATTACH)
+&lt;br&gt;------------------------------------------------------------------------------ * 100 
+&lt;br&gt;sum(SUCC_IMSI_ATTACH + FAIL_IMSI_ATTACH) 
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_ sgsn_ mobility_ management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_mobmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb IMSI attach attempts failure ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

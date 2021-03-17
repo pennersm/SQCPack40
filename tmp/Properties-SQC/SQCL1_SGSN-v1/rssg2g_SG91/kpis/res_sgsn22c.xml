@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/CDR.xml" />
+  <kpi name="res_sgsn22c">
+    <formula>decode(
+			(cdr.avg_dur_op_scdr_nrt_pdp_co_den + 
+			cdr.avg_dur_op_scdr_rt_pdp_con_den),0,NULL, 
+
+			(cdr.avg_dur_op_scdr_nrt_pdp_co_sum + 
+			cdr.avg_dur_op_scdr_rt_pdp_con_sum)
+			 / 
+			(cdr.avg_dur_op_scdr_nrt_pdp_co_den + 
+			cdr.avg_dur_op_scdr_rt_pdp_con_den))</formula>
+    <kpi_info>
+      <title><![CDATA[Average PDP context duration]]></title>
+      <use><![CDATA[This KPI shows the average duration of PDP context.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(AVG_DUR_OP_SCDR_NRT_PDP_CO_SUM +
+&lt;br&gt;       AVG_DUR_OP_SCDR_RT_PDP_CON_SUM)
+&lt;br&gt;-------------------------------------------------------------------------------
+&lt;br&gt;sum(AVG_DUR_OP_SCDR_NRT_PDP_CO_DEN +
+&lt;br&gt;       AVG_DUR_OP_SCDR_RT_PDP_CON_DEN )
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_cdr</formula>
+      <unit>[Seconds]</unit>
+      <tables>rsg_ps_cdr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average PDP context duration]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

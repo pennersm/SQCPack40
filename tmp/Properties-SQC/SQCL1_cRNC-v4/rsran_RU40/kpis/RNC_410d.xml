@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_410d">
+    <formula>100*decode(
+			((SERVLEV.rab_act_comp_cs_voice + 
+			SERVLEV.rab_act_rel_cs_voice_srnc + 
+			SERVLEV.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_rel_cs_voice_hho_1 + 
+			servlev.rab_act_rel_cs_voice_isho_1 + 
+			servlev.rab_act_rel_cs_voice_ganho_1 + 
+			SERVLEV.rab_act_fail_cs_voice_bts + 
+			SERVLEV.rab_act_fail_cs_voice_iu + 
+			SERVLEV.rab_act_fail_cs_voice_iur + 
+			SERVLEV.rab_act_fail_cs_voice_radio + 
+			SERVLEV.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_trans_1 + 
+			SERVLEV.rab_act_fail_cs_voice_ue)),0,null, 
+
+			((SERVLEV.rab_act_fail_cs_voice_radio))
+			 / 
+			((SERVLEV.rab_act_comp_cs_voice + 
+			SERVLEV.rab_act_rel_cs_voice_srnc + 
+			SERVLEV.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_rel_cs_voice_hho_1 + 
+			servlev.rab_act_rel_cs_voice_isho_1 + 
+			servlev.rab_act_rel_cs_voice_ganho_1 + 
+			SERVLEV.rab_act_fail_cs_voice_bts + 
+			SERVLEV.rab_act_fail_cs_voice_iu + 
+			SERVLEV.rab_act_fail_cs_voice_iur + 
+			SERVLEV.rab_act_fail_cs_voice_radio + 
+			SERVLEV.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_trans_1 + 
+			SERVLEV.rab_act_fail_cs_voice_ue)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Active FR for CS Voice due to Radio]]></title>
+      <use><![CDATA[Percentage of RAB active failures for CS voice calls caused by a radio interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (rab_act_fail_cs_voice_radio)
+&lt;br&gt;100 * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (rab_act_comp_cs_voice + rab_act_rel_cs_voice_srnc + rab_act_rel_cs_voice_p_emp + rab_act_rel_cs_voice_hho + rab_act_rel_cs_voice_isho + rab_act_rel_cs_voice_ganho + rab_act_fail_cs_voice_bts + rab_act_fail_cs_voice_iu + rab_act_fail_cs_voice_iur + rab_act_fail_cs_voice_radio + rab_act_fail_cs_voice_rnc + rab_act_fail_cs_voice_trans + rab_act_fail_cs_voice_ue)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB act FR CS Voice Radio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

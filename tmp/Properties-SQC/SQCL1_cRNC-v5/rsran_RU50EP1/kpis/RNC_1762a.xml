@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_1762a">
+    <formula>decode(
+			(softho.one_cell_in_act_set_for_nrt + 
+			softho.two_cells_in_act_set_for_nrt/2 + 
+			softho.three_cells_in_act_set_nrt/3),0,null, 
+
+			(100*((softho.one_cell_in_act_set_for_nrt + 
+			softho.two_cells_in_act_set_for_nrt + 
+			softho.three_cells_in_act_set_nrt)
+			 / 
+			(softho.one_cell_in_act_set_for_nrt + 
+			softho.two_cells_in_act_set_for_nrt/2 + 
+			softho.three_cells_in_act_set_nrt/3) -1)))</formula>
+    <kpi_info>
+      <title><![CDATA[Soft Handover Overhead for NRT]]></title>
+      <use><![CDATA[Soft Handover Overhead (SHO OH) for NRT connections over the reporting period, tells how much overlapping there has been between cells. This KPI is based on Soft Handover Measurement [5] where Active Set sizes are measured.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(
+&lt;br&gt;        SUM(ONE_CELL_IN_ACT_SET_FOR_NRT+
+&lt;br&gt;        TWO_CELLS_IN_ACT_SET_FOR_NRT+
+&lt;br&gt;        THREE_CELLS_IN_ACT_SET_NRT)
+&lt;br&gt;----------------------------------------                                        -1
+&lt;br&gt;        SUM (ONE_CELL_IN_ACT_SET_FOR_NRT+
+&lt;br&gt;        TWO_CELLS_IN_ACT_SET_FOR_NRT/2+
+&lt;br&gt;        THREE_CELLS_IN_ACT_SET_NRT/3)
+&lt;br&gt;)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_softho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SHO Overhead for NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

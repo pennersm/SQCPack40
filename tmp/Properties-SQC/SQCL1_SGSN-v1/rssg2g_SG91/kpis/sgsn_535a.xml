@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <kpi name="sgsn_535a">
+    <formula>decode(
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_cont_act_gen),0,NULL, 
+
+			(100*(sesmgmnt.succ_mo_pdp_context_act)
+			 / 
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_cont_act_gen)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb MO PDP activation success ratio, e2e]]></title>
+      <use><![CDATA[This KPI shows the success ratio of the mobile originated PDP context activation attempts coming from Gb interface. All failures caused by ME, MS or network are included]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_MO_PDP_CONTEXT_ACT)
+&lt;br&gt;--------------------------------------------------------------------------------------------------------------- * 100
+&lt;br&gt;sum(SUCC_MO_PDP_CONTEXT_ACT + FAIL_MO_PDP_CONT_ACT_GEN)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_session_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_sesmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb MO PDP activation success ratio, e2e]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

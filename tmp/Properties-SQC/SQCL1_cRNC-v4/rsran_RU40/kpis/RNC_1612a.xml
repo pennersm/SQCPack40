@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1612a">
+    <formula>decode(
+			(pktcall.denom_dur_hsdsch_rb_intera + 
+			pktcall.denom_dur_hsdsch_rb_bgr),0,null, 
+
+			((pktcall.sum_dur_hsdsch_rb_intera + 
+			pktcall.sum_dur_hsdsch_rb_bgr)
+			 / 
+			(pktcall.denom_dur_hsdsch_rb_intera + 
+			pktcall.denom_dur_hsdsch_rb_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average HS-DSCH durations - NRT Traffic]]></title>
+      <use><![CDATA[This KPI provides information about the average HS-DSCH radio bearer duration for interactive and background traffic.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(SUM_DUR_HSDSCH_RB_INTERA + SUM_DUR_HSDSCH_RB_BGR)
+&lt;br&gt;----------------------
+&lt;br&gt;SUM(DENOM_DUR_HSDSCH_RB_INTERA + DENOM_DUR_HSDSCH_RB_BGR)</formula>
+      <unit>[Seconds]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg  HS-DSCH dur NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>TT (Text Telephone)</header>
+    <csv_title>TT (Text Telephone)</csv_title>
+    <report-description>849/351H Text Telephone Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <TTY_USE_FOR_ALL_CALLS />
+    <TTY_USE_BY_MSS />
+    <TTY_USE_FOR_EMERGENCY_CALLS />
+    <TTY_CURRENT />
+    <TTY_AVERAGE />
+    <TTY_PEAK />
+    <TTY_FAILURE />
+  </column_order>
+  <temp_table name="TT" meas_level="PLMN/RSMGW-MGW_A1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>TT</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="TTY_USE_FOR_ALL_CALLS"  symmetrical="true"  itk_id="TTY_USE_FOR_ALL_CALLS">SUM(TTY_USE_FOR_ALL_CALLS)</counter>
+          <counter alias="TTY_USE_BY_MSS"  symmetrical="true"  itk_id="TTY_USE_BY_MSS">SUM(TTY_USE_BY_MSS)</counter>
+          <counter alias="TTY_USE_FOR_EMERGENCY_CALLS"  symmetrical="true"  itk_id="TTY_USE_FOR_EMERGENCY_CALLS">SUM(TTY_USE_FOR_EMERGENCY_CALLS)</counter>
+          <counter alias="TTY_CURRENT"  symmetrical="true"  itk_id="TTY_CURRENT">AVG(TTY_CURRENT)</counter>
+          <counter alias="TTY_AVERAGE"  symmetrical="true"  itk_id="TTY_AVERAGE">AVG(TTY_AVERAGE)</counter>
+          <counter alias="TTY_PEAK"  symmetrical="true"  itk_id="TTY_PEAK">MAX(TTY_PEAK)</counter>
+          <counter alias="TTY_FAILURE"  symmetrical="true"  itk_id="TTY_FAILURE">SUM(TTY_FAILURE)</counter>
+    </counters>
+    <table_name>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>TT</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>TT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_USE_FOR_ALL_CALLS" itk_id="TTY_USE_FOR_ALL_CALLS">
+    <formula>TT.TTY_USE_FOR_ALL_CALLS</formula>
+    <kpi_info>
+      <title>TTY_USE_FOR_ALL_CALLS (M849C0)</title>
+      <use>Number of TTY usage when use_of_TTY (002/757) parameter has value &quot;TTY feature is used for all calls&quot;. When resources are asked for TTY service.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TTY_USE_FOR_ALL_CALLS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_USE_FOR_ALL_CALLS (M849C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_USE_BY_MSS" itk_id="TTY_USE_BY_MSS">
+    <formula>TT.TTY_USE_BY_MSS</formula>
+    <kpi_info>
+      <title>TTY_USE_BY_MSS (M849C1)</title>
+      <use>Number of TTY usage when use_of_TTY (002/757) parameter has value &quot;TTY feature is used for calls specified by MGWs controller&quot;. When resources are asked for TTY service and the resources are requested from MGW controller.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TTY_USE_BY_MSS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_USE_BY_MSS (M849C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_USE_FOR_EMERGENCY_CALLS" itk_id="TTY_USE_FOR_EMERGENCY_CALLS">
+    <formula>TT.TTY_USE_FOR_EMERGENCY_CALLS</formula>
+    <kpi_info>
+      <title>TTY_USE_FOR_EMERGENCY_CALLS (M849C2)</title>
+      <use>Number of TTY usage when use_of_TTY (002/757) parameter has value &quot;TTY feature is used for the emergency calls&quot; . When resources are asked for TTY service and call is an emergency call.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TTY_USE_FOR_EMERGENCY_CALLS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_USE_FOR_EMERGENCY_CALLS (M849C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_CURRENT" itk_id="TTY_CURRENT">
+    <formula>TT.TTY_CURRENT</formula>
+    <kpi_info>
+      <title>TTY_CURRENT (M849C3)</title>
+      <use>Current value of simultaneously active TTYs in the end of Result Accumulation Period. Incremented when resource reservation for a TTY call is successful and decremented when a TTY call is released.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(TTY_CURRENT)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_CURRENT (M849C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_AVERAGE" itk_id="TTY_AVERAGE">
+    <formula>TT.TTY_AVERAGE</formula>
+    <kpi_info>
+      <title>TTY_AVERAGE (M849C4)</title>
+      <use>Average value of simultaneously active TTYs in one Result Accumulation Period. Samples are taken in every 20 seconds from corresponding current counter and average value is calculated at the end of each Result Accumulation Period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(TTY_AVERAGE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_AVERAGE (M849C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_PEAK" itk_id="TTY_PEAK">
+    <formula>TT.TTY_PEAK</formula>
+    <kpi_info>
+      <title>TTY_PEAK (M849C5)</title>
+      <use>Highest value of simultaneously active TTYs in one Result Accumulation Period. When corresponding current counter value reaches a new high value.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(TTY_PEAK)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_PEAK (M849C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TTY_FAILURE" itk_id="TTY_FAILURE">
+    <formula>TT.TTY_FAILURE</formula>
+    <kpi_info>
+      <title>TTY_FAILURE (M849C6)</title>
+      <use>Number of failed TTY usage. When resource reservation for TTY service fails.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TTY_FAILURE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_tt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TTY_FAILURE (M849C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

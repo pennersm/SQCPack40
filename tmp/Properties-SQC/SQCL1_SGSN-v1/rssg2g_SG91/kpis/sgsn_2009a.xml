@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml"/>
+  <kpi name="sgsn_2009a">
+    <formula>decode(
+			((DATA.gtp_packets_sent_in_ul + 
+			DATA.gtp_packets_sent_in_dl)),0,NULL, 
+
+			((DATA.gtp_data_in_bytes_sent_in_ul + 
+			DATA.gtp_data_in_bytes_sent_in_dl + 
+			4294967296*(DATA.gtp_data_bytes_sent_in_ul_ofl + 
+			DATA.gtp_data_bytes_sent_in_dl_ofl)))
+			 / 
+			((DATA.gtp_packets_sent_in_ul + 
+			DATA.gtp_packets_sent_in_dl)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average size of all the packets passing through the SGSN]]></title>
+      <use><![CDATA[This KPI shows the average size of all the packets passing through the SGSN.
+Use: The NSN capacity statement in general assumes packet size of 512 bytes and it also has a table that explains how to adjust the capacity statement if the packet size differs from 512 bytes. Therefore, when evaluating if the SGSN performance matches what we have promised the operator, it is needed to know the average packet size.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtp_data_in_bytes_sent_in_ul + gtp_data_in_bytes_sent_in_dl + 
+&lt;br&gt;   4294967296 * (gtp_data_bytes_sent_in_ul_ofl + gtp_data_bytes_sent_in_dl_ofl))
+&lt;br&gt;----------------------------------------------------------------------------------
+&lt;br&gt;   sum (gtp_packets_sent_in_ul + gtp_packets_sent_in_dl)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[B]</unit>
+      <tables>RSG_PS_DATA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg size all pkt]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

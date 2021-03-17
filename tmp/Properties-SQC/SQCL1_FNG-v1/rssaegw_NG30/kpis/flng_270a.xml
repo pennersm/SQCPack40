@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/PRS_ext.xml" />
+  <kpi name="flng_270a">
+    <formula>decode( ((PMIP.pmip_recv_pbu_requests)),0,NULL, ((PRS_ext.pmip_pba_resp_sent_0)) / ((PMIP.pmip_recv_pbu_requests)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Update received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of PMIPv6 proxy binding update (PBU) requests received by P-GW node, i.e., the number of PBA response messages sent with cause code 'Request Accepted' when compared to the number of PBU request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(prs_id,'0',b.PMIP_PBA_RESP_SENT,0)));Request Accepted
+<br>-------------------------------------------------------------- *100
+<br>sum(a.PMIP_RECV_PBU_REQUESTS)
+<br>
+<br>counters from measurement(s): 
+<br>a = PMIP 
+<br>b = PMIP Proxy Binding Ack sent 
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PMIP_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_PRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMIP PBU rcv SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

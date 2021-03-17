@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="GV25_ext" meas_level="PLMN/FING/FNODE/GTPCV2/GV25" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="GTPCV2_CRE_SESS_RESP_RECV_S5">SUM(GTPCV2_CRE_SESS_RESP_RECV_S5)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="CRE_SESS_RESP_RECV_S5_ALL">MAX(CRE_SESS_RESP_RECV_S5_ALL)</counter>
+			<counter alias="CRE_SESS_RESP_RECV_S5_16"> SUM(decode(gv25_id,'16',gtpcv2_cre_sess_resp_recv_s5,'cs_1_16',gtpcv2_cre_sess_resp_recv_s5, 0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		gv25.*,
+		CRE_SESS_RESP_RECV_S5_ALL,
+		CRE_SESS_RESP_RECV_S5_16
+FROM
+	pcofng_ps_gv25_gv25_{TIME_AGG} gv25,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(GTPCV2_CRE_SESS_RESP_RECV_S5) CRE_SESS_RESP_RECV_S5_ALL,
+			SUM(DECODE(GV25_ID,'16',GTPCV2_CRE_SESS_RESP_RECV_S5,'cs_1_16',GTPCV2_CRE_SESS_RESP_RECV_S5,0)) CRE_SESS_RESP_RECV_S5_16
+		FROM
+			 pcofng_ps_gv25_gv25_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	gv25.fing_id = fnode_level.fing_id and fnode_level.fnode_id = gv25.fnode_id and 
+	gv25.period_start_time = fnode_level.period_start_time AND
+	gv25.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	gv25.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+
+			]]>
+		</table_name>
+		<alias_name>GV25_ext</alias_name>
+	</temp_table>
+  <kpi name="period_duration">
+    <formula>GV25_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_gv25_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPCV2_CRE_SESS_RESP_RECV_S5">
+    <formula>GV25_ext.GTPCV2_CRE_SESS_RESP_RECV_S5</formula>
+    <kpi_info>
+      <title>GTPCV2_CRE_SESS_RESP_RECV_S5</title>
+      <use>This counter contains the number of Create Session Response messages received on S5 interface by cause code. UPDATED: Updated when a Create Session Response message with a specific cause code is received on S5 interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPCV2_CRE_SESS_RESP_RECV_S5)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_gv25_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPCV2_CRE_SESS_RESP_RECV_S5 (m3063c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+	<!-- Auxiliary Counters -->
+  <kpi name="CRE_SESS_RESP_RECV_S5_ALL">
+    <formula>GV25_ext.CRE_SESS_RESP_RECV_S5_ALL</formula>
+    <kpi_info>
+      <title>CRE_SESS_RESP_RECV_S5_ALL</title>
+      <use>This counter contains the number of Create Session Response messages received on S5 interface by cause code. UPDATED: Updated when a Create Session Response message with a specific cause code is received on S5 interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(CRE_SESS_RESP_RECV_S5_ALL)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_gv25_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CRE_SESS_RESP_RECV_S5_ALL (m3063c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CRE_SESS_RESP_RECV_S5_16">
+    <formula>GV25_ext.CRE_SESS_RESP_RECV_S5_16</formula>
+    <kpi_info>
+      <title>CRE_SESS_RESP_RECV_S5_16</title>
+      <use>This counter contains the number of sent Create Session Response messages received on S5 interface by cause code 16.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DECODE(GV25_ID,16,GTPCV2_CRE_SESS_RESP_RECV_S5,0))</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_gv25_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CRE_SESS_RESP_RECV_S5_16 (m3063c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

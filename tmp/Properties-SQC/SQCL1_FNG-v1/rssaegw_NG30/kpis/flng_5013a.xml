@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml"/>
+  <kpi name="flng_5013a">
+    <formula>decode(
+			((SSPROF.sm_succ_sess_mod + 
+			SSPROF.sm_fail_sess_mod)),0,NULL, 
+
+			((SSPROF.sm_succ_sess_mod))
+			 / 
+			((SSPROF.sm_succ_sess_mod + 
+			SSPROF.sm_fail_sess_mod)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Session modification success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of session modifications.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>         sum (sm_succ_sess_mod)
+&lt;br&gt;----------------------------------------- * 100
+&lt;br&gt;sum (sm_succ_sess_mod + sm_fail_sess_mod)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Session mod SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

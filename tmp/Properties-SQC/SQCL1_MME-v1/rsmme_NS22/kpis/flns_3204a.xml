@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/S6A.xml" />
+  <kpi name="flns_3204a">
+    <formula>decode(
+            (s6a.dia_device_watchdog_req_sent),0,null,
+            
+            (s6a.dia_device_watchdog_ans_rcv
+            / 
+            s6a.dia_device_watchdog_req_sent))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Device Watchdog Answer/Request ratio, MME initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of Device Watchdog Answers (DWA) received as response to MME initiated Device Watchdog Requests (DWR).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_DEVICE_WATCHDOG_ANS_RCV)
+&lt;br&gt;-------------------------------- *100
+&lt;br&gt;sum(DIA_DEVICE_WATCHDOG_REQ_SENT)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_S6A_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.744 +0100</date>
+          <comment><![CDATA[Source: RSMME018.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DWA/DWR ratio, MME</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

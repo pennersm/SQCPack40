@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/DGY.xml" />
+  <kpi name="flng_831a">
+    <formula>decode(
+				dgy.dia_gy_asr_ocs_recv,0,null,
+				100 * dgy.dia_gy_asa_ocs_sent
+				/ 
+				dgy.dia_gy_asr_ocs_recv
+					)</formula>
+    <kpi_info>
+      <title><![CDATA[Gy Abort Session Answer / Request ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Abort-Session-Answer (ASA) sent as response to Abort-Session-Requests (ASR) received, on Gy interface.
+      The indication of a potential problem is the mismatch between request/answer messages (no or unrecognized answer).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_GY_ASA_OCS_SENT)
+&lt;br&gt;------------------------ *100
+&lt;br&gt;sum(DIA_GY_ASR_OCS_RECV)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DGY_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:30.177 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW074.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gy ASA/ASR ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

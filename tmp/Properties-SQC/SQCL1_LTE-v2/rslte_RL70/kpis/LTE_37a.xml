@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIANBHO.xml" />
+  <kpi name="LTE_37a">
+    <formula>100*decode(
+			(lianbho.intra_enb_ho_prep),0,null, 
+
+			(lianbho.fail_enb_ho_prep_ac)
+			 / 
+			(lianbho.intra_enb_ho_prep))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra eNB Handover Preparation Failure Ratio due AC]]></title>
+      <use><![CDATA[Ratio between rejected   Intra eNB Handover preparations (Rejected due RRM Admission Control)) and the number of all Intra eNB Handover Decisions (decision to perform handover in S-eNB after reception of measurement report).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(FAIL_ENB_HO_PREP_AC )
+&lt;br&gt;      -------------------------
+&lt;br&gt;      sum(INTRA_ENB_HO_PREP)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LIANBHO_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.957 +0100</date>
+          <comment><![CDATA[Source: RSLTE005.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra eNB HO PREP FR due AC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

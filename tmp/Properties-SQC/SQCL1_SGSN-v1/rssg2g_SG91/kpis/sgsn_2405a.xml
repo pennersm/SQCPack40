@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2405a">
+    <formula>3600*decode(SIGN(
+			decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.succ_pdp_cont_modify_services + 
+			sesmgmnt.FAIL_MO_PDP_CONT_MOD_GEN - 
+			(((mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.succ_inter_sgsn_ra_updat)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))) + 
+			((MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))))))
+			 / 
+			((sesmgmnt.period_duration*60))) ),-1,0,decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.succ_pdp_cont_modify_services + 
+			sesmgmnt.FAIL_MO_PDP_CONT_MOD_GEN - 
+			(((mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.succ_inter_sgsn_ra_updat)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))) + 
+			((MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))))))
+			 / 
+			((sesmgmnt.period_duration*60))) )
+            /
+            decode((paus.avg_attach_gb_users_den * paus.avg_attach_gb_users_sum),0,NULL,
+            ( paus.avg_attach_gb_users_sum / paus.avg_attach_gb_users_den))</formula>
+    <kpi_info>
+      <title><![CDATA[2G PDP context modification requests per subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of 2G PDP context modification request procedures per subscriber per hour.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>3600 * sgsn_2278a
+&lt;br&gt;     --------------------
+&lt;br&gt;     sgsn_691a
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_sesmgmnt_{OBJ_AGG}_{TIME_AGG}, RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G PDP ctx mod req /subs /h]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

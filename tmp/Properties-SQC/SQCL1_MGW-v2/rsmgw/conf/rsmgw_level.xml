@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+    <level name="RSMGW-MGW" rank="35" itk_id="RSMGW-MGW">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-MGW" column="co_gid" itk_id="RSMGW-MGW"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)</dn>
+        <sql><![CDATA[select
+                "mgw".co_gid, nvl("mgw".co_name, nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')'))  || '/' || nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ) name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw"
+            where
+                "plmn".co_oc_id = 16 and
+                "mgw".co_oc_id = 757 and
+                "mgw".co_parent_gid = "plmn".co_gid and
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-ASSNAME" rank="45" itk_id="RSMGW-ASSNAME">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-ASSNAME" column="assname_id" itk_id="RSMGW-ASSNAME"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/ASSNAME-'||p1.assname_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.assname_id assname_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'ASSNAME-' ||p1.assname_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_ASSNAME_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-CGNU" rank="55" itk_id="RSMGW-CGNU">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-CGNU" column="cgnu_id" itk_id="RSMGW-CGNU"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/CGNU-'||p1.cgnu_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.cgnu_id cgnu_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'CGNU-' ||p1.cgnu_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_CGNU_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-DSPP" rank="65" itk_id="RSMGW-DSPP">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-DSPP" column="dspp_id" itk_id="RSMGW-DSPP"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/DSPP-'||p1.dspp_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.dspp_id dspp_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'DSPP-' ||p1.dspp_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_DSPP_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-GRP" rank="75" itk_id="RSMGW-GRP">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-GRP" column="grp_id" itk_id="RSMGW-GRP"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/GRP-'||p1.grp_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.grp_id grp_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'GRP-' ||p1.grp_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_GRP_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-IF" rank="85" itk_id="RSMGW-IF">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-IF" column="if_id" itk_id="RSMGW-IF"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IF-'||p1.if_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.if_id if_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'IF-' ||p1.if_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_IF_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-IMA" rank="95" itk_id="RSMGW-IMA">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-IMA" column="ima_id" itk_id="RSMGW-IMA"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IMA-'||p1.ima_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.ima_id ima_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'IMA-' ||p1.ima_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_IMA2_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-IPROU" rank="105" itk_id="RSMGW-IPROU">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-IPROU" column="iprou_id" itk_id="RSMGW-IPROU"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IPROU-'||p1.iprou_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.iprou_id iprou_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'IPROU-' ||p1.iprou_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_IPROU_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-MRNC" rank="115" itk_id="RSMGW-MRNC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-MRNC" column="mrnc_id" itk_id="RSMGW-MRNC"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/MRNC-'||p1.mrnc_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.mrnc_id mrnc_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'MRNC-' ||p1.mrnc_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_MRNC2_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-NETC" rank="125" itk_id="RSMGW-NETC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-NETC" column="netc_id" itk_id="RSMGW-NETC"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/NETC-'||p1.netc_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.netc_id netc_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'NETC-' ||p1.netc_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_NETC_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-PHYTTP" rank="135" itk_id="RSMGW-PHYTTP">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-PHYTTP" column="phyttp_id" itk_id="RSMGW-PHYTTP"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/PHYTTP-'||p1.phyttp_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.phyttp_id phyttp_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'PHYTTP-' ||p1.phyttp_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_PHYTTP2_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-ROUTE" rank="145" itk_id="RSMGW-ROUTE">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-ROUTE" column="route_id" itk_id="RSMGW-ROUTE"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/ROUTE-'||p1.route_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.route_id route_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'ROUTE-' ||p1.route_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_ROUTE_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SERVT" rank="155" itk_id="RSMGW-SERVT">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-SERVT" column="servt_id" itk_id="RSMGW-SERVT"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SERVT-'||p1.servt_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.servt_id servt_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'SERVT-' ||p1.servt_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_SERVT_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SLN" rank="165" itk_id="RSMGW-SLN">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SLN" column="sln_id" itk_id="RSMGW-SLN"/>
+        </id-components>
+        <filter-attribute>p1.sln_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.sln_id sln_id,
+                p1.sln_id name
+            from
+                NOKMWW_PD_SLN_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SNET-1" rank="175" itk_id="RSMGW-SNET-1">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SNET-1" column="snet_id" itk_id="RSMGW-SNET-1"/>
+        </id-components>
+        <filter-attribute>p1.snet_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.snet_id snet_id,
+                p1.snet_id name
+            from
+                NOKMWW_PD_SNET_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SNET-2" rank="185" itk_id="RSMGW-SNET-2">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SNET-2" column="snet_id" itk_id="RSMGW-SNET-2"/>
+        </id-components>
+        <filter-attribute>p1.snet_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.snet_id snet_id,
+                p1.snet_id name
+            from
+                NOKMWW_PD_SNET_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SP" rank="195" itk_id="RSMGW-SP">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-SP" column="sp_id" itk_id="RSMGW-SP"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SP-'||p1.sp_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.sp_id sp_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'SP-' ||p1.sp_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_SP_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-TCU" rank="205" itk_id="RSMGW-TCU">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-TCU" column="tcu_id" itk_id="RSMGW-TCU"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/TCU-'||p1.tcu_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.tcu_id tcu_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'TCU-' ||p1.tcu_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_TCU_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-UTYPE" rank="215" itk_id="RSMGW-UTYPE">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-UTYPE" column="utype_id" itk_id="RSMGW-UTYPE"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||p1.utype_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.utype_id utype_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'UTYPE-' ||p1.utype_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_UTYPE_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-VMGW" rank="225" itk_id="RSMGW-VMGW">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+          <id level="RSMGW-VMGW" column="vmgw_id" itk_id="RSMGW-VMGW"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/VMGW-'||p1.vmgw_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p1.vmgw_id vmgw_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'VMGW-' ||p1.vmgw_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_VMGW_OBJECTS p1
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p1.mgw_gid and
+                #object_filter#
+            order by 3]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-ASSIND" rank="235" itk_id="RSMGW-ASSIND">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-ASSNAME" column="assname_id" itk_id="RSMGW-ASSNAME"/>
+          <id level="RSMGW-ASSIND" column="assind_id" itk_id="RSMGW-ASSIND"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/ASSNAME-'||p2.assname_id||'/ASSIND-'||p2.assind_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.assname_id assname_id,
+                p2.assind_id assind_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'ASSNAME-' ||p2.assname_id||'/'|| 'ASSIND-' ||p2.assind_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_ASSIND_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-CGNA" rank="245" itk_id="RSMGW-CGNA">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-CGNU" column="cgnu_id" itk_id="RSMGW-CGNU"/>
+          <id level="RSMGW-CGNA" column="cgna_id" itk_id="RSMGW-CGNA"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/CGNU-'||p2.cgnu_id||'/CGNA-'||p2.cgna_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.cgnu_id cgnu_id,
+                p2.cgna_id cgna_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'CGNU-' ||p2.cgnu_id||'/'|| 'CGNA-' ||p2.cgna_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_CGNA_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-NET" rank="255" itk_id="RSMGW-NET">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-SP" column="sp_id" itk_id="RSMGW-SP"/>
+          <id level="RSMGW-NET" column="net_id" itk_id="RSMGW-NET"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SP-'||p2.sp_id||'/NET-'||p2.net_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.sp_id sp_id,
+                p2.net_id net_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'SP-' ||p2.sp_id||'/'|| 'NET-' ||p2.net_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_NET4_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SIO" rank="265" itk_id="RSMGW-SIO">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SIO" column="sio_id" itk_id="RSMGW-SIO"/>
+        </id-components>
+        <filter-attribute>p1.sio_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.sio_id sio_id,
+                p1.sio_id name
+            from
+                NOKMWW_PD_SIO_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SL_TYPE" rank="275" itk_id="RSMGW-SL_TYPE">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SL_TYPE" column="sl_type_id" itk_id="RSMGW-SL_TYPE"/>
+        </id-components>
+        <filter-attribute>p1.sl_type_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.sln_id sln_id,
+                p1.sl_type_id sl_type_id,
+                p1.sln_id||'/'||p1.sl_type_id name
+            from
+                NOKMWW_PD_SL_TYPE_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SPC" rank="285" itk_id="RSMGW-SPC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-NETC" column="netc_id" itk_id="RSMGW-NETC"/>
+          <id level="RSMGW-SPC" column="spc_id" itk_id="RSMGW-SPC"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/NETC-'||p2.netc_id||'/SPC-'||p2.spc_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.netc_id netc_id,
+                p2.spc_id spc_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'NETC-' ||p2.netc_id||'/'|| 'SPC-' ||p2.spc_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_SPC_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SPCD-1" rank="295" itk_id="RSMGW-SPCD-1">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SPCD-1" column="spcd_id" itk_id="RSMGW-SPCD-1"/>
+        </id-components>
+        <filter-attribute>p1.spcd_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.snet_id snet_id,
+                p1.spcd_id spcd_id,
+                p1.snet_id||'/'||p1.spcd_id name
+            from
+                NOKMWW_PD_SPCD_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SPCD-2" rank="305" itk_id="RSMGW-SPCD-2">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SPCD-2" column="spcd_id" itk_id="RSMGW-SPCD-2"/>
+        </id-components>
+        <filter-attribute>p1.spcd_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.snet_id snet_id,
+                p1.spcd_id spcd_id,
+                p1.snet_id||'/'||p1.spcd_id name
+            from
+                NOKMWW_PD_SPCD_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SSN" rank="315" itk_id="RSMGW-SSN">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SSN" column="ssn_id" itk_id="RSMGW-SSN"/>
+        </id-components>
+        <filter-attribute>p1.ssn_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.ssn_id ssn_id,
+                p1.ssn_id name
+            from
+                NOKMWW_PD_SSN_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-TPG" rank="325" itk_id="RSMGW-TPG">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-TCU" column="tcu_id" itk_id="RSMGW-TCU"/>
+          <id level="RSMGW-TPG" column="tpg_id" itk_id="RSMGW-TPG"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/TCU-'||p2.tcu_id||'/TPG-'||p2.tpg_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.tcu_id tcu_id,
+                p2.tpg_id tpg_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'TCU-' ||p2.tcu_id||'/'|| 'TPG-' ||p2.tpg_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_TPG_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-UNIT" rank="335" itk_id="RSMGW-UNIT">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-UTYPE" column="utype_id" itk_id="RSMGW-UTYPE"/>
+          <id level="RSMGW-UNIT" column="unit_id" itk_id="RSMGW-UNIT"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||p2.utype_id||'/UNIT-'||p2.unit_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.utype_id utype_id,
+                p2.unit_id unit_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'UTYPE-' ||p2.utype_id||'/'|| 'UNIT-' ||p2.unit_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_UNIT3_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-VPI" rank="345" itk_id="RSMGW-VPI">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-IF" column="if_id" itk_id="RSMGW-IF"/>
+          <id level="RSMGW-VPI" column="vpi_id" itk_id="RSMGW-VPI"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IF-'||p2.if_id||'/VPI-'||p2.vpi_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p2.if_id if_id,
+                p2.vpi_id vpi_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'IF-' ||p2.if_id||'/'|| 'VPI-' ||p2.vpi_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_VPI_OBJECTS p2
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p2.mgw_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-ETHIF" rank="355" itk_id="RSMGW-ETHIF">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-UTYPE" column="utype_id" itk_id="RSMGW-UTYPE"/>
+            <id level="RSMGW-UNIT" column="unit_id" itk_id="RSMGW-UNIT"/>
+          <id level="RSMGW-ETHIF" column="ethif_id" itk_id="RSMGW-ETHIF"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||p3.utype_id||'/UNIT-'||p3.unit_id||'/ETHIF-'||p3.ethif_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p3.utype_id utype_id,
+                p3.unit_id unit_id,
+                p3.ethif_id ethif_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'UTYPE-' ||p3.utype_id||'/'|| 'UNIT-' ||p3.unit_id||'/'|| 'ETHIF-' ||p3.ethif_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_ETHIF3_OBJECTS p3
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p3.mgw_gid and
+                #object_filter#
+            order by 5]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-IPIF" rank="365" itk_id="RSMGW-IPIF">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-UTYPE" column="utype_id" itk_id="RSMGW-UTYPE"/>
+            <id level="RSMGW-UNIT" column="unit_id" itk_id="RSMGW-UNIT"/>
+          <id level="RSMGW-IPIF" column="ipif_id" itk_id="RSMGW-IPIF"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||p3.utype_id||'/UNIT-'||p3.unit_id||'/IPIF-'||p3.ipif_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p3.utype_id utype_id,
+                p3.unit_id unit_id,
+                p3.ipif_id ipif_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'UTYPE-' ||p3.utype_id||'/'|| 'UNIT-' ||p3.unit_id||'/'|| 'IPIF-' ||p3.ipif_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_IPIF_OBJECTS p3
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p3.mgw_gid and
+                #object_filter#
+            order by 5]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-OPC" rank="375" itk_id="RSMGW-OPC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-OPC" column="opc_id" itk_id="RSMGW-OPC"/>
+        </id-components>
+        <filter-attribute>p1.opc_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.opc_id opc_id,
+                p1.opc_id name
+            from
+                NOKMWW_PD_OPC_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SLSN-1" rank="385" itk_id="RSMGW-SLSN-1">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SLSN-1" column="slsn_id" itk_id="RSMGW-SLSN-1"/>
+        </id-components>
+        <filter-attribute>p1.slsn_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.slsn_id slsn_id,
+                p1.slsn_id name
+            from
+                NOKMWW_PD_SLSN_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SNET" rank="395" itk_id="RSMGW-SNET">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SNET" column="snet_id" itk_id="RSMGW-SNET"/>
+        </id-components>
+        <filter-attribute>p1.snet_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.snet_id snet_id,
+                p1.snet_id name
+            from
+                NOKMWW_PD_SNET_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SS" rank="405" itk_id="RSMGW-SS">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SS" column="ss_id" itk_id="RSMGW-SS"/>
+        </id-components>
+        <filter-attribute>p1.ss_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.ss_id ss_id,
+                p1.ss_id name
+            from
+                NOKMWW_PD_SS_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-VCI" rank="415" itk_id="RSMGW-VCI">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-IF" column="if_id" itk_id="RSMGW-IF"/>
+            <id level="RSMGW-VPI" column="vpi_id" itk_id="RSMGW-VPI"/>
+          <id level="RSMGW-VCI" column="vci_id" itk_id="RSMGW-VCI"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IF-'||p3.if_id||'/VPI-'||p3.vpi_id||'/VCI-'||p3.vci_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p3.if_id if_id,
+                p3.vpi_id vpi_id,
+                p3.vci_id vci_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'IF-' ||p3.if_id||'/'|| 'VPI-' ||p3.vpi_id||'/'|| 'VCI-' ||p3.vci_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_VCI_OBJECTS p3
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p3.mgw_gid and
+                #object_filter#
+            order by 5]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-WAC" rank="425" itk_id="RSMGW-WAC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-UTYPE" column="utype_id" itk_id="RSMGW-UTYPE"/>
+            <id level="RSMGW-UNIT" column="unit_id" itk_id="RSMGW-UNIT"/>
+          <id level="RSMGW-WAC" column="wac_id" itk_id="RSMGW-WAC"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||p3.utype_id||'/UNIT-'||p3.unit_id||'/WAC-'||p3.wac_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p3.utype_id utype_id,
+                p3.unit_id unit_id,
+                p3.wac_id wac_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'UTYPE-' ||p3.utype_id||'/'|| 'UNIT-' ||p3.unit_id||'/'|| 'WAC-' ||p3.wac_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_WAC_OBJECTS p3
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p3.mgw_gid and
+                #object_filter#
+            order by 5]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-DSPC" rank="435" itk_id="RSMGW-DSPC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-DSPC" column="dspc_id" itk_id="RSMGW-DSPC"/>
+        </id-components>
+        <filter-attribute>p1.dspc_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.dspc_id dspc_id,
+                p1.dspc_id name
+            from
+                NOKMWW_PD_DSPC_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-PHB" rank="445" itk_id="RSMGW-PHB">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="RSMGW-MGW" column="mgw_gid" itk_id="RSMGW-MGW"/>
+            <id level="RSMGW-UTYPE" column="utype_id" itk_id="RSMGW-UTYPE"/>
+            <id level="RSMGW-UNIT" column="unit_id" itk_id="RSMGW-UNIT"/>
+            <id level="RSMGW-IPIF" column="ipif_id" itk_id="RSMGW-IPIF"/>
+          <id level="RSMGW-PHB" column="phb_id" itk_id="RSMGW-PHB"/>
+        </id-components>
+        <filter-attribute>"mgw".co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||p4.utype_id||'/UNIT-'||p4.unit_id||'/IPIF-'||p4.ipif_id||'/PHB-'||p4.phb_id</dn>
+        <sql><![CDATA[select distinct
+                "mgw".co_gid mgw_gid,
+                p4.utype_id utype_id,
+                p4.unit_id unit_id,
+                p4.ipif_id ipif_id,
+                p4.phb_id phb_id,
+                nvl("plmn".co_name,'PLMN-'|| nvl("plmn".co_object_instance, 'NN('||"plmn".co_gid||')')) || '/' ||nvl("mgw".co_name,'MGW-'|| nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) ||'/'|| 'UTYPE-' ||p4.utype_id||'/'|| 'UNIT-' ||p4.unit_id||'/'|| 'IPIF-' ||p4.ipif_id||'/'|| 'PHB-' ||p4.phb_id name
+                #dn#
+            from
+                utp_common_objects "plmn",
+                utp_common_objects "mgw",
+                NOKMWW_PD_PHB_OBJECTS p4
+            where
+                "mgw".co_parent_gid = "plmn".co_gid and
+                "mgw".co_gid = p4.mgw_gid and
+                #object_filter#
+            order by 6]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SPCD" rank="455" itk_id="RSMGW-SPCD">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SPCD" column="spcd_id" itk_id="RSMGW-SPCD"/>
+        </id-components>
+        <filter-attribute>p1.spcd_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.snet_id snet_id,
+                p1.spcd_id spcd_id,
+                p1.snet_id||'/'||p1.spcd_id name
+            from
+                NOKMWW_PD_SPCD_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="RSMGW-SLSN" rank="465" itk_id="RSMGW-SLSN">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="RSMGW-SLSN" column="slsn_id" itk_id="RSMGW-SLSN"/>
+        </id-components>
+        <filter-attribute>p1.slsn_id</filter-attribute>
+        <name column="name"/>
+        <sql><![CDATA[select distinct
+                p1.slsn_id slsn_id,
+                p1.slsn_id name
+            from
+                NOKMWW_PD_SLSN_OBJECTS p1
+            where
+                #object_filter#
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="MR_RSMGW-MGW" rank="485" itk_id="MR_RSMGW-MGW">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="MR_RSMGW-MGW" column="co_gid" itk_id="MR_RSMGW-MGW"/>
+        </id-components>
+        <name column="name"/>
+        <sql><![CDATA[select
+                distinct mr.co_gid,
+                decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) name
+            from
+                utp_common_objects mr,
+                utp_common_objects o
+            where
+                o.co_oc_id = 757
+                and o.co_mr_gid = mr.co_gid
+                and mr.co_oc_id = 109
+                and mr.co_gid <> 0
+                and mr.co_gid is not null
+            order by 2]]></sql>
+      </processor>
+    </level>
+    <level name="WS_RSMGW-MGW" rank="935" itk_id="WS_RSMGW-MGW">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+          <id level="WS_RSMGW-MGW" column="ws" itk_id="WS_RSMGW-MGW"/>
+        </id-components>
+        <name column="ws"/>
+        <sql><![CDATA[select
+                distinct w.setname ws
+            from
+                w_manual_sets w,
+                utp_legacy leg
+            where
+                w.int_id = leg.la_int_id
+                and leg.la_object_class = 757
+            order by 1]]></sql>
+      </processor>
+    </level>
+</object-conf>

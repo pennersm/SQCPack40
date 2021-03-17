@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/LULAC_ext.xml"/>
+  <kpi name="msc_804a">
+    <formula>100*decode(
+			(lulac_ext.imsi_attach_attempt_4),0,null, 
+
+			((lulac_ext.imsi_attach_success_4)
+			 / 
+			(lulac_ext.imsi_attach_attempt_4)))</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI attach per LAC and SIP access type success ratio]]></title>
+      <use><![CDATA[The ratio of successful IMSI attach compared to all location updates of this type for the given LAC and SIP access type]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;         Sum (IMSI_ATTACH_SUCCESS)
+&lt;br&gt;100 * ------------------------------------------------------------
+&lt;br&gt;         Sum (IMSI_ATTACH_ATTEMPT)
+&lt;br&gt;; where ACCESS_TYPE &amp;quot;SIP&amp;quot;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_LULAC_ACCESS1_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_lulac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IMSI attach per LAC and SIP access type success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

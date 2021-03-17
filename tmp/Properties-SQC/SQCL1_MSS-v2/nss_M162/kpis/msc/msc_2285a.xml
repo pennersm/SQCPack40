@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/PPLAC.xml" />
+  <kpi name="msc_2285a">
+    <formula>decode ((PPLAC.PAG_2ND_SMS_TMSI_ATT + PPLAC.PAG_2ND_SMS_IMSI_ATT), 0, null, (100* (PPLAC.PAG_2ND_SMS_TMSI_SUCC + PPLAC.PAG_2ND_SMS_IMSI_SUCC) / (PPLAC.PAG_2ND_SMS_TMSI_ATT + PPLAC.PAG_2ND_SMS_IMSI_ATT)))</formula>
+    <kpi_info>
+      <title><![CDATA[2nd Paging for SMS calls SR]]></title>
+      <use><![CDATA[Success ratio of 2nd Pagings for SMS calls on A, Iu, Gs and SGs Interfaces.]]></use>
+      <use_experience />
+	  <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( PAG_2ND_SMS_TMSI_SUCC + PAG_2ND_SMS_IMSI_SUCC )
+&lt;br&gt;100 *  ---------------------------------------------------------------------------------
+&lt;br&gt;       SUM( PAG_2ND_SMS_TMSI_ATT + PAG_2ND_SMS_IMSI_ATT )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_pplac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>2nd Paging SMS SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

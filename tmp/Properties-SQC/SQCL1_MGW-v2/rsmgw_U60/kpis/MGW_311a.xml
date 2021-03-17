@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="MGW_311a">
+    <formula>decode(
+			(conn.all_tdm_cas),0,null, 
+
+			(100*(conn.all_tdm_cas - 
+			conn.all_tdm_cas_unsuccess)
+			 / 
+			(conn.all_tdm_cas)))</formula>
+    <kpi_info>
+      <title><![CDATA[Successful ratio of TDM termination reservation attempts]]></title>
+      <use><![CDATA[Indicates successful ratio of all TDM termination reservation attempts in measured ISU]]></use>
+
+<use_experience><![CDATA[ 
+<br>BM
+<br>LAST UPDATE: 23-09-2008
+<br>THEORETICAL SUMMARY LEVELS: PLMN, MGW,Unit_type
+<br>RECOMMENDED TIME SUMMARY LEVELS: Total; day; dailyBH; hour
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Connection Measurenment
+<br>M645
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(ALL_TDM_CAS - ALL_TDM_CAS_UNSUCCESS ) / sum(ALL_TDM_CAS )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Successful ratio of TDM termination reservation attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

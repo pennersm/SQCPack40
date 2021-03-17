@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/HSDPAW.xml" />
+	<kpi name="RNC_641b">
+		<formula>
+			decode((hsdpaw.orig_trans_2_code_16qam),0,null,100*(hsdpaw.retrans_2_code_16qam)/(hsdpaw.orig_trans_2_code_16qam))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average MAC-hs retransmission rate, 16QAM, 2 codes]]>
+			</title>
+			<use>
+				<![CDATA[Retransmission rate required to send a MAC-hs PDU using the given code and modulation.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum(RETRANS_2_CODE_16QAM)
+------------------------------------------------------
+ sum(ORIG_TRANS_2_CODE_16QAM)
+ 				</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average MAC-hs retransmission rate, 16QAM, 2 codes]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

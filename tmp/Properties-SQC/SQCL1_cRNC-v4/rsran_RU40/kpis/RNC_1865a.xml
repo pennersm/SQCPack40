@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPROUT.xml" />
+  <kpi name="RNC_1865a">
+    <formula>decode(
+			(iprout.nbr_samples_ip_route),0,null, 
+
+			((iprout.sum_reserved_rate_ip_route)
+			 / 
+			(iprout.nbr_samples_ip_route)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average Reserved IP bit rate]]></title>
+      <use><![CDATA[This KPI provides information about the average reserved IP bit rate for a specific IP Route.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(SUM_RESERVED_RATE_IP_ROUTE)
+&lt;br&gt;-------------------------
+&lt;br&gt;SUM(NBR_SAMPLES_IP_ROUTE)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg resvd IP bit rate</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

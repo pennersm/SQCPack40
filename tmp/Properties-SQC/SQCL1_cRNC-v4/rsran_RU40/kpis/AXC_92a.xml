@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/VLPHB.xml" />
+  <kpi name="AXC_92a">
+    <formula>100*decode(
+			(vlphb.ifoutdroppedoctets_af4 + 
+			vlphb.ifoutoctets_af4),0,null, 
+
+			(vlphb.ifoutdroppedoctets_af4)
+			 / 
+			(vlphb.ifoutdroppedoctets_af4 + 
+			vlphb.ifoutoctets_af4))</formula>
+    <kpi_info>
+      <title><![CDATA[Total VLAN AF 4 PHB data volume to send Drop ratio due congestion]]></title>
+      <use><![CDATA[Total VLAN Assured Forwarding 4 PHB data volume to send drop ratio due to congestion]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM (ifOutDroppedOctets_AF4)
+&lt;br&gt;------------------------------------------
+&lt;br&gt;SUM (ifOutDroppedOctets_AF4 + ifOutOctets_AF4) 
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokaxc_ps_vlphb_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/07/13 12:15:34.396 +0100</date>
+          <comment><![CDATA[Source: RSAXC017.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>VLAN Af 4 PHB to send DR due CG</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

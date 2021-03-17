@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 ATM ATMTCTT measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 ATM ATMTCTT measurement dump</csv_title>
+    <report-description>AXC ATM interface measurement (M5205)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <totCellsIngress />
+    <totCellsEgress />
+    <uas />
+    <errHec />
+    <discHec />
+    <utilizationZone25Ingress />
+    <utilizationZone25Egress />
+    <utilizationZone50Ingress />
+    <utilizationZone50Egress />
+    <utilizationZone75Ingress />
+    <utilizationZone75Egress />
+    <utilizationZone87Ingress />
+    <utilizationZone87Egress />
+    <utilizationZone100Ingress />
+    <utilizationZone100Egress />
+  </column_order>
+  <temp_table name="ATMTCTT" meas_level="PLMN/RNC/WBTS/AXC/TCTT" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="totCellsIngress" timeagg="SUM(totCellsIngress)">SUM(totCellsIngress)</counter>
+      <counter alias="totCellsEgress" timeagg="SUM(totCellsEgress)">SUM(totCellsEgress)</counter>
+      <counter alias="uas" timeagg="SUM(uas)">SUM(uas)</counter>
+      <counter alias="errHec" timeagg="SUM(errHec)">SUM(errHec)</counter>
+      <counter alias="discHec" timeagg="SUM(discHec)">SUM(discHec)</counter>
+      <counter alias="utilizationZone25Ingress" timeagg="SUM(utilizationZone25Ingress)">SUM(utilizationZone25Ingress)</counter>
+      <counter alias="utilizationZone25Egress" timeagg="SUM(utilizationZone25Egress)">SUM(utilizationZone25Egress)</counter>
+      <counter alias="utilizationZone50Ingress" timeagg="SUM(utilizationZone50Ingress)">SUM(utilizationZone50Ingress)</counter>
+      <counter alias="utilizationZone50Egress" timeagg="SUM(utilizationZone50Egress)">SUM(utilizationZone50Egress)</counter>
+      <counter alias="utilizationZone75Ingress" timeagg="SUM(utilizationZone75Ingress)">SUM(utilizationZone75Ingress)</counter>
+      <counter alias="utilizationZone75Egress" timeagg="SUM(utilizationZone75Egress)">SUM(utilizationZone75Egress)</counter>
+      <counter alias="utilizationZone87Ingress" timeagg="SUM(utilizationZone87Ingress)">SUM(utilizationZone87Ingress)</counter>
+      <counter alias="utilizationZone87Egress" timeagg="SUM(utilizationZone87Egress)">SUM(utilizationZone87Egress)</counter>
+      <counter alias="utilizationZone100Ingress" timeagg="SUM(utilizationZone100Ingress)">SUM(utilizationZone100Ingress)</counter>
+      <counter alias="utilizationZone100Egress" timeagg="SUM(utilizationZone100Egress)">SUM(utilizationZone100Egress)</counter>
+    </counters>
+    <table_name>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ATMTCTT</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ATMTCTT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totCellsIngress">
+    <formula>ATMTCTT.totCellsIngress</formula>
+    <kpi_info>
+      <title>totCellsIngress</title>
+      <use>Total number of cells received on an ATM interface. 
+   UPDATED: The counter is incremented every second by the amount of cells received by the ATM interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totCellsIngress)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totCellsIngress (ATM-1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totCellsEgress">
+    <formula>ATMTCTT.totCellsEgress</formula>
+    <kpi_info>
+      <title>totCellsEgress</title>
+      <use>Total number of cells transmitted on an ATM interface. 
+   UPDATED: The counter is incremented every second by the amount of cells transmitted to the ATM interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totCellsEgress)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totCellsEgress (ATM-2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="uas">
+    <formula>ATMTCTT.uas</formula>
+    <kpi_info>
+      <title>uas</title>
+      <use>Unavailable Seconds (UAS) of the ATM interface. The ATM interface is unavailable when the underlying physical
+   interface is unavailable for 10 seconds plus the number of seconds the loss of cell delineation (LOCD) condition is active. 
+   UPDATED: The counter is incremented for every second that the ATM interface is unavailable. The ATM interface
+   is unavailable when the underlying physical interface is unavailable plus the number of seconds the loss of 
+   cell delineation (LOCD) condition is active.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(uas)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>uas (ATM-3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="errHec">
+    <formula>ATMTCTT.errHec</formula>
+    <kpi_info>
+      <title>errHec</title>
+      <use>Count of cells with errors detected in the ATM header error check (HEC). The errors might be correctable. 
+   UPDATED. The counter is incremented every second by the amount of cells received with errors in the ATM cell 
+   header checksum.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(errHec)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>errHec (ATM-4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="discHec">
+    <formula>ATMTCTT.discHec</formula>
+    <kpi_info>
+      <title>discHec</title>
+      <use>Count of cells with uncorrectable errors detected in the ATM header error check (HEC). These cells had to 
+   be discarded. 
+   UPDATED: The counter is incremented every second by the amount of cells received with uncorrectable errors 
+   in the ATM cell header checksum.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(discHec)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>discHec (ATM-5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone25Ingress">
+    <formula>ATMTCTT.utilizationZone25Ingress</formula>
+    <kpi_info>
+      <title>utilizationZone25Ingress</title>
+      <use>Total number of seconds in which the used transmission ingress bandwidth on the tcAdaptorTPP was (0-25)% of 
+   its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission ingress bandwidth of the
+   tcAdaptorTPP was (0-25)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone25Ingress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone25Ingress (ATM-25)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone25Egress">
+    <formula>ATMTCTT.utilizationZone25Egress</formula>
+    <kpi_info>
+      <title>utilizationZone25Egress</title>
+      <use>Total number of seconds in which the used transmission egress bandwidth on the tcAdaptorTPP was (0-25)% of 
+   its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission egress bandwidth of the 
+   tcAdaptorTPP was (0-25)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone25Egress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone25Egress (ATM-26)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone50Ingress">
+    <formula>ATMTCTT.utilizationZone50Ingress</formula>
+    <kpi_info>
+      <title>utilizationZone50Ingress</title>
+      <use>Total number of seconds in which the used transmission ingress bandwidth on the tcAdaptorTPP was (25-50)% of 
+   its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission ingress bandwidth of the 
+   tcAdaptorTPP was (25-50)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone50Ingress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone50Ingress (ATM-27)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone50Egress">
+    <formula>ATMTCTT.utilizationZone50Egress</formula>
+    <kpi_info>
+      <title>utilizationZone50Egress</title>
+      <use>Total number of seconds in which the used transmission egress bandwidth on the tcAdaptorTPP was (25-50)% of 
+   its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission egress bandwidth of the 
+   tcAdaptorTPP was (25-50)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone50Egress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone50Egress (ATM-28)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone75Ingress">
+    <formula>ATMTCTT.utilizationZone75Ingress</formula>
+    <kpi_info>
+      <title>utilizationZone75Ingress</title>
+      <use>Total number of seconds in which the used transmission ingress bandwidth on the tcAdaptorTPP was (50-75)% of 
+   its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission ingress bandwidth of the 
+   tcAdaptorTPP was (50-75)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone75Ingress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone75Ingress (ATM-29)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone75Egress">
+    <formula>ATMTCTT.utilizationZone75Egress</formula>
+    <kpi_info>
+      <title>utilizationZone75Egress</title>
+      <use>Total number of seconds in which the used transmission egress bandwidth on the tcAdaptorTPP was (50-75)% of 
+   its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission egress bandwidth of the 
+   tcAdaptorTPP was (50-75)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone75Egress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone75Egress (ATM-30)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone87Ingress">
+    <formula>ATMTCTT.utilizationZone87Ingress</formula>
+    <kpi_info>
+      <title>utilizationZone87Ingress</title>
+      <use>Total number of seconds in which the used transmission ingress bandwidth on the tcAdaptorTPP was (75-87,5)% 
+   of its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission ingress bandwidth of the 
+   tcAdaptorTPP was (75-87.5)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone87Ingress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone87Ingress (ATM-31)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone87Egress">
+    <formula>ATMTCTT.utilizationZone87Egress</formula>
+    <kpi_info>
+      <title>utilizationZone87Egress</title>
+      <use>Total number of seconds in which the used transmission egress bandwidth on the tcAdaptorTPP was (75-87,5)% 
+   of its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission egress bandwidth of the 
+   tcAdaptorTPP was (75-87.5)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone87Egress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone87Egress (ATM-32)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone100Ingress">
+    <formula>ATMTCTT.utilizationZone100Ingress</formula>
+    <kpi_info>
+      <title>utilizationZone100Ingress</title>
+      <use>Total number of seconds in which the used transmission ingress bandwidth on the tcAdaptorTPP was (87,5-100)% 
+   of its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission ingress bandwidth of the 
+   tcAdaptorTPP was (87.5-100)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone100Ingress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone100Ingress (ATM-33)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="utilizationZone100Egress">
+    <formula>ATMTCTT.utilizationZone100Egress</formula>
+    <kpi_info>
+      <title>utilizationZone100Egress</title>
+      <use>Total number of seconds in which the used transmission egress bandwidth on the tcAdaptorTPP was (87,5-100)% 
+   of its maximal bandwidth. 
+   UPDATED: The counter is incremented for every second in which the used transmission egress bandwidth of the 
+   tcAdaptorTPP was (87.5-100)% of its maximal bandwidth.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(utilizationZone100Egress)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_atmtctt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>utilizationZone100Egress (ATM-34)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

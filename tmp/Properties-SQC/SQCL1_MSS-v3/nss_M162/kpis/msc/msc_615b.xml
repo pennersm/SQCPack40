@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml"/>
+  <kpi name="msc_615b">
+    <formula>decode(
+			nvl(cgr.cgrcgroup_call_amount_in,0) +
+			nvl(cgr.cgrcgroup_call_amount_out,0) +
+			cgr.cgrcgroup_call_cong_x_100,0,null,
+
+			100*(nvl(cgr.cgrcgroup_answered_in,0) +
+			nvl(cgr.cgrcgroup_answered_out,0))
+			 /
+			(nvl(cgr.cgrcgroup_call_amount_in,0) +
+			nvl(cgr.cgrcgroup_call_amount_out,0) +
+			cgr.cgrcgroup_call_cong_x_100))</formula>
+    <kpi_info>
+      <title><![CDATA[Answered call ratio in CGR]]></title>
+      <use><![CDATA[Indicates ratio of answered calls in circuit group]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;    sum (NVL(CGRCGROUP_ANSWERED_IN,0)
+&lt;br&gt;       + NVL(CGRCGROUP_ANSWERED_OUT,0))
+&lt;br&gt;100* -------------------------------------------
+&lt;br&gt;    Sum (NVL(CGRCGROUP_CALL_AMOUNT_IN,0)
+&lt;br&gt;       + NVL(CGRCGROUP_CALL_AMOUNT_OUT,0)
+&lt;br&gt;       + CGRCGROUP_CALL_CONG_x_100)
+&lt;br&gt;
+&lt;br&gt;Counters from views):
+&lt;br&gt;RNS_PS_CGR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_CGRC_CDS_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Answered call ratio in CGR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

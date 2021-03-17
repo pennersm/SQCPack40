@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>FTOPF (FTM TOP FreqSync Statistics)</header>
+    <csv_title>FTOPF (FTM TOP FreqSync Statistics)</csv_title>
+    <report-description>FTM TOP FreqSync Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <topFreqSynchSLS/>
+    <topMinFreqSynchError/>
+    <topAvgsFreqSynchError/>
+    <topMaxFreqSynchError/>
+    <topRxFreqSyncMsg/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="FTOPF" omes_name="FTM_TOP_FreqSync_Statistics" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-TOPB/RSRAN-TOPF" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>FTOPF</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="topFreqSynchSLS" symmetrical="true">SUM(topFreqSynchSLS)</counter>
+          <counter alias="topMinFreqSynchError" symmetrical="true">MIN(topMinFreqSynchError)</counter>
+          <counter alias="topAvgsFreqSynchError" symmetrical="true">AVG(topAvgsFreqSynchError)</counter>
+          <counter alias="topMaxFreqSynchError" symmetrical="true">MAX(topMaxFreqSynchError)</counter>
+          <counter alias="topRxFreqSyncMsg" symmetrical="true">SUM(topRxFreqSyncMsg)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FTOPF</alias_name>
+    <ui_name>FTM TOP FreqSync Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FTOPF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topFreqSynchSLS">
+    <formula>FTOPF.topFreqSynchSLS</formula>
+    <kpi_info>
+      <title>topFreqSynchSLS (M5131C0)</title>
+      <use>The number of seconds during this interval while the timing over packet service was in synchronous state. UPDATED: The counter is incremented every second when the timing over packet service is in synchronous state.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topFreqSynchSLS)</formula>
+      <unit>Seconds</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topFreqSynchSLS (M5131C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topMinFreqSynchError">
+    <formula>FTOPF.topMinFreqSynchError</formula>
+    <kpi_info>
+      <title>topMinFreqSynchError (M5131C1)</title>
+      <use>The minimum value of the timing over packet service phase error in ppb during the interval.UPDATED:The value is updated every minute using the following formula: minValue = min (minValue, actualValue)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(topMinFreqSynchError)</formula>
+      <unit>ppb</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMinFreqSynchError (M5131C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topAvgsFreqSynchError">
+    <formula>FTOPF.topAvgsFreqSynchError</formula>
+    <kpi_info>
+      <title>topAvgsFreqSynchError (M5131C2)</title>
+      <use>The average value of the timing over packet service phase error in ppb during the interval.UPDATED:The value is updated every minute using the following formula: aveValueNew = (aveValueOld * (actualIntervalLength - 1) + actualValue) / actualIntervalLength
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(topAvgsFreqSynchError)</formula>
+      <unit>ppb</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topAvgsFreqSynchError (M5131C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topMaxFreqSynchError">
+    <formula>FTOPF.topMaxFreqSynchError</formula>
+    <kpi_info>
+      <title>topMaxFreqSynchError (M5131C3)</title>
+      <use>The maximum value of the timing over packet service phase error in ppb during the interval.UPDATED:The value is updated every minute using the following formula: maxValue = max (maxValue, actualValue)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(topMaxFreqSynchError)</formula>
+      <unit>ppb</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMaxFreqSynchError (M5131C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topRxFreqSyncMsg">
+    <formula>FTOPF.topRxFreqSyncMsg</formula>
+    <kpi_info>
+      <title>topRxFreqSyncMsg (M5131C4)</title>
+      <use>The number of received ToP event messages. Event messages are time stamped and used for clock recovery. UPDATED: The counter is incremented every second by the number of received synchronisation messages.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topRxFreqSyncMsg)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topRxFreqSyncMsg (M5131C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FTOPF.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ftopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

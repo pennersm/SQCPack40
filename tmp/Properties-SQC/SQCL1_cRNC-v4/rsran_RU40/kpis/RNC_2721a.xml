@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <temp_table_ref src="rsran/counters/RRC.xml"/>
+  <kpi name="RNC_2721a">
+    <formula>100*decode(
+			((SERVLEV.RAB_ACC_COMP_AMR_PSNRT)),0,NULL,((RRC.RRC_RE_EST_SUCC_MR + 
+			RRC.RRC_RE_EST_FAIL_UE_MR + 
+			RRC.RRC_RE_EST_FAIL_NOREPLY_MR))
+			 / 
+			((SERVLEV.RAB_ACC_COMP_AMR_PSNRT)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC re-establishment Ratio, MR]]></title>
+      <use><![CDATA[RRC re-establishment Ratio for Multi- RAB connections]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula> 100*sum( RRC_RE_EST_SUCC_MR          +   
+&lt;br&gt;      RRC_RE_EST_FAIL_UE_MR       +   
+&lt;br&gt;      RRC_RE_EST_FAIL_NOREPLY_MR  ) 
+&lt;br&gt;-------------------------------------------
+&lt;br&gt;   sum( RAB_ACC_COMP_AMR_PSNRT )   
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}, NOKRWW_PS_RRC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RRC re-estab Ratio, Multi-RAB]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

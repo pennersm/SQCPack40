@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml"/>
+  <kpi name="LTE_206a">
+    <formula>decode(
+			((lcelld.disc_sdu_on_dl_dtch + 
+			lcelld.rlc_sdu_on_dl_dtch)),0,null, 
+
+			(100*(lcelld.disc_sdu_on_dl_dtch))
+			 / 
+			((lcelld.disc_sdu_on_dl_dtch + 
+			lcelld.rlc_sdu_on_dl_dtch)))</formula>
+    <kpi_info>
+      <title><![CDATA[RLC SDU D-DTCH Disc ratio]]></title>
+      <use><![CDATA[ratio between the number of DISC Service data units (SDU)  in Downlink Dedicated Traffic Channel (D-DTCH) in the upper layer and total number of sent SDUs in D-DTCH.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100 * sum(  DISC_SDU_ON_DL_DTCH )
+&lt;br&gt;-------------------------------------------------
+&lt;br&gt;sum( DISC_SDU_ON_DL_DTCH + RLC_SDU_ON_DL_DTCH )
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RLC SDU D-DTCH Disc Rate]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

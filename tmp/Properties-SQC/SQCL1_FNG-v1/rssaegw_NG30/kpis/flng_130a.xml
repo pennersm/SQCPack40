@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/MBRS_ext.xml"/>
+  <kpi name="flng_130a">
+    <formula>decode(
+			((MBRS_ext.gtpcv2_mod_bear_resp_sent_all)),0,NULL, 
+
+			((MBRS_ext.gtpcv2_mod_bear_resp_sent))
+			 / 
+			((MBRS_ext.gtpcv2_mod_bear_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 modify bearer responses sent for a specific cause code when compared to total number of GTP-C v2 modify bearer response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(mbrs_id,'x',GTPCV2_MOD_BEAR_RESP_SENT,0))  ;MBRS for cause code x
+&lt;br&gt;----------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_MOD_BEAR_RESP_SENT)  ;all MBRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_MBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Mod Bearer resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

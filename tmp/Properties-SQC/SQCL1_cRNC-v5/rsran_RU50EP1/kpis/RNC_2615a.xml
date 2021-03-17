@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/NWLOG.xml" />
+  <kpi name="RNC_2615a">
+    <formula>8*decode(
+			nwlog.period_duration,0,null, 
+
+			nwlog.recv_octets
+			 / 
+			(nwlog.period_duration*60*1000000))</formula>
+    <kpi_info>
+      <title><![CDATA[Received Ethernet throughput]]></title>
+      <use><![CDATA[Received throughput at logical interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8* sum(RECV_OCTETS)
+&lt;br&gt;----------------------------------- 
+&lt;br&gt;sum( period_duration) *60 * 1000000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_NWLOG_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:54.419 +0100</date>
+          <comment><![CDATA[Source: RSRAN113.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>FPIFC rcvd thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

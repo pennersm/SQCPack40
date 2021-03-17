@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LNCELHO.xml"/>
+  <kpi name="LTE_12b">
+    <formula>decode(
+			((lncelho.inter_ho_prep_fail_ac_nb + 
+			lncelho.inter_ho_prep_fail_oth_nb + 
+			lncelho.inter_ho_prep_fail_time_nb + 
+			lncelho.inter_ho_att_nb)),0,null, 
+
+			(100*(lncelho.inter_ho_att_nb))
+			 / 
+			((lncelho.inter_ho_prep_fail_ac_nb + 
+			lncelho.inter_ho_prep_fail_oth_nb + 
+			lncelho.inter_ho_prep_fail_time_nb + 
+			lncelho.inter_ho_att_nb)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter eNB Neighbor Handover Preparation Success ratio]]></title>
+      <use><![CDATA[Ratio between successfully Inter eNB Handover preparations and the number of all Intra eNB Handover Decisions per adjacency pair(decision to perform handover after reception of measurement report).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      SUM( INTER_HO_ATT_NB )                                 
+&lt;br&gt;100 * -------------------------------- 
+&lt;br&gt;      SUM(INTER_HO_PREP_FAIL_AC_NB +
+&lt;br&gt;			INTER_HO_PREP_FAIL_OTH_NB +
+&lt;br&gt;			INTER_HO_PREP_FAIL_TIME_NB +
+&lt;br&gt;			INTER_HO_ATT_NB
+&lt;br&gt;)                      
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LNCELHO_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Adj Inter eNB HO PREP SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

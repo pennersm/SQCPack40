@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M119</header>
+    <csv_title>Nokia Siemens NSS M119 CLOM measurement extension</csv_title>
+    <report-description>Computer unit load observation measurement(CLOM) extension</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CLOM_ext2" meas_level="PLMN/MSC/UNIT" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+	  <counter alias="ATCA_MSS_COUNT">COUNT(DISTINCT CASE WHEN ( UNIT_ID LIKE 'GISU%') THEN MSC_ID ELSE NULL END)</counter>
+	  <counter alias="TRANSIT_MSS_COUNT">COUNT(DISTINCT MSC_ID) - COUNT(DISTINCT CASE WHEN ( UNIT_ID LIKE 'VLRU%') THEN MSC_ID ELSE NULL END)</counter>
+      <counter alias="mss_number">COUNT(DISTINCT MSC_ID)</counter>
+     </counters>
+    <table_name>rns_ps_clom_unit2_{TIME_AGG}</table_name>
+	<alias_name>CLOM_ext2</alias_name>
+  </temp_table>
+</conf_file>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_L2SWI_Stats FL2SWI measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_L2SWI_Stats FL2SWI measurement dump</csv_title>
+    <report-description>FTM L2 Switch Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ethIfOutDiscShaping />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FL2SWI" meas_level="PLMN/RNC/WBTS/FTM/L2SWI" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ethIfOutDiscShaping" time-alias="ethIfOutDiscShaping" timeagg="SUM(ethIfOutDiscShaping)">SUM(ethIfOutDiscShaping)</counter>
+      <counter alias="period_duration_sum" time-alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fl2swi_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FL2SWI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FL2SWI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fl2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ethIfOutDiscShaping">
+    <formula>FL2SWI.ethIfOutDiscShaping</formula>
+    <kpi_info>
+      <title>ethIfOutDiscShaping</title>
+      <use>Number of transport frames/packets discarded due to egress shaping (Buffer overflow). UPDATED: The counter is incremented every second by the number of Ethernet packets.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ethIfOutDiscShaping)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fl2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ethIfOutDiscShaping (M5129C0)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FL2SWI.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fl2swi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CSRS_ext.xml" />
+  <kpi name="flng_757a">
+    <formula>decode( 
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent)),0,NULL, 
+	
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent_72)) 
+			/ 
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses sent "System failure" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent with cause code "System failure" (72) when compared to total number of GTP-C v2 create session response messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(csrs_id,('72' or 'cs_1_72'),GTPCV2_CRE_SESS_RESP_SENT,0)) ;System failure
+<br>--------------------------------------------------------------------------------------- *100
+<br>sum(GTPCV2_CRE_SESS_RESP_SENT)
+<br>
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cre Sess resp sent 72 rat]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

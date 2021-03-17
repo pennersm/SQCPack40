@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LIPF (LTE IP Filtering)</header>
+    <csv_title>LIPF (LTE IP Filtering)</csv_title>
+    <report-description>LTE IP filtering measurement (M51126) contains PM counters to monitor the firewall functionality of the BTS</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ipRmDroppedPacketsRateLimiting />
+    <ipRmDroppedPacketsFiltering />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LIPF" meas_level="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IPRM" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LIPF</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="ipRmDroppedPacketsRateLimiting" symmetrical="true">SUM(ipRmDroppedPacketsRateLimiting)</counter>
+	  <counter alias="ipRmDroppedPacketsFiltering" symmetrical="true">SUM(ipRmDroppedPacketsFiltering)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lipf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LIPF</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LIPF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ipRmDroppedPacketsRateLimiting">
+    <formula>LIPF.ipRmDroppedPacketsRateLimiting</formula>
+    <kpi_info>
+      <title>ipRmDroppedPacketsRateLimiting</title>
+      <use>The number of dropped packets due to ingress rate limiting. UPDATED: The counter is updated for every packet that is dropped due to ingress rate limiting.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ipRmDroppedPacketsRateLimiting)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_lipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ipRmDroppedPacketsRateLimiting (M51126C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ipRmDroppedPacketsFiltering">
+    <formula>LIPF.ipRmDroppedPacketsFiltering</formula>
+    <kpi_info>
+      <title>ipRmDroppedPacketsFiltering</title>
+      <use>The number of packets discarded due to ingress packet filtering violations. UPDATED: The counter is updated for every packet that is discarded due to filter violations.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ipRmDroppedPacketsFiltering)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_lipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ipRmDroppedPacketsFiltering (M51126C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LIPF.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

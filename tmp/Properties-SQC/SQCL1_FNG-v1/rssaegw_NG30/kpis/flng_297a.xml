@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/Netstat.xml"/>
+  <kpi name="flng_297a">
+    <formula>decode(
+			((Netstat.transmit_packets + 
+			Netstat.transmit_drops + 
+			Netstat.transmit_errors)),0,NULL, 
+
+			((Netstat.transmit_drops))
+			 / 
+			((Netstat.transmit_packets + 
+			Netstat.transmit_drops + 
+			Netstat.transmit_errors)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Ethernet sent drops ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of sent Ethernet packets dropped per interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                  sum (transmit_drops)
+&lt;br&gt;--------------------------------------------------------- * 100
+&lt;br&gt;sum (transmit_packets + transmit_drops + transmit_errors)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_Netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Ethernet sent drops ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

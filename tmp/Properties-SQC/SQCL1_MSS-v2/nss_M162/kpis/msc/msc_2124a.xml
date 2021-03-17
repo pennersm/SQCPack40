@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CSTSM.xml"/>
+  <kpi name="msc_2124a">
+    
+	<formula>
+	decode(
+	(CSTSM.CSTS_MME_SUCC_EVENTS + CSTSM.CSTS_MME_UNSUCC_EVENTS),0,null, 
+	
+	(100*
+	(CSTSM.CSTS_MME_SUCC_EVENTS)
+	/
+	(CSTSM.CSTS_MME_SUCC_EVENTS + CSTSM.CSTS_MME_UNSUCC_EVENTS) ) )
+	</formula>
+
+	<kpi_info>
+      <title><![CDATA[CS fallback success ratio per MME.]]></title>
+      <use><![CDATA[This KPI provides the CS fallback success ratio. CSFB events (LTE to 2G/3G access) started from the MME specified by the FQDN OC.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>
+		<br>Only the CS Calls are counted in the success factors. The success events do not consider the MT USSD or MT LCS services. 
+		<br>
+		<br>This KPI needs optional features.
+		<br>
+		<br>PUBLISHED: M15.1
+		<br>RECOMMENDED SUMMARY LEVELS: MME
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Call setup time and success measurement (M386)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt;            
+		&lt;br&gt;SUM( CSTS_MME_SUCC_EVENTS )
+		&lt;br&gt;----------------------------------------------------------------------------------------------------------------- * 100 
+		&lt;br&gt;SUM( CSTS_MME_SUCC_EVENTS  + CSTS_MME_UNSUCC_EVENTS )
+		&lt;br&gt;
+		&lt;br&gt;Counters from AGGREGATED view(s) 
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_cstsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CS FB MME SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

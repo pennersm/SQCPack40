@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/RADIUS.xml"/>
+  <kpi name="flng_307a">
+    <formula>decode(
+			((RADIUS.radius_acct_req_start_sent + 
+			RADIUS.radius_acct_req_stop_sent + 
+			RADIUS.accounting_on)),0,NULL, 
+
+			((RADIUS.radius_acct_resp_rec))
+			 / 
+			((RADIUS.radius_acct_req_start_sent + 
+			RADIUS.radius_acct_req_stop_sent + 
+			RADIUS.accounting_on)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[RADIUS Accounting success ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of successful accounting response messages received from RADIUS server when compared to total number of accounting request messages sent to RADIUS server.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                         sum (radius_acct_resp_rec)
+&lt;br&gt;---------------------------------------------------------------------------- * 100
+&lt;br&gt;sum (radius_acct_req_start_sent + radius_acct_req_stop_sent + accounting_on)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_RADIUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RADIUS Acc SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

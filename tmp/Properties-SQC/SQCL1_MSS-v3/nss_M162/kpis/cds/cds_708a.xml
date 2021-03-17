@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGRC.xml" />
+  <kpi name="cds_708a">
+    <formula>(cgrc.CGRCGROUP_ERLANGS_IN_X_100 +
+              cgrc.CGRCGROUP_ERLANGS_OUT_X_100 )/100</formula>
+    <kpi_info>
+      <title><![CDATA[TDM trunk traffic. Erlangs in CGR]]></title>
+      <use><![CDATA[The amount of traffic on the circuit group in erlangs.
+	  <br>
+	  <br>This KPI is similar to msc_708b. New KPI ID reference for CDS NE usage.
+	  <br>This new KPI ID reference is to to be used starting from M15.1 report sets. ]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI is also applicable to SIP CGRs. Here, the FQDNs are converted to CGRs and the FQDNs are the entities being measured.
+<br>In this circumstance, the erlang counters measure the duration between the time of the FQDN reservation and the release to, practically, it is the usage time.
+<br>
+<br>This KPI formula must have NVL protection in order to properly work with all kind of circuits and not only with BIdirectional ones.
+<br>
+<br>PUBLISHED: M12
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CDS; CGRNAME/CGR; CGRDIR;
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CDS; CGRDIR
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           sum(
+&lt;br&gt;           CGRCGROUP_ERLANGS_IN_X_100 
+&lt;br&gt;           + CGRCGROUP_ERLANGS_OUT_X_100 )
+&lt;br&gt;    -------------------------------------------------------------------------------------
+&lt;br&gt;           100
+&lt;br&gt;
+&lt;br&gt;Counters from views):
+&lt;br&gt;RNS_PS_CGRC_CDS_{TIME_AGG}</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_cgrc_cds_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[TDM trunk traffic. Erlangs in CGR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

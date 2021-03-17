@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIENBHO.xml" />
+  <temp_table_ref src="rslte/counters/LIANBHO.xml" />
+  <temp_table_ref src="rslte/counters/LRRC.xml" />
+  <kpi name="LTE_1178a">
+    <formula>100*decode(
+			(lienbho.succ_inter_enb_ho + 
+			lianbho.succ_intra_enb_ho),0,null, 
+
+			(lrrc.rrc_con_rel_redir_h_enb)
+			 / 
+			(lienbho.succ_inter_enb_ho + 
+			lianbho.succ_intra_enb_ho))</formula>
+    <kpi_info>
+      <title><![CDATA[Fraction of HeNB HO]]></title>
+      <use><![CDATA[This KPI measures the percentage of UEs attempted to redirect to Home eNB compared to the successful handovers.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RRC_CON_REL_REDIR_H_ENB)
+&lt;br&gt;/
+&lt;br&gt;SUM(SUCC_INTER_ENB_HO + SUCC_INTRA_ENB_HO)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LIENBHO_{obj_agg}_{time_agg},noklte_ps_LIANBHO_{obj_agg}_{time_agg},noklte_ps_LRRC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:46.674 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Fract HeNB HO</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TRFOTFO.xml" />
+  <kpi name="MGW_742a">
+    <formula>decode(
+			(trfotfo.tfo_use + 
+			trfotfo.tfo_fail + 
+			trfotfo.tfo_use_passive_negotiation + 
+			trfotfo.tfo_fail_passive_negotiation),0,null, 
+
+			(100*(trfotfo.tfo_use_passive_negotiation + 
+			trfotfo.tfo_fail_passive_negotiation)
+			 / 
+			(trfotfo.tfo_use + 
+			trfotfo.tfo_fail + 
+			trfotfo.tfo_use_passive_negotiation + 
+			trfotfo.tfo_fail_passive_negotiation)))</formula>
+    <kpi_info>
+      <title><![CDATA[TFO service controlled by MGW usage ratio]]></title>
+      <use><![CDATA[Indicates the usage ratio of  MGW controlled TFO service of all TFO service usage]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(TFO_USE_PASSIVE_NEGOTIATION + TFO_FAIL_PASSIVE_NEGOTIATION)/sum(TFO_USE + TFO_FAIL +TFO_USE_PASSIVE_NEGOTIATION + TFO_FAIL_PASSIVE_NEGOTIATION)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_trfotfo_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[TFO service controlled by MGW usage ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

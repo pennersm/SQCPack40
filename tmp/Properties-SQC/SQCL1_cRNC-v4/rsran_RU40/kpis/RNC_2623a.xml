@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/FIPSEC_ext.xml" />
+  <kpi name="RNC_2623a">
+    <formula>100*decode(
+			(fipsec.protected_espframestx_1 + 
+			fipsec.discarded_espframestx_1 + 
+			fipsec.bypassed_framestx_1),0,null, 
+
+			(fipsec.discarded_espframestx_1)
+			 / 
+			(fipsec.protected_espframestx_1 + 
+			fipsec.discarded_espframestx_1 + 
+			fipsec.bypassed_framestx_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Encrypted ESP transm packets discarded ratio]]></title>
+      <use><![CDATA[Encrypted ESP transmitted packets drop ratio. Defined by the percentage of dropped ESP packets in egress direction  because of failed encryption.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(Discarded_ESPFramesTx)
+&lt;br&gt;----------------------------------
+&lt;br&gt;SUM(Protected_ESPFramesTx +
+&lt;br&gt;Discarded_ESPFramesTx +
+&lt;br&gt;Bypassed_FramesTx)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_FIPSEC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:56.415 +0100</date>
+          <comment><![CDATA[Source: RSRAN127.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Encrypt ESP transm pkt DR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

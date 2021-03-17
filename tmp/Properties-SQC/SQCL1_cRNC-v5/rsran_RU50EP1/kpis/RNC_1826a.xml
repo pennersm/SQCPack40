@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1826a">
+    <formula>decode(
+			(servlev.rab_acc_comp_cs_conv + 
+			servlev.rab_acc_fail_cs_conv_ms + 
+			servlev.rab_acc_fail_cs_conv_rnc),0,null, 
+
+			(100*(servlev.rab_acc_fail_cs_conv_rnc)
+			 / 
+			(servlev.rab_acc_comp_cs_conv + 
+			servlev.rab_acc_fail_cs_conv_ms + 
+			servlev.rab_acc_fail_cs_conv_rnc)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB setup access FR for CS Conversational calls caused by caused by RNC's internal reasons]]></title>
+      <use><![CDATA[This KPI provides information about the RAB setup access failure rate for CS conversational calls caused by caused by RNC&#039;s internal reasons.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(RAB_ACC_FAIL_CS_CONV_RNC)
+&lt;br&gt;-------
+&lt;br&gt;sum (RAB_ACC_COMP_CS_CONV
+&lt;br&gt;+ RAB_ACC_FAIL_CS_CONV_MS
+&lt;br&gt;+ RAB_ACC_FAIL_CS_CONV_RNC )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB stp acc FR CS Conv RNC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

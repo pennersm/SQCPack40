@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/AALRR.xml" />
+  <kpi name="RNC_765b">
+    <formula>100*decode(
+			(aalrr.aal2_succeeded_hsdpa + 
+			aalrr.transport_rejected_ext_hsdpa + 
+			aalrr.transport_rejected_int_hsdpa + 
+			aalrr.other_rejected_hsdpa + 
+			aalrr.reject_hsdpa_too_many_users),0,null, 
+
+			(aalrr.aal2_succeeded_hsdpa)
+			 / 
+			(aalrr.aal2_succeeded_hsdpa + 
+			aalrr.transport_rejected_ext_hsdpa + 
+			aalrr.transport_rejected_int_hsdpa + 
+			aalrr.other_rejected_hsdpa + 
+			aalrr.reject_hsdpa_too_many_users))</formula>
+    <kpi_info>
+      <title><![CDATA[Shared HSDPA reservations success ratio]]></title>
+      <use><![CDATA[Shared HSDPA reservations (SHA) success ratio, not relevant if HSDPA uses dedicated VCC]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(AAL2_SUCCEEDED_HSDPA) 
+&lt;br&gt;-------------------------------
+&lt;br&gt;SUM(AAL2_SUCCEEDED_HSDPA + 
+&lt;br&gt;TRANSPORT_REJECTED_EXT_HSDPA + 
+&lt;br&gt;TRANSPORT_REJECTED_INT_HSDPA + 
+&lt;br&gt;OTHER_REJECTED_HSDPA +
+&lt;br&gt;REJECT_HSDPA_TOO_MANY_USERS)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_AALRR_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.637 +0100</date>
+          <comment><![CDATA[Source: RSRAN069.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shared HSDPA Res Ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/PLMNV_ext.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_4005b">
+    <formula>
+decode((VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null,
+	100 * (
+		(nvl(PLMNV_ext.RSAverage_1,0)/PLMNV_ext.PERIOD_START_TIME_1) /
+		(VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL)
+	)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Share of VLR utilization subscribers from other countries]]></title>
+      <use>
+      	<![CDATA[Indicates the share of subscribers coming from other countries registered in the VLR, in proportion to the total number of VLR registered subscribers. SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated.
+
+FORMULA NOTES:
+This KPI uses counters from 2 measuers: M340 + M80. However, the BH for both is the same = max of avg(TCAT_TRAFF_X100). This is the BH criteria that shall be used.
+
+Starting from M14.6, this KPI is to be used if the SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated in the MSC/VLR. If not activated please use msc_4005a KPI.
+		]]>
+	  </use>
+
+<use_experience><![CDATA[ 
+<br>This KPI uses counters from 2 measuers: M340 + M80. However, the BH for both is the same =  max of avg(TCAT_TRAFF_X100). This is the BH criteria that shall be used.
+<br>
+<br>Starting from M14.6, this KPI is to be used if the SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated in the MSC/VLR. If not activated please use msc_4005a KPI.
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 15-07-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->PLMNAME
+<br>PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement - part n subscriber per PLMN (340/154H)
+<br>+
+<br>VLR measurement part n (80/50H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;Share of VLR Utilization subscribers from other countries&quot; KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For OBJECT level:
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;           SUM( a.RSAVERAGE ) 
+&lt;br&gt;   100 * -------------------------------  
+&lt;br&gt;           msc_2047a 
+&lt;br&gt; 
+&lt;br&gt;For TIME level: 
+&lt;br&gt;           AVG( a.RSAVERAGE ) 
+&lt;br&gt;   100 * -------------------------------- 
+&lt;br&gt;           msc_2047a 
+&lt;br&gt; 
+&lt;br&gt;Use AGGREGATED view(s)/table(s) 
+&lt;br&gt;
+&lt;br&gt;a = M340 = VLR measurement - part n subscriber per PLMN (340/154H) 
+	  </formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_PLMNV_{OBJ_AGG}_{TIME_AGG},rns_ps_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>VLR utilz subsc othr countrs</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

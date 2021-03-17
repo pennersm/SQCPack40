@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_5460a">
+    <formula>decode(
+				((hsdpaw.mace_pdus_2ms_tti/500) + (hsdpaw.mace_pdus_10ms_tti/100)),0,null,
+				(hsdpaw.mace_pdu_data_2ms_tti + hsdpaw.mace_pdu_data_10ms_tti) * 8
+				/
+				((hsdpaw.mace_pdus_2ms_tti/500) + (hsdpaw.mace_pdus_10ms_tti/100))
+					)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Average HSUPA user throughput]]></title>
+      <use><![CDATA[Average HSUPA end user throughput calculated as sum of MAC-e / MAC-i data volume updated only for serving cell divided by sum of activity time coming from all active HSUPA users. Measured throughput from any application perspective (e.g. FTP) will be different then throughput measured by this KPI. The reasons are e.g. headers aggregation from higher layers or number of retransmission.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(MACE_PDU_DATA_2MS_TTI+
+&lt;br&gt;    MACE_PDU_DATA_10MS_TTI)*8
+&lt;br&gt;/
+&lt;br&gt;sum((MACE_PDUS_2MS_TTI/500)+
+&lt;br&gt;    (MACE_PDUS_10MS_TTI/100))</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:28.995 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSUPA usr thr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_684a">
+    <formula>100*decode(
+			(vlr1msc.intravlrintraplmnhsumtsattempt + 
+			vlr1msc.intravlrinterplmnhsumtsattempt + 
+			vlr1msc.intervlrhsumtsattempt + 
+			vlr1msc.intravlrintraplmnhsgsmattempt + 
+			vlr1msc.intravlrinterplmnhsgsmattempt + 
+			vlr1msc.intervlrhsgsmattempt),0,null, 
+
+			(vlr1msc.intravlrintraplmnhsumtssucc + 
+			vlr1msc.intravlrinterplmnhsumtssucc + 
+			vlr1msc.intervlrhsumtssucc + 
+			vlr1msc.intravlrintraplmnhsgsmsucc + 
+			vlr1msc.intravlrinterplmnhsgsmsucc + 
+			vlr1msc.intervlrhsgsmsucc)
+			 / 
+			(vlr1msc.intravlrintraplmnhsumtsattempt + 
+			vlr1msc.intravlrinterplmnhsumtsattempt + 
+			vlr1msc.intervlrhsumtsattempt + 
+			vlr1msc.intravlrintraplmnhsgsmattempt + 
+			vlr1msc.intravlrinterplmnhsgsmattempt + 
+			vlr1msc.intervlrhsgsmattempt))</formula>
+    <kpi_info>
+      <title><![CDATA[Home LU success ratio (GSM + UMTS)]]></title>
+      <use><![CDATA[Ratio of successful  home subscriber location updates for GSM and UMTS]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.6, the UMTS LU attempts also count the I-HSPA related events (LU attempts via I-HSPA).
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 03-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;Sum (INTRAVLRINTRAPLMNHSUMTSSUCC 
+&lt;br&gt;  + INTRAVLRINTERPLMNHSUMTSSUCC 
+&lt;br&gt;  + INTERVLRHSUMTSSUCC
+&lt;br&gt;+ INTRAVLRINTRAPLMNHSGSMSUCC 
+&lt;br&gt;+ INTRAVLRINTERPLMNHSGSMSUCC 
+&lt;br&gt;+ INTERVLRHSGSMSUCC )
+&lt;br&gt;100 * --------------------------------------------------------------------------------------------------------------------------------- 
+&lt;br&gt;sum (INTRAVLRINTRAPLMNHSUMTSATTEMPT 
+&lt;br&gt;+ INTRAVLRINTERPLMNHSUMTSATTEMPT 
+&lt;br&gt;+ INTERVLRHSUMTSATTEMPT
+&lt;br&gt;+INTRAVLRINTRAPLMNHSGSMATTEMPT 
+&lt;br&gt;+ INTRAVLRINTERPLMNHSGSMATTEMPT 
+&lt;br&gt;+ INTERVLRHSGSMATTEMPT)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, RNS_PS_VR1MCBH_MSC_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Home LU success ratio (GSM + UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/VLRNMSC_ext2.xml" />
+  <kpi name="msc_2200a">
+    <formula>
+	nvl(VLRNMSC_ext2.TOTALAVERAGE_1,nvl(VLRNMSC_ext2.TOTALAVERAGE_2,VLRNMSC_ext2.TOTALAVERAGE_3))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Max number subscribers in PLMN]]></title>
+      <use><![CDATA[The maximum number of normal subscribers of the PLMN.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>1st - SUM over Object - For each time sample, the MSC level records must be summed in order to get the total sum of the subscribers (for all the MSCs).
+	  <br>
+	  <br>2nd - MAXimum over Time - At the PLMN level, it must get the maximum value over all time samples.  
+	  <br>
+	  <br>KPI CLASS: Subscriber
+	  <br>MEASUREMENT(S): VLR measurement, part n (80/50H)
+	  <br>
+	  ]]></use_experience>
+	  
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+	  &lt;br&gt;
+	  &lt;br&gt;KPI formula: 
+	  &lt;br&gt;NVL( 
+      &lt;br&gt;      MAX_overTIME( SUM_overOBJECT( ( TotalAverage )  ), 
+	  &lt;br&gt;       NVL( MAX_overTIME( SUM_overOBJECT( ( SIM_AVG_REG_TOTAL + USIM_AVG_REG_TOTAL +UNKNOWN_AVG_REG_TOTAL ) ),
+	  &lt;br&gt;       MAX_overTIME(SUM_overOBJECT( ( REG_AVG_TOTAL ) ) 
+	  &lt;br&gt;       
+	  &lt;br&gt;   ) 
+	  &lt;br&gt;)
+	  &lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Max subs PLMN ParamSuperSet</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

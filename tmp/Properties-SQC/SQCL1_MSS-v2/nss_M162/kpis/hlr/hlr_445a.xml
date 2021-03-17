@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HL1HLR.xml"/>
+  <kpi name="hlr_445a">
+    <formula>100*decode(
+			((HL1HLR.EPS_LOCATION_UPDATE_ATTEMPT)),0,0, 
+
+			((HL1HLR.EPS_LOCATION_UPDATE_SUCCESS))
+			 / 
+			((HL1HLR.EPS_LOCATION_UPDATE_ATTEMPT)))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Subscribers Location Update Success ratio]]></title>
+      <use><![CDATA[Success ratio of MME Location Updated procedures (on S6a Interface).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>              SUM( EPS_LOCATION_UPDATE_SUCCESS )
+&lt;br&gt;100 *  -------------------------------------------
+&lt;br&gt;             SUM( EPS_LOCATION_UPDATE_ATTEMPT )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_HL1HLR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[EPS LU SR ]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

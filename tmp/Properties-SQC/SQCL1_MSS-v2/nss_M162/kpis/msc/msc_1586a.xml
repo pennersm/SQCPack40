@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/UPD_ext.xml" />
+  <kpi name="msc_1586a">
+    <formula>
+		decode( upd_ext.upd_num_of_call_att_in, 0, null,
+			(
+				decode (upd_ext.count_distinct_starttime, 0, null, 
+					(
+						((upd_ext.upd_erlangs_x100_in) * upd_ext.count_distinct_starttime * upd_ext.avg_period_duration * 60)
+						/ 100
+					) / (upd_ext.count_distinct_starttime)
+				)
+			)
+			/ (upd_ext.upd_num_of_call_att_in)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[UPD MHT (IN)]]></title>
+      <use><![CDATA[Mean holding time. INcoming analysis.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Erlangs are calculated from the RAB ASSIGNEMENT REQUEST / BICC IAM / SIP invite to RAB RELEASE COMPLETED / BICC REL / SIP Bye or Cancel message. If handover happens, the erlang is calculated until/from the RANAP RELOCATION REQUIRED message.
+<br>
+<br>Note: Starting from M14.4 release, either the common (M384B2Cx) or the separated IN/OUT counters (M384B3Cx + M384B4Cx) are available. 
+<br>
+<br>-> For these IN counters to be available, the UPD_MEAS_PER_DIR FIFILE parameter must be active.
+<br>
+<br>The x_REJ_x counters were not included in the denominator related part. REJected Call Attempts are not using the resource and if they were counted/included it would decrease the actual usage and result in under-dimensioned in the case of congestion. By only considering the effective accepted call attempts by the resource the MHT will have a more realistic value.
+<br>PUBLISHED: M14.5
+<br>LAST UPDATE: 03-12-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC -> MGWMNAME -> UPD
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: UPD
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): UPD measurement (M384)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For Time:
+&lt;br&gt; 
+&lt;br&gt;  60 * SUM( period_duration ) * 
+&lt;br&gt;  AVG( UPD_ERLANGS_x100_IN ) / 100 / 
+&lt;br&gt;  SUM( UPD_NUM_OF_CALL_ATT_IN )
+&lt;br&gt; 
+&lt;br&gt;For Object:
+&lt;br&gt;
+&lt;br&gt;  60 * AVG( period_duration ) * 
+&lt;br&gt;  SUM( UPD_ERLANGS_x100_IN ) / 100 / 
+&lt;br&gt;  SUM( UPD_NUM_OF_CALL_ATT_IN )
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;          ==========  XXXXXXXXXX  ==========  
+&lt;br&gt;  
+&lt;br&gt;** SQL test formula - proof of concept  
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains  
+&lt;br&gt;** Formula based on RAW data table  
+&lt;br&gt; 
+&lt;br&gt;60 * AVG( period_duration ) * COUNT( DISTINCT period_start_time ) * SUM( UPD_ERLANGS_x100_IN ) / 100 / COUNT( DISTINCT period_start_time ) / SUM( UPD_NUM_OF_CALL_ATT_IN )
+&lt;br&gt;</formula>
+      <unit>[Seconds]</unit>
+      <tables>XMLNSS_PS_UPD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.276 +0000</date>
+          <comment><![CDATA[Source: RSMSC048.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>UPD IN MHT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

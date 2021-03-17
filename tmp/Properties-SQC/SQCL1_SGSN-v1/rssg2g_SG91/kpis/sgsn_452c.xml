@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <kpi name="sgsn_452c">
+    <formula>decode(
+			(mobmgmnt.succ_gprs_attach + 
+			mobmgmnt.fail_gprs_attach + 
+			mobmgmnt.fail_gprs_attach_sim_not_prov + 
+			mobmgmnt.fail_gprs_attach_illegal_ms + 
+			mobmgmnt.fail_gprs_attach_illegal_me + 
+			mobmgmnt.fail_gprs_attach_ser_nonser_na + 
+			mobmgmnt.fail_gprs_attach_ser_na_plmn + 
+			mobmgmnt.fail_gprs_attach_no_cell_in_la + 
+			mobmgmnt.gprs_attach_fail_plmn_na + 
+			mobmgmnt.gprs_attach_fail_la_na + 
+			mobmgmnt.gprs_attach_fail_roaming_na + 
+			mobmgmnt.gprs_attach_fail_prot_error + 
+			mobmgmnt.fail_gprs_attach_22),0,NULL, 
+
+			(100*(mobmgmnt.fail_gprs_attach_ser_na_plmn)
+			 / 
+			(mobmgmnt.succ_gprs_attach + 
+			mobmgmnt.fail_gprs_attach + 
+			mobmgmnt.fail_gprs_attach_sim_not_prov + 
+			mobmgmnt.fail_gprs_attach_illegal_ms + 
+			mobmgmnt.fail_gprs_attach_illegal_me + 
+			mobmgmnt.fail_gprs_attach_ser_nonser_na + 
+			mobmgmnt.fail_gprs_attach_ser_na_plmn + 
+			mobmgmnt.fail_gprs_attach_no_cell_in_la + 
+			mobmgmnt.gprs_attach_fail_plmn_na + 
+			mobmgmnt.gprs_attach_fail_la_na + 
+			mobmgmnt.gprs_attach_fail_roaming_na + 
+			mobmgmnt.gprs_attach_fail_prot_error + 
+			mobmgmnt.fail_gprs_attach_22)))</formula>
+    <kpi_info>
+      <title><![CDATA[Failure ratio of Gb GPRS attach due to the fact that GPRS services are not allowed in this PLMN]]></title>
+      <use><![CDATA[This KPI shows failure ratio of GPRS attach from Gb interface due to fact that attach is failed because GPRS services are not allowed in this PLMN.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(FAIL_GPRS_ATTACH_SER_NA_PLMN)
+&lt;br&gt;-------------------------------------------------------------------------- * 100
+&lt;br&gt;sum( SUCC_GPRS_ATTACH + FAIL_GPRS_ATTACH + 
+&lt;br&gt;        FAIL_GPRS_ATTACH_SIM_NOT_PROV + 
+&lt;br&gt;        FAIL_GPRS_ATTACH_ILLEGAL_MS + FAIL_GPRS_ATTACH_ILLEGAL_ME + 
+&lt;br&gt;        FAIL_GPRS_ATTACH_SER_NONSER_NA + FAIL_GPRS_ATTACH_SER_NA_PLMN + 
+&lt;br&gt;        FAIL_GPRS_ATTACH_NO_CELL_IN_LA + GPRS_ATTACH_FAIL_PLMN_NA +
+&lt;br&gt;        GPRS_ATTACH_FAIL_LA_NA + GPRS_ATTACH_FAIL_ROAMING_NA + 
+&lt;br&gt;        GPRS_ATTACH_FAIL_PROT_ERROR + FAIL_GPRS_ATTACH_22 )
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_mobility_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_mobmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Failure ratio of Gb GPRS attach due to the fact that GPRS services are not allowed in this PLMN]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IPDA.xml"/>
+  <kpi name="sgsn_2061a">
+    <formula>decode(
+			((IPDA.IPPU_GTP_BYTES_SENT_UL + 
+			IPDA.IPPU_GTP_BYTES_SENT_DL + 
+			4294967296*(IPDA.IPPU_GTP_BYTES_SENT_UL_OFL + 
+			IPDA.IPPU_GTP_BYTES_SENT_DL_OFL))),0,NULL, 
+
+			((IPDA.IPPU_GTP_BYTES_SENT_DL + 
+			4294967296*IPDA.IPPU_GTP_BYTES_SENT_DL_OFL))
+			 / 
+			((IPDA.IPPU_GTP_BYTES_SENT_UL + 
+			IPDA.IPPU_GTP_BYTES_SENT_DL + 
+			4294967296*(IPDA.IPPU_GTP_BYTES_SENT_UL_OFL + 
+			IPDA.IPPU_GTP_BYTES_SENT_DL_OFL))))*100</formula>
+    <kpi_info>
+      <title><![CDATA[IPPU Iu DL GTP data share, e2e]]></title>
+      <use><![CDATA[This KPI shows the share of downlink GTP data when compared to total amount of data coming and going to Iu interface.
+This KPI is relevant only with ATCA hardware.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(IPPU_GTP_BYTES_SENT_DL + 
+&lt;br&gt;   4294967296 * IPPU_GTP_BYTES_SENT_DL_OFL)
+&lt;br&gt;--------------------------------------------------------------------------- *100
+&lt;br&gt;sum (IPPU_GTP_BYTES_SENT_UL + IPPU_GTP_BYTES_SENT_DL +
+&lt;br&gt;   4294967296 * (IPPU_GTP_BYTES_SENT_UL_OFL + IPPU_GTP_BYTES_SENT_DL_OFL))
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IPDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IPPU DL GTP dat share,e2e]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

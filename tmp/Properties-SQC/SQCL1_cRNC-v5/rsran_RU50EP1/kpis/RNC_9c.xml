@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_9c">
+    <formula>decode(
+			(traffic.period_duration),0,null,
+
+			(((14.4*traffic.allo_dur_ntrans_strm_14_4_ul) +
+			(56.7*traffic.allo_dur_ntrans_strm_56_7_ul))
+			 /
+			(traffic.period_duration*60*100)))</formula>
+    <kpi_info>
+      <title><![CDATA[CS Streaming allocated UL]]></title>
+      <use><![CDATA[Allocated Uplink Dedicated Channel Capacity [kbit/s] for non-transparent CS Data Calls with streaming class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(
+&lt;br&gt;            14.4*ALLO_DUR_NTRANS_STRM_14_4_UL
+&lt;br&gt;          + 56.7*ALLO_DUR_NTRANS_STRM_56_7_UL)
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;      SUM(PERIOD_DURATION *60*100)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[CS Streaming allocated UL]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

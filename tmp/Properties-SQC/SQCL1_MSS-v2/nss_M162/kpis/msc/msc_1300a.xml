@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_1300a">
+    <formula>decode(
+		(vlr1msc.psi_prepaging_cs_domain_att +
+               vlr1msc.psi_prepaging_ps_domain_att ),0,null, 
+		(100*( vlr1msc.psi_prepaging_cs_domain_succ +
+              vlr1msc.psi_prepaging_ps_domain_succ )/
+          ( vlr1msc.psi_prepaging_cs_domain_att +
+               vlr1msc.psi_prepaging_ps_domain_att )))</formula>
+    <kpi_info>
+      <title><![CDATA[Pre-paging success ratio]]></title>
+      <use><![CDATA[Indicates the success ratio of pre-paging procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;         SUM( PSI_PREPAGING_CS_DOMAIN_SUCC +
+&lt;br&gt;              PSI_PREPAGING_PS_DOMAIN_SUCC )
+&lt;br&gt;100 * ----------------------------------------------------------------- 
+&lt;br&gt;          SUM( PSI_PREPAGING_CS_DOMAIN_ATT +
+&lt;br&gt;               PSI_PREPAGING_PS_DOMAIN_ATT )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Pre-paging SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

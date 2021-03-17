@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_4036a">
+    <formula>
+decode(VLR1MSC.MTC_PAGING_ON_AIF_SUCC,0,null,
+	100 * (1 - (SERVI_ext.MSCSSM_USAGE_19 / VLR1MSC.MTC_PAGING_ON_AIF_SUCC ) )
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[MTC failure ratio (GSM)]]></title>
+      <use><![CDATA[Indicates the failure ratio of GSM mobile terminating calls.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Service_ID:
+<br>   107H = BSM ASSIGNMENT COMPLETE MTC
+<br>
+<br>KPI BH criteria: max of sum(MSCSSM_USAGE)   ;Where Service_ID = 107H
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 31-07-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Service measurement (M128/80H)
+<br>+
+<br>VLR measurement , part one (M82/52H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MTC Failure Ratio&quot; (GSM) KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             SUM( a.MSCSSM_USAGE )
+&lt;br&gt;             ;WHERE Service_ID = 107H
+&lt;br&gt;100 * (1 - -------------------------------------)
+&lt;br&gt;             SUM( b.MTC_PAGING_ON_AIF_SUCC )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED table(s)
+&lt;br&gt;
+&lt;br&gt;a = M128 = Service measurement  (128/80H)
+&lt;br&gt;b = M82 = VLR measurement , part one (82/52H)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG},rns_ps_VLR1MSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTC failure ratio (GSM)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

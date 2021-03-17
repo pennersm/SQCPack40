@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ACVMSC.xml"/>
+  <kpi name="sec_vlr138b">
+    <formula>100*(decode(
+			(acvmsc.attemptauthwithtriplet + 
+			acvmsc.attemptauthwithquintet),0,null, 
+
+			(acvmsc.successfauthwithtriplet + 
+			acvmsc.successfauthwithquintet)
+			 / 
+			(acvmsc.attemptauthwithtriplet + 
+			acvmsc.attemptauthwithquintet)))</formula>
+    <kpi_info>
+      <title><![CDATA[Authentications in the network success ratio]]></title>
+      <use><![CDATA[Indicates the success of authentications in the network. Note that both UMTS and GSM authentications are included.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;        sum(
+&lt;br&gt;              successfAuthWithTriplet
+&lt;br&gt;            + successfAuthWithQuintet) 
+&lt;br&gt;   100* ------------------------------------------------------
+&lt;br&gt;        sum(
+&lt;br&gt;              attemptAuthWithTriplet
+&lt;br&gt;            + attemptAuthWithQuintet)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_ACVMSC_MSC_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_acvmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Authentications in the network success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

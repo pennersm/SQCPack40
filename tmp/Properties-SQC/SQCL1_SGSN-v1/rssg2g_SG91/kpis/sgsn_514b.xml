@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml" />
+  <kpi name="sgsn_514b">
+    <formula>(mobmgmnt.succ_intra_papu_ra_updat + 
+			 mobmgmnt.fail_intra_papu_rau_gen + 
+			 mobmgmnt.succ_inter_papu_ra_updat + 
+			 mobmgmnt.fail_inter_papu_rau_gen + 
+			 mobmgmnt.succ_inter_sgsn_ra_updat + 
+			 mobmgmnt.fail_inter_sgsn_rau_gen + 
+			 mobmgmnt.succ_periodical_ra_updat + 
+			 mobmgmnt.fail_periodic_rau_gen +
+			 nvl(MOBMGMN2.SUCC_IN_RAU_MME_TO_2GSGSN,0) +
+			 nvl(MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN,0))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb RA update attempts, e2e]]></title>
+      <use><![CDATA[This KPI shows the amount of all routing area update attempts coming from Gb interface. All failures caused by ME, MS or network are included]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_INTRA_PAPU_RA_UPDAT + FAIL_INTRA_PAPU_RAU_GEN +
+&lt;br&gt;   SUCC_INTER_PAPU_RA_UPDAT + FAIL_INTER_PAPU_RAU_GEN +
+&lt;br&gt;   SUCC_INTER_SGSN_RA_UPDAT + FAIL_INTER_SGSN_RAU_GEN + 
+&lt;br&gt;   SUCC_PERIODICAL_RA_UPDAT + FAIL_PERIODIC_RAU_GEN +
+&lt;br&gt;   SUCC_IN_RAU_MME_TO_2GSGSN + FAIL_IN_RAU_MME_TO_2GSGSN)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_mobmgmnt_{obj_agg}_{time_agg}, rsg_ps_mobmgmn2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb RA update attempts, e2e]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

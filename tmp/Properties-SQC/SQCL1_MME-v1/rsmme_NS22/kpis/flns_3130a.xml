@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3130a">
+    <formula>decode(
+            (mmmt.attach_in_with_mme_chg_succ + 
+            mmmt.attach_in_with_mme_chg_fail),0,null,
+            
+            mmmt.attach_in_with_mme_chg_succ
+            / 
+            (mmmt.attach_in_with_mme_chg_succ + 
+            mmmt.attach_in_with_mme_chg_fail))*100</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Attach with MME change success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of incoming EPS attach procedures with MME change.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(ATTACH_IN_WITH_MME_CHG_SUCC)
+&lt;br&gt;------------------- *100
+&lt;br&gt;sum(ATTACH_IN_WITH_MME_CHG_SUCC + 
+&lt;br&gt;   ATTACH_IN_WITH_MME_CHG_FAIL)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author></author>
+          <date>2013/04/10 00:43:42.433 +0100</date>
+          <comment></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Attach MME change SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

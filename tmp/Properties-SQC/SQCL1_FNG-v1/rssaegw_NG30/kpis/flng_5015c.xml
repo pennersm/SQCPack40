@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml" />
+  <kpi name="flng_5015c">
+    <formula>decode((ssprof.sm_succ_bear_deact_ng_init + ssprof.sm_fail_bear_deact_ng_init + ssprof.sm_succ_bear_deact_ggsn_term + ssprof.sm_fail_bear_deact_ggsn_term),0,NULL,100*(ssprof.sm_succ_bear_deact_ng_init + ssprof.sm_succ_bear_deact_ggsn_term)
+ /(ssprof.sm_succ_bear_deact_ng_init + ssprof.sm_fail_bear_deact_ng_init + ssprof.sm_succ_bear_deact_ggsn_term + ssprof.sm_fail_bear_deact_ggsn_term))</formula>
+    <kpi_info>
+      <title><![CDATA[Bearer deactivation success ratio, GGSN]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GGSN bearer deactivations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SM_SUCC_BEAR_DEACT_NG_INIT +
+&lt;br&gt;   SM_SUCC_BEAR_DEACT_GGSN_TERM)
+&lt;br&gt;------------------------------------- *100
+&lt;br&gt;sum(SM_SUCC_BEAR_DEACT_NG_INIT + 
+&lt;br&gt;   SM_FAIL_BEAR_DEACT_NG_INIT +
+&lt;br&gt;   SM_SUCC_BEAR_DEACT_GGSN_TERM + 
+&lt;br&gt;   SM_FAIL_BEAR_DEACT_GGSN_TERM)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/24 14:41:18.883 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Bearer deact SR, GGSN</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

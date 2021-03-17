@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_5522a">
+    <formula>100*decode(
+			luest.ue_ctx_setup_att,0,null, 
+
+			luest.ue_ctx_setup_fail_radio_int
+			 / 
+			luest.ue_ctx_setup_att)</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Initial Context Setup Failure Ratio due to Failed Radio Interface Procedure]]></title>
+      <use><![CDATA[This KPI describes the ratio of initial context setup failure due to failed radio interface procedure which is, for example the timeout of the UE Capability Enquiry or of the RRC Connection Reconfiguration procedure and also in case that the start of the AS security at the UE has not been successful.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(UE_CTX_SETUP_FAIL_RADIO_INT) / sum(UE_CTX_SETUP_ATT)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LUEST_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/10/29 14:07:01.581 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Init Contx stp FR due fail Rd IF proc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

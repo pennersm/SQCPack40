@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_2018a">
+    <formula>decode(
+			(signtrc.codec_fr_amr_wb_error + signtrc.codec_fr_amr_wb),0,null, 
+
+			(100*(signtrc.a_u_law_conversion)
+			 / 
+			(signtrc.a_u_law_conversion + signtrc.a_u_law_conversion_error)))</formula>
+    <kpi_info>
+      <title><![CDATA[G.711 a-law u-law conversion success ratio.]]></title>
+      <use><![CDATA[Success ratio of G.711 conversion from a-law to u-law or vice-versa. ]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( A_U_LAW_CONVERSION )
+&lt;br&gt;---------------------------------------------------------------------------------------------------------- x 100
+&lt;br&gt;                  SUM( A_U_LAW_CONVERSION + A_U_LAW_CONVERSION_ERROR )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>alaw ulaw conv SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

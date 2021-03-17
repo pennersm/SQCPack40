@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <kpi name="LTE_1175a">
+    <formula>100*decode(
+			(lcelld.ue_drb_ul_data_qci_1),0,null, 
+
+			(lcellr.tti_bundling_mode_ue_avg)
+			 / 
+			(lcelld.ue_drb_ul_data_qci_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of UEs in TTI bundling mode (from QCI1 users)]]></title>
+      <use><![CDATA[This KPI measures the percentage  of UEs in TTI bundling mode Compared to QCI1 users.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * AVG(TTI_BUNDLING_MODE_UE_AVG)
+&lt;br&gt;/
+&lt;br&gt;AVG(UE_DRB_UL_DATA_QCI_1)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg},noklte_ps_LCELLR_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:45.713 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>% UEs TTI bundl mod to QCI1 usr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

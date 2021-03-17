@@ -1,0 +1,1947 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSRAN RU40 OSS5.4CD3 5.6.1</report_version>
+    <release number="5.6.4-187" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSRAN094 - Iu-CS</header>
+    <csv_title>Iu-CS</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report provides information about the IP statistics at RNC Iu-CS interface.
+<br>
+<br>Use Case info: this report should only be used at regional cluster level.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2013/06/16 18:09:59.544 +0100</date>
+        <comment><![CDATA[Source: RSRAN094.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Iu-CS</report-description>
+    <report-title>Iu-CS</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <RNC_1630a ui_name="DL" group="IP Throughput" chartType="bar" yAxis="2" />
+    <RNC_1629a ui_name="UL" group="IP Throughput" chartType="bar" yAxis="2" />
+    <RNC_1909b ui_name="Max Rsv IP BW" group="IP Reserved bit rate" chartType="bar" yAxis="2" />
+    <RNC_5052a ui_name="IP Route Egress rsv" group="IP Reserved bit rate" chartType="bar" yAxis="2" />
+    <RNC_1248b ui_name="DL" group="RTP Loss Ratio" chartType="lineandshape" yAxis="1" />
+    <RNC_1249a ui_name="UL" group="RTP Loss Ratio" chartType="lineandshape" yAxis="1" />
+    <M803C27 ui_name="Max" group="RTP Jitter" chartType="bar" yAxis="2" />
+    <RNC_1845a ui_name="Class 1" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1846a ui_name="Class 2" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1847a ui_name="Class 3" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1848a ui_name="Class 4" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1849a ui_name="Class 5" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1850a ui_name="Class 6" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1851a ui_name="Class 7" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1852a ui_name="Class 8" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1853a ui_name="Class 9" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1854a ui_name="Class 10" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1855a ui_name="Class 11" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1856a ui_name="Class 12" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1857a ui_name="Class 13" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1858a ui_name="Class 14" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1859a ui_name="Class 15" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1860a ui_name="Class 16" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1861a ui_name="Class 17" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1862a ui_name="Class 18" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1863a ui_name="Class 19" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+    <RNC_1864a ui_name="Class 20" group="RTP Jitter" chartType="lineandshape" yAxis="1" />
+  </column_order>
+  <!---->
+  <!-- ========================================Measurement Data======================================-->
+  <!---->
+  <temp_table name="IPROUT" meas_level="PLMN/RNC/IPROU/RWB094" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+     	<counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+     	<counter alias="OUT_DATA_IP_ROUTE">SUM(OUT_DATA_IP_ROUTE)</counter>
+     	<counter alias="IN_DATA_IP_ROUTE">SUM(IN_DATA_IP_ROUTE)</counter>
+		<counter alias="COMMITTED_BIT_RATE_IP_ROUTE">AVG(COMMITTED_BIT_RATE_IP_ROUTE)</counter>
+     	<counter alias="MAX_RESERVED_RATE_IP_ROUTE">MAX(MAX_RESERVED_RATE_IP_ROUTE)</counter>
+     	<counter alias="NBR_SAMPLES_IP_ROUTE">SUM(NBR_SAMPLES_IP_ROUTE)</counter>
+     	<counter alias="SUM_RESERVED_RATE_IP_ROUTE">SUM(SUM_RESERVED_RATE_IP_ROUTE)</counter>
+    </counters>
+    <table_name>nokrww_ps_iprout_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>iprout</alias_name>
+  </temp_table>
+  
+  <temp_table name="RTPRTCP" meas_level="PLMN/RNC/IPROU094" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+     	<counter alias="RTP_JITTER_CLASS_1">SUM(RTP_JITTER_CLASS_1)</counter>
+     	<counter alias="RTP_JITTER_CLASS_2">SUM(RTP_JITTER_CLASS_2)</counter>
+     	<counter alias="RTP_JITTER_CLASS_3">SUM(RTP_JITTER_CLASS_3)</counter>
+     	<counter alias="RTP_JITTER_CLASS_4">SUM(RTP_JITTER_CLASS_4)</counter>
+     	<counter alias="RTP_JITTER_CLASS_5">SUM(RTP_JITTER_CLASS_5)</counter>
+     	<counter alias="RTP_JITTER_CLASS_6">SUM(RTP_JITTER_CLASS_6)</counter>
+     	<counter alias="RTP_JITTER_CLASS_7">SUM(RTP_JITTER_CLASS_7)</counter>
+     	<counter alias="RTP_JITTER_CLASS_8">SUM(RTP_JITTER_CLASS_8)</counter>
+     	<counter alias="RTP_JITTER_CLASS_9">SUM(RTP_JITTER_CLASS_9)</counter>
+     	<counter alias="RTP_JITTER_CLASS_10">SUM(RTP_JITTER_CLASS_10)</counter>
+     	<counter alias="RTP_JITTER_CLASS_11">SUM(RTP_JITTER_CLASS_11)</counter>
+     	<counter alias="RTP_JITTER_CLASS_12">SUM(RTP_JITTER_CLASS_12)</counter>
+     	<counter alias="RTP_JITTER_CLASS_13">SUM(RTP_JITTER_CLASS_13)</counter>
+     	<counter alias="RTP_JITTER_CLASS_14">SUM(RTP_JITTER_CLASS_14)</counter>
+     	<counter alias="RTP_JITTER_CLASS_15">SUM(RTP_JITTER_CLASS_15)</counter>
+     	<counter alias="RTP_JITTER_CLASS_16">SUM(RTP_JITTER_CLASS_16)</counter>
+     	<counter alias="RTP_JITTER_CLASS_17">SUM(RTP_JITTER_CLASS_17)</counter>
+     	<counter alias="RTP_JITTER_CLASS_18">SUM(RTP_JITTER_CLASS_18)</counter>
+     	<counter alias="RTP_JITTER_CLASS_19">SUM(RTP_JITTER_CLASS_19)</counter>
+     	<counter alias="RTP_JITTER_CLASS_20">SUM(RTP_JITTER_CLASS_20)</counter>
+     	<counter alias="REC_RTP_PACKETS">SUM(REC_RTP_PACKETS)</counter>
+     	<counter alias="LOST_RTP_PACKETS">SUM(LOST_RTP_PACKETS)</counter>
+     	<counter alias="SENT_RTP_PACKETS">SUM(SENT_RTP_PACKETS)</counter>
+     	<counter alias="LOST_EGRESS_RTP_PACKETS">SUM(LOST_EGRESS_RTP_PACKETS)</counter>
+     	<counter alias="MAX_RTP_JITTER">MAX(MAX_RTP_JITTER)</counter>
+    </counters>
+    <table_name>nokrww_ps_rtprtcp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>rtprtcp</alias_name>
+  </temp_table> 
+  
+    <kpi name="RNC_1630a">
+    <formula>decode(
+			(iprout.period_duration),0,null, 
+
+			(8*(iprout.in_data_ip_route)
+			 / 
+			(60*iprout.period_duration*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iu-CS throughput - ingress]]></title>
+      <use><![CDATA[This KPI provides information about the Iu-CS IP layer downlink throughput in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8* SUM(IN_DATA_IP_ROUTE)
+&lt;br&gt;------------------------
+&lt;br&gt;SUM(60 * PERIOD_DURATION)*1000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Iu-CS thp ingress</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+    <kpi name="RNC_1629a">
+    <formula>decode(
+			(iprout.period_duration),0,null, 
+
+			(8*(iprout.out_data_ip_route)
+			 / 
+			(60*iprout.period_duration*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iu-CS throughput - egress]]></title>
+      <use><![CDATA[This KPI provides information about the Iu-CS IP layer uplink throughput in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8* SUM(OUT_DATA_IP_ROUTE)
+&lt;br&gt;------------------------
+&lt;br&gt;SUM(60 * PERIOD_DURATION)*1000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Iu-CS thp egress</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="RNC_1909b">
+    <formula>100*decode(
+			(iprout.committed_bit_rate_ip_route),0,null, 
+
+			(iprout.max_reserved_rate_ip_route)
+			 / 
+			(iprout.committed_bit_rate_ip_route))</formula>
+    <kpi_info>
+      <title><![CDATA[Max Reserved IP based route bandwidth]]></title>
+      <use><![CDATA[Maximum value of IP bandwidth usage rate, comparing the maximum value of reserved IP layer bit rate against the available bandwidth]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;MAX(MAX_RESERVED_RATE_IP_ROUTE)
+&lt;br&gt;/
+&lt;br&gt;AVG(COMMITTED_BIT_RATE_IP_ROUTE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_IPROUT_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:48.679 +0100</date>
+          <comment><![CDATA[Source: RSRAN087.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Max Rsv IP BW</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="RNC_5052a">
+    <formula>decode(
+			(iprout.committed_bit_rate_ip_route*iprout.nbr_samples_ip_route),0,null, 
+
+			(100*((iprout.sum_reserved_rate_ip_route
+			 / 
+			iprout.nbr_samples_ip_route)
+			 / 
+			iprout.committed_bit_rate_ip_route)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Route Egress Reservation Rate]]></title>
+      <use><![CDATA[This tells the reservation rate of guaranteed IP transport resources]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *(sum (SUM_RESERVED_RATE_IP_ROUTE/NBR_SAMPLES_IP_ROUTE) 
+&lt;br&gt;/ 
+&lt;br&gt;(sum COMMITTED_BIT_RATE_IP_ROUTE))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Route Egress rsv Rate</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="RNC_1248b">
+    <formula>decode(
+			(rtprtcp.rec_rtp_packets*10 + rtprtcp.lost_rtp_packets),0,null, 
+
+			(100*(rtprtcp.lost_rtp_packets)
+			 / 
+			(rtprtcp.rec_rtp_packets*10 + rtprtcp.lost_rtp_packets)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-CS RTP layer loss ratio - ingress]]></title>
+      <use><![CDATA[This KPI provides the ingress RTP packet loss ratio in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(LOST_RTP_PACKETS)
+&lt;br&gt;------------------------
+&lt;br&gt;SUM(REC_RTP_PACKETS*10 + LOST_RTP_PACKETS)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-CS RTP loss ratio ingr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="RNC_1249a">
+    <formula>decode(
+			(rtprtcp.sent_rtp_packets),0,null, 
+
+			(100*(rtprtcp.lost_egress_rtp_packets)
+			 / 
+			(rtprtcp.sent_rtp_packets*10)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-CS RTP layer loss ratio - egress]]></title>
+      <use><![CDATA[This KPI provides the egress RTP packet loss ratio in RNC. The lost RTP data packets in egress direction  are reported to be missing by MGW using RTCP protocol messages.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(LOST_EGRESS_RTP_PACKETS)
+&lt;br&gt;---------------------
+&lt;br&gt;SUM(SENT_RTP_PACKETS*10)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-CS RTP loss ratio egrs</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="M803C27">
+    <formula>rtprtcp.max_rtp_jitter</formula>
+    <kpi_info>
+      <title><![CDATA[MAX_RTP_JITTER]]></title>
+      <use><![CDATA[The maximum jitter value within the collected 5 second samples during the measurement interval. UPDATED: The jitter is sampled with 5 second intervals for each RTP connection.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(MAX_RTP_JITTER)</formula>
+      <unit>[ms]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[MAX_RTP_JITTER]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="RNC_1845a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_1)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 1 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 1.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_1)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class1</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <kpi name="RNC_1846a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_2)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 2 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 2.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_2)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class2</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1847a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_3)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 3 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 3.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_3)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class3</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1848a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_4)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 4 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 4.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_4)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class4</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1849a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_5)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 5 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 5.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_5)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class5</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1850a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_6)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 6 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 6.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_6)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class6</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1851a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_7)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 7 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 7.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_7)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class7</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1852a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_8)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 8 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 8.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_8)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class8</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1853a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_9)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 9 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 9.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_9)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class9</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1854a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_10)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 10 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 10.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_10)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class10</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1855a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_11)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 11 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 11.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_11)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class11</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1856a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_12)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 12 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 12.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_12)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class12</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1857a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_13)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 13 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 13.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_13)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class13</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1858a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_14)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 14 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 14.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_14)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class14</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1859a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_15)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 15 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 15.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_15)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class15</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1860a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_16)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 16 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 16.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_16)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class16</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1861a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_17)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 17 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 17.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_17)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class17</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1862a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_18)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 18 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 18.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_18)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class18</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1863a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_19)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 19 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 19.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_19)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class19</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="RNC_1864a">
+    <formula>decode(
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20),0,null, 
+
+			(100*(rtprtcp.rtp_jitter_class_20)
+			 / 
+			(rtprtcp.rtp_jitter_class_1 + 
+			rtprtcp.rtp_jitter_class_2 + 
+			rtprtcp.rtp_jitter_class_3 + 
+			rtprtcp.rtp_jitter_class_4 + 
+			rtprtcp.rtp_jitter_class_5 + 
+			rtprtcp.rtp_jitter_class_6 + 
+			rtprtcp.rtp_jitter_class_7 + 
+			rtprtcp.rtp_jitter_class_8 + 
+			rtprtcp.rtp_jitter_class_9 + 
+			rtprtcp.rtp_jitter_class_10 + 
+			rtprtcp.rtp_jitter_class_11 + 
+			rtprtcp.rtp_jitter_class_12 + 
+			rtprtcp.rtp_jitter_class_13 + 
+			rtprtcp.rtp_jitter_class_14 + 
+			rtprtcp.rtp_jitter_class_15 + 
+			rtprtcp.rtp_jitter_class_16 + 
+			rtprtcp.rtp_jitter_class_17 + 
+			rtprtcp.rtp_jitter_class_18 + 
+			rtprtcp.rtp_jitter_class_19 + 
+			rtprtcp.rtp_jitter_class_20)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP Jitter Class 20 Share]]></title>
+      <use><![CDATA[This KPI provides information about the share of RTP jitter samples, from total number of samples, that bellong to Jitter Class 20.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RTP_JITTER_CLASS_20)
+&lt;br&gt;------------------
+&lt;br&gt;SUM (RTP_JITTER_CLASS_1
+&lt;br&gt;+ RTP_JITTER_CLASS_2
+&lt;br&gt;+ RTP_JITTER_CLASS_3
+&lt;br&gt;+ RTP_JITTER_CLASS_4
+&lt;br&gt;+ RTP_JITTER_CLASS_5
+&lt;br&gt;+ RTP_JITTER_CLASS_6
+&lt;br&gt;+ RTP_JITTER_CLASS_7
+&lt;br&gt;+ RTP_JITTER_CLASS_8
+&lt;br&gt;+ RTP_JITTER_CLASS_9
+&lt;br&gt;+ RTP_JITTER_CLASS_10
+&lt;br&gt;+ RTP_JITTER_CLASS_11
+&lt;br&gt;+ RTP_JITTER_CLASS_12
+&lt;br&gt;+ RTP_JITTER_CLASS_13
+&lt;br&gt;+ RTP_JITTER_CLASS_14
+&lt;br&gt;+ RTP_JITTER_CLASS_15
+&lt;br&gt;+ RTP_JITTER_CLASS_16
+&lt;br&gt;+ RTP_JITTER_CLASS_17
+&lt;br&gt;+ RTP_JITTER_CLASS_18
+&lt;br&gt;+ RTP_JITTER_CLASS_19
+&lt;br&gt;+ RTP_JITTER_CLASS_20)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP Jitter Class20</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

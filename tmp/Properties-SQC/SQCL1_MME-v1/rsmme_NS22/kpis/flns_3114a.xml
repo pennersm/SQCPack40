@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3114a">
+    <formula>decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.intermme_s1ho_wo_sgw_chg_succ + 
+			mmmt.intermme_s1ho_in_fail + 
+			mmmt.intermme_s1ho_out_succ + 
+			mmmt.intermme_s1ho_out_fail)
+			 / 
+			(mmmt.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Inter MME handover per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS inter MME handover procedures per second.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(INTERMME_S1HO_WO_SGW_CHG_SUCC +
+&lt;br&gt;   INTERMME_S1HO_IN_FAIL +
+&lt;br&gt;   INTERMME_S1HO_OUT_SUCC + 
+&lt;br&gt;   INTERMME_S1HO_OUT_FAIL)
+&lt;br&gt;------------------------------------- 
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.568 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Inter MME HO pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

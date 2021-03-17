@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FRPRW.xml" />
+  <kpi name="RNC_2080a">
+    <formula>decode(
+			(1000*(frprw.period_duration_sum*60)),0,null, 
+
+			((8*frprw.hsdsch_data_from_iub))
+			 / 
+			(1000*(frprw.period_duration_sum*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iub HSDPA throughput  (FP Level)]]></title>
+      <use><![CDATA[This KPI provides information about the Iub HSDPA throughput in BTS FP level.
+
+The BTS measures the FP level throughput from the payload of FP data frames (i.e. excluding the FP headers).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (8 * hsdsch_data_from_iub)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;1000 * sum (period_duration_sum * 60)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbits/s]</unit>
+      <tables>NOKRWW_PS_FRPRW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iub HSDPA thp]]></kpi_alias>
+    <area_level />
+  </kpi>
+  
+</conf_file>
+

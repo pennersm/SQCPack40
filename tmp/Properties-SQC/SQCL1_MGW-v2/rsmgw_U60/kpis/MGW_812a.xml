@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/EC.xml" />
+  <kpi name="MGW_812a">
+    <formula>decode(
+			(ec.ec_success + 
+			ec.ec_failure),0,null, 
+
+			(100*(ec.ec_success)
+			 / 
+			(ec.ec_success + 
+			ec.ec_failure)))</formula>
+    <kpi_info>
+      <title><![CDATA[EC activation success ratio]]></title>
+      <use><![CDATA[Indicates success ratio of Echo Cancellation resource activation in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(EC_SUCCESS )/ sum(EC_SUCCESS + EC_FAILURE)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ec_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[EC activation success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

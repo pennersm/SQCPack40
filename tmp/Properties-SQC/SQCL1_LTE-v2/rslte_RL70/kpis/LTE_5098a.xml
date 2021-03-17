@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LS1AP.xml" />
+  <kpi name="LTE_5098a">
+    <formula>
+decode(ls1ap.s1_setup_att,0,null,
+    100*(ls1ap.s1_setup_fail_ind_by_mme)
+	 / 
+	(ls1ap.s1_setup_att)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[S1 setup failure ratio indicated by MME]]></title>
+      <use><![CDATA[Ratio between the number of Unsuccessful S1 setups due to failure indication from MME and the total amount of attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                sum( S1_SETUP_FAIL_IND_BY_MME )                                 
+&lt;br&gt;100      *      -------------------------------- 
+&lt;br&gt;                   sum(S1_SETUP_ATT)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LS1AP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.785 +0100</date>
+          <comment><![CDATA[Source: RSLTE003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S1 stp FR indicated by MME</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

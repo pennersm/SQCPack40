@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/hlr/M3UAHI_ext.xml" />
+  <kpi name="hlr_750a">
+    <formula>greatest(M3UAHI_ext.m3ua_sctp_octets_received, M3UAHI_ext.m3ua_sctp_octets_sent)*8
+ /
+1000</formula>
+    <kpi_info>
+      <title><![CDATA[Maximum SCTP Association traffic per granularity period]]></title>
+      <use><![CDATA[SCTP Association Traffic. The obtained value is the maximum traffic per granularity period.]]></use>
+
+<use_experience><![CDATA[
+<br>We cannot sum sent+received side, as then the KPI does not correspond to the hw capabilities (two-way processing capacity [e.g. 400kb/s per *SU for M13 and earlier; 1 Mbp/s per *SU for M14.* => Applicable if the CP816 is installed]). We need to define these as max(xxx_sent; xxx_received).
+<br>It is necessary to access the RAW table values to get the necessary MAX values because the NetAct default used aggregation rules for these counters are defined as SUM for time and SUM for network.
+<br>This KPI is similar to msc_750c. New KPI ID reference (HLR NE). This new KPI ID reference is to to be used starting from M15.1 report sets.
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: (HLR) - (ASSO_SETNAME) - (ASSO_INDEX)
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(s): M3UA association set measurement M661
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature.For HLR this KPI is only valid for M14. This KPI does not show all SCTP traffic, only the SCTP traffic for M3UA, i.e. where on top of SCTP M3UA is the signalling. 
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;Greatest[ MAX( m3ua_sctp_octets_received ), MAX( m3ua_sctp_octets_sent ) ] * 8
+&lt;br&gt;---------------------------------------------------------------
+&lt;br&gt;              1.000
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s)
+</formula>
+      <unit>kbit</unit>
+      <tables>rns_ps_m3uahi_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Max SCTP assoc traffic GP HLR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

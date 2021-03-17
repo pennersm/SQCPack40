@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.0 GTP_C_v2_delete_bearer_failure_ind_recv DBFIRS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.0 GTP_C_v2_delete_bearer_failure_ind_recv DBFIRS measurement dump</csv_title>
+    <report-description>NG GTP-C v2 delete bearer failure indication received statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <GTPCV2_DEL_BEAR_FAIL_IND_RECV />
+  </column_order>
+  <temp_table name="DBFIRS" meas_level="PLMN/FING/FNODE/GTPCV2/DBFIRS" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="GTPCV2_DEL_BEAR_FAIL_IND_RECV" time-alias="GTPCV2_DEL_BEAR_FAIL_IND_RECV" timeagg="SUM(GTPCV2_DEL_BEAR_FAIL_IND_RECV)">SUM(GTPCV2_DEL_BEAR_FAIL_IND_RECV)</counter>
+    </counters>
+    <table_name>pcofng_ps_dbfirs_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DBFIRS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DBFIRS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dbfirs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPCV2_DEL_BEAR_FAIL_IND_RECV">
+    <formula>DBFIRS.GTPCV2_DEL_BEAR_FAIL_IND_RECV</formula>
+    <kpi_info>
+      <title>GTPCV2_DEL_BEAR_FAIL_IND_RECV</title>
+      <use>This counter contains the number of Delete Bearer Failure Indication messages received on the S5 interface according to the cause code UPDATED: Updated when a Delete Bearer Failure Indication message with a specific cause code is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPCV2_DEL_BEAR_FAIL_IND_RECV)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dbfirs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPCV2_DEL_BEAR_FAIL_IND_RECV (m3080c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

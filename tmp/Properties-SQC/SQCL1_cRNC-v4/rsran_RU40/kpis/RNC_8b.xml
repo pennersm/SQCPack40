@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+	<kpi name="RNC_8b">
+		<formula>
+			decode((traffic.period_duration*60*100),0,null,((4.75*traffic.dur_for_amr_4_75_ul_in_srnc)+(5.15*traffic.dur_for_amr_5_15_ul_in_srnc)+(5.9*traffic.dur_for_amr_5_9_ul_in_srnc)+(6.7*traffic.dur_for_amr_6_7_ul_in_srnc)+(7.4*traffic.dur_for_amr_7_4_ul_in_srnc)+(7.95*traffic.dur_for_amr_7_95_ul_in_srnc)+(10.2*traffic.dur_for_amr_10_2_ul_in_srnc)+(12.2*traffic.dur_for_amr_12_2_ul_in_srnc))/(traffic.period_duration*60*100))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[CS Voice allocated UL]]>
+			</title>
+			<use>
+				<![CDATA[Allocated Uplink Dedicated Channel Capacity [kbit/s] for CS Voice in Serving RNC for the reporting period]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+SUM(
+(4.75*DUR_FOR_AMR_4_75_UL_IN_SRNC)
++ (5.15*DUR_FOR_AMR_5_15_UL_IN_SRNC)
++ (5.9*DUR_FOR_AMR_5_9_UL_IN_SRNC)
++ (6.7*DUR_FOR_AMR_6_7_UL_IN_SRNC)
++ (7.4*DUR_FOR_AMR_7_4_UL_IN_SRNC)
++ (7.95*DUR_FOR_AMR_7_95_UL_IN_SRNC)
++ (10.2*DUR_FOR_AMR_10_2_UL_IN_SRNC)
++ (12.2*DUR_FOR_AMR_12_2_UL_IN_SRNC))
+----------------------------------------
+SUM(PERIOD_DURATION *60*100)
+				</pre>]]>
+			</formula>
+			<unit>[kbit/s]</unit>
+			<tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[CS Voice allocated UL]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

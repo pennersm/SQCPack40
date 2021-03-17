@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="15.1.2-212" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>RSRAN200 - Alarm Statistics</header>
+    <csv_title>RSRAN200 - Alarm Statistics</csv_title>
+    <report-description>Alarm Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsran/RSRAN.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+    <help-text>
+      <![CDATA[This report provides information of the created alarms and its duration.]]>
+  </help-text>
+  </info>
+  <column_order>
+    <NBR_CREATED_ALARMS group="Alarm Statistics" chartType="bar" yAxis="2" />
+    <NBR_ACTIVE_ALARMS group="Alarm Statistics" chartType="bar" yAxis="2" />
+    <DUR_CREATED_ALARMS group="Alarm Statistics" chartType="lineandshape" yAxis="1" />
+    <DUR_ACTIVE_ALARMS group="Alarm Statistics" chartType="lineandshape" yAxis="1" />
+    <period_duration group="Sampling Period" chartType="lineandshape" yAxis="1" /> 
+  </column_order>
+  <temp_table name="ALARMS" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-ALRMSEV/RSRAN-ALRMTYPE" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="NBR_CREATED_ALARMS">SUM(NBR_CREATED_ALARMS)</counter>
+      <counter alias="NBR_ACTIVE_ALARMS">SUM(NBR_ACTIVE_ALARMS)</counter>
+      <counter alias="DUR_CREATED_ALARMS">SUM(DUR_CREATED_ALARMS)</counter>
+      <counter alias="DUR_ACTIVE_ALARMS">SUM(DUR_ACTIVE_ALARMS)</counter>
+    </counters>
+    <table_name>REPALS_P_ALARMS_RAW</table_name>
+    <alias_name>ALARMS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ALARMS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PERIOD_DURATION)</formula>
+      <unit>[min]</unit>
+      <tables>REPALS_PS_{OBJ_AGG}_ALARMS_RAW</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+
+  <kpi name="NBR_CREATED_ALARMS">
+    <formula>ALARMS.NBR_CREATED_ALARMS</formula>
+    <kpi_info>
+      <title>Number of Created Alarms</title>
+      <use>Number of Created Alarms</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NBR_CREATED_ALARMS)</formula>
+      <unit>[#]</unit>
+      <tables>REPALS_PS_{OBJ_AGG}_ALARMS_RAW</tables>
+    </kpi_info>
+    <kpi_alias>NBR_CREATED_ALARMS</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  
+    <kpi name="NBR_ACTIVE_ALARMS">
+    <formula>ALARMS.NBR_ACTIVE_ALARMS</formula>
+    <kpi_info>
+      <title>Number of Active Alarms</title>
+      <use>Number of Active Alarms</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NBR_ACTIVE_ALARMS)</formula>
+      <unit>[#]</unit>
+      <tables>REPALS_PS_{OBJ_AGG}_ALARMS_RAW</tables>
+    </kpi_info>
+    <kpi_alias>NBR_ACTIVE_ALARMS</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  
+    <kpi name="DUR_CREATED_ALARMS">
+    <formula>ALARMS.DUR_CREATED_ALARMS</formula>
+    <kpi_info>
+      <title>Duration of created alarms</title>
+      <use>Duration of created alarms</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DUR_CREATED_ALARMS)</formula>
+      <unit>[min]</unit>
+      <tables>REPALS_PS_{OBJ_AGG}_ALARMS_RAW</tables>
+    </kpi_info>
+    <kpi_alias>DUR_CREATED_ALARMS</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  
+    <kpi name="DUR_ACTIVE_ALARMS">
+    <formula>ALARMS.DUR_ACTIVE_ALARMS</formula>
+    <kpi_info>
+      <title>Duration of active alarms</title>
+      <use>Duration of active alarms</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DUR_ACTIVE_ALARMS)</formula>
+      <unit>[min]</unit>
+      <tables>REPALS_PS_{OBJ_AGG}_ALARMS_RAW</tables>
+    </kpi_info>
+    <kpi_alias>DUR_ACTIVE_ALARMS</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+</conf_file>
+

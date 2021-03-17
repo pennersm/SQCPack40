@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_988a">
+    <formula>100*decode(
+			(lcelld.ue_drb_dl_data_qci_1 + 
+			lcelld.ue_drb_dl_data_qci_2 + 
+			lcelld.ue_drb_dl_data_qci_3 + 
+			lcelld.ue_drb_dl_data_qci_4),0,null, 
+
+			lcelld.ue_drb_dl_data_qci_3
+			 / 
+			(lcelld.ue_drb_dl_data_qci_1 + 
+			lcelld.ue_drb_dl_data_qci_2 + 
+			lcelld.ue_drb_dl_data_qci_3 + 
+			lcelld.ue_drb_dl_data_qci_4))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Average Active UEs with data in the buffer for DRBs of QCI3 DL vs  GBR ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio between average number of UE&#039;s having data in RLC level buffers for DRBs of QCI3 during the measurement period per cell for downlink direction vs number of UE&#039;s having data in RLC level buffers for DRBs of QCI1/QCI2/QCI3/QCI (GBR) .]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100   *  avg(UE_DRB_DL_DATA_QCI_3)
+&lt;br&gt;              -----------------------------------
+&lt;br&gt;                (avg(UE_DRB_DL_DATA_QCI_1) +   
+&lt;br&gt;                           avg(UE_DRB_DL_DATA_QCI_2) +   
+&lt;br&gt;                           avg(UE_DRB_DL_DATA_QCI_3) + 
+&lt;br&gt;                           avg(UE_DRB_DL_DATA_QCI_4) )
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/07/31 12:02:01.497 +0100</date>
+          <comment><![CDATA[Source: RSLTE027.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg Act UEs w data in buffer for DRBs of QCI3 DL vs  GBR R</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

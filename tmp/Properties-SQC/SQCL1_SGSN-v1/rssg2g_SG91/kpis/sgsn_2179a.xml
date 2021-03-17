@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml"/>
+  <kpi name="sgsn_2179a">
+    <formula>decode(
+			((IUSM.IU_SUCC_MO_PDP_CON_ACT + 
+			IUSM.IU_FAIL_MO_PDP_CON_ACT)),0,NULL,((IUSM.IU_FAIL_MO_PDP_ACT_REJ_SGW))
+			 / 
+			((IUSM.IU_SUCC_MO_PDP_CON_ACT + 
+			IUSM.IU_FAIL_MO_PDP_CON_ACT)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Iu PDP activation rejected by S-GW failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of mobile originated PDP activations from Iu interface due to activation rejected by S-GW. The failures are compared to all attempts]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(IU_FAIL_MO_PDP_ACT_REJ_SGW)
+&lt;br&gt;-------------------------------- *100
+&lt;br&gt;sum(IU_SUCC_MO_PDP_CON_ACT +
+&lt;br&gt;   IU_FAIL_MO_PDP_CON_ACT)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IUSM_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Iu PDP act rej S-GW FR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

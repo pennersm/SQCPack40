@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 ATM ATMCCFA measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 ATM ATMCCFA measurement dump</csv_title>
+    <report-description>AXC ATM performance measurement (M5212)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <neTotCellsIngress />
+    <neTotCellsEgress />
+    <neTotCellsTaggedPolicingIngres />
+    <neTotCellsDroppedUpcIngress />
+    <neDiscCellsCongest />
+    <discCells />
+  </column_order>
+  <temp_table name="ATMCCFA" meas_level="PLMN/RNC/WBTS/AXC/CCFA" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="neTotCellsIngress" timeagg="SUM(neTotCellsIngress)">SUM(neTotCellsIngress)</counter>
+      <counter alias="neTotCellsEgress" timeagg="SUM(neTotCellsEgress)">SUM(neTotCellsEgress)</counter>
+      <counter alias="neTotCellsTaggedPolicingIngres" timeagg="SUM(neTotCellsTaggedPolicingIngres)">SUM(neTotCellsTaggedPolicingIngres)</counter>
+      <counter alias="neTotCellsDroppedUpcIngress" timeagg="SUM(neTotCellsDroppedUpcIngress)">SUM(neTotCellsDroppedUpcIngress)</counter>
+      <counter alias="neDiscCellsCongest" timeagg="SUM(neDiscCellsCongest)">SUM(neDiscCellsCongest)</counter>
+      <counter alias="discCells" timeagg="SUM(discCells)">SUM(discCells)</counter>
+    </counters>
+    <table_name>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ATMCCFA</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ATMCCFA.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="neTotCellsIngress">
+    <formula>ATMCCFA.neTotCellsIngress</formula>
+    <kpi_info>
+      <title>neTotCellsIngress</title>
+      <use>Total number of cells received at the AXC. 
+	 UPDATED: The counter is incremented every second by the number of cells received by an AXC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(neTotCellsIngress)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>neTotCellsIngress (ATM-11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="neTotCellsEgress">
+    <formula>ATMCCFA.neTotCellsEgress</formula>
+    <kpi_info>
+      <title>neTotCellsEgress</title>
+      <use>Total number of cells transmitted at the AXC. 
+		UPDATED: The counter is incremented every second by the number of cells transmitted by an AXC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(neTotCellsEgress)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>neTotCellsEgress (ATM-12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="neTotCellsTaggedPolicingIngres">
+    <formula>ATMCCFA.neTotCellsTaggedPolicingIngres</formula>
+    <kpi_info>
+      <title>neTotCellsTaggedPolicingIngres</title>
+      <use>Total number of received cells at the AXC tagged due to policing. 
+   UPDATED: The counter is incremented every second by the number of cells received by an AXC tagged due to policing.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(neTotCellsTaggedPolicingIngres)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>neTotCellsTaggedPolicingIngres (ATM-21)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="neTotCellsDroppedUpcIngress">
+    <formula>ATMCCFA.neTotCellsDroppedUpcIngress</formula>
+    <kpi_info>
+      <title>neTotCellsDroppedUpcIngress</title>
+      <use>Total number of received cells at the AXC dropped due to Usage Parameter Control (UPC). 
+   UPDATED: The counter is incremented every second by the number of cells received by an AXC but were dropped due to Usage Parameter Control (UPC).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(neTotCellsDroppedUpcIngress)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>neTotCellsDroppedUpcIngress (ATM-22)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="neDiscCellsCongest">
+    <formula>ATMCCFA.neDiscCellsCongest</formula>
+    <kpi_info>
+      <title>neDiscCellsCongest</title>
+      <use>Total number of discarded cells at the AXC due to buffer overflow. 
+   UPDATED: The counter is incremented every second by the number of cells to be transmitted by an AXC but were dropped due to congestion.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(neDiscCellsCongest)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>neDiscCellsCongest (ATM-23)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="discCells">
+    <formula>ATMCCFA.discCells</formula>
+    <kpi_info>
+      <title>discCells</title>
+      <use>Not supported in AXC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(discCells)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_atmccfa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>discCells (ATM-6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

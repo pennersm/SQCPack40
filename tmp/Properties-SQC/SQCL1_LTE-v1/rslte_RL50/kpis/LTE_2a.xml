@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LRDB.xml"/>
+  <temp_table_ref src="rslte/counters/LS1AP.xml"/>
+  <temp_table_ref src="rslte/counters/LEPSB.xml"/>
+  <kpi name="LTE_2a">
+    <formula>100*decode(
+			((lrdb.srb1_setup_att)),0,null, 
+
+			((lrdb.srb1_setup_succ))
+			 / 
+			((lrdb.srb1_setup_att)))*decode(
+			((lepsb.eps_bearer_setup_attempts)),0,null, 
+
+			((lepsb.eps_bearer_setup_completions))
+			 / 
+			((lepsb.eps_bearer_setup_attempts)))*decode(
+			((ls1ap.s1_setup_att)),0,null, 
+
+			((ls1ap.s1_setup_succ))
+			 / 
+			((ls1ap.s1_setup_att)))</formula>
+    <kpi_info>
+      <title><![CDATA[CSSR]]></title>
+      <use><![CDATA[Ratio between the number of successful LTE sessions setup and the number of all requests ( it includes initial attach(default bearer ESTABL and Dedicated Bearer Establishm)]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100*[( sum(SRB1_SETUP_SUCC)
+&lt;br&gt;  -------------------
+&lt;br&gt;  sum(SRB1_SETUP_ATT))
+&lt;br&gt;*
+&lt;br&gt; (sum(EPS_BEARER_SETUP_COMPLETIONS)
+&lt;br&gt; ---------------------------------
+&lt;br&gt; sum(EPS_BEARER_SETUP_ATTEMPTS))
+&lt;br&gt;*
+&lt;br&gt; (sum(S1_SETUP_SUCC)
+&lt;br&gt; ------------------
+&lt;br&gt; sum(S1_SETUP_ATT))]
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LRDB_{OBJ_AGG}_{TIME_AGG}, NOKLTE_PS_LS1AP_{OBJ_AGG}_{TIME_AGG}, NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CSSR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

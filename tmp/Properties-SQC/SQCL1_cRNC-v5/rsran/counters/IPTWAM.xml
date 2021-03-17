@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>IPTWAM (IP TWAMP Statistics)</header>
+    <csv_title>IPTWAM (IP TWAMP Statistics)</csv_title>
+    <report-description>IP TWAMP Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <TWAMP_RTT_AVERAGE/>
+    <TWAMP_RTT_MIN/>
+    <TWAMP_RTT_MAX/>
+    <TWAMP_REQ_PACKETS_SENT/>
+    <TWAMP_PACKETS_LOST/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="IPTWAM" omes_name="IP_TWAMP_stats" meas_level="PLMN/RSRAN-RNC/RSRAN-TWSES/RSRAN-SRCIP/RSRAN-DSTIP/RSRAN-DSTPOR/RSRAN-DSCP/RSRAN-PKTLEN" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>IPTWAM</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="TWAMP_RTT_AVERAGE" symmetrical="true">AVG(TWAMP_RTT_AVERAGE)</counter>
+          <counter alias="TWAMP_RTT_MIN" symmetrical="true">MIN(TWAMP_RTT_MIN)</counter>
+          <counter alias="TWAMP_RTT_MAX" symmetrical="true">MAX(TWAMP_RTT_MAX)</counter>
+          <counter alias="TWAMP_REQ_PACKETS_SENT" symmetrical="true">SUM(TWAMP_REQ_PACKETS_SENT)</counter>
+          <counter alias="TWAMP_PACKETS_LOST" symmetrical="true">SUM(TWAMP_PACKETS_LOST)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPTWAM</alias_name>
+    <ui_name>IP TWAMP Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPTWAM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TWAMP_RTT_AVERAGE">
+    <formula>IPTWAM.TWAMP_RTT_AVERAGE</formula>
+    <kpi_info>
+      <title>TWAMP_RTT_AVERAGE (M569C0)</title>
+      <use>The average round-trip-time calculated over the measurement interval. UPDATED: The average round-trip-time is calculated at the end of measurement interval as an average over all RTT values measured during the interval.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(TWAMP_RTT_AVERAGE)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TWAMP_RTT_AVERAGE (M569C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TWAMP_RTT_MIN">
+    <formula>IPTWAM.TWAMP_RTT_MIN</formula>
+    <kpi_info>
+      <title>TWAMP_RTT_MIN (M569C1)</title>
+      <use>The minimum round-trip-time during the measurement interval. UPDATED: The round-trip-time is calculated every time when TWAMP response packet is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(TWAMP_RTT_MIN)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TWAMP_RTT_MIN (M569C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TWAMP_RTT_MAX">
+    <formula>IPTWAM.TWAMP_RTT_MAX</formula>
+    <kpi_info>
+      <title>TWAMP_RTT_MAX (M569C2)</title>
+      <use>The maximum round-trip-time during the measurement interval. Request packets for which no response was received until timeout expired, are not included in the maximum value calculation. UPDATED: The round-trip-time is calculated every time when TWAMP response packet is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(TWAMP_RTT_MAX)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TWAMP_RTT_MAX (M569C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TWAMP_REQ_PACKETS_SENT">
+    <formula>IPTWAM.TWAMP_REQ_PACKETS_SENT</formula>
+    <kpi_info>
+      <title>TWAMP_REQ_PACKETS_SENT (M569C3)</title>
+      <use>The number of sent TWAMP measurement request packets. UPDATED: When the RNC works as a TWAMP sender and sends TWAMP measurement request packet.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TWAMP_REQ_PACKETS_SENT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TWAMP_REQ_PACKETS_SENT (M569C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TWAMP_PACKETS_LOST">
+    <formula>IPTWAM.TWAMP_PACKETS_LOST</formula>
+    <kpi_info>
+      <title>TWAMP_PACKETS_LOST (M569C4)</title>
+      <use>The number of sent TWAMP measurement request packets for which no response was received until the timeout expired. The timeout is the same as packet sending interval, that is either 1 second or 100 milliseconds depending on the operator configured TWAMP session parameter. UPDATED: When the RNC works as a TWAMP sender and does not receive response to TWAMP measurement request packet and timeout expires.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TWAMP_PACKETS_LOST)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TWAMP_PACKETS_LOST (M569C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>IPTWAM.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_iptwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

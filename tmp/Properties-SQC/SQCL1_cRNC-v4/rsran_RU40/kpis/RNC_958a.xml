@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/L3IUB.xml" />
+	<kpi name="RNC_958a">
+		<formula>
+			decode((l3iub.rl_setup_att_for_first_rl+l3iub.rl_setup_att_for_sho_on_srnc+l3iub.rl_setup_att_for_sho_on_drnc),0,null,(100*(l3iub.setup_fail_first_rl_misc+l3iub.setup_fail_sho_srnc_misc+l3iub.setup_fail_sho_drnc_misc)/(l3iub.rl_setup_att_for_first_rl+l3iub.rl_setup_att_for_sho_on_srnc+l3iub.rl_setup_att_for_sho_on_drnc)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RL Setup FR due the MISC]]>
+			</title>
+			<use>
+				<![CDATA[Level of blocked RL Setup]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum ( SETUP_FAIL_FIRST_RL_MISC
++ SETUP_FAIL_SHO_SRNC_MISC 
++SETUP_FAIL_SHO_DRNC_MISC )
+------------------------------ 
+sum (RL_SETUP_ATT_FOR_FIRST_RL 
++RL_SETUP_ATT_FOR_SHO_ON_SRNC 
++RL_SETUP_ATT_FOR_SHO_ON_DRNC )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_l3iub_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RL Setup FR due the MISC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

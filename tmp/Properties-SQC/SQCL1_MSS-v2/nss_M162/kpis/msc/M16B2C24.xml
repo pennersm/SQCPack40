@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml">
+    <counters>
+  		<counter alias="count_period_M16B2C24">count(distinct period_start_time)</counter>
+  </counters>
+  </temp_table_ref>
+  <kpi name="M16B2C24">
+    <formula>(cgr.cgrcgroup_erlangs_in_x_100/100)/cgr.count_period_M16B2C24</formula>
+    <kpi_info>
+      <title><![CDATA[Traffic in the circuit group (IN)]]></title>
+      <use>The amount of traffic on the circuit group in Erlangs (0.0...9999.9). That means the total reservation time
+of the object being measured in relation to the results accumulation
+period. The Erlangs are calculated from circuit seizure
+to circuit release. All of the circuit reservation time
+is updated in the results accumulation period in which the circuit
+is released. For this reason, remarkably large values in the ERLANGS
+field are possible in a case in which there are many calls that
+have started before the results accumulation period but that end
+in the results accumulation period. In such a case, the value in the
+ERLANGS field can be greater than the value of the fields CRTS and AVECR.</use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;(sum(CGRCGROUP_ERLANGS_IN_x_100)/100)/count(distinct period_start_time)</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias>Traffic in the circuit group (IN)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

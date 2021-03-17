@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_109a">
+    <formula>decode(
+			(cellres.ptxtot_denom_0 + 
+			cellres.ptxtot_denom_1 + 
+			cellres.ptxtot_denom_2 + 
+			cellres.ptxtot_denom_3 + 
+			cellres.ptxtot_denom_4),0,null, 
+
+			100*(cellres.ptxtot_denom_1)
+			 / 
+			(cellres.ptxtot_denom_0 + 
+			cellres.ptxtot_denom_1 + 
+			cellres.ptxtot_denom_2 + 
+			cellres.ptxtot_denom_3 + 
+			cellres.ptxtot_denom_4))</formula>
+    <kpi_info>
+      <title><![CDATA[Load area 1 time share]]></title>
+      <use><![CDATA[Share of time in load area 1, updated every time Radio Resource indication is sent and cell load is in Load 1 area]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(PTXTOT_DENOM_1)
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;      SUM(PTXTOT_DENOM_0
+&lt;br&gt;        + PTXTOT_DENOM_1
+&lt;br&gt;        + PTXTOT_DENOM_2
+&lt;br&gt;        + PTXTOT_DENOM_3
+&lt;br&gt;        + PTXTOT_DENOM_4)*100</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Load area 1 time share]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

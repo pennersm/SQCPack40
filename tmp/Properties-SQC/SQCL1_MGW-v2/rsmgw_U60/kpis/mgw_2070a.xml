@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="mgw_2070a">
+    <formula>(conn.all_cas - 
+0.25*conn.all_vconn_cas)</formula>
+    <kpi_info>
+      <title><![CDATA[Call Attempts]]></title>
+      <use><![CDATA[Indicates number of call attempts in MGW. This formula considers the information contained in MGW dimensioning guidelines. According to which a call handled by two MSS in the same physical MGW should be counted for 1,5 BHCA.]]></use>
+
+<use_experience><![CDATA[
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Connection Measurement
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUMoverTime ( SUM_all_Units(ALL_CAS) - 0.25 * SUM_all_Units(ALL_VCONN_CAS))
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Call att</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

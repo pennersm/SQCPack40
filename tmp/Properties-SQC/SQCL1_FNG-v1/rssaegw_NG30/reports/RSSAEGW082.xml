@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <valid-report-levels>PLMN,PLMN/FING,PLMN/FING/FNODE,PLMN/MR_FING,PLMN/WS_FING</valid-report-levels>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW082 - CPU Usage FNODE</header>
+    <csv_title>CPU Usage FNODE</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about CPU usage/load per blade/unit (FNODE).	
+Use case specific instructions:	
+- Run this report to get overall picture about CPU load per blade/unit.
+- Run 'CPU Usage' report to check the CPU load per core id.
+- Note, 'Ave CPU usage, Linux' (flng_743a) column is just applicable to older releases than NG2.1 and was kept due to backward compatibility.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2010/11/23 14:57:21.378 +0000</date>
+        <comment><![CDATA[Source: RSSAEGW082.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>CPU Usage FNODE</report-description>
+    <report-title>CPU Usage FNODE</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+	<flng_743a ui_name="Ave CPU usage, Linux" report_drill="RSSAEGW_CPU_USAGE" />
+	<flng_769a ui_name="Ave SB CPU usage, Linux" report_drill="RSSAEGW_CPU_USAGE" />
+	<flng_770b ui_name="Ave SAB CPU usage, Linux" report_drill="RSSAEGW_CPU_USAGE" />
+	<flng_771b ui_name="Ave IB CPU usage, Linux" report_drill="RSSAEGW_CPU_USAGE" />
+	<!-- <flng_744a ui_name="Ave CPU usage, SE" report_drill="RSSAEGW_CPU_USAGE" />  -->
+	<flng_803a ui_name="Ave CPU usage, fastpath" />
+  </column_order>
+  <report_drill id="RSSAEGW_CPU_USAGE" >
+  	<drill reportLevel="PLMN/FING/FNODE" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssaegw_NG30/ui_conf/rssaegw_NG30_Platform_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+			<string value="PLMN/FING/FNODE/CPU"/>
+		</param>		
+		<param key="report">
+			<string value="rssaegw_NG30/reports/RSSAEGW020.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to CPU Usage"/>
+		</param>
+	</drill>
+  </report_drill>
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_743a.xml#flng_743a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_769a.xml#flng_769a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_770b.xml#flng_770b" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_771b.xml#flng_771b" />
+  <!-- <kpi_ref ref="rssaegw_NG30/kpis/flng_744a.xml#flng_744a" />  -->
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_803a.xml#flng_803a" />
+</conf_file>
+

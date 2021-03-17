@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw/counters/DIDFRS.xml" />
+  <kpi name="flng_707a">
+    <formula>decode(
+			GTPCV2.gtpcv2_del_ind_datafw_req_recv,0,null,
+	
+			(DIDFRS.gtpcv2_del_ind_datafw_res_sent
+			/ 
+			GTPCV2.gtpcv2_del_ind_datafw_req_recv))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Indirect Data Forward response sent / request received ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 delete indirect data forward response messages sent as response to the delete indirect data forward request messages received (including retransmissions).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.GTPCV2_DEL_IND_DATAFW_RES_SENT)
+&lt;br&gt;-------------------------------------- *100
+&lt;br&gt;sum(a.GTPCV2_DEL_IND_DATAFW_REQ_RECV)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v2
+&lt;br&gt;b = GTP-C v2 Delete Indirect Data Forwarding Response sent</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DIDFRS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:29.578 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>De I D FW rsp sent/rq rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

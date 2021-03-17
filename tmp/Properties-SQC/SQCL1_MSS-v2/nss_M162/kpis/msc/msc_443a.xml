@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/PRCA.xml" />
+  <kpi name="msc_443a">
+    <formula>100*(decode(
+			prca.nsep_queued,0,null, 
+
+			prca.nsep_overflow
+			 / 
+			prca.nsep_queued))</formula>
+    <kpi_info>
+      <title><![CDATA[Queued priority call failures due to buffer overflow ratio]]></title>
+      <use><![CDATA[Percentage of failed outgoing queued Priority calls due to buffer overflow.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;     sum(NSEP_OVERFLOW)
+&lt;br&gt;100* -------------------
+&lt;br&gt;      sum(NSEP_QUEUED)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_PRCA_MSC_{time_agg}, RNS_PS_PRCABH_MSC_{time_agg}
+&lt;br&gt;RNS_PS_PRCAR_{obj_agg}_{time_agg}, RNS_PS_PRCARBH_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_prca_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Queued priority call failures due to buffer overflow ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

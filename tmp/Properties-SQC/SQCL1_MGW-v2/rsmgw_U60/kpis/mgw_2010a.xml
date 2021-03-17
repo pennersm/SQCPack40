@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPROUT.xml" />
+  <kpi name="mgw_2010a">
+    <formula>
+decode(
+	iprout.committed_bit_rate_ip_route
+	,0,null, 
+	iprout.max_reserved_rate_ip_route
+	/ 
+	iprout.committed_bit_rate_ip_route
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Max reserv rate compared to the IP route user bandwidth.]]></title>
+      <use><![CDATA[The maximum value of reserved IP layer bit rate compared to the user available bandwidth.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;         MAX( MAX_RESERVED_RATE_IP_ROUTE )
+&lt;br&gt;100 * ------------------------------------
+&lt;br&gt;         AVG( COMMITTED_BIT_RATE_IP_ROUTE )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_IPROUT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/05/20 16:01:29.411 +0100</date>
+          <comment><![CDATA[Source: RSMGW055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Max Rsrv IP Rt Usr BW</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IURA.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2423a">
+    <formula>3600*decode(
+			(IURA.period_duration*60),0,NULL,
+            (IURA.RAB_RELEASE_ATTEMPTS / (IURA.period_duration*60)))
+            /
+            decode(
+			(paus.avg_attach_iu_users_sum * paus.avg_attach_iu_users_den),0,NULL,(paus.avg_attach_iu_users_sum / paus.avg_attach_iu_users_den))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB releases per 3G subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of RABs attempted to release from RNC per 3G subscriber per hour.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>3600 * sgsn_2281a
+&lt;br&gt;--------------------
+&lt;br&gt;sgsn_693a
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_IURA_{OBJ_AGG}_{TIME_AGG},RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RAB releases /subs /h]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

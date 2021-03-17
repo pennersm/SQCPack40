@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW072 - Diameter Gxc CCR cause code</header>
+    <csv_title>Diameter Gxc CCR cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about diameter Credit Control Answer (CCA) messages received from Diameter Re-direct Agent (DRA) or Policy and Charging Rules Function (PCRF) per cause code on Gxc (S-GW &lt;- DRA/PCRF) interface.
+	<br>Use case specific instructions:
+	<br>- This report can be used to troubleshoot the 'Gxc CCR messages sent to DRA/PCRF';
+	<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/10/11 18:51:20.772 +0100</date>
+        <comment><![CDATA[Source: RSSAEGW072.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Diameter Gxc CCR cause code</report-description>
+    <report-title>Diameter Gxc CCR cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_563a ui_name="Att" group="DRA" master-group="Gxc CCA rcvd" chartType="bar" yAxis="2" />
+    <flng_564a ui_name="Ratio" group="DRA" master-group="Gxc CCA rcvd" />
+    <flng_567a ui_name="Att" group="PCRF" master-group="Gxc CCA rcvd" chartType="bar" yAxis="2" />
+    <flng_568a ui_name="Ratio" group="PCRF" master-group="Gxc CCA rcvd" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/DIAGXXRESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_563a">
+    <formula>DIAGXXRESP.DIA_GXC_CCA_DRA_RECV</formula>
+    <kpi_info>
+      <title><![CDATA[Gxc CCA received from DRA per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of Diameter Credit-Control-Answer (CCA) response messages received from Diameter Re-direct Agent (DRA) on Gxc interface (SGW &lt;- DRA) per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_GXC_CCA_DRA_RECV)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.772 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW072.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxc CCA rcv DRA</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_564a">
+    <formula>100*decode(DIAGXXRESP.DIA_GXC_CCA_DRA_RECV_ALL,0,null,
+	(
+	 DIAGXXRESP.DIA_GXC_CCA_DRA_RECV
+	 /
+	 DIAGXXRESP.DIA_GXC_CCA_DRA_RECV_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[Gxc CCA received from DRA cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Diameter Credit-Control-Answer (CCA) response messages received from DRA on Gxc interface for a specific cause code when compared to total number of Diameter CCA response messages received from DRA on Gxc interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(dccdr_id,&amp;#039;x&amp;#039;,DIA_GXC_CCA_DRA_RECV,0))  ;DCCDR for cause code x
+&lt;br&gt;-------------------------------------------------------------------------- *100
+&lt;br&gt;sum(DIA_GXC_CCA_DRA_RECV)  ;all DCCDR&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.772 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW072.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxc CCA rcv DRA ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_567a">
+    <formula>DIAGXXRESP.DIA_GXC_CCA_PCRF_RECV</formula>
+    <kpi_info>
+      <title><![CDATA[Gxc CCA received from PCRF per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of Diameter Credit-Control-Answer (CCA) response messages received from PCRF on Gxc interface (SGW &lt;- PCRF) per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_GXC_CCA_PCRF_RECV)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.803 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW073.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxc CCA rcv PCRF</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_568a">
+    <formula>100*decode(DIAGXXRESP.DIA_GXC_CCA_PCRF_RECV_ALL,0,null,
+	(
+	 DIAGXXRESP.DIA_GXC_CCA_PCRF_RECV
+	 /
+	 DIAGXXRESP.DIA_GXC_CCA_PCRF_RECV_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[Gxc CCA received from PCRF cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Diameter Credit-Control-Answer (CCA) response messages received from PCRF on Gxc interface for a specific cause code when compared to total number of Diameter CCA response messages received from PCRF on Gxc interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(dccpr_id,&amp;#039;x&amp;#039;,DIA_GXC_CCA_PCRF_RECV,0))  ;DCCPR for cause code x
+&lt;br&gt;--------------------------------------------------------------------------- *100
+&lt;br&gt;sum(DIA_GXC_CCA_PCRF_RECV)  ;all DCCPR&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.803 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW073.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxc CCA rcv PCRF ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

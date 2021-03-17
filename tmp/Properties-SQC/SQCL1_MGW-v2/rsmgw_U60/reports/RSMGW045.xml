@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSMGW U60 Report Set</report_version>
+    <release number="8.1.2-51"/>
+    <valid-report-levels>PLMN/RSMGW-MGW</valid-report-levels>
+    <valid-time-levels>bh,weekbh</valid-time-levels>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSMGW045 - Busy Hour Analysis</header>
+    <csv_title>Busy Hour Analysis</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[<br>This report provides information about the number of call (context) attempts during the busy hour.
+    <br><br><b>NOTE:</b> The busy hour formula calculation is: MAX(ALL_CAS - 0.25*ALL_VCONN_CAS). The reporting period is limited to raw data availability in NetAct database.
+    <br>
+    <br>Measurements:
+    <br>M645: Connection Measurement
+    ]]></help_text>
+    <report-description>Busy Hour Analysis</report-description>
+    <report-title>Busy Hour Analysis</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <mgw_5002b ui_name="BHCA" chartType="bar" />
+  </column_order>
+  
+  
+  <temp_table name="CONN" meas_level="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <counters>
+      <counter alias="all_cas">sum(all_cas)</counter>
+      <counter alias="all_vconn_cas">sum(all_vconn_cas)</counter>
+      </counters>
+    <table_name><![CDATA[(select * from (
+			select
+				trunc( p.period_start_time, 'hh24' ) period_start_time,
+				round(to_number(to_char(p.period_start_time - #time_level_key#))*24,0) busy_hour,
+				p.mgw_id,
+				all_cas,
+				all_vconn_cas,
+				rank() over
+               (partition by #time_level_key# ,mgw_id order by to_number(all_cas - 0.25*all_vconn_cas) desc nulls last, period_start_time asc) ranking
+			from
+				
+			(select
+				trunc( p.period_start_time, 'hh24' ) period_start_time,
+				"mgw".co_gid mgw_id,
+				sum(case when unit_type_id in ('335') or unit_type_id in ('ISU') then all_cas else 0 end) all_cas,
+				sum(case when unit_type_id in ('335') or unit_type_id in ('ISU') then all_vconn_cas else 0 end) all_vconn_cas
+			from
+				#grouping_sql#
+				utp_common_objects "plmn",
+				utp_common_objects "mgw",
+				nokmww_ps_conn_unit3_raw p
+			where
+				 #add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				"mgw".co_gid = p.mgw_id and
+				"mgw".co_parent_gid = "plmn".co_gid and
+				"plmn".co_oc_id=16 and
+				"mgw".co_oc_id=757
+			group by
+				trunc( p.period_start_time, 'hh24' ),
+				"mgw".co_gid) p)
+				where ranking = 1)]]></table_name>
+    <alias_name>CONN</alias_name>
+  </temp_table>
+  
+  
+    <kpi name="mgw_5002b">
+    <formula>conn.all_cas - 
+0.25*conn.all_vconn_cas</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA in MGW (dimensioning)]]></title>
+      <use><![CDATA[Busy hour call (context) attempts - dimensioning]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;MAX( SUMoverISU( ALL_CAS - 0.25 * ALL_VCONN_CAS ) ) = 
+&lt;br&gt;= MAX( SUM( ALL_CAS ) - 0.25 * SUM( ALL_VCONN_CAS ) )
+&lt;br&gt;Where UNIT_TYPE = 335 (ISU)
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s)</formula>
+      <unit>[#]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MGW BHCA - dimensioning</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+</conf_file>
+

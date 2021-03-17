@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CCMEA.xml"/>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml"/>
+  <kpi name="msc_670a">
+    <formula>100*(decode(
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech),0,null, 
+
+			(ccmea_ext.ccmeas_signalling_2 + 
+			ccmea_ext.ccmeas_ring_2 + 
+			ccmea_ext.ccmeas_speech_2)
+			 / 
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech)))</formula>
+    <kpi_info>
+      <title><![CDATA[Failed teleservice usage attempts due problem in the network element ratio]]></title>
+      <use><![CDATA[The failure ratio  usage attempts due a problem in this MSC (clear code equal to 400H - 7FFH) of teleservice services (T11, T12, T40, T41, T42, T43, T60, T61 and T62).]]></use>
+
+<use_experience><![CDATA[ 
+<br>===>>> Numerator approach analysis:
+<br>In the numerator are only included the  Internal congestion clear codes:
+<br>400H to 7FFH => Internal congestion clear codes group
+<br>
+<br>===>>> Denominator approach analysis:
+<br>In the denominator all the services are counted: teleservices + bearer services + supplementary services.
+<br>
+<br>NOTE: This Clear Code range should be agreed separately with the customer. These are just examples.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 07-04-2009
+<br>THEORETICAL SUMMARY LEVELS: PLMN - MSC - CC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN - MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Clear Code Measurement M131
+<br>
+<br>NOTES: The total amount value is provided by the tra_msc126b KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;       sum(
+&lt;br&gt;             CCMEAS_SIGNALLING
+&lt;br&gt;            + CCMEAS_RING
+&lt;br&gt;            + CCMEAS_SPEECH ) ;where clearcode_id =  400H-7FFH
+&lt;br&gt;100* -----------------------------------------------------
+&lt;br&gt;             sum (
+&lt;br&gt;              CCMEAS_SIGNALLING
+&lt;br&gt;            + CCMEAS_RING
+&lt;br&gt;            + CCMEAS_SPEECH )
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_CCMEA_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ccmea_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Failed teleservice usage attempts due problem in the network element ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

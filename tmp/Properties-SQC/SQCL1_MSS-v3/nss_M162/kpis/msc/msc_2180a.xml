@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/LULAC.xml" />
+  <kpi name="msc_2180a">
+    <formula>
+decode(
+		(lulac.inter_vlr_loc_update_attempt + lulac.ie_vlr_lu_reroute),0,null, 
+		(100* (lulac.inter_vlr_loc_update_success)/
+            (lulac.inter_vlr_loc_update_attempt + lulac.ie_vlr_lu_reroute)))
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Inter-VLR LU per LAC SR reRou]]></title>
+      <use><![CDATA[The ratio of successful Inter-VLR location updates compared to all location updates of this type for the given LAC.
+In the attempt related part, this KPI includes the reroutings of the non-supporting UEs in a MOCN configuration during the Inter-VLR Location Update attempts.]]></use>
+      
+      	<use_experience><![CDATA[
+		<br>This KPI replaces previous msc_770b.
+		<br>
+		<br>NOTES:
+		<br>This KPI includes counters from OPTIONAL feature.
+		<br>Available if Location Update per LAC feature (FN552 = sales item L.3345) is bought and active.
+		<br>This KPI shall be used when the MOCN 3G feature is present (FN1857 = Sales item L.1468).
+		<br>The counter IE_VLR_LU_REROUTE is only available for 3G and if the MOCN feature (Multi-Operator Core Network = FN 01847) is present. In order to work, this functionality (L.1468) requires Multiple PLMN support for RNC node in MSS, provided with Feature 1325: RANAP and BSSAP in MSC Server.
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC->(MCCM-MNCM)->LAC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part n, location update per LAC (M240 / F0H)
+		<br>
+		<br>]]>
+		</use_experience>
+      
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;  SUM( INTER_VLR_LOC_UPDATE_SUCCESS )
+&lt;br&gt;---------------------------------------------------------------- * 100
+&lt;br&gt; SUM( INTER_VLR_LOC_UPDATE_ATTEMPT + IE_VLR_LU_REROUTE )
+&lt;br&gt;
+&lt;br&gt;Counters from NetAct AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_lulac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inter-VLR LU per LAC SR reRou</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

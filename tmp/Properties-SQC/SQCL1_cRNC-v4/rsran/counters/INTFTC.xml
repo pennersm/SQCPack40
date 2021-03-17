@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 Interface_TC INTFTC measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 Interface_TC INTFTC measurement dump</csv_title>
+    <report-description>Interface TC</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DISC_CELLS />
+    <ERR_CELLS />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="INTFTC" meas_level="PLMN/RNC/PHYTTP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="DISC_CELLS">SUM(DISC_CELLS)</counter>
+      <counter alias="ERR_CELLS">SUM(ERR_CELLS)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_intftc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>INTFTC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>INTFTC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_intftc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DISC_CELLS">
+    <formula>INTFTC.DISC_CELLS</formula>
+    <kpi_info>
+      <title>DISC_CELLS</title>
+      <use>Discarded cells This includes cells with more than one bit errors. This parameter provides a count of the number of incoming ATM cells discarded due to a Header Error Check (HEC) violation. HEC is used for checking and correcting an error in the ATM cell header. One bit errors are corrected. If there are more errors in the header it cannot be corrected but the cell is discarded"</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DISC_CELLS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_intftc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DISC_CELLS (M512C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ERR_CELLS">
+    <formula>INTFTC.ERR_CELLS</formula>
+    <kpi_info>
+      <title>ERR_CELLS</title>
+      <use>Errored cells This includes all cells that have errors - one or more bit errors in the header. This parameter provides a count of incoming ATM cells that contain a Header Error Check (HEC) error.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ERR_CELLS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_intftc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ERR_CELLS (M512C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>INTFTC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_intftc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

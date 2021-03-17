@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/HL1HLR.xml"/>
+  <kpi name="msc_620a">
+    <formula>100*(1 - 
+			decode(
+			hl1hlr.hlr_normalgprsluattempt,0,null, 
+
+			hl1hlr.hlr_normalgprslusucc
+			 / 
+			hl1hlr.hlr_normalgprsluattempt))</formula>
+    <kpi_info>
+      <title><![CDATA[Home subscribers GPRS LU failure ratio]]></title>
+      <use><![CDATA[Rate of failed GPRS location updates by home subscribers during]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum (HLR_NORMALGPRSLUSUCC)   
+&lt;br&gt;100 *(1- ( -------------------------- )
+&lt;br&gt;          sum (HLR_NORMALGPRSLUATTEMPT)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s) :
+&lt;br&gt;RNS_PS_HL1HLR_HLR_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_hl1hlr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Home subscribers GPRS LU failure ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

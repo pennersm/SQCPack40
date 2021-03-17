@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 DPI_PDN_Switching DPIPS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 DPI_PDN_Switching DPIPS measurement dump</csv_title>
+    <report-description>DPI PDN switching statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PDNSWITCH_UL_PACKETS />
+    <PDNSWITCH_UL_BYTES />
+    <PDNSWITCH_UL_CONFIG_ERR />
+  </column_order>
+  <temp_table name="DPIPS" meas_level="PLMN/FING/FNODE/DPIP/DPI/DPIPS" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PDNSWITCH_UL_PACKETS" time-alias="PDNSWITCH_UL_PACKETS" timeagg="SUM(PDNSWITCH_UL_PACKETS)">SUM(PDNSWITCH_UL_PACKETS)</counter>
+      <counter alias="PDNSWITCH_UL_BYTES" time-alias="PDNSWITCH_UL_BYTES" timeagg="SUM(PDNSWITCH_UL_BYTES)">SUM(PDNSWITCH_UL_BYTES)</counter>
+      <counter alias="PDNSWITCH_UL_CONFIG_ERR" time-alias="PDNSWITCH_UL_CONFIG_ERR" timeagg="SUM(PDNSWITCH_UL_CONFIG_ERR)">SUM(PDNSWITCH_UL_CONFIG_ERR)</counter>
+    </counters>
+    <table_name>pcofng_ps_dpips_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DPIPS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DPIPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dpips_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PDNSWITCH_UL_PACKETS">
+    <formula>DPIPS.PDNSWITCH_UL_PACKETS</formula>
+    <kpi_info>
+      <title>PDNSWITCH_UL_PACKETS</title>
+      <use>This counter contains the number of uplink packets routed to secondary VRF because of the PDN switching feature UPDATED: Updated when PDN switching feature is applied to subscriber's uplink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PDNSWITCH_UL_PACKETS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_dpips_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDNSWITCH_UL_PACKETS (m3058c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PDNSWITCH_UL_BYTES">
+    <formula>DPIPS.PDNSWITCH_UL_BYTES</formula>
+    <kpi_info>
+      <title>PDNSWITCH_UL_BYTES</title>
+      <use>This counter contains the number of uplink bytes routed to secondary VRF because of the PDN switching feature. UPDATED: Updated when PDN switching feature is applied to subscriber's uplink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PDNSWITCH_UL_BYTES)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_dpips_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDNSWITCH_UL_BYTES (m3058c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PDNSWITCH_UL_CONFIG_ERR">
+    <formula>DPIPS.PDNSWITCH_UL_CONFIG_ERR</formula>
+    <kpi_info>
+      <title>PDNSWITCH_UL_CONFIG_ERR</title>
+      <use>This counter contains the number of uplink packets that could not be routed to secondary VRF because no secondary VRF was configured into the session profile; or because the PDN switching feature was disabled. UPDATED: Updated when configuration prevents PDN switching feature from being applied to subscriber's uplink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PDNSWITCH_UL_CONFIG_ERR)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_dpips_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDNSWITCH_UL_CONFIG_ERR (m3058c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

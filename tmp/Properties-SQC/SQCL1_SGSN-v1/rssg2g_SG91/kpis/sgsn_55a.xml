@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/CDR.xml" />
+  <kpi name="sgsn_55a">
+    <formula>100*decode(
+			(cdr.sent_data_record_packets),0,NULL, 
+
+			(cdr.resent_data_record_packets)
+			 / 
+			(cdr.sent_data_record_packets))</formula>
+    <kpi_info>
+      <title><![CDATA[Retransmission ratio of CDR packets]]></title>
+      <use><![CDATA[This KPI measures the retransmission ratio of CDR packets from the SGSN to the CG.]]></use>
+      <use_experience><![CDATA[The configuration in one network was as follows: 2 SGSNs located in the capital city together with the GGSN, CG, BG etc., and 2 SGSNs located in remote sites. We discovered that the CDR retransmission ratio was high for one of the remote sites, thereby indicating problems in the backbone Gn network. Field tests at the remote site confirmed that also user packets were lost (the CDR packets and the user packets were using the same backbone network). In this case, the CDR retransmission ratio served as indicator for packet losses in the Gn backbone network.]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(RESENT_DATA_RECORD_PACKETS) 
+&lt;br&gt;------------------------------------------* 100
+&lt;br&gt;sum(SENT_DATA_RECORD_PACKETS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_cdr</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_cdr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Retransmission ratio of CDR packets]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

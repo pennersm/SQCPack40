@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <temp_table_ref src="rslte/counters/LCELLT.xml" />
+  <kpi name="LTE_1259a">
+    <formula>8*decode(
+			(lcelld.mean_prb_avail_pusch*decode(
+			100,0,null, 
+
+			lcellr.ul_prb_util_tti_mean
+			 / 
+			100)),0,null, 
+
+			(decode(
+			lcellt.active_tti_ul,0,null, 
+
+			lcellt.pdcp_sdu_vol_ul
+			 / 
+			lcellt.active_tti_ul))
+			 / 
+			(lcelld.mean_prb_avail_pusch*decode(
+			100,0,null, 
+
+			lcellr.ul_prb_util_tti_mean
+			 / 
+			100)))</formula>
+    <kpi_info>
+      <title><![CDATA[DL throughput per PRB]]></title>
+      <use><![CDATA[DL throughput per PRB]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8*SUM(PDCP_SDU_VOL_UL / ACTIVE_TTI_UL)
+&lt;br&gt;/
+&lt;br&gt;AVG(MEAN_PRB_AVAIL_PUSCH * UL_PRB_UTIL_TTI_MEAN / 100)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg},noklte_ps_LCELLR_{obj_agg}_{time_agg},noklte_ps_LCELLT_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/07/22 18:43:16.979 +0100</date>
+          <comment><![CDATA[Source: RSLTE999.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DL thp per PRB</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

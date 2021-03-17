@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/DIAS6B.xml" />
+  <kpi name="flng_666a">
+    <formula>decode(
+			dias6b.dia_s6b_aar_aaa_sent,0,null, 
+			
+			100 - (dias6b.dia_s6b_aaa_aaa_recv_no_succes
+			/
+			dias6b.dia_s6b_aar_aaa_sent)*100)</formula>
+    <kpi_info>
+      <title><![CDATA[S6b AAR sent to AAA server success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of Diameter Authentication-Authorization-Request (AAR) messages sent to the AAA server on S6b interface, i.e., the number of successful Authentication-Authorization-Answer (AAA) messages received from the AAA server when compared to the number of AAR messages sent to the AAA server on S6b interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       sum(DIA_S6B_AAA_AAA_RECV_NO_SUCCES)
+&lt;br&gt;100 - ------------------------------------- *100
+&lt;br&gt;       sum(DIA_S6B_AAR_AAA_SENT)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DIAS6B_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:31.735 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW079.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S6b AAR sent AAA SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

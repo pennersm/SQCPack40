@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_729a">
+    <formula>100*decode(
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others),0,null, 
+
+			(luest.sign_conn_estab_comp)
+			 / 
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others))</formula>
+    <kpi_info>
+      <title><![CDATA[ECM-IDLE to ECM-CONNECTED  success ratio]]></title>
+      <use><![CDATA[ECM-IDLE to ECM-CONNECTED success ratio  between  the number of number of Signaling Connection Establishment completions with UE target to be in ECM-CONNECTED state  and the number of all  Signaling Connection Establishment  Attempts .]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*                      sum( SIGN_CONN_ESTAB_COMP )
+&lt;br&gt;                  --------------------------------------
+&lt;br&gt;                  sum( SIGN_CONN_ESTAB_ATT_MO_S + SIGN_CONN_ESTAB_ATT_MT + SIGN_CONN_ESTAB_ATT_MO_D + SIGN_CONN_ESTAB_ATT_OTHERS )
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LUEST_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.925 +0100</date>
+          <comment><![CDATA[Source: RSLTE004.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SR ECM-IDL to ECM-CONN</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

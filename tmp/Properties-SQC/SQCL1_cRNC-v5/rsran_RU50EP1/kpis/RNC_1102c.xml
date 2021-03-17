@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml">
+    <counters>
+      <counter alias="rnc_1101c">
+sum(REL_ALLO_NORM_HS_DSCH_STR + REL_ALLO_OTH_FAIL_HSDSCH_STR + REL_ALLO_RL_FAIL_HS_DSCH_STR)
+      </counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="RNC_1102c">
+    <formula>
+decode(traffic.rnc_1101c
+	,0, null,
+	100 * traffic.REL_ALLO_RL_FAIL_HS_DSCH_STR
+	/
+	traffic.rnc_1101c
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH Release Rate due to RL Failure]]></title>
+      <use><![CDATA[Percentage of HS-DSCH releases due to radio link failure or uplink RLC unrecoverable error for streaming class connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(REL_ALLO_RL_FAIL_HS_DSCH_STR)
+&lt;br&gt;-------------
+&lt;br&gt;RNC_1101c</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HS-DSCH Release Rate due to RL Failure]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

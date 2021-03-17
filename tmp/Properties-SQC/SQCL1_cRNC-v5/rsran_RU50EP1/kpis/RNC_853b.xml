@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+	<kpi name="RNC_853b">
+		<formula>
+			decode((traffic.dur_ps_intera_8_dl_in_srnc+traffic.dur_ps_intera_16_dl_in_srnc+traffic.dur_ps_intera_32_dl_in_srnc+traffic.dur_ps_intera_64_dl_in_srnc+traffic.dur_ps_intera_128_dl_in_srnc+traffic.dur_ps_intera_256_dl_in_srnc+traffic.dur_ps_intera_384_dl_in_srnc),0,null,100*(traffic.dur_ps_intera_256_dl_in_srnc)/(traffic.dur_ps_intera_8_dl_in_srnc+traffic.dur_ps_intera_16_dl_in_srnc+traffic.dur_ps_intera_32_dl_in_srnc+traffic.dur_ps_intera_64_dl_in_srnc+traffic.dur_ps_intera_128_dl_in_srnc+traffic.dur_ps_intera_256_dl_in_srnc+traffic.dur_ps_intera_384_dl_in_srnc))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Bitrate utilization, PS/I 256 DL]]>
+			</title>
+			<use>
+				<![CDATA[The share of allocated PS Interactive time for PS Interactive 256 kps from the total allocated time for DL DCH RBs in the serving RNC.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum( DUR_PS_INTERA_256_DL_IN_SRNC )
+---------------------------------------
+sum( DUR_PS_INTERA_8_DL_IN_SRNC 
++DUR_PS_INTERA_16_DL_IN_SRNC 
++DUR_PS_INTERA_32_DL_IN_SRNC 
++DUR_PS_INTERA_64_DL_IN_SRNC 
++DUR_PS_INTERA_128_DL_IN_SRNC 
++DUR_PS_INTERA_256_DL_IN_SRNC 
++DUR_PS_INTERA_384_DL_IN_SRNC ) 
+
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Bitrate utilization, PS/I 256 DL]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

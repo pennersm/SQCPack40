@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AUTISHO measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AUTISHO measurement dump</csv_title>
+    <report-description>AutoDef Inter System Handover</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <HO_ADJ_INTER_SYS_HHO_ATT />
+    <HO_ADJ_INTER_SYS_HHO_COMPL />
+    <HO_CEL_INTER_SYS_HHO_ATT/>
+  </column_order>
+  <temp_table name="AUTISHO" meas_level="PLMN/RNC/DMNC1CELLPAIR1" type="PM" master="yes" pragma="report45_oss4ran" create="yes">
+    <counters>
+      <counter alias="HO_ADJ_INTER_SYS_HHO_ATT">SUM(HO_ADJ_INTER_SYS_HHO_ATT)</counter>
+      <counter alias="HO_ADJ_INTER_SYS_HHO_COMPL">SUM(HO_ADJ_INTER_SYS_HHO_COMPL)</counter>
+      <counter alias="HO_CEL_INTER_SYS_HHO_ATT">SUM(HO_CEL_INTER_SYS_HHO_ATT)</counter>
+    </counters>
+    <table_name>NOKRWW_PS_AUTISHO_DMNC2_RAW</table_name>
+    <alias_name>AUTISHO</alias_name>
+  </temp_table>
+    <kpi name="HO_CEL_INTER_SYS_HHO_ATT">
+    <formula>AUTISHO.HO_CEL_INTER_SYS_HHO_ATT</formula>
+    <kpi_info>
+      <title>HO_CEL_INTER_SYS_HHO_ATT</title>
+      <use></use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HO_CEL_INTER_SYS_HHO_ATT)</formula>
+      <unit>No.</unit>
+      <tables>NOKRWW_PS_AUTISHO_DMNC2_RAW</tables>
+    </kpi_info>
+    <kpi_alias>HO_CEL_INTER_SYS_HHO_ATT</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HO_ADJ_INTER_SYS_HHO_ATT">
+    <formula>AUTISHO.HO_ADJ_INTER_SYS_HHO_ATT</formula>
+    <kpi_info>
+      <title>HO_ADJ_INTER_SYS_HHO_ATT</title>
+      <use>The number of outgoing inter system hard handover attempts. This counter is updated for a measurement object in which source and target cells are defined. If cells A and B are in the active set and inter-system hard handover to GSM cell C is attempted, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED: When the SRNC starts inter-system handover either by sending RANAP: RELOCATION REQUIRED to the core network (RT call) or RRC: CELL CHANGE ORDER FROM UTRAN to the UE (NRT call). This counter is not updated if the inter-system handover is prevented by an ongoing layer-3 procedure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HO_ADJ_INTER_SYS_HHO_ATT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autisho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_ADJ_INTER_SYS_HHO_ATT (M1015C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HO_ADJ_INTER_SYS_HHO_COMPL">
+    <formula>AUTISHO.HO_ADJ_INTER_SYS_HHO_COMPL</formula>
+    <kpi_info>
+      <title>HO_ADJ_INTER_SYS_HHO_COMPL</title>
+      <use>The number of completed outgoing inter system hard handovers. This counter is updated for a measurement object in which source and target cells are defined. If cells A and B were in the active set and inter-system hard handover to GSM cell C is successful, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED:When SRNC receives RANAP:IU RELEASE COMMAND from core network after successful Inter System HHO.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HO_ADJ_INTER_SYS_HHO_COMPL)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autisho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_ADJ_INTER_SYS_HHO_COMPL (M1015C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

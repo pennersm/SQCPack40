@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<report id="RSRAN046 - SHO Adjacencies"
+		thresholds="true">
+		<report-level key="RNC">CELLPAIR</report-level>
+		<level>CELLPAIR</level>
+		<time-agg>whole_period</time-agg>
+		<title>
+			RSRAN046 - SHO Adjacencies 
+		</title>
+		<help-text>
+			<![CDATA[
+<br>This report provides information about the SHO procedure performance on adjacency level.
+<br>
+<br>Use case specific instructions:
+<br>The attempts and HO share can be used to determine how much the particular adjacency is contributing to the total HOs from the source cell. The success rate can be used to evaluate the quality of the adjacency.
+<br>
+<br>The results are useful for tuning and monitoring the neighbor definitions, and should be compared with the actual existing definitions.
+<br>
+<br>The report time level is "whole_period" which means that the report result are aggregated for the entire "Time Filtering" period. 
+For instance if one selects to run the report for a "Time Filtering" period of 5 days the report will display one record per cell pair with the PM data aggregated for a 5 days period. 
+In order to retrieve daily or weekly results, the report must be configured to run in one day basis or weekly basis by selecting the appropriate "Absolute Time" period in the "Time Filtering" options.
+<br>
+<br><b>Note:</b>The KPI columns in the Excel export file may be hidden. In this case, set your Excel viewing zoom level to a lower magnification or unfroze/resize the adjacency attribute columns.
+<br>
+			]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">source.plmn_co_gid</pivot>
+			<pivot level="RNC">source.rnc_co_gid</pivot>
+			<pivot level="WBTS">source.wbts_co_gid</pivot>
+			<pivot level="WCEL">source.wcel_co_gid</pivot>
+			<pivot level="WS_RNC" group="RNC">g.ws</pivot>
+			<pivot level="WS_WBTS" group="WBTS">g.ws</pivot>
+			<pivot level="WS_WCEL" group="WCEL">g.ws</pivot>
+			<pivot level="MR_RNC" group="RNC">g.mr</pivot>
+			<pivot level="MR_WBTS" group="WBTS">g.mr</pivot>
+			<pivot level="MR_WCEL" group="WCEL">g.mr</pivot>
+		</pivots>
+		
+		<columns>
+			<column col-id="PLMN Name" columnType="KEY">
+				<alias>PLMN Name</alias>
+				<help-text>
+					PLMN Name
+				</help-text>
+			</column>
+			<column col-id="Source RNC Name" columnType="KEY">
+				<alias>Source RNC Name</alias>
+				<help-text>
+					Source RNC Name
+				</help-text>
+			</column>
+			<column col-id="Source WBTS Name" columnType="KEY">
+				<alias>Source WBTS Name</alias>
+				<help-text>
+					Source WBTS Name
+				</help-text>
+			</column>
+			<column col-id="Source WCEL Name" columnType="KEY">
+				<alias>Source WCEL Name</alias>
+				<help-text>
+					Source WCEL Name
+				</help-text>
+			</column>
+			<column col-id="Source WCEL GID" columnType="KEY">
+				<alias>Source WCEL GID</alias>
+				<help-text>
+					Source WCEL Global Identification
+				</help-text>
+			</column>
+			<column col-id="Source Adjacencies" columnType="KEY">
+				<alias>Source WCEL adjacencies [#]</alias>
+				<kpi_format>float:0</kpi_format>
+				<help-text>
+					Source WCEL defined SHO adjacencies count
+				</help-text>
+			</column>
+			<column col-id="Source swcel_id" columnType="KEY">
+			<kpi_format>float:0</kpi_format>
+				<alias>Source WCEL LCR ID</alias>
+				<help-text>
+					Source WCEL LCR ID
+				</help-text>
+			</column>
+			<column col-id="Source swcel_cell_id" columnType="KEY">
+				<alias>Source WCEL ID</alias>
+				<help-text>
+					Source WCEL ID
+				</help-text>
+			</column>
+			<column col-id="Target RNC Name" columnType="KEY">
+				<alias>Target RNC Name</alias>
+				<help-text>
+					Target RNC Name
+				</help-text>
+			</column>
+			<column col-id="Target WBTS Name" columnType="KEY">
+				<alias>Target WBTS Name</alias>
+				<help-text>
+					Target WBTS Name
+				</help-text>
+			</column>
+			<column col-id="Target WCEL Name" columnType="KEY">
+				<alias>Target WCEL Name</alias>
+				<help-text>
+					Target WCEL Name
+				</help-text>
+			</column>
+			<column col-id="Target WCEL GID" columnType="KEY">
+			<kpi_format>decimal:0</kpi_format>
+				<alias>Target WCEL GID</alias>
+				<help-text>
+					Target WCEL Global Identification
+				</help-text>
+			</column>
+			<column col-id="Target swcel_id"  columnType="KEY">
+			<kpi_format>float:0</kpi_format>
+				<alias>Target WCEL LCR ID</alias>
+				<help-text>
+					Target WCEL LCR ID
+				</help-text>
+			</column>
+			<column col-id="Target swcel_cell_id" columnType="KEY">
+				<alias>Target WCEL ID</alias>
+				<help-text>
+					Target WCEL ID
+				</help-text>
+			</column>
+			<column col-id="Neighbor" columnType="KEY">
+				<alias>Neighbor</alias>
+				<help-text>
+					Indicates if the cell pair is a configured adjacency 
+				</help-text>
+			</column>
+			<column col-id="M1013C0" group="SHO" threshold="true"
+			kpi_ref="rsran_RU40/kpis/M1013C0.xml#M1013C0">
+				<alias>Att </alias>
+			</column>
+			
+			<column col-id="RNC_903a" group="SHO" threshold="true"
+			kpi_ref="rsran_RU40/kpis/RNC_903a.xml#RNC_903a">
+			<alias>Share </alias>
+			</column>
+			
+			<column col-id="RNC_900a" group="SHO" threshold="true"
+			kpi_ref="rsran_RU40/kpis/RNC_900a.xml#RNC_900a">
+			<alias>SR per adjacency </alias>
+			</column>
+			
+			<column col-id="RNC_1767a" group="CPICH SHO" threshold="true"
+			kpi_ref="rsran_RU40/kpis/RNC_1767a.xml#RNC_1767a">
+			<alias>Ec/No diff btw cell pair</alias>
+			</column>
+			
+			<column col-id="RNC_1768a" group="CPICH SHO" threshold="true"
+			kpi_ref="rsran_RU40/kpis/RNC_1768a.xml#RNC_1768a">
+			<alias>Avg CPICH Ec/No</alias>
+			</column>
+			
+			<column col-id="RNC_1769a" group="CPICH SHO" threshold="true"
+			kpi_ref="rsran_RU40/kpis/RNC_1769a.xml#RNC_1769a">
+			<alias>CPICH RSCP SHO</alias>
+			</column>
+			
+			</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br><br>
+		 		]]>
+		</literal>
+		
+		<sql type="create" table="cell_conf">
+			<![CDATA[
+			SELECT
+			  sc_table.co_gid cell_gid,
+			  wcel.co_object_instance swcel_id,
+			  sc_table.wcel_cell_id swcel_cell_id,
+			  to_number(sc_table.wcel_mcc) wcel_mcc,
+			  to_number(sc_table.wcel_mnc) wcel_mnc
+			FROM
+			  ROH_C_WCEL sc_table, 
+			  utp_common_objects wcel
+			WHERE
+			  sc_table.CONF_ID = 1
+			  AND sc_table.OBJECT_STATE = 1
+			  AND sc_table.valid_finish_time > SYSDATE
+			  AND wcel.co_oc_id = 813
+			  AND sc_table.co_gid = wcel.co_gid (+)
+		]]>
+		</sql>
+
+		<sql type="create" table="exwcell_conf">
+			<![CDATA[
+			SELECT DISTINCT
+			  sc_table.co_gid cell_gid,
+			  xwcel.co_object_instance swcel_cell_id,
+			  sc_table.ewce_cell_id swcel_id,
+			  sc_table.ewce_rnc_id ewce_rnc_id,
+			  sc_table.ewce_wbts_id ewce_wbts_id,
+			  to_number(sc_table.ewce_mcc) ewce_mcc,
+			  to_number(sc_table.ewce_mnc) ewce_mnc
+			FROM
+			  ROH_C_EXC_EWCE sc_table,
+			  utp_common_objects xwcel
+			WHERE
+			  sc_table.CONF_ID = 1
+			  AND sc_table.OBJECT_STATE = 1
+			  AND sc_table.valid_finish_time > SYSDATE
+			  AND xwcel.co_oc_id = 1064
+			  AND sc_table.co_gid = xwcel.co_gid (+)
+		]]>
+		</sql>
+				
+		<sql type="create" table="adj_count">
+			<![CDATA[
+			SELECT
+	                co_parent_gid wcel_co_gid,
+	                COUNT(co_gid) adj_count
+	                FROM   utp_common_objects
+	                WHERE  co_oc_id = 803 AND
+	                (co_state = 0 OR co_state = 2)
+	                CONNECT BY PRIOR co_gid = co_parent_gid
+	                START WITH co_gid IN
+	                (SELECT co_gid
+	                FROM
+	                	utp_common_objects
+	                WHERE
+	                	co_oc_id = 813)
+	               		GROUP BY co_parent_gid
+		]]>
+		</sql>
+
+		<sql type="create" table="adj_list">
+			<![CDATA[
+			SELECT 
+				adj.co_gid adj_gid,
+				adj.co_parent_gid adj_parent,
+				adj.co_dn adj_dn
+			FROM 
+				utp_common_objects adj
+			WHERE
+			adj.co_oc_id = 803 AND
+			(adj.co_state = 0 or adj.co_state = 2)
+		]]>
+		</sql>
+
+		<sql type="create" table="neigh_list">
+			<![CDATA[
+			SELECT DISTINCT
+	                wcel.co_gid source_wcel_co_gid,
+					target.ADJS_TARGET_GID target_wcel_co_gid
+	                FROM   
+					utp_common_objects wcel,
+					utp_common_objects adj,
+					roh_c_adjs target
+	                WHERE  
+					wcel.co_oc_id = 813 AND
+					(wcel.co_state = 0 or wcel.co_state = 2) and
+	                adj.co_oc_id = 803 AND
+					(adj.co_state = 0 or adj.co_state = 2) AND
+					adj.co_parent_gid = wcel.co_gid 
+					AND target.co_GID = ADJ.CO_GID
+					AND target.valid_finish_time > SYSDATE
+		]]>
+		</sql>
+				
+		<sql type="create" table="source_c">
+			<![CDATA[
+			SELECT
+					nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+					plmn.co_gid plmn_co_gid,
+					nvl(rnc.co_name,'NN('||rnc.co_gid||')') rnc_co_name,
+					rnc.co_gid rnc_co_gid,
+					rnc.co_object_instance rnc_co_object_inst,
+					rnc.co_mr_gid rnc_mr_gid,
+					nvl(wbts.co_name,'NN('||wbts.co_gid||')') wbts_co_name,
+					wbts.co_gid wbts_co_gid,
+					nvl(wcel.co_name,'NN('||wcel.co_gid||')') wcel_co_name,
+					wcel.co_gid wcel_co_gid,
+					conf.swcel_id swcel_id,
+					conf.swcel_cell_id swcel_cell_id,
+					conf.wcel_mcc,
+					conf.wcel_mnc,
+					nvl(adj.adj_count,0) adj_count
+					FROM
+					utp_common_objects plmn,
+					utp_common_objects rnc,
+					utp_common_objects wbts,
+					utp_common_objects wcel,
+					#adj_count# adj,
+					#cell_conf# conf
+					WHERE
+					plmn.co_oc_id = 16 AND
+					rnc.co_oc_id = 811 AND
+					wbts.co_oc_id = 812 AND
+					wcel.co_oc_id = 813 AND
+					--(wcel.co_state = 0 or wcel.co_state = 2) AND
+					rnc.co_parent_gid = plmn.co_gid AND
+					wbts.co_parent_gid = rnc.co_gid AND
+					wcel.co_parent_gid = wbts.co_gid AND
+					wcel.co_gid = conf.cell_gid AND
+					wcel.co_gid = adj.wcel_co_gid(+)
+		]]>
+		</sql>
+
+		<sql type="literal">
+			<![CDATA[
+				INSERT INTO #source_c#
+					SELECT
+					null plmn_name,
+					0 plmn_gid,
+					'External (RNC id: ' || decode(exwce_conf.ewce_rnc_id, null, '?',exwce_conf.ewce_rnc_id)  || ')' rnc_co_name,
+					0 rnc_co_gid,
+					decode(exwce_conf.ewce_rnc_id, null, 0,exwce_conf.ewce_rnc_id) co_object_instance,
+					0 rnc_mr_gid,
+					'External (WBTS id: ' || decode(exwce_conf.ewce_wbts_id, null, '?',exwce_conf.ewce_wbts_id) || ')' wbts_co_name,
+					0 wbts_co_gid,
+					nvl(exwcel.co_name,'NN('||exwcel.co_gid||')') wcel_co_name,
+					exwcel.co_gid wcel_co_gid,
+					exwce_conf.swcel_cell_id  swcel_id,
+					exwce_conf.swcel_id swcel_cell_id,
+					exwce_conf.ewce_mcc wcel_mcc,
+					exwce_conf.ewce_mnc wcel_mnc,
+					null adj_count
+					FROM
+					utp_common_objects exwcel,
+					#exwcell_conf# exwce_conf
+					WHERE
+					exwcel.co_oc_id = 1064 AND
+					exwcel.co_gid = exwce_conf.cell_gid
+		]]>
+		</sql>
+		
+		<sql type="create" table="pm_cellho">
+			<![CDATA[
+			SELECT
+                      hos_id,
+                      scid_id cid_id,
+                      mcc_id,
+                      mnc_id,
+                      sum(SHO_ADJ_INTRA_FREQ_SHO_ATT) SHO_CEL_INTRA_FREQ_SHO_ATT
+                      FROM NOKRWW_PS_AUTSH2_DMNC3_RAW sub
+                      WHERE  period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+							 period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					  GROUP BY
+					    hos_id,
+					    scid_id,
+					    mcc_id,
+					    mnc_id 
+			]]>
+		</sql>
+		
+		<sql type="create" table="pm_adjho">
+			<![CDATA[
+			SELECT
+                      hos_id,
+                      scid_id cid_id,
+                      mcc_id,
+                      mnc_id,
+                      hot_id rrnc_id,
+                      tcid_id,
+                      dmcc_id,
+                      dmnc_id,
+                      --SUM(PERIOD_DURATION) PERIOD_DURATION,
+                      SUM(SHO_ADJ_INTRA_FREQ_SHO_ATT) SHO_ADJ_INTRA_FREQ_SHO_ATT,
+                      SUM(SHO_ADJ_INTRA_FREQ_SHO_COMPL) SHO_ADJ_INTRA_FREQ_SHO_COMPL,
+                      SUM(CPICH_ECNO_SHO_DIFF_SUM) CPICH_ECNO_SHO_DIFF_SUM,
+                      SUM(CPICH_ECNO_SHO_DIFF_DENOM) CPICH_ECNO_SHO_DIFF_DENOM,
+                      SUM(CPICH_ECNO_SHO_SUM) CPICH_ECNO_SHO_SUM,
+                      SUM(CPICH_ECNO_SHO_DENOM) CPICH_ECNO_SHO_DENOM,
+                      SUM(CPICH_RSCP_SHO_SUM) CPICH_RSCP_SHO_SUM,
+                      SUM(CPICH_RSCP_SHO_DENOM) CPICH_RSCP_SHO_DENOM
+                      from NOKRWW_PS_AUTSH2_DMNC3_RAW sub
+                      where  period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+							 period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+                      GROUP BY
+                      hos_id,
+                      scid_id,
+                      mcc_id,
+                      mnc_id,
+                      hot_id,
+                      tcid_id,
+                      dmcc_id,
+                      dmnc_id  
+			]]>
+		</sql>	
+
+	<sql type="create" table="pm_kpiho_0">
+	<![CDATA[
+	SELECT DISTINCT rnc.co_gid rnc_id,
+                      sub.cid_id cid_id,
+                      sub.mcc_id mcc_id,
+                      sub.mnc_id mnc_id,
+                      target_obj_table.rnc_co_name rrnc_co_name,
+                      target_obj_table.rnc_co_gid rrnc_co_gid,
+                      sub.rrnc_id rrnc_id,
+                      target_obj_table.wbts_co_name rwbts_co_name,
+                      target_obj_table.wbts_co_gid rwbts_co_gid,
+                      target_obj_table.wcel_co_name rwcel_co_name,
+                      target_obj_table.wcel_co_gid rwcel_co_gid,
+                      target_obj_table.swcel_id rwcel_lcr_id,
+                      sub.tcid_id tcid_id,
+                      sub.dmcc_id dmcc_id,
+                      sub.dmnc_id,
+                      --PERIOD_DURATION,
+                      SHO_ADJ_INTRA_FREQ_SHO_COMPL,
+                      SHO_CEL_INTRA_FREQ_SHO_ATT,
+                      SHO_ADJ_INTRA_FREQ_SHO_ATT,
+                      CPICH_ECNO_SHO_DIFF_SUM,
+      				  CPICH_ECNO_SHO_DIFF_DENOM,
+      				  CPICH_ECNO_SHO_SUM,
+      				  CPICH_ECNO_SHO_DENOM,
+    				  CPICH_RSCP_SHO_SUM,
+      				  CPICH_RSCP_SHO_DENOM
+                      FROM
+                      #pm_adjho# sub,
+                      #pm_cellho# cellho,                      
+                      #source_c# target_obj_table,
+                      utp_common_objects rnc
+
+		          where
+		              sub.tcid_id = target_obj_table.swcel_cell_id(+)
+		          	  AND sub.rrnc_id = target_obj_table.rnc_co_object_inst(+)
+		          	  AND sub.dmcc_id = target_obj_table.wcel_mcc
+		          	  AND sub.dmnc_id = target_obj_table.wcel_mnc
+		              AND sub.hos_id = cellho.hos_id
+		              AND sub.cid_id = cellho.cid_id
+		              AND sub.mnc_id = cellho.mnc_id
+		              AND sub.mcc_id = cellho.mcc_id
+		              AND rnc.co_oc_id = 811
+		              AND rnc.co_object_instance = sub.hos_id	
+		]]>
+		</sql>
+			
+		<sql type="create" table="pm_kpiho_1">
+		<![CDATA[
+			SELECT DISTINCT
+			source.plmn_co_name,
+			source.plmn_co_gid,
+			source.rnc_co_name,
+			source.rnc_co_gid,
+			sub.rnc_id,
+			source.wbts_co_name,
+			source.wbts_co_gid,
+			source.wcel_co_name,
+			source.wcel_co_gid,
+			source.swcel_id,
+			sub.cid_id,
+			source.adj_count,
+			sub.mcc_id,
+			sub.mnc_id,
+			sub.rrnc_co_name,
+			sub.rrnc_co_gid,
+			sub.rrnc_id,
+			sub.rwbts_co_name,
+			sub.rwbts_co_gid,
+			sub.rwcel_co_name,
+			sub.rwcel_co_gid,
+			sub.rwcel_lcr_id,
+			sub.tcid_id,
+			sub.dmcc_id,
+			sub.dmnc_id,
+			source.rnc_mr_gid,
+			--PERIOD_DURATION,
+			SHO_ADJ_INTRA_FREQ_SHO_COMPL,
+			SHO_CEL_INTRA_FREQ_SHO_ATT,
+			SHO_ADJ_INTRA_FREQ_SHO_ATT,
+			CPICH_ECNO_SHO_DIFF_SUM,
+			CPICH_ECNO_SHO_DIFF_DENOM,
+			CPICH_ECNO_SHO_SUM,
+			CPICH_ECNO_SHO_DENOM,
+			CPICH_RSCP_SHO_SUM,
+			CPICH_RSCP_SHO_DENOM
+			FROM 
+			#grouping_sql#
+			#pm_kpiho_0# sub,
+			#source_c# source
+		    WHERE
+		    #object_selection# and
+		    source.rnc_co_gid=sub.rnc_id and
+		    source.swcel_cell_id=sub.cid_id 		
+		]]>
+		</sql>	
+
+		<sql type="create" table="pm_kpiho_2">
+<!--		<sql table-width="1800">-->
+		<![CDATA[	
+			SELECT
+			nvl(tmp.plmn_co_name,'NN('||tmp.plmn_co_gid||')') plmn_co_name,
+			nvl(tmp.rnc_co_name,'NN('||tmp.rnc_co_gid||')') rnc_co_name,
+			nvl(tmp.wbts_co_name,'NN('||tmp.wbts_co_gid||')') wbts_co_name,
+			nvl(tmp.wcel_co_name,'NN('||tmp.wcel_co_gid||')') wcel_co_name,
+			tmp.wcel_co_gid,
+			tmp.swcel_id,
+			tmp.cid_id,
+			tmp.mcc_id,
+			tmp.mnc_id,
+			nvl(tmp.adj_count,0) adj_count,
+			nvl(tmp.rrnc_co_name,'NN('||tmp.rrnc_co_gid||')') rrnc_co_name,
+			nvl(tmp.rwbts_co_name,'NN('||tmp.rwbts_co_gid||')') rwbts_co_name,
+			nvl(tmp.rwcel_co_name,'NN('||tmp.rwcel_co_gid||')') rwcel_co_name,
+			tmp.rwcel_co_gid,
+			tmp.rwcel_lcr_id,
+			tmp.tcid_id,
+			tmp.dmcc_id,
+			tmp.dmnc_id,
+			decode(neigh.target_wcel_co_gid, null, 'No', 'Yes') Neighbor,
+			
+			to_number((tmp.sho_adj_intra_freq_sho_att)) M1013C0,
+			to_number(decode( (tmp.sho_cel_intra_freq_sho_att),0,0, 100*(tmp.sho_adj_intra_freq_sho_att) / (tmp.sho_cel_intra_freq_sho_att))) RNC_903a,
+			to_number(decode( (tmp.sho_adj_intra_freq_sho_att),0,0, 100*(tmp.sho_adj_intra_freq_sho_compl) / (tmp.sho_adj_intra_freq_sho_att))) RNC_900a,
+			to_number((decode( (tmp.cpich_ecno_sho_diff_denom*2),0,null, (tmp.cpich_ecno_sho_diff_sum) / (tmp.cpich_ecno_sho_diff_denom*2))) - 24) RNC_1767a,
+            to_number((decode( (tmp.cpich_ecno_sho_denom*2),0,null, (tmp.cpich_ecno_sho_sum) / (tmp.cpich_ecno_sho_denom*2))) - 24.5) RNC_1768a,
+            to_number(decode( (tmp.cpich_rscp_sho_denom),0,null, (tmp.cpich_rscp_sho_sum) / (tmp.cpich_rscp_sho_denom))) RNC_1769a		
+		from 
+			utp_common_objects plmn,
+			utp_common_objects rnc,
+			utp_common_objects wbts,
+			#neigh_list# neigh,
+			utp_common_objects wcel,
+			#pm_kpiho_1# tmp
+		where
+			rnc.co_parent_gid = plmn.co_gid and
+			wbts.co_parent_gid = rnc.co_gid and
+			wcel.co_parent_gid = wbts.co_gid and
+			plmn.co_oc_id=16 and
+			rnc.co_oc_id=811 and
+			wbts.co_oc_id=812 and
+			wcel.co_oc_id=813 and
+			tmp.wcel_co_gid = wcel.co_gid and
+			tmp.wcel_co_gid = neigh.source_wcel_co_gid (+) and
+			tmp.rwcel_co_gid = neigh.target_wcel_co_gid (+)
+		]]>
+		</sql>	
+		
+		<sql type="create" table="neigh">
+<!--<sql table-width="1800">-->
+			<![CDATA[
+				SELECT DISTINCT
+	                source.plmn_co_name,
+					source.rnc_co_name,
+					source.wbts_co_name,
+					source.wcel_co_name,
+					source.wcel_co_gid,
+					source.adj_count,
+					source.swcel_id,
+					source.swcel_cell_id cid_id,
+					source.wcel_mcc,
+					source.wcel_mnc,
+					--adj_l.adj_gid "ADJS GID",
+					--adj_l.adj_dn "ADJACENCY DN",
+					nvl(target.rnc_co_name, 'Not known') rrnc_co_name,
+					nvl(target.wbts_co_name, 'Not known') rwbts_co_name,
+					nvl(target.wcel_co_name, 'Not known') rwcel_co_name,
+					target.wcel_co_gid rwcel_co_gid,
+					target.swcel_id rwcel_lcr_id,
+					target.swcel_cell_id tcid_id,
+					target.wcel_mcc wcel_dmcc,
+					target.wcel_mnc wcel_dmnc,
+					'Yes' Neighbor,
+					0 M1013C0,
+					0 RNC_903a,
+					0 RNC_900a,
+					0 RNC_1767a,
+					0 RNC_1768a,
+					0 RNC_1769a
+				    --.ADJS_TARGET_GID "Target WCEL GID"
+	                FROM
+	                #grouping_sql#  
+	                #source_c# source,
+	                #source_c# target,
+	                #adj_list# adj_l,
+	                roh_c_adjs adj_c
+	                WHERE
+	                adj_l.adj_parent = source.wcel_co_gid AND
+	                adj_c.co_gid = adj_l.adj_gid AND 
+	                adj_c.adjs_target_gid = target.wcel_co_gid (+) AND
+	                adj_c.CONF_ID = 1 AND
+					adj_c.OBJECT_STATE = 1 AND
+					adj_c.valid_finish_time > SYSDATE
+					and #object_selection#
+	 		]]>
+		</sql>
+
+
+		<sql type="literal">
+			<![CDATA[
+		UPDATE #neigh# n
+		SET
+		(M1013C0, RNC_903a, RNC_900a, RNC_1767a, RNC_1768a, RNC_1769a) = (select M1013C0, RNC_903a, RNC_900a, RNC_1767a, RNC_1768a, RNC_1769a
+		from #pm_kpiho_2# p
+		WHERE
+		n.wcel_co_gid = p.wcel_co_gid AND
+		n.cid_id = p.cid_id AND
+		n.wcel_mcc = p.mcc_id AND 
+		n.wcel_mnc = p.mnc_id AND
+		n.rwcel_co_gid = p.rwcel_co_gid AND
+		n.tcid_id = p.tcid_id AND
+		n.wcel_dmcc = p.dmcc_id AND 
+		n.wcel_dmnc = p.dmnc_id
+		)
+		WHERE (n.wcel_co_gid, n.cid_id, n.rwcel_co_gid, n.tcid_id, n.wcel_mcc, n.wcel_mnc, n.wcel_dmcc, n.wcel_dmnc) in 
+		(select wcel_co_gid, cid_id, rwcel_co_gid, tcid_id, mcc_id, mnc_id, dmcc_id, dmnc_id from #pm_kpiho_2#)
+		
+		]]>
+		</sql>
+		
+<!-- 		Replace the previous query for the following much faster one. Only if RSGEN is version 5.7.1 or higher -->
+<!-- <sql type="literal">
+	<![CDATA[
+		MERGE INTO #neigh# n
+			USING #pm_kpiho_2# p
+			ON (n.wcel_co_gid = p.wcel_co_gid AND
+		        n.cid_id = p.cid_id AND
+		        n.wcel_mcc = p.mcc_id AND 
+		        n.wcel_mnc = p.mnc_id AND
+		        n.rwcel_co_gid = p.rwcel_co_gid AND
+		        n.tcid_id = p.tcid_id AND
+		        n.wcel_dmcc = p.dmcc_id AND 
+		        n.wcel_dmnc = p.dmnc_id 
+				)
+			WHEN MATCHED THEN 
+				UPDATE SET n.M1013C0 = p.M1013C0, 
+				n.RNC_903a = p.RNC_903a, 
+				n.RNC_900a = p.RNC_900a,
+				n.RNC_1767a = p.RNC_1767a, 
+				n.RNC_1768a = p.RNC_1768a, 
+				n.RNC_1769a = p.RNC_1769a
+		]]></sql> -->
+		
+		<sql type="literal">
+			<![CDATA[
+		INSERT INTO #neigh# (plmn_co_name,
+					rnc_co_name,
+					wbts_co_name,
+					wcel_co_name,
+					wcel_co_gid,
+					swcel_id,
+					cid_id,
+					adj_count,
+					rrnc_co_name,
+					rwbts_co_name,
+					rwcel_co_name,
+					rwcel_co_gid,
+					rwcel_lcr_id,
+					tcid_id,
+					Neighbor,
+					M1013C0,
+					RNC_903a,
+					RNC_900a,
+					RNC_1767a, 
+					RNC_1768a, 
+					RNC_1769a)
+		select 		plmn_co_name,
+					rnc_co_name,
+					wbts_co_name,
+					wcel_co_name,
+					wcel_co_gid,
+					swcel_id,
+					cid_id,
+					adj_count,
+					rrnc_co_name,
+					rwbts_co_name,
+					rwcel_co_name,
+					rwcel_co_gid,
+					rwcel_lcr_id,
+					tcid_id,
+					Neighbor,
+					M1013C0,
+					RNC_903a,
+					RNC_900a,
+					RNC_1767a, 
+					RNC_1768a, 
+					RNC_1769a 
+					from #pm_kpiho_2# where neighbor like 'No'
+		]]>
+		</sql>
+		
+		<sql table-width="1500">
+	    <![CDATA[
+		select 
+			plmn_co_name "PLMN Name",
+			rnc_co_name "Source RNC Name",
+			wbts_co_name "Source WBTS Name",
+			wcel_co_name "Source WCEL Name",
+			--wcel_co_gid "Source WCEL GID",
+			adj_count "Source Adjacencies",
+			swcel_id "Source swcel_id",
+			cid_id "Source swcel_cell_id",
+			
+			rrnc_co_name "Target RNC Name",
+			rwbts_co_name "Target WBTS Name",
+			rwcel_co_name "Target WCEL Name",
+			rwcel_lcr_id "Target swcel_id",
+			tcid_id "Target swcel_cell_id",
+			Neighbor,
+			M1013C0,
+			RNC_903a,
+			RNC_900a,
+			RNC_1767a, 
+			RNC_1768a, 
+			RNC_1769a 
+		from
+			#neigh#
+			#add_on_criteria#
+		order by 1,2,3,4,5
+		]]>
+		</sql>
+		
+		
+	</report>
+</reports>

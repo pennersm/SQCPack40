@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LNCELHO.xml" />
+  <kpi name="LTE_12a">
+    <formula>100*decode(
+			(lncelho.inter_ho_prep_fail_ac_nb + 
+			lncelho.inter_ho_prep_fail_oth_nb + 
+			lncelho.inter_ho_prep_fail_time_nb + 
+			lncelho.intra_ho_att_nb),0,null, 
+
+			lncelho.inter_ho_att_nb
+			 / 
+			(lncelho.inter_ho_prep_fail_ac_nb + 
+			lncelho.inter_ho_prep_fail_oth_nb + 
+			lncelho.inter_ho_prep_fail_time_nb + 
+			lncelho.intra_ho_att_nb))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter eNB Neighbor Handover Preparation Success ratio]]></title>
+      <use><![CDATA[Ratio between successfully  Inter eNB Handover preparations  and the number of all Intra eNB Handover Decisions per adjacency pair(decision to perform handover after reception of measurement report).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*   sum(  INTER_HO_ATT_NB )
+&lt;br&gt;       ------------------------------------------------
+&lt;br&gt;       sum(INTER_HO_PREP_FAIL_AC_NB + INTER_HO_PREP_FAIL_OTH_NB + INTER_HO_PREP_FAIL_TIME_NB + INTRA_HO_ATT_NB   )</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LNCELHO_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/23 10:51:27.4 +0100</date>
+          <comment><![CDATA[Source: RSLTE031.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Adj Inter eNB HO PREP SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

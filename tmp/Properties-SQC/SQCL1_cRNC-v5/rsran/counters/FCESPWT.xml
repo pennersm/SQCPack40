@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>FCESPWT (FTM CES over PSN pseudowire tunnel)</header>
+    <csv_title>FCESPWT (FTM CES over PSN pseudowire tunnel)</csv_title>
+    <report-description>FTM CES over PSN pseudowire tunnel</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CES_OutOfSyncPackets/>
+    <CES_LostPackets/>
+    <CES_EarlyPackets/>
+    <CES_LatePackets/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="FCESPWT" omes_name="FTM_CESoPSN_PWT" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-CESIF/RSRAN-CESPWT" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>FCESPWT</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="CES_OutOfSyncPackets" symmetrical="true">SUM(CES_OutOfSyncPackets)</counter>
+          <counter alias="CES_LostPackets" symmetrical="true">SUM(CES_LostPackets)</counter>
+          <counter alias="CES_EarlyPackets" symmetrical="true">SUM(CES_EarlyPackets)</counter>
+          <counter alias="CES_LatePackets" symmetrical="true">SUM(CES_LatePackets)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FCESPWT</alias_name>
+    <ui_name>FTM CES over PSN pseudowire tunnel</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FCESPWT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CES_OutOfSyncPackets">
+    <formula>FCESPWT.CES_OutOfSyncPackets</formula>
+    <kpi_info>
+      <title>CES_OutOfSyncPackets (M5120C0)</title>
+      <use>The counter counts all packets for this pseudowire tunnel that arrived too late or to early in relation to the jitter buffer. UPDATED: The counter counts all packets for this pseudowire tunnel that arrived too late or to early in relation to the jitter buffer.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CES_OutOfSyncPackets)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_OutOfSyncPackets (M5120C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CES_LostPackets">
+    <formula>FCESPWT.CES_LostPackets</formula>
+    <kpi_info>
+      <title>CES_LostPackets (M5120C1)</title>
+      <use>The CES pseudowire function shall be capable to detect lost and misordered packets. The sequence number in the control word of each packet is used for these purposes. The pseudowire function shall reorder misordered packets. Misordered packets that cannot be reordered shall be discarded and treated as lost. This counter counts the number of lost packets over this pseudowire tunnel. UPDATED: The counter is updated for every packet that is declared to be lost over the pseudowire tunnel
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CES_LostPackets)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_LostPackets (M5120C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CES_EarlyPackets">
+    <formula>FCESPWT.CES_EarlyPackets</formula>
+    <kpi_info>
+      <title>CES_EarlyPackets (M5120C2)</title>
+      <use>This counter counts all packets of the pseudowire tunnel that arrive too early in relation to the jitter buffer. UPDATED: The counter is incremented for each packets of the pseudowire tunnel that arrived too early in relation to the jitter buffer.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CES_EarlyPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_EarlyPackets (M5120C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CES_LatePackets">
+    <formula>FCESPWT.CES_LatePackets</formula>
+    <kpi_info>
+      <title>CES_LatePackets (M5120C3)</title>
+      <use>The counter counts all packets for this pseudowire tunnel that arrived too late in relation to the jitter buffer. UPDATED: The counter is updated for very packet that arrived too late in relation to the jitter buffer
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CES_LatePackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_LatePackets (M5120C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FCESPWT.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fcespwt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

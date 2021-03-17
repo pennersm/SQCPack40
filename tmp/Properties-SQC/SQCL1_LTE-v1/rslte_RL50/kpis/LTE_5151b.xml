@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte/counters/LENBLD.xml" />
+  <kpi name="LTE_5151b">
+    <formula>100*decode(
+			(decode(
+			lcelld.denom_rrc_conn_ue,0,null, 
+
+			lcelld.sum_rrc_conn_ue
+			 / 
+			lcelld.denom_rrc_conn_ue)),0,null, 
+
+			(lenbld.ue_cont_rel_init_enb + 
+			lenbld.ue_cont_rel_init_mme)
+			 / 
+			(decode(
+			lcelld.denom_rrc_conn_ue,0,null, 
+
+			lcelld.sum_rrc_conn_ue
+			 / 
+			lcelld.denom_rrc_conn_ue)))</formula>
+    <kpi_info>
+      <title><![CDATA[Total E-UTRAN Graceful Cell Shutdown Drop Rate]]></title>
+      <use><![CDATA[This KPI describes the ratio of the number of released UE context due to S1AP Partial Resets to the total number of UEs before start of graceful cell shutdown. Different indicators distinguish between the active and RRC connected UEs.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(UE_CONT_REL_INIT_ENB + UE_CONT_REL_INIT_MME) / sum(SUM_RRC_CONN_UE/DENOM_RRC_CONN_UE)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LENBLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/10/02 15:01:58.536 +0100</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Total Graceful Cell Shutdown DR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

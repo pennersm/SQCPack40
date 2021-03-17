@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_630b">
+    <formula>
+decode(tc_ext.tcat_traffx100_13,0,null,
+	100 * (tc_ext.Tcat_traffx100_7/100) / ((tc_ext.tcat_traffx100_13)/100)
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Camel  related calls ratio - traff relation]]></title>
+      <use><![CDATA[Ratio of all CAMEL related calls in Erlangs]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>Traffic categories:
+		<br>51 = ORIG CAMEL = Originating Camel call
+		<br>53 = INC CAMEL = Incoming Camel call
+		<br>
+		<br>Trunk originated call where at least one CAMEL dialog was initiated by the incoming side. And Trunk terminated call where at least one CAMEL dialog was initiated by the outgoing side.
+		<br>
+		<br>Starting from M15.1 NE version, in the denominator related part, the KPI ID reference to be used is the msc_2156a and no longer the msc_571c.
+		<br>This change does not produce any impact into the KPI formula content/algorithm. This is just a KPI ID adjustment.
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+      	&lt;br&gt;      
+      	&lt;br&gt; AVG( tcat_traff_x100 / 100 ) ;WHERE traffic_category_id IN (51, 53)
+		&lt;br&gt;--------------------------------------------------------------------- * 100
+		&lt;br&gt;      msc_2156a
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_TC_{OBJ_AGG}_{TIME_AGG}
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Camel related calls traf Rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DBFIS_ext.xml" />
+  <kpi name="flng_487a">
+    <formula>decode( 
+    		((DBFIS_ext.gtpcv2_del_bear_f_ind_sent_all)),0,NULL, 
+    		
+    		((DBFIS_ext.gtp_c_v2_del_brer_flr_ind_sent)) 
+    		/ 
+    		((DBFIS_ext.gtpcv2_del_bear_f_ind_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer Failure Indications sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete bearer failure indications sent for a specific cause code when compared to total number of GTP-C v2 delete bearer failure indication messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(dbfis_id,'x',GTP_C_V2_DEL_BRER_FLR_IND_SENT,0))  ;DBFIS for cause code x   
+	  <br>---------------------------------------------------------------------------------------- *100 
+
+	  <br>sum(GTP_C_V2_DEL_BRER_FLR_IND_SENT)  ;all DBFIS's 
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DBFIS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Bearer Fail sent ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

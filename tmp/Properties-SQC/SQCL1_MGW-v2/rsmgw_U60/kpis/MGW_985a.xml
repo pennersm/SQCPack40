@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/MTPSLA.xml" />
+  <kpi name="MGW_985a">
+    <formula>decode(
+			(mtpsla.dur_of_unavail),0,null, 
+
+			(100*(mtpsla.dur_of_unavail_link_failure)
+			 / 
+			(mtpsla.dur_of_unavail)))</formula>
+    <kpi_info>
+      <title><![CDATA[Link failure duration ratio]]></title>
+      <use><![CDATA[Indicates ratio of link failure duration to duration of unavailability for any reason]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;         sum(DUR_OF_UNAVAIL_LINK_FAILURE)
+&lt;br&gt; 100* -------------------------
+&lt;br&gt;         sum(DUR_OF_UNAVAIL)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_mtpsla_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Link failure duration ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

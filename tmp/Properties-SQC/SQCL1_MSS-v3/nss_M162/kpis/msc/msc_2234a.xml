@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml"/>
+  <kpi name="msc_2234a">
+ 	<formula>
+	decode(
+	(nvl(servi_ext.mscssm_usage_42,0)),0,null, 
+	(100*
+	(nvl(servi_ext.mscssm_usage_43,0))
+	/
+	(nvl(servi_ext.mscssm_usage_42,0)) ) )
+	</formula>
+   <kpi_info>
+      <title><![CDATA[SO MESSAGE SR]]></title>
+      <use><![CDATA[Indicates SIP MESSAGE requests received in originating NVS that were successfuly delivered either direcly and with or without encapsulated Short Message (RP-MO-DATA) or resulted in a succesfull MAP "MOForwardSM" operation including RP-MO-DATA to the IWMSC/SMSC.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+	  &lt;br&gt;SUM( MSCSSM_USAGE ) 
+	  &lt;br&gt;;WHERE service_id = 312(138H), 313(139H),314(13AH) 
+	  &lt;br&gt;--------------------------------------------------- * 100 
+	  &lt;br&gt;SUM( MSCSSM_USAGE ) 
+	  &lt;br&gt;;WHERE service_id = 311(137H), 135(87H) 
+&lt;br&gt;
+&lt;br&gt;Service Ids: 
+&lt;br&gt;T22S..138H..312..SUCC MO MSG IN NVS 
+&lt;br&gt;SDMS..139H..313..SUCC DIRECT MESSAGE IN NVS 
+&lt;br&gt;SDMS..13AH..314..SUCC DM W. ENC SMS IN NVS 
+&lt;br&gt;SOM...87H..135..SIP ORIG MESSAGE DELIVERY 
+&lt;br&gt;SOMA..137H..311..ATT. SO ENC SMS MSG IN NVS 
+&lt;br&gt;
+&lt;br&gt;
+</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_servi_service1_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[SO MESSAGE SR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

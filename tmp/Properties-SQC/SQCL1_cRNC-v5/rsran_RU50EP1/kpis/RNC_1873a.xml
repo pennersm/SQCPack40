@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CAPAUSE.xml" />
+  <temp_table_ref src="rsran/counters/IUPS.xml" />
+  <kpi name="RNC_1873a">
+    <formula>nvl(capause.iu_ps_thr_average / 1000,0) + 
+
+nvl(decode(
+			(iups.period_duration),0,0, 
+
+			((iups.input_bytes_total_udp*10*8)
+			 / 
+			(iups.period_duration*1000000*60))),0)</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-PS average throughput downlink]]></title>
+      <use><![CDATA[This KPI provides information about the Iu-PS average throughput in downlink direction. This KPI results from the combination of GTP-U throughput and Iu-PS througput counted at NP8S1 or NP2GE interfaces unit, providing the whole figure for combined Iu-PS throughput.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;RNC_1621a+RNC_941b</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_capause_{obj_agg}_{time_agg},nokrww_ps_iups_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-PS avg thp DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/CAPAUSE_ext.xml" />
+</conf_file>
+

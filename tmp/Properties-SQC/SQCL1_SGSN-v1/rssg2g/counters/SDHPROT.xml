@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M516 SDHPROT measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M516 SDHPROT measurement dump</csv_title>
+    <report-description>SONET/SDH protection group measurement (SDHPROT)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SDH_PROT_PSC />
+    <SDH_PROT_PSD />
+  </column_order>
+  <temp_table name="SDHPROT" meas_level="PLMN/SGSN/PGI" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SDH_PROT_PSC" symmetrical="true">SUM(SDH_PROT_PSC)</counter>
+      <counter alias="SDH_PROT_PSD" symmetrical="true">SUM(SDH_PROT_PSD)</counter>
+    </counters>
+    <table_name>rsg_ps_sdhprot_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SDHPROT</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SDHPROT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_sdhprot_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SDH_PROT_PSC">
+    <formula>SDHPROT.SDH_PROT_PSC</formula>
+    <kpi_info>
+      <title>SDH_PROT_PSC</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SDH_PROT_PSC)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_sdhprot_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SDH_PROT_PSC (M516B2C3)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SDH_PROT_PSD">
+    <formula>SDHPROT.SDH_PROT_PSD</formula>
+    <kpi_info>
+      <title>SDH_PROT_PSD</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SDH_PROT_PSD)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sdhprot_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SDH_PROT_PSD (M516B2C4)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

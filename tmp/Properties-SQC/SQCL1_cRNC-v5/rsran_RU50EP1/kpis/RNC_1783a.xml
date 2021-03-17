@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPCAC.xml" />
+  <kpi name="RNC_1783a">
+    <formula>decode(
+			(ipcac.succ_bts_ip_res + 
+			ipcac.fail_bts_ip_res_ext_trans + 
+			ipcac.fail_bts_ip_res_other_trans),0,null, 
+
+			(100*(ipcac.succ_bts_ip_res)
+			 / 
+			(ipcac.succ_bts_ip_res + 
+			ipcac.fail_bts_ip_res_ext_trans + 
+			ipcac.fail_bts_ip_res_other_trans)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Route Accessibility in BTS]]></title>
+      <use><![CDATA[The transport IP resource reservation success ratio in BTS [%]. This KPI describes the average success rate of the IP transport resource reservation attempts for IP Route based connections in BTS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(SUCC_BTS_IP_RES)
+&lt;br&gt;-----------------
+&lt;br&gt;SUM(SUCC_BTS_IP_RES + FAIL_BTS_IP_RES_EXT_TRANS + FAIL_BTS_IP_RES_OTHER_TRANS)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ipcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP RouteResResrvSR BTS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

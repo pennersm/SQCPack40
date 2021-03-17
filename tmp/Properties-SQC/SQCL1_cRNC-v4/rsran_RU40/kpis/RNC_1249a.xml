@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RTPRTCP.xml" />
+  <kpi name="RNC_1249a">
+    <formula>decode(
+			(rtprtcp.sent_rtp_packets),0,null, 
+
+			(100*(rtprtcp.lost_egress_rtp_packets)
+			 / 
+			(rtprtcp.sent_rtp_packets*10)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-CS RTP layer loss ratio - egress]]></title>
+      <use><![CDATA[This KPI provides the egress RTP packet loss ratio in RNC. The lost RTP data packets in egress direction  are reported to be missing by MGW using RTCP protocol messages.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(LOST_EGRESS_RTP_PACKETS)
+&lt;br&gt;---------------------
+&lt;br&gt;SUM(SENT_RTP_PACKETS*10)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-CS RTP loss ratio egrs</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

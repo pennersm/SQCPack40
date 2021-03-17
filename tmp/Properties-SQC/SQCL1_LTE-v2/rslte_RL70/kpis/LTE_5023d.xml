@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5023d">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			nvl(lepsb.pre_empt_gbr_bearer,0) + 
+			nvl(lepsb.pre_empt_non_gbr_bearer,0)),0,null, 
+
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			nvl(lepsb.pre_empt_gbr_bearer,0) + 
+			nvl(lepsb.pre_empt_non_gbr_bearer,0))
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			nvl(lepsb.pre_empt_gbr_bearer,0) + 
+			nvl(lepsb.pre_empt_non_gbr_bearer,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB Normal Release Ratio User Perspective]]></title>
+      <use><![CDATA[This KPI describes the ratio of normally released E-RABs from user perspective. This KPI is corresponding to a Connection Completion Ratio.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(EPC_EPS_BEARER_REL_REQ_NORM+EPC_EPS_BEARER_REL_REQ_DETACH+ENB_EPSBEAR_REL_REQ_RNL_REDIR+ ENB_EPS_BEARER_REL_REQ_NORM + PRE_EMPT_GBR_BEARER + PRE_EMPT_NON_GBR_BEARER) / sum(EPC_EPS_BEARER_REL_REQ_NORM+EPC_EPS_BEARER_REL_REQ_DETACH+EPC_EPS_BEARER_REL_REQ_RNL+ EPC_EPS_BEARER_REL_REQ_OTH + ENB_EPSBEAR_REL_REQ_RNL_REDIR+ ENB_EPS_BEARER_REL_REQ_NORM + ENB_EPS_BEARER_REL_REQ_RNL +ENB_EPS_BEARER_REL_REQ_TNL +ENB_EPS_BEARER_REL_REQ_OTH+PRE_EMPT_GBR_BEARER + PRE_EMPT_NON_GBR_BEARER)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/12/21 14:58:58.256 +0000</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB norm RelR EPC init</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

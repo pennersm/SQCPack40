@@ -1,0 +1,385 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M15.1;M15.1IP;M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M402 SIPSLC measurement dump</header>
+    <csv_title>NSN NSS M15.1;M15.1IP;M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M402 SIPSLC measurement dump</csv_title>
+    <report-description>SIP New Combined SLA Parameter (SIPSLC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <COMB_PARAMETER_SET_AGGREGATED/>
+    <COMB_ONGOING_SESSIONS_PEAK/>
+    <COMB_ONGOING_SESSIONS_AVE/>
+    <COMB_ONGOING_SESSIONS_REJECT/>
+    <COMB_SESSION_CREATION_AVE/>
+    <COMB_SESSION_CREATION_REJ/>
+    <COMB_SESSION_CREATION_PEAK/>
+    <COMB_MESSAGE_AVE/>
+    <COMB_MESSAGES_REJECT/>
+    <COMB_MESSAGE_PEAK/>
+    <COMB_REGISTER_AVE/>
+    <COMB_REGISTERS_REJECT/>
+    <COMB_REGISTER_PEAK/>
+    <COMB_OTHER_REQUEST_AVE/>
+    <COMB_OTHER_REQUESTS_REJECT/>
+    <COMB_OTHER_REQUEST_PEAK/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/FQDN/COMBSSNAME" name="SIPSLC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="COMB_PARAMETER_SET_AGGREGATED" symmetrical="true">SUM(COMB_PARAMETER_SET_AGGREGATED)</counter>
+      <counter alias="COMB_ONGOING_SESSIONS_PEAK" symmetrical="true">MAX(COMB_ONGOING_SESSIONS_PEAK)</counter>
+      <counter alias="COMB_ONGOING_SESSIONS_AVE" symmetrical="true">AVG(COMB_ONGOING_SESSIONS_AVE)</counter>
+      <counter alias="COMB_ONGOING_SESSIONS_REJECT" symmetrical="true">SUM(COMB_ONGOING_SESSIONS_REJECT)</counter>
+      <counter alias="COMB_SESSION_CREATION_AVE" symmetrical="true">AVG(COMB_SESSION_CREATION_AVE)</counter>
+      <counter alias="COMB_SESSION_CREATION_REJ" symmetrical="true" time-alias="COMB_SESSION_CREATION_REJ">SUM(COMB_SESSION_CREATION_REJ)</counter>
+      <counter alias="COMB_SESSION_CREATION_PEAK" symmetrical="true" time-alias="COMB_SESSION_CREATION_PEAK">MAX(COMB_SESSION_CREATION_PEAK)</counter>
+      <counter alias="COMB_MESSAGE_AVE" symmetrical="true">AVG(COMB_MESSAGE_AVE)</counter>
+      <counter alias="COMB_MESSAGES_REJECT" symmetrical="true">SUM(COMB_MESSAGES_REJECT)</counter>
+      <counter alias="COMB_MESSAGE_PEAK" symmetrical="true">MAX(COMB_MESSAGE_PEAK)</counter>
+      <counter alias="COMB_REGISTER_AVE" symmetrical="true">AVG(COMB_REGISTER_AVE)</counter>
+      <counter alias="COMB_REGISTERS_REJECT" symmetrical="true">SUM(COMB_REGISTERS_REJECT)</counter>
+      <counter alias="COMB_REGISTER_PEAK" symmetrical="true">MAX(COMB_REGISTER_PEAK)</counter>
+      <counter alias="COMB_OTHER_REQUEST_AVE" symmetrical="true">AVG(COMB_OTHER_REQUEST_AVE)</counter>
+      <counter alias="COMB_OTHER_REQUESTS_REJECT" symmetrical="true">SUM(COMB_OTHER_REQUESTS_REJECT)</counter>
+      <counter alias="COMB_OTHER_REQUEST_PEAK" symmetrical="true">MAX(COMB_OTHER_REQUEST_PEAK)</counter>
+    </counters>
+    <table_name>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SIPSLC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SIPSLC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_PARAMETER_SET_AGGREGATED">
+    <formula>SIPSLC.COMB_PARAMETER_SET_AGGREGATED</formula>
+    <kpi_info>
+      <title>COMB_PARAMETER_SET_AGGREGATED</title>
+      <use>If a parameter set is aggregated then the events on every associated FQDNs are counted together. In this case the same values are reported for those FQDNs.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMB_PARAMETER_SET_AGGREGATED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_PARAMETER_SET_AGGREGATED (M402B4C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_ONGOING_SESSIONS_PEAK">
+    <formula>SIPSLC.COMB_ONGOING_SESSIONS_PEAK</formula>
+    <kpi_info>
+      <title>COMB_ONGOING_SESSIONS_PEAK</title>
+      <use>The peak value of ongoing outgoing and incoming SIP sessions on the FQDN level. The sampling interval is 1 sec.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(COMB_ONGOING_SESSIONS_PEAK)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_ONGOING_SESSIONS_PEAK (M402B4C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_ONGOING_SESSIONS_AVE">
+    <formula>SIPSLC.COMB_ONGOING_SESSIONS_AVE</formula>
+    <kpi_info>
+      <title>COMB_ONGOING_SESSIONS_AVE</title>
+      <use>The average number of ongoing outgoing and incoming SIP sessions on the FQDN level. The sampling interval is 1 sec.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMB_ONGOING_SESSIONS_AVE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_ONGOING_SESSIONS_AVE (M402B4C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_ONGOING_SESSIONS_REJECT">
+    <formula>SIPSLC.COMB_ONGOING_SESSIONS_REJECT</formula>
+    <kpi_info>
+      <title>COMB_ONGOING_SESSIONS_REJECT</title>
+      <use>The number of rejected outgoing and incoming call attempts because the ongoing session limit was exceeded on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMB_ONGOING_SESSIONS_REJECT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_ONGOING_SESSIONS_REJECT (M402B4C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+
+  <kpi name="COMB_SESSION_CREATION_PEAK">
+    <formula>SIPSLC.COMB_SESSION_CREATION_PEAK</formula>
+    <kpi_info>
+      <title>COMB_SESSION_CREATION_PEAK</title>
+      <use>The maximum number of outgoing and incoming call attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(COMB_SESSION_CREATION_PEAK)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_SESSION_CREATION_PEAK (M402B4C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_SESSION_CREATION_AVE">
+    <formula>SIPSLC.COMB_SESSION_CREATION_AVE</formula>
+    <kpi_info>
+      <title>COMB_SESSION_CREATION_AVE</title>
+      <use>The average number of outgoing and incoming call attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMB_SESSION_CREATION_AVE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_SESSION_CREATION_AVE (M402B4C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_SESSION_CREATION_REJ">
+    <formula>SIPSLC.COMB_SESSION_CREATION_REJ</formula>
+    <kpi_info>
+      <title>COMB_SESSION_CREATION_REJ</title>
+      <use>The number of rejected outgoing and incoming call attempts because the session creation rate limit was exceeded on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMB_SESSION_CREATION_REJ)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_SESSION_CREATION_REJ (M402B4C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_MESSAGE_PEAK">
+    <formula>SIPSLC.COMB_MESSAGE_PEAK</formula>
+    <kpi_info>
+      <title>COMB_MESSAGE_PEAK</title>
+      <use>The maximum number of outgoing and incoming MESSAGE attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(COMB_MESSAGE_PEAK)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_MESSAGE_PEAK (M402B4C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_MESSAGE_AVE">
+    <formula>SIPSLC.COMB_MESSAGE_AVE</formula>
+    <kpi_info>
+      <title>COMB_MESSAGE_AVE</title>
+      <use>The average number of outgoing and incoming MESSAGE attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMB_MESSAGE_AVE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_MESSAGE_AVE (M402B4C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_MESSAGES_REJECT">
+    <formula>SIPSLC.COMB_MESSAGES_REJECT</formula>
+    <kpi_info>
+      <title>COMB_MESSAGES_REJECT</title>
+      <use>The number of rejected outgoing and incoming MESSAGEs because the message rate limit was exceeded on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMB_MESSAGES_REJECT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_MESSAGES_REJECT (M402B4C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_REGISTER_PEAK">
+    <formula>SIPSLC.COMB_REGISTER_PEAK</formula>
+    <kpi_info>
+      <title>COMB_REGISTER_PEAK</title>
+      <use>The maximum number of outgoing and incoming REGISTER attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(COMB_REGISTER_PEAK)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_REGISTER_PEAK (M402B4C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_REGISTER_AVE">
+    <formula>SIPSLC.COMB_REGISTER_AVE</formula>
+    <kpi_info>
+      <title>COMB_REGISTER_AVE</title>
+      <use>The average number of outgoing and incoming REGISTER attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMB_REGISTER_AVE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_REGISTER_AVE (M402B4C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_REGISTERS_REJECT">
+    <formula>SIPSLC.COMB_REGISTERS_REJECT</formula>
+    <kpi_info>
+      <title>COMB_REGISTERS_REJECT</title>
+      <use>The number of rejected outgoing and incoming REGISTERs because the register rate limit was exceeded on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMB_REGISTERS_REJECT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_REGISTERS_REJECT (M402B4C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_OTHER_REQUEST_PEAK">
+    <formula>SIPSLC.COMB_OTHER_REQUEST_PEAK</formula>
+    <kpi_info>
+      <title>COMB_OTHER_REQUEST_PEAK</title>
+      <use>The maximum number of outgoing and incoming other SIP message (PUBLISH, SUBSCRIBE, NOTIFY etc.) attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(COMB_OTHER_REQUEST_PEAK)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_OTHER_REQUEST_PEAK (M402B4C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_OTHER_REQUEST_AVE">
+    <formula>SIPSLC.COMB_OTHER_REQUEST_AVE</formula>
+    <kpi_info>
+      <title>COMB_OTHER_REQUEST_AVE</title>
+      <use>The average number of outgoing and incoming other SIP message (PUBLISH, SUBSCRIBE, NOTIFY etc.) attempts per second on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMB_OTHER_REQUEST_AVE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_OTHER_REQUEST_AVE (M402B4C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMB_OTHER_REQUESTS_REJECT">
+    <formula>SIPSLC.COMB_OTHER_REQUESTS_REJECT</formula>
+    <kpi_info>
+      <title>COMB_OTHER_REQUESTS_REJECT</title>
+      <use>The number of rejected other outgoing and incoming SIP messages (PUBLISH, SUBSCRIBE, NOTIFY etc.) because the request rate limit was exceeded on the FQDN level.
+           Measured object: FQDN / SLA parameter set name</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMB_OTHER_REQUESTS_REJECT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_sipslc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMB_OTHER_REQUESTS_REJECT (M402B4C17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

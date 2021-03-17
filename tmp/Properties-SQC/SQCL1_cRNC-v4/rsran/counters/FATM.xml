@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FATM measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FATM measurement dump</csv_title>
+    <report-description>FTM ATM Interface</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <totCellsIngress />
+    <totCellsEgress />
+    <uas />
+    <discHec />
+    <discCells />
+    <totCbrCellsIngress />
+    <totCbrCellsEgress />
+    <totUbrCellsIngress />
+    <totUbrCellsEgress />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FATM" meas_level="PLMN/RNC/WBTS/FTM/TCTT" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="totCellsIngress">SUM(totCellsIngress)</counter>
+      <counter alias="totCellsEgress">SUM(totCellsEgress)</counter>
+      <counter alias="uas">SUM(uas)</counter>
+      <counter alias="discHec">SUM(discHec)</counter>
+      <counter alias="discCells">SUM(discCells)</counter>
+      <counter alias="totCbrCellsIngress">SUM(totCbrCellsIngress)</counter>
+      <counter alias="totCbrCellsEgress">SUM(totCbrCellsEgress)</counter>
+      <counter alias="totUbrCellsIngress">SUM(totUbrCellsIngress)</counter>
+      <counter alias="totUbrCellsEgress">SUM(totUbrCellsEgress)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FATM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FATM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totCellsIngress">
+    <formula>FATM.totCellsIngress</formula>
+    <kpi_info>
+      <title>totCellsIngress</title>
+      <use>Total number of cells received on an ATM interface. UPDATED:When an ATM cell is received in the ingress direction.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totCellsIngress)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totCellsIngress (M5105C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totCellsEgress">
+    <formula>FATM.totCellsEgress</formula>
+    <kpi_info>
+      <title>totCellsEgress</title>
+      <use>Total number of cells transmitted on an ATM interface. UPDATED:When an ATM cell is transmitted to the egress direction.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totCellsEgress)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totCellsEgress (M5105C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="uas">
+    <formula>FATM.uas</formula>
+    <kpi_info>
+      <title>uas</title>
+      <use>Unavailable Seconds (UAS) are calculated by counting the number of seconds for which the ATM interface is unavailable. UPDATED:The counter is updated for each second in which the ATM interface is not operable.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(uas)</formula>
+      <unit>Seconds</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>uas (M5105C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="discHec">
+    <formula>FATM.discHec</formula>
+    <kpi_info>
+      <title>discHec</title>
+      <use>Count of incoming ATM cells discarded due to a Header Error Check (HEC) violation. For the FTOA (the SDH/SONET transport submodule) this counter counts non-correctable and correctable HEC errors together. UPDATED:The counter is updated when an incoming ATM cell is discarded due to HEC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(discHec)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>discHec (M5105C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="discCells">
+    <formula>FATM.discCells</formula>
+    <kpi_info>
+      <title>discCells</title>
+      <use>The number of incoming ATM cells, which have been discarded due to protocol errors (e.g. illegal VPI/VCI value). UPDATED:When an ATM cell is discarded due to protocol error.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(discCells)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>discCells (M5105C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totCbrCellsIngress">
+    <formula>FATM.totCbrCellsIngress</formula>
+    <kpi_info>
+      <title>totCbrCellsIngress</title>
+      <use>Total number of cells with service category CBR received at the ATM interface. UPDATED:When an ATM cell with Service Category CBR is received on the ATM interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totCbrCellsIngress)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totCbrCellsIngress (M5105C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totCbrCellsEgress">
+    <formula>FATM.totCbrCellsEgress</formula>
+    <kpi_info>
+      <title>totCbrCellsEgress</title>
+      <use>Total number of cells with Service Category CBR transmitted from ATM interface. UPDATED:When an ATM cell of CBR connection is transmitted on the ATM interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totCbrCellsEgress)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totCbrCellsEgress (M5105C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totUbrCellsIngress">
+    <formula>FATM.totUbrCellsIngress</formula>
+    <kpi_info>
+      <title>totUbrCellsIngress</title>
+      <use>Total number of cells with service category UBR received at the ATM interface. UPDATED:When an ATM cell with service category UBR is received at the ATM interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totUbrCellsIngress)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totUbrCellsIngress (M5105C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="totUbrCellsEgress">
+    <formula>FATM.totUbrCellsEgress</formula>
+    <kpi_info>
+      <title>totUbrCellsEgress</title>
+      <use>Total number of cells with service category UBR transmitted from the ATM interface. UPDATED:When an ATM cell with service category UBR is transmitted from the ATM interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(totUbrCellsEgress)</formula>
+      <unit>cell</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>totUbrCellsEgress (M5105C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FATM.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fatm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_1693a">
+    <formula>decode(
+			(intsysho.att_hspa_intra_ifho),0,null, 
+
+			(100*(intsysho.succ_hspa_intra_ifho_rel99 + 
+			intsysho.succ_hspa_intra_ifho_hsdpa + 
+			intsysho.succ_hspa_intra_ifho_hsupa)
+			 / 
+			(intsysho.att_hspa_intra_ifho)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA Intra-RNC inter-Frequency HHO success rate]]></title>
+      <use><![CDATA[This KPI provides information about the HSPA Intra-RNC inter-Frequency Hard Handover success rate.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* SUM(SUCC_HSPA_INTRA_IFHO_REL99 
+&lt;br&gt;+ SUCC_HSPA_INTRA_IFHO_HSDPA 
+&lt;br&gt;+ SUCC_HSPA_INTRA_IFHO_HSUPA)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;SUM(ATT_HSPA_INTRA_IFHO)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSPA Intra-RNC IFHO SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

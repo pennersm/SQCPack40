@@ -1,0 +1,1657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <meas-template priority="5" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g" />
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="LTE-FTM" id="ftm_id">p.ftm_id</pivot>
+      <pivot level="LTE-IPNO" id="ipno_id">p.ipno_id</pivot>
+      <pivot level="LTE-IEIF" id="ieif_id">p.ieif_id</pivot>
+      <pivot level="LTE-IPPM" id="ippm_id">p.ippm_id</pivot>
+      <pivot level="LTE-IPRM" id="iprm_id">p.iprm_id</pivot>
+      <pivot level="LTE-PHBPM" id="phbpm_id">p.phbpm_id</pivot>
+      <pivot level="LTE-ETHLK" id="ethlk_id">p.ethlk_id</pivot>
+      <pivot level="LTE-IVIF" id="ivif_id">p.ivif_id</pivot>
+      <pivot level="LTE-IPPM1" id="ippm_id">p.ippm_id</pivot>
+      <pivot level="LTE-IPSECC" id="ipsecc_id">p.ipsecc_id</pivot>
+      <pivot level="LTE-PHBPM1" id="phbpm_id">p.phbpm_id</pivot>
+      <pivot level="LTE-TWAMP" id="twamp_id">p.twamp_id</pivot>
+      <pivot level="LTE-TOPIK" id="topik_id">p.topik_id</pivot>
+      <pivot level="LTE-TAC" id="tac_id">p.tac_id</pivot>
+      <pivot level="LTE-LTAC" id="ltac_id">p.ltac_id</pivot>
+      <pivot level="LTE-TOPB" id="topb_id">p.topb_id</pivot>
+	  <pivot level="LTE-TOPF" id="topf_id">p.topf_id</pivot>
+	  <pivot level="LTE-TOPP" id="topp_id">p.topp_id</pivot>
+	  <pivot level="LTE-L2SWI" id="l2swi_id">p.l2swi_id</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lnbts.co_oc_id=3129 and
+				lnbts.co_gid = p.lnbts_id and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_gid = p.mrbts_id and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16
+			group by
+				#group_by#]]></sql-template>	
+	  <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IEIF">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ieif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ieif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ieif,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ieif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ieif,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+       <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TWAMP" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-TWAMP">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-TWAMP" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TWAMP</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:twamp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:twamp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:twamp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:twamp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:twamp,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+       </base-level>
+       <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TOPIK" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-TOPIK">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-TOPIK" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TOPIK</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:topik,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:topik,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:topik,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:topik,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:topik,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+       </base-level>
+     <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-TAC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ltac,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ltac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ltac,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ltac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ltac,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+     <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC/LTE-LTAC" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-TAC,LTE-LTAC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TAC,LTE-LTAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC/LTE-LTAC</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ltac,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ltac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ltac,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ltac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ltac,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IPPM" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IPPM">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IPPM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IPPM</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ippm,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ippm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ippm,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ippm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ippm,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IPRM" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IPRM">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IPRM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IPRM</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:iprm,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:iprm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:iprm,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:iprm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:iprm,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-PHBPM" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-PHBPM">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-PHBPM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-PHBPM</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-ETHLK" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-ETHLK">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-ETHLK" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-ETHLK</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPF" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-TOPB,LTE-TOPF">
+      <!-- The required number of base-level elements will be generated dependent on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TOPB" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TOPB,LTE-TOPF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPF</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:topf,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:topf,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:topf,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:topf,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:topf,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPP" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-TOPB,LTE-TOPP">
+      <!-- The required number of base-level elements will be generated dependent on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TOPB" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB</level>
+        <level keys="LNBTS,LTE-FTM,LTE-TOPB,LTE-TOPP" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPP</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:topp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:topp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:topp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:topp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:topp,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+	    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-L2SWI" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-L2SWI">
+      <!-- The required number of base-level elements will be generated dependent on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-L2SWI" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-L2SWI</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>   
+    <base-level id="PLMN/MRBTS/LNBTS" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS_A1" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ivif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ivif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ivif,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ivif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ivif,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-IPPM1" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF,LTE-IPPM1">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF,LTE-IPPM1" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-IPPM1</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPSECC" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPSECC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPSECC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPSECC</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-PHBPM1" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF,LTE-PHBPM1">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,LTE-FTM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF</level>
+        <level keys="LNBTS,LTE-FTM,LTE-IPNO,LTE-IEIF,LTE-IVIF,LTE-PHBPM1" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-PHBPM1</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  
+  <meas-template priority="7" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNCEL" filter-level="LNCEL" grouping-subquery-alias="g" />
+    <grouping level="PLMN/LTE_BAND" filter-level="LNCEL" grouping-subquery-alias="g" />
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="LNCEL" id="lncel_gid">lncel.co_gid</pivot>
+      <pivot level="LTE-MCC" id="mcc_id">p.mcc_id</pivot>
+      <pivot level="LTE-MNC" id="mnc_id">p.mnc_id</pivot>
+      <pivot level="LTE-ECI" id="eci_id">p.eci_id</pivot>
+      <pivot level="LTE-HOT" id="hot_id">p.hot_id</pivot>
+      <pivot level="LTE-LAC" id="lac_id">p.lac_id</pivot>    
+      <pivot level="LTE-TCID" id="tcid_id">p.tcid_id</pivot>
+      <pivot level="LTE-TCID1" id="tcid_id">p.tcid_id</pivot>
+      <pivot level="LTE-DMCC" id="dmcc_id">p.dmcc_id</pivot>
+      <pivot level="LTE-DMNC" id="dmnc_id">p.dmnc_id</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="MR_LNCEL" id="mr_gid">lncel.co_mr_gid</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNCEL" id="ws">g.ws</pivot>
+      <pivot level="LTE_BAND" id="Band">g.band</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lncel.co_oc_id=3130 and
+				lncel.co_gid = p.lncel_id and
+				lncel.co_parent_gid = lnbts.co_gid and
+				lnbts.co_oc_id=3129 and
+				lnbts.co_gid = p.lnbts_id and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_gid = p.mrbts_id and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL,LTE-MCC,LTE-MNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period">PLMN/MRBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="LNCEL,LTE-MCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="week" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="day" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL_A1" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL,LTE-MCC,LTE-MNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period">PLMN/MRBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="LNCEL,LTE-MCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="week" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="day" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-ECI" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL,LTE-MCC,LTE-MNC,LTE-ECI,LTE-DMCC,LTE-DMNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="LNCEL,LTE-MCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-ECI" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-ECI</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-ECI,LTE-DMCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-ECI/LTE-DMCC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-ECI,LTE-DMCC,LTE-DMNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-ECI/LTE-DMCC/LTE-DMNC</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="week" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="day" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/LAC/TCID1" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL,LTE-MCC,LTE-MNC,LTE-LAC,LTE-TCID1,LTE-DMCC,LTE-DMNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="LNCEL,LTE-MCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-LAC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-LAC,LTE-TCID1,LTE-DMCC,LTE-DMNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC/LTE-TCID1</level>
+<!--         <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-LAC,LTE-TCID,LTE-DMCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC/LTE-TCID1/LTE-DMCC</level> -->
+<!--         <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-LAC,LTE-TCID,LTE-DMCC,LTE-DMNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC/LTE-TCID1/LTE-DMCC/LTE-DMNC</level> -->
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="week" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="day" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/HOT/TCID" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL,LTE-MCC,LTE-MNC,LTE-HOT,LTE-TCID,LTE-DMCC,LTE-DMNC">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="LNCEL,LTE-MCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-HOT" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT</level>
+        <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-HOT,LTE-TCID,LTE-DMCC,LTE-DMNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT/LTE-TCID</level>
+<!--         <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-HOT,LTE-TCID,LTE-DMCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT/LTE-TCID/LTE-DMCC</level> -->
+<!--         <level keys="LNCEL,LTE-MCC,LTE-MNC,LTE-HOT,LTE-TCID,LTE-DMCC,LTE-DMNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT/LTE-TCID/LTE-DMCC/LTE-DMNC</level> -->
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="week" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="day" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="hour" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+      </subst>
+    </base-level>
+    
+  </meas-template>
+  <meas-template priority="6" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNCEL" filter-level="LNCEL" grouping-subquery-alias="g" />
+    <grouping level="PLMN/LTE_BAND" filter-level="LNCEL" grouping-subquery-alias="g" />
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="LNCEL" id="lncel_gid">lncel.co_gid</pivot>
+      <pivot level="LTE-ECI" id="eci_id">p.eci_id</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="MR_LNCEL" id="mr_gid">lncel.co_mr_gid</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNCEL" id="ws">g.ws</pivot>
+      <pivot level="LTE_BAND" id="Band">g.band</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lncel.co_oc_id=3130 and
+				lncel.co_gid = p.lncel_id and
+				lncel.co_parent_gid = lnbts.co_gid and
+				lnbts.co_oc_id=3129 and
+				lnbts.co_gid = p.lnbts_id and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_gid = p.mrbts_id and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week,bh">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:lncel,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:lncel,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL_A1" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/LAC/TCID1" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/HOT/TCID" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <meas-template priority="5" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNCEL" filter-level="LNCEL" grouping-subquery-alias="g" />
+    <grouping level="PLMN/LTE_BAND" filter-level="LNCEL" grouping-subquery-alias="g" />
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="LNCEL" id="lncel_gid">lncel.co_gid</pivot>
+      <pivot level="LTE-ECI" id="eci_id">p.eci_id</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="MR_LNCEL" id="mr_gid">lncel.co_mr_gid</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNCEL" id="ws">g.ws</pivot>
+      <pivot level="LTE_BAND" id="Band">g.band</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lncel.co_oc_id=3130 and
+				lncel.co_gid = p.lncel_id and
+				lncel.co_parent_gid = lnbts.co_gid and
+				lnbts.co_oc_id=3129 and
+				lnbts.co_gid = p.lnbts_id and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_gid = p.mrbts_id and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-ECI" object-keys="MRBTS,LNBTS,LNBTS-TYPE,LNCEL">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNCEL">PLMN/MR_LNCEL</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <meas-template priority="4" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g" />
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lnbts.co_oc_id=3129 and
+				lnbts.co_gid = p.lnbts_id and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_gid = p.mrbts_id and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+        <time-level name="weekbh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+        <time-level name="bh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL_A1" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/LAC/TCID1" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+    <base-level id="PLMN/MRBTS/LNBTS/LNCEL/HOT/TCID" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+    <meas-template priority="1" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	  <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>    
+      <pivot level="ALRMSEV" id="severity_id">p.severity_id</pivot>
+      <pivot level="ALRMTYPE" id="alarm_type_id">p.alarm_type_id</pivot>
+      <pivot level="ALARM" id="alarm_id">p.alarm_id</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				( select
+	        		period_start_time,
+					mrbts.co_gid co_gid,
+					period_duration,
+			        severity_id,
+			        alarm_type_id,
+			        f.alarm_id alarm_id,
+			        alarm_number,
+					NBR_CREATED_ALARMS,
+					NBR_ACTIVE_ALARMS,
+	       			DUR_CREATED_ALARMS,
+					DUR_ACTIVE_ALARMS
+					from
+						 #meas_table# f
+						,utp_common_objects plmn
+						,utp_common_objects mrbts
+						,utp_common_objects lnbts
+						,utp_common_objects lncel
+						,REPALS_D_ALARM_MEMBERS alrm
+					where
+						f.co_gid = lncel.co_gid 
+						and f.alarm_id = alrm.alarm_id
+						and period_start_time  >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+						and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+						and plmn.co_oc_id = 16 
+						and mrbts.co_oc_id=3128		
+						and lnbts.co_oc_id=3129	
+						and lncel.co_oc_id=3130		
+						and mrbts.co_parent_gid = plmn.co_gid
+						and lnbts.co_parent_gid = mrbts.co_gid
+						and lncel.co_parent_gid = lnbts.co_gid  
+          union all
+		  select
+		                period_start_time,
+						mrbts.co_gid co_gid,
+						period_duration,
+				        severity_id,
+				        alarm_type_id,
+				        f.alarm_id alarm_id,
+				        alarm_number,
+						NBR_CREATED_ALARMS,
+						NBR_ACTIVE_ALARMS,
+		                DUR_CREATED_ALARMS,
+						DUR_ACTIVE_ALARMS
+						from
+							 #meas_table# f
+							,utp_common_objects plmn
+							,utp_common_objects mrbts
+							,utp_common_objects lnbts
+							,utp_common_objects ftm
+							,REPALS_D_ALARM_MEMBERS alrm
+						where
+							f.co_gid = ftm.co_gid 
+							and f.alarm_id = alrm.alarm_id
+							and period_start_time  >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+							and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+							and plmn.co_oc_id = 16 
+							and mrbts.co_oc_id=3128		
+							and lnbts.co_oc_id=3129	
+							and ftm.co_oc_id=1793		
+							and mrbts.co_parent_gid = plmn.co_gid
+							and lnbts.co_parent_gid = mrbts.co_gid
+							and ftm.co_parent_gid = lnbts.co_gid
+          union all
+		  select
+							period_start_time,
+							mrbts.co_gid co_gid,
+							period_duration,
+					        severity_id,
+					        alarm_type_id,
+					        f.alarm_id alarm_id,
+					        alarm_number,
+							NBR_CREATED_ALARMS,
+							NBR_ACTIVE_ALARMS,
+			       			DUR_CREATED_ALARMS,
+							DUR_ACTIVE_ALARMS
+							from
+								 #meas_table# f
+								,utp_common_objects plmn
+								,utp_common_objects mrbts
+								,utp_common_objects lnbts
+								,REPALS_D_ALARM_MEMBERS alrm
+							where
+								f.co_gid = lnbts.co_gid 
+								and f.alarm_id = alrm.alarm_id
+								and period_start_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+								and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+								and plmn.co_oc_id = 16 
+								and mrbts.co_oc_id=3128		
+								and lnbts.co_oc_id=3129		
+								and mrbts.co_parent_gid = plmn.co_gid
+								and lnbts.co_parent_gid = mrbts.co_gid
+		union all
+		select
+				 	  period_start_time,
+			          mrbts.co_gid co_gid,
+			          period_duration,
+			          severity_id,
+			          alarm_type_id,
+			          f.alarm_id alarm_id,
+			          alarm_number,
+			          NBR_CREATED_ALARMS,
+			          NBR_ACTIVE_ALARMS,
+			          DUR_CREATED_ALARMS,
+			          DUR_ACTIVE_ALARMS
+							from
+								 #meas_table# f
+								,utp_common_objects plmn
+								,utp_common_objects mrbts
+								,REPALS_D_ALARM_MEMBERS alrm
+							where
+								f.co_gid = mrbts.co_gid 
+								and f.alarm_id = alrm.alarm_id
+								and period_start_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+								and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+								and plmn.co_oc_id = 16 
+								and mrbts.co_oc_id=3128			
+								and mrbts.co_parent_gid = plmn.co_gid) p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				mrbts.co_gid = p.co_gid and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128
+			group by
+				#group_by#]]></sql-template>
+				
+
+     <base-level id="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="MRBTS,ALRMSEV" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/ALRMSEV</level>
+        <level keys="MRBTS,ALRMSEV,ALRMTYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/ALRMSEV/ALRMTYPE</level>
+        <level keys="MRBTS,ALRMSEV,ALRMTYPE,ALARM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/ALRMSEV/ALRMTYPE/ALARM</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_MRBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:MRBTS,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:MRBTS,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:MRBTS,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:MRBTS,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:MRBTS,{TIME_AGG}:hour,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    </meas-template>
+    
+    <meas-template priority="3" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	  <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>    
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="ALRMSEV" id="severity_id">p.severity_id</pivot>
+      <pivot level="ALRMTYPE" id="alarm_type_id">p.alarm_type_id</pivot>
+      <pivot level="ALARM" id="alarm_id">p.alarm_id</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				( select
+	        		period_start_time,
+					lnbts.co_gid co_gid,
+					period_duration,
+			        severity_id,
+			        alarm_type_id,
+			        f.alarm_id alarm_id,
+			        alarm_number,
+					NBR_CREATED_ALARMS,
+					NBR_ACTIVE_ALARMS,
+	       			DUR_CREATED_ALARMS,
+					DUR_ACTIVE_ALARMS
+					from
+						 #meas_table# f
+						,utp_common_objects plmn
+						,utp_common_objects mrbts
+						,utp_common_objects lnbts
+						,utp_common_objects lncel
+						,REPALS_D_ALARM_MEMBERS alrm
+					where
+						f.co_gid = lncel.co_gid 
+						and f.alarm_id = alrm.alarm_id
+						and period_start_time  >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+						and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+						and plmn.co_oc_id = 16 
+						and mrbts.co_oc_id=3128		
+						and lnbts.co_oc_id=3129	
+						and lncel.co_oc_id=3130		
+						and mrbts.co_parent_gid = plmn.co_gid
+						and lnbts.co_parent_gid = mrbts.co_gid
+						and lncel.co_parent_gid = lnbts.co_gid  
+          union all
+		  select
+		                period_start_time,
+						lnbts.co_gid co_gid,
+						period_duration,
+				        severity_id,
+				        alarm_type_id,
+				        f.alarm_id alarm_id,
+				        alarm_number,
+						NBR_CREATED_ALARMS,
+						NBR_ACTIVE_ALARMS,
+		                DUR_CREATED_ALARMS,
+						DUR_ACTIVE_ALARMS
+						from
+							 #meas_table# f
+							,utp_common_objects plmn
+							,utp_common_objects mrbts
+							,utp_common_objects lnbts
+							,utp_common_objects ftm
+							,REPALS_D_ALARM_MEMBERS alrm
+						where
+							f.co_gid = ftm.co_gid 
+							and f.alarm_id = alrm.alarm_id
+							and period_start_time  >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+							and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+							and plmn.co_oc_id = 16 
+							and mrbts.co_oc_id=3128		
+							and lnbts.co_oc_id=3129	
+							and ftm.co_oc_id=1793		
+							and mrbts.co_parent_gid = plmn.co_gid
+							and lnbts.co_parent_gid = mrbts.co_gid
+							and ftm.co_parent_gid = lnbts.co_gid
+          union all
+		  select
+							period_start_time,
+							lnbts.co_gid co_gid,
+							period_duration,
+					        severity_id,
+					        alarm_type_id,
+					        f.alarm_id alarm_id,
+					        alarm_number,
+							NBR_CREATED_ALARMS,
+							NBR_ACTIVE_ALARMS,
+			       			DUR_CREATED_ALARMS,
+							DUR_ACTIVE_ALARMS
+							from
+								 #meas_table# f
+								,utp_common_objects plmn
+								,utp_common_objects mrbts
+								,utp_common_objects lnbts
+								,REPALS_D_ALARM_MEMBERS alrm
+							where
+								f.co_gid = lnbts.co_gid 
+								and f.alarm_id = alrm.alarm_id
+								and period_start_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+								and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+								and plmn.co_oc_id = 16 
+								and mrbts.co_oc_id=3128		
+								and lnbts.co_oc_id=3129		
+								and mrbts.co_parent_gid = plmn.co_gid
+								and lnbts.co_parent_gid = mrbts.co_gid) p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lnbts.co_gid = p.co_gid and
+                lnbts.co_parent_gid = mrbts.co_gid and
+                mrbts.co_parent_gid =plmn.co_gid and
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129
+			group by
+				#group_by#]]></sql-template>
+
+     <base-level id="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNBTS,ALRMSEV" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/ALRMSEV</level>
+        <level keys="LNBTS,ALRMSEV,ALRMTYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/ALRMSEV/ALRMTYPE</level>
+        <level keys="LNBTS,ALRMSEV,ALRMTYPE,ALARM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/ALRMSEV/ALRMTYPE/ALARM</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:LNBTS,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:LNBTS,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:LNBTS,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:LNBTS,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:LNBTS,{TIME_AGG}:hour,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    </meas-template>
+    
+        <meas-template priority="5" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_LNCEL" filter-level="LNCEL" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/LTE_BAND" filter-level="LNCEL" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	  <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>    
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="LNCEL" id="lncel_gid">lncel.co_gid</pivot>
+      <pivot level="ALRMSEV" id="severity_id">p.severity_id</pivot>
+      <pivot level="ALRMTYPE" id="alarm_type_id">p.alarm_type_id</pivot>
+      <pivot level="ALARM" id="alarm_id">p.alarm_id</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="WS_LNCEL" id="ws">g.ws</pivot>
+      <pivot level="LTE_BAND" id="Band">g.band</pivot>
+      <pivot level="MR_LNCEL" id="mr_gid">lncel.co_mr_gid</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				( select
+	        		period_start_time,
+					lncel.co_gid co_gid,
+					period_duration,
+			        severity_id,
+			        alarm_type_id,
+			        f.alarm_id alarm_id,
+			        alarm_number,
+					NBR_CREATED_ALARMS,
+					NBR_ACTIVE_ALARMS,
+	       			DUR_CREATED_ALARMS,
+					DUR_ACTIVE_ALARMS
+					from
+						 #meas_table# f
+						,utp_common_objects plmn
+						,utp_common_objects mrbts
+						,utp_common_objects lnbts
+						,utp_common_objects lncel
+						,REPALS_D_ALARM_MEMBERS alrm
+					where
+						f.co_gid = lncel.co_gid 
+						and f.alarm_id = alrm.alarm_id
+						and period_start_time  >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+						and period_start_time  < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+						and plmn.co_oc_id = 16 
+						and mrbts.co_oc_id=3128		
+						and lnbts.co_oc_id=3129	
+						and lncel.co_oc_id=3130		
+						and mrbts.co_parent_gid = plmn.co_gid
+						and lnbts.co_parent_gid = mrbts.co_gid
+						and lncel.co_parent_gid = lnbts.co_gid) p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lncel.co_gid = p.co_gid and
+				lncel.co_parent_gid = lnbts.co_gid and
+                lnbts.co_parent_gid = mrbts.co_gid and
+                mrbts.co_parent_gid =plmn.co_gid and
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				lncel.co_oc_id=3130
+			group by
+				#group_by#]]></sql-template>
+
+     <base-level id="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE">
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL</level>
+        <level keys="LNCEL,ALRMSEV" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV</level>
+        <level keys="LNCEL,ALRMSEV,ALRMTYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE</level>
+        <level keys="LNCEL,ALRMSEV,ALRMTYPE,ALARM" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE/ALARM</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_LNBTS</level>
+        <level keys="WS_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNCEL</level>
+        <level keys="MR_LNCEL" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_LNCEL</level>
+        <level keys="LTE_BAND" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LTE_BAND</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:LNCEL,{TIME_AGG}:raw,{BH_SEL}:" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:LNCEL,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:LNCEL,{TIME_AGG}:week,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:LNCEL,{TIME_AGG}:day,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:LNCEL,{TIME_AGG}:hour,{BH_SEL}:" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+    </meas-template>
+    
+    <meas-template priority="5" pragma="noklte">
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_MRBTS" filter-level="MRBTS" grouping-subquery-alias="g" />
+    <grouping level="PLMN/WS_LNBTS" filter-level="LNBTS" grouping-subquery-alias="g" />
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" />
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+    </time-truncation>
+    <!-- The required number of pivot levels will be generated starting with PLMN -->
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+      <pivot level="MRBTS" id="mrbts_gid">mrbts.co_gid</pivot>
+      <pivot level="LNBTS" id="lnbts_gid">lnbts.co_gid</pivot>
+      <pivot level="LNBTS-TYPE" id="lnbts_type">nvl(lnbts.co_sc_name,'MacroBTS')</pivot>
+      <pivot level="MR_MRBTS" id="mr_gid">mrbts.co_mr_gid</pivot>
+      <pivot level="MR_LNBTS" id="mr_gid">lnbts.co_mr_gid</pivot>
+      <pivot level="WS_MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_LNBTS" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template><![CDATA[select
+				#pivots#,
+				#pi_aggregations#
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				#meas_table# p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				lnbts.co_oc_id=3129 and
+				lnbts.co_gid = p.lnbts_id and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_gid = p.mrbts_id and
+				mrbts.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16
+			group by
+				#group_by#]]></sql-template>
+    <base-level id="PLMN/MRBTS/LNBTS_A5" object-keys="MRBTS,LNBTS,LNBTS-TYPE">
+      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+      <levels>
+        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+        <level keys="MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS</level>
+        <level keys="LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MRBTS/LNBTS</level>
+        <level keys="LNBTS-TYPE" time-agg-levels="day,hour,raw,whole_period,week">PLMN/LNBTS-TYPE</level>
+        <level keys="WS_MRBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_MRBTS</level>
+        <level keys="WS_LNBTS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_LNBTS</level>
+        <level keys="MR_MRBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_MRBTS">PLMN/MR_MRBTS</level>
+        <level keys="MR_LNBTS" time-agg-levels="day,hour,raw,whole_period,week" da-additional-keys="MR_LNBTS">PLMN/MR_LNBTS</level>
+      </levels>
+      <subst>
+        <time-level name="raw" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+        <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+        <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no" />
+      </subst>
+    </base-level>
+  </meas-template>
+  <drill-conf>
+		<object-drill from="PLMN" to="PLMN/MRBTS" />
+		<object-drill from="PLMN/LNBTS-TYPE" to="PLMN/MRBTS/LNBTS" />
+		<object-drill from="PLMN/MRBTS/LNBTS" to="PLMN/MRBTS/LNBTS/ALRMSEV" />
+		<object-drill from="PLMN/WS_MRBTS" to="PLMN/MRBTS" />
+		<object-drill from="PLMN/WS_LNBTS" to="PLMN/MRBTS/LNBTS" />
+		<object-drill from="PLMN/WS_LNCEL" to="PLMN/MRBTS/LNBTS/LNCEL" />
+		<object-drill from="PLMN/MR_MRBTS" to="PLMN/MRBTS" />
+		<object-drill from="PLMN/MR_LNBTS" to="PLMN/MRBTS/LNBTS" />
+		<object-drill from="PLMN/MR_LNCEL" to="PLMN/MRBTS/LNBTS/LNCEL" />
+		<object-drill from="PLMN/LTE_BAND" to="PLMN/MRBTS/LNBTS/LNCEL" />
+	</drill-conf>
+</object-conf>
+

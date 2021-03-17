@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.0 PLMN_data PLDT measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.0 PLMN_data PLDT measurement dump</csv_title>
+    <report-description>Statistics per PLMN ID</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PLMN_ID_DOWNLINK_BYTES />
+    <PLMN_ID_UPLINK_BYTES />
+    <PLMN_ID_DOWNLINK_PACKETS />
+    <PLMN_ID_UPLINK_PACKETS />
+    <PLMN_ID_BEAR_ACT_S_GW />
+    <PLMN_ID_BEAR_ACT_P_GW />
+    <PLMN_ID_BEAR_ACT_GGSN />
+    <PLMN_ID_BEAR_ACT_SAE_GW />
+    <PLMN_ID_NBR_ACT_BEAR_S_GW />
+    <PLMN_ID_NBR_ACT_BEAR_P_GW />
+    <PLMN_ID_NBR_ACT_BEAR_GGSN />
+    <PLMN_ID_NBR_ACT_BEAR_SAE_GW />
+  </column_order>
+  <temp_table name="PLDT" meas_level="PLMN/FING/FNODE/PLMNIDS" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PLMN_ID_DOWNLINK_BYTES" time-alias="PLMN_ID_DOWNLINK_BYTES" timeagg="SUM(PLMN_ID_DOWNLINK_BYTES)">SUM(PLMN_ID_DOWNLINK_BYTES)</counter>
+      <counter alias="PLMN_ID_UPLINK_BYTES" time-alias="PLMN_ID_UPLINK_BYTES" timeagg="SUM(PLMN_ID_UPLINK_BYTES)">SUM(PLMN_ID_UPLINK_BYTES)</counter>
+      <counter alias="PLMN_ID_DOWNLINK_PACKETS" time-alias="PLMN_ID_DOWNLINK_PACKETS" timeagg="SUM(PLMN_ID_DOWNLINK_PACKETS)">SUM(PLMN_ID_DOWNLINK_PACKETS)</counter>
+      <counter alias="PLMN_ID_UPLINK_PACKETS" time-alias="PLMN_ID_UPLINK_PACKETS" timeagg="SUM(PLMN_ID_UPLINK_PACKETS)">SUM(PLMN_ID_UPLINK_PACKETS)</counter>
+      <counter alias="PLMN_ID_BEAR_ACT_S_GW" time-alias="PLMN_ID_BEAR_ACT_S_GW" timeagg="SUM(PLMN_ID_BEAR_ACT_S_GW)">SUM(PLMN_ID_BEAR_ACT_S_GW)</counter>
+      <counter alias="PLMN_ID_BEAR_ACT_P_GW" time-alias="PLMN_ID_BEAR_ACT_P_GW" timeagg="SUM(PLMN_ID_BEAR_ACT_P_GW)">SUM(PLMN_ID_BEAR_ACT_P_GW)</counter>
+      <counter alias="PLMN_ID_BEAR_ACT_GGSN" time-alias="PLMN_ID_BEAR_ACT_GGSN" timeagg="SUM(PLMN_ID_BEAR_ACT_GGSN)">SUM(PLMN_ID_BEAR_ACT_GGSN)</counter>
+      <counter alias="PLMN_ID_BEAR_ACT_SAE_GW" time-alias="PLMN_ID_BEAR_ACT_SAE_GW" timeagg="SUM(PLMN_ID_BEAR_ACT_SAE_GW)">SUM(PLMN_ID_BEAR_ACT_SAE_GW)</counter>
+      <counter alias="PLMN_ID_NBR_ACT_BEAR_S_GW" time-alias="PLMN_ID_NBR_ACT_BEAR_S_GW" timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_S_GW)">SUM(PLMN_ID_NBR_ACT_BEAR_S_GW)</counter>
+      <counter alias="PLMN_ID_NBR_ACT_BEAR_P_GW" time-alias="PLMN_ID_NBR_ACT_BEAR_P_GW" timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_P_GW)">SUM(PLMN_ID_NBR_ACT_BEAR_P_GW)</counter>
+      <counter alias="PLMN_ID_NBR_ACT_BEAR_GGSN" time-alias="PLMN_ID_NBR_ACT_BEAR_GGSN" timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_GGSN)">SUM(PLMN_ID_NBR_ACT_BEAR_GGSN)</counter>
+      <counter alias="PLMN_ID_NBR_ACT_BEAR_SAE_GW" time-alias="PLMN_ID_NBR_ACT_BEAR_SAE_GW" timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_SAE_GW)">SUM(PLMN_ID_NBR_ACT_BEAR_SAE_GW)</counter>
+    </counters>
+    <table_name>pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PLDT</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PLDT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_DOWNLINK_BYTES">
+    <formula>PLDT.PLMN_ID_DOWNLINK_BYTES</formula>
+    <kpi_info>
+      <title>PLMN_ID_DOWNLINK_BYTES</title>
+      <use>This counter contains the number of downlink bytes per PLMN ID. UPDATED: Updated when the user plane sends the metrics to the control plane if the PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_DOWNLINK_BYTES)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_DOWNLINK_BYTES (m3078c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_UPLINK_BYTES">
+    <formula>PLDT.PLMN_ID_UPLINK_BYTES</formula>
+    <kpi_info>
+      <title>PLMN_ID_UPLINK_BYTES</title>
+      <use>This counter contains the number of uplink bytes per PLMN ID. UPDATED: Updated when the user plane sends the metrics to the control plane if the PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_UPLINK_BYTES)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_UPLINK_BYTES (m3078c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_DOWNLINK_PACKETS">
+    <formula>PLDT.PLMN_ID_DOWNLINK_PACKETS</formula>
+    <kpi_info>
+      <title>PLMN_ID_DOWNLINK_PACKETS</title>
+      <use>This counter contains the number of downlink packets per PLMN ID. UPDATED: Updated when the user plane sends the metrics to the control plane if the PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_DOWNLINK_PACKETS)</formula>
+      <unit>Packets</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_DOWNLINK_PACKETS (m3078c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_UPLINK_PACKETS">
+    <formula>PLDT.PLMN_ID_UPLINK_PACKETS</formula>
+    <kpi_info>
+      <title>PLMN_ID_UPLINK_PACKETS</title>
+      <use>This counter contains the number of uplink packets per PLMN ID. UPDATED: Updated when the user plane sends the metrics to the control plane if the PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_UPLINK_PACKETS)</formula>
+      <unit>Packets</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_UPLINK_PACKETS (m3078c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_BEAR_ACT_S_GW">
+    <formula>PLDT.PLMN_ID_BEAR_ACT_S_GW</formula>
+    <kpi_info>
+      <title>PLMN_ID_BEAR_ACT_S_GW</title>
+      <use>This counter contains the number of successful S-GW bearer activations for each PLMN ID. UPDATED: Updated when a S-GW bearer is successfully activated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_BEAR_ACT_S_GW)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_BEAR_ACT_S_GW (m3078c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_BEAR_ACT_P_GW">
+    <formula>PLDT.PLMN_ID_BEAR_ACT_P_GW</formula>
+    <kpi_info>
+      <title>PLMN_ID_BEAR_ACT_P_GW</title>
+      <use>This counter contains the number of successful P-GW bearer activations for each PLMN ID. UPDATED: Updated when a P-GW bearer is successfully activated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_BEAR_ACT_P_GW)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_BEAR_ACT_P_GW (m3078c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_BEAR_ACT_GGSN">
+    <formula>PLDT.PLMN_ID_BEAR_ACT_GGSN</formula>
+    <kpi_info>
+      <title>PLMN_ID_BEAR_ACT_GGSN</title>
+      <use>This counter contains the number of successful GGSN bearer activations for each PLMN ID. UPDATED: Updated when a GGSN bearer is successfully activated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_BEAR_ACT_GGSN)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_BEAR_ACT_GGSN (m3078c0007)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_BEAR_ACT_SAE_GW">
+    <formula>PLDT.PLMN_ID_BEAR_ACT_SAE_GW</formula>
+    <kpi_info>
+      <title>PLMN_ID_BEAR_ACT_SAE_GW</title>
+      <use>This counter contains the number of successful SAE-GW bearer activations for each PLMN ID. UPDATED: Updated when a SAE-GW bearer is successfully activated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PLMN_ID_BEAR_ACT_SAE_GW)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_BEAR_ACT_SAE_GW (m3078c0008)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_NBR_ACT_BEAR_S_GW">
+    <formula>PLDT.PLMN_ID_NBR_ACT_BEAR_S_GW</formula>
+    <kpi_info>
+      <title>PLMN_ID_NBR_ACT_BEAR_S_GW</title>
+      <use>This gauge contains the number of active S-GW bearers for each PLMN ID. UPDATED: Incremented/decremented when a S-GW bearer is activated/deactivated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_S_GW)">SUM(PLMN_ID_NBR_ACT_BEAR_S_GW)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_NBR_ACT_BEAR_S_GW (m3078c0009)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_NBR_ACT_BEAR_P_GW">
+    <formula>PLDT.PLMN_ID_NBR_ACT_BEAR_P_GW</formula>
+    <kpi_info>
+      <title>PLMN_ID_NBR_ACT_BEAR_P_GW</title>
+      <use>This gauge contains the number of active P-GW bearers for each PLMN ID. UPDATED: Incremented/decremented when a P-GW bearer is activated/deactivated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_P_GW)">SUM(PLMN_ID_NBR_ACT_BEAR_P_GW)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_NBR_ACT_BEAR_P_GW (m3078c0010)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_NBR_ACT_BEAR_GGSN">
+    <formula>PLDT.PLMN_ID_NBR_ACT_BEAR_GGSN</formula>
+    <kpi_info>
+      <title>PLMN_ID_NBR_ACT_BEAR_GGSN</title>
+      <use>This gauge contains the number of active GGSN bearers for each PLMN ID. UPDATED: Incremented/decremented when a GGSN bearer is activated/deactivated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_GGSN)">SUM(PLMN_ID_NBR_ACT_BEAR_GGSN)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_NBR_ACT_BEAR_GGSN (m3078c0011)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PLMN_ID_NBR_ACT_BEAR_SAE_GW">
+    <formula>PLDT.PLMN_ID_NBR_ACT_BEAR_SAE_GW</formula>
+    <kpi_info>
+      <title>PLMN_ID_NBR_ACT_BEAR_SAE_GW</title>
+      <use>This gauge contains the number of active SAE-GW bearers for each PLMN ID. UPDATED: Incremented/decremented when a SAE-GW bearer is activated/deactivated and PLMN ID is in the list.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(PLMN_ID_NBR_ACT_BEAR_SAE_GW)">SUM(PLMN_ID_NBR_ACT_BEAR_SAE_GW)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pldta_{OBJ_AGG}_{TIME_AGG},pcofng_ps_pldt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PLMN_ID_NBR_ACT_BEAR_SAE_GW (m3078c0012)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

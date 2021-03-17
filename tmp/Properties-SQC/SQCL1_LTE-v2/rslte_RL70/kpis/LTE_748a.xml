@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LRDB.xml" />
+  <kpi name="LTE_748a">
+    <formula>100*decode(
+			(lrdb.rb_rel_req_norm_rel + 
+			lrdb.rb_rel_req_detach_proc + 
+			lrdb.rb_rel_req_rnl_redir + 
+			lrdb.rb_rel_req_rnl +
+			lrdb.rb_rel_req_other),0,null, 
+
+			(lrdb.rb_rel_req_rnl)
+			 / 
+			(lrdb.rb_rel_req_norm_rel + 
+			lrdb.rb_rel_req_detach_proc + 
+			lrdb.rb_rel_req_rnl_redir + 
+			lrdb.rb_rel_req_rnl +
+			lrdb.rb_rel_req_other))</formula>
+    <kpi_info>
+      <title><![CDATA[% of Radio Bearer releases due to RNL causes]]></title>
+      <use><![CDATA[% of Radio Bearer releases due to  Radio Network Layer causes vs all other causes.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(RB_REL_REQ_RNL )
+&lt;br&gt;      -------------------------
+&lt;br&gt;      sum(RB_REL_REQ_NORM_REL +
+&lt;br&gt;          RB_REL_REQ_DETACH_PROC +
+&lt;br&gt;          RB_REL_REQ_RNL_REDIR +
+&lt;br&gt;          RB_REL_REQ_RNL +
+&lt;br&gt;          RB_REL_REQ_OTHER)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LRDB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/12/09 14:53:59.628 +0000</date>
+          <comment><![CDATA[Source: RSLTE037.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>% of Radio Bearer rel, RNL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

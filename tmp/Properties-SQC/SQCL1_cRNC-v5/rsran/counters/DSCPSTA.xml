@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>DSCPSTA (DSCP Statistic)</header>
+    <csv_title>DSCPSTA (DSCP Statistic)</csv_title>
+    <report-description>DSCP Statistics measurement (M1035) provides information on the DSCP code marking of the Iu-PS user plane data received by the RNC.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <RX_PACKETS_TOTAL_HSPA/>
+    <RX_PACKETS_PROMOTED_SPI_IUB/>
+    <RX_PACKETS_DEMOTED_SPI_IUB/>
+    <RX_PACKETS_HSPA_R99/>
+    <RX_PACKETS_LOW_PRIO/>
+    <RX_PACKETS_HIGH_PRIO/>
+    <LOW_PRIO_PACKETS_DROP/>
+    <HIGH_PRIO_PACKETS_DROP/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="DSCPSTA" omes_name="DSCP_stats" meas_level="PLMN/RSRAN-RNC/RSRAN-DSCP-1" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>DSCPSTA</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="RX_PACKETS_TOTAL_HSPA" symmetrical="true">SUM(RX_PACKETS_TOTAL_HSPA)</counter>
+          <counter alias="RX_PACKETS_PROMOTED_SPI_IUB" symmetrical="true">SUM(RX_PACKETS_PROMOTED_SPI_IUB)</counter>
+          <counter alias="RX_PACKETS_DEMOTED_SPI_IUB" symmetrical="true">SUM(RX_PACKETS_DEMOTED_SPI_IUB)</counter>
+          <counter alias="RX_PACKETS_HSPA_R99" symmetrical="true">SUM(RX_PACKETS_HSPA_R99)</counter>
+          <counter alias="RX_PACKETS_LOW_PRIO" symmetrical="true">SUM(RX_PACKETS_LOW_PRIO)</counter>
+          <counter alias="RX_PACKETS_HIGH_PRIO" symmetrical="true">SUM(RX_PACKETS_HIGH_PRIO)</counter>
+          <counter alias="LOW_PRIO_PACKETS_DROP" symmetrical="true">SUM(LOW_PRIO_PACKETS_DROP)</counter>
+          <counter alias="HIGH_PRIO_PACKETS_DROP" symmetrical="true">SUM(HIGH_PRIO_PACKETS_DROP)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DSCPSTA</alias_name>
+    <ui_name>DSCP Statistic</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DSCPSTA.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RX_PACKETS_TOTAL_HSPA">
+    <formula>DSCPSTA.RX_PACKETS_TOTAL_HSPA</formula>
+    <kpi_info>
+      <title>RX_PACKETS_TOTAL_HSPA (M1035C0)</title>
+      <use>The number of received user plane packets from the Iu-PS interface mapped to HS-DSCH transport channel. Only such packets are counted that have DSCP which is part of a valid application group configured by the operator using parameter group RNHSPA-AARConfigTable. UPDATED: When Iu-PS user plane IP-packet is received from the CN and it is mapped to HS-DSCH transport channel and DSCP matches to one of the configured application groups.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RX_PACKETS_TOTAL_HSPA)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_TOTAL_HSPA (M1035C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RX_PACKETS_PROMOTED_SPI_IUB">
+    <formula>DSCPSTA.RX_PACKETS_PROMOTED_SPI_IUB</formula>
+    <kpi_info>
+      <title>RX_PACKETS_PROMOTED_SPI_IUB (M1035C1)</title>
+      <use>The number of received user plane packets from the Iu-PS interface that were promoted to higher SPI class on the Iub. UPDATED: When Iu-PS user plane IP-packet is received from the CN and the RNC decides that the packet will be handled in the air interface with higher SPI than the initial SPI.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RX_PACKETS_PROMOTED_SPI_IUB)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_PROMOTED_SPI_IUB (M1035C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RX_PACKETS_DEMOTED_SPI_IUB">
+    <formula>DSCPSTA.RX_PACKETS_DEMOTED_SPI_IUB</formula>
+    <kpi_info>
+      <title>RX_PACKETS_DEMOTED_SPI_IUB (M1035C2)</title>
+      <use>The number of received user plane packets from the Iu-PS interface that were demoted to lower SPI class on the Iub. UPDATED: When Iu-PS user plane IP-packet is received from the CN and the RNC decides that the packet will be handled in the air interface with lower SPI than the initial SPI.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RX_PACKETS_DEMOTED_SPI_IUB)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_DEMOTED_SPI_IUB (M1035C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RX_PACKETS_HSPA_R99">
+    <formula>DSCPSTA.RX_PACKETS_HSPA_R99</formula>
+    <kpi_info>
+      <title>RX_PACKETS_HSPA_R99 (M1035C3)</title>
+      <use>The number of received user plane packets from the Iu-PS interface mapped to HS-DSCH or Rel99 DCH transport channel. The counter is updated for object that indicates the DSCP code found in the inner IP-packet. UPDATED: When Iu-PS user plane IP-packet is received from the CN and it is mapped to HS-DSCH or Rel99 DCH downlink transport channel.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RX_PACKETS_HSPA_R99)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_HSPA_R99 (M1035C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RX_PACKETS_LOW_PRIO">
+    <formula>DSCPSTA.RX_PACKETS_LOW_PRIO</formula>
+    <kpi_info>
+      <title>RX_PACKETS_LOW_PRIO (M1035C4)</title>
+      <use>The number of packets received from the Iu-PS interface with DSCP mapped to low priority PDCP queue. The counter is updated for DSCP-999 special object which represents RNC level sum over all DSCPs. UPDATED: When a packet received from the Iu-PS interface is mapped to low priority PDCP queue because DSCP does not match the high priority DSCPs configured with IBAODSCPHighPrioQPart1 and IBAODSCPHighPrioQPart2.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RX_PACKETS_LOW_PRIO)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_LOW_PRIO (M1035C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RX_PACKETS_HIGH_PRIO">
+    <formula>DSCPSTA.RX_PACKETS_HIGH_PRIO</formula>
+    <kpi_info>
+      <title>RX_PACKETS_HIGH_PRIO (M1035C5)</title>
+      <use>The number of packets received from the Iu-PS interface with DSCP mapped to high priority PDCP queue. The counter is updated for DSCP-999 special object which represents RNC level sum over all DSCPs. UPDATED: When a packet received from the Iu-PS interface is mapped to high priority PDCP queue based on parameter IBAODSCPHighPrioQPart1 or IBAODSCPHighPrioQPart2.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RX_PACKETS_HIGH_PRIO)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RX_PACKETS_HIGH_PRIO (M1035C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LOW_PRIO_PACKETS_DROP">
+    <formula>DSCPSTA.LOW_PRIO_PACKETS_DROP</formula>
+    <kpi_info>
+      <title>LOW_PRIO_PACKETS_DROP (M1035C6)</title>
+      <use>The number of packets dropped from the low priority PDCP queue. The counter is updated for DSCP-999 special object which represents RNC level sum over all DSCPs. UPDATED: When a packet is dropped from the low priority PDCP queue.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LOW_PRIO_PACKETS_DROP)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOW_PRIO_PACKETS_DROP (M1035C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HIGH_PRIO_PACKETS_DROP">
+    <formula>DSCPSTA.HIGH_PRIO_PACKETS_DROP</formula>
+    <kpi_info>
+      <title>HIGH_PRIO_PACKETS_DROP (M1035C7)</title>
+      <use>The number of packets dropped from the high priority PDCP queue. The counter is updated for DSCP-999 special object which represents RNC level sum over all DSCPs. UPDATED: When a packet is dropped from the high priority PDCP queue.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HIGH_PRIO_PACKETS_DROP)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HIGH_PRIO_PACKETS_DROP (M1035C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>DSCPSTA.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_dscpsta_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

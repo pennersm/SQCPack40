@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/RRC_ext.xml" />
+  <kpi name="RNC_701a">
+    <formula>100*decode(
+			(rrc.sig_conn_rel_1 + 
+			rrc.rrc_conn_rel_1),0,null, 
+
+			rrc.sig_conn_rel_1
+			 / 
+			(rrc.sig_conn_rel_1 + 
+			rrc.rrc_conn_rel_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Signalling Connection Release Ratio]]></title>
+      <use><![CDATA[The ratio of initiated Signalling Connection Release procedures to the total number of released signalling connections (by releasing only one Signalling Connection or the whole RRC Connection)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(SIG_CONN_REL)/ sum(SIG_CONN_REL + RRC_CONN_REL)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Signalling Connection Release Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

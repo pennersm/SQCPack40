@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 CDF CDF measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 CDF CDF measurement dump</csv_title>
+    <report-description>NG10 session ctrl cdr statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SC_CDR_CLOSED_CDRS />
+    <CDR_DROPED_COUNT />
+  </column_order>
+  <temp_table name="CDF" meas_level="PLMN/FING/FNODE/SCDR" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="SC_CDR_CLOSED_CDRS" time-alias="SC_CDR_CLOSED_CDRS" timeagg="SUM(SC_CDR_CLOSED_CDRS)">SUM(SC_CDR_CLOSED_CDRS)</counter>
+      <counter alias="CDR_DROPED_COUNT" time-alias="CDR_DROPED_COUNT" timeagg="SUM(CDR_DROPED_COUNT)">SUM(CDR_DROPED_COUNT)</counter>
+    </counters>
+    <table_name>pcofng_ps_cdf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CDF</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CDF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_cdf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SC_CDR_CLOSED_CDRS">
+    <formula>CDF.SC_CDR_CLOSED_CDRS</formula>
+    <kpi_info>
+      <title>SC_CDR_CLOSED_CDRS</title>
+      <use>This counter contais the number of the closed charging data records (CDRs). UPDATED: Updated when a charging data record (CDR) is closed.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SC_CDR_CLOSED_CDRS)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_cdf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SC_CDR_CLOSED_CDRS (m3020c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDR_DROPED_COUNT">
+    <formula>CDF.CDR_DROPED_COUNT</formula>
+    <kpi_info>
+      <title>CDR_DROPED_COUNT</title>
+      <use>This counter contains the number of dropped CDRs. UPDATED: Updated when a charging data record (CDR) is dropped.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDR_DROPED_COUNT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_cdf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDR_DROPED_COUNT (m3020c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

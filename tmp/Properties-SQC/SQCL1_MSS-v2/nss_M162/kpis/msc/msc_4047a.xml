@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml" />
+  <kpi name="msc_4047a">
+    <formula>decode(
+		(ho1.totalok + ho1.totalnok),0,null, 
+		(100*( ho1.intramscintragsmok + ho1.intramscintragsmnok +
+               ho1.intramscgsmtoumtsok + ho1.intramscgsmtoumtsnok +
+               ho1.intramscumtstogsmok + ho1.intramscumtstogsmnok +
+               ho1.intramscintraumtsok + ho1.intramscintraumtsnok +
+               ho1.interplmnintramscintragsmok + ho1.interplmnintramscintragsmnok +
+               ho1.interplmnintramscgsmtoumtsok + ho1.interplmnintramscgsmtoumtsnok +
+               ho1.interplmnintramscumtstogsmok + ho1.interplmnintramscumtstogsmnok +
+               ho1.interplmnintramscintraumtsok + ho1.interplmnintramscintraumtsnok)/
+            ( ho1.totalok + ho1.totalnok )))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra-MSC-Handover Attempt Ratio]]></title>
+      <use><![CDATA[Indicates the ratio of attempted Intra-MSC handover in relation to the total number of attempted handover.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The analysis includes both 2G + 3G traffic (numerator related part).
+<br>Starting from M14.6, the specific 2G + 3G handover attempts are compared against 2G + 3G + I-HSPA total traffic (denominator related part).
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 02-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Handover measurement, part 1 (M81/51H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;Intra-MSC-Handover Attempt Ratio&quot; KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          SUM( intraMscIntraGsmOk + intraMscIntraGsmNok +
+&lt;br&gt;               intraMscGsmToUmtsOk + intraMscGsmToUmtsNok +
+&lt;br&gt;               intraMscUmtsToGsmOk + intraMscUmtsToGsmNok +
+&lt;br&gt;               intraMscIntraUmtsOk + intraMscIntraUmtsNok +
+&lt;br&gt;               InterPlmnIntraMscIntraGsmOk + InterPlmnIntraMscIntraGsmNok +
+&lt;br&gt;               InterPlmnIntraMscGsmToUmtsOk + InterPlmnIntraMscGsmToUmtsNok +
+&lt;br&gt;               InterPlmnIntraMscUmtsToGsmOk + InterPlmnIntraMscUmtsToGsmNok +
+&lt;br&gt;               InterPlmnIntraMscIntraUmtsOk + InterPlmnIntraMscIntraUmtsNok)
+&lt;br&gt;100 * -------------------------------------------------------------------------
+&lt;br&gt;            SUM( TotalOk + TotalNok )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra-MSC HO ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

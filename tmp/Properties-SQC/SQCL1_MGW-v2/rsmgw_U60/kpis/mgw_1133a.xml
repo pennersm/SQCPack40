@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="mgw_1133a">
+    <formula>decode(
+			((conn.h248_load_balancing_trig_cpu + 
+			conn.h248_load_balancing_trig_ctx)),0,null, 
+
+			(100*(conn.h248_load_balancing_trig_cpu)
+			 / 
+			(conn.h248_load_balancing_trig_cpu + 
+			conn.h248_load_balancing_trig_ctx)))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[CPU Load trigger ratio in H.248 Load Balancer]]></title>
+      <use><![CDATA[Indicates usage ratio of CPU load as a trigger in H.248 Load Balancer compared to all other H.248 Load Balancer triggers.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                  SUM(H248_LOAD_BALANCING_TRIG_CPU)
+&lt;br&gt;100 * -----------------------------------------------------------------
+&lt;br&gt;      SUM(H248_LOAD_BALANCING_TRIG_CPU + H248_LOAD_BALANCING_TRIG_CTX)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CPU Load trigger H.248 load balancer</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG CpuUsage CPU measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG CpuUsage CPU measurement dump</csv_title>
+    <report-description>Flexi Platform cpu usage statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CPU_ext" meas_level="PLMN/FING/FNODE/CPU" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="AVG_CPU_USAGE" time-alias="AVG_CPU_USAGE" timeagg="AVG(AVG_CPU_USAGE)">AVG(AVG_CPU_USAGE)</counter>
+	  <!-- Auxiliary Counters -->
+		<!-- Linux (SB, SAB, MB) cores -->
+	  <counter alias="AVG_CPU_USAGE_LINUX">AVG(decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL))</counter>
+	  <counter alias="AVG_CPU_USAGE_LINUX_SB">AVG(CASE WHEN FNODE_ID LIKE 'AS%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</counter>
+	  <counter alias="AVG_CPU_USAGE_LINUX_SAB">AVG(CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</counter>
+	  <counter alias="AVG_CPU_USAGE_LINUX_SAB01">AVG(CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,NULL) ELSE NULL END)</counter>
+	  <counter alias="AVG_CPU_USAGE_LINUX_IB">AVG(CASE WHEN FNODE_ID LIKE 'IB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</counter>
+	  <counter alias="AVG_CPU_USAGE_LINUX_IB01">AVG(CASE WHEN FNODE_ID LIKE 'IB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,NULL) ELSE NULL END)</counter>
+	  <counter alias="AVG_CPU_USAGE_LINUX_MB">AVG(CASE WHEN FNODE_ID LIKE 'CLA%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</counter>
+		<!-- SE cores (forwarding) -->
+	  <counter alias="AVG_CPU_USAGE_FORW">AVG(decode(cpu_id,'4',AVG_CPU_USAGE,'5',AVG_CPU_USAGE,NULL))</counter>
+		<!-- SE cores (application), core id 15 can be used for both forwarding and application -->
+	  <counter alias="AVG_CPU_USAGE_APPL">AVG(decode(cpu_id,'6',AVG_CPU_USAGE,'7',AVG_CPU_USAGE,'8',AVG_CPU_USAGE,'9',AVG_CPU_USAGE,'10',AVG_CPU_USAGE,'11',AVG_CPU_USAGE,'12',AVG_CPU_USAGE,'13',AVG_CPU_USAGE,'14',AVG_CPU_USAGE,'15',AVG_CPU_USAGE,NULL))</counter>
+    </counters>
+	<table_name>pcofng_ps_cpu_cpu_{TIME_AGG}</table_name>
+    <alias_name>CPU_ext</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CPU_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE">
+    <formula>CPU_ext.AVG_CPU_USAGE</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE</title>
+      <use>This KPI is a gauge that contains overall average CPU usage (load). Formula: (1.0 - local_m02000c0006/local_m02000c0002)*100.0 UPDATED: Calculation is done on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVG_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE (m02002c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+
+  <!-- Auxiliary Counters -->
+  <kpi name="AVG_CPU_USAGE_LINUX">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Linux cores (Core id 0,1,2,3).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,0))</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_LINUX_SB">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX_SB</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX_SB</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Service Blade (SB) Linux cores (Core id 0,1,2,3).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'AS%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX_SB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_LINUX_SAB">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX_SAB</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX_SAB</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Service Aware Blade (SAB) Linux cores (Core id 0,1,2,3).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX_SAB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_LINUX_SAB01">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX_SAB01</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX_SAB01</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Service Aware Blade (SAB) Linux cores (Core id 0,1).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,NULL) ELSE NULL END)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX_SAB01</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_LINUX_IB">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX_IB</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX_IB</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Interface Blade (IB) Linux cores (Core id 0,1,2,3).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'IB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX_IB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_LINUX_IB01">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX_IB01</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX_IB01</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Interface Blade (IB) Linux cores (Core id 0,1).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'IB%_%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,NULL) ELSE NULL END)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX_IB01</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_LINUX_MB">
+    <formula>CPU_ext.AVG_CPU_USAGE_LINUX_MB</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_LINUX_MB</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for Management Blade (MB) Linux cores (Core id 0,1,2,3).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'CLA%' THEN decode(cpu_id,'0',AVG_CPU_USAGE,'1',AVG_CPU_USAGE,'2',AVG_CPU_USAGE,'3',AVG_CPU_USAGE,NULL) ELSE NULL END)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_LINUX_MB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_FORW">
+    <formula>CPU_ext.AVG_CPU_USAGE_FORW</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_FORW</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for forwarding group "fast path" or "simple executive - SE" cores (Core id 4,5).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(decode(cpu_id,'4',AVG_CPU_USAGE,'5',AVG_CPU_USAGE,0))</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_FORW</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_APPL">
+    <formula>CPU_ext.AVG_CPU_USAGE_APPL</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_APPL</title>
+      <use>This KPI is a gauge that contains average CPU usage (load) for application group "fast path" or "simple executive - SE" cores (Core id 6-15). Core id 15 is included in the application group.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />      
+      <formula>AVG(decode(cpu_id,'6',AVG_CPU_USAGE,'7',AVG_CPU_USAGE,'8',AVG_CPU_USAGE,'9',AVG_CPU_USAGE,'10',AVG_CPU_USAGE,'11',AVG_CPU_USAGE,'12',AVG_CPU_USAGE,'13',AVG_CPU_USAGE,'14',AVG_CPU_USAGE,'15',AVG_CPU_USAGE,0))</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_APPL</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

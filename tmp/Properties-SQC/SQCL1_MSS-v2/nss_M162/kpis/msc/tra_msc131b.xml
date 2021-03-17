@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CCMEA.xml"/>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml"/>
+  <kpi name="tra_msc131b">
+    <formula>100*(decode(
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech),0,null, 
+
+			(ccmea_ext.ccmeas_signalling_5 + 
+			ccmea_ext.ccmeas_ring_5 + 
+			ccmea_ext.ccmeas_speech_5)
+			 / 
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech)))</formula>
+    <kpi_info>
+      <title><![CDATA[Teleservice usage success ratio, technically successful]]></title>
+      <use><![CDATA[Success ratio of technically successful (clear code equal to 000H - 3FFH except 205H) usage attempts of teleservice services (T11, T12, T40, T41, T42, T43, T60, T61 and T62 ) compared to all teleservice usage attempts.]]></use>
+
+<use_experience><![CDATA[ 
+<br>0000H - 03FFH => Normal clearing clear code group
+<br>
+<br>--- EXCLUDING
+<br>205H => Radio Interface congestion clear code
+<br>
+<br>NOTE: Clear Code range for this case should be agreed separately with the customer. These are just examples.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 07-04-2009
+<br>THEORETICAL SUMMARY LEVELS: PLMN - MSC - CC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN - MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Clear Code Measurement M131
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;           SUM(CCMEAS_SIGNALLING) ;where clearcode_id= 000H - 3FFH except 205H
+&lt;br&gt;         + SUM(CCMEAS_RING) ;where clearcode_id= 000H - 3FFH except 205H  
+&lt;br&gt;         + SUM(CCMEAS_SPEECH) ;where clearcode_id= 000H - 3FFH except 205H
+&lt;br&gt;   100 * -----------------------------------------------------------------------
+&lt;br&gt;           SUM(CCMEAS_SIGNALLING)
+&lt;br&gt;         + SUM(CCMEAS_RING)
+&lt;br&gt;         + SUM(CCMEAS_SPEECH)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_CCMEA_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ccmea_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Teleservice usage success ratio, technically successful]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

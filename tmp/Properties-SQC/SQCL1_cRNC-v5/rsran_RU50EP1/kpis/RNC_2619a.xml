@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/DSPSRV.xml" />
+  <kpi name="RNC_2619a">
+    <formula>100*decode(
+			(dspsrv.dsp_service_succ_res_alloc + 
+			dspsrv.dsp_service_fail_res_alloc + 
+			dspsrv.dsp_service_fail_res_modify),0,null, 
+
+			dspsrv.dsp_service_succ_res_alloc
+			 / 
+			(dspsrv.dsp_service_succ_res_alloc + 
+			dspsrv.dsp_service_fail_res_alloc + 
+			dspsrv.dsp_service_fail_res_modify))</formula>
+    <kpi_info>
+      <title><![CDATA[DSP resources allocation Success Rate]]></title>
+      <use><![CDATA[Success Ratio of resources allocated for a specific DSP service type.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(DSP_SERVICE_SUCC_RES_ALLOC)
+&lt;br&gt;-------------------------------
+&lt;br&gt;sum(DSP_SERVICE_SUCC_RES_ALLOC +
+&lt;br&gt;DSP_SERVICE_FAIL_RES_ALLOC+
+&lt;br&gt;DSP_SERVICE_FAIL_RES_MODIFY)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_DSPSRV_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:54.451 +0100</date>
+          <comment><![CDATA[Source: RSRAN114.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DSP res alloc SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

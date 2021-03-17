@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <kpi name="LTE_1181a">
+    <formula>decode(
+			(lcellr.pdcch_1_ofdm_symbol + 
+			lcellr.pdcch_2_ofdm_symbols + 
+			lcellr.pdcch_3_ofdm_symbols),0,null, 
+
+			(2*lcellr.pdcch_1_ofdm_symbol + 
+			lcellr.pdcch_2_ofdm_symbols)
+			 / 
+			(lcellr.pdcch_1_ofdm_symbol + 
+			lcellr.pdcch_2_ofdm_symbols + 
+			lcellr.pdcch_3_ofdm_symbols))</formula>
+    <kpi_info>
+      <title><![CDATA[Average symbol reduction]]></title>
+      <use><![CDATA[This KPI measures the average symbol reduction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(2 * PDCCH_1_OFDM_SYMBOL
+&lt;br&gt;+ PDCCH_2_OFDM_SYMBOLS)
+&lt;br&gt;/
+&lt;br&gt;SUM(PDCCH_1_OFDM_SYMBOL
+&lt;br&gt;+ PDCCH_2_OFDM_SYMBOLS
+&lt;br&gt;+ PDCCH_3_OFDM_SYMBOLS)</formula>
+      <unit>[#]</unit>
+      <tables>noklte_ps_LCELLR_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:47.562 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:1</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg symb reduct</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

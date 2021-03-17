@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/URS_ext.xml"/>
+  <kpi name="flng_755a">
+    <formula>decode(
+			((URS_ext.gtpc_update_resp_sent)),0,NULL, 
+
+			(URS_ext.gtpc_update_resp_sent -
+			( URS_ext.gtpc_update_resp_sent_128 +
+			  URS_ext.gtpc_update_resp_sent_192))
+			 / 
+			(URS_ext.gtpc_update_resp_sent))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context responses sent "others" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 update PDP context responses sent with all other cause codes (128 and 192 are excluded) when compared to total number of GTP-C v1 update PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTPC_UPDATE_RESP_SENT) -
+&lt;br&gt;( sum(decode(urs_id,'128',GTPC_UPDATE_RESP_SENT,0)) +
+&lt;br&gt;  sum(decode(urs_id,'192',GTPC_UPDATE_RESP_SENT,0)) )
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_UPDATE_RESP_SENT)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_URS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Upd PDP resp sent oth rat]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

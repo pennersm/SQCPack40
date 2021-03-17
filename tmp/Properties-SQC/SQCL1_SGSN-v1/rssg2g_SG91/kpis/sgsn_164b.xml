@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUOV.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <kpi name="sgsn_164b">
+    <formula>decode(
+			((IUMM2.IU_SUCC_SERVICE_REQUEST_SIG + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_SIG + 
+			IUMM2.IU_SUCC_SERVICE_REQUEST_DATA + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_DATA + 
+			IUMM2.IU_SUCC_SERVICE_REQUEST_PAGING + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_PAGING + 
+			IUOV.REJ_SERV_REQ_ATTEMPTS_EP + 
+			IUOV.REJ_SERV_REQ_ATTEMPTS)),0,NULL,((IUOV.REJ_SERV_REQ_ATTEMPTS_EP + 
+			IUOV.REJ_SERV_REQ_ATTEMPTS))
+			 / 
+			((IUMM2.IU_SUCC_SERVICE_REQUEST_SIG + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_SIG + 
+			IUMM2.IU_SUCC_SERVICE_REQUEST_DATA + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_DATA + 
+			IUMM2.IU_SUCC_SERVICE_REQUEST_PAGING + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_PAGING + 
+			IUOV.REJ_SERV_REQ_ATTEMPTS_EP + 
+			IUOV.REJ_SERV_REQ_ATTEMPTS)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Iu service request attempts not processed due to processor overload ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Iu service request attempts not processed due to processor overload when compared to all Iu service request attempts. ]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(a.REJ_SERV_REQ_ATTEMPTS_EP + a.REJ_SERV_REQ_ATTEMPTS)
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(b.IU_SUCC_SERVICE_REQUEST_SIG + b.IU_FAIL_SERVICE_REQUEST_SIG +
+&lt;br&gt;   b.IU_SUCC_SERVICE_REQUEST_DATA + b.IU_FAIL_SERVICE_REQUEST_DATA +
+&lt;br&gt;   b.IU_SUCC_SERVICE_REQUEST_PAGING + b.IU_FAIL_SERVICE_REQUEST_PAGING +
+&lt;br&gt;   a.REJ_SERV_REQ_ATTEMPTS_EP + a.REJ_SERV_REQ_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):
+&lt;br&gt;a = p_sgsn_iu_overload
+&lt;br&gt;b = p_sgsn_iu_mobility_management
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IUOV_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Iu serv req no proc ovld]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

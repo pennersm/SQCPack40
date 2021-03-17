@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/SMSTY.xml"/>
+  <kpi name="msc_603a">
+    <formula>100*(decode(
+			(smsty.smsc_succ_vmsc_mt_phys + 
+			smsty.smsc_perm_fail_vmsc_mt_phys + 
+			smsty.smsc_temp_fail_vmsc_mt_phys),0,null, 
+
+			smsty.smsc_succ_vmsc_mt_phys
+			 / 
+			(smsty.smsc_succ_vmsc_mt_phys + 
+			smsty.smsc_perm_fail_vmsc_mt_phys + 
+			smsty.smsc_temp_fail_vmsc_mt_phys)))</formula>
+    <kpi_info>
+      <title><![CDATA[SMS MT success ratio]]></title>
+      <use><![CDATA[Success ratio of successfully delivered (clear code 0x00) mobile terminated SMS&#039;s compared to all SMS attempts counted from VMSC at mobile terminated side. VMSC is the MSC that sends the short message to the radio network. Temporary failed SMS&#039;s are counted i.e. resending due subscriber out of coverage and MS memory full are counted.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      SUM(SMSC_SUCC_VMSC_MT_PHYS)
+&lt;br&gt;100* ---------------------------------
+&lt;br&gt;    (SUM(SMSC_SUCC_VMSC_MT_PHYS)
+&lt;br&gt;    + SUM(SMSC_PERM_FAIL_VMSC_MT_PHYS)
+&lt;br&gt;    + SUM(SMSC_TEMP_FAIL_VMSC_MT_PHYS))
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_SMSTY_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_smsty_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[SMS MT success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

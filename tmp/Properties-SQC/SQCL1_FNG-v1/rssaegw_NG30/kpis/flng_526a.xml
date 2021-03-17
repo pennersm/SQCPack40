@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml"/>
+  <kpi name="flng_526a">
+    <formula>decode(
+			((SSPROF.SM_SUCC_SESS_ACT_SAE_GW + 
+			SSPROF.SM_SUCC_SESS_ACT_P_GW + 
+			SSPROF.SM_SUCC_SESS_ACT_GGSN)),0,NULL, 
+
+			((SSPROF.SM_DOWNLINK_BYTES + 
+			SSPROF.SM_UPLINK_BYTES))
+			 / 
+			((SSPROF.SM_SUCC_SESS_ACT_SAE_GW + 
+			SSPROF.SM_SUCC_SESS_ACT_P_GW + 
+			SSPROF.SM_SUCC_SESS_ACT_GGSN)*1048576))</formula>
+    <kpi_info>
+      <title><![CDATA[Average payload per session]]></title>
+      <use><![CDATA[This KPI shows the average payload per session.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(SM_DOWNLINK_BYTES + 
+&lt;br&gt;   SM_UPLINK_BYTES)
+&lt;br&gt;------------------------------------
+&lt;br&gt;sum(SM_SUCC_SESS_ACT_SAE_GW + 
+&lt;br&gt;   SM_SUCC_SESS_ACT_P_GW + 
+&lt;br&gt;   SM_SUCC_SESS_ACT_GGSN) * 1048576
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[MB]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg payload pr session]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

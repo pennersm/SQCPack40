@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIANBHO.xml" />
+  <temp_table_ref src="rslte/counters/LIENBHO.xml" />
+  <temp_table_ref src="rslte/counters/LHO.xml" />
+  <kpi name="LTE_1255a">
+    <formula>100 - 
+			(100*decode(
+			(lianbho.att_intra_enb_ho + 
+			lienbho.att_inter_enb_ho + 
+			lienbho.inter_enb_s1_ho_att - 
+			lho.ho_intfreq_att),0,null, 
+
+			(lianbho.succ_intra_enb_ho + 
+			lienbho.succ_inter_enb_ho + 
+			lienbho.inter_enb_s1_ho_succ - 
+			lho.ho_intfreq_succ)
+			 / 
+			(lianbho.att_intra_enb_ho + 
+			lienbho.att_inter_enb_ho + 
+			lienbho.inter_enb_s1_ho_att - 
+			lho.ho_intfreq_att)))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra-frequency HO failure ratio]]></title>
+      <use><![CDATA[Intra-frequency HO failure ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 -  (100*sum(SUCC_INTRA_ENB_HO + SUCC_INTER_ENB_HO + INTER_ENB_S1_HO_SUCC - HO_INTFREQ_SUCC)
+&lt;br&gt; /
+&lt;br&gt;sum(ATT_INTRA_ENB_HO + ATT_INTER_ENB_HO +INTER_ENB_S1_HO_ATT - HO_INTFREQ_ATT))</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LIANBHO_{obj_agg}_{time_agg},noklte_ps_LIENBHO_{obj_agg}_{time_agg},noklte_ps_LHO_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/07/22 18:43:15.794 +0100</date>
+          <comment><![CDATA[Source: RSLTE999.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra-freq HO FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

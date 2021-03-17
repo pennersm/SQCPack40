@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <kpi name="flng_788a">
+    <formula>decode((gtpcv2.gtpcv2_dl_data_notif_sent + gtpcv2.gtpcv2_dl_data_notif_exceed_n3),0,NULL,100*gtpcv2.gtpcv2_dl_data_notif_exceed_n3 / (gtpcv2.gtpcv2_dl_data_notif_sent + gtpcv2.gtpcv2_dl_data_notif_exceed_n3))</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification sent MME not reachable failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of GTP-C v2 downlink data notifications sent due to MME not reachable, i.e., the number of the times Downlink Data Notification message resends have exceeded the maximum retries (N3) when compared to the number of downlink data notification messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPCV2_DL_DATA_NOTIF_EXCEED_N3)
+&lt;br&gt;------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DL_DATA_NOTIF_SENT + 
+&lt;br&gt;   GTPCV2_DL_DATA_NOTIF_EXCEED_N3)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/24 14:41:18.958 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DL Data Notif MME not FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

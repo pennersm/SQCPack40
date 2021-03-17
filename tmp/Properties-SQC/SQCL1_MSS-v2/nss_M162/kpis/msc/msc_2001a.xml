@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_2001a">
+    <formula>100*decode(
+			((VLR1MSC.lu_via_ihspa_att)),0,0, 
+
+			((VLR1MSC.lu_via_ihspa_succ))
+			 / 
+			((VLR1MSC.lu_via_ihspa_att)))</formula>
+    <kpi_info>
+      <title><![CDATA[I-HSPA Location Update Success Ratio.]]></title>
+      <use><![CDATA[Success Ratio of Location Updates via I-HSPA RNC.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The UMTS LU successful events also count the LU_VIA_IHSPA_SUCC events.
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 24-02-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (lu_via_ihspa_succ)
+&lt;br&gt;100 * -----------------------
+&lt;br&gt;      sum (lu_via_ihspa_att)
+&lt;br&gt;
+&lt;br&gt;Use Aggregated tables</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IHSPA LU SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

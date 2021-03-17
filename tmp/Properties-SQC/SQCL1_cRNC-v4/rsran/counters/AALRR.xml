@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AAL2_resource_res_new AALRR measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AAL2_resource_res_new AALRR measurement dump</csv_title>
+    <report-description>AAL2 Resource Reservation (RN3.0-&gt;).</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <RES_SUCCEEDED />
+    <RES_EXT_CAP />
+    <RES_INT_CAP />
+    <RES_OTHER />
+    <AAL2_SUCCEEDED />
+    <AAL2_REJECTED />
+    <AAL2_SUCCEEDED_HSDPA />
+    <TRANSPORT_REJECTED_EXT_HSDPA />
+    <TRANSPORT_REJECTED_INT_HSDPA />
+    <OTHER_REJECTED_HSDPA />
+    <ACTIVE_HSDPA_RES_TIME />
+    <WAITING_HSDPA_RES_TIME />
+    <RELEASE_TIMER_LENGTH />
+    <RESERV_REL_DUE_TO_TIMER />
+    <RESERV_REL_TIMER_STARTED />
+    <RESERV_REL_TIMER_STOPPED />
+    <RESERV_REL_DUE_TO_OTHER />
+    <ACTIVE_TIME_CUMULATIVE />
+    <WAITING_TIME_CUMULATIVE />
+    <REJECT_HSDPA_TOO_MANY_USERS />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="AALRR" meas_level="PLMN/RNC/IF/VPI/VCI/RWB/ALU" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="RES_SUCCEEDED">SUM(RES_SUCCEEDED)</counter>
+      <counter alias="RES_EXT_CAP">SUM(RES_EXT_CAP)</counter>
+      <counter alias="RES_INT_CAP">SUM(RES_INT_CAP)</counter>
+      <counter alias="RES_OTHER">SUM(RES_OTHER)</counter>
+      <counter alias="AAL2_SUCCEEDED">SUM(AAL2_SUCCEEDED)</counter>
+      <counter alias="AAL2_REJECTED">SUM(AAL2_REJECTED)</counter>
+      <counter alias="AAL2_SUCCEEDED_HSDPA">SUM(AAL2_SUCCEEDED_HSDPA)</counter>
+      <counter alias="TRANSPORT_REJECTED_EXT_HSDPA">SUM(TRANSPORT_REJECTED_EXT_HSDPA)</counter>
+      <counter alias="TRANSPORT_REJECTED_INT_HSDPA">SUM(TRANSPORT_REJECTED_INT_HSDPA)</counter>
+      <counter alias="OTHER_REJECTED_HSDPA">SUM(OTHER_REJECTED_HSDPA)</counter>
+      <counter alias="ACTIVE_HSDPA_RES_TIME">SUM(ACTIVE_HSDPA_RES_TIME)</counter>
+      <counter alias="WAITING_HSDPA_RES_TIME">SUM(WAITING_HSDPA_RES_TIME)</counter>
+      <counter alias="RELEASE_TIMER_LENGTH">AVG(RELEASE_TIMER_LENGTH)</counter>
+      <counter alias="RESERV_REL_DUE_TO_TIMER">SUM(RESERV_REL_DUE_TO_TIMER)</counter>
+      <counter alias="RESERV_REL_TIMER_STARTED">SUM(RESERV_REL_TIMER_STARTED)</counter>
+      <counter alias="RESERV_REL_TIMER_STOPPED">SUM(RESERV_REL_TIMER_STOPPED)</counter>
+      <counter alias="RESERV_REL_DUE_TO_OTHER">SUM(RESERV_REL_DUE_TO_OTHER)</counter>
+      <counter alias="ACTIVE_TIME_CUMULATIVE">SUM(ACTIVE_TIME_CUMULATIVE)</counter>
+      <counter alias="WAITING_TIME_CUMULATIVE">SUM(WAITING_TIME_CUMULATIVE)</counter>
+      <counter alias="REJECT_HSDPA_TOO_MANY_USERS">SUM(REJECT_HSDPA_TOO_MANY_USERS)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AALRR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AALRR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_SUCCEEDED">
+    <formula>AALRR.RES_SUCCEEDED</formula>
+    <kpi_info>
+      <title>RES_SUCCEEDED</title>
+      <use>The number of AAL2 resource requests that are successfully reserved to RNC, but still need to be signalled using AAL2 signalling protocol to be operational. UPDATED:When resource reservation has been completed and AAL2 signalling is started.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RES_SUCCEEDED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_SUCCEEDED (M800C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_EXT_CAP">
+    <formula>AALRR.RES_EXT_CAP</formula>
+    <kpi_info>
+      <title>RES_EXT_CAP</title>
+      <use>The number of transport resource reservations rejected because of the lack of RNC-external AAL2 resources. This is the number of transport resources requests which are rejected by CAC since there is not enough capacity in the external AAL2 path. UPDATED:When resource request is rejected because of RNC-external AAL2 resources.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RES_EXT_CAP)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_EXT_CAP (M800C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_INT_CAP">
+    <formula>AALRR.RES_INT_CAP</formula>
+    <kpi_info>
+      <title>RES_INT_CAP</title>
+      <use>The number of transport resource reservations rejected because of the lack of RNC-internal capacity. This is the number of resource reservations which are rejected by CAC since there are no RNC-internal AAL2 processing resources available. UPDATED:When resource request is rejected because of RNC-internal AAL2 resources.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RES_INT_CAP)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_INT_CAP (M800C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_OTHER">
+    <formula>AALRR.RES_OTHER</formula>
+    <kpi_info>
+      <title>RES_OTHER</title>
+      <use>The number of AAL2 resource reservations which have failed for any other reason than CAC or signalling (for example route analysis, parameter or DSP resource allocation problem). UPDATED:When resource reservation has failed for any other reason than CAC or signalling.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RES_OTHER)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_OTHER (M800C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_SUCCEEDED">
+    <formula>AALRR.AAL2_SUCCEEDED</formula>
+    <kpi_info>
+      <title>AAL2_SUCCEEDED</title>
+      <use>The number of AAL2 signalling request, which have been successfully executed in A2SP. UPDATED:When the AAL2 signalling has been successfully completed.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_SUCCEEDED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_SUCCEEDED (M800C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_REJECTED">
+    <formula>AALRR.AAL2_REJECTED</formula>
+    <kpi_info>
+      <title>AAL2_REJECTED</title>
+      <use>The number of AAL2 signaling requests, which failed for any reason. UPDATED:When the AAL2 signalling fails for any reason.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_REJECTED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_REJECTED (M800C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_SUCCEEDED_HSDPA">
+    <formula>AALRR.AAL2_SUCCEEDED_HSDPA</formula>
+    <kpi_info>
+      <title>AAL2_SUCCEEDED_HSDPA</title>
+      <use>The number of successfully signalled shared HSDPA AAL2 transport resource allocations. UPDATED:When HSDPA transport resource setup is successful.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_SUCCEEDED_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_SUCCEEDED_HSDPA (M800C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSPORT_REJECTED_EXT_HSDPA">
+    <formula>AALRR.TRANSPORT_REJECTED_EXT_HSDPA</formula>
+    <kpi_info>
+      <title>TRANSPORT_REJECTED_EXT_HSDPA</title>
+      <use>The number of shared HSDPA AAL2 allocation attempts that were rejected because of external Connection Admission Control. UPDATED:When transport resource request is rejected because of external Connection Admission Control.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSPORT_REJECTED_EXT_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSPORT_REJECTED_EXT_HSDPA (M800C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSPORT_REJECTED_INT_HSDPA">
+    <formula>AALRR.TRANSPORT_REJECTED_INT_HSDPA</formula>
+    <kpi_info>
+      <title>TRANSPORT_REJECTED_INT_HSDPA</title>
+      <use>The number of shared HSDPA AAL2 allocation attempts that were rejected because of the lack of RNC-internal AAL2 resources. UPDATED:When transport resource request is rejected because of RNC-internal Connection Admission Control.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSPORT_REJECTED_INT_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSPORT_REJECTED_INT_HSDPA (M800C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OTHER_REJECTED_HSDPA">
+    <formula>AALRR.OTHER_REJECTED_HSDPA</formula>
+    <kpi_info>
+      <title>OTHER_REJECTED_HSDPA</title>
+      <use>The number of shared HSDPA AAL2 allocation attempts that were rejected because of any other reason than internal or external Connection Admission Control, or too many users without AAL2 reservation. UPDATED:When HSDPA shared AAL2 transport resource setup fails.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(OTHER_REJECTED_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>OTHER_REJECTED_HSDPA (M800C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_HSDPA_RES_TIME">
+    <formula>AALRR.ACTIVE_HSDPA_RES_TIME</formula>
+    <kpi_info>
+      <title>ACTIVE_HSDPA_RES_TIME</title>
+      <use>The sum of durations when at least one HSDPA user was utilizing the shared HSDPA AAL2 allocation. UPDATED:When the last user utilizing the shared HSDPA AAL2 allocation leaves the cell, this counter is updated by the allocation duration.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ACTIVE_HSDPA_RES_TIME)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_HSDPA_RES_TIME (M800C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="WAITING_HSDPA_RES_TIME">
+    <formula>AALRR.WAITING_HSDPA_RES_TIME</formula>
+    <kpi_info>
+      <title>WAITING_HSDPA_RES_TIME</title>
+      <use>The sum of durations when the shared HSDPA AAL2 path was allocated, but there were no HSDPA users utilizing it. UPDATED:When the shared HSDPA AAL2 allocation is released due to timer expiry or a HSDPA user enters the cell, this counter is updated by the duration that the AAL2 resources were allocated but there were no users utilizing them.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(WAITING_HSDPA_RES_TIME)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WAITING_HSDPA_RES_TIME (M800C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RELEASE_TIMER_LENGTH">
+    <formula>AALRR.RELEASE_TIMER_LENGTH</formula>
+    <kpi_info>
+      <title>RELEASE_TIMER_LENGTH</title>
+      <use>Value of the shared HSDPA AAL2 allocation reservation release timer ReleaseTimerForSharedHSDPAallocation at the end of the measurement interval. This counter is not valid and not updated for RNC level sum because the release timer can be configured separately for each BTS. UPDATED:When measurement data is collected, this counter is updated with the current release timer value.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(RELEASE_TIMER_LENGTH)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RELEASE_TIMER_LENGTH (M800C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RESERV_REL_DUE_TO_TIMER">
+    <formula>AALRR.RESERV_REL_DUE_TO_TIMER</formula>
+    <kpi_info>
+      <title>RESERV_REL_DUE_TO_TIMER</title>
+      <use>The number of times when the shared HSDPA AAL2 allocation was released because the release timer expired. This counter is also updated if the release timer value is zero and the reservation is released after the last user leaves the cell. UPDATED:When the release timer expires and the shared HSDPA AAL2 allocation is released. This counter is also updated if the release timer value is zero and the reservation is released after the last user leaves the cell.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RESERV_REL_DUE_TO_TIMER)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESERV_REL_DUE_TO_TIMER (M800C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RESERV_REL_TIMER_STARTED">
+    <formula>AALRR.RESERV_REL_TIMER_STARTED</formula>
+    <kpi_info>
+      <title>RESERV_REL_TIMER_STARTED</title>
+      <use>The number of times when release timer for shared HSDPA AAL2 allocation, defined by parameter "ReleaseTimerForSharedHSDPAallocation", was started because there were no active AAL2 connections for HSDPA. UPDATED:When the shared HSDPA AAL2 allocation release timer is started when the last HSDPA user leaves the cell.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RESERV_REL_TIMER_STARTED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESERV_REL_TIMER_STARTED (M800C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RESERV_REL_TIMER_STOPPED">
+    <formula>AALRR.RESERV_REL_TIMER_STOPPED</formula>
+    <kpi_info>
+      <title>RESERV_REL_TIMER_STOPPED</title>
+      <use>The number of times when  release timer for shared HSDPA AAL2 allocation, defined by parameter "ReleaseTimerForSharedHSDPAallocation", was stopped because a HSDPA user entered the cell. UPDATED:When the shared HSDPA AAL2 allocation release timer is stopped because a HSDPA user enters the cell.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RESERV_REL_TIMER_STOPPED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESERV_REL_TIMER_STOPPED (M800C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RESERV_REL_DUE_TO_OTHER">
+    <formula>AALRR.RESERV_REL_DUE_TO_OTHER</formula>
+    <kpi_info>
+      <title>RESERV_REL_DUE_TO_OTHER</title>
+      <use>Then number of times when the shared HSDPA AAL2 allocation was released due to other reason than release timer expiry. This can happen for example due to ATM network failure or BTS reset. UPDATED:When the shared HSDPA AAL2 allocation is released before release timer expiration.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RESERV_REL_DUE_TO_OTHER)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESERV_REL_DUE_TO_OTHER (M800C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_TIME_CUMULATIVE">
+    <formula>AALRR.ACTIVE_TIME_CUMULATIVE</formula>
+    <kpi_info>
+      <title>ACTIVE_TIME_CUMULATIVE</title>
+      <use>The cumulative sum of durations when at least one HSDPA user was utilizing the shared HSDPA AAL2 allocation during measurement period. UPDATED:When measurement period ends, this counter is updated by the cumulative sum allocation duration.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ACTIVE_TIME_CUMULATIVE)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_TIME_CUMULATIVE (M800C17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="WAITING_TIME_CUMULATIVE">
+    <formula>AALRR.WAITING_TIME_CUMULATIVE</formula>
+    <kpi_info>
+      <title>WAITING_TIME_CUMULATIVE</title>
+      <use>The cumulative sum of durations when there has been no HSDPA connections, but the shared HSDPA AAL2 allocation has been reserved due the release timer period. UPDATED:When measurement period ends, this counter is updated by the cumulative sum of waiting time duration.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(WAITING_TIME_CUMULATIVE)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WAITING_TIME_CUMULATIVE (M800C18)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="REJECT_HSDPA_TOO_MANY_USERS">
+    <formula>AALRR.REJECT_HSDPA_TOO_MANY_USERS</formula>
+    <kpi_info>
+      <title>REJECT_HSDPA_TOO_MANY_USERS</title>
+      <use>The number of HSDPA AAL2 reservations rejected because of too many users. This includes occurrences where transport resource reservation for HSDPA MAC-d flow has been rejected because of too many users. This is related to the case where the shared HSDPA AAL2 allocation has failed and the number of users is limited to the number given by parameter "NbrOfOverbookedHSDPAUsers".UPDATED: When HSDPA AAL2 reservation is rejected because of too many users.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(REJECT_HSDPA_TOO_MANY_USERS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJECT_HSDPA_TOO_MANY_USERS (M800C19)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>AALRR.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_aalrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/DATACALL.xml" />
+  <kpi name="MGW_609b">
+    <formula>decode(
+			(datacall.data_call_use + 
+			datacall.data_call_error + 
+			datacall.iwf_not_used),0,null, 
+
+			(100*(datacall.fax_modem_mgc_req_use + 
+			datacall.fax_modem_use)
+			 / 
+			(datacall.data_call_use + 
+			datacall.data_call_error + 
+			datacall.iwf_not_used )))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of fax/modem Data Calls of all Data Calls in MGW]]></title>
+      <use><![CDATA[Indicates the share of fax/modem data calls all data calls in measured MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(FAX_MODEM_MGC_REQ_USE + FAX_MODEM_USE) /  
+&lt;br&gt;sum(DATA_CALL_USE + DATA_CALL_ERROR + IWF_NOT_USED )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_datacall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of fax/modem Data Calls of all Data Calls in MGW]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TRFOTFO.xml" />
+  <kpi name="MGW_747a">
+    <formula>decode(
+			(trfotfo.trfo_use + 
+			trfotfo.transcoding_use + 
+			trfotfo.g711_use),0,null, 
+
+			(100*(trfotfo.transcoding_use)
+			 / 
+			(trfotfo.trfo_use + 
+			trfotfo.transcoding_use + 
+			trfotfo.g711_use)))</formula>
+    <kpi_info>
+      <title><![CDATA[Transcoding connection usage ratio]]></title>
+      <use><![CDATA[Indicates the usage ratio of transcoding connections of all connections between two audio/speech call terminations in MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(TRANSCODING_USE) /sum(TRFO_USE+TRANSCODING_USE+G711_USE)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_trfotfo_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Transcoding connection usage ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

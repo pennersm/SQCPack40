@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_3170a">
+    <formula>100*decode(
+			(servlev.rab_act_fail_ptt + 
+			servlev.rab_act_comp_ptt),0,null, 
+
+			(servlev.rab_act_fail_ptt)
+			 / 
+			(servlev.rab_act_fail_ptt + 
+			servlev.rab_act_comp_ptt))</formula>
+    <kpi_info>
+      <title><![CDATA[NRT RAB completion ratio for PTT service]]></title>
+      <use><![CDATA[The percentage of active RAB completions for PTT service.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RAB_ACT_FAIL_PTT)
+&lt;br&gt;/
+&lt;br&gt;SUM(RAB_ACT_FAIL_PTT +
+&lt;br&gt;RAB_ACT_COMP_PTT)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:09:51.706 +0100</date>
+          <comment><![CDATA[Source: RSRAN038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Act RAB comp R PTT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

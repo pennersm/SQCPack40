@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 VLAN_Stats VLAN measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 VLAN_Stats VLAN measurement dump</csv_title>
+    <report-description>AXC VLAN Statistics (M5222)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <rxEthernetPackets />
+    <rxEthernetOctets />
+    <txEthernetPackets />
+    <txEthernetOctets />
+  </column_order>
+  <temp_table name="VLAN" meas_level="PLMN/RNC/WBTS/AXC/IPNO/IEIF/IVIF" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="rxEthernetPackets" timeagg="SUM(rxEthernetPackets)">SUM(rxEthernetPackets)</counter>
+      <counter alias="rxEthernetOctets" timeagg="SUM(rxEthernetOctets)">SUM(rxEthernetOctets)</counter>
+      <counter alias="txEthernetPackets" timeagg="SUM(txEthernetPackets)">SUM(txEthernetPackets)</counter>
+      <counter alias="txEthernetOctets" timeagg="SUM(txEthernetOctets)">SUM(txEthernetOctets)</counter>
+    </counters>
+    <table_name>nokaxc_ps_vlan_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>VLAN</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>VLAN.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_vlan_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rxEthernetPackets">
+    <formula>VLAN.rxEthernetPackets</formula>
+    <kpi_info>
+      <title>rxEthernetPackets</title>
+      <use>The number of ethernet packets received on the interface. This includes those that may be subsequently discarded due to errors. UPDATED: The counter is updated when a packet is received on the VLAN interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rxEthernetPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_vlan_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rxEthernetPackets (M5222C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rxEthernetOctets">
+    <formula>VLAN.rxEthernetOctets</formula>
+    <kpi_info>
+      <title>rxEthernetOctets</title>
+      <use>The number of ethernet bytes received on the interface. This includes bytes of those packets that may be subsequently discarded due to errors. UPDATED: The counter is updated when an octet is received on the VLAN interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rxEthernetOctets)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_vlan_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rxEthernetOctets (M5222C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="txEthernetPackets">
+    <formula>VLAN.txEthernetPackets</formula>
+    <kpi_info>
+      <title>txEthernetPackets</title>
+      <use>The number of ethernet packets transmitted on the interface. UPDATED: The counter is updated when a packet is transmitted over the VLAN interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(txEthernetPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_vlan_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>txEthernetPackets (M5222C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="txEthernetOctets">
+    <formula>VLAN.txEthernetOctets</formula>
+    <kpi_info>
+      <title>txEthernetOctets</title>
+      <use>The number of ethernet bytes transmitted on the interface. UPDATED: The counter is updated when an octet is transmitted over the VLAN interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(txEthernetOctets)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_vlan_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>txEthernetOctets (M5222C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

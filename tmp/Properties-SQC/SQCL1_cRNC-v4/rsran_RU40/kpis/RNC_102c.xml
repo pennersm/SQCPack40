@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_102c">
+    <formula>
+    10*log(10,decode(
+			(cellres.ptxtot_denom_0 + 
+			cellres.ptxtot_denom_1 + 
+			cellres.ptxtot_denom_2 + 
+			cellres.ptxtot_denom_3 + 
+			cellres.ptxtot_denom_4),0,null, 
+			((power(10, (cellres.ave_ptxtot_class_0/100)/10)*cellres.ptxtot_denom_0 )+
+			(power(10, (cellres.ave_ptxtot_class_1/100)/10)*cellres.ptxtot_denom_1 )+			
+			(power(10, (cellres.ave_ptxtot_class_2/100)/10)*cellres.ptxtot_denom_2 )+			
+			(power(10, (cellres.ave_ptxtot_class_3/100)/10)*cellres.ptxtot_denom_3 )+			
+			(power(10, (cellres.ave_ptxtot_class_4/100)/10)*cellres.ptxtot_denom_4 ))
+			 / 
+			(cellres.ptxtot_denom_0 + 
+			cellres.ptxtot_denom_1 + 
+			cellres.ptxtot_denom_2 + 
+			cellres.ptxtot_denom_3 + 
+			cellres.ptxtot_denom_4)))
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Average Downlink R99 Load]]></title>
+      <use><![CDATA[Average transmitted downlink power [dBm] shows the downlink loading of a cell over the reporting period. The power is purely related to R99 and no HSPA (HSDPA or HSUPA DL) power is included.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;10*LOG(10,sum(POWER(10,(AVE_PTXTOT_CLASS_0/100)/10)*PTXTOT_DENOM_0 
+&lt;br&gt;+ POWER(10,(AVE_PTXTOT_CLASS_1/100)/10)*PTXTOT_DENOM_1
+&lt;br&gt;+ POWER(10,(AVE_PTXTOT_CLASS_2/100)/10)*PTXTOT_DENOM_2
+&lt;br&gt;+ POWER(10,(AVE_PTXTOT_CLASS_3/100)/10)*PTXTOT_DENOM_3
+&lt;br&gt;+ POWER(10,(AVE_PTXTOT_CLASS_4/100)/10)*PTXTOT_DENOM_4)
+&lt;br&gt;/
+&lt;br&gt;sum(PTXTOT_DENOM_0 + PTXTOT_DENOM_1 + PTXTOT_DENOM_2 + PTXTOT_DENOM_3 + PTXTOT_DENOM_4)
+&lt;br&gt;)
+&lt;br&gt;</formula>
+      <unit>[dBm]</unit>
+      <tables>nokrww_ps_CELLRES_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/28 11:27:11.789 +0100</date>
+          <comment><![CDATA[Source: RSRAN047.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg DL R99 Load</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

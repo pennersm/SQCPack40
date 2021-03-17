@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4024a">
+    <formula>
+decode(TC_ext.tcat_call_amount_37,0,null,
+	100 * ( SERVI_ext.MSCSSM_USAGE_13 / TC_ext.tcat_call_amount_37 )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MOC Call Forwarding Ratio]]></title>
+      <use><![CDATA[Provides the ratio of calls forwarded in relation to the number of calls generated at area served by this MSC]]></use>
+
+<use_experience><![CDATA[ 
+<br>Service_ID:
+<br>   17 = ALL FORWARDING
+<br>
+<br>Tcat_ID:
+<br>   32 = 3G ORIG
+<br>   34 = 2G ORIG
+<br>
+<br>KPI&#039;s BH criteria: MAX of SUM( MSCSSM_USAGE ) ;WERE Service_ID = 17H
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Service measurement (M128/80H)
+<br>+
+<br>Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MOC Call Forwarding Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( MSCSSM_USAGE ) ;WHERE Service_ID = 17H
+&lt;br&gt;100 * -----------------------------------
+&lt;br&gt;       SUM( tcat_call_amount ) ;WHERE TCat_ID = 32, 34
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED table(s)
+&lt;br&gt;
+&lt;br&gt;a = M128 = Service measurement (M128/80H)
+&lt;br&gt;b = M20 = Traffic category measurement (M20/14H)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG},rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MOC forwarding</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

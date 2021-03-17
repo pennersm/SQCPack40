@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/SMSTY.xml"/>
+  <kpi name="msc_602a">
+    <formula>100*(decode(
+			(smsty.smsc_succ_vmsc_mo_logical + 
+			smsty.smsc_unsucc_vmsc_mo_logical),0,null, 
+
+			smsty.smsc_succ_vmsc_mo_logical
+			 / 
+			(smsty.smsc_succ_vmsc_mo_logical + 
+			smsty.smsc_unsucc_vmsc_mo_logical)))</formula>
+    <kpi_info>
+      <title><![CDATA[SMS MO success ratio]]></title>
+      <use><![CDATA[Success ratio of successfully delivered (clear code 0x00) mobile originated SMS&#039;s compared to all mobile originated SMS attempts counted from VMSC at mobile terminated side. VMSC is the MSC that sends the short message to the radio network]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;     SUM(SMSC_SUCC_VMSC_MO_LOGICAL)
+&lt;br&gt;100* ---------------------------------------
+&lt;br&gt;     (SUM(SMSC_SUCC_VMSC_MO_LOGICAL)
+&lt;br&gt;     + SUM(SMSC_UNSUCC_VMSC_MO_LOGICAL))
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_SMSTY_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_smsty_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[SMS MO success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

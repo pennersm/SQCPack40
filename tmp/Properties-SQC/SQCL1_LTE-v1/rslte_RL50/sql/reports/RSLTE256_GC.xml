@@ -1,0 +1,1500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+
+	<report id="RSLTE256 - LTE Alarm Details">
+		<level>PLMN/MRBTS/FTM/LNBTS/LNCEL</level>
+		<report-level key="LNCEL">PLMN/MRBTS/FTM/LNBTS/LNCEL</report-level>
+		<time-agg>raw</time-agg>
+		<title>RSLTE256 - LTE Alarm Details</title>
+		<help-text>
+			<![CDATA[<pre>
+
+This report is divided in 3 parts. The first part, provides a daily summary of the most relevant alarms (total and unique per object). The second part, provides detailed information about individual alarms
+of the LTE radio network elements (MRBTS, LNBTS, FTM and LNCEL). Last change: 2013-09-24 by Reinhard. Last change 24.10.2013
+
+
+			</pre>]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">plmn.co_gid</pivot>
+			<pivot level="MRBTS">mrbts.co_gid</pivot>	
+<!-- 			<pivot level="LNBTS">lnbts.co_gid</pivot> -->
+<!-- 			<pivot level="LNCEL">lncel.co_gid</pivot> -->
+			<pivot level="MR_MRBTS">mrbts.co_mr_gid</pivot>
+<!-- 			<pivot level="MR_LNBTS">lnbts.co_mr_gid</pivot> -->
+<!-- 			<pivot level="MR_LNCEL">lncel.co_mr_gid</pivot> -->
+			<pivot level="WS_MRBTS" group="MRBTS">g.ws</pivot>
+<!-- 			<pivot level="WS_LNBTS" group="LNBTS">g.ws</pivot>			 -->
+<!-- 			<pivot level="WS_LNCEL" group="LNCEL">g.ws</pivot>	 -->
+
+
+		</pivots>
+		<columns>
+		<column col-id="period_start_time">
+				<alias>Period Start Time</alias>
+		</column>
+		<column col-id="alm_id"> <kpi_format>float:0</kpi_format>
+				<alias>Alarm ID</alias>
+			</column>
+			<column col-id="tot_num">
+				<alias>Total alarm count</alias>
+				<kpi_format>float:0</kpi_format>
+			</column>
+			<column col-id="alarm_number" threshold="true"> <kpi_format>float:0</kpi_format>
+				<alias>Alarm ID</alias>
+			</column>
+			<column col-id="text">
+				<alias>Alarm description</alias>
+			</column>
+			<column col-id="severity" > <kpi_format>float:0</kpi_format>
+				<alias>severity</alias>
+			</column>
+			<column col-id="alarm_type" > <kpi_format>float:0</kpi_format>
+				<alias>Alarm Type</alias>
+			</column>
+			<column col-id="text" > <kpi_format>float:0</kpi_format>
+				<alias>Alarm Text</alias>
+			</column>
+			<column col-id="supplementary_info" > <kpi_format>float:0</kpi_format>
+				<alias>Supplementary Info</alias>
+			</column>
+			<column col-id="diagnostic_info" > <kpi_format>float:0</kpi_format>
+				<alias>Diagnostic Info</alias>
+			</column>
+			<column col-id="plmn_co_name" > <kpi_format>float:0</kpi_format>
+				<alias>PLMN name</alias>
+			</column>
+			<column col-id="mrbts_co_name" > <kpi_format>float:0</kpi_format>
+				<alias>MRBTS name</alias>
+			</column>
+			<column col-id="mrbts_dn"> <kpi_format>float:0</kpi_format>
+				<alias>MRBTS DN</alias>
+			</column>
+			<column col-id="lnbts_co_name" > <kpi_format>float:0</kpi_format>
+				<alias>LNBTS name</alias>
+			</column>
+			<column col-id="lnbts_dn"> <kpi_format>float:0</kpi_format>
+				<alias>LNBTS DN</alias>
+			</column>
+			<column col-id="lncel_co_name" > <kpi_format>float:0</kpi_format>
+				<alias>LNCEL name</alias>
+			</column>
+			<column col-id="lncel_dn"> <kpi_format>float:0</kpi_format>
+				<alias>LNCEL DN</alias>
+			</column>
+			<column col-id="alarm_date">
+				<alias>Start Date</alias>
+			</column>
+			<column col-id="alarm_time">
+				<alias>Start Time</alias>
+			</column>
+			<column col-id="end_date">
+				<alias>End Date</alias>
+			</column>
+			<column col-id="end_time">
+				<alias>End Time</alias>
+			</column>
+ 			<column col-id="object">
+				<alias>NE Name</alias>
+			</column>
+			<column col-id="object_type">
+				<alias>NE Type</alias>
+			</column>
+			<column col-id="zse">
+				<alias>Alarm hold time (sec)</alias>
+				<kpi_format>float:0</kpi_format>
+			</column>
+			
+			<column col-id="critical" group="Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Critical</alias> </column>
+			<column col-id="major" group="Alarm Severity"> <kpi_format>float:0</kpi_format>	<alias>Major</alias> </column>
+			<column col-id="minor" group="Alarm Severity"> <kpi_format>float:0</kpi_format>	<alias>Minor</alias> </column>
+			<column col-id="warning" group="Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Warning</alias> </column>
+			
+			<column col-id="critical_duration_sec" group="Total Time Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Time Critical</alias> </column>
+			<column col-id="major_duration_sec" group="Total Time Alarm Severity"> <kpi_format>float:0</kpi_format>	<alias>Time Major</alias> </column>
+			<column col-id="minor_duration_sec" group="Total Time Alarm Severity"> <kpi_format>float:0</kpi_format>	<alias>Time Minor</alias> </column>
+			<column col-id="warning_duration_sec" group="Total Time Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Time Warning</alias> </column>
+			
+			<column col-id="u_critical" group="Unique Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Unique Critical</alias> </column>
+			<column col-id="u_major" group="Unique Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Unique Major</alias> </column>
+			<column col-id="u_minor" group="Unique Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Unique Minor</alias> </column>
+			<column col-id="u_warning" group="Unique Alarm Severity"> <kpi_format>float:0</kpi_format> <alias>Unique Warning</alias> </column>
+			
+			<column col-id="communication" group="Alarm Type"> <kpi_format>float:0</kpi_format>	<alias>communication</alias> </column>
+			<column col-id="environmental" group="Alarm Type"> <kpi_format>float:0</kpi_format>	<alias>environmental</alias> </column>
+			<column col-id="equipment" group="Alarm Type"> <kpi_format>float:0</kpi_format>	<alias>equipment</alias> </column>
+			<column col-id="processing" group="Alarm Type"> <kpi_format>float:0</kpi_format> <alias>processing</alias> </column>
+			<column col-id="quality_of_service" group="Alarm Type"> <kpi_format>float:0</kpi_format> <alias>quality of service</alias>	</column>
+		
+			<column col-id="communication_sec" group="Total Time Alarm Type"> <kpi_format>float:0</kpi_format>	<alias>Time communication</alias> </column>
+			<column col-id="environmental_sec" group="Total Time Alarm Type"> <kpi_format>float:0</kpi_format>	<alias>Time environmental</alias> </column>
+			<column col-id="equipment_sec" group="Total Time Alarm Type"> <kpi_format>float:0</kpi_format>	<alias>Time equipment</alias> </column>
+			<column col-id="processing_sec" group="Total Time Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Time processing</alias> </column>
+			<column col-id="quality_of_service_sec" group="Total Time Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Time quality of service</alias> </column>
+		
+			
+			<column col-id="u_communication" group="Unique Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Unique communication</alias> </column>
+			<column col-id="u_environmental" group="Unique Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Unique environmental</alias> </column>
+			<column col-id="u_equipment" group="Unique Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Unique equipment</alias> </column>
+			<column col-id="u_processing" group="Unique Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Unique processing</alias> </column>
+			<column col-id="u_quality_of_service" group="Unique Alarm Type"> <kpi_format>float:0</kpi_format> <alias>Unique quality of service</alias>	</column>
+			
+			<column col-id="alarm_7401" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 1</alias>	</column>
+			<column col-id="alarm_7402" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 2</alias>	</column>
+			<column col-id="alarm_7403" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 3</alias>	</column>
+			<column col-id="alarm_7404" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 4</alias>	</column>
+			<column col-id="alarm_7405" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 5</alias>	</column>
+			<column col-id="alarm_7406" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 6</alias>	</column>
+			<column col-id="alarm_7407" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 7</alias>	</column>
+			<column col-id="alarm_7408" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 8</alias>	</column>
+			<column col-id="alarm_7409" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL 9</alias>	</column>
+			<column col-id="alarm_7410" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL10</alias>	</column>
+			<column col-id="alarm_7411" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL11</alias>	</column>
+			<column col-id="alarm_7412" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL12</alias>	</column>
+			<column col-id="alarm_7413" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL13</alias>	</column>
+			<column col-id="alarm_7414" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL14</alias>	</column>
+			<column col-id="alarm_7415" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL15</alias>	</column>
+			<column col-id="alarm_7416" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL16</alias>	</column>
+			<column col-id="alarm_7417" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL17</alias>	</column>
+			<column col-id="alarm_7418" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL18</alias>	</column>
+			<column col-id="alarm_7419" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL19</alias>	</column>
+			<column col-id="alarm_7420" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL20</alias>	</column>
+			<column col-id="alarm_7421" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL21</alias>	</column>
+			<column col-id="alarm_7422" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL22</alias>	</column>
+			<column col-id="alarm_7423" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL23</alias>	</column>
+			<column col-id="alarm_7424" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL24</alias>	</column>
+			<column col-id="alarm_7425" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL25</alias>	</column>
+			<column col-id="alarm_7426" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>External AL26</alias>	</column>
+			<column col-id="alarm_7650" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>BASE STATION FAULTY</alias>	</column>
+			<column col-id="alarm_7651" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>BASE STATION OPERATION DEGRADED</alias>	</column>
+			<column col-id="alarm_7652" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>BASE STATION NOTIFICATION</alias>	</column>
+			<column col-id="alarm_7653" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>CELL FAULTY</alias>	</column>
+			<column col-id="alarm_7654" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>CELL OPERATION DEGRADED</alias>	</column>
+			<column col-id="alarm_7655" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>CELL NOTIFICATION</alias>	</column>
+			<column col-id="alarm_7656" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>BASE STATION CONNECTIVITY LOST </alias>	</column>
+			<column col-id="alarm_7657" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>BASE STATION CONNECTIVITY DEGRADED</alias>	</column>
+			<column col-id="alarm_7665" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>BASE STATION TRANSMISSION ALARM</alias>	</column>
+			<column col-id="alarm_71058" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>NE OM CONNECTION FAILURE </alias>	</column>
+			<column col-id="alarm_9228" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>ALARM DATABASE UPLOAD IN PROGRESS </alias>	</column>
+			<column col-id="alarm_9251" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>MAINTENANCE MODE ACTIVATED </alias>	</column>
+			<column col-id="alarm_9252" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>ELEMENT IN MAINTENANCE MODE </alias>	</column>
+			<column col-id="alarm_9255" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>ALARM DATABASE UPLOAD FAILURE </alias>	</column>
+			<column col-id="alarm_61006" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>The FTM booted </alias>	</column>
+			<column col-id="alarm_61613" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>NTP server is not accessible </alias>	</column>
+			<column col-id="alarm_69100" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>RACH_LOW </alias>	</column>
+			<column col-id="alarm_71101" group="Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>OMS ALARM UPLOAD FROM NE FAILED </alias>	</column>
+			
+			<column col-id="u_alarm_7401" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 1</alias>	</column>
+			<column col-id="u_alarm_7402" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 2</alias>	</column>
+			<column col-id="u_alarm_7403" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 3</alias>	</column>
+			<column col-id="u_alarm_7404" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 4</alias>	</column>
+			<column col-id="u_alarm_7405" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 5</alias>	</column>
+			<column col-id="u_alarm_7406" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 6</alias>	</column>
+			<column col-id="u_alarm_7407" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 7</alias>	</column>
+			<column col-id="u_alarm_7408" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 8</alias>	</column>
+			<column col-id="u_alarm_7409" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL 9</alias>	</column>
+			<column col-id="u_alarm_7410" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL10</alias>	</column>
+			<column col-id="u_alarm_7411" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL11</alias>	</column>
+			<column col-id="u_alarm_7412" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL12</alias>	</column>
+			<column col-id="u_alarm_7413" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL13</alias>	</column>
+			<column col-id="u_alarm_7414" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL14</alias>	</column>
+			<column col-id="u_alarm_7415" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL15</alias>	</column>
+			<column col-id="u_alarm_7416" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL16</alias>	</column>
+			<column col-id="u_alarm_7417" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL17</alias>	</column>
+			<column col-id="u_alarm_7418" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL18</alias>	</column>
+			<column col-id="u_alarm_7419" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL19</alias>	</column>
+			<column col-id="u_alarm_7420" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL20</alias>	</column>
+			<column col-id="u_alarm_7421" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL21</alias>	</column>
+			<column col-id="u_alarm_7422" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL22</alias>	</column>
+			<column col-id="u_alarm_7423" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL23</alias>	</column>
+			<column col-id="u_alarm_7424" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL24</alias>	</column>
+			<column col-id="u_alarm_7425" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL25</alias>	</column>
+			<column col-id="u_alarm_7426" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique External AL26</alias>	</column>
+			<column col-id="u_alarm_7650" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique BASE STATION FAULTY</alias>	</column>
+			<column col-id="u_alarm_7651" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique BASE STATION OPERATION DEGRADED</alias>	</column>
+			<column col-id="u_alarm_7652" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique BASE STATION NOTIFICATION</alias>	</column>
+			<column col-id="u_alarm_7653" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique CELL FAULTY</alias>	</column>
+			<column col-id="u_alarm_7654" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique CELL OPERATION DEGRADED</alias>	</column>
+			<column col-id="u_alarm_7655" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique CELL NOTIFICATION</alias>	</column>
+			<column col-id="u_alarm_7656" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique BASE STATION CONNECTIVITY LOST</alias>	</column>
+			<column col-id="u_alarm_7657" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique BASE STATION CONNECTIVITY DEGRADED</alias>	</column>
+			<column col-id="u_alarm_7665" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique BASE STATION TRANSMISSION ALARM</alias>	</column>
+			<column col-id="u_alarm_71058" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format> <alias>Unique NE OM CONNECTION FAILURE</alias> </column>
+			<column col-id="u_alarm_9228" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique ALARM DATABASE UPLOAD IN PROGRESS</alias>	</column>
+			<column col-id="u_alarm_9251" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique MAINTENANCE MODE ACTIVATED</alias>	</column>
+			<column col-id="u_alarm_9252" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique ELEMENT IN MAINTENANCE MODE</alias>	</column>
+			<column col-id="u_alarm_9255" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format>	<alias>Unique ALARM DATABASE UPLOAD FAILURE</alias>	</column>
+			<column col-id="u_alarm_61006" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format><alias>Unique The FTM booted</alias>	</column>
+			<column col-id="u_alarm_61613" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format><alias>Unique NTP server is not accessible </alias>	</column>
+			<column col-id="u_alarm_69100" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format><alias>Unique RACH_LOW</alias>	</column>
+			<column col-id="u_alarm_71101" group="Unique Alarm ID"> <kpi_format>float:0</kpi_format><alias>Unique OMS ALARM UPLOAD FROM NE FAILED    </alias>	</column>
+			
+		
+			<column col-id="bsod" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>BASE STATION OPERATION DEGRADED</alias> </column>
+			<column col-id="bsta" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>BASE STATION TRANSMISSION ALARM</alias> </column>
+			<column col-id="cf" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>CELL FAULTY</alias>	</column>
+			<column col-id="cn" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>CELL NOTIFICATION</alias> </column>
+			<column col-id="cod" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>CELL OPERATION DEGRADED</alias> </column>
+			<column col-id="eimm" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>ELEMENT IN MAINTENANCE MODE</alias> </column>
+			<column col-id="mma" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>MAINTENANCE MODE ACTIVATED</alias>	</column>
+			<column col-id="neomcf" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>NE O&amp;M CONNECTION FAILURE</alias> </column>
+			<column col-id="ndrbs" group="Alarm Text"> <kpi_format>float:0</kpi_format>	<alias>No DRB Setup</alias>	</column>
+			<column col-id="nt" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>No Traffic</alias> </column>
+			<column col-id="omsaufnef" group="Alarm Text"> <kpi_format>float:0</kpi_format>	<alias>OMS ALARM UPLOAD FROM NE FAILED</alias> </column>
+			<column col-id="rachl" group="Alarm Text"> <kpi_format>float:0</kpi_format>	<alias>RACH_LOW</alias>	</column>
+			<column col-id="smttmof" group="Alarm Text"> <kpi_format>float:0</kpi_format> <alias>SOFTWARE MANAGEMENT TASK TO MANAGED OBJECT FAILED</alias> </column>
+			
+			<column col-id="u_bsod" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique BASE STATION OPERATION DEGRADED</alias> </column>
+			<column col-id="u_bsta" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique BASE STATION TRANSMISSION ALARM</alias> </column>
+			<column col-id="u_cf" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique CELL FAULTY</alias>	</column>
+			<column col-id="u_cn" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique CELL NOTIFICATION</alias> </column>
+			<column col-id="u_cod" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique CELL OPERATION DEGRADED</alias> </column>
+			<column col-id="u_eimm" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique ELEMENT IN MAINTENANCE MODE</alias> </column>
+			<column col-id="u_mma" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique MAINTENANCE MODE ACTIVATED</alias>	</column>
+			<column col-id="u_neomcf" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique NE OM CONNECTION FAILURE</alias> </column>
+			<column col-id="u_ndrbs" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format>	<alias>Unique No DRB Setup</alias>	</column>
+			<column col-id="u_nt" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique No Traffic</alias> </column>
+			<column col-id="u_omsaufnef" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format>	<alias>Unique OMS ALARM UPLOAD FROM NE FAILED</alias> </column>
+			<column col-id="u_rachl" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format>	<alias>Unique RACH_LOW</alias>	</column>
+			<column col-id="u_smttmof" group="Unique Alarm Text"> <kpi_format>float:0</kpi_format> <alias>Unique SOFTWARE MANAGEMENT TASK TO MANAGED OBJECT FAILED</alias> </column>
+			
+			<column col-id="ACFail" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>AC Fail</alias></column>
+			<column col-id="Addressmismatchinsummi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Address mismatch in summing</alias></column>
+			<column col-id="AntennaCarrierconfigur" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna Carrier configuration failure</alias></column>
+			<column col-id="Antennalinedeviceconfi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna line device configuration failure</alias></column>
+			<column col-id="AntennaLineDevicefailu" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna Line Device failure</alias></column>
+			<column col-id="AntennalinedeviceHWfai" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna line device HW failure</alias></column>
+			<column col-id="AntennaLineDeviceOpera" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna Line Device Operation Failure</alias></column>
+			<column col-id="AntennaLinefailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna Line failure</alias></column>
+			<column col-id="AntennaLineOperationDe" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna Line Operation Degraded</alias></column>
+			<column col-id="Antennalinkisdown" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Antenna link is down</alias></column>
+			<column col-id="AutomaticBTSOperatorCe" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Automatic BTS Operator Certificate retrieval unsuccessful</alias></column>
+			<column col-id="Automaticneighborrelat" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Automatic neighbor relation failure</alias></column>
+			<column col-id="Basebandbusfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Baseband bus failure</alias></column>
+			<column col-id="BatteryAlarm" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Battery Alarm</alias></column>
+			<column col-id="BatteryLowvoltage" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Battery Low voltage</alias></column>
+			<column col-id="BBbusmessagecollisione" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BB bus message collision error</alias></column>
+			<column col-id="BBbusreceptionerrorsu" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BB bus reception error (summing device)</alias></column>
+			<column col-id="BBbustransmissionerror" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BB bus transmission error</alias></column>
+			<column col-id="BFDgroupbfdGrpIddown" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BFD group $bfdGrpId down</alias></column>
+			<column col-id="Bootconfigurationincon" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Boot configuration inconsistency detected</alias></column>
+			<column col-id="BTSautonomousresetasre" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS autonomous reset as recovery action</alias></column>
+			<column col-id="BTSblocked" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS blocked</alias></column>
+			<column col-id="BTSconfigerrorNotenou" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS config error (Not enough HW for LCR)</alias></column>
+			<column col-id="BTSconfigurationnotsup" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS configuration not supported</alias></column>
+			<column col-id="BTSfileerror" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS file error</alias></column>
+			<column col-id="BTSinternalSWmanagemen" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS internal SW management problem</alias></column>
+			<column col-id="BTSisuncommissioned" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS is uncommissioned</alias></column>
+			<column col-id="BTSMasterClocktuningfa" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS Master Clock tuning failure</alias></column>
+			<column col-id="BTSreferenceclockmissi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS reference clock missing</alias></column>
+			<column col-id="BTSresetrequired" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS reset required</alias></column>
+			<column col-id="BTSresettimeincreased" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS reset time increased</alias></column>
+			<column col-id="BTSSWdownloadoractivat" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS SW download or activation failed</alias></column>
+			<column col-id="BTStimenotcorrected" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS time not corrected</alias></column>
+			<column col-id="BTSTrustAnchorduetoexp" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS Trust Anchor due to expire</alias></column>
+			<column col-id="BTSvendorspecificfilef" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>BTS vendor specific file fault</alias></column>
+			<column col-id="Cellblocked" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cell blocked</alias></column>
+			<column col-id="Cellconfigurationdatad" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cell configuration data distribution failed</alias></column>
+			<column col-id="Cellpowerfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cell power failure</alias></column>
+			<column col-id="Commissioningerror" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Commissioning error:</alias></column>
+			<column col-id="Communicationfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Communication failure</alias></column>
+			<column col-id="ConfigurationerrorNot" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Configuration error: Not enough HW for LCR</alias></column>
+			<column col-id="Configurationfilecorru" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Configuration file corrupted</alias></column>
+			<column col-id="Coolingfanbroken" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cooling fan broken</alias></column>
+			<column col-id="Coolingfanhasreducedfr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cooling fan has reduced from the set speed </alias></column>
+			<column col-id="Coolingfanisoverspeedi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cooling fan is over speeding </alias></column>
+			<column col-id="Coolingfanspeeddecreas" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Cooling fan speed decreased</alias></column>
+			<column col-id="Criticalbittogglingerr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Critical bit toggling error</alias></column>
+			<column col-id="DCFail" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>DC Fail</alias></column>
+			<column col-id="DeadPeerDetected" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Dead Peer Detected</alias></column>
+			<column col-id="DifferencebetweenBTSma" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Difference between BTS master clock and reference frequency</alias></column>
+			<column col-id="Distributedsitesupport" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Distributed site support not enabled</alias></column>
+			<column col-id="DoorOpen" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Door Open</alias></column>
+			<column col-id="DSPoverheated" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>DSP overheated</alias></column>
+			<column col-id="EBERonunitUinterface" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>EBER on unit $U, interface $IF</alias></column>
+			<column col-id="Errorinfileserverduri" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Error in file server during file download type</alias></column>
+			<column col-id="Errorinfileserverdurin" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Error in file server during SW download</alias></column>
+			<column col-id="Failureduringcellactiv" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Failure during cell activation</alias></column>
+			<column col-id="Failureinconnectionbet" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Failure in connection between BTS and iOMS or 3rd party tool</alias></column>
+			<column col-id="FailureinopticalRP3int" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Failure in optical RP3 interface</alias></column>
+			<column col-id="Failureinreplaceableba" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Failure in replaceable baseband unit</alias></column>
+			<column col-id="Failureintracesession" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Failure in trace session</alias></column>
+			<column col-id="Fanfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Fan failure</alias></column>
+			<column col-id="Fanmodulefaulty" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Fan module faulty</alias></column>
+			<column col-id="Fanmoduleoperationdegr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Fan module operation degraded</alias></column>
+			<column col-id="Fanvendornotdetected" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Fan vendor not detected</alias></column>
+			<column col-id="FatalOSEError" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Fatal OSE Error</alias></column>
+			<column col-id="Faultdiagnosticsrulefi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Fault diagnostics rule file error</alias></column>
+			<column col-id="FAULTID" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FAULT ID</alias></column>
+			<column col-id="FAULTNAME" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FAULT NAME</alias></column>
+			<column col-id="FilecorruptedinSWdownl" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>File corrupted in SW download</alias></column>
+			<column col-id="FileSystemaccessfailed" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>File System access failed</alias></column>
+			<column col-id="Filterunitoperationfai" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Filter unit operation failed</alias></column>
+			<column col-id="FirmwareSWmismatch" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Firmware SW mismatch</alias></column>
+			<column col-id="FivefailedloginstoFTMd" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Five failed logins to FTM due to wrong user name or password</alias></column>
+			<column col-id="Flashoperationfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Flash operation failure</alias></column>
+			<column col-id="FlexiLiteBTSReplaceth" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FlexiLiteBTS: Replace the Flexi Lite BTS.</alias></column>
+			<column col-id="FPGASWupdatefailed" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FPGA SW update failed</alias></column>
+			<column col-id="Frameclockdeviationfau" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Frame clock deviation fault</alias></column>
+			<column col-id="FrameClockMissing" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Frame Clock Missing</alias></column>
+			<column col-id="Framenumbersynchroniza" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Frame number synchronization error in optical interface</alias></column>
+			<column col-id="FSPinresettingstate" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FSP in resetting state</alias></column>
+			<column col-id="FSPoverheating" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FSP overheating</alias></column>
+			<column col-id="FTMbootedatdatedueto" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FTM booted at $date due to $RCause</alias></column>
+			<column col-id="FTMToggling" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>FTM Toggling</alias></column>
+			<column col-id="GPSR" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GPS R</alias></column>
+			<column col-id="GPSReceiveralarmContr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GPS Receiver alarm: Control Interface not available</alias></column>
+			<column col-id="GPSReceiveralarmEEPRO" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GPS Receiver alarm: EEPROM invalid</alias></column>
+			<column col-id="GPSReceiveralarmNosto" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GPS Receiver alarm: No stored position</alias></column>
+			<column col-id="GPSReceiveralarmNotTr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GPS Receiver alarm: Not Tracking Satellites</alias></column>
+			<column col-id="GPSReceiveralarmSurve" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GPS Receiver alarm: Survey-in progress</alias></column>
+			<column col-id="GTPUPathFailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>GTP-U Path Failure</alias></column>
+			<column col-id="Heatingelementnotworki" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Heating element not working</alias></column>
+			<column col-id="HighTemperature" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>High Temperature</alias></column>
+			<column col-id="Incoherencyincellconfi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Incoherency in cell configuration</alias></column>
+			<column col-id="IncoherencywithRFModul" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Incoherency with RF Modules</alias></column>
+			<column col-id="IncompatibleSWversiond" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Incompatible SW version detected</alias></column>
+			<column col-id="Incorrectradionetworkp" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Incorrect radio network parameters</alias></column>
+			<column col-id="IncreasedBERdetectedon" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Increased BER detected on the optical connection to Radio Module</alias></column>
+			<column col-id="InternalMTUconfigurati" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Internal MTU configuration failure</alias></column>
+			<column col-id="InvalidConfigurationfi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Invalid Configuration file</alias></column>
+			<column col-id="Invalidfrequencychanne" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Invalid frequency channel for the BTS HW</alias></column>
+			<column col-id="Lownoiseamplifierfailu" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Low noise amplifier failure</alias></column>
+			<column col-id="LowTemperature" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Low Temperature</alias></column>
+			<column col-id="Mainspowerbreakrunnin" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Mains power break, running Battery Backup</alias></column>
+			<column col-id="MastHeadAmplifierfault" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Mast Head Amplifier fault</alias></column>
+			<column col-id="Masterunithaslostconne" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Master unit has lost connection to the slave unit</alias></column>
+			<column col-id="Maximumnumberofneighbo" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Maximum number of neighbour eNBs/cells exceeded</alias></column>
+			<column col-id="MHAunitoperationfailur" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>MHA unit operation failure</alias></column>
+			<column col-id="MissingRNWparameter" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Missing RNW parameter</alias></column>
+			<column col-id="MissingRP301link" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Missing RP3-01 link</alias></column>
+			<column col-id="ModuleClockFaulty" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Module Clock Faulty</alias></column>
+			<column col-id="Moduledangerouslyoverh" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Module dangerously overheating</alias></column>
+			<column col-id="NoconnectiontoFlexitra" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>No connection to Flexi transport submodule</alias></column>
+			<column col-id="Noconnectiontounit" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>No connection to unit</alias></column>
+			<column col-id="Nofeedbacksignal" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>No feedback signal</alias></column>
+			<column col-id="NoMMEcapacityassignedb" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>No MME capacity assigned by Core Network</alias></column>
+			<column col-id="Nomodulefandetected" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>No module fan detected</alias></column>
+			<column col-id="Notabletosynchronizeba" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Not able to synchronize baseband bus with</alias></column>
+			<column col-id="NTPserverisnotaccessib" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>NTP server is not accessible</alias></column>
+			<column col-id="OICMCUBufferFull" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>OIC MCU Buffer Full</alias></column>
+			<column col-id="Opticalinterfacebuffer" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Optical interface buffer alarm</alias></column>
+			<column col-id="OpticalInterfaceDataC" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Optical Interface Data/Control/Ethernet Buffer Full</alias></column>
+			<column col-id="OpticalInterfacefaulty" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Optical Interface faulty</alias></column>
+			<column col-id="OpticalinterfaceFPGAsw" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Optical interface FPGA sw crc check failed</alias></column>
+			<column col-id="Ovenoscillatorclockmis" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Oven oscillator clock missing</alias></column>
+			<column col-id="Ovenoscillatorheatingf" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Oven oscillator heating failure</alias></column>
+			<column col-id="OvenoscillatorMissingP" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Oven oscillator Missing Pulse</alias></column>
+			<column col-id="ParallelRP301linkleng" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Parallel RP3-01 link length mismatch</alias></column>
+			<column col-id="Peersystemmoduleconnec" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Peer system module connection lost</alias></column>
+			<column col-id="PhichPowerBoostnotappl" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Phich Power Boost not applied</alias></column>
+			<column col-id="PINameDRBSetupAttem" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>PI Name: DRB_Setup_Attempts</alias></column>
+			<column col-id="PINamePDCPDataRate" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>PI Name: PDCP_Data_Rate_downlink</alias></column>
+			<column col-id="Pipedangerouslyoverhea" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Pipe dangerously overheating </alias></column>
+			<column col-id="POSTtestfailed" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>POST test failed</alias></column>
+			<column col-id="Powerlevelnotsupported" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Power level not supported</alias></column>
+			<column col-id="PPSreferencemissing" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>PPS reference missing</alias></column>
+			<column col-id="RadioMasterConflict" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Radio Master Conflict</alias></column>
+			<column col-id="Radioresourcesswitched" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Radio resources switched off</alias></column>
+			<column col-id="ReceivingfailureinOpti" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Receiving failure in Optical Interface</alias></column>
+			<column col-id="RectifierModuleFailed" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Rectifier Module Failed</alias></column>
+			<column col-id="RETAntennacontrolfailu" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RET Antenna control failure</alias></column>
+			<column col-id="RFBBBusConfigurationEr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF BB Bus Configuration Error</alias></column>
+			<column col-id="RFBBBusConnectionTrans" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF BB Bus Connection Transmission Error</alias></column>
+			<column col-id="RFBBBusSynchronization" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF BB Bus Synchronization Error</alias></column>
+			<column col-id="RFBBEnergytoohigh" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF BB Energy too high</alias></column>
+			<column col-id="RFLossofsecondaryoptic" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Loss of secondary optical interface</alias></column>
+			<column col-id="RFModuleblocked" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module blocked</alias></column>
+			<column col-id="RFModuleconfiguringfai" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module configuring failed</alias></column>
+			<column col-id="RFModulecriticalfileno" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module critical file not found</alias></column>
+			<column col-id="RFmodulefailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF module failure</alias></column>
+			<column col-id="RFModulefilenotfound" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module file not found</alias></column>
+			<column col-id="RFModuleFilterinputpow" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module Filter input power missing</alias></column>
+			<column col-id="RFModuleGainadjustingf" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module Gain adjusting failure</alias></column>
+			<column col-id="RFModuleoutoforder" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module out of order</alias></column>
+			<column col-id="RFModuleovervoltagepro" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module overvoltage protection faulty</alias></column>
+			<column col-id="RFModulePoweroutputfau" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Module Power output faulty</alias></column>
+			<column col-id="RFPowerdecreased" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Power decreased </alias></column>
+			<column col-id="RFsensortemperaturetoo" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF sensor temperature too high in Flexi Lite</alias></column>
+			<column col-id="RFTestloopfaulty" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RF Test loop faulty</alias></column>
+			<column col-id="RNWparametermismatch" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RNW parameter mismatch</alias></column>
+			<column col-id="RP301LinkConflict" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RP3-01 Link Conflict</alias></column>
+			<column col-id="RXoutoforder" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>RX out of order</alias></column>
+			<column col-id="S1interfacerecoveryfai" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>S1 interface recovery failure</alias></column>
+			<column col-id="S1interfacesetupfailur" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>S1 interface setup failure</alias></column>
+			<column col-id="S1SCTPpathfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>S1 SCTP path failure</alias></column>
+			<column col-id="Siteautonomousresetasr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Site autonomous reset as recovery action</alias></column>
+			<column col-id="SRAMoperationfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>SRAM operation failure </alias></column>
+			<column col-id="SRIOchainconfiguration" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>SRIO chain configuration was rejected</alias></column>
+			<column col-id="Startingtemperaturebel" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Starting temperature below minimum</alias></column>
+			<column col-id="Summingservicedefaulti" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Summing service default initialization failed</alias></column>
+			<column col-id="Summingservicereleasef" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Summing service release from reset failed</alias></column>
+			<column col-id="SWcorrupted" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>SW corrupted</alias></column>
+			<column col-id="SWfallback" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>SW fallback</alias></column>
+			<column col-id="Synchronizationerrorin" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Synchronization error in RP1 receiver</alias></column>
+			<column col-id="Synchronizationfailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Synchronization failure in Optical Interface</alias></column>
+			<column col-id="Synchronizationlost" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Synchronization lost</alias></column>
+			<column col-id="SystemInfoValueTagHand" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>System Info Value Tag Handling Failed</alias></column>
+			<column col-id="Systeminformationbroad" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>System information broadcast parameters overflow</alias></column>
+			<column col-id="Systemmodulefailure" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>System module failure</alias></column>
+			<column col-id="Temperaturealarm" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Temperature alarm</alias></column>
+			<column col-id="TemperaturetoolowHeat" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Temperature too low (Heating ongoing)</alias></column>
+			<column col-id="TheFTMbootedatdatedue" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>The FTM booted at $date due to $RCause</alias></column>
+			<column col-id="Transmissionclockmissi" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Transmission clock missing</alias></column>
+			<column col-id="Transmissionparameters" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Transmission parameters missing</alias></column>
+			<column col-id="Transmissionqualitydet" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Transmission quality deteriorated</alias></column>
+			<column col-id="TransportfailureinS1in" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Transport layer connection failure in S1 interface</alias></column>
+			<column col-id="TransportfailureinX2in" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Transport layer connection failure in X2 interface</alias></column>
+			<column col-id="Transportmodulemissing" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Transport module missing</alias></column>
+			<column col-id="TWAMPPLRThresholdCross" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>TWAMP PLR Threshold Crossed</alias></column>
+			<column col-id="TWAMPRTTThresholdCross" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>TWAMP RTT Threshold Crossed</alias></column>
+			<column col-id="TXfailureinMIMO" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>TX failure in MIMO</alias></column>
+			<column col-id="TXoutoforder" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>TX out of order</alias></column>
+			<column col-id="Unitmoduletemperatur" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit (module) temperature is high </alias></column>
+			<column col-id="Unitautonomousresetasr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit autonomous reset as recovery action</alias></column>
+			<column col-id="Unitblocked" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit blocked</alias></column>
+			<column col-id="Unitinitializationfail" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit initialization failure</alias></column>
+			<column col-id="Unitnotsupportedbycurr" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit not supported by current BTS SW version</alias></column>
+			<column col-id="UnitSWdownloadfailed" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit SW download failed</alias></column>
+			<column col-id="Unitsynchronizationfai" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit synchronization failed</alias></column>
+			<column col-id="Unitunidentified" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unit unidentified</alias></column>
+			<column col-id="UnknownHWresource" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unknown HW resource</alias></column>
+			<column col-id="Unknownproductcode" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unknown product code</alias></column>
+			<column col-id="Validationofsignedfile" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Validation of signed file failed</alias></column>
+			<column col-id="VendorBTScertificatedu" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Vendor BTS certificate due to expire</alias></column>
+			<column col-id="VSWRalarm" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>VSWR alarm</alias></column>
+			<column col-id="X2interfacerecoveryfai" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>X2 interface recovery failure</alias></column>
+			<column col-id="X2interfacesetupfailur" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>X2 interface setup failure</alias></column>
+			<column col-id="X2neighbourcellconfigu" group="Supplementary Info"> <kpi_format>float:0</kpi_format><alias>X2 neighbour cell configuration inconsistency</alias></column>
+
+
+			<column col-id="U_ACFail" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique AC Fail</alias></column>
+			<column col-id="U_Addressmismatchinsummi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Address mismatch in summing</alias></column>
+			<column col-id="U_AntennaCarrierconfigur" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna Carrier configuration failure</alias></column>
+			<column col-id="U_Antennalinedeviceconfi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna line device configuration failure</alias></column>
+			<column col-id="U_AntennaLineDevicefailu" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna Line Device failure</alias></column>
+			<column col-id="U_AntennalinedeviceHWfai" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna line device HW failure</alias></column>
+			<column col-id="U_AntennaLineDeviceOpera" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna Line Device Operation Failure</alias></column>
+			<column col-id="U_AntennaLinefailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna Line failure</alias></column>
+			<column col-id="U_AntennaLineOperationDe" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna Line Operation Degraded</alias></column>
+			<column col-id="U_Antennalinkisdown" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Antenna link is down</alias></column>
+			<column col-id="U_AutomaticBTSOperatorCe" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Automatic BTS Operator Certificate retrieval unsuccessful</alias></column>
+			<column col-id="U_Automaticneighborrelat" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Automatic neighbor relation failure</alias></column>
+			<column col-id="U_Basebandbusfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Baseband bus failure</alias></column>
+			<column col-id="U_BatteryAlarm" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Battery Alarm</alias></column>
+			<column col-id="U_BatteryLowvoltage" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Battery Low voltage</alias></column>
+			<column col-id="U_BBbusmessagecollisione" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BB bus message collision error</alias></column>
+			<column col-id="U_BBbusreceptionerrorsu" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BB bus reception error (summing device)</alias></column>
+			<column col-id="U_BBbustransmissionerror" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BB bus transmission error</alias></column>
+			<column col-id="U_BFDgroupbfdGrpIddown" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BFD group $bfdGrpId down</alias></column>
+			<column col-id="U_Bootconfigurationincon" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Boot configuration inconsistency detected</alias></column>
+			<column col-id="U_BTSautonomousresetasre" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS autonomous reset as recovery action</alias></column>
+			<column col-id="U_BTSblocked" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS blocked</alias></column>
+			<column col-id="U_BTSconfigerrorNotenou" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS config error (Not enough HW for LCR)</alias></column>
+			<column col-id="U_BTSconfigurationnotsup" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS configuration not supported</alias></column>
+			<column col-id="U_BTSfileerror" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS file error</alias></column>
+			<column col-id="U_BTSinternalSWmanagemen" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS internal SW management problem</alias></column>
+			<column col-id="U_BTSisuncommissioned" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS is uncommissioned</alias></column>
+			<column col-id="U_BTSMasterClocktuningfa" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS Master Clock tuning failure</alias></column>
+			<column col-id="U_BTSreferenceclockmissi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS reference clock missing</alias></column>
+			<column col-id="U_BTSresetrequired" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS reset required</alias></column>
+			<column col-id="U_BTSresettimeincreased" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS reset time increased</alias></column>
+			<column col-id="U_BTSSWdownloadoractivat" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS SW download or activation failed</alias></column>
+			<column col-id="U_BTStimenotcorrected" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS time not corrected</alias></column>
+			<column col-id="U_BTSTrustAnchorduetoexp" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS Trust Anchor due to expire</alias></column>
+			<column col-id="U_BTSvendorspecificfilef" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique BTS vendor specific file fault</alias></column>
+			<column col-id="U_Cellblocked" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cell blocked</alias></column>
+			<column col-id="U_Cellconfigurationdatad" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cell configuration data distribution failed</alias></column>
+			<column col-id="U_Cellpowerfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cell power failure</alias></column>
+			<column col-id="U_Commissioningerror" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Commissioning error:</alias></column>
+			<column col-id="U_Communicationfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Communication failure</alias></column>
+			<column col-id="U_ConfigurationerrorNot" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Configuration error: Not enough HW for LCR</alias></column>
+			<column col-id="U_Configurationfilecorru" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Configuration file corrupted</alias></column>
+			<column col-id="U_Coolingfanbroken" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cooling fan broken</alias></column>
+			<column col-id="U_Coolingfanhasreducedfr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cooling fan has reduced from the set speed </alias></column>
+			<column col-id="U_Coolingfanisoverspeedi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cooling fan is over speeding </alias></column>
+			<column col-id="U_Coolingfanspeeddecreas" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Cooling fan speed decreased</alias></column>
+			<column col-id="U_Criticalbittogglingerr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Critical bit toggling error</alias></column>
+			<column col-id="U_DCFail" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique DC Fail</alias></column>
+			<column col-id="U_DeadPeerDetected" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Dead Peer Detected</alias></column>
+			<column col-id="U_DifferencebetweenBTSma" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Difference between BTS master clock and reference frequency</alias></column>
+			<column col-id="U_Distributedsitesupport" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Distributed site support not enabled</alias></column>
+			<column col-id="U_DoorOpen" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Door Open</alias></column>
+			<column col-id="U_DSPoverheated" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique DSP overheated</alias></column>
+			<column col-id="U_EBERonunitUinterface" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique EBER on unit $U, interface $IF</alias></column>
+			<column col-id="U_Errorinfileserverduri" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Error in file server during file download type </alias></column>
+			<column col-id="U_Errorinfileserverdurin" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Error in file server during SW download</alias></column>
+			<column col-id="U_Failureduringcellactiv" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Failure during cell activation</alias></column>
+			<column col-id="U_Failureinconnectionbet" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Failure in connection between BTS and iOMS or 3rd party tool</alias></column>
+			<column col-id="U_FailureinopticalRP3int" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Failure in optical RP3 interface</alias></column>
+			<column col-id="U_Failureinreplaceableba" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Failure in replaceable baseband unit</alias></column>
+			<column col-id="U_Failureintracesession" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Failure in trace session</alias></column>
+			<column col-id="U_Fanfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Fan failure</alias></column>
+			<column col-id="U_Fanmodulefaulty" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Fan module faulty</alias></column>
+			<column col-id="U_Fanmoduleoperationdegr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Fan module operation degraded</alias></column>
+			<column col-id="U_Fanvendornotdetected" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Fan vendor not detected</alias></column>
+			<column col-id="U_FatalOSEError" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Fatal OSE Error</alias></column>
+			<column col-id="U_Faultdiagnosticsrulefi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Fault diagnostics rule file error</alias></column>
+			<column col-id="U_FAULTID" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FAULT ID</alias></column>
+			<column col-id="U_FAULTNAME" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FAULT NAME</alias></column>
+			<column col-id="U_FilecorruptedinSWdownl" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique File corrupted in SW download</alias></column>
+			<column col-id="U_FileSystemaccessfailed" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique File System access failed</alias></column>
+			<column col-id="U_Filterunitoperationfai" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Filter unit operation failed</alias></column>
+			<column col-id="U_FirmwareSWmismatch" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Firmware SW mismatch</alias></column>
+			<column col-id="U_FivefailedloginstoFTMd" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Five failed logins to FTM due to wrong user name or password</alias></column>
+			<column col-id="U_Flashoperationfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Flash operation failure</alias></column>
+			<column col-id="U_FlexiLiteBTSReplaceth" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FlexiLiteBTS: Replace the Flexi Lite BTS.</alias></column>
+			<column col-id="U_FPGASWupdatefailed" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FPGA SW update failed</alias></column>
+			<column col-id="U_Frameclockdeviationfau" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Frame clock deviation fault</alias></column>
+			<column col-id="U_FrameClockMissing" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Frame Clock Missing</alias></column>
+			<column col-id="U_Framenumbersynchroniza" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Frame number synchronization error in optical interface</alias></column>
+			<column col-id="U_FSPinresettingstate" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FSP in resetting state</alias></column>
+			<column col-id="U_FSPoverheating" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FSP overheating</alias></column>
+			<column col-id="U_FTMbootedatdatedueto" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FTM booted at $date due to $RCause</alias></column>
+			<column col-id="U_FTMToggling" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique FTM Toggling </alias></column>
+			<column col-id="U_GPSR" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GPS R</alias></column>
+			<column col-id="U_GPSReceiveralarmContr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GPS Receiver alarm: Control Interface not available</alias></column>
+			<column col-id="U_GPSReceiveralarmEEPRO" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GPS Receiver alarm: EEPROM invalid</alias></column>
+			<column col-id="U_GPSReceiveralarmNosto" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GPS Receiver alarm: No stored position</alias></column>
+			<column col-id="U_GPSReceiveralarmNotTr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GPS Receiver alarm: Not Tracking Satellites</alias></column>
+			<column col-id="U_GPSReceiveralarmSurve" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GPS Receiver alarm: Survey-in progress</alias></column>
+			<column col-id="U_GTPUPathFailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique GTP-U Path Failure</alias></column>
+			<column col-id="U_Heatingelementnotworki" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Heating element not working</alias></column>
+			<column col-id="U_HighTemperature" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique High Temperature</alias></column>
+			<column col-id="U_Incoherencyincellconfi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Incoherency in cell configuration</alias></column>
+			<column col-id="U_IncoherencywithRFModul" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Incoherency with RF Modules</alias></column>
+			<column col-id="U_IncompatibleSWversiond" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Incompatible SW version detected</alias></column>
+			<column col-id="U_Incorrectradionetworkp" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Incorrect radio network parameters</alias></column>
+			<column col-id="U_IncreasedBERdetectedon" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Increased BER detected on the optical connection to Radio Module</alias></column>
+			<column col-id="U_InternalMTUconfigurati" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Internal MTU configuration failure</alias></column>
+			<column col-id="U_InvalidConfigurationfi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Invalid Configuration file</alias></column>
+			<column col-id="U_Invalidfrequencychanne" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Invalid frequency channel for the BTS HW</alias></column>
+			<column col-id="U_Lownoiseamplifierfailu" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Low noise amplifier failure</alias></column>
+			<column col-id="U_LowTemperature" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Low Temperature</alias></column>
+			<column col-id="U_Mainspowerbreakrunnin" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Mains power break, running Battery Backup</alias></column>
+			<column col-id="U_MastHeadAmplifierfault" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Mast Head Amplifier fault</alias></column>
+			<column col-id="U_Masterunithaslostconne" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Master unit has lost connection to the slave unit</alias></column>
+			<column col-id="U_Maximumnumberofneighbo" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Maximum number of neighbour eNBs/cells exceeded</alias></column>
+			<column col-id="U_MHAunitoperationfailur" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique MHA unit operation failure</alias></column>
+			<column col-id="U_MissingRNWparameter" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Missing RNW parameter</alias></column>
+			<column col-id="U_MissingRP301link" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Missing RP3-01 link</alias></column>
+			<column col-id="U_ModuleClockFaulty" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Module Clock Faulty</alias></column>
+			<column col-id="U_Moduledangerouslyoverh" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Module dangerously overheating</alias></column>
+			<column col-id="U_NoconnectiontoFlexitra" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique No connection to Flexi transport submodule</alias></column>
+			<column col-id="U_Noconnectiontounit" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique No connection to unit</alias></column>
+			<column col-id="U_Nofeedbacksignal" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique No feedback signal</alias></column>
+			<column col-id="U_NoMMEcapacityassignedb" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique No MME capacity assigned by Core Network</alias></column>
+			<column col-id="U_Nomodulefandetected" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique No module fan detected</alias></column>
+			<column col-id="U_Notabletosynchronizeba" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Not able to synchronize baseband bus with</alias></column>
+			<column col-id="U_NTPserverisnotaccessib" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique NTP server is not accessible</alias></column>
+			<column col-id="U_OICMCUBufferFull" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique OIC MCU Buffer Full</alias></column>
+			<column col-id="U_Opticalinterfacebuffer" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Optical interface buffer alarm</alias></column>
+			<column col-id="U_OpticalInterfaceDataC" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Optical Interface Data/Control/Ethernet Buffer Full</alias></column>
+			<column col-id="U_OpticalInterfacefaulty" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Optical Interface faulty</alias></column>
+			<column col-id="U_OpticalinterfaceFPGAsw" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Optical interface FPGA sw crc check failed</alias></column>
+			<column col-id="U_Ovenoscillatorclockmis" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Oven oscillator clock missing</alias></column>
+			<column col-id="U_Ovenoscillatorheatingf" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Oven oscillator heating failure</alias></column>
+			<column col-id="U_OvenoscillatorMissingP" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Oven oscillator Missing Pulse</alias></column>
+			<column col-id="U_ParallelRP301linkleng" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Parallel RP3-01 link length mismatch</alias></column>
+			<column col-id="U_Peersystemmoduleconnec" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Peer system module connection lost</alias></column>
+			<column col-id="U_PhichPowerBoostnotappl" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Phich Power Boost not applied</alias></column>
+			<column col-id="U_PINameDRBSetupAttem" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique PI Name: DRB_Setup_Attempts</alias></column>
+			<column col-id="U_PINamePDCPDataRate" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique PI Name: PDCP_Data_Rate_downlink</alias></column>
+			<column col-id="U_Pipedangerouslyoverhea" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Pipe dangerously overheating </alias></column>
+			<column col-id="U_POSTtestfailed" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique POST test failed</alias></column>
+			<column col-id="U_Powerlevelnotsupported" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Power level not supported</alias></column>
+			<column col-id="U_PPSreferencemissing" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique PPS reference missing</alias></column>
+			<column col-id="U_RadioMasterConflict" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Radio Master Conflict</alias></column>
+			<column col-id="U_Radioresourcesswitched" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Radio resources switched off</alias></column>
+			<column col-id="U_ReceivingfailureinOpti" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Receiving failure in Optical Interface</alias></column>
+			<column col-id="U_RectifierModuleFailed" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Rectifier Module Failed</alias></column>
+			<column col-id="U_RETAntennacontrolfailu" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RET Antenna control failure</alias></column>
+			<column col-id="U_RFBBBusConfigurationEr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF BB Bus Configuration Error</alias></column>
+			<column col-id="U_RFBBBusConnectionTrans" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF BB Bus Connection Transmission Error</alias></column>
+			<column col-id="U_RFBBBusSynchronization" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF BB Bus Synchronization Error</alias></column>
+			<column col-id="U_RFBBEnergytoohigh" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF BB Energy too high</alias></column>
+			<column col-id="U_RFLossofsecondaryoptic" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Loss of secondary optical interface</alias></column>
+			<column col-id="U_RFModuleblocked" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module blocked</alias></column>
+			<column col-id="U_RFModuleconfiguringfai" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module configuring failed</alias></column>
+			<column col-id="U_RFModulecriticalfileno" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module critical file not found</alias></column>
+			<column col-id="U_RFmodulefailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF module failure</alias></column>
+			<column col-id="U_RFModulefilenotfound" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module file not found</alias></column>
+			<column col-id="U_RFModuleFilterinputpow" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module Filter input power missing</alias></column>
+			<column col-id="U_RFModuleGainadjustingf" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module Gain adjusting failure</alias></column>
+			<column col-id="U_RFModuleoutoforder" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module out of order</alias></column>
+			<column col-id="U_RFModuleovervoltagepro" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module overvoltage protection faulty</alias></column>
+			<column col-id="U_RFModulePoweroutputfau" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Module Power output faulty</alias></column>
+			<column col-id="U_RFPowerdecreased" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Power decreased </alias></column>
+			<column col-id="U_RFsensortemperaturetoo" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF sensor temperature too high in Flexi Lite</alias></column>
+			<column col-id="U_RFTestloopfaulty" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RF Test loop faulty</alias></column>
+			<column col-id="U_RNWparametermismatch" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RNW parameter mismatch</alias></column>
+			<column col-id="U_RP301LinkConflict" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RP3-01 Link Conflict</alias></column>
+			<column col-id="U_RXoutoforder" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique RX out of order</alias></column>
+			<column col-id="U_S1interfacerecoveryfai" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique S1 interface recovery failure</alias></column>
+			<column col-id="U_S1interfacesetupfailur" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique S1 interface setup failure</alias></column>
+			<column col-id="U_S1SCTPpathfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique S1 SCTP path failure</alias></column>
+			<column col-id="U_Siteautonomousresetasr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Site autonomous reset as recovery action</alias></column>
+			<column col-id="U_SRAMoperationfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique SRAM operation failure </alias></column>
+			<column col-id="U_SRIOchainconfiguration" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique SRIO chain configuration was rejected</alias></column>
+			<column col-id="U_Startingtemperaturebel" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Starting temperature below minimum</alias></column>
+			<column col-id="U_Summingservicedefaulti" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Summing service default initialization failed</alias></column>
+			<column col-id="U_Summingservicereleasef" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Summing service release from reset failed</alias></column>
+			<column col-id="U_SWcorrupted" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique SW corrupted</alias></column>
+			<column col-id="U_SWfallback" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique SW fallback</alias></column>
+			<column col-id="U_Synchronizationerrorin" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Synchronization error in RP1 receiver</alias></column>
+			<column col-id="U_Synchronizationfailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Synchronization failure in Optical Interface </alias></column>
+			<column col-id="U_Synchronizationlost" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Synchronization lost</alias></column>
+			<column col-id="U_SystemInfoValueTagHand" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique System Info Value Tag Handling Failed</alias></column>
+			<column col-id="U_Systeminformationbroad" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique System information broadcast parameters overflow</alias></column>
+			<column col-id="U_Systemmodulefailure" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique System module failure</alias></column>
+			<column col-id="U_Temperaturealarm" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Temperature alarm</alias></column>
+			<column col-id="U_TemperaturetoolowHeat" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Temperature too low (Heating ongoing)</alias></column>
+			<column col-id="U_TheFTMbootedatdatedue" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique The FTM booted at $date due to $RCause</alias></column>
+			<column col-id="U_Transmissionclockmissi" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Transmission clock missing</alias></column>
+			<column col-id="U_Transmissionparameters" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Transmission parameters missing</alias></column>
+			<column col-id="U_Transmissionqualitydet" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Transmission quality deteriorated</alias></column>
+			<column col-id="U_TransportfailureinS1in" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Transport layer connection failure in S1 interface</alias></column>
+			<column col-id="U_TransportfailureinX2in" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Transport layer connection failure in X2 interface</alias></column>
+			<column col-id="U_Transportmodulemissing" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Transport module missing</alias></column>
+			<column col-id="U_TWAMPPLRThresholdCross" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique TWAMP PLR Threshold Crossed</alias></column>
+			<column col-id="U_TWAMPRTTThresholdCross" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique TWAMP RTT Threshold Crossed</alias></column>
+			<column col-id="U_TXfailureinMIMO" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique TX failure in MIMO</alias></column>
+			<column col-id="U_TXoutoforder" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique TX out of order</alias></column>
+			<column col-id="U_Unitmoduletemperatur" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit (module) temperature is high </alias></column>
+			<column col-id="U_Unitautonomousresetasr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit autonomous reset as recovery action</alias></column>
+			<column col-id="U_Unitblocked" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit blocked</alias></column>
+			<column col-id="U_Unitinitializationfail" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit initialization failure</alias></column>
+			<column col-id="U_Unitnotsupportedbycurr" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit not supported by current BTS SW version</alias></column>
+			<column col-id="U_UnitSWdownloadfailed" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit SW download failed</alias></column>
+			<column col-id="U_Unitsynchronizationfai" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit synchronization failed</alias></column>
+			<column col-id="U_Unitunidentified" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unit unidentified</alias></column>
+			<column col-id="U_UnknownHWresource" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unknown HW resource</alias></column>
+			<column col-id="U_Unknownproductcode" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Unknown product code</alias></column>
+			<column col-id="U_Validationofsignedfile" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Validation of signed file failed</alias></column>
+			<column col-id="U_VendorBTScertificatedu" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique Vendor BTS certificate due to expire</alias></column>
+			<column col-id="U_VSWRalarm" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique VSWR alarm</alias></column>
+			<column col-id="U_X2interfacerecoveryfai" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique X2 interface recovery failure</alias></column>
+			<column col-id="U_X2interfacesetupfailur" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique X2 interface setup failure</alias></column>
+			<column col-id="U_X2neighbourcellconfigu" group="Unique Supplementary Info"> <kpi_format>float:0</kpi_format><alias>Unique X2 neighbour cell configuration inconsistency</alias></column>
+			
+		</columns>
+
+
+		<sql type="create" table="celldoc1_023">
+			<![CDATA[
+				select
+				 	f.alarm_time
+				 	,f.ne_gid
+				 	,f.severity
+				 	,f.alarm_number
+				 	,f.alarm_type
+				 	,f.text
+				 	,f.supplementary_info
+					,f.diagnostic_info
+				 	,f.cancel_time
+				from
+					#grouping_sql#
+					fx_raw_alarm f
+					,utp_common_objects plmn
+					,utp_common_objects mrbts
+					,utp_common_objects lnbts
+					,utp_common_objects lncel
+				where
+					f.ne_gid = lncel.co_gid 
+					and f.alarm_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					and f.alarm_time < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+    		   			/* and to_char(f.alarm_time,'HH24') not in (1,2,3,4,5,6) */
+					and plmn.co_oc_id = 16 
+					and mrbts.co_oc_id=3128		
+					and lnbts.co_oc_id=3129	
+					and lncel.co_oc_id=3130		
+					and mrbts.co_parent_gid = plmn.co_gid
+					and lnbts.co_parent_gid = mrbts.co_gid
+					and lncel.co_parent_gid = lnbts.co_gid
+					and
+				    #object_selection#
+				    
+				    union all
+				    select
+				 	f.alarm_time
+				 	,f.ne_gid
+				 	,f.severity
+				 	,f.alarm_number
+				 	,f.alarm_type
+				 	,f.text
+				 	,f.supplementary_info
+					,f.diagnostic_info
+				 	,f.cancel_time
+				from
+					#grouping_sql#
+					fx_raw_alarm f
+					,utp_common_objects plmn
+					,utp_common_objects mrbts
+					,utp_common_objects lnbts
+					,utp_common_objects ftm
+				where
+					f.ne_gid = ftm.co_gid 
+					and f.alarm_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					and f.alarm_time < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					/* and to_char(f.alarm_time,'HH24') not in (1,2,3,4,5,6) */
+					and plmn.co_oc_id = 16 
+					and mrbts.co_oc_id=3128		
+					and lnbts.co_oc_id=3129	
+					and ftm.co_oc_id=1793		
+					and mrbts.co_parent_gid = plmn.co_gid
+					and lnbts.co_parent_gid = mrbts.co_gid
+					and ftm.co_parent_gid = lnbts.co_gid
+					and
+				    #object_selection#
+				    
+				    union all
+				    select
+				 	f.alarm_time
+				 	,f.ne_gid
+				 	,f.severity
+				 	,f.alarm_number
+				 	,f.alarm_type
+				 	,f.text
+				 	,f.supplementary_info
+					,f.diagnostic_info
+				 	,f.cancel_time
+				from
+					#grouping_sql#
+					fx_raw_alarm f
+					,utp_common_objects plmn
+					,utp_common_objects mrbts
+					,utp_common_objects lnbts
+				where
+					f.ne_gid = lnbts.co_gid 
+					and f.alarm_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					and f.alarm_time < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					/* and to_char(f.alarm_time,'HH24') not in (1,2,3,4,5,6) */
+					and plmn.co_oc_id = 16 
+					and mrbts.co_oc_id=3128		
+					and lnbts.co_oc_id=3129		
+					and mrbts.co_parent_gid = plmn.co_gid
+					and lnbts.co_parent_gid = mrbts.co_gid
+					and
+				    #object_selection#
+				    
+					union all
+				    select
+				 	f.alarm_time
+				 	,f.ne_gid
+				 	,f.severity
+				 	,f.alarm_number
+				 	,f.alarm_type
+				 	,f.text
+				 	,f.supplementary_info
+					,f.diagnostic_info
+				 	,f.cancel_time
+				from
+					#grouping_sql#
+					fx_raw_alarm f
+					,utp_common_objects plmn
+					,utp_common_objects mrbts
+				where
+					f.ne_gid = mrbts.co_gid 
+					and f.alarm_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					and f.alarm_time < to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					/* and to_char(f.alarm_time,'HH24') not in (1,2,3,4,5,6) */
+					and plmn.co_oc_id = 16 
+					and mrbts.co_oc_id=3128			
+					and mrbts.co_parent_gid = plmn.co_gid
+					and
+				    #object_selection#  
+				    
+        	 		]]>
+		</sql>
+
+		<literal>
+			<![CDATA[
+				<br><span class = "sql_h3">Daily summary table for the most important alarm events and for the selected LTE radio object hierarchy. Alarms occurring during the maintenance window period (1 am to 7 am) are excluded.</span><br>
+		 		]]>
+		</literal>
+
+		<sql>
+		<!-- In NSN PM, this overrides the "literal" tag when a valid text is present -->
+		<title>Daily summary table for the most important alarm events and for the selected LTE radio object hierarchy</title>
+		<!-- Help text in HTML format for NSN PM -->
+		<help><![CDATA[<br><span class = "sql_h4">Daily summary table for the most important alarm events and for the selected LTE radio object hierarchy]]></help>
+			<![CDATA[
+		SELECT
+        trunc( a.alarm_time, 'dd' ) period_start_time,
+		
+        count(decode(a.severity,1,1)) critical,
+        count(decode(a.severity,2,1)) major,
+        count(decode(a.severity,3,1)) minor,
+        count(decode(a.severity,4,1)) warning,
+        
+        sum ( decode(a.severity,1, (a.cancel_time-a.alarm_time)*24*60*60)) critical_duration_sec,
+		sum ( decode(a.severity,2, (a.cancel_time-a.alarm_time)*24*60*60)) major_duration_sec,
+		sum ( decode(a.severity,3, (a.cancel_time-a.alarm_time)*24*60*60)) minor_duration_sec,
+		sum ( decode(a.severity,4, (a.cancel_time-a.alarm_time)*24*60*60)) warning_duration_sec,
+
+                
+        count (distinct decode(a.severity || a.ne_gid,1 ||  a.ne_gid ,a.severity || a.ne_gid)) u_critical,
+        count (distinct decode(a.severity || a.ne_gid,2 ||  a.ne_gid ,a.severity || a.ne_gid)) u_major,
+        count (distinct decode(a.severity || a.ne_gid,3 ||  a.ne_gid ,a.severity || a.ne_gid)) u_minor,
+        count (distinct decode(a.severity || a.ne_gid,4 ||  a.ne_gid ,a.severity || a.ne_gid)) u_warning,
+        
+             count(decode(a.alarm_type,1,1)) communication,
+        count(decode(a.alarm_type,2,1)) environmental,
+        count(decode(a.alarm_type,3,1)) equipment,
+        count(decode(a.alarm_type,4,1)) processing,
+        count(decode(a.alarm_type,5,1)) quality_of_service,
+        
+                sum ( decode(a.alarm_type,1, (a.cancel_time-a.alarm_time)*24*60*60)) communication_sec,
+		sum ( decode(a.alarm_type,2, (a.cancel_time-a.alarm_time)*24*60*60)) environmental_sec,
+		sum ( decode(a.alarm_type,3, (a.cancel_time-a.alarm_time)*24*60*60)) equipment_sec,
+		sum ( decode(a.alarm_type,4, (a.cancel_time-a.alarm_time)*24*60*60)) processing_sec,
+		sum ( decode(a.alarm_type,5, (a.cancel_time-a.alarm_time)*24*60*60)) quality_of_service_sec, 
+        
+        
+        count (distinct decode(a.alarm_type || a.ne_gid, 1 || a.ne_gid, a.alarm_type || a.ne_gid)) u_communication,
+        count (distinct decode(a.alarm_type || a.ne_gid, 2 || a.ne_gid, a.alarm_type || a.ne_gid)) u_environmental,
+        count (distinct decode(a.alarm_type || a.ne_gid, 3 || a.ne_gid, a.alarm_type || a.ne_gid)) u_equipment,
+        count (distinct decode(a.alarm_type || a.ne_gid, 4 || a.ne_gid, a.alarm_type || a.ne_gid)) u_processing,
+        count (distinct decode(a.alarm_type || a.ne_gid, 5 || a.ne_gid, a.alarm_type || a.ne_gid)) u_quality_of_service,
+        
+
+        
+        
+        count(decode(a.alarm_number,7401,1)) alarm_7401,
+		count(decode(a.alarm_number,7402,1)) alarm_7402,
+		count(decode(a.alarm_number,7403,1)) alarm_7403,
+		count(decode(a.alarm_number,7404,1)) alarm_7404,
+		count(decode(a.alarm_number,7405,1)) alarm_7405,
+		count(decode(a.alarm_number,7406,1)) alarm_7406,
+		count(decode(a.alarm_number,7407,1)) alarm_7407,
+		count(decode(a.alarm_number,7408,1)) alarm_7408,
+		count(decode(a.alarm_number,7409,1)) alarm_7409,
+		count(decode(a.alarm_number,7410,1)) alarm_7410,
+		count(decode(a.alarm_number,7411,1)) alarm_7411,
+		count(decode(a.alarm_number,7412,1)) alarm_7412,
+		count(decode(a.alarm_number,7413,1)) alarm_7413,
+		count(decode(a.alarm_number,7414,1)) alarm_7414,
+		count(decode(a.alarm_number,7415,1)) alarm_7415,
+		count(decode(a.alarm_number,7416,1)) alarm_7416,
+		count(decode(a.alarm_number,7417,1)) alarm_7417,
+		count(decode(a.alarm_number,7418,1)) alarm_7418,
+		count(decode(a.alarm_number,7419,1)) alarm_7419,
+		count(decode(a.alarm_number,7420,1)) alarm_7420,
+		count(decode(a.alarm_number,7421,1)) alarm_7421,
+		count(decode(a.alarm_number,7422,1)) alarm_7422,
+		count(decode(a.alarm_number,7423,1)) alarm_7423,
+		count(decode(a.alarm_number,7424,1)) alarm_7424,
+		count(decode(a.alarm_number,7425,1)) alarm_7425,
+		count(decode(a.alarm_number,7426,1)) alarm_7426,
+		count(decode(a.alarm_number,7650,1)) alarm_7650,
+        count(decode(a.alarm_number,7651,1)) alarm_7651,
+        count(decode(a.alarm_number,7652,1)) alarm_7652,
+        count(decode(a.alarm_number,7653,1)) alarm_7653,
+        count(decode(a.alarm_number,7654,1)) alarm_7654,
+        count(decode(a.alarm_number,7655,1)) alarm_7655,
+        count(decode(a.alarm_number,7656,1)) alarm_7656,
+        count(decode(a.alarm_number,7657,1)) alarm_7657,
+        count(decode(a.alarm_number,7665,1)) alarm_7665,
+        count(decode(a.alarm_number,71058,1)) alarm_71058,
+        count(decode(a.alarm_number,9228,1)) alarm_9228,
+        count(decode(a.alarm_number,9251,1)) alarm_9251,
+        count(decode(a.alarm_number,9252,1)) alarm_9252,
+        count(decode(a.alarm_number,9255,1)) alarm_9255,
+		count(decode(a.alarm_number,61006,1)) alarm_61006,
+		count(decode(a.alarm_number,61613,1)) alarm_61613,
+		count(decode(a.alarm_number,69100,1)) alarm_69100,
+		count(decode(a.alarm_number,71058,1)) alarm_71058,
+		count(decode(a.alarm_number,71101,1)) alarm_71101,
+   
+        
+        count (distinct decode(a.alarm_number || a.ne_gid, 7401 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7401,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7402 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7402,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7403 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7403,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7404 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7404,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7405 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7405,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7406 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7406,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7407 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7407,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7408 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7408,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7409 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7409,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7410 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7410,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7411 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7411,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7412 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7412,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7413 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7413,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7414 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7414,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7415 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7415,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7416 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7416,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7417 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7417,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7418 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7418,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7419 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7419,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7420 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7420,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7421 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7421,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7422 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7422,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7423 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7423,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7424 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7424,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7425 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7425,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7426 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7426,
+		count (distinct decode(a.alarm_number || a.ne_gid, 7650 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7650,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7651 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7651,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7652 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7652,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7653 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7653,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7654 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7654,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7655 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7655,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7656 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7656,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7657 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7657,
+        count (distinct decode(a.alarm_number || a.ne_gid, 7665 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_7665,
+        count (distinct decode(a.alarm_number || a.ne_gid, 71058 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_71058,
+        count (distinct decode(a.alarm_number || a.ne_gid, 9228 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_9228,
+        count (distinct decode(a.alarm_number || a.ne_gid, 9251 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_9251,
+        count (distinct decode(a.alarm_number || a.ne_gid, 9252 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_9252,
+		count (distinct decode(a.alarm_number || a.ne_gid, 61006 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_61006,
+        count (distinct decode(a.alarm_number || a.ne_gid, 61613 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_61613,
+		count (distinct decode(a.alarm_number || a.ne_gid, 69100 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_69100,
+		count (distinct decode(a.alarm_number || a.ne_gid, 71058 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_71058,
+		count (distinct decode(a.alarm_number || a.ne_gid, 71101 || a.ne_gid, a.alarm_number || a.ne_gid)) u_alarm_71101,
+
+   
+
+        count(case when a.text like '%BASE STATION OPERATION DEGRADED%' then 1 else null end) bsod,
+        count(case when a.text like '%BASE STATION TRANSMISSION ALARM%' then 1 else null end) bsta,
+        count(case when a.text like '%CELL FAULTY%' then 1 else null end) cf,
+        count(case when a.text like '%CELL NOTIFICATION%' then 1 else null end) cn,
+        count(case when a.text like '%CELL OPERATION DEGRADED%' then 1 else null end) cod,
+        count(case when a.text like '%ELEMENT IN MAINTENANCE MODE%' then 1 else null end) eimm,
+        count(case when a.text like '%MAINTENANCE MODE ACTIVATED%' then 1 else null end) mma,
+        count(case when a.text like '%NE O&M CONNECTION FAILURE%' then 1 else null end) neomcf,
+        count(case when a.text like '%No DRB Setup%' then 1 else null end) ndrbs,
+        count(case when a.text like '%No Traffic%' then 1 else null end) nt,
+        count(case when a.text like '%OMS ALARM UPLOAD FROM NE FAILED%' then 1 else null end) omsaufnef,
+        count(case when a.text like '%RACH_LOW%' then 1 else null end) rachl,
+        count(case when a.text like '%SOFTWARE MANAGEMENT TASK TO MANAGED OBJECT FAILED%' then 1 else null end) smttmof,
+        
+        count (distinct case when a.text || a.ne_gid like '%BASE STATION OPERATION DEGRADED%' || a.ne_gid then a.text || a.ne_gid else null end) u_bsod,
+        count (distinct case when a.text || a.ne_gid like '%BASE STATION TRANSMISSION ALARM%' || a.ne_gid then a.text || a.ne_gid else null end) u_bsta,
+        count (distinct case when a.text || a.ne_gid like '%CELL FAULTY%' || a.ne_gid then a.text || a.ne_gid else null end) u_cf,
+        count (distinct case when a.text || a.ne_gid like '%CELL NOTIFICATION%' || a.ne_gid then a.text || a.ne_gid else null end) u_cn,
+        count (distinct case when a.text || a.ne_gid like '%CELL OPERATION DEGRADED%' || a.ne_gid then a.text || a.ne_gid else null end) u_cod,
+        count (distinct case when a.text || a.ne_gid like '%ELEMENT IN MAINTENANCE MODE%' || a.ne_gid then a.text || a.ne_gid else null end) u_eimm,
+        count (distinct case when a.text || a.ne_gid like '%MAINTENANCE MODE ACTIVATED%' || a.ne_gid then a.text || a.ne_gid else null end) u_mma,
+        count (distinct case when a.text || a.ne_gid like '%NE O&M CONNECTION FAILURE%' || a.ne_gid then a.text || a.ne_gid else null end) u_neomcf,
+        count (distinct case when a.text || a.ne_gid like '%No DRB Setup%' || a.ne_gid then a.text || a.ne_gid else null end) u_ndrbs,
+        count (distinct case when a.text || a.ne_gid like '%No Traffic%' || a.ne_gid then a.text || a.ne_gid else null end) u_nt,
+        count (distinct case when a.text || a.ne_gid like '%OMS ALARM UPLOAD FROM NE FAILED%' || a.ne_gid then a.text || a.ne_gid else null end) u_omsaufnef,
+        count (distinct case when a.text || a.ne_gid like '%RACH_LOW%' || a.ne_gid then a.text || a.ne_gid else null end) u_rachl,
+        count (distinct case when a.text || a.ne_gid like '%SOFTWARE MANAGEMENT TASK TO MANAGED OBJECT FAILED%' || a.ne_gid then a.text || a.ne_gid else null end) u_smttmof,
+		
+	count(case when a.supplementary_info like '%AC Fail%' then 1 else null end) ACFail,
+	count(case when a.supplementary_info like '%Address mismatch in summing%' then 1 else null end) Addressmismatchinsummi,
+	count(case when a.supplementary_info like '%Antenna Carrier configuration failure%' then 1 else null end) AntennaCarrierconfigur,
+	count(case when a.supplementary_info like '%Antenna line device configuration failure%' then 1 else null end) Antennalinedeviceconfi,
+	count(case when a.supplementary_info like '%Antenna Line Device failure%' then 1 else null end) AntennaLineDevicefailu,
+	count(case when a.supplementary_info like '%Antenna line device HW failure%' then 1 else null end) AntennalinedeviceHWfai,
+	count(case when a.supplementary_info like '%Antenna Line Device Operation Failure%' then 1 else null end) AntennaLineDeviceOpera,
+	count(case when a.supplementary_info like '%Antenna Line failure%' then 1 else null end) AntennaLinefailure,
+	count(case when a.supplementary_info like '%Antenna Line Operation Degraded%' then 1 else null end) AntennaLineOperationDe,
+	count(case when a.supplementary_info like '%Antenna link is down%' then 1 else null end) Antennalinkisdown,
+	count(case when a.supplementary_info like '%Automatic BTS Operator Certificate retrieval unsuccessful%' then 1 else null end) AutomaticBTSOperatorCe,
+	count(case when a.supplementary_info like '%Automatic neighbor relation failure%' then 1 else null end) Automaticneighborrelat,
+	count(case when a.supplementary_info like '%Baseband bus failure%' then 1 else null end) Basebandbusfailure,
+	count(case when a.supplementary_info like '%Battery Alarm%' then 1 else null end) BatteryAlarm,
+	count(case when a.supplementary_info like '%Battery Low voltage%' then 1 else null end) BatteryLowvoltage,
+	count(case when a.supplementary_info like '%BB bus message collision error%' then 1 else null end) BBbusmessagecollisione,
+	count(case when a.supplementary_info like '%BB bus reception error (summing device)%' then 1 else null end) BBbusreceptionerrorsu,
+	count(case when a.supplementary_info like '%BB bus transmission error%' then 1 else null end) BBbustransmissionerror,
+	count(case when a.supplementary_info like '%BFD group $bfdGrpId down%' then 1 else null end) BFDgroupbfdGrpIddown,
+	count(case when a.supplementary_info like '%Boot configuration inconsistency detected%' then 1 else null end) Bootconfigurationincon,
+	count(case when a.supplementary_info like '%BTS autonomous reset as recovery action%' then 1 else null end) BTSautonomousresetasre,
+	count(case when a.supplementary_info like '%BTS blocked%' then 1 else null end) BTSblocked,
+	count(case when a.supplementary_info like '%BTS config error (Not enough HW for LCR)%' then 1 else null end) BTSconfigerrorNotenou,
+	count(case when a.supplementary_info like '%BTS configuration not supported%' then 1 else null end) BTSconfigurationnotsup,
+	count(case when a.supplementary_info like '%BTS file error%' then 1 else null end) BTSfileerror,
+	count(case when a.supplementary_info like '%BTS internal SW management problem%' then 1 else null end) BTSinternalSWmanagemen,
+	count(case when a.supplementary_info like '%BTS is uncommissioned%' then 1 else null end) BTSisuncommissioned,
+	count(case when a.supplementary_info like '%BTS Master Clock tuning failure%' then 1 else null end) BTSMasterClocktuningfa,
+	count(case when a.supplementary_info like '%BTS reference clock missing%' then 1 else null end) BTSreferenceclockmissi,
+	count(case when a.supplementary_info like '%BTS reset required%' then 1 else null end) BTSresetrequired,
+	count(case when a.supplementary_info like '%BTS reset time increased%' then 1 else null end) BTSresettimeincreased,
+	count(case when a.supplementary_info like '%BTS SW download or activation failed%' then 1 else null end) BTSSWdownloadoractivat,
+	count(case when a.supplementary_info like '%BTS time not corrected%' then 1 else null end) BTStimenotcorrected,
+	count(case when a.supplementary_info like '%BTS Trust Anchor due to expire%' then 1 else null end) BTSTrustAnchorduetoexp,
+	count(case when a.supplementary_info like '%BTS vendor specific file fault%' then 1 else null end) BTSvendorspecificfilef,
+	count(case when a.supplementary_info like '%Cell blocked%' then 1 else null end) Cellblocked,
+	count(case when a.supplementary_info like '%Cell configuration data distribution failed%' then 1 else null end) Cellconfigurationdatad,
+	count(case when a.supplementary_info like '%Cell power failure%' then 1 else null end) Cellpowerfailure,
+	count(case when a.supplementary_info like '%Commissioning error:%' then 1 else null end) Commissioningerror,
+	count(case when a.supplementary_info like '%Communication failure%' then 1 else null end) Communicationfailure,
+	count(case when a.supplementary_info like '%Configuration error: Not enough HW for LCR%' then 1 else null end) ConfigurationerrorNot,
+	count(case when a.supplementary_info like '%Configuration file corrupted%' then 1 else null end) Configurationfilecorru,
+	count(case when a.supplementary_info like '%Cooling fan broken%' then 1 else null end) Coolingfanbroken,
+	count(case when a.supplementary_info like '%Cooling fan has reduced from the set speed %' then 1 else null end) Coolingfanhasreducedfr,
+	count(case when a.supplementary_info like '%Cooling fan is over speeding %' then 1 else null end) Coolingfanisoverspeedi,
+	count(case when a.supplementary_info like '%Cooling fan speed decreased%' then 1 else null end) Coolingfanspeeddecreas,
+	count(case when a.supplementary_info like '%Critical bit toggling error%' then 1 else null end) Criticalbittogglingerr,
+	count(case when a.supplementary_info like '%DC Fail%' then 1 else null end) DCFail,
+	count(case when a.supplementary_info like '%Dead Peer Detected%' then 1 else null end) DeadPeerDetected,
+	count(case when a.supplementary_info like '%Difference between BTS master clock and reference frequency%' then 1 else null end) DifferencebetweenBTSma,
+	count(case when a.supplementary_info like '%Distributed site support not enabled%' then 1 else null end) Distributedsitesupport,
+	count(case when a.supplementary_info like '%Door Open%' then 1 else null end) DoorOpen,
+	count(case when a.supplementary_info like '%DSP overheated%' then 1 else null end) DSPoverheated,
+	count(case when a.supplementary_info like '%EBER on unit $U, interface $IF%' then 1 else null end) EBERonunitUinterface,
+	count(case when a.supplementary_info like '%Error in file server during file download type%' then 1 else null end) Errorinfileserverduri,
+	count(case when a.supplementary_info like '%Error in file server during SW download%' then 1 else null end) Errorinfileserverdurin,
+	count(case when a.supplementary_info like '%Failure during cell activation%' then 1 else null end) Failureduringcellactiv,
+	count(case when a.supplementary_info like '%Failure in connection between BTS and iOMS or 3rd party tool%' then 1 else null end) Failureinconnectionbet,
+	count(case when a.supplementary_info like '%Failure in optical RP3 interface%' then 1 else null end) FailureinopticalRP3int,
+	count(case when a.supplementary_info like '%Failure in replaceable baseband unit%' then 1 else null end) Failureinreplaceableba,
+	count(case when a.supplementary_info like '%Failure in trace session%' then 1 else null end) Failureintracesession,
+	count(case when a.supplementary_info like '%Fan failure%' then 1 else null end) Fanfailure,
+	count(case when a.supplementary_info like '%Fan module faulty%' then 1 else null end) Fanmodulefaulty,
+	count(case when a.supplementary_info like '%Fan module operation degraded%' then 1 else null end) Fanmoduleoperationdegr,
+	count(case when a.supplementary_info like '%Fan vendor not detected%' then 1 else null end) Fanvendornotdetected,
+	count(case when a.supplementary_info like '%Fatal OSE Error%' then 1 else null end) FatalOSEError,
+	count(case when a.supplementary_info like '%Fault diagnostics rule file error%' then 1 else null end) Faultdiagnosticsrulefi,
+	count(case when a.supplementary_info like '%FAULT ID%' then 1 else null end) FAULTID,
+	count(case when a.supplementary_info like '%FAULT NAME%' then 1 else null end) FAULTNAME,
+	count(case when a.supplementary_info like '%File corrupted in SW download%' then 1 else null end) FilecorruptedinSWdownl,
+	count(case when a.supplementary_info like '%File System access failed%' then 1 else null end) FileSystemaccessfailed,
+	count(case when a.supplementary_info like '%Filter unit operation failed%' then 1 else null end) Filterunitoperationfai,
+	count(case when a.supplementary_info like '%Firmware SW mismatch%' then 1 else null end) FirmwareSWmismatch,
+	count(case when a.supplementary_info like '%Five failed logins to FTM due to wrong user name or password%' then 1 else null end) FivefailedloginstoFTMd,
+		count(case when a.supplementary_info like '%Flash operation failure%' then 1 else null end) Flashoperationfailure,
+		count(case when a.supplementary_info like '%FlexiLiteBTS: Replace the Flexi Lite BTS.%' then 1 else null end) FlexiLiteBTSReplaceth,
+		count(case when a.supplementary_info like '%FPGA SW update failed%' then 1 else null end) FPGASWupdatefailed,
+		count(case when a.supplementary_info like '%Frame clock deviation fault%' then 1 else null end) Frameclockdeviationfau,
+		count(case when a.supplementary_info like '%Frame Clock Missing%' then 1 else null end) FrameClockMissing,
+		count(case when a.supplementary_info like '%Frame number synchronization error in optical interface%' then 1 else null end) Framenumbersynchroniza,
+		count(case when a.supplementary_info like '%FSP in resetting state%' then 1 else null end) FSPinresettingstate,
+		count(case when a.supplementary_info like '%FSP overheating%' then 1 else null end) FSPoverheating,
+		count(case when a.supplementary_info like '%FTM booted at $date due to $RCause%' then 1 else null end) FTMbootedatdatedueto,
+		count(case when a.supplementary_info like '%FTM Toggling <Fault name>%' then 1 else null end) FTMToggling,
+		count(case when a.supplementary_info like '%GPS R%' then 1 else null end) GPSR,
+		count(case when a.supplementary_info like '%GPS Receiver alarm: Control Interface not available%' then 1 else null end) GPSReceiveralarmContr,
+		count(case when a.supplementary_info like '%GPS Receiver alarm: EEPROM invalid%' then 1 else null end) GPSReceiveralarmEEPRO,
+		count(case when a.supplementary_info like '%GPS Receiver alarm: No stored position%' then 1 else null end) GPSReceiveralarmNosto,
+		count(case when a.supplementary_info like '%GPS Receiver alarm: Not Tracking Satellites%' then 1 else null end) GPSReceiveralarmNotTr,
+		count(case when a.supplementary_info like '%GPS Receiver alarm: Survey-in progress%' then 1 else null end) GPSReceiveralarmSurve,
+		count(case when a.supplementary_info like '%GTP-U Path Failure%' then 1 else null end) GTPUPathFailure,
+		count(case when a.supplementary_info like '%Heating element not working%' then 1 else null end) Heatingelementnotworki,
+		count(case when a.supplementary_info like '%High Temperature%' then 1 else null end) HighTemperature,
+		count(case when a.supplementary_info like '%Incoherency in cell configuration%' then 1 else null end) Incoherencyincellconfi,
+		count(case when a.supplementary_info like '%Incoherency with RF Modules%' then 1 else null end) IncoherencywithRFModul,
+		count(case when a.supplementary_info like '%Incompatible SW version detected%' then 1 else null end) IncompatibleSWversiond,
+		count(case when a.supplementary_info like '%Incorrect radio network parameters%' then 1 else null end) Incorrectradionetworkp,
+		count(case when a.supplementary_info like '%Increased BER detected on the optical connection to Radio Module%' then 1 else null end) IncreasedBERdetectedon,
+		count(case when a.supplementary_info like '%Internal MTU configuration failure%' then 1 else null end) InternalMTUconfigurati,
+		count(case when a.supplementary_info like '%Invalid Configuration file%' then 1 else null end) InvalidConfigurationfi,
+		count(case when a.supplementary_info like '%Invalid frequency channel for the BTS HW%' then 1 else null end) Invalidfrequencychanne,
+		count(case when a.supplementary_info like '%Low noise amplifier failure%' then 1 else null end) Lownoiseamplifierfailu,
+		count(case when a.supplementary_info like '%Low Temperature%' then 1 else null end) LowTemperature,
+		count(case when a.supplementary_info like '%Mains power break, running Battery Backup%' then 1 else null end) Mainspowerbreakrunnin,
+		count(case when a.supplementary_info like '%Mast Head Amplifier fault%' then 1 else null end) MastHeadAmplifierfault,
+		count(case when a.supplementary_info like '%Master unit has lost connection to the slave unit%' then 1 else null end) Masterunithaslostconne,
+		count(case when a.supplementary_info like '%Maximum number of neighbour eNBs/cells exceeded%' then 1 else null end) Maximumnumberofneighbo,
+		count(case when a.supplementary_info like '%MHA unit operation failure%' then 1 else null end) MHAunitoperationfailur,
+		count(case when a.supplementary_info like '%Missing RNW parameter%' then 1 else null end) MissingRNWparameter,
+		count(case when a.supplementary_info like '%Missing RP3-01 link%' then 1 else null end) MissingRP301link,
+		count(case when a.supplementary_info like '%Module Clock Faulty%' then 1 else null end) ModuleClockFaulty,
+		count(case when a.supplementary_info like '%Module dangerously overheating%' then 1 else null end) Moduledangerouslyoverh,
+		count(case when a.supplementary_info like '%No connection to Flexi transport submodule%' then 1 else null end) NoconnectiontoFlexitra,
+		count(case when a.supplementary_info like '%No connection to unit%' then 1 else null end) Noconnectiontounit,
+		count(case when a.supplementary_info like '%No feedback signal%' then 1 else null end) Nofeedbacksignal,
+		count(case when a.supplementary_info like '%No MME capacity assigned by Core Network%' then 1 else null end) NoMMEcapacityassignedb,
+		count(case when a.supplementary_info like '%No module fan detected%' then 1 else null end) Nomodulefandetected,
+		count(case when a.supplementary_info like '%Not able to synchronize baseband bus with%' then 1 else null end) Notabletosynchronizeba,
+		count(case when a.supplementary_info like '%NTP server is not accessible%' then 1 else null end) NTPserverisnotaccessib,
+		count(case when a.supplementary_info like '%OIC MCU Buffer Full%' then 1 else null end) OICMCUBufferFull,
+		count(case when a.supplementary_info like '%Optical interface buffer alarm%' then 1 else null end) Opticalinterfacebuffer,
+		count(case when a.supplementary_info like '%Optical Interface Data/Control/Ethernet Buffer Full%' then 1 else null end) OpticalInterfaceDataC,
+		count(case when a.supplementary_info like '%Optical Interface faulty%' then 1 else null end) OpticalInterfacefaulty,
+		count(case when a.supplementary_info like '%Optical interface FPGA sw crc check failed%' then 1 else null end) OpticalinterfaceFPGAsw,
+		count(case when a.supplementary_info like '%Oven oscillator clock missing%' then 1 else null end) Ovenoscillatorclockmis,
+		count(case when a.supplementary_info like '%Oven oscillator heating failure%' then 1 else null end) Ovenoscillatorheatingf,
+		count(case when a.supplementary_info like '%Oven oscillator Missing Pulse%' then 1 else null end) OvenoscillatorMissingP,
+		count(case when a.supplementary_info like '%Parallel RP3-01 link length mismatch%' then 1 else null end) ParallelRP301linkleng,
+		count(case when a.supplementary_info like '%Peer system module connection lost%' then 1 else null end) Peersystemmoduleconnec,
+		count(case when a.supplementary_info like '%Phich Power Boost not applied%' then 1 else null end) PhichPowerBoostnotappl,
+		count(case when a.supplementary_info like '%PI Name: DRB_Setup_Attempts%' then 1 else null end) PINameDRBSetupAttem,
+		count(case when a.supplementary_info like '%PI Name: PDCP_Data_Rate_downlink%' then 1 else null end) PINamePDCPDataRate,
+		count(case when a.supplementary_info like '%Pipe dangerously overheating %' then 1 else null end) Pipedangerouslyoverhea,
+		count(case when a.supplementary_info like '%POST test failed%' then 1 else null end) POSTtestfailed,
+		count(case when a.supplementary_info like '%Power level not supported%' then 1 else null end) Powerlevelnotsupported,
+		count(case when a.supplementary_info like '%PPS reference missing%' then 1 else null end) PPSreferencemissing,
+		count(case when a.supplementary_info like '%Radio Master Conflict%' then 1 else null end) RadioMasterConflict,
+		count(case when a.supplementary_info like '%Radio resources switched off%' then 1 else null end) Radioresourcesswitched,
+		count(case when a.supplementary_info like '%Receiving failure in Optical Interface%' then 1 else null end) ReceivingfailureinOpti,
+		count(case when a.supplementary_info like '%Rectifier Module Failed%' then 1 else null end) RectifierModuleFailed,
+		count(case when a.supplementary_info like '%RET Antenna control failure%' then 1 else null end) RETAntennacontrolfailu,
+		count(case when a.supplementary_info like '%RF BB Bus Configuration Error%' then 1 else null end) RFBBBusConfigurationEr,
+		count(case when a.supplementary_info like '%RF BB Bus Connection Transmission Error%' then 1 else null end) RFBBBusConnectionTrans,
+		count(case when a.supplementary_info like '%RF BB Bus Synchronization Error%' then 1 else null end) RFBBBusSynchronization,
+		count(case when a.supplementary_info like '%RF BB Energy too high%' then 1 else null end) RFBBEnergytoohigh,
+		count(case when a.supplementary_info like '%RF Loss of secondary optical interface%' then 1 else null end) RFLossofsecondaryoptic,
+		count(case when a.supplementary_info like '%RF Module blocked%' then 1 else null end) RFModuleblocked,
+		count(case when a.supplementary_info like '%RF Module configuring failed%' then 1 else null end) RFModuleconfiguringfai,
+		count(case when a.supplementary_info like '%RF Module critical file not found%' then 1 else null end) RFModulecriticalfileno,
+		count(case when a.supplementary_info like '%RF module failure%' then 1 else null end) RFmodulefailure,
+		count(case when a.supplementary_info like '%RF Module file not found%' then 1 else null end) RFModulefilenotfound,
+		count(case when a.supplementary_info like '%RF Module Filter input power missing%' then 1 else null end) RFModuleFilterinputpow,
+		count(case when a.supplementary_info like '%RF Module Gain adjusting failure%' then 1 else null end) RFModuleGainadjustingf,
+		count(case when a.supplementary_info like '%RF Module out of order%' then 1 else null end) RFModuleoutoforder,
+		count(case when a.supplementary_info like '%RF Module overvoltage protection faulty%' then 1 else null end) RFModuleovervoltagepro,
+		count(case when a.supplementary_info like '%RF Module Power output faulty%' then 1 else null end) RFModulePoweroutputfau,
+		count(case when a.supplementary_info like '%RF Power decreased %' then 1 else null end) RFPowerdecreased,
+		count(case when a.supplementary_info like '%RF sensor temperature too high in Flexi Lite%' then 1 else null end) RFsensortemperaturetoo,
+		count(case when a.supplementary_info like '%RF Test loop faulty%' then 1 else null end) RFTestloopfaulty,
+		count(case when a.supplementary_info like '%RNW parameter mismatch%' then 1 else null end) RNWparametermismatch,
+		count(case when a.supplementary_info like '%RP3-01 Link Conflict%' then 1 else null end) RP301LinkConflict,
+		count(case when a.supplementary_info like '%RX out of order%' then 1 else null end) RXoutoforder,
+		count(case when a.supplementary_info like '%S1 interface recovery failure%' then 1 else null end) S1interfacerecoveryfai,
+		count(case when a.supplementary_info like '%S1 interface setup failure%' then 1 else null end) S1interfacesetupfailur,
+		count(case when a.supplementary_info like '%S1 SCTP path failure%' then 1 else null end) S1SCTPpathfailure,
+		count(case when a.supplementary_info like '%Site autonomous reset as recovery action%' then 1 else null end) Siteautonomousresetasr,
+		count(case when a.supplementary_info like '%SRAM operation failure %' then 1 else null end) SRAMoperationfailure,
+		count(case when a.supplementary_info like '%SRIO chain configuration was rejected%' then 1 else null end) SRIOchainconfiguration,
+		count(case when a.supplementary_info like '%Starting temperature below minimum%' then 1 else null end) Startingtemperaturebel,
+		count(case when a.supplementary_info like '%Summing service default initialization failed%' then 1 else null end) Summingservicedefaulti,
+		count(case when a.supplementary_info like '%Summing service release from reset failed%' then 1 else null end) Summingservicereleasef,
+		count(case when a.supplementary_info like '%SW corrupted%' then 1 else null end) SWcorrupted,
+		count(case when a.supplementary_info like '%SW fallback%' then 1 else null end) SWfallback,
+		count(case when a.supplementary_info like '%Synchronization error in RP1 receiver%' then 1 else null end) Synchronizationerrorin,
+		count(case when a.supplementary_info like '%Synchronization failure in Optical Interface <opt link/RP3 link>%' then 1 else null end) Synchronizationfailure,
+		count(case when a.supplementary_info like '%Synchronization lost%' then 1 else null end) Synchronizationlost,
+		count(case when a.supplementary_info like '%System Info Value Tag Handling Failed%' then 1 else null end) SystemInfoValueTagHand,
+		count(case when a.supplementary_info like '%System information broadcast parameters overflow%' then 1 else null end) Systeminformationbroad,
+		count(case when a.supplementary_info like '%System module failure%' then 1 else null end) Systemmodulefailure,
+		count(case when a.supplementary_info like '%Temperature alarm%' then 1 else null end) Temperaturealarm,
+		count(case when a.supplementary_info like '%Temperature too low (Heating ongoing)%' then 1 else null end) TemperaturetoolowHeat,
+		count(case when a.supplementary_info like '%The FTM booted at $date due to $RCause%' then 1 else null end) TheFTMbootedatdatedue,
+		count(case when a.supplementary_info like '%Transmission clock missing%' then 1 else null end) Transmissionclockmissi,
+		count(case when a.supplementary_info like '%Transmission parameters missing%' then 1 else null end) Transmissionparameters,
+		count(case when a.supplementary_info like '%Transmission quality deteriorated%' then 1 else null end) Transmissionqualitydet,
+		count(case when a.supplementary_info like '%Transport layer connection failure in S1 interface%' then 1 else null end) TransportfailureinS1in,
+		count(case when a.supplementary_info like '%Transport layer connection failure in X2 interface%' then 1 else null end) TransportfailureinX2in,
+		count(case when a.supplementary_info like '%Transport module missing%' then 1 else null end) Transportmodulemissing,
+		count(case when a.supplementary_info like '%TWAMP PLR Threshold Crossed%' then 1 else null end) TWAMPPLRThresholdCross,
+		count(case when a.supplementary_info like '%TWAMP RTT Threshold Crossed%' then 1 else null end) TWAMPRTTThresholdCross,
+		count(case when a.supplementary_info like '%TX failure in MIMO%' then 1 else null end) TXfailureinMIMO,
+		count(case when a.supplementary_info like '%TX out of order%' then 1 else null end) TXoutoforder,
+		count(case when a.supplementary_info like '%Unit (module) temperature is high %' then 1 else null end) Unitmoduletemperatur,
+		count(case when a.supplementary_info like '%Unit autonomous reset as recovery action%' then 1 else null end) Unitautonomousresetasr,
+		count(case when a.supplementary_info like '%Unit blocked%' then 1 else null end) Unitblocked,
+		count(case when a.supplementary_info like '%Unit initialization failure%' then 1 else null end) Unitinitializationfail,
+		count(case when a.supplementary_info like '%Unit not supported by current BTS SW version%' then 1 else null end) Unitnotsupportedbycurr,
+		count(case when a.supplementary_info like '%Unit SW download failed%' then 1 else null end) UnitSWdownloadfailed,
+		count(case when a.supplementary_info like '%Unit synchronization failed%' then 1 else null end) Unitsynchronizationfai,
+		count(case when a.supplementary_info like '%Unit unidentified%' then 1 else null end) Unitunidentified,
+		count(case when a.supplementary_info like '%Unknown HW resource%' then 1 else null end) UnknownHWresource,
+		count(case when a.supplementary_info like '%Unknown product code%' then 1 else null end) Unknownproductcode,
+		count(case when a.supplementary_info like '%Validation of signed file failed%' then 1 else null end) Validationofsignedfile,
+		count(case when a.supplementary_info like '%Vendor BTS certificate due to expire%' then 1 else null end) VendorBTScertificatedu,
+		count(case when a.supplementary_info like '%VSWR alarm%' then 1 else null end) VSWRalarm,
+		count(case when a.supplementary_info like '%X2 interface recovery failure%' then 1 else null end) X2interfacerecoveryfai,
+		count(case when a.supplementary_info like '%X2 interface setup failure%' then 1 else null end) X2interfacesetupfailur,
+		count(case when a.supplementary_info like '%X2 neighbour cell configuration inconsistency%' then 1 else null end) X2neighbourcellconfigu,
+
+		count (distinct case when a.supplementary_info || a.ne_gid like '%AC Fail%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_ACFail,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Address mismatch in summing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Addressmismatchinsummi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna Carrier configuration failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AntennaCarrierconfigur,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna line device configuration failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Antennalinedeviceconfi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna Line Device failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AntennaLineDevicefailu,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna line device HW failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AntennalinedeviceHWfai,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna Line Device Operation Failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AntennaLineDeviceOpera,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna Line failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AntennaLinefailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna Line Operation Degraded%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AntennaLineOperationDe,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Antenna link is down%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Antennalinkisdown,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Automatic BTS Operator Certificate retrieval unsuccessful%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_AutomaticBTSOperatorCe,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Automatic neighbor relation failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Automaticneighborrelat,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Baseband bus failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Basebandbusfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Battery Alarm%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BatteryAlarm,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Battery Low voltage%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BatteryLowvoltage,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BB bus message collision error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BBbusmessagecollisione,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BB bus reception error (summing device)%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BBbusreceptionerrorsu,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BB bus transmission error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BBbustransmissionerror,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BFD group $bfdGrpId down%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BFDgroupbfdGrpIddown,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Boot configuration inconsistency detected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Bootconfigurationincon,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS autonomous reset as recovery action%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSautonomousresetasre,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS blocked%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSblocked,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS config error (Not enough HW for LCR)%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSconfigerrorNotenou,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS configuration not supported%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSconfigurationnotsup,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS file error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSfileerror,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS internal SW management problem%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSinternalSWmanagemen,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS is uncommissioned%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSisuncommissioned,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS Master Clock tuning failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSMasterClocktuningfa,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS reference clock missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSreferenceclockmissi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS reset required%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSresetrequired,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS reset time increased%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSresettimeincreased,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS SW download or activation failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSSWdownloadoractivat,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS time not corrected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTStimenotcorrected,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS Trust Anchor due to expire%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSTrustAnchorduetoexp,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%BTS vendor specific file fault%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_BTSvendorspecificfilef,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cell blocked%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Cellblocked,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cell configuration data distribution failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Cellconfigurationdatad,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cell power failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Cellpowerfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Commissioning error:%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Commissioningerror,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Communication failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Communicationfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Configuration error: Not enough HW for LCR%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_ConfigurationerrorNot,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Configuration file corrupted%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Configurationfilecorru,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cooling fan broken%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Coolingfanbroken,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cooling fan has reduced from the set speed %' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Coolingfanhasreducedfr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cooling fan is over speeding %' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Coolingfanisoverspeedi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Cooling fan speed decreased%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Coolingfanspeeddecreas,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Critical bit toggling error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Criticalbittogglingerr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%DC Fail%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_DCFail,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Dead Peer Detected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_DeadPeerDetected,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Difference between BTS master clock and reference frequency%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_DifferencebetweenBTSma,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Distributed site support not enabled%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Distributedsitesupport,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Door Open%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_DoorOpen,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%DSP overheated%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_DSPoverheated,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%EBER on unit $U, interface $IF%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_EBERonunitUinterface,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Error in file server during file download type%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Errorinfileserverduri,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Error in file server during SW download%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Errorinfileserverdurin,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Failure during cell activation%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Failureduringcellactiv,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Failure in connection between BTS and iOMS or 3rd party tool%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Failureinconnectionbet,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Failure in optical RP3 interface%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FailureinopticalRP3int,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Failure in replaceable baseband unit%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Failureinreplaceableba,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Failure in trace session%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Failureintracesession,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Fan failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Fanfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Fan module faulty%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Fanmodulefaulty,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Fan module operation degraded%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Fanmoduleoperationdegr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Fan vendor not detected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Fanvendornotdetected,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Fatal OSE Error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FatalOSEError,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Fault diagnostics rule file error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Faultdiagnosticsrulefi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FAULT ID%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FAULTID,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FAULT NAME%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FAULTNAME,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%File corrupted in SW download%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FilecorruptedinSWdownl,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%File System access failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FileSystemaccessfailed,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Filter unit operation failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Filterunitoperationfai,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Firmware SW mismatch%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FirmwareSWmismatch,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Five failed logins to FTM due to wrong user name or password%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FivefailedloginstoFTMd,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Flash operation failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Flashoperationfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FlexiLiteBTS: Replace the Flexi Lite BTS.%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FlexiLiteBTSReplaceth,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FPGA SW update failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FPGASWupdatefailed,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Frame clock deviation fault%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Frameclockdeviationfau,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Frame Clock Missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FrameClockMissing,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Frame number synchronization error in optical interface%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Framenumbersynchroniza,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FSP in resetting state%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FSPinresettingstate,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FSP overheating%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FSPoverheating,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FTM booted at $date due to $RCause%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FTMbootedatdatedueto,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%FTM Toggling <Fault name>%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_FTMToggling,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GPS R%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GPSR,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GPS Receiver alarm: Control Interface not available%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GPSReceiveralarmContr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GPS Receiver alarm: EEPROM invalid%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GPSReceiveralarmEEPRO,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GPS Receiver alarm: No stored position%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GPSReceiveralarmNosto,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GPS Receiver alarm: Not Tracking Satellites%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GPSReceiveralarmNotTr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GPS Receiver alarm: Survey-in progress%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GPSReceiveralarmSurve,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%GTP-U Path Failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_GTPUPathFailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Heating element not working%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Heatingelementnotworki,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%High Temperature%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_HighTemperature,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Incoherency in cell configuration%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Incoherencyincellconfi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Incoherency with RF Modules%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_IncoherencywithRFModul,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Incompatible SW version detected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_IncompatibleSWversiond,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Incorrect radio network parameters%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Incorrectradionetworkp,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Increased BER detected on the optical connection to Radio Module%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_IncreasedBERdetectedon,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Internal MTU configuration failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_InternalMTUconfigurati,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Invalid Configuration file%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_InvalidConfigurationfi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Invalid frequency channel for the BTS HW%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Invalidfrequencychanne,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Low noise amplifier failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Lownoiseamplifierfailu,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Low Temperature%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_LowTemperature,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Mains power break, running Battery Backup%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Mainspowerbreakrunnin,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Mast Head Amplifier fault%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_MastHeadAmplifierfault,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Master unit has lost connection to the slave unit%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Masterunithaslostconne,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Maximum number of neighbour eNBs/cells exceeded%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Maximumnumberofneighbo,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%MHA unit operation failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_MHAunitoperationfailur,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Missing RNW parameter%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_MissingRNWparameter,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Missing RP3-01 link%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_MissingRP301link,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Module Clock Faulty%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_ModuleClockFaulty,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Module dangerously overheating%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Moduledangerouslyoverh,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%No connection to Flexi transport submodule%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_NoconnectiontoFlexitra,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%No connection to unit%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Noconnectiontounit,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%No feedback signal%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Nofeedbacksignal,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%No MME capacity assigned by Core Network%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_NoMMEcapacityassignedb,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%No module fan detected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Nomodulefandetected,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Not able to synchronize baseband bus with%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Notabletosynchronizeba,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%NTP server is not accessible%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_NTPserverisnotaccessib,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%OIC MCU Buffer Full%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_OICMCUBufferFull,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Optical interface buffer alarm%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Opticalinterfacebuffer,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Optical Interface Data/Control/Ethernet Buffer Full%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_OpticalInterfaceDataC,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Optical Interface faulty%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_OpticalInterfacefaulty,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Optical interface FPGA sw crc check failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_OpticalinterfaceFPGAsw,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Oven oscillator clock missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Ovenoscillatorclockmis,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Oven oscillator heating failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Ovenoscillatorheatingf,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Oven oscillator Missing Pulse%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_OvenoscillatorMissingP,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Parallel RP3-01 link length mismatch%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_ParallelRP301linkleng,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Peer system module connection lost%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Peersystemmoduleconnec,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Phich Power Boost not applied%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_PhichPowerBoostnotappl,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%PI Name: DRB_Setup_Attempts%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_PINameDRBSetupAttem,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%PI Name: PDCP_Data_Rate_downlink%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_PINamePDCPDataRate,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Pipe dangerously overheating %' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Pipedangerouslyoverhea,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%POST test failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_POSTtestfailed,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Power level not supported%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Powerlevelnotsupported,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%PPS reference missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_PPSreferencemissing,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Radio Master Conflict%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RadioMasterConflict,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Radio resources switched off%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Radioresourcesswitched,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Receiving failure in Optical Interface%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_ReceivingfailureinOpti,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Rectifier Module Failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RectifierModuleFailed,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RET Antenna control failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RETAntennacontrolfailu,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF BB Bus Configuration Error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFBBBusConfigurationEr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF BB Bus Connection Transmission Error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFBBBusConnectionTrans,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF BB Bus Synchronization Error%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFBBBusSynchronization,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF BB Energy too high%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFBBEnergytoohigh,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Loss of secondary optical interface%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFLossofsecondaryoptic,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module blocked%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModuleblocked,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module configuring failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModuleconfiguringfai,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module critical file not found%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModulecriticalfileno,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF module failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFmodulefailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module file not found%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModulefilenotfound,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module Filter input power missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModuleFilterinputpow,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module Gain adjusting failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModuleGainadjustingf,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module out of order%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModuleoutoforder,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module overvoltage protection faulty%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModuleovervoltagepro,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Module Power output faulty%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFModulePoweroutputfau,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Power decreased %' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFPowerdecreased,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF sensor temperature too high in Flexi Lite%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFsensortemperaturetoo,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RF Test loop faulty%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RFTestloopfaulty,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RNW parameter mismatch%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RNWparametermismatch,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RP3-01 Link Conflict%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RP301LinkConflict,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%RX out of order%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_RXoutoforder,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%S1 interface recovery failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_S1interfacerecoveryfai,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%S1 interface setup failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_S1interfacesetupfailur,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%S1 SCTP path failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_S1SCTPpathfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Site autonomous reset as recovery action%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Siteautonomousresetasr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%SRAM operation failure %' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_SRAMoperationfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%SRIO chain configuration was rejected%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_SRIOchainconfiguration,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Starting temperature below minimum%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Startingtemperaturebel,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Summing service default initialization failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Summingservicedefaulti,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Summing service release from reset failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Summingservicereleasef,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%SW corrupted%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_SWcorrupted,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%SW fallback%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_SWfallback,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Synchronization error in RP1 receiver%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Synchronizationerrorin,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Synchronization failure in Optical Interface <opt link/RP3 link>%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Synchronizationfailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Synchronization lost%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Synchronizationlost,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%System Info Value Tag Handling Failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_SystemInfoValueTagHand,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%System information broadcast parameters overflow%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Systeminformationbroad,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%System module failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Systemmodulefailure,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Temperature alarm%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Temperaturealarm,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Temperature too low (Heating ongoing)%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TemperaturetoolowHeat,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%The FTM booted at $date due to $RCause%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TheFTMbootedatdatedue,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Transmission clock missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Transmissionclockmissi,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Transmission parameters missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Transmissionparameters,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Transmission quality deteriorated%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Transmissionqualitydet,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Transport layer connection failure in S1 interface%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TransportfailureinS1in,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Transport layer connection failure in X2 interface%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TransportfailureinX2in,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Transport module missing%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Transportmodulemissing,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%TWAMP PLR Threshold Crossed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TWAMPPLRThresholdCross,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%TWAMP RTT Threshold Crossed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TWAMPRTTThresholdCross,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%TX failure in MIMO%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TXfailureinMIMO,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%TX out of order%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_TXoutoforder,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit (module) temperature is high %' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitmoduletemperatur,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit autonomous reset as recovery action%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitautonomousresetasr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit blocked%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitblocked,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit initialization failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitinitializationfail,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit not supported by current BTS SW version%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitnotsupportedbycurr,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit SW download failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_UnitSWdownloadfailed,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit synchronization failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitsynchronizationfai,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unit unidentified%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unitunidentified,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unknown HW resource%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_UnknownHWresource,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Unknown product code%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Unknownproductcode,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Validation of signed file failed%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_Validationofsignedfile,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%Vendor BTS certificate due to expire%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_VendorBTScertificatedu,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%VSWR alarm%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_VSWRalarm,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%X2 interface recovery failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_X2interfacerecoveryfai,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%X2 interface setup failure%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_X2interfacesetupfailur,
+		count (distinct case when a.supplementary_info || a.ne_gid like '%X2 neighbour cell configuration inconsistency%' || a.ne_gid then a.supplementary_info || a.ne_gid else null end) U_X2neighbourcellconfigu
+
+			FROM
+			 	#celldoc1_023# a
+
+			GROUP BY
+          trunc( a.alarm_time, 'dd'  )
+			ORDER BY
+			        period_start_time
+	]]>
+		</sql>
+		
+		<literal>
+			<![CDATA[
+				<br><span class = "sql_h3">Available alarms in database for the selected LTE radio object hierarchy and time</span><br>
+		 		]]>
+		</literal>
+		
+				<sql type="create" table="celldoc2_023">
+			<![CDATA[
+				select
+				 	alarm_number
+				 	,rpad(text,60) text
+				 	,count(*) tot_num
+				 	,ne_gid ne_gid
+				from
+					#celldoc1_023#
+				group by
+				        alarm_number
+				        ,rpad(text,60)
+				        ,ne_gid
+        	 		]]>
+		</sql>
+		
+
+		<sql>
+		<!-- In NSN PM, this overrides the "literal" tag when a valid text is present -->
+		<title>Available alarms</title>
+		<!-- Help text in HTML format for NSN PM -->
+		<help><![CDATA[<br><span class = "sql_h4">By default all available alarms are displayed. You can select which alarm you want to view in the threshold definitions]]></help>
+			<![CDATA[
+			SELECT
+			    SUM(tot_num) tot_num
+			 	,SUBSTR(text,1,60) text
+			 	,TO_CHAR(alarm_number,'99999') alm_id
+			FROM
+			 	#celldoc2_023#
+			GROUP BY
+				  SUBSTR(text,1,60)
+				  ,TO_CHAR(alarm_number,'99999')
+			ORDER BY
+			        tot_num DESC, alm_id ASC
+	]]>
+		</sql>
+		
+		<literal>
+
+			<![CDATA[
+				<br><span class = "sql_h4">By default all available alarms are displayed. You can select which alarm you want to view in the threshold definitions</span><br>
+		 		]]>
+		</literal>
+
+		<sql>
+		<!-- In NSN PM, this overrides the "literal" tag when a valid text is present -->
+		<title>Available alarms in database for the selected objects and time</title>
+		<!-- Help text in HTML format for NSN PM -->
+		<help><![CDATA[<br><span class = "sql_h4">By default all available alarms are displayed. You can select which alarm you want to view in the threshold definitions]]></help>
+			<![CDATA[
+		select
+			a.alarm_number alarm_number
+			,decode(a.severity,1,'CRITICAL',2,'MAJOR',3,'MINOR',4,'WARNING',a.severity) severity
+			,decode(a.alarm_type,1,'COMMUNICATION',2,'ENVIRONMENTAL',3,'EQUIPMENT',4,'PROCESSING',5,'QUALITY OF SERVICE',a.alarm_type) alarm_type
+			,a.text text
+			,a.supplementary_info
+			,nvl(object.co_name, 'NN('||object.co_dn||')') object
+			,objclass.oc_abbreviation object_type
+			,to_char(a.alarm_time,'yyyy-MON-dd') alarm_date
+			,to_char(a.alarm_time,'hh24:mi:ss') alarm_time
+		    ,decode(TO_CHAR(CANCEL_TIME,'yyyy-MON-dd'),'','hold',to_char(cancel_time,'yyyy-MON-dd')) end_date
+			,decode(to_char(CANCEL_TIME,'dd-mm-yy'),'','hold',TO_CHAR(CANCEL_TIME,'hh24:mi:ss')) end_time
+			,round(((cancel_time-alarm_time)*24*60*60),0) zse
+			,a.diagnostic_info
+		from
+			#celldoc1_023# a
+			,utp_common_objects object
+			,utp_object_class objclass
+		where
+			a.ne_gid = object.co_gid 
+			and object.co_oc_id = objclass.oc_id
+	        #add_on_criteria#
+		ORDER BY
+			a.alarm_number ASC
+			,a.alarm_time DESC
+
+	]]>
+		</sql>
+	</report>
+</reports>
+

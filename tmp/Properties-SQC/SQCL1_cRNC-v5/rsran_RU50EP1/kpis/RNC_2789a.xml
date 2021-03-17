@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_2789a">
+    <formula>decode(
+				(traffic.dur_ps_intera_8_ul_in_srnc + 
+				traffic.dur_ps_intera_16_ul_in_srnc + 
+				traffic.dur_ps_intera_32_ul_in_srnc + 
+				traffic.dur_ps_intera_64_ul_in_srnc + 
+				traffic.dur_ps_intera_128_ul_in_srnc + 
+				traffic.dur_ps_intera_256_ul_in_srnc + 
+				traffic.dur_ps_intera_320_ul_in_srnc + 
+				traffic.dur_ps_intera_384_ul_in_srnc + 
+				traffic.dur_ps_backg_8_ul_in_srnc + 
+				traffic.dur_ps_backg_16_ul_in_srnc + 
+				traffic.dur_ps_backg_32_ul_in_srnc + 
+				traffic.dur_ps_backg_64_ul_in_srnc + 
+				traffic.dur_ps_backg_128_ul_in_srnc + 
+				traffic.dur_ps_backg_256_ul_in_srnc + 
+				traffic.dur_ps_backg_320_ul_in_srnc + 
+				traffic.dur_ps_backg_384_ul_in_srnc),0,null,
+				
+				(celltp.nrt_dch_ul_data_vol * 8 / 1000)
+				/
+				((traffic.dur_ps_intera_8_ul_in_srnc + 
+				traffic.dur_ps_intera_16_ul_in_srnc + 
+				traffic.dur_ps_intera_32_ul_in_srnc + 
+				traffic.dur_ps_intera_64_ul_in_srnc + 
+				traffic.dur_ps_intera_128_ul_in_srnc + 
+				traffic.dur_ps_intera_256_ul_in_srnc + 
+				traffic.dur_ps_intera_320_ul_in_srnc + 
+				traffic.dur_ps_intera_384_ul_in_srnc + 
+				traffic.dur_ps_backg_8_ul_in_srnc + 
+				traffic.dur_ps_backg_16_ul_in_srnc + 
+				traffic.dur_ps_backg_32_ul_in_srnc + 
+				traffic.dur_ps_backg_64_ul_in_srnc + 
+				traffic.dur_ps_backg_128_ul_in_srnc + 
+				traffic.dur_ps_backg_256_ul_in_srnc + 
+				traffic.dur_ps_backg_320_ul_in_srnc + 
+				traffic.dur_ps_backg_384_ul_in_srnc)
+				/ 
+				100))</formula>
+    <kpi_info>
+      <title><![CDATA[R99 UL Average throughput per session]]></title>
+      <use><![CDATA[R99 UL Average throughput per session]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(NRT_DCH_UL_DATA_VOL * 8 / 1000)
+&lt;br&gt;/ 
+&lt;br&gt;sum((DUR_PS_INTERA_8_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_16_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_32_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_64_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_128_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_256_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_320_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_INTERA_384_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_BACKG_8_UL_IN_SRNC +  
+&lt;br&gt;DUR_PS_BACKG_16_UL_IN_SRNC + 
+&lt;br&gt;DUR_PS_BACKG_32_UL_IN_SRNC  +
+&lt;br&gt;DUR_PS_BACKG_64_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_BACKG_128_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_BACKG_256_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_BACKG_320_UL_IN_SRNC +
+&lt;br&gt;DUR_PS_BACKG_384_UL_IN_SRNC) / 100)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg},nokrww_ps_CELLTP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:36.15 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg thp serv R99 UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

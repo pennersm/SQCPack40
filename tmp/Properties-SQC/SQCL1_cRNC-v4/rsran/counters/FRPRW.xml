@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 Frame_Protocol_WBTS FRPRW measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 Frame_Protocol_WBTS FRPRW measurement dump</csv_title>
+    <report-description>Frame Protocol in WBTS</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CCH_DATA_TO_IUB_INTERFACE />
+    <CCH_DATA_FROM_IUB />
+    <DCH_DATA_TO_IUB />
+    <DCH_DATA_FROM_IUB />
+    <EDCH_DATA_TO_IUB />
+    <CCH_FP_REC_DATA_FRMS />
+    <CCH_FP_FRMS_W_CRC_ERROR />
+    <CCH_FP_FRMS_W_DELAY />
+    <CCH_FP_FRMS_W_OTH_ERR />
+    <DCH_OK_FP_DATA_FRMS />
+    <DCH_FP_REC_FRMS_W_CRC_ERR />
+    <DCH_FP_REC_FRMS_W_DELAY />
+    <DCH_FP_REC_FRMS_W_OTH_ERR />
+    <HS_DSCH_OK_FP_FRMS />
+    <HS_DSCH_FP_FRMS_W_CRC />
+    <HS_DSCH_FP_FRMS_W_OTH_ERR />
+    <MACE_PDU_LOST />
+    <HSDSCH_DATA_FROM_IUB />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FRPRW" meas_level="PLMN/RNC/WBTS/LCG" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CCH_DATA_TO_IUB_INTERFACE">SUM(CCH_DATA_TO_IUB_INTERFACE)</counter>
+      <counter alias="CCH_DATA_FROM_IUB">SUM(CCH_DATA_FROM_IUB)</counter>
+      <counter alias="DCH_DATA_TO_IUB">SUM(DCH_DATA_TO_IUB)</counter>
+      <counter alias="DCH_DATA_FROM_IUB">SUM(DCH_DATA_FROM_IUB)</counter>
+      <counter alias="EDCH_DATA_TO_IUB">SUM(EDCH_DATA_TO_IUB)</counter>
+      <counter alias="CCH_FP_REC_DATA_FRMS">SUM(CCH_FP_REC_DATA_FRMS)</counter>
+      <counter alias="CCH_FP_FRMS_W_CRC_ERROR">SUM(CCH_FP_FRMS_W_CRC_ERROR)</counter>
+      <counter alias="CCH_FP_FRMS_W_DELAY">SUM(CCH_FP_FRMS_W_DELAY)</counter>
+      <counter alias="CCH_FP_FRMS_W_OTH_ERR">SUM(CCH_FP_FRMS_W_OTH_ERR)</counter>
+      <counter alias="DCH_OK_FP_DATA_FRMS">SUM(DCH_OK_FP_DATA_FRMS)</counter>
+      <counter alias="DCH_FP_REC_FRMS_W_CRC_ERR">SUM(DCH_FP_REC_FRMS_W_CRC_ERR)</counter>
+      <counter alias="DCH_FP_REC_FRMS_W_DELAY">SUM(DCH_FP_REC_FRMS_W_DELAY)</counter>
+      <counter alias="DCH_FP_REC_FRMS_W_OTH_ERR">SUM(DCH_FP_REC_FRMS_W_OTH_ERR)</counter>
+      <counter alias="HS_DSCH_OK_FP_FRMS">SUM(HS_DSCH_OK_FP_FRMS)</counter>
+      <counter alias="HS_DSCH_FP_FRMS_W_CRC">SUM(HS_DSCH_FP_FRMS_W_CRC)</counter>
+      <counter alias="HS_DSCH_FP_FRMS_W_OTH_ERR">SUM(HS_DSCH_FP_FRMS_W_OTH_ERR)</counter>
+      <counter alias="MACE_PDU_LOST">SUM(MACE_PDU_LOST)</counter>
+      <counter alias="HSDSCH_DATA_FROM_IUB">SUM(HSDSCH_DATA_FROM_IUB)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FRPRW</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FRPRW.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CCH_DATA_TO_IUB_INTERFACE">
+    <formula>FRPRW.CCH_DATA_TO_IUB_INTERFACE</formula>
+    <kpi_info>
+      <title>CCH_DATA_TO_IUB_INTERFACE</title>
+      <use>Payload data of FP common channels sent to the Iub interface in the Local Cell Group. UPDATED: The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CCH_DATA_TO_IUB_INTERFACE)</formula>
+      <unit>kbyte</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CCH_DATA_TO_IUB_INTERFACE (M5003C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CCH_DATA_FROM_IUB">
+    <formula>FRPRW.CCH_DATA_FROM_IUB</formula>
+    <kpi_info>
+      <title>CCH_DATA_FROM_IUB</title>
+      <use>"Payload data of FP common channels received from the Iub interface to the Local Cell Group. UPDATED: The counter is updated when the connection is released or the measurementinterval ends."</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CCH_DATA_FROM_IUB)</formula>
+      <unit>kbyte</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CCH_DATA_FROM_IUB (M5003C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DCH_DATA_TO_IUB">
+    <formula>FRPRW.DCH_DATA_TO_IUB</formula>
+    <kpi_info>
+      <title>DCH_DATA_TO_IUB</title>
+      <use>Payload data of FP dedicated channels sent to the Iub interface in the Local Cell Group. UPDATED: The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DCH_DATA_TO_IUB)</formula>
+      <unit>kbyte</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DCH_DATA_TO_IUB (M5003C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DCH_DATA_FROM_IUB">
+    <formula>FRPRW.DCH_DATA_FROM_IUB</formula>
+    <kpi_info>
+      <title>DCH_DATA_FROM_IUB</title>
+      <use>Payload data of FP dedicated channels received from the Iub interface to the Local Cell Group. UPDATED: The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DCH_DATA_FROM_IUB)</formula>
+      <unit>kbyte</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DCH_DATA_FROM_IUB (M5003C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EDCH_DATA_TO_IUB">
+    <formula>FRPRW.EDCH_DATA_TO_IUB</formula>
+    <kpi_info>
+      <title>EDCH_DATA_TO_IUB</title>
+      <use>Payload data of FP enhanced dedicated channels sent to the Iub interface in the Local Cell Group. UPDATED: The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EDCH_DATA_TO_IUB)</formula>
+      <unit>kbyte</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EDCH_DATA_TO_IUB (M5003C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CCH_FP_REC_DATA_FRMS">
+    <formula>FRPRW.CCH_FP_REC_DATA_FRMS</formula>
+    <kpi_info>
+      <title>CCH_FP_REC_DATA_FRMS</title>
+      <use>Number of successfully received FP data frames from common channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CCH_FP_REC_DATA_FRMS)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CCH_FP_REC_DATA_FRMS (M5003C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CCH_FP_FRMS_W_CRC_ERROR">
+    <formula>FRPRW.CCH_FP_FRMS_W_CRC_ERROR</formula>
+    <kpi_info>
+      <title>CCH_FP_FRMS_W_CRC_ERROR</title>
+      <use>Number of received FP data frames with CRC error from common channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CCH_FP_FRMS_W_CRC_ERROR)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CCH_FP_FRMS_W_CRC_ERROR (M5003C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CCH_FP_FRMS_W_DELAY">
+    <formula>FRPRW.CCH_FP_FRMS_W_DELAY</formula>
+    <kpi_info>
+      <title>CCH_FP_FRMS_W_DELAY</title>
+      <use>Number of received FP data frames with too high delay from common channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CCH_FP_FRMS_W_DELAY)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CCH_FP_FRMS_W_DELAY (M5003C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CCH_FP_FRMS_W_OTH_ERR">
+    <formula>FRPRW.CCH_FP_FRMS_W_OTH_ERR</formula>
+    <kpi_info>
+      <title>CCH_FP_FRMS_W_OTH_ERR</title>
+      <use>Number of received FP data frames with other error reasons from common channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CCH_FP_FRMS_W_OTH_ERR)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CCH_FP_FRMS_W_OTH_ERR (M5003C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DCH_OK_FP_DATA_FRMS">
+    <formula>FRPRW.DCH_OK_FP_DATA_FRMS</formula>
+    <kpi_info>
+      <title>DCH_OK_FP_DATA_FRMS</title>
+      <use>Number of successfully received FP data frames from dedicated channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DCH_OK_FP_DATA_FRMS)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DCH_OK_FP_DATA_FRMS (M5003C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DCH_FP_REC_FRMS_W_CRC_ERR">
+    <formula>FRPRW.DCH_FP_REC_FRMS_W_CRC_ERR</formula>
+    <kpi_info>
+      <title>DCH_FP_REC_FRMS_W_CRC_ERR</title>
+      <use>Number of received FP data frames with CRC error from dedicated channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DCH_FP_REC_FRMS_W_CRC_ERR)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DCH_FP_REC_FRMS_W_CRC_ERR (M5003C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DCH_FP_REC_FRMS_W_DELAY">
+    <formula>FRPRW.DCH_FP_REC_FRMS_W_DELAY</formula>
+    <kpi_info>
+      <title>DCH_FP_REC_FRMS_W_DELAY</title>
+      <use>Number of received FP data frames with too high delay from dedicated channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DCH_FP_REC_FRMS_W_DELAY)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DCH_FP_REC_FRMS_W_DELAY (M5003C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DCH_FP_REC_FRMS_W_OTH_ERR">
+    <formula>FRPRW.DCH_FP_REC_FRMS_W_OTH_ERR</formula>
+    <kpi_info>
+      <title>DCH_FP_REC_FRMS_W_OTH_ERR</title>
+      <use>Number of received FP data frames with other error reasons from dedicated channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DCH_FP_REC_FRMS_W_OTH_ERR)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DCH_FP_REC_FRMS_W_OTH_ERR (M5003C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HS_DSCH_OK_FP_FRMS">
+    <formula>FRPRW.HS_DSCH_OK_FP_FRMS</formula>
+    <kpi_info>
+      <title>HS_DSCH_OK_FP_FRMS</title>
+      <use>Number of successfully received FP data frames from high speed downlink shared channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HS_DSCH_OK_FP_FRMS)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HS_DSCH_OK_FP_FRMS (M5003C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HS_DSCH_FP_FRMS_W_CRC">
+    <formula>FRPRW.HS_DSCH_FP_FRMS_W_CRC</formula>
+    <kpi_info>
+      <title>HS_DSCH_FP_FRMS_W_CRC</title>
+      <use>Number of received FP data frames with CRC error from high speed downlink shared channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HS_DSCH_FP_FRMS_W_CRC)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HS_DSCH_FP_FRMS_W_CRC (M5003C17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HS_DSCH_FP_FRMS_W_OTH_ERR">
+    <formula>FRPRW.HS_DSCH_FP_FRMS_W_OTH_ERR</formula>
+    <kpi_info>
+      <title>HS_DSCH_FP_FRMS_W_OTH_ERR</title>
+      <use>Number of received FP data frames with other error reasons from high speed downlink shared channels. UPDATED:The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HS_DSCH_FP_FRMS_W_OTH_ERR)</formula>
+      <unit>FP frames</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HS_DSCH_FP_FRMS_W_OTH_ERR (M5003C18)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MACE_PDU_LOST">
+    <formula>FRPRW.MACE_PDU_LOST</formula>
+    <kpi_info>
+      <title>MACE_PDU_LOST</title>
+      <use>Number of MAC-e PDUs that are received correctly but lost for an unknown reason, such as buffer overflow. This counter is also applicable for MAC-i. UPDATED: When a  MAC-e PDU is correctly received but lost for an unknown reason. This counter is also applicable for MAC-i.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MACE_PDU_LOST)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MACE_PDU_LOST (M5003C19)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HSDSCH_DATA_FROM_IUB">
+    <formula>FRPRW.HSDSCH_DATA_FROM_IUB</formula>
+    <kpi_info>
+      <title>HSDSCH_DATA_FROM_IUB</title>
+      <use>Payload data of FP high speed downlink shared channels received from the Iub interface to the Local Cell Group. UPDATED. The counter is updated when the connection is released or the measurement interval ends.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HSDSCH_DATA_FROM_IUB)</formula>
+      <unit>kbyte</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSDSCH_DATA_FROM_IUB (M5003C20)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FRPRW.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_frprw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

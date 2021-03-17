@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_2781a">
+    <formula>decode(
+				(pktcall.hs_e_req_d_d_allo_int + 
+				pktcall.hs_e_req_d_d_allo_bgr + 
+				pktcall.hs_d_req_d_d_allo_int + 
+				pktcall.hs_d_req_d_d_allo_bgr + 
+				pktcall.d_d_req_d_d_allo_int + 
+				pktcall.d_d_req_d_d_allo_bgr),0,null, 
+
+				celltp.nrt_dch_dl_data_vol
+				/ 
+				(1000*(pktcall.hs_e_req_d_d_allo_int + 
+				pktcall.hs_e_req_d_d_allo_bgr + 
+				pktcall.hs_d_req_d_d_allo_int + 
+				pktcall.hs_d_req_d_d_allo_bgr + 
+				pktcall.d_d_req_d_d_allo_int + 
+				pktcall.d_d_req_d_d_allo_bgr))
+					)		
+	</formula>
+    <kpi_info>
+      <title><![CDATA[R99 DL Data volume per session]]></title>
+      <use><![CDATA[R99 DL data volume per session]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(NRT_DCH_DL_DATA_VOL)
+&lt;br&gt;/ 
+&lt;br&gt;(1000 * sum(HS_E_REQ_D_D_ALLO_INT +
+&lt;br&gt;HS_E_REQ_D_D_ALLO_BGR +
+&lt;br&gt;HS_D_REQ_D_D_ALLO_INT + 
+&lt;br&gt;HS_D_REQ_D_D_ALLO_BGR +
+&lt;br&gt;D_D_REQ_D_D_ALLO_INT +
+&lt;br&gt;D_D_REQ_D_D_ALLO_BGR))</formula>
+      <unit>[kB]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg},nokrww_ps_CELLTP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:35.933 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>R99 DL D Vol sess</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

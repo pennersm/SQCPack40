@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	
+	<report id="RSSG2G065 - SGSN -&gt; RNC Configuration" thresholds="false">
+		<report-level key="SGSN">PLMN/SGSN</report-level>
+		<level>PLMN/SGSN</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSSG2G065 - SGSN -&gt; RNC Configuration</title>
+		<help-text>
+			<![CDATA[<br>				This is a CM report that gives information about SGSN/RNC and SGSN/PAPU/RNC configurations.
+<br>Use case specific instructions:
+<br>To run this report &#039;RANAP measurement&#039; (020) and/or &#039;Iu Mobility Management measurement&#039; (016) must be activated in SGSN.
+<br>If report executed on SGSN/RNC level the report output gives the SGSN->RNC configuration.
+<br>If report executed on SGSN/PAPU/RNC level the report output gives the SGSN->PAPU->RNC configuration.
+<br>
+<br>Report columns:
+<br>
+<br>Report 1:
+<br>
+<br>1. SGSN - &#039;SGSN name&#039;
+<br>- stores the SGSN identifier.
+<br>
+<br>2. RNC_ID - &#039;RNC id&#039;
+<br>- stores the RNC identifier.
+<br>
+<br>3. &#039;RNC name&#039;?
+<br>- stores the RNC name.
+<br>
+<br>Report 2:
+<br>
+<br>1. SGSN - &#039;SGSN name&#039;
+<br>- stores the SGSN identifier.
+<br>
+<br>2. PAPU_INDEX - &#039;PAPU logical index&#039; [#]
+<br>- stores the logical PAPU index; Possible values: 0-40; Values of 33-40 are shown if &#039;LRAS enhancement&#039; feature is activated and they indicate PAPU group used.
+<br>
+<br>3. IU_RA_RNC_ID - &#039;RNC id&#039;
+<br>- stores the RNC identifier.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="SGSN">sgsn.co_gid</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="time_stamp" columnType="KEY">
+				<alias>Time stamp</alias>
+			</column>
+			<column col-id="SGSN name" columnType="KEY">
+				<alias>SGSN name</alias>
+			</column>
+			<column col-id="RNC id" columnType="KEY">
+				<alias>RNC id</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="RNC name" columnType="KEY">
+				<alias>RNC name</alias>
+			</column>
+			<column col-id="PAPU logical index" columnType="KEY">
+				<alias>PAPU logical index</alias>
+			</column>
+			<column col-id="iu_mcc_id" columnType="KEY">
+				<alias>MCC</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="iu_mnc_id" columnType="KEY">
+				<alias>MNC</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+		</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br>
+				<br><br>
+				<span class ="sql_h2">SGSN -&gt; RNC Configuration</span><br>
+		 		]]>
+		</literal>
+
+		<sql table-width="700">
+			<![CDATA[
+
+		select 
+				p1.time_stamp,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') "SGSN name",
+				p1.rnc_id "RNC id",
+				nvl(rnc.co_name, 'NN('||p1.rnc_id||')') "RNC name",
+				p1.iu_mcc_id iu_mcc_id,
+				p1.iu_mnc_id iu_mnc_id
+			from
+				utp_common_objects sgsn,
+				(select
+				co_object_instance,
+				co_name
+				from
+				utp_common_objects
+				where
+				co_oc_id=811
+				) rnc,
+				RSG_PD_RNC_OBJECTS p1
+			where
+			    #object_selection# and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				p1.rnc_id  = rnc.co_object_instance (+) 
+			order by 3,2,4
+
+
+	 		]]>
+	 	</sql>
+	 	
+		<literal>
+			<![CDATA[
+				<br><br>
+				<br><br>
+				<span class ="sql_h2">SGSN -&gt; PAPU -&gt; RNC Configuration</span><br>
+		 		]]>
+		</literal>
+		
+		<sql table-width="700">
+			<![CDATA[
+
+		select
+				p1.time_stamp,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') "SGSN name",
+				NVL(papu.co_object_instance, 'NN('||papu.co_gid||')') "PAPU logical index",
+				p1.iura_id "RNC id",
+				nvl(rnc.co_name, 'NN('||p1.iura_id||')') "RNC name"
+			FROM
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				(select
+				co_object_instance,
+				co_name
+				from
+				utp_common_objects
+				where
+				co_oc_id=811
+				) rnc,
+				RSG_PD_IURA_OBJECTS p1
+			WHERE
+			    #object_selection# AND
+				papu.co_parent_gid = sgsn.co_gid AND
+				sgsn.co_oc_id=463 AND
+				papu.co_object_instance=p1.papu_gid AND
+				papu.co_oc_id=462 AND
+				sgsn.co_gid= p1.sgsn_gid and
+				p1.iura_id = rnc.co_object_instance (+)
+				
+			ORDER BY 3,2
+
+
+	 		]]>
+	 	</sql>		
+	</report>
+</reports>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN load measurement dump</header>
+    <csv_title>Nokia Siemens SGSN load measurement dump</csv_title>
+    <report-description>Load measurement(LOAD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="LOAD_OBJCOUNT" meas_level="PLMN/SGSN/CU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="SGSN_COUNT">COUNT(DISTINCT SGSN_GID)</counter>
+	  <counter alias="PAPU_COUNT">COUNT(DISTINCT CASE WHEN OBJECT_INDEX || OBJECT_NAME || SGSN_GID LIKE '%PAPU%' THEN OBJECT_INDEX||OBJECT_NAME||SGSN_GID ELSE NULL END)</counter>
+  	  <counter alias="SMMU_COUNT">COUNT(DISTINCT CASE WHEN OBJECT_INDEX || OBJECT_NAME || SGSN_GID LIKE '%SMMU%' THEN OBJECT_INDEX||OBJECT_NAME||SGSN_GID ELSE NULL END)</counter>
+  	  <counter alias="GBU_COUNT">COUNT(DISTINCT CASE WHEN OBJECT_INDEX || OBJECT_NAME || SGSN_GID LIKE '%GBU%' THEN OBJECT_INDEX||OBJECT_NAME||SGSN_GID ELSE NULL END)</counter>
+	  <counter alias="IPPU_COUNT">COUNT(DISTINCT CASE WHEN OBJECT_INDEX || OBJECT_NAME || SGSN_GID LIKE '%IPPU%' THEN OBJECT_INDEX||OBJECT_NAME||SGSN_GID ELSE NULL END)</counter>
+      <counter alias="MMDU_COUNT">COUNT(DISTINCT CASE WHEN OBJECT_INDEX || OBJECT_NAME || SGSN_GID LIKE '%MMDU%' THEN OBJECT_INDEX||OBJECT_NAME||SGSN_GID ELSE NULL END)</counter>
+	  <counter alias="ATCA_SGSN_COUNT">COUNT(DISTINCT CASE WHEN ( OBJECT_NAME || SGSN_GID LIKE 'IPPU%' OR OBJECT_NAME || SGSN_GID LIKE 'GBU%' ) THEN SGSN_GID ELSE NULL END)</counter>
+    </counters>
+    <table_name>rsg_ps_load_cu_{TIME_AGG}</table_name>
+    <alias_name>LOAD_OBJCOUNT</alias_name>
+  </temp_table>
+</conf_file>
+

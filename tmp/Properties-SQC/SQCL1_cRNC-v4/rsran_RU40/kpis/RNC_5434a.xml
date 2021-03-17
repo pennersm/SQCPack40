@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_5434a">
+    <formula>100 - 
+			100*decode(
+			(servlev.rab_act_comp_cs_voice + 
+			servlev.rab_act_rel_cs_voice_srnc + 
+			servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_rel_cs_voice_hho + 
+			servlev.rab_act_rel_cs_voice_isho + 
+			servlev.rab_act_rel_cs_voice_ganho + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_fail_cs_voice_trans + 
+			rrc.rrc_re_est_succ_rt),0,null, 
+
+			(servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_fail_cs_voice_trans + 
+			rrc.rrc_re_est_succ_rt)
+			 / 
+			(servlev.rab_act_comp_cs_voice + 
+			servlev.rab_act_rel_cs_voice_srnc + 
+			servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_rel_cs_voice_hho + 
+			servlev.rab_act_rel_cs_voice_isho + 
+			servlev.rab_act_rel_cs_voice_ganho + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_fail_cs_voice_trans + 
+			rrc.rrc_re_est_succ_rt))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Success Ratio, Voice (CSR) (re-establishment included)]]></title>
+      <use><![CDATA[RAB Success Ratio for AMR Voice [%] including RRC Call re-establishment into the formula. Successful re-establishments are considered in the same way as abnormal releases(failures)from end user point of view.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100-100* 
+&lt;br&gt;sum(RAB_ACT_REL_CS_VOICE_P_EMP + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IU + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RADIO + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_BTS + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IUR + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RNC + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_UE +
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_TRANS+
+&lt;br&gt;RRC_RE_EST_SUCC_RT)
+&lt;br&gt;/
+&lt;br&gt;sum(RAB_ACT_COMP_CS_VOICE + 
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_SRNC + 
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_P_EMP +
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_HHO +
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_ISHO +
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_GANHO + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IU + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RADIO + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_BTS + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IUR + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RNC + 
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_UE +
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_TRANS+
+&lt;br&gt;RRC_RE_EST_SUCC_RT)</formula>
+       <unit>[%]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg},nokrww_ps_RRC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/20 02:32:32.983 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB SR Voice, re-est incl</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

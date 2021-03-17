@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0 CD2 MTPSLP measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0 CD2 MTPSLP measurement dump</csv_title>
+    <report-description>MTP signalling link performance measurement (MTPSLP)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <LINK_FAILURES_ALL_REASONS />  
+  </column_order>
+  <temp_table name="MTPSLP" meas_level="PLMN/SGSN/SLN/SNET/SPC/SLSN1" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="LINK_FAILURES_ALL_REASONS" symmetrical="true">SUM(LINK_FAILURES_ALL_REASONS)</counter> 
+    </counters>
+    <table_name>rsg_ps_mtpslp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MTPSLP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MTPSLP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_mtpslp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LINK_FAILURES_ALL_REASONS">
+    <formula>MTPSLP.LINK_FAILURES_ALL_REASONS</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_ALL_REASONS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(LINK_FAILURES_ALL_REASONS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_mtpslp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_ALL_REASONS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

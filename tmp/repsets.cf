@@ -1,0 +1,279 @@
+###########################################################################
+# NOKIA AUTOMATION FOR CLOUD CONTROLLER
+#--------------------------------------------------------------------------
+Script_defname="$0"
+Script_version="v-13AUG15"
+#
+# (C) Nokia 2014
+#
+# Change History
+# v-22APR15     :   First version going life in "wave1" operators:
+#                   Nuevatel Bo, Avantel Co, Oi BR, TEM CO, TEM PE, TPersonal AR
+# v-30APR15     :   Add version history and header
+#                   Add Claro EC
+# v-24JUN15     :   Add new repsets for NA15 incl. LTEv2
+#                   add Avantel NA15 (but not yet reachable in RAS)
+# v-08JUL15     :   Add new repsets for OSS5.x + NA15 (FNG, MME, SGSN)
+#                   general adaptation of definitions to new main version
+# v-30JUL15     :   RU50EP1 based fix for NA15
+# v-13AUG15     :   Added SKY Brasil
+#                   Changed TIM RCE to NA15 type
+###########################################################################
+# REPSETS:
+#----------------------------------------------------
+#rsran_RU40 based OSS5.x
+SQCL1_cRNC-v4%START
+SQCL1_cRNC-NE-v5-csv '00 1 * * *'
+SQCL1_cRNC-NE-v5-xls '15 1 * * *'
+SQCL1_cRNC-NPGEP-NIC-v1-csv '20 1 * * *'
+SQCL1_cRNC-NPGEP-NIC-v1-xls '25 1 * * *'
+SQCL1_cRNC-WBTS-QUALITY-v2-csv '30 1 * * *'
+SQCL1_cRNC-WBTS-QUALITY-v2-xls '55 1 * * *'
+SQCL1_cRNC-WBTS-CAPA-v1-csv '05 2 * * *'
+SQCL1_cRNC-WBTS-CAPA-v1-xls '15 2 * * *'
+SQCL1_cRNC-CELL-v2-csv '30 2 * * *'
+SQCL1_cRNC-CELL-v2-xls '45 2 * * *'
+SQCL1_cRNC-CPU-v1-csv '00 3 * * *'
+SQCL1_cRNC-CPU-v1-xls '05 3 * * *'
+SQCL1_cRNC-v4%STOP
+#----------------------------------------------------
+#rsran_RU50EP1 based NA15
+SQCL1_cRNC-v5%START
+SQCL1_cRNC-NE-v5-xls '15 1 * * *'
+SQCL1_cRNC-NPGEP-NIC-v1-xls '25 1 * * *'
+SQCL1_cRNC-WBTS-QUALITY-v2-xls '55 1 * * *'
+SQCL1_cRNC-WBTS-CAPA-v2-xls '15 2 * * *'
+SQCL1_cRNC-CELL-v3-xls '45 2 * * *'
+#SQCL1_cRNC-CPU-v1-xls '05 3 * * *'
+SQCL1_cRNC-v5%STOP
+#----------------------------------------------------
+#rsmgw_U60 based OSS5.x
+SQCL1_MGW-v2%START
+SQCL1_MGW-CPU-v1-csv '03 0 * * *'
+SQCL1_MGW-CPU-v1-xls '05 0 * * *'
+SQCL1_MGW-TCUP-v1-csv '07 0 * * *'
+SQCL1_MGW-TCUP-v1-xls '09 0 * * *'
+SQCL1_MGW-NE-v2-csv '11 0 * * *'
+SQCL1_MGW-NE-v2-xls '13 0 * * *'
+SQCL1_MGW-v2%STOP
+#----------------------------------------------------
+#MSS based OSS5.x
+SQCL1_MSS-v2%START
+SQCL1_MSS-CPU-v2-csv '20 0 * * *'
+SQCL1_MSS-CPU-v2-xls '25 0 * * *'
+SQCL1_MSS-NE-v2-csv  '30 0 * * *'
+SQCL1_MSS-NE-v2-xls  '40 0 * * *'
+SQCL1_MSS-v2%STOP
+#----------------------------------------------------
+#nss_M162 based NA15
+SQCL1_MSS-v3%START
+SQCL1_MSS-CPU-v3-xls '20 0 * * *'
+SQCL1_MSS-NE-v3-xls  '40 0 * * *'
+SQCL1_MSS-v3%STOP
+#----------------------------------------------------
+#rslte_RL50 based OSS5.x
+SQCL1_LTE-v1%START
+SQCL1_LTE-PLMN-v1-xls '10 0 * * *'
+SQCL1_LTE-PLMN-v1-csv '10 0 * * *'
+SQCL1_LTE-eNB-v1-xls '25 0 * * *'
+SQCL1_LTE-eNB-v1-csv '25 0 * * *'
+SQCL1_LTE-LNCEL-v1-xls '45 0 * * *'
+SQCL1_LTE-LNCEL-v1-csv '45 0 * * *'
+SQCL1_LTE-v1%STOP
+#----------------------------------------------------
+#rslte_RL70 based OSS5.x
+SQCL1_LTE-v2%START
+SQCL1_LTE-PLMN-v2-xls '10 0 * * *'
+SQCL1_LTE-eNB-v2-xls '25 0 * * *'
+SQCL1_LTE-LNCEL-v2-xls '45 0 * * *'
+SQCL1_LTE-v2%STOP
+#----------------------------------------------------
+#rssg2g_SG91 based OSS5.x
+SQCL1_SGSN-v1%START
+SQCL1_SGSN-combi-v1-xls '10 0 * * *'
+SQCL1_SGSN-combi-v1-csv '10 0 * * *'
+SQCL1_SGSN-v1%STOP
+#----------------------------------------------------
+#rsmme_NS22 based OSS5.x
+SQCL1_MME-v1%START
+SQCL1_MME-NE-v1-xls '10 0 * * *'
+SQCL1_MME-NE-v1-csv '10 0 * * *'
+SQCL1_MME-v1%STOP
+#----------------------------------------------------
+#rssaegw_NG30 based OSS5.x
+SQCL1_FNG-v1%START
+SQCL1_FNG-NE-v1-xls '10 0 * * *'
+SQCL1_FNG-NE-v1-csv '10 0 * * *'
+SQCL1_FNG-NOD-v1-xls '10 0 * * *'
+SQCL1_FNG-NOD-v1-csv '10 0 * * *'
+SQCL1_FNG-v1%STOP
+#----------------------------------------------------
+#  CUSTOMER REPORTS
+#----------------------------------------------------
+@TPERSONAL-AR-rc01:properties
+SQCL1_cRNC-v4
+@TPERSONAL-AR-rc01:endprops
+#----------------------------------------------------
+@Claro-BR-nok1:properties
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+@Claro-BR-nok1:endprops
+#----------------------------------------------------
+@Claro-BR-nok2:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_LTE-v1
+SQCL1_SGSN-v1
+SQCL1_MME-v1
+SQCL1_FNG-v1
+@Claro-BR-nok2:endprops
+#----------------------------------------------------
+@Claro-AR-rc01:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+SQCL1_FNG-v1
+SQCL1_MME-v1
+@Claro-AR-rc01:endprops
+#----------------------------------------------------
+@Claro-AR-rc02:properties
+SQCL1_cRNC-v4
+@Claro-AR-rc02:endprops
+#----------------------------------------------------
+@Claro-AR-rc03:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+@Claro-AR-rc03:endprops
+#----------------------------------------------------
+@Claro-CO-rc03:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+@Claro-CO-rc03:endprops
+#----------------------------------------------------
+@Claro-CO-rc05:properties
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+@Claro-CO-rc05:endprops
+#----------------------------------------------------
+@Claro-CO-rc06:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+SQCL1_LTE-v1
+@Claro-CO-rc06:endprops
+#----------------------------------------------------
+@Claro-CO-rc07:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+SQCL1_MME-v1
+SQCL1_LTE-v1
+@Claro-CO-rc07:endprops
+#----------------------------------------------------
+@Oi-BR-rc05:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+SQCL1_FNG-v1
+@Oi-BR-rc05:endprops
+#----------------------------------------------------
+@Oi-BR-rc06:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+@Oi-BR-rc06:endprops
+#----------------------------------------------------
+@Oi-BR-rc07:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+@Oi-BR-rc07:endprops
+#----------------------------------------------------
+@Oi-BR-rc08:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_LTE-v1
+SQCL1_SGSN-v1
+SQCL1_FNG-v1
+SQCL1_MME-v1
+@Oi-BR-rc08:endprops
+#----------------------------------------------------
+@TEM-CO-rc01:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_SGSN-v1
+SQCL1_FNG-v1
+SQCL1_MME-v1
+@TEM-CO-rc01:endprops
+#----------------------------------------------------
+@Claro-CL-rc01:properties
+SQCL1_cRNC-v4
+SQCL1_SGSN-v1
+SQCL1_MME-v1
+SQCL1_LTE-v1
+SQCL1_FNG-v1
+@Claro-CL-rc01:endprops
+#----------------------------------------------------
+@TIM-BR-sne:properties
+SQCL1_FNG-v1
+SQCL1_SGSN-v1
+SQCL1_MME-v1
+@TIM-BR-sne:endprops
+#----------------------------------------------------
+@TIM-BR-bsa:properties
+SQCL1_cRNC-v4
+SQCL1_LTE-v1
+@TIM-BR-bsa:endprops
+#----------------------------------------------------
+@TIM-BR-rce:properties
+SQCL1_cRNC-v4
+SQCL1_LTE-v1
+@TIM-BR-rce:endprops
+#----------------------------------------------------
+@Avantel-CO-rc02:properties
+SQCL1_MSS-v3
+SQCL1_MGW-v2
+SQCL1_LTE-v2
+SQCL1_cRNC-v5
+@Avantel-CO-rc02:endprops
+#----------------------------------------------------
+@Nuevatel-BO-rc01:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_FNG-v1
+SQCL1_SGSN-v1
+SQCL1_MME-v1
+@Nuevatel-BO-rc01:endprops
+#----------------------------------------------------
+@TEM-PE-rc01:properties
+SQCL1_cRNC-v4
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+SQCL1_LTE-v1
+@TEM-PE-rc01:endprops
+#----------------------------------------------------
+@Claro-EC-rc01:properties
+SQCL1_MSS-v2
+SQCL1_MGW-v2
+@Claro-EC-rc01:endprops
+#----------------------------------------------------
+@SKY-BR-rc01:properties
+SQCL1_LTE-v1
+SQCL1_MME-v1
+SQCL1_FNG-v1
+@SKY-BR-rc01:endprops

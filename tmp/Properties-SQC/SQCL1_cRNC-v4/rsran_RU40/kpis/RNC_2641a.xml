@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CPICHQ.xml" />
+  <kpi name="RNC_2641a">
+    <formula>100*decode(
+			(cpichq.rrc_cpich_ecno_class_0 + 
+			cpichq.rrc_cpich_ecno_class_1 + 
+			cpichq.rrc_cpich_ecno_class_2 + 
+			cpichq.rrc_cpich_ecno_class_3 + 
+			cpichq.rrc_cpich_ecno_class_4 + 
+			cpichq.rrc_cpich_ecno_class_5 + 
+			cpichq.rrc_cpich_ecno_class_6 + 
+			cpichq.rrc_cpich_ecno_class_7 + 
+			cpichq.rrc_cpich_ecno_class_8 + 
+			cpichq.rrc_cpich_ecno_class_9),0,null, 
+
+			(cpichq.rrc_cpich_ecno_class_1 + 
+			cpichq.rrc_cpich_ecno_class_2)
+			 / 
+			(cpichq.rrc_cpich_ecno_class_0 + 
+			cpichq.rrc_cpich_ecno_class_1 + 
+			cpichq.rrc_cpich_ecno_class_2 + 
+			cpichq.rrc_cpich_ecno_class_3 + 
+			cpichq.rrc_cpich_ecno_class_4 + 
+			cpichq.rrc_cpich_ecno_class_5 + 
+			cpichq.rrc_cpich_ecno_class_6 + 
+			cpichq.rrc_cpich_ecno_class_7 + 
+			cpichq.rrc_cpich_ecno_class_8 + 
+			cpichq.rrc_cpich_ecno_class_9))</formula>
+    <kpi_info>
+      <title><![CDATA[Perc of CPICH EC/NO poor values on RRC conn req]]></title>
+      <use><![CDATA[Percentage of poor CPICH EcNo values (-18 dB <= CPICH EcNo < -14 dB) reported by the UEs when the RNC receives RRC: RRC CONNECTION REQUEST from the UE.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RRC_CPICH_ECNO_CLASS_1 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_2)
+&lt;br&gt;---------------------------------
+&lt;br&gt;SUM( RRC_CPICH_ECNO_CLASS_0 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_1 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_2 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_3 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_4 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_5 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_6 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_7 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_8 +
+&lt;br&gt;RRC_CPICH_ECNO_CLASS_9)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_CPICHQ_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:48.454 +0100</date>
+          <comment><![CDATA[Source: RSRAN086.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CPICH EcNo poor perc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LTOP (LTE TOP Statistics)</header>
+    <csv_title>LTOP (LTE TOP Statistics)</csv_title>
+    <report-description>LTE TOP Statistics measurement (M51122) contains PM counters to measure Timing over Packet (TOP) statistics.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <topRxSyncMsg />
+    <topMinPhaseError />
+    <topAvgPhaseError />
+    <topMaxPhaseError />
+    <topSLS />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LTOP" meas_level="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TOPIK" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LTOP</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="topRxSyncMsg" symmetrical="true">SUM(topRxSyncMsg)</counter>
+	  <counter alias="topMinPhaseError" symmetrical="true">MIN(topMinPhaseError)</counter>
+	  <counter alias="topAvgPhaseError" symmetrical="true">AVG(topAvgPhaseError)</counter>
+	  <counter alias="topMaxPhaseError" symmetrical="true">MAX(topMaxPhaseError)</counter>
+	  <counter alias="topSLS" symmetrical="true">SUM(topSLS)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LTOP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LTOP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topRxSyncMsg">
+    <formula>LTOP.topRxSyncMsg</formula>
+    <kpi_info>
+      <title>topRxSyncMsg</title>
+      <use>The number of received ToP event messages. Event messages are time stamped and used for clock recovery.
+ UPDATED: The counter is incremented every second by the number of received synchronisation messages.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(topRxSyncMsg)</formula>
+      <unit>packet</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topRxSyncMsg (M51122C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topMinPhaseError">
+    <formula>LTOP.topMinPhaseError</formula>
+    <kpi_info>
+      <title>topMinPhaseError</title>
+      <use>The minimum value of the timing over packet service phase error in microseconds during the interval. UPDATED: &quot;The value is updated every minute using the following formula:
+minValue = min (minValue, actualValue)&quot;
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(topMinPhaseError)</formula>
+      <unit>us</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMinPhaseError (M51122C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topAvgPhaseError">
+    <formula>LTOP.topAvgPhaseError</formula>
+    <kpi_info>
+      <title>topAvgPhaseError</title>
+      <use>The average value of the timing over packet service phase error in microseconds during the interval. UPDATED: &quot;The value is updated every minute using the following formula:
+aveValueNew = (aveValueOld * (actualIntervalLength - 1) + actualValue) / actualIntervalLength&quot;
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(topAvgPhaseError)</formula>
+      <unit>us</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topAvgPhaseError (M51122C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topMaxPhaseError">
+    <formula>LTOP.topMaxPhaseError</formula>
+    <kpi_info>
+      <title>topMaxPhaseError</title>
+      <use>The maximum value of the timing over packet service phase error in microseconds during the interval. UPDATED: &quot;The value is updated every minute using the following formula:
+maxValue = max (maxValue, actualValue)&quot;
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(topMaxPhaseError)</formula>
+      <unit>us</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMaxPhaseError (M51122C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topSLS">
+    <formula>LTOP.topSLS</formula>
+    <kpi_info>
+      <title>topSLS</title>
+      <use>The number of seconds during this interval while the timing over packet
+service was in locked state. UPDATED: The number of seconds during this interval while the timing over packet
+service was in locked state.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(topSLS)</formula>
+      <unit>Seconds</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topSLS (M51122C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LTOP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

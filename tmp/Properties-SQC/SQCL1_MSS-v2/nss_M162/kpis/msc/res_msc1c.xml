@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml" />
+  <kpi name="res_msc1c">
+    <formula>
+decode(
+			(cgr.cgrcgroup_nof_circuits),0,null, 
+
+			(100*(nvl(cgr.cgrcgroup_nof_woex_crts_out,0)/100)
+			 / 
+			cgr.cgrcgroup_nof_circuits))
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Average availability of circuit group for outgoing calls]]></title>
+      <use><![CDATA[Indicates the availability of circuit groups for outgoing calls.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Not for pure outgoing circuit groups. This KPI will not work for SIP CGRs.
+<br>
+<br>The numerator counter CGRCGROUP_NOF_WOEX_CRTS_OUT is multiplied by 100 and as so shall be divided by 100 in the KPI formula.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 31-12-2008
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CDS; CGRNAME/CGR; CGRDIR;
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CDS; CGRDIR
+<br>
+<br>KPI CLASS: Resource
+<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For OBJECT level:
+&lt;br&gt;          ( SUM (CGRCGROUP_NOF_WOEX_CRTS_OUT) / 100 )
+&lt;br&gt;   100 * --------------------------------------- 
+&lt;br&gt;          SUM (CGRCGROUP_NOF_CIRCUITS)
+&lt;br&gt;
+&lt;br&gt;For TIME level:
+&lt;br&gt;          ( AVG (CGRCGROUP_NOF_WOEX_CRTS_OUT) / 100 )
+&lt;br&gt;   100 * --------------------------------------- 
+&lt;br&gt;          AVG (CGRCGROUP_NOF_CIRCUITS)
+&lt;br&gt;
+&lt;br&gt;Use view(s):
+&lt;br&gt;RNS_PS_CGR_{OBJ_AGG}_{TIME_AGG}
+&lt;br&gt;RNS_PS_CGRC_CDS_{TIME_AGG}
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;100 * SUM(NVL(CGRCGROUP_NOF_WOEX_CRTS_OUT,0))/100/COUNT(DISTINCT period_start_time)
+&lt;br&gt;-----------------------------------------------------------------------------
+&lt;br&gt;SUM(NVL(CGRCGROUP_NOF_CIRCUITS,0))/COUNT(DISTINCT period_start_time)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_CGR_{OBJ_AGG}_{TIME_AGG},rns_ps_CGRC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg Avail Circ Grp Outg Calls</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

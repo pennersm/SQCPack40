@@ -1,0 +1,2660 @@
+#Session timeout in minutes [5m, ~]
+linas.com.nsn.oss.pm.session.timeout=120
+regional.com.nsn.oss.pm.session.timeout=30
+
+# sql datareliability sql functions
+com.nokia.oss.qengine.dataReliability.sqlFunctions=DATA_AVAILABILITY,DATA_AVAILABILITY_PER_NE
+
+#Activate advanced filtering(topn bh etc.)
+com.nokia.oss.qengine.advFiltering.active=true
+
+# Use all period summarization
+com.nokia.oss.qengine.wholeperiod.active=true
+
+# set to yes/true to show the use sub query option on advanced options UI
+com.nokia.oss.qengine.advancedOption.active.useSubQueries=false
+
+#KPI drill format for counter values
+com.nokia.oss.qengine.kpiDrill.counterFormat=float:2
+#Excel use temp file
+com.nokia.oss.qengine.jexcel.useTmpFile=false
+
+com.nokia.oss.qengine.precision=2
+
+################# CUSTOMIZATION OF SERVICES IMPLEMEMTATION #######################
+pem_auth_impl=com.nsn.oss.repcps.pmportal.config.AuthUtilsLdapImpl
+regional.pem_auth_impl=com.nsn.oss.repcps.pmportal.config.AuthUtilsNetActPMImpl
+
+################Directory to store tmp excel file########################
+com.nokia.oss.qengine.jexcel.useTmpFile.directory=c:/temp
+linas.com.nokia.oss.qengine.jexcel.useTmpFile.directory=/tmp
+laptop.com.nokia.oss.qengine.jexcel.useTmpFile.directory=c:/temp
+
+#Max age for excel tmp files to be valid, after the defined minutes they will be removed from the server
+#Default 10 minutes
+com.nokia.oss.qengine.jexcel.useTmpFile.tmpFiles.maxTime=10
+##########################################################################
+
+#Parallel creation temp tables
+com.nokia.oss.qengine.tmpTablesCreation.parallelCreation.enable=false
+com.nokia.oss.qengine.tmpTablesCreation.numMaxThreads=2
+com.nokia.oss.qengine.createTableTemplate.multiThread=create table #table# as ( #sql# )
+
+#Advanced Filtering
+com.nokia.oss.qengine.advFiltering.timeAgg.bh.filter=hour
+com.nokia.oss.qengine.advFiltering.timeAgg.weekbh.filter=hour
+
+com.nokia.oss.qengine.advFiltering.rename.bh=Peak Day BH
+com.nokia.oss.qengine.advFiltering.rename.weekbh=Peak Week BH
+com.nokia.oss.qengine.advFiltering.rename.topN= TopN
+com.nokia.oss.qengine.advFiltering.rename.bottomN= BottomN
+com.nokia.oss.qengine.advFiltering.rename.NoFilter= No Filter
+
+#Filter adaptation on content browser
+com.nokia.oss.qengine.filterAdaptation=true
+
+## Double Aggregation active
+com.nokia.oss.qengine.dblAgg.active=true
+
+## SQL query to check rehoming
+com.nokia.oss.qengine.rehoming.sql.check=select username from dba_users where username='REPRHM'
+
+## Rehoming active
+com.nokia.oss.qengine.rehomingEnabled=true
+com.nokia.oss.qengine.rehomingDefault=true
+
+#SQL query to be used on the rehomed object parent gid
+#default- The default that will be used if com.nokia.oss.qengine.rehomingParentQuery.TIME_LEVEL is not defined
+com.nokia.oss.qengine.rehomingParentQuery.default=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''dd'') >= TRUNC({0}.NOTIFICATION_DATE, ''dd'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.day=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''dd'') >= TRUNC({0}.NOTIFICATION_DATE, ''dd'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.whole_period=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, {0}.NEW_PARENT_GID)
+com.nokia.oss.qengine.rehomingParentQuery.week=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''IW'') >= TRUNC({0}.NOTIFICATION_DATE, ''IW'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.weekbh=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''IW'') >= TRUNC({0}.NOTIFICATION_DATE, ''IW'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.weekbh2=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''IW'') >= TRUNC({0}.NOTIFICATION_DATE, ''IW'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.bh=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''dd'') >= TRUNC({0}.NOTIFICATION_DATE, ''dd'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.bh2=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''dd'') >= TRUNC({0}.NOTIFICATION_DATE, ''dd'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.month=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''month'') >= TRUNC({0}.NOTIFICATION_DATE, ''month'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.monthbh=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''month'') >= TRUNC({0}.NOTIFICATION_DATE, ''month'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+com.nokia.oss.qengine.rehomingParentQuery.monthbh2=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''month'') >= TRUNC({0}.NOTIFICATION_DATE, ''month'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+#com.nokia.oss.qengine.rehomingParentQuery.raw=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''mi'') >= TRUNC({0}.NOTIFICATION_DATE, ''mi'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+#com.nokia.oss.qengine.rehomingParentQuery.hour=DECODE({0}.NOTIFICATION_DATE, NULL, {1}, CASE WHEN TRUNC(p.period_start_time, ''hh24'') >= TRUNC({0}.NOTIFICATION_DATE, ''hh24'') THEN {0}.NEW_PARENT_GID ELSE {0}.OLD_PARENT_GID END)
+
+#When object drill check if the selected object used to belong to this parent(before rehoming)
+com.nokia.oss.qengine.rhm.selection.useOrOption=false
+
+## Rehoming object cache ##
+## Enable or disable rehoming object cache
+com.nokia.oss.qengine.rhm.useobjcache=true
+
+##SQL to retrieve the old objects
+com.nokia.oss.qengine.rhm.objcache.sql.default=select old_gid, last_co_name from reprhm_t_rehoming where last_gid = ? and old_parent_gid != new_parent_gid
+
+## Time that object will be in cache
+com.nokia.oss.qengine.rhm.objcacheexpirationtimems=46800000
+
+## Number of elements in cache
+com.nokia.oss.qengine.rhm.objcachesize=1000
+
+
+## Replace null values by com.nokia.oss.qengine.uiTable.replaceNull.string
+com.nokia.oss.qengine.uiTable.replaceNull=true
+com.nokia.oss.qengine.uiTable.replaceNull.string=----
+
+## Session Cleanup Timeout (minutes)####
+com.nokia.oss.qengine.sessionCleanupTimeout=15
+
+#kpi reference on Report may be set to be Case Sensitive
+com.nokia.oss.qengine.kpi.caseSensitive=true
+#Select Type of RS Menu (tree or menu)
+com.nokia.oss.qengine.navType=menu
+
+#Property to set custom progress bar on the loading progress
+#if set to true it will show a progress status
+#on false it will use the default Loading gif
+com.nokia.oss.qengine.customBar=true
+
+## Time levels filter based on Time filtering####
+#It will only be avaiable the time levels agg defined
+#If not set all time agg will be shown
+com.nokia.oss.qengine.timeLevels.today=hour,raw
+#com.nokia.oss.qengine.timeLevels.relative=
+#com.nokia.oss.qengine.timeLevels.absolute=
+
+
+#Prefix for the cache entry
+#com.nokia.oss.qengine.dbcache.cachedIdPrefix=jflx
+
+#Timefiltering offset (number in hours)
+com.nokia.oss.qengine.timeFiltering.offset=0
+#Set to true to show KPI ids on report output
+com.nokia.oss.qengine.resultTable.showKpiId=true
+
+#Set to true to show the filtering on the report output table
+com.nokia.oss.qengine.resultTable.filter=true
+
+#Fill firewall buffer
+#com.nokia.oss.qengine.keepAlive.extraCharsSize=1024
+
+#Split the output table with the specified number of rows
+#Note: If com.nokia.oss.qengine.resultTable.filter this won't work
+#com.nokia.oss.qengine.resultTable.numberSplitRows=7
+
+#Max number of rows to be shown on the report table output
+#Note: values can still be accessed by sorting the table
+#com.nokia.oss.qengine.resultTable.maxNumberRows=20000
+
+#Enables the reading of extra adaptation packages automatically
+#Name Files under adaptations/*
+com.nokia.oss.qengine.readExtraAdaptations=true
+
+## Adaptations extension supoprt. 
+## The path is hard-coded to confDir/extensions/ and should have the same configuration as normal adapatations
+##  - extensions/adaptations/<package_name>
+##  - extensions/<package_name>/conf/<package_name>_meastemplate.xml
+##  - extensions/<package_name>/conf/<package_name>_level.xml
+##  - extensions/<package_name>/conf/<package_name>_report.xml
+## Adaptation Extension only support templates, no counters, kpis or reports are supported
+# Enable extension support
+com.nokia.oss.qengine.loadAdaptationsExtensions=true
+# Default list of adaptation extensions to load
+com.nokia.oss.qengine.adaptationsExtensions=
+
+com.nokia.oss.qengine.jexcel.defaultCacheDir=/tmp
+com.nokia.oss.qengine.jexcel.CacheActive=false
+jxl.nogc=true
+
+#################################################################
+#GRAPHOUTPUT
+#X-AXIS KPI GRAPHS
+com.nokia.oss.qengine.graphOutput.verticalXaxisLabel=true
+com.nokia.oss.qengine.graphOutput.dateFormat=date:HH d MMM yyyy
+com.nokia.oss.qengine.maxNumberOfCharts=25
+com.nokia.oss.qengine.graphOutput.maxNumberOfObjectsPerChart=15
+com.nokia.oss.qengine.graphOutput.effect3D.enabled=true
+com.nokia.oss.qengine.graphOutput.size.default.width=420
+com.nokia.oss.qengine.graphOutput.size.default.height=300
+com.nokia.oss.qengine.graphOutput.size.maximized.width=auto
+com.nokia.oss.qengine.graphOutput.size.maximized.height=auto
+##################################################################
+
+##################################################################
+#Charting (kpi drill & chart drill)
+#Label of the Y-axises in the multi chart drill
+com.nokia.qengine.labels=y1,y2
+
+#Chart time format for the x-axis
+com.nokia.qengine.charTimeFormat=date:HH d MMM yyyy
+
+#Max Number of allowed kpis is multichart per y-axis
+com.nokia.qengine.maxNumberKpis=5
+
+
+#Time periods for the multi charting page
+com.nokia.qengine.chartingTimePeriods=Today, 1_Day, 1_Week, 2_Weeks, 1_Month, 6_Months
+com.nokia.qengine.chartingTimePeriods.Today = 15, 1, hour
+com.nokia.qengine.chartingTimePeriods.1_Day = 5, -1, hour
+com.nokia.qengine.chartingTimePeriods.1_Week = 5, -7, day
+com.nokia.qengine.chartingTimePeriods.2_Weeks = 5, -14, day
+com.nokia.qengine.chartingTimePeriods.1_Month = 2, -1, day
+com.nokia.qengine.chartingTimePeriods.6_Months = 2, -6, day
+
+com.nokia.oss.qengine.charting.size.default.width=520
+com.nokia.oss.qengine.charting.size.default.height=450
+com.nokia.oss.qengine.charting.size.maximized.width=auto
+com.nokia.oss.qengine.charting.size.maximized.height=auto
+####################################################################
+
+## Socket Keep Alive Time (miliseconds) ####
+com.nokia.oss.qengine.keepAliveWait=120000
+
+##KeepAlive JS used method
+#com.nokia.oss.qengine.keepAlive.function=keepAliveJsp()
+
+# Report Filename templates
+com.nokia.oss.qengine.reportFilenameTemplate.default.dateformat=yyyy_MM_dd-HH_mm_ss__S
+com.nokia.oss.qengine.reportFilenameTemplate.default.csv=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+com.nokia.oss.qengine.reportFilenameTemplate.default.xlsx=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+
+#com.nokia.oss.qengine.reportFilenameTemplate.scheduled.dateformat=yyyy_MM_dd-HH_mm_ss__S
+#com.nokia.oss.qengine.reportFilenameTemplate.scheduled.csv=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+#com.nokia.oss.qengine.reportFilenameTemplate.scheduled.xlsx=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+
+#com.nokia.oss.qengine.reportFilenameTemplate.saved.dateformat=yyyy_MM_dd-HH_mm_ss__S
+#com.nokia.oss.qengine.reportFilenameTemplate.saved.csv=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+#com.nokia.oss.qengine.reportFilenameTemplate.saved.xlsx=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+
+#com.nokia.oss.qengine.reportFilenameTemplate.detailed.dateformat=yyyy_MM_dd-HH_mm_ss__S
+#com.nokia.oss.qengine.reportFilenameTemplate.detailed.csv=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+#com.nokia.oss.qengine.reportFilenameTemplate.detailed.xlsx=${reportname}-${objectlevel}-${timelevel}-${reportid}-${date}
+
+
+## CSV export directory
+com.nokia.oss.qengine.csvExportDir=c:/temp
+linas.com.nokia.oss.qengine.csvExportDir=/tmp
+com.nokia.oss.qengine.csvSchedulerExportDir=c:/temp
+linas.com.nokia.oss.qengine.csvSchedulerExportDir=/mnt/sharedrw/content3/csv
+com.nsn.oss.repcps.pmportal.mail.maxAttachSize=3
+
+#CSV header alias or sqlName
+#alias=Kpi Title
+#sqlName=Kpi Id
+com.nokia.oss.qengine.csvHeader=alias
+com.nokia.oss.qengine.csv.aliasPrefixedByGroup=true
+com.nokia.oss.qengine.csv.aliasPrefixedByGroupForSavedReports=false
+com.nokia.oss.qengine.csv.groupsSeparator=" - "
+com.nokia.oss.qengine.csv.groupAliasSeparator=": "
+
+## Rows limit for visualization in web browser, a csv will be created if the limit is reached
+com.nokia.oss.qengine.rowsLimitApresentation=20000
+
+## Rows limit for visualization in web browser for sqlReports, a csv will be created if the limit is reached
+## This limit is based on the total number of tables present on the report
+##(rowsLimitApresentation/(Total number of tables) will be applied)
+com.nokia.oss.qengine.sqlReport.rowsLimitApresentation=20000
+
+#Type of export when its over the rowsLimitApresentation, (csv or html)
+com.nokia.oss.qengine.rowsLimitApresentation.exportType=csv
+#maxTime for the exported files(when reached the rowsLimitApresentation) to remain on server (Hours)
+com.nokia.oss.qengine.rowsLimitFile.maxTime=3
+#max number of days for the rssched exported files(when reached the rowsLimitApresentation) to remain on server (Days)
+com.nokia.oss.qengine.rowsLimitFile.scheduler.maxDays=3
+com.nokia.oss.qengine.html.jsIncludeFile=conf/doc/exportHtml.js
+com.nokia.oss.qengine.html.cssIncludeFile=conf/doc/exportHtml.css
+
+#To be presented to the UI the export Type(excel,csv or html)
+com.nokia.oss.qengine.exportToFile.selection=true
+
+## User groups filter ####
+#### Permission implementation class ####
+com.nokia.oss.qengine.permissionImplementation=com.nokia.oss.qengine.permission.PropertiesPermissionValidation
+
+#### Permission implementation class for NPM ####
+com.nokia.oss.qengine.npm.permissionImplementation=com.nokia.oss.qengine.permission.PropertiesPermissionValidationEmpty
+
+#### List of groups ####
+#com.nokia.oss.qengine.conditionalGroups=GRP1
+
+#### User in specific group ####
+#com.nokia.oss.qengine.conditionalGroups.GRP1=ws
+
+#### Whitelist for a specific group. (Regexp accepted ) ####
+#com.nokia.oss.qengine.conditionalGroups.GRP1.whiteList=rsmgw,bss
+
+#SQL CACHE REPORTS
+
+#SQL Reports Cache activation: either "filecache" or "dbcache"
+#com.nokia.oss.qengine.cacheSQLEngineClass=filecache
+com.nokia.oss.qengine.cacheSQLEngineClass=filecache
+laptop.com.nokia.oss.qengine.cacheSQLEngineClass=filecache
+linas.com.nokia.oss.qengine.cacheSQLEngineClass=dbcache
+
+#END OF SQL CACHE REPORTS
+
+#SQL SCHEDULER
+com.nokia.oss.qengine.scheduler.sql.request_url=/jflx4/repsuite/sqlReport2.web
+linas.com.nokia.oss.qengine.scheduler.sql.request_url=/jflx2/repsuite/sched_sql.web
+laptop.com.nokia.oss.qengine.scheduler.sql.request_url=/jflx2_tomcat/repsuite/sqlReport2.web
+#END OF SQL SCHEDULER
+
+#================ VALUE STORAGE CONFIGURATION ======================================
+#### Cache Engine Type for Value Storage (VSCacheAwareEngineFileCache or VSCacheAwareEngine)
+#com.nokia.oss.qengine.valueStorageReports.cacheEngineClass=com.nokia.oss.qengine.vs.execution.VSCacheAwareEngineFileCache
+com.nokia.oss.qengine.valueStorageReports.cacheEngineClass=com.nokia.oss.qengine.vs.execution.VSCacheAwareEngine
+#### In case VS tables have no data for a VS KPI, regenerate data or finalize execution
+com.nokia.oss.qengine.valueStorageReports.regenerateData=false
+
+#VS Engine Type for Value Storage with no cache
+com.nokia.oss.qengine.valueStorageReports.EngineClass=com.nokia.oss.qengine.vs.execution.VSFlxEngineImpl
+
+#### DBpool for Value Storage
+com.nokia.oss.qengine.valueStorageReports.dbPool=pmrPool
+
+#### Value Storage xml tupple location
+com.nokia.oss.qengine.valueStorageReports.fileLocation=/mnt/sharedrw/content3/custom/conf/vsReports.xml
+
+#### Transient Objects with no mapping in utp_object_class database table
+com.nokia.oss.qengine.valueStorageReports.transientObjects=WS,SEGMENT
+
+#### IDs for each transient objects
+com.nokia.oss.qengine.valueStorageReports.transientObjects.WS_ID=10010007
+com.nokia.oss.qengine.valueStorageReports.transientObjects.SEGMENT_ID=10010008
+
+#### sql for create VS tables
+com.nokia.oss.qengine.valueStorageReports.kpi_create_table=CREATE table #table_name#(period_start_time DATE NOT NULL, #objects#, #kpis#) tablespace PERREP
+
+#### Correspondence between key_structure table column_name items and Report column names (...key_structure_correspondance.VS_COLUMN_NAME=Report_Column_Name)
+com.nokia.oss.qengine.valueStorageReports.key_structure_correspondence.SEGMENT_ID=Segment
+com.nokia.oss.qengine.valueStorageReports.key_structure_correspondence.WS_NAME=ws
+
+com.nokia.oss.qengine.valueStorageReports.default_storing_period=20
+
+
+#================ VALUE STORAGE CONFIGURATION END =================================
+
+
+#value storage scheduler path
+com.nokia.oss.qengine.VSSchedulerPath=/jflx_scheduler_web/valuestorage/scheduler.web
+
+#======== Features nav location =======================0
+com.nokia.oss.qengine.permissionImplementation.enabled=true
+
+com.nokia.oss.qengine.featuresNavLocation=conf/vs_nav.xml
+com.nokia.oss.qengine.featuresDisabled=
+
+# Enable/Disable report drill feature
+app.com.nsn.oss.pm.reportdrill.enabled=true
+
+# Default locale to use when presenting values and parsing numeric input forms
+#com.nokia.oss.qengine.form.locale=en-gb
+# Override default locale with the Browser defined setting.
+#com.nokia.oss.qengine.form.OverrideDefaultlocale=false
+
+#Location of resources repository used for customization
+#com.nokia.custom.resources=
+
+# When files are delete from the report customizer we keep some to facilite undelete by admin
+com.nokia.oss.qengine.numberOfDeletedFilesToKeep=500
+#com.nokia.oss.qengine.serverBaseUrl=http://localhost:8080
+linas.com.nokia.oss.qengine.serverBaseUrl=http://localhost
+
+# URL that the user is sent to when clicking on logout in the header
+com.nokia.oss.qengine.logoutURL=../../../../netact/launch.do?category=&name=Reporting
+
+# set to yes to do usage reporting to the database
+com.nokia.oss.qengine.usageReporting=false
+com.nokia.oss.qengine.usageReportingPool=omcPool
+
+
+#Allowed Charachters in filterstring
+com.nokia.qengine.allowedCharacters=(\\w|\\s|\\*|0-9|\\-|\\_|\\)|\\(|\\\:|\\]|\\[|\\+|\\{|\\}|\\|)+
+
+# use serverBaseUrl to set the base url if needed
+#com.nokia.oss.qengine.serverBaseUrl=http://localhost:8080
+#linas.com.nokia.oss.qengine.serverBaseUrl=http://localhost
+
+# time to keep reports and ui conf data in cache, 540mins is 9 hours
+com.nokia.oss.qengine.timeToKeepDomsCachedMinutes=540
+
+# Version number of the current delivery
+com.nokia.oss.qengine.version=4.10.20070818
+
+# DB pools and names for DEV UI
+com.nokia.oss.qengine.dbPoolsForDev=pmrPool:PMR
+
+#Activate deactivate development mode
+com.nokia.oss.qengine.devMode=false
+
+#Configurable timeout target
+#com.nokia.oss.qengine.timeoutTarget=http://google.com
+
+# conf data access, uncomment to activate reading report files from tier 3
+# It class loader should be used the property must not be set (hence the #)
+com.nokia.oss.qengine.confDir=
+
+#com.nokia.oss.qengine.confDir=C:/Users/Workspaces/290807TMO/jflx4/build/classes
+#com.nokia.oss.qengine.confDir=C:/ws_1.1_aug/trunk/dev/jflx4/build/classes
+linas.com.nokia.oss.qengine.confDir=/mnt/sharedrw/content3
+#laptop.com.nokia.oss.qengine.confDir=C:/Program Files/Apache Software Foundation/Tomcat 5.5/webapps/jflx2_tomcat/WEB-INF/classes
+laptop.com.nokia.oss.qengine.confDir=
+
+# set to use to force the engine to use raw data only
+# this overrides the specification in a report if set to yes
+com.nokia.oss.qengine.useRawDataOnly=no
+
+# set to yes to force the engine to run in subquery mode
+com.nokia.oss.qengine.useSubQueriesOnly=no
+#com.nokia.oss.qengine.useSubQueriesOnly=yes
+
+#Display chart zooming for KPI drill
+com.nokia.oss.qengine.zoomChart=true
+linas.com.nokia.oss.qengine.zoomChart=true
+laptop.com.nokia.oss.qengine.zoomChart=true
+
+#Create chart drilling column
+com.nokia.oss.qengine.resultTable.showChartDrill=true
+#Chart drilling column name, must be valid column header name (no spaces, etc.)
+com.nokia.oss.qengine.chartDrillColumn.name=Chart_Drill
+#Chart drilling column alias
+com.nokia.oss.qengine.chartDrillColumn.alias=Chart Drill
+#Chart drilling column cell value
+com.nokia.oss.qengine.chartDrillColumn.cell=<img src="bss/UI/images/chartIcon.gif"/>
+
+#scheduler
+com.nokia.oss.qengine.scheduler=true
+linas.com.nokia.oss.qengine.scheduler=true
+laptop.com.nokia.oss.qengine.scheduler=false
+
+# naming of custom.properties
+#com.nokia.oss.qengine.customProps=custom/conf/prop/custom.properties
+#com.nokia.oss.qengine.customProps=custom/conf/custom.properties
+#com.nokia.oss.qengine.customProps=custom/conf/custom.propertiesX
+#linas.com.nokia.oss.qengine.customProps=/mnt/sharedrw/content3/custom/conf/custom.properties
+#laptop.com.nokia.oss.qengine.customProps=custom/conf/custom.properties
+
+
+#scheduler path in jflx.jsp
+com.nokia.oss.qengine.schedulerPath=../../jflx_scheduler_web/scheduler/jobSchedulingRequestJflx.web
+
+# Make sql trace directly available in the UI
+com.nokia.oss.qengine.sqlTrace=true
+linas.com.nokia.oss.qengine.sqlTrace=false
+laptop.com.nokia.oss.qengine.sqlTrace=true
+
+#Size of the selection boxes for the object filtering (first option = first selectbox etc.)
+com.nokia.oss.qengine.filterBySize = 5
+com.nokia.oss.qengine.selectionSize = 7
+com.nokia.oss.qengine.refineSize= 7
+
+# maxObjectsToDisplayInFilter is use to put a cap on how many object can be displayed in the object filtering select box
+# the value can be overridden by the report
+com.nokia.oss.qengine.maxObjectsToDisplayInFilter=1000
+
+#Objectfiltering SQL query levels that should be cached
+com.nokia.oss.qengine.cachedLevelSelection=BTS,SEGMENT,BCF
+
+#Lifetime in chache for the Objectfiltering SQL query levels that are cached
+com.nokia.oss.qengine.cachedObjectFilterResultLifeTimeHours=9
+
+
+# NavTree location is
+com.nokia.oss.qengine.navLocation=conf/rs_nav.xml
+
+# KPI Creation Nav Tree location
+com.nokia.oss.qengine.kpiCreationNavLocation=conf/kpiCreation_nav.xml
+
+#cssFile
+#com.nokia.oss.qengine.cssFile=C:/format.css
+
+#cssFile override (otherwise replace)
+com.nokia.oss.qengine.cssFile.override=true
+
+#header css file
+#com.nokia.oss.qengine.cssFile.header=
+
+#selection css file
+#com.nokia.oss.qengine.cssFile.selection=
+
+#Only show alll advanced options
+#com.nokia.oss.qengine.advancedOpt=true
+
+# defaut data format set, can be europe (dd.mm.yyyy), us(mm.dd.yyyy), and int (yyyy.mm.dd)
+# this can be overwritten with locale specific settings
+com.nokia.oss.qengine.timeformat.default=europe
+linas.com.nokia.oss.qengine.timeformat.default=us
+
+# default configuration for member selection xx
+com.nokia.oss.qengine.adaptationPackages=bss,rsnss,rspaco,rsmgw,rssg2g,ebss,enss,eran,tstp,nbss,nnss,ibss,awss,cvms,nss,rsran,rsta
+
+com.nokia.oss.qengine.adaptationName.bss=Nokia BSS
+com.nokia.oss.qengine.adaptationName.rsbssagg=Nokia BSS AGG
+com.nokia.oss.qengine.adaptationName.rsmgw=Nokia MGW
+com.nokia.oss.qengine.adaptationName.rsnss=Nokia NSS
+com.nokia.oss.qengine.adaptationName.rssg2g=Nokia SGSN
+com.nokia.oss.qengine.adaptationName.rspaco=Nokia PaCo
+com.nokia.oss.qengine.adaptationName.rsran=Nokia 3GRAN
+com.nokia.oss.qengine.adaptationName.ebss=Ericsson BSS
+com.nokia.oss.qengine.adaptationName.enss=Ericsson NSS
+com.nokia.oss.qengine.adaptationName.eran=Ericsson RAN
+com.nokia.oss.qengine.adaptationName.tstp=TSTP
+com.nokia.oss.qengine.adaptationName.nbss=Nortel BSS
+com.nokia.oss.qengine.adaptationName.nnss=Nortel NSS
+com.nokia.oss.qengine.adaptationName.ibss=IBSS
+com.nokia.oss.qengine.adaptationName.awss=Alcatel WSS
+com.nokia.oss.qengine.adaptationName.cvms=Comverse VMS
+com.nokia.oss.qengine.adaptationName.rsta=RS Test Adaptation
+
+com.nokia.oss.qengine.addOnIndexOptions=All,Custom,VS
+com.nokia.oss.qengine.addOnIndexOptions.addToFront=true
+
+# bss
+com.nokia.oss.qengine.bss.cntIndexes=bss/counters,custom/bss/counters
+com.nokia.oss.qengine.bss.kpiIndexes=bss/kpis,custom/bss/kpis
+com.nokia.oss.qengine.bss.rptIndexes=bss/reports,custom/bss/reports,custom/customizedReports
+
+# rsbssagg
+com.nokia.oss.qengine.rsbssagg.cntIndexes=rsbssagg/counters,custom/rsbssagg/counters
+com.nokia.oss.qengine.rsbssagg.kpiIndexes=rsbssagg/kpis,custom/rsbssagg/kpis
+com.nokia.oss.qengine.rsbssagg.rptIndexes=rsbssagg/reports,custom/rsbssagg/reports,custom/customizedReports
+
+# rsnss
+com.nokia.oss.qengine.rsnss.cntIndexes=rsnss/counters,custom/rsnss/counters
+com.nokia.oss.qengine.rsnss.kpiIndexes=rsnss/kpis,custom/rsnss/kpis
+com.nokia.oss.qengine.rsnss.rptIndexes=rsnss/reports,custom/rsnss/reports,custom/customizedReports
+
+# rspaco
+com.nokia.oss.qengine.rspaco.cntIndexes=rspaco/counters,custom/rspaco/counters
+com.nokia.oss.qengine.rspaco.kpiIndexes=rspaco/kpis,custom/rspaco/kpis
+com.nokia.oss.qengine.rspaco.rptIndexes=rspaco/reports,custom/rspaco/reports,custom/customizedReports
+
+# rsmgw
+com.nokia.oss.qengine.rsmgw.cntIndexes=rsmgw/counters,custom/rsmgw/counters
+com.nokia.oss.qengine.rsmgw.kpiIndexes=rsmgw/kpis,custom/rsmgw/kpis
+com.nokia.oss.qengine.rsmgw.rptIndexes=rsmgw/reports,custom/rsmgw/reports,custom/customizedReports
+
+# rssg2g
+com.nokia.oss.qengine.rssg2g.cntIndexes=rssg2g/counters,custom/rssg2g/counters
+com.nokia.oss.qengine.rssg2g.kpiIndexes=rssg2g/kpis,custom/rssg2g/kpis
+com.nokia.oss.qengine.rssg2g.rptIndexes=rssg2g/reports,custom/rssg2g/reports,custom/customizedReports
+
+# rsran
+com.nokia.oss.qengine.rsran.cntIndexes=rsran/counters,custom/rsran/counters
+com.nokia.oss.qengine.rsran.kpiIndexes=rsran/kpis,custom/rsran/kpis
+com.nokia.oss.qengine.rsran.rptIndexes=rsran/reports,custom/rsran/reports,custom/customizedReports
+
+# ebss
+com.nokia.oss.qengine.ebss.cntIndexes=ebss/counters,custom/ebss/counters
+com.nokia.oss.qengine.ebss.kpiIndexes=ebss/kpis,custom/ebss/kpis
+com.nokia.oss.qengine.ebss.rptIndexes=ebss/reports,custom/ebss/reports,custom/customizedReports
+
+# enss
+com.nokia.oss.qengine.enss.cntIndexes=enss/counters,custom/enss/counters
+com.nokia.oss.qengine.enss.kpiIndexes=enss/kpis,custom/enss/kpis
+com.nokia.oss.qengine.enss.rptIndexes=enss/reports,custom/enss/reports,custom/customizedReports
+
+# eran
+com.nokia.oss.qengine.eran.cntIndexes=eran/counters,custom/eran/counters
+com.nokia.oss.qengine.eran.kpiIndexes=eran/kpis,custom/eran/kpis
+com.nokia.oss.qengine.eran.rptIndexes=eran/reports,custom/eran/reports,custom/customizedReports
+
+# tstp
+com.nokia.oss.qengine.tstp.cntIndexes=tstp/counters,custom/tstp/counters
+com.nokia.oss.qengine.tstp.kpiIndexes=tstp/kpis,custom/tstp/kpis
+com.nokia.oss.qengine.tstp.rptIndexes=tstp/reports,custom/tstp/reports,custom/customizedReports
+
+# nbss
+com.nokia.oss.qengine.nbss.cntIndexes=nbss/counters,custom/nbss/counters
+com.nokia.oss.qengine.nbss.kpiIndexes=nbss/kpis,custom/nbss/kpis
+com.nokia.oss.qengine.nbss.rptIndexes=nbss/reports,custom/nbss/reports,custom/customizedReports
+
+# nnss
+com.nokia.oss.qengine.nnss.cntIndexes=nnss/counters,custom/nnss/counters
+com.nokia.oss.qengine.nnss.kpiIndexes=nnss/kpis,custom/nnss/kpis
+com.nokia.oss.qengine.nnss.rptIndexes=nnss/reports,custom/nnss/reports,custom/customizedReports
+
+# ibss
+com.nokia.oss.qengine.ibss.cntIndexes=ibss/counters,custom/ibss/counters
+com.nokia.oss.qengine.ibss.kpiIndexes=ibss/kpis,custom/ibss/kpis
+com.nokia.oss.qengine.ibss.rptIndexes=ibss/reports,custom/ibss/reports,custom/customizedReports
+
+# awss
+com.nokia.oss.qengine.awss.cntIndexes=awss/counters,custom/awss/counters
+com.nokia.oss.qengine.awss.kpiIndexes=awss/kpis,custom/awss/kpis
+com.nokia.oss.qengine.awss.rptIndexes=awss/reports,custom/awss/reports,custom/customizedReports
+
+# cvms
+com.nokia.oss.qengine.cvms.cntIndexes=cvms/counters,custom/cvms/counters
+com.nokia.oss.qengine.cvms.kpiIndexes=cvms/kpis,custom/cvms/kpis
+com.nokia.oss.qengine.cvms.rptIndexes=cvms/reports,custom/cvms/reports,custom/customizedReports
+
+# rsta
+com.nokia.oss.qengine.rsta.cntIndexes=rsta/counters,custom/rsta/counters
+com.nokia.oss.qengine.rsta.kpiIndexes=rsta/kpis,custom/rsta/kpis
+com.nokia.oss.qengine.rsta.rptIndexes=rsta/reports,custom/rsta/reports,custom/customizedReports
+
+# Custom
+com.nokia.oss.qengine.Custom.cntIndexes=
+com.nokia.oss.qengine.Custom.kpiIndexes=custom/customizedReports/mixed/kpis
+com.nokia.oss.qengine.Custom.rptIndexes=custom/customizedReports,custom/customizedReports/mixed/reports
+
+# Custom (mixed)
+com.nokia.oss.qengine.mixed.cntIndexes=
+com.nokia.oss.qengine.mixed.kpiIndexes=custom/customizedReports/mixed/kpis
+com.nokia.oss.qengine.mixed.rptIndexes=custom/customizedReports,custom/customizedReports/mixed/reports
+
+# Value Storage
+com.nokia.oss.qengine.VS.cntIndexes=
+com.nokia.oss.qengine.VS.kpiIndexes=vs/kpis
+com.nokia.oss.qengine.VS.rptIndexes=vs/reports
+
+com.nokia.oss.qengine.defaultTemplateFile=\
+	conf/valueStoragemeastemplate.xml,\
+	conf/oss40_common.xml,\
+	conf/oss31_bssraw.xml,\
+	conf/ws.xml,\
+	conf/oss40_mr.xml,\
+	conf/cl.xml,\
+	conf/bh_template.xml
+
+
+
+
+# class to be used to check if a table has data (ie. can be used for a query)
+com.nokia.oss.qengine.validator=com.nokia.oss.qengine.SimpleTableValidator
+
+#Non-caching table result data engine
+com.nokia.oss.qengine.engineClass=com.nokia.oss.qengine.FlxEngineImpl
+
+#
+#Caching table result data engine
+#
+#Database (pmwPool) caching of the table result data using CacheSF created by com.nokia.oss.common.cache.CacheSFFactory
+#Define the lifetime of the cached table result in number of hours. This property applies to both the file-based and database  stores.
+#Also used to delete old files in temporary directory
+com.nokia.oss.qengine.cachedResultLifeTimeHours=24
+
+# Cache handler
+com.nokia.oss.qengine.cacheEngineClass=com.nokia.oss.qengine.support.CacheAwareEngineFileCache
+linas.com.nokia.oss.qengine.cacheEngineClass=com.nokia.oss.qengine.support.CacheAwareEngine
+#com.nokia.oss.qengine.cacheEngineClass=com.nokia.oss.qengine.support.CacheAwareEngine
+
+#Option to always write table result data to the current cache store even if the option of fetching and reusing the cached data is switched off.
+com.nokia.oss.qengine.alwaysCacheResultData=false
+#com.nokia.oss.qengine.alwaysCacheResultData=false
+linas.com.nokia.oss.qengine.alwaysCacheResultData=false
+laptop.com.nokia.oss.qengine.alwaysCacheResultData=false
+
+# table space for temp table generation
+#com.nokia.oss.qengine.createTableTemplate=create table #table# nologging tablespace temp as ( #sql# )
+com.nokia.oss.qengine.createTableTemplate=create global temporary table #table# on commit preserve rows as #sql#
+com.nokia.oss.qengine.insertSqlTemplate=insert into #table# ( #sql# )
+com.nokia.oss.qengine.dropTable=drop table #table#
+com.nokia.oss.qengine.truncateTable=truncate table #table#
+
+#Include (true) or exclude (false) the gid column when displaying the result table.
+#Note that this property can be overwritten in the report <show_gid> element.
+com.nokia.oss.qengine.resultTable.showGid=false
+
+# Drilling
+#com.nokia.oss.qengine.drill.timeDrill=/repsuite/jflx.web
+#com.nokia.oss.qengine.drill.objectDrill=/repsuite/jflx.web
+#com.nokia.oss.qengine.drill.timeDrill=/sandbox/jflx3.web
+#com.nokia.oss.qengine.drill.kpiDrill=/repsuite/jflxKpiDrill.web
+com.nokia.oss.qengine.drill.timeDrill=jflx.web
+com.nokia.oss.qengine.drill.objectDrill=jflx.web
+com.nokia.oss.qengine.drill.kpiDrill=jflxKpiDrill.web
+com.nokia.oss.qengine.drill.chartDrill=charting.web
+com.nokia.oss.qengine.drill.headerDrill=/repsuite/headerDrill.web
+com.nokia.oss.qengine.drill.sqlKPIDrill=/repsuite/sqlKPIDrill.web
+com.nokia.oss.qengine.drill.sqlColDrill=/repsuite/sqlColDrill.web
+
+
+
+# Time formats defaults
+com.nokia.oss.qengine.timeformat.default.europe.whole_period=dd.MM.yyyy
+com.nokia.oss.qengine.timeformat.default.europe.week=dd.MM.yyyy
+com.nokia.oss.qengine.timeformat.default.europe.day=dd.MM.yyyy
+com.nokia.oss.qengine.timeformat.default.europe.hour=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.raw=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.weekbh=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.bh=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.weekbh2=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.bh2=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.month=MM.yyyy
+com.nokia.oss.qengine.timeformat.default.europe.monthbh=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.15minagg=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.europe.30minagg=dd.MM.yyyy HH:mm:ss
+
+com.nokia.oss.qengine.timeformat.default.us.whole_period=MM.dd.yyyy
+com.nokia.oss.qengine.timeformat.default.us.week=MM.dd.yyyy
+com.nokia.oss.qengine.timeformat.default.us.day=MM.dd.yyyy
+com.nokia.oss.qengine.timeformat.default.us.hour=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.raw=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.weekbh=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.bh=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.weekbh2=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.bh2=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.month=MM.yyyy
+com.nokia.oss.qengine.timeformat.default.us.monthbh= MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.15minagg= MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.us.30minagg= MM.dd.yyyy HH:mm:ss
+
+com.nokia.oss.qengine.timeformat.default.int.whole_period=yyyy.MM.dd
+com.nokia.oss.qengine.timeformat.default.int.week=yyyy.MM.dd
+com.nokia.oss.qengine.timeformat.default.int.day=yyyy.MM.dd
+com.nokia.oss.qengine.timeformat.default.int.hour=yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.raw=yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.weekbh=yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.bh=yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.weekbh2=yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.bh2=yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.month=MM.yyyy
+com.nokia.oss.qengine.timeformat.default.int.monthbh= yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.15minagg= yyyy.MM.dd HH:mm:ss
+com.nokia.oss.qengine.timeformat.default.int.30minagg= yyyy.MM.dd HH:mm:ss
+
+
+# Time formats defaults US
+com.nokia.oss.qengine.timeformat.en_US.whole_period=MM.dd.yyyy
+com.nokia.oss.qengine.timeformat.en_US.week=MM.dd.yyyy
+com.nokia.oss.qengine.timeformat.en_US.day=MM.dd.yyyy
+com.nokia.oss.qengine.timeformat.en_US.hour=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.en_US.raw=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.en_US.weekbh=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.en_US.bh=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.en_US.weekbh2=MM.dd.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.en_US.bh2=MM.dd.yyyy HH:mm:ss
+
+com.nokia.oss.qengine.timeformat.da.whole_period=dd.MM.yyyy
+com.nokia.oss.qengine.timeformat.da.week=dd.MM.yyyy
+com.nokia.oss.qengine.timeformat.da.day=dd.MM.yyyy
+com.nokia.oss.qengine.timeformat.da.hour=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.da.raw=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.da.weekbh=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.da.bh=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.da.weekbh2=dd.MM.yyyy HH:mm:ss
+com.nokia.oss.qengine.timeformat.da.bh2=dd.MM.yyyy HH:mm:ss
+
+# following two options are disables
+#com.nokia.oss.qengine.doTraceTempTable=false
+#com.nokia.oss.qengine.explainPlan=false
+
+# output dir
+com.nokia.oss.qengine.outputDir=C:/workspace/jflx/engine/test/QEngineFramework/data
+
+# License manager default license files
+com.nokia.oss.qengine.licman.defaultLicenseFile=conf/lic.xml
+com.nokia.oss.qengine.test.licman.defaultInputLicenseFile=inputjflxlic.xml
+com.nokia.oss.qengine.test.licman.anyHostNameLicenseFile=jflxanyhostlic.xml
+
+# File cache default directory for saving the table result data
+com.nokia.oss.qengine.filecache.outputDir=c:/temp
+linas.com.nokia.oss.qengine.filecache.outputDir=/mnt/sharedrw/content3/tmp
+
+# Filename of the cache map
+com.nokia.oss.qengine.filecache.xmlCacheMapFile=c:/tmp/xmlcachemapfile.xml
+linas.com.nokia.oss.qengine.filecache.xmlCacheMapFile=/mnt/sharedrw/content3/tmp/xmlcachemapfile.xml
+
+# XML Filename prefix of the cached XML tabular report files
+com.nokia.oss.qengine.filecache.cachedXmlTabularReportFilePrefix=ctr
+# Delete expired cached XML tabular report files
+com.nokia.oss.qengine.filecache.deleteExpiredCachedXmlTabularReportFiles=true
+# Filename prefix of the cached Excel tabular report files
+com.nokia.oss.qengine.filecache.cachedExcelTabularReportFilePrefix=ctr
+
+# Table model Excel output directory and file
+com.nokia.oss.qengine.jexcel.outputDir=c:/temp
+linas.com.nokia.oss.qengine.jexcel.outputDir=/mnt/sharedrw/content3/tmp
+com.nokia.oss.qengine.jexcel.excelTableModelFilePrefix=xlsx
+com.nokia.oss.qengine.jexcel.enableExcelTabularReportDoc=true
+com.nokia.oss.qengine.jexcel.DefaultExcelTabularReportAlias=true
+#For the exported files from scheduler
+com.nokia.oss.qengine.jexcel.scheduler.sheetName.data=Data
+com.nokia.oss.qengine.jexcel.scheduler.sheetName.doc=Documentation
+com.nokia.oss.qengine.jexcel.defaultFilename=Table.xlsx
+com.nokia.oss.qengine.jexcel.timeFormat.objAgg=hour
+com.nokia.oss.qengine.exports.datasheet_max_cells=7500000
+#Auto size cells based on kpi title
+com.nokia.oss.qengine.jexcel.autosize=true
+#Set the property to true if the chart drill column is to be
+#included in the Excel export. Note that the property must also be set to com.nokia.oss.qengine.resultTable.showChartDrill=true
+com.nokia.oss.qengine.jexcel.includeChartDrillColumn=false
+
+#
+# Report file referencing settings
+#
+#Set this property to true to add trace info into the expanded report by replacing the ref and src attributes with the origin attribute.
+com.nokia.oss.qengine.reportReferencingTraceInfo=true
+#Set this property to true if the list of master temp tables found in the report must exist or else an exception will be thrown.
+com.nokia.oss.qengine.reportReferencingMasterTempTableNames=false
+#Set this property to true if the exapanded report is to be written out to a file on a hard disk.
+com.nokia.oss.qengine.outputReportReferencing=false
+#Set expanded report file prefix when it is written out to a hard disk.
+com.nokia.oss.qengine.outputReportReferencingFilePrefix=xpd_
+#Set directory of the expanded report file.
+com.nokia.oss.qengine.outputReportReferencingDir=c:/temp
+
+# ui properties
+#com.nokia.oss.qengine.objectSelectionFilterClass=com.nokia.oss.qengine.tmobile.TmoMarketFilterBean
+
+###########################################################################################
+## Log4J configurations
+###########################################################################################
+
+## Dev env configuratuins
+log4j.logger.com.nokia=OFF, A1
+log4j.logger.com.nokia=DEBUG, A2
+log4j.logger.com.nsn.oss=DEBUG, A1, A2
+log4j.logger.com.nsn.oss.repcps.pmportal=DEBUG, A1, A2
+log4j.logger.com.nsn.oss.repcps.pmportal.filter=DEBUG, A1, authlogfile
+log4j.logger.com.nsn.oss.repcps.pmportal.config=DEBUG, A1, configlogfile
+log4j.logger.com.ibatis=DEBUG, A1, A2
+log4j.logger.java.sql=DEBUG, A1, A2
+
+log4j.appender.A2.File=/var/opt/nokia/oss/local/common/log/rscmd/jflx.log
+log4j.appender.logfile.File=/var/opt/nokia/oss/local/common/log/rscmd/dashboard.log
+log4j.appender.authlogfile.File=/var/opt/nokia/oss/local/common/log/rscmd/tcm_login.log
+log4j.appender.configlogfile.File=/var/opt/nokia/oss/local/common/log/rscmd/tcm_config.log
+
+## Linas (Production) configurations
+linas.log4j.logger.com.nokia=OFF, A1
+linas.log4j.logger.com.nokia=DEBUG, A2
+linas.log4j.logger.com.nsn.oss.npm=INFO, A1, A2
+linas.log4j.logger.com.nsn.oss.repcps.pmportal=INFO, A1, A2
+linas.log4j.logger.com.nsn.oss.repcps.pmportal.filter=INFO, A1, authlogfile
+linas.log4j.logger.com.nsn.oss.repcps.pmportal.config=INFO, A1, configlogfile
+linas.log4j.logger.com.ibatis=INFO, A1, A2
+linas.log4j.logger.java.sql=INFO, A1, A2
+
+linas.log4j.appender.A2.File=/var/opt/nokia/oss/local/common/log/rscmd/jflx.log
+linas.log4j.appender.logfile.File=/var/opt/nokia/oss/local/common/log/rscmd/dashboard.log
+linas.log4j.appender.authlogfile.File=/var/opt/nokia/oss/local/common/log/rscmd/tcm_login.log
+linas.log4j.appender.authlogfile.File.ImmediateFlush=true
+linas.log4j.appender.configlogfile.File=/var/opt/nokia/oss/local/common/log/rscmd/tcm_config.log
+
+## Common configurations
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=%d - %-5p [%t] %c{2} - %m%n
+
+log4j.appender.A2=org.apache.log4j.RollingFileAppender
+log4j.appender.A2.MaxFileSize=10MB
+log4j.appender.A2.MaxBackupIndex=5
+log4j.appender.A2.layout=org.apache.log4j.PatternLayout
+log4j.appender.A2.layout.ConversionPattern=%d - %-5p [%t] %c{2} - %m%n
+
+log4j.appender.logfile=org.apache.log4j.RollingFileAppender
+log4j.appender.logfile.MaxFileSize=10MB
+log4j.appender.logfile.MaxBackupIndex=5
+log4j.appender.logfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.logfile.layout.ConversionPattern=%d - %-5p [%t] %c{2} - %m%n
+
+log4j.appender.authlogfile=org.apache.log4j.RollingFileAppender
+log4j.appender.authlogfile.MaxFileSize=10MB
+log4j.appender.authlogfile.MaxBackupIndex=5
+log4j.appender.authlogfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.authlogfile.layout.ConversionPattern=%d - %-5p [%t] %c{2} - %m%n
+
+log4j.appender.configlogfile=org.apache.log4j.RollingFileAppender
+log4j.appender.configlogfile.MaxFileSize=10MB
+log4j.appender.configlogfile.MaxBackupIndex=5
+log4j.appender.configlogfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.configlogfile.layout.ConversionPattern=%d - %-5p [%t] %c{2} - %m%n
+
+###################################
+com.nokia.oss.qengine.grouping.bhLevels=bh,weekbh,monthbh
+
+com.nokia.oss.qengine.timeLevels=day,hour,raw,whole_period,week,bh,bh2,weekbh,weekbh2,month
+com.nokia.oss.qengine.timeLevel.rank.day=10
+com.nokia.oss.qengine.timeLevel.rank.hour=20
+com.nokia.oss.qengine.timeLevel.rank.raw=30
+com.nokia.oss.qengine.timeLevel.rank.whole_period=40
+com.nokia.oss.qengine.timeLevel.rank.week=50
+com.nokia.oss.qengine.timeLevel.rank.bh=60
+com.nokia.oss.qengine.timeLevel.rank.bh2=70
+com.nokia.oss.qengine.timeLevel.rank.weekbh=80
+com.nokia.oss.qengine.timeLevel.rank.weekbh2=90
+com.nokia.oss.qengine.timeLevel.rank.month=55
+com.nokia.oss.qengine.timeLevel.rank.monthbh=95
+
+########## grouping defs
+com.nokia.oss.qengine.grouping.levels=PLMN/MARKET,PLMN/REGION,PLMN/WS
+com.nokia.oss.qengine.grouping.levels.PLMN/MARKET.activate=no
+laptop.com.nokia.oss.qengine.grouping.levels.PLMN/MARKET.activate=no
+com.nokia.oss.qengine.grouping.filterlink.MARKET=PLMN/MARKET
+com.nokia.oss.qengine.grouping.levels.PLMN/REGION.activate=no
+laptop.com.nokia.oss.qengine.grouping.levels.PLMN/REGION.activate=no
+com.nokia.oss.qengine.grouping.filterlink.REGION=PLMN/REGION
+
+com.nokia.oss.qengine.grouping.levels.PLMN/WS.activate=yes
+
+com.nokia.oss.qengine.grouping.filterlink.WS=PLMN/WS
+
+
+# report level exclusion by filter
+com.nokia.oss.qengine.report_level_exclusion.MARKET=PLMN/REGION,PLMN/WS
+com.nokia.oss.qengine.report_level_exclusion.REGION=PLMN/WS
+com.nokia.oss.qengine.report_level_exclusion.WS=PLMN/MARKET,PLMN/REGION
+
+#com.nokia.oss.qengine.report_level_blacklist=PLMN/BSC/BCF
+#com.nokia.oss.qengine.time_level_blacklist=bh2,weekbh2
+#com.nokia.oss.qengine.time_level_blacklist=
+
+
+#RSBSSAGG renaming
+com.nokia.oss.qengine.grouping.rename.filterLevel.UNITID_BSS=UNITID
+com.nokia.oss.qengine.grouping.rename.filterLevel.UNITTP_BSS=UNITTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/BSC/UNITTP_BSS/UNITID_BSS=PLMN/BSC/UNITTP/UNITID
+com.nokia.oss.qengine.grouping.rename.level.PLMN/BSC/UNITTP_BSS=PLMN/BSC/UNITTP
+
+
+
+# filter level renaming
+#com.nokia.oss.qengine.grouping.rename.filterLevel.PLMN=FOO
+#com.nokia.oss.qengine.grouping.rename.filterLevel.BSC=BAR
+
+# Report level renameing
+#com.nokia.oss.qengine.grouping.rename.level.PLMN=TEST
+#com.nokia.oss.qengine.grouping.rename.level.PLMN/BSC=BSC
+
+# Column header renaming (substitue spaces in key name with \u0020
+#com.nokia.oss.qengine.grouping.rename.columnNameByLevel.PLMN/BSC.BSC\u0020Name=bsc name
+
+## view name remaps
+
+
+com.nokia.oss.qengine.tablemap.RNS_PS_VLR1MSC_MSC_BH=RNS_PS_VR1MCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLR1MSC_MSC_WEEKBH=RNS_PS_VR1MCBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRNMSC_MSC_BH=RNS_PS_VRNMCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRNMSC_MSC_WEEKBH=RNS_PS_VRNMCBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_CNTLLM_MSC_BH=RNS_PS_CNTLLMBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_CNTLLM_MSC_WEEKBH=RNS_PS_CNTLLMBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_CNTLLM_UNIT2_BH=RNS_PS_CNTLLMBH_UNIT2_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_CNTLLM_UNIT2_WEEKBH=RNS_PS_CNTLLMBH_UNIT2_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLMSC_MSC_BH=RNS_PS_SLMSCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLMSC_MSC_WEEKBH=RNS_PS_SLMSCBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLMSC_SLN1_BH=RNS_PS_SLMSCBH_SLN1_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLMSC_SLN1_WEEKBH=RNS_PS_SLMSCBH_SLN1_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLPMSC_MSC_BH=RNS_PS_SLPMSCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLPMSC_MSC_WEEKBH=RNS_PS_SLPMSCBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLPMSC_SLN1_BH=RNS_PS_SLPMSCBH_SLN1_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_SLPMSC_SLN1_WEEKBH=RNS_PS_SLPMSCBH_SLN1_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_NUMD_DESTDIR2_BH=RNS_PS_NUMDBH_DESTDIR2_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_NUMD_DESTDIR2_WEEKBH=RNS_PS_NUMDBH_DESTDIR2_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_NUMD_MSC_BH=RNS_PS_NUMDBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_NUMD_MSC_WEEKBH=RNS_PS_NUMDBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRLAC_LAC1_BH=RNS_PS_VLRLACBH_LAC1_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRLAC_LAC1_WEEKBH=RNS_PS_VLRLACBH_LAC1_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRLAC_MSC_BH=RNS_PS_VLRLACBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRLAC_MSC_WEEKBH=RNS_PS_VLRLACBH_MSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RNS_PS_HO1_MSC_BH=RNS_PS_HO1BH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_HO1_MSC_WEEKBH=RNS_PS_HO1BH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_MSCVLR_MSC_BH=RNS_PS_MSCVLRBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_MSCVLR_MSC_WEEKBH=RNS_PS_MSCVLRBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_REJMSC_MSC_BH=RNS_PS_REJMSCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_REJMSC_MSC_WEEKBH=RNS_PS_REJMSCBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_SSCC_MSC_BH=RNS_PS_SSCCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_SSCC_MSC_WEEKBH=RNS_PS_SSCCBH_MSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRMSC_MSC_BH=RNS_PS_VLRMSCBH_MSC_BH
+com.nokia.oss.qengine.tablemap.RNS_PS_VLRMSC_MSC_WEEKBH=RNS_PS_VLRMSCBH_MSC_WEEKBH
+
+
+#com.nokia.oss.qengine.tablemap.
+com.nokia.oss.qengine.tablemap.RBS_PS_RESAVAIL_BSC_BH2=tmokbp.TMOKBP_PS_RESAVL2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RESAVAIL_BSC_WEEKBH2=tmokbp.TMOKBP_PS_RESAVL2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_RESAVAIL_BTS_BH2=tmokbp.TMOKBP_PS_RESAVL2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RESAVAIL_BTS_WEEKBH2=tmokbp.TMOKBP_PS_RESAVL2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_SERVICE_BSC_BH2=tmokbp.TMOKBP_PS_SERVICE2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_SERVICE_BSC_WEEKBH2=tmokbp.TMOKBP_PS_SERVICE2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_SERVICE_BTS_BH2=tmokbp.TMOKBP_PS_SERVICE2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_SERVICE_BTS_WEEKBH2=tmokbp.TMOKBP_PS_SERVICE2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_TRAFFIC_BSC_BH2=tmokbp.TMOKBP_PS_TRAFFIC2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_TRAFFIC_BSC_WEEKBH2=tmokbp.TMOKBP_PS_TRAFFIC2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_TRAFFIC_BTS_BH2=tmokbp.TMOKBP_PS_TRAFFIC2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_TRAFFIC_BTS_WEEKBH2=tmokbp.TMOKBP_PS_TRAFFIC2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_HO_BSC_BH2=tmokbp.TMOKBP_PS_HO2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_HO_BSC_WEEKBH2=tmokbp.TMOKBP_PS_HO2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_HO_BTS_BH2=tmokbp.TMOKBP_PS_HO2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_HO_BTS_WEEKBH2=tmokbp.TMOKBP_PS_HO2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_PBCCHAVL_BSC_BH2=tmokbp.TMOKBP_PS_PBCCHAV2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_PBCCHAVL_BSC_WEEKBH2=tmokbp.TMOKBP_PS_PBCCHAV2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_PBCCHAVL_BTS_BH2=tmokbp.TMOKBP_PS_PBCCHAV2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_PBCCHAVL_BTS_WEEKBH2=tmokbp.TMOKBP_PS_PBCCHAV2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_PCU_BSC_BH2=tmokbp.TMOKBP_PS_PCU2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_PCU_BSC_WEEKBH2=tmokbp.TMOKBP_PS_PCU2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_PCU_BTS_BH2=tmokbp.TMOKBP_PS_PCU2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_PCU_BTS_WEEKBH2=tmokbp.TMOKBP_PS_PCU2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_DYNABIS_BSC_BH2=tmokbp.TMOKBP_PS_DYNABIS2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_DYNABIS_BSC_WEEKBH2=tmokbp.TMOKBP_PS_DYNABIS2_BSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_COD2_CS1_BH2=tmokbp.TMOKBP_PS_COD2_CS1_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_COD2_CS1_WEEKBH2=tmokbp.TMOKBP_PS_COD2_CS1_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_CELRESEL_BTS_BH2=tmokbp.TMOKBP_PS_CELRESE2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_CELRESEL_BTS_WEEKBH2=tmokbp.TMOKBP_PS_CELRESE2_BTS_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_CELRESEL_BSC_BH2=tmokbp.TMOKBP_PS_CELRESE2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_CELRESEL_BSC_WEEKBH2=tmokbp.TMOKBP_PS_CELRESE2_BSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_RLC_BSC_BH2=tmokbp.TMOKBP_PS_RLC2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RLC_BSC_WEEKBH2=tmokbp.TMOKBP_PS_RLC2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_RLC_BTS_BH2=tmokbp.TMOKBP_PS_RLC2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RLC_BTS_WEEKBH2=tmokbp.TMOKBP_PS_RLC2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_POWER_BSC_BH2=tmokbp.TMOKBP_PS_POWER2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_POWER_BSC_WEEKBH2=tmokbp.TMOKBP_PS_POWER2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_POWER_BTS_BH2=tmokbp.TMOKBP_PS_POWER2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_POWER_BTS_WEEKBH2=tmokbp.TMOKBP_PS_POWER2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_UNDERLAY_BSC_BH2=tmokbp.TMOKBP_PS_UNDERLAY_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_UNDERLAY_BSC_WEEKBH2=tmokbp.TMOKBP_PS_UNDERLAY_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_UNDERLAY_BTS_BH2=tmokbp.TMOKBP_PS_UNDERLAY_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_UNDERLAY_BTS_WEEKBH2=tmokbp.TMOKBP_PS_UNDERLAY_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_GPRSRXST_BSC_BH2=tmokbp.TMOKBP_PS_GPRSRXS2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_GPRSRXST_BSC_WEEKBH2=tmokbp.TMOKBP_PS_GPRSRXS2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_GPRSRXST_BTS_BH2=tmokbp.TMOKBP_PS_GPRSRXS2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_GPRSRXST_BTS_WEEKBH2=tmokbp.TMOKBP_PS_GPRSRXS2_BTS_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_GPRSRXST_TRX_BH2=tmokbp.TMOKBP_PS_GPRSRXS2_TRX_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_GPRSRXST_TRX_WEEKBH2=tmokbp.TMOKBP_PS_GPRSRXS2_TRX_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_RXSTAT_TRXST_BH2=tmokbp.TMOKBP_PS_RXSTAT_TRXST_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RXSTAT_TRXST_WEEKBH2=tmokbp.TMOKBP_PS_RXSTAT_TRXST_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_RESACC_BSC_BH2=tmokbp.TMOKBP_PS_RESACC2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RESACC_BSC_WEEKBH2=tmokbp.TMOKBP_PS_RESACC2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_RESACC_BTS_BH2=tmokbp.TMOKBP_PS_RESACC2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_RESACC_BTS_WEEKBH2=tmokbp.TMOKBP_PS_RESACC2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_FRAME_BSC_BH2=tmokbp.TMOKBP_PS_FRAME2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_FRAME_BSC_WEEKBH2=tmokbp.TMOKBP_PS_FRAME2_BSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_AVAIL_BSC_BH2=tmokbp.TMOKBP_PS_AVAIL2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_AVAIL_BSC_WEEKBH2=tmokbp.TMOKBP_PS_AVAIL2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_LOAD_BSC_BH2=tmokbp.TMOKBP_PS_LOAD2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_LOAD_BSC_WEEKBH2=tmokbp.TMOKBP_PS_LOAD2_BSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_QOS_BSC_BH2=tmokbp.TMOKBP_PS_QOS2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_QOS_BSC_WEEKBH2=tmokbp.TMOKBP_PS_QOS2_BSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_MSSPEED_BSC_BH2=tmokbp.TMOKBP_PS_MSSPEED2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_MSSPEED_BSC_WEEKBH2=tmokbp.TMOKBP_PS_MSSPEED2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_MSSPEED_BTS_BH2=tmokbp.TMOKBP_PS_MSSPEED2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_MSSPEED_BTS_WEEKBH2=tmokbp.TMOKBP_PS_MSSPEED2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_IBHO_BSC_BH2=tmokbp.TMOKBP_PS_IBHO2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_IBHO_BSC_WEEKBH2=tmokbp.TMOKBP_PS_IBHO2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_IBHO_BTS_BH2=tmokbp.TMOKBP_PS_IBHO2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_IBHO_BTS_WEEKBH2=tmokbp.TMOKBP_PS_IBHO2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_UTHOADJC_BSC_BH2=tmokbp.TMOKBP_PS_UTHOADJC_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_UTHOADJC_BSC_WEEKBH2=tmokbp.TMOKBP_PS_UTHOADJC_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_UTHOADJC_BTS_BH2=tmokbp.TMOKBP_PS_UTHOADJC_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_UTHOADJC_BTS_WEEKBH2=tmokbp.TMOKBP_PS_UTHOADJC_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_NBCCHLOF_BTS_BH2=tmokbp.TMOKBP_PS_NBCCHLO2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_NBCCHLOF_BTS_WEEKBH2=tmokbp.TMOKBP_PS_NBCCHLO2_BTS_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_NBCCHLOF_BSC_BH2=tmokbp.TMOKBP_PS_NBCCHLO2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_NBCCHLOF_BSC_WEEKBH2=tmokbp.TMOKBP_PS_NBCCHLO2_BSC_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_TOTFEP_BSC_BH2=tmokbp.TMOKBP_PS_TOTFEP_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_TOTFEP_BSC_WEEKBH2=tmokbp.TMOKBP_PS_TOTFEP_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_TOTFEP_BTS_BH2=tmokbp.TMOKBP_PS_TOTFEP_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_TOTFEP_BTS_WEEKBH2=tmokbp.TMOKBP_PS_TOTFEP_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BSC_BH=tmokbp.TMOKBP_PS_WPS_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BSC_WEEKBH=tmokbp.TMOKBP_PS_WPS_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BTS_BH=tmokbp.TMOKBP_PS_WPS_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BTS_WEEKBH=tmokbp.TMOKBP_PS_WPS_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BSC_BH2=tmokbp.TMOKBP_PS_WPS2_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BSC_WEEKBH2=tmokbp.TMOKBP_PS_WPS2_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BTS_BH2=tmokbp.TMOKBP_PS_WPS2_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_WPS_BTS_WEEKBH2=tmokbp.TMOKBP_PS_WPS2_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_CIRATIO_BSC_BH2=tmokbp.TMOKBP_PS_CIRATIO_BSC_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_CIRATIO_BSC_WEEKBH2=tmokbp.TMOKBP_PS_CIRATIO_BSC_WEEKBH
+com.nokia.oss.qengine.tablemap.RBS_PS_CIRATIO_BTS_BH2=tmokbp.TMOKBP_PS_CIRATIO_BTS_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_CIRATIO_BTS_WEEKBH2=tmokbp.TMOKBP_PS_CIRATIO_BTS_WEEKBH
+
+com.nokia.oss.qengine.tablemap.RBS_PS_TMADV_DST_BH2=tmokbp.TMOKBP_PS_TMADV_DST_BH
+com.nokia.oss.qengine.tablemap.RBS_PS_TMADV_DST_WEEKBH2=tmokbp.TMOKBP_PS_TMADV_DST_WEEKBH
+
+
+
+#Use to define the maximum field length in generating the report index
+com.nokia.oss.qengine.index.maxFieldLen=1000000
+
+# DB used for testing
+com.nokia.oss.qengine.dbstring=jdbc:oracle:thin:@localhost:10009:oss
+com.nokia.oss.qengine.dbdriver=oracle.jdbc.driver.OracleDriver
+com.nokia.oss.qengine.dbuser=omc
+com.nokia.oss.qengine.dbpwd=omc
+
+#Trusted jflx scheduler client IP addressed (a comma separated list of regular expressions):
+#Default is localhost
+com.nokia.oss.qengine.scheduler.trustedClientIPAddresses=127\\.0\\.0\\.1
+#Jflx web page to use when running the jflx scheduled jobs
+com.nokia.oss.qengine.scheduler.request_url=/jflx4/repsuite/sched_jflx.web
+linas.com.nokia.oss.qengine.scheduler.request_url=/jflx2/repsuite/sched_jflx.web
+laptop.com.nokia.oss.qengine.scheduler.request_url=/jflx2_tomcat/repsuite/sched_jflx.web
+
+#Customized report pragma name.
+#If defined, the tag <pragma fallback="default">myPragma</pragma> is added as a child to the info tag of a customized report.
+#com.nokia.oss.qengine.custom.reportPragma=myPragma
+
+# Ericsson NSS filter level renaming
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-E7GN=E7GN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-E7SN=E7SN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EADD=EADD
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EADP=EADP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EAG=EAG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EAHD=EAHD
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EAPA=EAPA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EAPC=EAPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EATY=EATY
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EAUS=EAUS
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EBCI=EBCI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EBLO=EBLO
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EBSE=EBSE
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EBSG=EBSG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECLC=ECLC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECMP=ECMP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECNP=ECNP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECP2=ECP2
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECPA=ECPA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECSN=ECSN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ECSP=ECSP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDAS=EDAS
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDC2=EDC2
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDEV=EDEV
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDIA=EDIA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDIS=EDIS
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDPC=EDPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDPN=EDPN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDTI=EDTI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EDTT=EDTT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EECP=EECP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EEMG=EEMG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EEOS=EEOS
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EGCP=EGCP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EGON=EGON
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EGOT=EGOT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EGSC=EGSC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EHLA=EHLA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EHPG=EHPG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EINA=EINA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EINR=EINR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EIRN=EIRN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EIST=EIST
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EJIR=EJIR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EJOR=EJOR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ELAI=ELAI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ELAT=ELAT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ELNI=ELNI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ELPC=ELPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EMEC=EMEC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EMFT=EMFT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EMG1=EMG1
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EMSA=EMSA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EMSN=EMSN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EMTY=EMTY
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ENE1=ENE1
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ENE2=ENE2
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ENEC=ENEC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ENI=ENI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EOOB=EOOB
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EOPC=EOPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EOPI=EOPI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EORT=EORT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EOTT=EOTT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EPAC=EPAC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EPCO=EPCO
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EPGR=EPGR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EPLA=EPLA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EPOL=EPOL
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ERNN=ERNN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ERP1=ERP1
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ERSA=ERSA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ERTE=ERTE
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESAE=ESAE
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESAN=ESAN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESC1=ESC1
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESDI=ESDI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESEN=ESEN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESGA=ESGA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESGI=ESGI
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESI1=ESI1
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESI2=ESI2
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESI3=ESI3
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESI4=ESI4
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESI5=ESI5
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESID=ESID
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESIP=ESIP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESLC=ESLC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESLG=ESLG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESLO=ESLO
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESNB=ESNB
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESNT=ESNT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESP=ESP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESPC=ESPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESSA=ESSA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESSN=ESSN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ESUG=ESUG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETC2=ETC2
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETCE=ETCE
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETRD=ETRD
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETRN=ETRN
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETRR=ETRR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETRT=ETRT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETSD=ETSD
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETST=ETST
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-ETTY=ETTY
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EV5P=EV5P
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EVLA=EVLA
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENSS-EVLN=EVLN
+
+# Ericsson NSS report level renaming
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-E7GN=PLMN/E3GN/ENSS/E7GN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-E7SN=PLMN/E3GN/ENSS/E7SN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EADD=PLMN/E3GN/ENSS/EADD
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EADP=PLMN/E3GN/ENSS/EADP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EAG=PLMN/E3GN/ENSS/EAG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EAHD=PLMN/E3GN/ENSS/EAHD
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EAPA=PLMN/E3GN/ENSS/EAPA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EAPC=PLMN/E3GN/ENSS/EAPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EATY=PLMN/E3GN/ENSS/EATY
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EAUS=PLMN/E3GN/ENSS/EAUS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EBCI=PLMN/E3GN/ENSS/EBCI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EBLO/ENSS-ESAE=PLMN/E3GN/ENSS/EBLO/ESAE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EBLO=PLMN/E3GN/ENSS/EBLO
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EBSE=PLMN/E3GN/ENSS/EBSE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EBSG=PLMN/E3GN/ENSS/EBSG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ECMP=PLMN/E3GN/ENSS/ECMP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ECNP=PLMN/E3GN/ENSS/ECNP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ECP2=PLMN/E3GN/ENSS/ECP2
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ECPA=PLMN/E3GN/ENSS/ECPA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ECSN=PLMN/E3GN/ENSS/ECSN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EDAS=PLMN/E3GN/ENSS/EDAS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EDEV=PLMN/E3GN/ENSS/EDEV
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EDIA=PLMN/E3GN/ENSS/EDIA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EDIS=PLMN/E3GN/ENSS/EDIS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EDPN=PLMN/E3GN/ENSS/EDPN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EDTI=PLMN/E3GN/ENSS/EDTI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EECP=PLMN/E3GN/ENSS/EECP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EEMG=PLMN/E3GN/ENSS/EEMG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EEOS=PLMN/E3GN/ENSS/EEOS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EGCP=PLMN/E3GN/ENSS/EGCP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EGON=PLMN/E3GN/ENSS/EGON
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EGOT=PLMN/E3GN/ENSS/EGOT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EGSC=PLMN/E3GN/ENSS/EGSC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EHLA=PLMN/E3GN/ENSS/EHLA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EHPG=PLMN/E3GN/ENSS/EHPG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EINA=PLMN/E3GN/ENSS/EINA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EINR/ENSS-EORT=PLMN/E3GN/ENSS/EINR/EORT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EINR=PLMN/E3GN/ENSS/EINR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EIRN=PLMN/E3GN/ENSS/EIRN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EIST=PLMN/E3GN/ENSS/EIST
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EJIR/ENSS-EJOR=PLMN/E3GN/ENSS/EJIR/EJOR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EJIR=PLMN/E3GN/ENSS/EJIR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ELAI=PLMN/E3GN/ENSS/ELAI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ELAT=PLMN/E3GN/ENSS/ELAT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ELNI/ENSS-ELPC/ENSS-ESI5=PLMN/E3GN/ENSS/ELNI/ELPC/ESI5
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ELNI/ENSS-ELPC=PLMN/E3GN/ENSS/ELNI/ELPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ELNI=PLMN/E3GN/ENSS/ELNI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EMFT=PLMN/E3GN/ENSS/EMFT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EMG1=PLMN/E3GN/ENSS/EMG1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EMSN=PLMN/E3GN/ENSS/EMSN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EMTY=PLMN/E3GN/ENSS/EMTY
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENEC/ENSS-ECLC/ENSS-EMEC/ENSS-ESLO=PLMN/E3GN/ENSS/ENEC/ECLC/EMEC/ESLO
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENEC/ENSS-ECLC/ENSS-EMEC=PLMN/E3GN/ENSS/ENEC/ECLC/EMEC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENEC/ENSS-ECLC=PLMN/E3GN/ENSS/ENEC/ECLC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENEC=PLMN/E3GN/ENSS/ENEC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EDPC/ENSS-ESI1=PLMN/E3GN/ENSS/ENI/EDPC/ESI1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EDPC=PLMN/E3GN/ENSS/ENI/EDPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EMSA/ENSS-ESSA/ENSS-ECSP=PLMN/E3GN/ENSS/ENI/EMSA/ESSA/ECSP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EMSA/ENSS-ESSA=PLMN/E3GN/ENSS/ENI/EMSA/ESSA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EMSA=PLMN/E3GN/ENSS/ENI/EMSA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EOPC/ENSS-EDC2/ENSS-ESI3=PLMN/E3GN/ENSS/ENI/EOPC/EDC2/ESI3
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EOPC/ENSS-EDC2=PLMN/E3GN/ENSS/ENI/EOPC/EDC2
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EOPC/ENSS-ESI4=PLMN/E3GN/ENSS/ENI/EOPC/ESI4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-EOPC=PLMN/E3GN/ENSS/ENI/EOPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-ESPC/ENSS-ESLC=PLMN/E3GN/ENSS/ENI/ESPC/ESLC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI/ENSS-ESPC=PLMN/E3GN/ENSS/ENI/ESPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ENI=PLMN/E3GN/ENSS/ENI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EOOB=PLMN/E3GN/ENSS/EOOB
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EOPI=PLMN/E3GN/ENSS/EOPI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EOTT/ENSS-EDTT=PLMN/E3GN/ENSS/EOTT/EDTT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EOTT=PLMN/E3GN/ENSS/EOTT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EPAC=PLMN/E3GN/ENSS/EPAC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EPCO=PLMN/E3GN/ENSS/EPCO
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EPGR=PLMN/E3GN/ENSS/EPGR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EPLA=PLMN/E3GN/ENSS/EPLA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EPOL=PLMN/E3GN/ENSS/EPOL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ERNN=PLMN/E3GN/ENSS/ERNN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ERP1=PLMN/E3GN/ENSS/ERP1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ERSA=PLMN/E3GN/ENSS/ERSA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ERTE=PLMN/E3GN/ENSS/ERTE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESAN=PLMN/E3GN/ENSS/ESAN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESC1/ENSS-ETC2=PLMN/E3GN/ENSS/ESC1/ETC2
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESC1=PLMN/E3GN/ENSS/ESC1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESDI=PLMN/E3GN/ENSS/ESDI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESEN/ENSS-ENE1=PLMN/E3GN/ENSS/ESEN/ENE1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESEN/ENSS-ENE2=PLMN/E3GN/ENSS/ESEN/ENE2
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESEN=PLMN/E3GN/ENSS/ESEN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESGA=PLMN/E3GN/ENSS/ESGA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESGI=PLMN/E3GN/ENSS/ESGI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESI2=PLMN/E3GN/ENSS/ESI2
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESID=PLMN/E3GN/ENSS/ESID
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESIP=PLMN/E3GN/ENSS/ESIP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESLG=PLMN/E3GN/ENSS/ESLG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESNB=PLMN/E3GN/ENSS/ESNB
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESNT=PLMN/E3GN/ENSS/ESNT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESP=PLMN/E3GN/ENSS/ESP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESSN=PLMN/E3GN/ENSS/ESSN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ESUG=PLMN/E3GN/ENSS/ESUG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETCE=PLMN/E3GN/ENSS/ETCE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETRD=PLMN/E3GN/ENSS/ETRD
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETRN=PLMN/E3GN/ENSS/ETRN
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETRR=PLMN/E3GN/ENSS/ETRR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETRT=PLMN/E3GN/ENSS/ETRT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETSD=PLMN/E3GN/ENSS/ETSD
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETST=PLMN/E3GN/ENSS/ETST
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-ETTY=PLMN/E3GN/ENSS/ETTY
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EV5P=PLMN/E3GN/ENSS/EV5P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EVLA=PLMN/E3GN/ENSS/EVLA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ENSS/ENSS-EVLN=PLMN/E3GN/ENSS/EVLN
+
+# Ericsson RAN report level renaming
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EE41/EO15_3/EVC4/EV12/E1TP=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EE41/EO15/EVC4/EV12/E1TP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EE41/EO15_3/EVC4/EV12=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EE41/EO15/EVC4/EV12
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EE41/EO15_3/EVC4=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EE41/EO15/EVC4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EE41/EO15_3=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EE41/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EE41=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EE41
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET1/ET1P=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET1/ET1P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4/EO15/ESST/EV15=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4/EO15/ESST/EV15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4/EO15/ESST=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4/EO15/ESST
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4/EO15/EVC4_1/EV12_1/E1TP_1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4/EO15/EVC4/EV12/E1TP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4/EO15/EVC4_1/EV12_1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4/EO15/EVC4/EV12
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4/EO15/EVC4_1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4/EO15/EVC4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4/EO15=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EET4=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EET4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EETC/ETCP=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EETC/ETCP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EETC=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EETC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EGPU_1/EFET=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EGPU/EFET
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EGPU_1/EMAU=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EGPU/EMAU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/EGPU_1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/EGPU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/ETMG/EGBE/EIPI=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/ETMG/EGBE/EIPI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/ETMG/EGBE=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/ETMG/EGBE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1/ETMG=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU/ETMG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1/EPIU_1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT/EPIU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT_1=PLMN/E3GN/E3SN/E3NB/EEQU/ESR/ESLT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/ERTP/ENTP_1=PLMN/E3GN/E3SN/E3NB/ERTP/ENTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/ERTP/ERAP/EVPL_1/EVPC_1/EVCL_1=PLMN/E3GN/E3SN/E3NB/ERTP/ERAP/EVPL/EVPC/EVCL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/ERTP/ERAP/EVPL_1/EVPC_1=PLMN/E3GN/E3SN/E3NB/ERTP/ERAP/EVPL/EVPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3NB/ERTP/ERAP/EVPL_1=PLMN/E3GN/E3SN/E3NB/ERTP/ERAP/EVPL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EDHM_1/EPAM_1=PLMN/E3GN/E3SN/E3RN/EIPS/EDHM/EPAM
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EDHM_1=PLMN/E3GN/E3SN/E3RN/EIPS/EDHM
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EIAG_1=PLMN/E3GN/E3SN/E3RN/EIPS/EIAG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EIAM_1=PLMN/E3GN/E3SN/E3RN/EIPS/EIAM
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EIP_1/EATL_1=PLMN/E3GN/E3SN/E3RN/EIPS/EIP/EATL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EIP_1/ETHL_1=PLMN/E3GN/E3SN/E3RN/EIPS/EIP/ETHL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EIP_1=PLMN/E3GN/E3SN/E3RN/EIPS/EIP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EOSP_1/EOSA_1=PLMN/E3GN/E3SN/E3RN/EIPS/EOSP/EOSA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EOSP_1/EOSI_1=PLMN/E3GN/E3SN/E3RN/EIPS/EOSP/EOSI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EOSP_1=PLMN/E3GN/E3SN/E3RN/EIPS/EOSP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1/EPHS_1=PLMN/E3GN/E3SN/E3RN/EIPS/EPHS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPS_1=PLMN/E3GN/E3SN/E3RN/EIPS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EIPT_1=PLMN/E3GN/E3SN/E3RN/EIPT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41_1/EO15_4/EVC4_2/EV12_2/E1TP_2=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41/EO15/EVC4/EV12/E1TP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41_1/EO15_4/EVC4_2/EV12_2=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41/EO15/EVC4/EV12
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41_1/EO15_4/EVC4_2=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41/EO15/EVC4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41_1/EO15_4=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EE41
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET1_1/ET1P_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET1/ET1P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET1_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1/EO15_1/ESST_1/EV15_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4/EO15/ESST/EV15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1/EO15_1/ESST_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4/EO15/ESST
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1/EO15_1/EVC4_3/EV12_3/E1TP_3=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4/EO15/EVC4/EV12/E1TP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1/EO15_1/EVC4_3/EV12_3=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4/EO15/EVC4/EV12
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1/EO15_1/EVC4_3=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4/EO15/EVC4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1/EO15_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EET4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EETC_1/ETCP_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EETC/ETCP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EETC_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EETC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EGPU/EFET_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EGPU/EFET
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EGPU/EMAU_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EGPU/EMAU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/ETMG_1/EGBE_1/EIPI_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/ETMG/EGBE/EIPI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/ETMG_1/EGBE_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/ETMG/EGBE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/ETMG_1=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/ETMG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EXTR/EO15_5=PLMN/E3GN/E3SN/E3RN/EREQ/ERSR/ESLT/EPIU/EXTR/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EA0P_1=PLMN/E3GN/E3SN/E3RN/ERTP/EA0P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EA1P_1=PLMN/E3GN/E3SN/E3RN/ERTP/EA1P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EA5V_1=PLMN/E3GN/E3SN/E3RN/ERTP/EA5V
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EAPV_1=PLMN/E3GN/E3SN/E3RN/ERTP/EAPV
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EASP_1/EAP_1=PLMN/E3GN/E3SN/E3RN/ERTP/EASP/EAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EASP_1=PLMN/E3GN/E3SN/E3RN/ERTP/EASP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EIMG_1/EIML_1=PLMN/E3GN/E3SN/E3RN/ERTP/EIMG/EIML
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EIMG_1=PLMN/E3GN/E3SN/E3RN/ERTP/EIMG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2/E3UA_1=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI/E3UA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2/EMAP_1=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI/EMAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2/EMSR_2/EMBS_2=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI/EMSR/EMBS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2/EMSR_2=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI/EMSR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2/EMSS_1/EMSI_1=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI/EMSS/EMSI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2/EMSS_1=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI/EMSS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTI_2=PLMN/E3GN/E3SN/E3RN/ERTP/EMTI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EMTP_1=PLMN/E3GN/E3SN/E3RN/ERTP/EMTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ENTP=PLMN/E3GN/E3SN/E3RN/ERTP/ENTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ERAP_1/EVPL/EVPC/EVCL=PLMN/E3GN/E3SN/E3RN/ERTP/ERAP/EVPL/EVPC/EVCL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ERAP_1/EVPL/EVPC=PLMN/E3GN/E3SN/E3RN/ERTP/ERAP/EVPL/EVPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ERAP_1/EVPL=PLMN/E3GN/E3SN/E3RN/ERTP/ERAP/EVPL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ERAP_1=PLMN/E3GN/E3SN/E3RN/ERTP/ERAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ESCT_1=PLMN/E3GN/E3SN/E3RN/ERTP/ESCT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ESSP_1/ESSR_1/ESAP_1=PLMN/E3GN/E3SN/E3RN/ERTP/ESSP/ESSR/ESAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ESSP_1/ESSR_1/ESPO_1=PLMN/E3GN/E3SN/E3RN/ERTP/ESSP/ESSR/ESPO
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ESSP_1/ESSR_1=PLMN/E3GN/E3SN/E3RN/ERTP/ESSP/ESSR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/ESSP_1=PLMN/E3GN/E3SN/E3RN/ERTP/ESSP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1/EUTP_1=PLMN/E3GN/E3SN/E3RN/ERTP/EUTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/E3SN/E3RN/ERTP_1=PLMN/E3GN/E3SN/E3RN/ERTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EDHM_2/EPAM_2=PLMN/E3GN/ERXI/EIPS/EDHM/EPAM
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EDHM_2=PLMN/E3GN/ERXI/EIPS/EDHM
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EIAG_2=PLMN/E3GN/ERXI/EIPS/EIAG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EIAM_2=PLMN/E3GN/ERXI/EIPS/EIAM
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EIP_2/EATL_2=PLMN/E3GN/ERXI/EIPS/EIP/EATL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EIP_2/ETHL_2=PLMN/E3GN/ERXI/EIPS/EIP/ETHL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EIP_2=PLMN/E3GN/ERXI/EIPS/EIP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EOSP_2/EOSA_2=PLMN/E3GN/ERXI/EIPS/EOSP/EOSA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EOSP_2/EOSI_2=PLMN/E3GN/ERXI/EIPS/EOSP/EOSI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EOSP_2=PLMN/E3GN/ERXI/EIPS/EOSP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2/EPHS_2=PLMN/E3GN/ERXI/EIPS/EPHS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EIPS_2=PLMN/E3GN/ERXI/EIPS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EE41_2/EO15_6/EVC4_4/EV12_4/E1TP_4=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EE41/EO15/EVC4/EV12/E1TP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EE41_2/EO15_6/EVC4_4/EV12_4=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EE41/EO15/EVC4/EV12
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EE41_2/EO15_6/EVC4_4=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EE41/EO15/EVC4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EE41_2/EO15_6=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EE41/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EE41_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EE41
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET1_2/ET1P_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET1/ET1P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET1_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET1
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2/EO15_2/ESST_2/EV15_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4/EO15/ESST/EV15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2/EO15_2/ESST_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4/EO15/ESST
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2/EO15_2/EVC4_5/EV12_5/E1TP_5=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4/EO15/EVC4/EV12/E1TP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2/EO15_2/EVC4_5/EV12_5=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4/EO15/EVC4/EV12
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2/EO15_2/EVC4_5=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4/EO15/EVC4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2/EO15_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EET4_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EET4
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EETC_2/ETCP_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EETC/ETCP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EETC_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EETC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EGPU_2/EFET_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EGPU/EFET
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EGPU_2/EMAU_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EGPU/EMAU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EGPU_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EGPU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/ETMG_2/EGBE_2/EIPI_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/ETMG/EGBE/EIPI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/ETMG_2/EGBE_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/ETMG/EGBE
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/ETMG_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/ETMG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EXTR_1/EO15_7=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EXTR/EO15
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2/EXTR_1=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU/EXTR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2/EPIU_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT/EPIU
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1/ESLT_2=PLMN/E3GN/ERXI/EREQ/ERSR/ESLT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1/ERSR_1=PLMN/E3GN/ERXI/EREQ/ERSR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/EREQ_1=PLMN/E3GN/ERXI/EREQ
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EA0P_2=PLMN/E3GN/ERXI/ERTP/EA0P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EA1P_2=PLMN/E3GN/ERXI/ERTP/EA1P
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EA5V_2=PLMN/E3GN/ERXI/ERTP/EA5V
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EAPV_2=PLMN/E3GN/ERXI/ERTP/EAPV
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EASP_2/EAP_2=PLMN/E3GN/ERXI/ERTP/EASP/EAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EASP_2=PLMN/E3GN/ERXI/ERTP/EASP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EIMG_2/EIML_2=PLMN/E3GN/ERXI/ERTP/EIMG/EIML
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EIMG_2=PLMN/E3GN/ERXI/ERTP/EIMG
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1/E3UA_2=PLMN/E3GN/ERXI/ERTP/EMTI/E3UA
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1/EMAP_2=PLMN/E3GN/ERXI/ERTP/EMTI/EMAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1/EMSR_1/EMBS_1=PLMN/E3GN/ERXI/ERTP/EMTI/EMSR/EMBS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1/EMSR_1=PLMN/E3GN/ERXI/ERTP/EMTI/EMSR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1/EMSS_2/EMSI_2=PLMN/E3GN/ERXI/ERTP/EMTI/EMSS/EMSI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1/EMSS_2=PLMN/E3GN/ERXI/ERTP/EMTI/EMSS
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTI_1=PLMN/E3GN/ERXI/ERTP/EMTI
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EMTP_2=PLMN/E3GN/ERXI/ERTP/EMTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ENTP_2=PLMN/E3GN/ERXI/ERTP/ENTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ERAP_2/EVPL_2/EVPC_2/EVCL_2=PLMN/E3GN/ERXI/ERTP/ERAP/EVPL/EVPC/EVCL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ERAP_2/EVPL_2/EVPC_2=PLMN/E3GN/ERXI/ERTP/ERAP/EVPL/EVPC
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ERAP_2/EVPL_2=PLMN/E3GN/ERXI/ERTP/ERAP/EVPL
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ERAP_2=PLMN/E3GN/ERXI/ERTP/ERAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ESCT_2=PLMN/E3GN/ERXI/ERTP/ESCT
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ESSP_2/ESSR_2/ESAP_2=PLMN/E3GN/ERXI/ERTP/ESSP/ESSR/ESAP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ESSP_2/ESSR_2/ESPO_2=PLMN/E3GN/ERXI/ERTP/ESSP/ESSR/ESPO
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ESSP_2/ESSR_2=PLMN/E3GN/ERXI/ERTP/ESSP/ESSR
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/ESSP_2=PLMN/E3GN/ERXI/ERTP/ESSP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2/EUTP_2=PLMN/E3GN/ERXI/ERTP/EUTP
+com.nokia.oss.qengine.grouping.rename.level.PLMN/E3GN/ERXI/ERTP_2=PLMN/E3GN/ERXI/ERTP
+
+# Ericsson RAN filter level renaming
+com.nokia.oss.qengine.grouping.rename.filterLevel.E1TP_1=E1TP
+com.nokia.oss.qengine.grouping.rename.filterLevel.E1TP_2=E1TP
+com.nokia.oss.qengine.grouping.rename.filterLevel.E1TP_3=E1TP
+com.nokia.oss.qengine.grouping.rename.filterLevel.E1TP_4=E1TP
+com.nokia.oss.qengine.grouping.rename.filterLevel.E1TP_5=E1TP
+com.nokia.oss.qengine.grouping.rename.filterLevel.E3UA_1=E3UA
+com.nokia.oss.qengine.grouping.rename.filterLevel.E3UA_2=E3UA
+com.nokia.oss.qengine.grouping.rename.filterLevel.EA0P_1=EA0P
+com.nokia.oss.qengine.grouping.rename.filterLevel.EA0P_2=EA0P
+com.nokia.oss.qengine.grouping.rename.filterLevel.EA1P_1=EA1P
+com.nokia.oss.qengine.grouping.rename.filterLevel.EA1P_2=EA1P
+com.nokia.oss.qengine.grouping.rename.filterLevel.EA5V_1=EA5V
+com.nokia.oss.qengine.grouping.rename.filterLevel.EA5V_2=EA5V
+com.nokia.oss.qengine.grouping.rename.filterLevel.EAPV_1=EAPV
+com.nokia.oss.qengine.grouping.rename.filterLevel.EAPV_2=EAPV
+com.nokia.oss.qengine.grouping.rename.filterLevel.EAP_1=EAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EAP_2=EAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EASP_1=EASP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EASP_2=EASP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EATL_1=EATL
+com.nokia.oss.qengine.grouping.rename.filterLevel.EATL_2=EATL
+com.nokia.oss.qengine.grouping.rename.filterLevel.EDHM_1=EDHM
+com.nokia.oss.qengine.grouping.rename.filterLevel.EDHM_2=EDHM
+com.nokia.oss.qengine.grouping.rename.filterLevel.EE41_1=EE41
+com.nokia.oss.qengine.grouping.rename.filterLevel.EE41_2=EE41
+com.nokia.oss.qengine.grouping.rename.filterLevel.EET1_1=EET1
+com.nokia.oss.qengine.grouping.rename.filterLevel.EET1_2=EET1
+com.nokia.oss.qengine.grouping.rename.filterLevel.EET4_1=EET4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EET4_2=EET4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EETC_1=EETC
+com.nokia.oss.qengine.grouping.rename.filterLevel.EETC_2=EETC
+com.nokia.oss.qengine.grouping.rename.filterLevel.EFET_1=EFET
+com.nokia.oss.qengine.grouping.rename.filterLevel.EFET_2=EFET
+com.nokia.oss.qengine.grouping.rename.filterLevel.EGBE_1=EGBE
+com.nokia.oss.qengine.grouping.rename.filterLevel.EGBE_2=EGBE
+com.nokia.oss.qengine.grouping.rename.filterLevel.EGPU_1=EGPU
+com.nokia.oss.qengine.grouping.rename.filterLevel.EGPU_2=EGPU
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIAG_1=EIAG
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIAG_2=EIAG
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIAM_1=EIAM
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIAM_2=EIAM
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIMG_1=EIMG
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIMG_2=EIMG
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIML_1=EIML
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIML_2=EIML
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIPI_1=EIPI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIPI_2=EIPI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIPS_1=EIPS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIPS_2=EIPS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIPT_1=EIPT
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIP_1=EIP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EIP_2=EIP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMAP_1=EMAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMAP_2=EMAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMAU_1=EMAU
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMAU_2=EMAU
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMBS_1=EMBS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMBS_2=EMBS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMSI_1=EMSI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMSI_2=EMSI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMSR_1=EMSR
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMSR_2=EMSR
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMSS_1=EMSS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMSS_2=EMSS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMTI_1=EMTI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMTI_2=EMTI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMTP_1=EMTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EMTP_2=EMTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENTP_1=ENTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ENTP_2=ENTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_1=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_2=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_3=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_4=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_5=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_6=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EO15_7=EO15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EOSA_1=EOSA
+com.nokia.oss.qengine.grouping.rename.filterLevel.EOSA_2=EOSA
+com.nokia.oss.qengine.grouping.rename.filterLevel.EOSI_1=EOSI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EOSI_2=EOSI
+com.nokia.oss.qengine.grouping.rename.filterLevel.EOSP_1=EOSP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EOSP_2=EOSP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EPAM_1=EPAM
+com.nokia.oss.qengine.grouping.rename.filterLevel.EPAM_2=EPAM
+com.nokia.oss.qengine.grouping.rename.filterLevel.EPHS_1=EPHS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EPHS_2=EPHS
+com.nokia.oss.qengine.grouping.rename.filterLevel.EPIU_1=EPIU
+com.nokia.oss.qengine.grouping.rename.filterLevel.EPIU_2=EPIU
+com.nokia.oss.qengine.grouping.rename.filterLevel.ERAP_1=ERAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ERAP_2=ERAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EREQ_1=EREQ
+com.nokia.oss.qengine.grouping.rename.filterLevel.ERSR_1=ERSR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ERTP_1=ERTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ERTP_2=ERTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESAP_1=ESAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESAP_2=ESAP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESCT_1=ESCT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESCT_2=ESCT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESLT_1=ESLT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESLT_2=ESLT
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESPO_1=ESPO
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESPO_2=ESPO
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESSP_1=ESSP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESSP_2=ESSP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESSR_1=ESSR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESSR_2=ESSR
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESST_1=ESST
+com.nokia.oss.qengine.grouping.rename.filterLevel.ESST_2=ESST
+com.nokia.oss.qengine.grouping.rename.filterLevel.ET1P_1=ET1P
+com.nokia.oss.qengine.grouping.rename.filterLevel.ET1P_2=ET1P
+com.nokia.oss.qengine.grouping.rename.filterLevel.ETCP_1=ETCP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ETCP_2=ETCP
+com.nokia.oss.qengine.grouping.rename.filterLevel.ETHL_1=ETHL
+com.nokia.oss.qengine.grouping.rename.filterLevel.ETHL_2=ETHL
+com.nokia.oss.qengine.grouping.rename.filterLevel.ETMG_1=ETMG
+com.nokia.oss.qengine.grouping.rename.filterLevel.ETMG_2=ETMG
+com.nokia.oss.qengine.grouping.rename.filterLevel.EUTP_1=EUTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EUTP_2=EUTP
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV12_1=EV12
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV12_2=EV12
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV12_3=EV12
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV12_4=EV12
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV12_5=EV12
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV15_1=EV15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EV15_2=EV15
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVC4_1=EVC4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVC4_2=EVC4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVC4_3=EVC4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVC4_4=EVC4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVC4_5=EVC4
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVCL_1=EVCL
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVCL_2=EVCL
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVPC_1=EVPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVPC_2=EVPC
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVPL_1=EVPL
+com.nokia.oss.qengine.grouping.rename.filterLevel.EVPL_2=EVPL
+com.nokia.oss.qengine.grouping.rename.filterLevel.EXTR_1=EXTR
+
+#The default list of master temp table names that is used to select the master temp table if the element master_temp_table_names is not defined or
+#the master temp table is not found in the report xml file. The sequence of the temp table names listed dictates the priority they are used.
+com.nokia.oss.qengine.defaultMasterTempTableNames=\
+	2GBSSRAW.traffic,\
+	2GBSSRAW.resavail,\
+	2GBSSRAW.pcu,\
+	2GBSSRAW.codingsc,\
+	2GBSSRAW.service,\
+	2GBSSRAW.resacc,\
+	2GBSSRAW.ho,\
+	2GBSSRAW.power,\
+	2GBSSRAW.fer,\
+	2GBSSRAW.rxqual,\
+	2GBSSRAW.dualband,\
+	2GBSSRAW.celresel,\
+	2GBSSAGG.traffic,\
+	2GBSSAGG.resavail,\
+	2GBSSAGG.pcu,\
+	2GBSSAGG.codingsc,\
+	2GBSSAGG.service,\
+	2GBSSAGG.resacc,\
+	2GBSSAGG.ho,\
+	2GBSSAGG.power,\
+	2GBSSAGG.fer,\
+	2GBSSAGG.rxqual,\
+	2GBSSAGG.dualband,\
+	2GBSSAGG.celresel
+
+
+#2GBSSRAW.amrxqual,2GBSSRAW.avail,2GBSSRAW.bscbsc,2GBSSRAW.cc,2GBSSRAW.ccpm,2GBSSRAW.celresel,2GBSSRAW.chanfind,2GBSSRAW.codingsc,2GBSSRAW.csdtm,\
+#2GBSSRAW.defadjc,2GBSSRAW.dfca,2GBSSRAW.dfcaasgn,2GBSSRAW.dsaic,2GBSSRAW.dualband,2GBSSRAW.dynabis,2GBSSRAW.eqos,2GBSSRAW.fer,2GBSSRAW.frame,\
+#2GBSSRAW.gboverip,2GBSSRAW.gprsrxst,2GBSSRAW.highspdt,2GBSSRAW.ho,2GBSSRAW.hoadj,2GBSSRAW.ibho,2GBSSRAW.load,2GBSSRAW.mscapab,2GBSSRAW.msspeed,\
+#2GBSSRAW.nbcchlof,2GBSSRAW.pbcchavl,2GBSSRAW.pbs,2GBSSRAW.pcu,2GBSSRAW.potrx,2GBSSRAW.power,2GBSSRAW.psdtm,2GBSSRAW.qos,2GBSSRAW.resacc,2GBSSRAW.resavail,\
+#2GBSSRAW.revhunt,2GBSSRAW.rlc,2GBSSRAW.rxqual,2GBSSRAW.rxstat,2GBSSRAW.scc,2GBSSRAW.service,2GBSSRAW.stm1,2GBSSRAW.tmadv,2GBSSRAW.totfep,2GBSSRAW.totfeph,\
+#2GBSSRAW.traffic,2GBSSRAW.trxavail,2GBSSRAW.underlay,2GBSSRAW.unhoadjc,2GBSSRAW.uthoadjc,2GBSSRAW.utsiglev,2GBSSRAW.wps\
+#\
+#2GBSSAGG.amrxqual,2GBSSAGG.avail,2GBSSAGG.bscbsc,2GBSSAGG.cc,2GBSSAGG.ccpm,2GBSSAGG.celresel,2GBSSAGG.chanfind,2GBSSAGG.codingsc,2GBSSAGG.csdtm,2GBSSAGG.defadjc,\
+#2GBSSAGG.dfca,2GBSSAGG.dfcaasgn,2GBSSAGG.dsaic,2GBSSAGG.dualband,2GBSSAGG.dynabis,2GBSSAGG.eqos,2GBSSAGG.fer,2GBSSAGG.frame,2GBSSAGG.gboverip,2GBSSAGG.gprsrxst,\
+#2GBSSAGG.highspdt,2GBSSAGG.ho,2GBSSAGG.hoadj,2GBSSAGG.ibho,2GBSSAGG.load,2GBSSAGG.mscapab,2GBSSAGG.msspeed,2GBSSAGG.nbcchlof,2GBSSAGG.pbcchavl,2GBSSAGG.pbs,\
+#2GBSSAGG.pcu,2GBSSAGG.potrx,2GBSSAGG.power,2GBSSAGG.psdtm,2GBSSAGG.qos,2GBSSAGG.resacc,2GBSSAGG.resavail,2GBSSAGG.revhunt,2GBSSAGG.rlc,2GBSSAGG.rxqual,\
+#2GBSSAGG.rxstat,2GBSSAGG.scc,2GBSSAGG.service,2GBSSAGG.stm1,2GBSSAGG.tmadv,2GBSSAGG.totfep,2GBSSAGG.totfeph,2GBSSAGG.traffic,2GBSSAGG.trxavail,2GBSSAGG.underlay,\
+#2GBSSAGG.unhoadjc,2GBSSAGG.uthoadjc,2GBSSAGG.utsiglev,2GBSSAGG.wps\
+#\
+#m12oss4.ACHDEST,m12oss4.ACHHLR,m12oss4.ACHSPC,m12oss4.ACVDEST,m12oss4.ACVMSC,m12oss4.ACVSPC,m12oss4.ANN,m12oss4.AVAHLR,m12oss4.AVAMSC,m12oss4.AVANHLR,m12oss4.AVANMSC,\
+#m12oss4.AVANSRR,m12oss4.AVASRR,m12oss4.BRC,m12oss4.BS,m12oss4.CC1,m12oss4.CC2,m12oss4.CCDES,m12oss4.CCMEA,m12oss4.CDR,m12oss4.CDRT,m12oss4.CELLCI,m12oss4.CELLMSC,\
+#m12oss4.CGR,m12oss4.CGRC,m12oss4.CGRCC,m12oss4.CLOH,m12oss4.CLOM,m12oss4.CLOS,m12oss4.CNTL,m12oss4.CNTLC,m12oss4.CNTLLM,m12oss4.CRCDS,m12oss4.CRCDT,m12oss4.CRTERM,\
+#m12oss4.CRTSL,m12oss4.CSSB,m12oss4.CSSM,m12oss4.CSSR,m12oss4.CSTS,m12oss4.CSTSC,m12oss4.CSTSU,m12oss4.CTD,m12oss4.DATA,m12oss4.DCALL,m12oss4.DESTCG,m12oss4.DESVLR,\
+#m12oss4.DSE,m12oss4.DTD,m12oss4.EIRH,m12oss4.EIRI,m12oss4.ETH,m12oss4.ETM,m12oss4.ETS,m12oss4.EVEM,m12oss4.FQDNCC,m12oss4.GBSAIUR,m12oss4.GBSFNUR,m12oss4.H1BS,m12oss4.HL1HLR,\
+#m12oss4.HLRSS,m12oss4.HLRVLR,m12oss4.HMRBC,m12oss4.HMRBC1,m12oss4.HMRRC,m12oss4.HO1,m12oss4.HO2CI,m12oss4.HO2LAC,m12oss4.HO2NCI,m12oss4.HO2NCM,m12oss4.HOBSCM,m12oss4.HORNCM,\
+#m12oss4.IND,m12oss4.INGAP,m12oss4.INS,m12oss4.IPATM,m12oss4.IWC,m12oss4.IWFCT,m12oss4.LAPDM,m12oss4.LAPDMSCR,m12oss4.LAPEM,m12oss4.LAPEMSCR,m12oss4.LAPUM,m12oss4.LAPUMSCR,\
+#m12oss4.LOADM,m12oss4.LOCHLR,m12oss4.LOCMSC,m12oss4.LOCSRR,m12oss4.LSEC,m12oss4.MBHLR,m12oss4.MBMSC,m12oss4.MBSRR,m12oss4.MEG,m12oss4.MGWCU,m12oss4.MSCPPL,m12oss4.MSCTRAF,\
+#m12oss4.MSCVLR,m12oss4.MTPHLR,m12oss4.MTPMSC,m12oss4.MTPNHLR,m12oss4.MTPNMSC,m12oss4.MTPNSRR,m12oss4.MTPSRR,m12oss4.MTXHLR,m12oss4.MTXMSC,m12oss4.MTXSRR,m12oss4.NMGW,\
+#m12oss4.NUMD,m12oss4.NUPD,m12oss4.PLMNV,m12oss4.PPLAC,m12oss4.PRCA,m12oss4.PRCAR,m12oss4.REH,m12oss4.REJHLR,m12oss4.REJMSC,m12oss4.REJSRR,m12oss4.REM,m12oss4.RES,\
+#m12oss4.RESHLR,m12oss4.RESMSC,m12oss4.RESSRR,m12oss4.RESTC,m12oss4.RNCMCC,m12oss4.ROU,m12oss4.ROUTDM,m12oss4.ROUTMSC,m12oss4.RSEC,m12oss4.SCCHLR,m12oss4.SCCMSC,\
+#m12oss4.SCCPHLR,m12oss4.SCCPMSC,m12oss4.SCCPSRR,m12oss4.SCCSRR,m12oss4.SERVI,m12oss4.SGSNH,m12oss4.SIGHLR,m12oss4.SIGMSC,m12oss4.SIGSHLR,m12oss4.SIGSMSC,\
+#m12oss4.SIGSRR,m12oss4.SIGSSRR,m12oss4.SINHLR,m12oss4.SINMSC,m12oss4.SINSRR,m12oss4.SIP,m12oss4.SIPM,m12oss4.SLAHLR,m12oss4.SLAMSC,m12oss4.SLASRR,m12oss4.SLHLR,\
+#m12oss4.SLMSC,m12oss4.SLPHLR,m12oss4.SLPMSC,m12oss4.SLPNHLR,m12oss4.SLPNMSC,m12oss4.SLPNSRR,m12oss4.SLPSRR,m12oss4.SLSRR,m12oss4.SMGW,m12oss4.SMS,m12oss4.SMSTY,\
+#m12oss4.SPCCC,m12oss4.SRRMERR,m12oss4.SRRMSUC,m12oss4.SRRSSP,m12oss4.SSCC,m12oss4.SSEC,m12oss4.SSERV,m12oss4.STAHLR,m12oss4.STAMSC,m12oss4.STASRR,m12oss4.SUBHLR,\
+#m12oss4.SUBMSC,m12oss4.SUBSRR,m12oss4.TC,m12oss4.TCAPHLR,m12oss4.TCAPMSC,m12oss4.TCAPSRR,m12oss4.TCPIP,m12oss4.TRFO,m12oss4.TTRAHLR,m12oss4.TTRAMSC,m12oss4.TTRASRR,\
+#m12oss4.ULOAD,m12oss4.UMBMC,m12oss4.UMTSAI,m12oss4.UMTSFN,m12oss4.UPD,m12oss4.UTRAHLR,m12oss4.UTRAMSC,m12oss4.UTRASRR,m12oss4.VLR1MSC,m12oss4.VLRLAC,m12oss4.VLRME,\
+#m12oss4.VLRMS,m12oss4.VLRMSC,m12oss4.VLRNLAC,m12oss4.VLRNMSC\
+#\
+#OSS4.cdr,OSS4.celldata,OSS4.data,OSS4.dns,OSS4.load,OSS4.mobmgmnt,OSS4.nsvcdata,OSS4.overload,OSS4.paging,OSS4.sesmgmnt,OSS4.sms,OSS4.user\
+#\
+#EBSS.ABISIP,EBSS.APDISKS,EBSS.APPLTFRM,EBSS.ATERTRNS,EBSS.BSC,EBSS.BSCGEN,EBSS.BSCGPRS,EBSS.BSCGPRS2,EBSS.BSCMSLOT,EBSS.BSCPOS,EBSS.BSCQOS,\
+#EBSS.C7ADJSLP,EBSS.C7DPC,EBSS.C7DPCSIO,EBSS.C7LSSI,EBSS.C7OD,EBSS.C7ODS,EBSS.C7ODS24,EBSS.C7OPC,EBSS.C7OPCDS,EBSS.C7OPCSIO,EBSS.C7OPDS24,\
+#EBSS.C7RTSET,EBSS.C7RTTOTL,EBSS.C7SCPERF,EBSS.C7SCQOS,EBSS.C7SCSIGP,EBSS.C7SCSUSE,EBSS.C7SCUSE,EBSS.C7SIO,EBSS.C7SL1,EBSS.C7SL2,EBSS.C7SLSET,\
+#EBSS.CCCHLOAD,EBSS.CELAFFE,EBSS.CELAHFE,EBSS.CELCCHDR,EBSS.CELCCHHO,EBSS.CELDUALT,EBSS.CELEFER,EBSS.CELEVC,EBSS.CELEVD,EBSS.CELEVH,EBSS.CELEVI,\
+#EBSS.CELEVS,EBSS.CELFLXAB,EBSS.CELGPRS2,EBSS.CELGPRS3,EBSS.CELGPRS4,EBSS.CELGPRSO,EBSS.CELHSCSD,EBSS.CELLCONF,EBSS.CELLEIT,EBSS.CELLEIT2,\
+#EBSS.CELLFERF,EBSS.CELLFERH,EBSS.CELLFFER,EBSS.CELLGEN,EBSS.CELLGPRS,EBSS.CELLHCS,EBSS.CELLHFER,EBSS.CELLMSQ,EBSS.CELLPAG,EBSS.CELLPOS,\
+#EBSS.CELLQOSG,EBSS.CELLQOSS,EBSS.CELLSQI,EBSS.CELMSCA,EBSS.CELQOSEG,EBSS.CELSQDL,EBSS.CELTCHF,EBSS.CELTCHFP,EBSS.CELTCHH,EBSS.CHGRP0F,EBSS.CHGRP0H,\
+#EBSS.CHGRPQI,EBSS.CLDTMEST,EBSS.CLDTMPER,EBSS.CLDTMQOS,EBSS.CLGPQOS,EBSS.CLGPQOS2,EBSS.CLRATECH,EBSS.CLRXQUAL,EBSS.CLSDCCH,EBSS.CLSDCCHO,EBSS.CLSMS,\
+#EBSS.CLTCDRAF,EBSS.CLTCDRAH,EBSS.CLTCFV3C,EBSS.CLTCH,EBSS.CLTCHDRF,EBSS.CLTCHDRH,EBSS.CLTCHFV1,EBSS.CLTCHFV2,EBSS.CLTCHFV3,EBSS.CLTCHHV1,EBSS.CLTCHHV2,\
+#EBSS.CLTCHHV3,EBSS.CLTCHV3C,EBSS.CLVGCSE,EBSS.CP,EBSS.CVTR01,EBSS.CVTR02,EBSS.DELSTRTB,EBSS.DIGPATH,EBSS.DIGS,EBSS.DIP,EBSS.DIPPRM,EBSS.DOWNTIME,EBSS.EM,\
+#EBSS.EMG,EBSS.EMGPRS,EBSS.EMGSTAT,EBSS.EMRP,EBSS.GPHLOAD,EBSS.GPRSGEN,EBSS.GRSWITCH,EBSS.HS7SL1,EBSS.IDLEOTCF,EBSS.IDLEOTCH,EBSS.IDLEUTCF,EBSS.IDLEUTCH,\
+#EBSS.LAPD,EBSS.LNPGTT1,EBSS.LOADREG,EBSS.LOAS,EBSS.LOASINCO,EBSS.LOASMISC,EBSS.MOTG,EBSS.MOTS,EBSS.MRVFAIL,EBSS.MRVTOT,EBSS.MSC,EBSS.NCELHOEX,EBSS.NCELLREL,\
+#EBSS.NECELASS,EBSS.NECELHO,EBSS.NECELLRL,EBSS.NETWSYNC,EBSS.NICELASS,EBSS.NICELHO,EBSS.NICELHOX,EBSS.NRES64K,EBSS.NUCELLRL,EBSS.PREEMP,EBSS.REGSERVC,EBSS.RES64K,\
+#EBSS.RLNKBITR,EBSS.RNDACCC,EBSS.RNDACCEX,EBSS.RP,EBSS.SCTPAM,EBSS.SCTPLM,EBSS.SCTPTM,EBSS.SDIPHP,EBSS.SDIPLP,EBSS.SDIPMS,EBSS.SNT,EBSS.SPDL,EBSS.SPHD,EBSS.SPSP,\
+#EBSS.SS7GWLS,EBSS.SS7GWON,EBSS.SS7HSLG1,EBSS.SS7HSLG2,EBSS.SS7HSLM1,EBSS.SS7HSLM2,EBSS.SS7HSLM3,EBSS.SS7HSLS,EBSS.SS7HSLTR,EBSS.SS7LS,EBSS.SS7PRGRP,EBSS.SS7SCQOS,\
+#EBSS.SS7SCSUS,EBSS.SS7SCUSE,EBSS.SS7SLMT1,EBSS.SS7SLMT2,EBSS.SS7SLTRA,EBSS.SS7TIMRS,EBSS.SS7TOTAL,EBSS.SS7TOTL2,EBSS.SS7TT,EBSS.SSGWLSDN,EBSS.SSGWLSON,EBSS.SSGWONTT,\
+#EBSS.SUCORCL,EBSS.SUPERCH,EBSS.TCABO,EBSS.TCCMP,EBSS.TCDIA,EBSS.TCMSG,EBSS.TCREJ,EBSS.TCUSE,EBSS.TPLAT,EBSS.TRALOST,EBSS.TRAPCOM,EBSS.TRAPEV,EBSS.TRASEV,EBSS.TRASUBPL,\
+#EBSS.TRDLGPRS,EBSS.TRFGPRS3,EBSS.TRGPRS2,EBSS.TRULGPRS,EBSS.USRACCES\
+#\
+#ENSS.AAL2PATH,ENSS.ACCROUT,ENSS.ALLSERV,ENSS.ALTSERVC,ENSS.ANSIGSMN,ENSS.APDISKS,ENSS.APPLTFRM,ENSS.AUCMAP,ENSS.AUCSUBS,ENSS.AUS,ENSS.AUSINTCL,ENSS.AUTHEN,\
+#ENSS.AUTHSUBS,ENSS.BASTRTY1,ENSS.BSCSTAT,ENSS.BSCSTAT2,ENSS.C7ADJSLP,ENSS.C7DPC,ENSS.C7DPCSIO,ENSS.C7LSSI,ENSS.C7MESS,ENSS.C7OD,ENSS.C7ODS,ENSS.C7ODS24,ENSS.C7OPC,\
+#ENSS.C7OPCDS,ENSS.C7OPCSIO,ENSS.C7OPDS24,ENSS.C7RTSET,ENSS.C7RTTOTL,ENSS.C7SCPERF,ENSS.C7SCQOS,ENSS.C7SCSIGP,ENSS.C7SCSUSE,ENSS.C7SCUSE,ENSS.C7SI,ENSS.C7SIO,ENSS.C7SL1,\
+#ENSS.C7SL2,ENSS.C7SLSET,ENSS.CALLFSRV,ENSS.CAMABT,ENSS.CAMEL3,ENSS.CAWSERV,ENSS.CELLSTAT,ENSS.CHASSIGT,ENSS.CKWSERV,ENSS.CLIPSERV,ENSS.CLIRSERV,ENSS.CNIPSERV,ENSS.CODRASGN,\
+#ENSS.COLPSERV,ENSS.COLRSERV,ENSS.COMPSERV,ENSS.COPRVLRS,ENSS.CP,ENSS.CSRROUTE,ENSS.CTMMAP,ENSS.CUGBSG,ENSS.CUGSERV,ENSS.CVTR01,ENSS.CVTR02,ENSS.DATA,ENSS.DEFMGW,ENSS.DIGPATH,\
+#ENSS.DIGS,ENSS.DIP,ENSS.DIPPRM,ENSS.DIPSEC,ENSS.DISCCALL,ENSS.DTAPLCS,ENSS.DTDTRUNK,ENSS.DTISTAT,ENSS.ECNP,ENSS.ECNPASLR,ENSS.ECNPASLS,ENSS.ECNPERL,ENSS.ECNPPD,ENSS.ECPOOL,\
+#ENSS.EM,ENSS.EMG,ENSS.EMGSTAT,ENSS.EMRP,ENSS.EOS,ENSS.EQIDCON,ENSS.EQLACC,ENSS.FHLPRA,ENSS.FHLV5,ENSS.GCPHQ,ENSS.GCPHRP,ENSS.GPRSGS,ENSS.GRSWITCH,ENSS.GSCF,ENSS.GUHNDOVR,\
+#ENSS.HLRMAP,ENSS.HLRPERF,ENSS.HLRSTAT,ENSS.HLRSUBS,ENSS.HNDOVER,ENSS.HOLDSERV,ENSS.HS7SL1,ENSS.IRNEG,ENSS.ISDNEBS,ENSS.ISDNESG,ENSS.JUNCTROU,ENSS.KRQUALTY,ENSS.KRROUTE,\
+#ENSS.L2STATBA,ENSS.L2STTPRA,ENSS.L2V5CPTH,ENSS.L2V5PRA,ENSS.L3CCMSG,ENSS.L3STATBA,ENSS.L3STTPRA,ENSS.L3V5PRA,ENSS.LATAMIST,ENSS.LATASTAT,ENSS.LCAREAST,ENSS.LCSSTAT,\
+#ENSS.LIBAL1ST,ENSS.LNPMAINT,ENSS.LOAS,ENSS.LOASINCO,ENSS.LOASMISC,ENSS.LOSSROUT,ENSS.LSCC,ENSS.M3ASPSM,ENSS.M3ASPTM,ENSS.M3ASSOC,ENSS.M3DATA,ENSS.M3DEST1,ENSS.M3DEST2,\
+#ENSS.M3MGMT,ENSS.M3PERF,ENSS.M3SSNM,ENSS.MAPSIGIW,ENSS.MBASTRTY,ENSS.MESSFLNO,ENSS.MNPMAINT,ENSS.MRVFAIL,ENSS.MRVTOT,ENSS.MTRAFTYP,ENSS.MTSFB,ENSS.MTSFB3,ENSS.NAMSUBS,\
+#ENSS.NBRCLST,ENSS.NETWSYNC,ENSS.NMSCGUH,ENSS.NMSCLST,ENSS.NMSCLST2,ENSS.NMSCLST3,ENSS.NMSCSRN,ENSS.NMSCUGHO,ENSS.NSEPCAL,ENSS.ODB,ENSS.ODBINV,ENSS.OOBTCST,ENSS.OPTFEAT,\
+#ENSS.PAGING,ENSS.PDCUMFLN,ENSS.PDPDEF,ENSS.PLMNSUB,ENSS.PMROUTE,ENSS.PRBTCAL,ENSS.QUESERV,ENSS.RCSSSERV,ENSS.REGSERVC,ENSS.RELOC,ENSS.RESTART,ENSS.RNCSTAT,ENSS.ROAMING,\
+#ENSS.RP,ENSS.RSASUBS,ENSS.S7GWLSD,ENSS.S7GWLSO,ENSS.SAE,ENSS.SCRNSERV,ENSS.SCTPAM,ENSS.SCTPLM,ENSS.SDFINAP,ENSS.SDIPHP,ENSS.SDIPLP,ENSS.SDIPMS,ENSS.SECHAND,ENSS.SERVFEAT,\
+#ENSS.SERVICES,ENSS.SESSCF,ENSS.SESSSF,ENSS.SGSN,ENSS.SGSNSTAT,ENSS.SHAM,ENSS.SHAM1,ENSS.SHIST,ENSS.SHMSGSRV,ENSS.SHSCF,ENSS.SMSGMSC,ENSS.SMSIWMSC,ENSS.SNT,ENSS.SS7GWLS,\
+#ENSS.SS7GWON,ENSS.SS7HSLG1,ENSS.SS7HSLG2,ENSS.SS7HSLM1,ENSS.SS7HSLM2,ENSS.SS7HSLM3,ENSS.SS7HSLS,ENSS.SS7HSLTR,ENSS.SS7LS,ENSS.SS7PRGRP,ENSS.SS7SCQOS,ENSS.SS7SCSUS,\
+#ENSS.SS7SCUSE,ENSS.SS7SLMT1,ENSS.SS7SLMT2,ENSS.SS7SLTRA,ENSS.SS7TIMRS,ENSS.SS7TOTAL,ENSS.SS7TOTL2,ENSS.SS7TT,ENSS.SSACT,ENSS.SSGWONTT,ENSS.SSPSTAT2,ENSS.SSSPROC,\
+#ENSS.SUBDATA,ENSS.SUBLINES,ENSS.SUCORCL,ENSS.SUPPLSRV,ENSS.TCABO,ENSS.TCCMP,ENSS.TCDIA,ENSS.TCMSG,ENSS.TCREJ,ENSS.TCUSE,ENSS.TMSWITCH,ENSS.TPLAT,ENSS.TPYSERV,\
+#ENSS.TRAFDST1,ENSS.TRAFFSRF,ENSS.TRAFFTY,ENSS.TRAFMEAS,ENSS.TRAFTYP1,ENSS.TRANSFLN,ENSS.TRAPEV,ENSS.TRNKROU2,ENSS.TRNKROUT,ENSS.TRUNKSUP,ENSS.TSB,ENSS.TTRMSN,\
+#ENSS.UGHNDOVR,ENSS.UMTSPOS,ENSS.UMTSSEC,ENSS.UPDLOC2,ENSS.UPDLOCAT,ENSS.USRACCES,ENSS.UUSSERV,ENSS.VCISERV,ENSS.VLR,ENSS.VPNSERV,ENSS.WIDEBAND,ENSS.WIDEBND1,ENSS.WIDEBND2\
+#\
+#AWSS.BICCDPC,AWSS.BSSAPER,AWSS.BSSMMMP,AWSS.BSSMNTP,AWSS.BSSSMSP,AWSS.CALGCP,AWSS.CALLPER,AWSS.CALLTOT,AWSS.CAPMSGP,AWSS.CAPPERF,AWSS.CDRSUMP,AWSS.CISSMSG,AWSS.CISSPER,\
+#AWSS.CPULOAD,AWSS.DSPUSP,AWSS.EMERCAL,AWSS.EOCALLP,AWSS.ESRKPOL,AWSS.GRPP,AWSS.ICONCP,AWSS.INAPGWP,AWSS.INAPMSP,AWSS.IS41MSG,AWSS.IS41PER,AWSS.ISUPDPC,AWSS.ISUPOLP,\
+#AWSS.IWFPERF,AWSS.IWFSMIM,AWSS.LCSMP,AWSS.MAP1PER,AWSS.MAPPERF,AWSS.MMMSGP,AWSS.MOOVP,AWSS.MTP2LKP,AWSS.MTP3LKP,AWSS.MTP3LKS,AWSS.PRIOCAL,AWSS.PRTCAPA,AWSS.ROUTEP,\
+#AWSS.SCCPP,AWSS.SMSMSGP,AWSS.SPMMSGP,AWSS.SUMLNS,AWSS.SUMPERF,AWSS.SUMTRK,AWSS.TP3RP,AWSS.UBSSMAP,AWSS.UBSSMRX,AWSS.UBSSMTX,AWSS.UCSSMLC,AWSS.UDBUNCP,AWSS.UGMLUNC,\
+#AWSS.ULCSUNC,AWSS.ULDAPP,AWSS.UMAPERF,AWSS.UMASGWP,AWSS.UMAURRP,AWSS.URRCSRX,AWSS.URRCSTX,AWSS.UUNCPSP,AWSS.UURRCCL,AWSS.VLRSUB,AWSS.WMGICOP,AWSS.WSSDSKP,AWSS.WSSPERF\
+#\
+#TSTP.CMPLKSET,TSTP.COMPLINK,TSTP.DMLINK,TSTP.DMLNKSET,TSTP.DMSTP,TSTP.DMSTPLAN,TSTP.STPSYTOT,TSTP.TTSYSTOT\
+#\
+#NBSS.ADJ,NBSS.BSC0,NBSS.BSC1,NBSS.BSC2,NBSS.BTS0,NBSS.BTS1,NBSS.BTS2,NBSS.BTS3,NBSS.BTS4,NBSS.BTS5,NBSS.BTSPCU,NBSS.CCH,NBSS.CCHPCU,NBSS.CEM,NBSS.FRMPCU,NBSS.LPD,NBSS.LPRPCU,\
+#NBSS.NVCPCU,NBSS.OMU,NBSS.PBKPCU,NBSS.PCM,NBSS.PCMPCU,NBSS.PCMPORT,NBSS.TMA,NBSS.TMAPCU,NBSS.TMU,NBSS.TRZ\
+#\
+#NNSS.AOCSS,NNSS.AUCSTATS,NNSS.C7LINK1,NNSS.C7LINK2,NNSS.C7LINK3,NNSS.C7LKSET,NNSS.C7ROUTE,NNSS.C7RTESET,NNSS.C7SCCPCO,NNSS.C7SCCPH,NNSS.C7SCCPM,NNSS.CAPERR,NNSS.CAPOCSI,NNSS.CAPOCSI2,\
+#NNSS.CF3P,NNSS.CLOSS,NNSS.CUGSS,NNSS.EXHOCA,NNSS.GELIDOMG,NNSS.GHLRADM,NNSS.GHLRADM2,NNSS.GHLRADM3,NNSS.GHLRBS,NNSS.GHLRCH,NNSS.GHLRCOS,NNSS.GHLRMMGT,NNSS.GHLRODB,NNSS.GHLRROAM,\
+#NNSS.GHLRSMGT,NNSS.GHLRSMS,NNSS.GHLRSSCF,NNSS.GHLRSSCW,NNSS.GHLRSSPW,NNSS.GHSADM,NNSS.GHSSTA,NNSS.GINAP,NNSS.GINAP2,NNSS.GMAPCH,NNSS.GMAPEMGT,NNSS.GMAPMMGT,NNSS.GMAPSMGT,NNSS.GMAPSMS,\
+#NNSS.GMAPSS,NNSS.GPLOMGR,NNSS.GPRSMMGT,NNSS.GPSLOMGR,NNSS.GSLROMGR,NNSS.GSMLERRS,NNSS.GSMSCOMG,NNSS.GSMUSSD,NNSS.H3PCMEM,NNSS.HCISSOPS,NNSS.HCMLMPT,NNSS.HCMLMPT2,NNSS.HCMLMRT,NNSS.HISTAT,\
+#NNSS.HLRCAMEL,NNSS.HLRCAMLT,NNSS.HLRGPRS,NNSS.HLRIN,NNSS.HLRINT,NNSS.HLRORT,NNSS.HLRUSSDT,NNSS.HLRWORK,NNSS.HMWDSC,NNSS.HO2G2GMU,NNSS.HO2GT2G2,NNSS.HO2GTO2G,NNSS.HO2GTO3G,NNSS.HO3GTO2G,\
+#NNSS.HO3GTO3G,NNSS.HODBMISC,NNSS.HOPTMMGT,NNSS.HSMG2,NNSS.HSMSERR,NNSS.HSMSOPS,NNSS.IN1SUM,NNSS.ISUPERRS,NNSS.MSC2GHO2,NNSS.MSCCBSS,NNSS.MSCCFSS,NNSS.MSCCP,NNSS.MSCCP2,NNSS.MSCCP3,NNSS.MSCCPSRV,\
+#NNSS.MSCCWTSS,NNSS.MSCDSRV,NNSS.MSCHLDSS,NNSS.MSCHO,NNSS.MSCMPTSS,NNSS.MSCSMS,NNSS.NPSUM,NNSS.OFFBDIN,NNSS.OFZ,NNSS.OTS,NNSS.RCH,NNSS.SRINODE,NNSS.STORE,NNSS.TCAPERRS,NNSS.TRK,NNSS.TRMTCM,\
+#NNSS.TRMTCM2,NNSS.TRMTCU,NNSS.TRMTCU2,NNSS.TRMTCU3,NNSS.TRMTER,NNSS.TRMTFR,NNSS.TRMTFR2,NNSS.TRMTFR3,NNSS.TRMTPR,NNSS.TRMTRS,NNSS.VLR,NNSS.VLR2,NNSS.VLR2MMU,NNSS.VLR3,NNSS.VLR4,NNSS.VLR5,\
+#NNSS.VLRMMU,NNSS.WPSSSRVC,NNSS.XASTATH,NNSS.XASTATM\
+#\
+#CVMS.CCSTBT,CVMS.CDLNKT,CVMS.CDPCTBT,CVMS.CMDPTB1,CVMS.CMDPTB2,CVMS.CMDPTB3,CVMS.CMDPTB4,CVMS.MIPSTBM,CVMS.MSUATBT,CVMS.MSUCTBM,CVMS.MSUCTBT,CVMS.MSUPTB1,CVMS.MSUPTB2,CVMS.MSUPTB3,CVMS.MSUPTB4,\
+#CVMS.MSUTBM,CVMS.MSUTBT,CVMS.MSUTBU,CVMS.NDUPTB1,CVMS.NDUPTB2,CVMS.NDUPTB3,CVMS.NDUPTB4,CVMS.PROETBM,CVMS.SMUPTB1,CVMS.SMUPTB2,CVMS.SMUPTB3,CVMS.SMUPTB4,CVMS.TRMCTBM,CVMS.TRMPTB1,CVMS.TRMPTB2,\
+#CVMS.TRMPTB3,CVMS.TRMPTB4,CVMS.TRMPTBU,CVMS.TRMTBM,CVMS.TRMTBU\
+#\
+#IBSS.AMR,IBSS.CCCH,IBSS.CCCHUTI,IBSS.CHANASS,IBSS.CSCCCH,IBSS.DOWNLIN,IBSS.GPRSCC,IBSS.GPRSCCD,IBSS.GPRSEST,IBSS.HANDOVD,IBSS.HANDOVE,IBSS.IMMEDA,IBSS.IMMEDAD,IBSS.LINKADA,IBSS.LLCDATA,\
+#IBSS.MEASURP,IBSS.PDCH,IBSS.PDCHUSA,IBSS.RRCONNE,IBSS.RTPMUXP,IBSS.RTPMUXU,IBSS.RTPPERF,IBSS.RTPUSAG,IBSS.SDCCHUS,IBSS.SRTPMUU,IBSS.TBFUSAG,IBSS.TCH,IBSS.TCHUSAD,IBSS.TCHUSAG,IBSS.UPLINKT\
+#\
+#
+
+com.nokia.oss.qengine.useFullOuterJoins=true
+
+
+
+# A list of sql function names/keywords/reserverd words (in uppercase).
+# This list is used to remove sql function names/keywords/reserverd words from the kpi formula so that only
+# measurement counters are left in the formula.
+com.nokia.oss.qengine.sqlFuncList=\
+	ABS,ACCESS,ACOS,ADD,ADD_MONTHS,ADMIN,AFTER,ALL,ALLOCATE,ALTER,ANALYZE,AND,ANY,ARCHIVE,ARCHIVELOG,ARRAYLEN,AS,ASC,ASCII,ASIN,ATAN,ATAN2,AUDIT,AUTHORIZATION,AVG,\
+	BACKUP,BECOME,BEFORE,BEGIN,BETWEEN,BFILENAME,BLOCK,BODY,BY,\
+	CACHE,CANCEL,CASCADE,CASE,CEIL,CHANGE,CHAR,CHARACTER,CHARTOROWID,CHECK,CHECKPOINT,CHR,CLOSE,CLUSTER,COBOL,COLUMN,COMMENT,COMMIT,COMPILE,COMPRESS,CONCAT,CONNECT,CONSTRAINT,CONSTRAINTS,CONTENTS,CONTINUE,CONTROLFILE,CONVERT,COS,COSH,COUNT,CREATE,CURRENT,CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,CURSOR,CYCLE,\
+	DATABASE,DATAFILE,DATE,DBA,DEC,DECIMAL,DECLARE,DECODE,DEFAULT,DELETE,DENSE_RANK,DEREF,DESC,DISABLE,DISMOUNT,DISTINCT,DOUBLE,DROP,DUMP,\
+	EACH,ELSE,EMPTY_BLOB,EMPTY_CLOB,ENABLE,END,ESCAPE,EVENTS,EXCEPT,EXCEPTIONS,EXCLUSIVE,EXEC,EXECUTE,EXISTS,EXP,EXPLAIN,EXTENT,EXTERNALLY,EXTRACT,\
+	FETCH,FILE,FLOAT,FLOOR,FLUSH,FOR,FORCE,FOREIGN,FORTRAN,FOUND,FREELIST,FREELISTS,FROM,FUNCTION,\
+	GO,GOTO,GRANT,GREATEST,GROUP,GROUPING,GROUPS,\
+	HAVING,HEXTORAW,\
+	IDENTIFIED,IMMEDIATE,IN,INCLUDING,INCREMENT,INDEX,INDICATOR,INITCAP,INITIAL,INITRANS,INSERT,INSTANCE,INSTR,INSTRB,INT,INTEGER,INTERSECT,INTO,IS,\
+	KEY,\
+	LANGUAGE,LAST_DAY,LAYER,LEAST,LENGTH,LENGTHB,LEVEL,LIKE,LINK,LISTS,LN,LOCK,LOG,LOGFILE,LONG,LOWER,LPAD,LTRIM,\
+	MAKE_REF,MANAGE,MANUAL,MAX,MAXDATAFILES,MAXEXTENTS,MAXINSTANCES,MAXLOGFILES,MAXLOGHISTORY,MAXLOGMEMBERS,MAXTRANS,MAXVALUE,MIN,MINEXTENTS,MINUS,MINVALUE,MOD,MODE,MODIFY,MODULE,MONTHS_BETWEEN,MOUNT,\
+	NEW,NEW_TIME,NEXT,NEXT_DAY,NLSSORT,NLS_CHARSET_DECL_LEN,NLS_CHARSET_ID,NLS_CHARSET_NAME,NLS_INITCAP,NLS_LOWER,NLS_UPPER,NOARCHIVELOG,NOAUDIT,NOCACHE,NOCOMPRESS,NOCYCLE,NOMAXVALUE,NOMINVALUE,NONE,NOORDER,NORESETLOGS,NORMAL,NOSORT,NOT,NOTFOUND,NOWAIT,NULL,NUMBER,NUMERIC,NVL,\
+	OF,OFF,OFFLINE,OLD,ON,ONLINE,ONLY,OPEN,OPTIMAL,OPTION,OR,ORDER,OVER,OWN,\
+	PACKAGE,PARALLEL,PARTITION,PCTFREE,PCTINCREASE,PCTUSED,PERCENT_RANK,PLAN,PLI,POWER,PRECISION,PRIMARY,PRIOR,PRIVATE,PRIVILEGES,PROCEDURE,PROFILE,PUBLIC,\
+	QUOTA,\
+	RANK,RAW,RAWTOHEX,READ,REAL,RECOVER,REF,REFERENCES,REFERENCING,REFTOHEX,RENAME,REPLACE,RESETLOGS,RESOURCE,RESTRICTED,REUSE,REVOKE,ROLE,ROLES,ROLLBACK,ROUND,ROW,ROWID,ROWIDTOCHAR,ROWLABEL,ROWNUM,ROWS,ROW_NUMBER,RPAD,RTRIM,\
+	SAVEPOINT,SCHEMA,SCN,SECTION,SEGMENT,SELECT,SEQUENCE,SESSION,SET,SHARE,SHARED,SIGN,SIN,SINH,SIZE,SMALLINT,SNAPSHOT,SOME,SORT,SOUNDEX,SQL,SQLBUF,SQLCODE,SQLERROR,SQLSTATE,SQRT,START,STATEMENT_ID,STATISTICS,STDDEV,STOP,STORAGE,SUBSTR,SUBSTRB,SUCCESSFUL,SUM,SWITCH,SYNONYM,SYSDATE,SYSTEM,SYS_CONTEXT,SYS_GUID,\
+	TABLE,TABLES,TABLESPACE,TAN,TANH,TEMPORARY,THEN,THREAD,TIME,TO,TO_BLOB,TO_CHAR,TO_CLOB,TO_DATE,TO_LOB,TO_MULTI_BYTE,TO_NCHAR,TO_NCLOB,TO_NUMBER,TO_SINGLE_BYTE,TO_TIME,TO_TIMESTAMP,TO_TIMESTAMP_TZ,TO_TIME_TZ,TO_YMINTERVAL,TRACING,TRANSACTION,TRANSLATE,TRIGGER,TRIGGERS,TRIM,TRUNC,TRUNCATE,\
+	UID,UNDER,UNION,UNIQUE,UNLIMITED,UNTIL,UPDATE,UPPER,USE,USER,USERENV,USING,\
+	VALIDATE,VALUE,VALUES,VARCHAR,VARCHAR2,VARIANCE,VIEW,VSIZE,\
+	WHEN,WHENEVER,WHERE,WITH,WORK,WRITE
+
+
+#================ KPI GENERATION CONFIGURATION ======================================
+com.nokia.oss.qengine.genkpis.unitList=\
+	%*100,(10sec)^2,0001CQI,001%,001*dBm,-001*dBm,01%,01*PRB,01UE,1/100s,1/10s,1/GByte,1000bytes,1000Octets,1000Packets,100bytes,100bytes^2/10ms,100microsec,100ms,100Packets,10bytes,10ms,10packets,10sec,\
+	Att/s,bit/s,blocks,boolean,byte,cell,cellps,celsiusdegree,ChannelElement,datagram,date,db,dbm,dd,ddmmyyyy,decimal,drops/Erl,Ec/Noclass,eHr,eMin,erl/drop,erlangs,errors/5seconds,Events/s,FPframes,\
+	gb,hhmmss,hours,integer,kb,kbit,kbit/s^2,kbps,kbps/tsl,kbyte/connection,kbyte^2,km,km/h,kpps,max,mb,mbit,Mbit/droppedRAB,mbps,mErlangs,Messages,meter,min,min/drop,min/gb,minutes,mm,ms,ms^2,msg/s,mW,\
+	nodes,ns,num/Erl,num/gb,num/h,num/mb,num/min,num/s,num/tb,numsubh,packet,percent,ppb,pps,rate,ratio,RSSI_LEV,RXLEV,s/KB,seconds,String,sub-tsls,subunit,TA,tb,time,tsl,unit,us,Users,UTRAN_CODE_POWER,value*10,w,watt^2,yy
+
+com.nokia.oss.qengine.kpieditor.unitList=bit/s,byte,cell,cellps,celsiusdegree,ChannelElement,db,dbm,ddmmyyyy,decimal,drops/Erl,eHr,eMin,eMin,erl/drop,erlangs,Events/s,gb,hhmmss,hours,integer,kb,kbit,kbps,kbps/tsl,kbyte/connection,km,km/h,kpps,mb,mbit,Mbit/droppedRAB,mbps,mErlangs,Messages,meter,min,min/drop,min/gb,minutes,ms,mW,ns,num/Erl,num/gb,num/h,num/mb,num/min,num/s,num/tb,numsubh,packet,percent,ppb,pps,rate,ratio,RSSI_LEV,RXLEV,s/KB,seconds,sub-tsls,subunit,tb,tsl,us,Users,w
+
+#List of report manager units mapped to eosflx unit
+com.nokia.oss.qengine.genkpis.integerUnit.unitList=number,Integernumber,nb.,no.,No.,no,[#],#
+com.nokia.oss.qengine.genkpis.percentUnit.unitList=%,[%]
+com.nokia.oss.qengine.genkpis.decimalUnit.unitList=decimal,Decimalnumber,None,[decimal]
+com.nokia.oss.qengine.genkpis.erlangsUnit.unitList=erlangs,erlang,E,Erl,[E],[Erlang],[Erl],Erlang,[erlangs],Erlangs
+com.nokia.oss.qengine.genkpis.eHrUnit.unitList=Ehr,TSL(orerlang),TSL(hrerlang),TSL(or erlang),[Ehr]
+com.nokia.oss.qengine.genkpis.eMinUnit.unitList=Emin
+com.nokia.oss.qengine.genkpis.minutesUnit.unitList=minutes
+com.nokia.oss.qengine.genkpis.kbpsUnit.unitList=kbps,kbit/s,[kbit/s],[Kbit/s],[kbit/sec],[kbps],Kbps
+com.nokia.oss.qengine.genkpis.mbpsUnit.unitList=mbps,mbit/s,Mbps,[Mbps],[Mbit/s],[Mbits/s]
+com.nokia.oss.qengine.genkpis.kbitUnit.unitList=kbit,kilobit,Kilobit
+com.nokia.oss.qengine.genkpis.mbitUnit.unitList=mbit,[mbit],[Mbit],Mbit
+com.nokia.oss.qengine.genkpis.dbmUnit.unitList=dBm,[dBm]
+com.nokia.oss.qengine.genkpis.dbUnit.unitList=dB,[dB],db
+com.nokia.oss.qengine.genkpis.wUnit.unitList=W,[W],watt,Watt
+com.nokia.oss.qengine.genkpis.secondsUnit.unitList=seconds,s,sec,[Seconds],[s],[s].,[sec],sec.,Sec,Seconds
+com.nokia.oss.qengine.genkpis.minUnit.unitList=min,m,[Minutes],[min]
+com.nokia.oss.qengine.genkpis.hoursUnit.unitList=h,[h],hour,[hrs],hrs
+com.nokia.oss.qengine.genkpis.kbUnit.unitList=kB,kbyte,kbytes,[kB],Kbytes,Kilobyte,[Kilobyte],kilobytes,Kilobytes
+com.nokia.oss.qengine.genkpis.mbUnit.unitList=MB,Mbyte,MBytes,[MB]
+com.nokia.oss.qengine.genkpis.gbUnit.unitList=GB
+com.nokia.oss.qengine.genkpis.tbUnit.unitList=TB
+com.nokia.oss.qengine.genkpis.cellpsUnit.unitList=cell/s,cell,[cell/s]
+com.nokia.oss.qengine.genkpis.msUnit.unitList=ms,msec,[ms],[Milliseconds]
+com.nokia.oss.qengine.genkpis.tslUnit.unitList=[TSL],TSL
+com.nokia.oss.qengine.genkpis.byteUnit.unitList=byte,B,[B],bytes,[byte],Byte,Bytes
+com.nokia.oss.qengine.genkpis.kbps/tslUnit.unitList=kbps/TSL
+com.nokia.oss.qengine.genkpis.kmUnit.unitList=km
+com.nokia.oss.qengine.genkpis.min/gbUnit.unitList=min/GB
+com.nokia.oss.qengine.genkpis.num/mbUnit.unitList=#/MB
+com.nokia.oss.qengine.genkpis.num/gbUnit.unitList=#/GB
+com.nokia.oss.qengine.genkpis.num/tbUnit.unitList=#/TB
+com.nokia.oss.qengine.genkpis.num/minUnit.unitList=#/min
+com.nokia.oss.qengine.genkpis.num/ErlUnit.unitList=#/Erl
+com.nokia.oss.qengine.genkpis.sub-tslsUnit.unitList=sub-TSLs,sub TSL
+com.nokia.oss.qengine.genkpis.drops/ErlUnit.unitList=drops/Erl, drops/erl
+com.nokia.oss.qengine.genkpis.rateUnit.unitList=rate
+com.nokia.oss.qengine.genkpis.ratioUnit.unitList=ratio,[ratio]
+com.nokia.oss.qengine.genkpis.erl/dropUnit.unitList=erl/drop,Erl/drop
+com.nokia.oss.qengine.genkpis.kppsUnit.unitList=kpps
+com.nokia.oss.qengine.genkpis.min/dropUnit.unitList=min/drop,[Min/drop],[Minutes/Drop]
+com.nokia.oss.qengine.genkpis.num/hUnit.unitList=#/h
+com.nokia.oss.qengine.genkpis.num/sUnit.unitList=#/s,[#/s]
+com.nokia.oss.qengine.genkpis.mwUnit.unitList=mW
+com.nokia.oss.qengine.genkpis.taUnit.unitList=TA
+com.nokia.oss.qengine.genkpis.s/KBUnit.unitList=s/KB,sec/KB
+com.nokia.oss.qengine.genkpis.ppbUnit.unitList=ppb
+com.nokia.oss.qengine.genkpis.numsubhUnit.unitList=#/sub/h
+
+#List of properties to patch for all kpis
+com.nokia.oss.qengine.genkpis.integerUnit=#
+com.nokia.oss.qengine.genkpis.percentUnit=%
+com.nokia.oss.qengine.genkpis.decimalUnit=decimal
+com.nokia.oss.qengine.genkpis.erlangsUnit=Erlangs
+com.nokia.oss.qengine.genkpis.eMinUnit=Emin
+com.nokia.oss.qengine.genkpis.eHrUnit=Ehr
+com.nokia.oss.qengine.genkpis.minutesUnit=minutes
+com.nokia.oss.qengine.genkpis.kbpsUnit=kbit/s
+com.nokia.oss.qengine.genkpis.mbpsUnit=mbit/s
+com.nokia.oss.qengine.genkpis.kbitUnit=kbit
+com.nokia.oss.qengine.genkpis.mbitUnit=Mbit
+com.nokia.oss.qengine.genkpis.dbmUnit=dBm
+com.nokia.oss.qengine.genkpis.dbUnit=dB
+com.nokia.oss.qengine.genkpis.wUnit=W
+com.nokia.oss.qengine.genkpis.secondsUnit=Seconds
+com.nokia.oss.qengine.genkpis.minUnit=min
+com.nokia.oss.qengine.genkpis.hoursUnit=hrs
+com.nokia.oss.qengine.genkpis.kbUnit=kB
+com.nokia.oss.qengine.genkpis.mbUnit=MB
+com.nokia.oss.qengine.genkpis.gbUnit=GB
+com.nokia.oss.qengine.genkpis.tbUnit=TB
+com.nokia.oss.qengine.genkpis.cellpsUnit=cell/s
+com.nokia.oss.qengine.genkpis.msUnit=ms
+com.nokia.oss.qengine.genkpis.tslUnit=TSL
+com.nokia.oss.qengine.genkpis.byteUnit=byte
+com.nokia.oss.qengine.genkpis.kbps/tslUnit=kbps/TSL
+com.nokia.oss.qengine.genkpis.kmUnit=km
+com.nokia.oss.qengine.genkpis.min/gbUnit=min/GB
+com.nokia.oss.qengine.genkpis.num/sUnit=#/s
+com.nokia.oss.qengine.genkpis.num/mbUnit=#/MB
+com.nokia.oss.qengine.genkpis.num/gbUnit=#/GB
+com.nokia.oss.qengine.genkpis.num/tbUnit=#/TB
+com.nokia.oss.qengine.genkpis.num/minUnit=#/min
+com.nokia.oss.qengine.genkpis.sub-tslsUnit=sub-TSLs
+com.nokia.oss.qengine.genkpis.drops/ErlUnit=drops/Erl
+com.nokia.oss.qengine.genkpis.rateUnit=rate
+com.nokia.oss.qengine.genkpis.ratioUnit=ratio
+com.nokia.oss.qengine.genkpis.erl/dropUnit=Erl/drop
+com.nokia.oss.qengine.genkpis.kppsUnit=kpps
+com.nokia.oss.qengine.genkpis.s/KBUnit=s/KB
+com.nokia.oss.qengine.genkpis.ppbUnit=ppb
+com.nokia.oss.qengine.genkpis.numsubhUnit=#/subscriber/hour
+
+####################################################
+com.nokia.oss.qengine.genkpis.bit/sUnit.unitList=[bps],bps,bit/s,bit/sec,bits/sec
+com.nokia.oss.qengine.genkpis.packetUnit.unitList=packet,[packet],Packet,packets,[packets],Packets,[Packets]
+com.nokia.oss.qengine.genkpis.nsUnit.unitList=nanoseconds,[nanoseconds],ns
+com.nokia.oss.qengine.genkpis.usUnit.unitList=[microseconds],[Microseconds],microsec,Microsec,microseconds,Microseconds,[us],us
+com.nokia.oss.qengine.genkpis.#/sUnit.unitList=#/s,[#/s]
+com.nokia.oss.qengine.genkpis.km/hUnit.unitList=km/h
+com.nokia.oss.qengine.genkpis.mErlangsUnit.unitList=[mErlangs],[mE],milliErlangs,mE
+com.nokia.oss.qengine.genkpis.#/hUnit.unitList=#/h,[#/h]
+com.nokia.oss.qengine.genkpis.Mbit/droppedRABUnit.unitList=[Mbit/dropped RAB],[Mbit/ Dropped RAB],[Mbit/Dropped RAB]
+com.nokia.oss.qengine.genkpis.mWUnit.unitList=mW
+com.nokia.oss.qengine.genkpis.ppsUnit.unitList=pps,[pps],pkt/s,[pkt/s],pkts/s
+com.nokia.oss.qengine.genkpis.Events/sUnit.unitList=Events/s,[Events/s]
+com.nokia.oss.qengine.genkpis.#/ErlUnit.unitList=#/Erl
+com.nokia.oss.qengine.genkpis.meterUnit.unitList=m,meter
+com.nokia.oss.qengine.genkpis.celsiusdegreeUnit.unitList=celsius degree
+com.nokia.oss.qengine.genkpis.UsersUnit.unitList=Users,[Users]
+com.nokia.oss.qengine.genkpis.ChannelElementUnit.unitList=Channel Element, [ChannelElement]
+com.nokia.oss.qengine.genkpis.hhmmssUnit.unitList=[hhmmss], hhmmss
+com.nokia.oss.qengine.genkpis.MessagesUnit.unitList=Messages
+com.nokia.oss.qengine.genkpis.kbyte/connectionUnit.unitList=[kbyte/connection], kbyte/connection
+com.nokia.oss.qengine.genkpis.subunitUnit.unitList=subunit
+com.nokia.oss.qengine.genkpis.RXLEVUnit.unitList=[RXLEV],RXLEV
+com.nokia.oss.qengine.genkpis.ddmmyyyyUnit.unitList=[ddmmyyyy],ddmmyyyy
+com.nokia.oss.qengine.genkpis.RSSI_LEVUnit.unitList=RSSI_LEV
+com.nokia.oss.qengine.genkpis.10msUnit.unitList=10 ms,10ms
+com.nokia.oss.qengine.genkpis.cellUnit.unitList=cell,[cell]
+##
+
+com.nokia.oss.qengine.genkpis.0001CQIUnit.unitList=0.001 CQI,0.001CQI,[0.001CQI]
+com.nokia.oss.qengine.genkpis.001%Unit.unitList=0.01%,0.01*%
+com.nokia.oss.qengine.genkpis.-001*dBmUnit.unitList=-0.01*dBm
+com.nokia.oss.qengine.genkpis.001*dBmUnit.unitList=0.01*dBm
+com.nokia.oss.qengine.genkpis.01%Unit.unitList=0.1%
+com.nokia.oss.qengine.genkpis.01*PRBUnit.unitList=0.1*PRB
+com.nokia.oss.qengine.genkpis.01UEUnit.unitList=0.1UE
+com.nokia.oss.qengine.genkpis.%*100Unit.unitList=%*100,%*100.
+com.nokia.oss.qengine.genkpis.1000bytesUnit.unitList=1000 bytes,1000bytes
+com.nokia.oss.qengine.genkpis.1000OctetsUnit.unitList=1000 Octets,1000Octets
+com.nokia.oss.qengine.genkpis.1000PacketsUnit.unitList=1000 Packets,1000Packets
+com.nokia.oss.qengine.genkpis.100bytesUnit.unitList=100 bytes,100bytes
+com.nokia.oss.qengine.genkpis.100bytes^2/10msUnit.unitList=100 bytes^2 / 10 ms,100bytes^2/10ms
+com.nokia.oss.qengine.genkpis.100microsecUnit.unitList=100 microsec,100microsec
+com.nokia.oss.qengine.genkpis.100msUnit.unitList=100 ms,100ms
+com.nokia.oss.qengine.genkpis.100PacketsUnit.unitList=100 Packets,100Packets
+com.nokia.oss.qengine.genkpis.10bytesUnit.unitList=10 bytes,10bytes
+com.nokia.oss.qengine.genkpis.10packetsUnit.unitList=10 packets,10packets
+com.nokia.oss.qengine.genkpis.10secUnit.unitList=10 sec,10sec
+com.nokia.oss.qengine.genkpis.(10sec)^2Unit.unitList=(10 sec)^2,(10sec)^2
+com.nokia.oss.qengine.genkpis.1/100sUnit.unitList=[1/100s],1/100 sec,10 msec,1/100s
+com.nokia.oss.qengine.genkpis.1/10sUnit.unitList=[1/10s],1/10s,sec/10
+com.nokia.oss.qengine.genkpis.1/GByteUnit.unitList=[1/GByte],1/Gbyte
+com.nokia.oss.qengine.genkpis.Att/sUnit.unitList=[Att/s],Att/s
+com.nokia.oss.qengine.genkpis.blocksUnit.unitList=blocks,Blocks
+com.nokia.oss.qengine.genkpis.booleanUnit.unitList=boolean
+com.nokia.oss.qengine.genkpis.datagramUnit.unitList=datagram
+com.nokia.oss.qengine.genkpis.dateUnit.unitList=date
+com.nokia.oss.qengine.genkpis.ddUnit.unitList=dd
+com.nokia.oss.qengine.genkpis.Ec/NoclassUnit.unitList=Ec/No class
+com.nokia.oss.qengine.genkpis.errors/5secondsUnit.unitList=errors/ 5 seconds,errors/5seconds
+com.nokia.oss.qengine.genkpis.FPframesUnit.unitList=FP frames
+com.nokia.oss.qengine.genkpis.kbit/s^2Unit.unitList=kbit/s^2
+com.nokia.oss.qengine.genkpis.kbyte^2Unit.unitList=kbyte^2
+com.nokia.oss.qengine.genkpis.maxUnit.unitList=max
+com.nokia.oss.qengine.genkpis.mmUnit.unitList=mm
+com.nokia.oss.qengine.genkpis.ms^2Unit.unitList=ms^2
+com.nokia.oss.qengine.genkpis.msg/sUnit.unitList=[msg/s],msg/s
+com.nokia.oss.qengine.genkpis.nodesUnit.unitList=nodes
+com.nokia.oss.qengine.genkpis.StringUnit.unitList=String
+com.nokia.oss.qengine.genkpis.TAUnit.unitList=TA
+com.nokia.oss.qengine.genkpis.unitUnit.unitList=Unit
+com.nokia.oss.qengine.genkpis.timeUnit.unitList=time,time.,Time,Time
+com.nokia.oss.qengine.genkpis.UTRAN_CODE_POWERUnit.unitList=UTRAN_CODE_POWER
+com.nokia.oss.qengine.genkpis.value*10Unit.unitList=value*10.0,value*10
+com.nokia.oss.qengine.genkpis.watt^2Unit.unitList=watt^2
+com.nokia.oss.qengine.genkpis.yyUnit.unitList=yy
+
+
+
+
+
+
+
+com.nokia.oss.qengine.genkpis.integerKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.percentKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.decimalKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.eMinKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.eHrKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.erlangsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.minutesKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.hoursKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.kbpsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.mbpsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.kbitKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.mbitKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.dbmKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.dbKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.wKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.secondsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.minKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.kbKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.mbKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.gbKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.tbKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.cellpsKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.msKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.tslKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.kbps/tslKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.kmKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.min/gbKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.sub-tslsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.byteKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.num/mbKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.num/gbKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.num/tbKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.num/minKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.unknownKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.drops/ErlKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.rateKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.ratioKpiFormat=float:3
+com.nokia.oss.qengine.genkpis.erl/dropKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.kppsKpiFormat=float:2
+
+#############################################################
+com.nokia.oss.qengine.genkpis.bit/sKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.packetKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.nsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.usKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.num/sKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.km/hKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.mErlangsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.num/hKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.Mbit/droppedRABKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.min/dropKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.mWKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.ppsKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.Events/sKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.num/ErlKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.meterKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.celsiusdegreeKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.UsersKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.ChannelElementKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.hhmmssKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.MessagesKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.kbyte/connectionKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.subunitKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.RXLEVKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.ddmmyyyyKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.RSSI_LEVKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.10msKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.cellKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.ppbKpiFormat=float:0
+###
+
+
+com.nokia.oss.qengine.genkpis.0001CQIKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.001%KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.-001*dBmKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.001*dBmKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.01%KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.01*PRBKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.01UEKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.%*100KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.1000bytesKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.1000OctetsKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.1000PacketsKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.100bytesKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.100bytes^2/10msKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.100microsecKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.100msKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.100PacketsKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.10bytesKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.10packetsKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.10secKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.(10sec)^2KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.1/100sKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.1/10sKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.1/GByteKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.Att/sKpiFormat=float:0
+#com.nokia.oss.qengine.genkpis.blankKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.blocksKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.booleanKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.datagramKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.dateKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.ddKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.Ec/NoclassKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.errors/5secondsKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.FPframesKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.kbit/s^2KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.kbyte^2KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.maxKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.mmKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.ms^2KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.msg/sKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.nodesKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.StringKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.TAKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.timeKpiFormat=float:0
+#com.nokia.oss.qengine.genkpis.TODOKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.UTRAN_CODE_POWERKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.value*10KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.watt^2KpiFormat=float:0
+com.nokia.oss.qengine.genkpis.yyKpiFormat=float:0
+com.nokia.oss.qengine.genkpis.s/KBKpiFormat=float:2
+com.nokia.oss.qengine.genkpis.numsubhKpiFormat=float:2
+
+
+
+
+#
+# Define the counter list (comma separted list) that required temp tables filtering based on the following criteria:
+# 1. The temp tables that are referred to by only one counter on the list will be filtered out unless
+#    it is the only counter in the kpi formula.
+#
+com.nokia.oss.qengine.genkpis.filterCommonTempTables.counterList=period_duration
+
+#
+# Apply to all adaptations unless superseded by the individual properties
+#
+#Define the value of x in the the decode(B, 0, x, A/B)
+com.nokia.oss.qengine.genkpis.decodeZero.value=0
+
+#If true remove the function names (such as sum, avg, etc.) from the kpi formula
+com.nokia.oss.qengine.genkpis.removeFunctionName=true
+
+#A comma separted list of function names (case insensitive) exempted from being removed by the property: ...reportGenerator.removeFunctionName
+com.nokia.oss.qengine.genkpis.keepFunctionNameList=decode,nvl,round,case,when,then,else,greatest
+
+#A comma separated list of trigger words that if found in the kpi formula would be replaced by the corresponding word in the
+#triggerReplacementList.
+#com.nokia.oss.qengine.genkpis.kpiFormulaTriggerList = +,-,/
+#com.nokia.oss.qengine.genkpis.kpiFormulaTriggerReplacementList = \n+,\n-,\n/\n
+
+
+#Specify the inclusion of nvl to the kpi formula's counter components when the 
+#property "com.nokia.oss.qengine.genkpis.kpiFormulaNvlTemplate" is defined. No default is defined.
+#nvl is added to the following operands (A, B, C, D, etc.) and arithmetic operators (+ and -) combinations:
+# A+B-C+D/E+F*G => NVL(A,0) + NVL(B,0) - NVL(C,0) + NVL(D/E,0) + NVL(F*G,0)
+
+#Flag to turn on the option of adding NVL() to the kpi formula.
+#When set to true, this requires the property "kpiFormulaNvlTemplate" to be defined as well.
+com.nokia.oss.qengine.genkpis.kpiFormulaAddNvl=false
+
+#Define the NVL template to use in adding NVL() to the counters. 
+#For example, NVL(${COUNTER},0) gives NVL(M888298.SEIZURE_TIMES,0) and
+#(NVL(${COUNTER},0)) gives (NVL(M888298.SEIZURE_TIMES,0))
+com.nokia.oss.qengine.genkpis.kpiFormulaNvlTemplate=NVL(${COUNTER},0)
+
+#
+# bss configuration
+#
+#Define the value of x in the the decode(B, 0, x, A/B)
+#com.nokia.oss.qengine.genkpis.bss.decodeZero.value=null
+
+#
+# rsbss configuration
+#
+#Define the value of x in the the decode(B, 0, x, A/B)
+#com.nokia.oss.qengine.genkpis.rsbss.decodeZero.value=null
+
+#
+# rsran configuration
+#
+#Define the value of x in the the decode(B, 0, x, A/B)
+com.nokia.oss.qengine.genkpis.rsran.decodeZero.value=null
+
+#
+# awss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.awss.counterIdMappingToRawNameList=awss/conf/awss_counter_rawnames.xml
+
+#
+# cvms configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.cvms.counterIdMappingToRawNameList=cvms/conf/cvms_counter_rawnames.xml
+
+#
+# ebss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.ebss.counterIdMappingToRawNameList=ebss/conf/ebss_counter_rawnames.xml
+
+#
+# eggsn configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.eggsn.counterIdMappingToRawNameList=eggsn/conf/eggsn_counter_rawnames.xml
+
+#
+# emgw configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.emgw.counterIdMappingToRawNameList=emgw/conf/emgw_counter_rawnames.xml
+
+#
+# enss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.enss.counterIdMappingToRawNameList=enss/conf/enss_counter_rawnames.xml
+
+#
+# eran configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.eran.counterIdMappingToRawNameList=eran/conf/eran_counter_rawnames.xml
+
+#
+# esg2g configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.esg2g.counterIdMappingToRawNameList=esg2g/conf/esg2g_counter_rawnames.xml
+
+#
+# ibss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.ibss.counterIdMappingToRawNameList=ibss/conf/ibss_counter_rawnames.xml
+
+#
+# nbss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.nbss.counterIdMappingToRawNameList=nbss/conf/nbss_counter_rawnames.xml
+
+#
+# nnss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.nnss.counterIdMappingToRawNameList=nnss/conf/nnss_counter_rawnames.xml
+
+#
+# tstp configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.tstp.counterIdMappingToRawNameList=tstp/conf/tstp_counter_rawnames.xml
+
+#
+# hran configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.hran.counterIdMappingToRawNameList=hran/conf/hran_counter_rawnames.xml
+
+#
+# hnss configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.hnss.counterIdMappingToRawNameList=hnss/conf/hnss_counter_rawnames.xml
+
+#
+# hmgw configuration
+#
+#Counter id and raw name mapping file
+com.nokia.oss.qengine.genkpis.hmgw.counterIdMappingToRawNameList=hmgw/conf/hmgw_counter_rawnames.xml
+
+#================ KPI GENERATION CONFIGURATION END ==================================
+
+## Enable Ldap Access (DEV=false, LINAS=True)
+com.nokia.oss.qengine.ldap=false
+linas.com.nokia.oss.qengine.ldap=true
+laptop.com.nokia.oss.qengine.ldap=false
+
+com.nokia.oss.qengine.kpiCreationToolActivated=true
+
+com.nokia.oss.qengine.showReportDropDown=true
+com.nokia.oss.qengine.preview.nbrOfRows=20
+com.nokia.oss.qengine.newLookAndFeel=false
+com.nokia.oss.qengine.newLookAndFeelRepCreationCssFile=repCreationUI/css/reportCreation.css
+com.nokia.oss.qengine.newLookAndFeelMainCssFile=repsuite/bss/UI/CSS/newLookAndFeel.css
+com.nokia.oss.qengine.newLookAndFeelImagePath=/repCreationUI/images/
+com.nokia.oss.qengine.cssFile=repsuite/bss/UI/CSS/guiFormat.css
+#com.nokia.oss.qengine.disableCachingForAllTimeAggLevelsBetweenCertainTime=
+
+#================= Enable or disable Data Reliability ================================
+com.nokia.oss.qengine.datrel.enable=true
+
+#================= DATA RELIABILITY THRESHOLDS & PROPERTIES =======================================
+com.nokia.oss.qengine.datarel.highColor=#BCE954
+com.nokia.oss.qengine.datarel.mediumColor=#FFF380
+com.nokia.oss.qengine.datarel.lowColor=#F7C3C3
+
+com.nokia.oss.qengine.datarel.mediumUpperBound=100
+com.nokia.oss.qengine.datarel.mediumLowerBound=80
+#Specify the list of report levels that need to be added when creating the object hierarchy for a given
+#base-level meas template. This is because the full set of report levels are often not included in the meas template. Without this list,
+#the hierarchy joins for the ps table would lead to empty result for the tobo table.
+#The extra report levels defined here in the property are added only if they form parts of the overall report levels.
+#com.nokia.oss.qengine.datarel.meas-template.base-level.levels.suppList=PLMN/E3GN,PLMN/E3GN/E3SN,PLMN/ADAP,PLMN/ANET,PLMN/H3GN,PLMN/H2GN,PLMN/RCMR,PLMN/RCMR/SBSS,PLMN/TNGM,PLMN/NWN,PLMN/IANW,PLMN/TNW,PLMN/H2GN,PLMN/RCMR,PLMN/RCMR/SBSS,PLMN/TNGM,PLMN/NWN,PLMN/IANW,PLMN/TNW
+#Since the report levels are omitted, the level templates are often not defined and hence the co_oc_id and rank have to be defined here.
+#com.nokia.oss.qengine.datarel.level.E3GN.co_oc_id=1417
+#com.nokia.oss.qengine.datarel.level.E3GN.rank=25
+#com.nokia.oss.qengine.datarel.level.E3SN.co_oc_id=1413
+#com.nokia.oss.qengine.datarel.level.E3SN.rank=27
+#com.nokia.oss.qengine.datarel.level.ADAP.co_oc_id=730
+#com.nokia.oss.qengine.datarel.level.ADAP.rank=25
+#com.nokia.oss.qengine.datarel.level.ANET.co_oc_id=2235
+#com.nokia.oss.qengine.datarel.level.ANET.rank=25
+#com.nokia.oss.qengine.datarel.level.H3GN.co_oc_id=2780
+#com.nokia.oss.qengine.datarel.level.H3GN.rank=25
+#com.nokia.oss.qengine.datarel.level.H2GN.co_oc_id=2966
+#com.nokia.oss.qengine.datarel.level.H2GN.rank=25
+#com.nokia.oss.qengine.datarel.level.RCMR.co_oc_id=3725
+#com.nokia.oss.qengine.datarel.level.RCMR.rank=25
+#com.nokia.oss.qengine.datarel.level.SBSS.co_oc_id=1073
+#com.nokia.oss.qengine.datarel.level.SBSS.rank=27
+#com.nokia.oss.qengine.datarel.level.TNGM.co_oc_id=425
+#com.nokia.oss.qengine.datarel.level.TNGM.rank=25
+#com.nokia.oss.qengine.datarel.level.NWN.co_oc_id=406
+#com.nokia.oss.qengine.datarel.level.NWN.rank=25
+#com.nokia.oss.qengine.datarel.level.IANW.co_oc_id=1891
+#com.nokia.oss.qengine.datarel.level.IANW.rank=25
+#com.nokia.oss.qengine.datarel.level.TNW.co_oc_id=1810
+#com.nokia.oss.qengine.datarel.level.TNW.rank=25
+
+#========================= Authentication  =========================================
+tpim.currentRegion=DefaultRegion
+com.nokia.oss.qengine.defaultRegion=DefaultRegion
+com.nokia.oss.qengine.defaultDisplay=enableAdminTab
+com.nokia.oss.qengine.defaultDisplay.authorizationObject=APP_SC_REPORTER
+com.nokia.oss.qengine.defaultDisplay.authorizationOperation=ADMIN
+com.nokia.oss.qengine.launchOperation.authorizationOperation=LAUNCH
+regional.com.nokia.oss.qengine.defaultDisplay.authorizationObject=PM_Reporter_Admin_obj
+regional.com.nokia.oss.qengine.defaultDisplay.authorizationObject_nonAdmin=PM_Reporter
+regional.com.nokia.oss.qengine.defaultDisplay.authorizationOperation=PM_Reporter_Admin_Oper
+
+
+#========================= File Encoding =========================================
+com.nokia.oss.qengine.file.encoding = UTF-8
+com.nokia.oss.qengine.encoding = UTF-8
+
+
+#========================= Date Settings =========================================
+date.firstdayofweek = 1
+
+
+#========================= Portal Application Properties ===========================
+## semi-colon seperated list of folders. Order of precedence is from left to right.
+flexConfigFile=/custom/config.xml;/config.xml
+linas.flexConfigFile=/mnt/sharedrw/content3/custom/conf/config.xml;/mnt/sharedrw/content3/conf/config.xml
+
+# Empty string means it will not be shown - otherwise
+# it will generate a pop-up after the user login
+system.message=
+mod.1=
+mod.2=
+mod.3=
+mod.4=
+mod.5=
+messageConfigFile=/message.properties
+authConfigFile=/authorization.properties
+ 
+disableCache=false
+defaultReportLevelIndex=0
+flexCellLimit=100000
+databaseCellLimit=500000
+databaseRowLimit=250000
+kpiPreviewCellLimit=5000
+savedReportLimitPerUser=200
+
+#This value will be used as prefix for the saved report id/name
+savedReportsPrefix=PM_
+
+tree.owner.pmforum=PM Forum
+tree.owner.detailed=Detailed Reports  
+tree.owner.main=Main Page Links  
+troubleticket.sql=select group_name as "Group Name",tt_id,status_desc,created_date,element_id,full_name,tt_description from tmo_trouble_ticket
+
+clusterAdminEditEnabled=true
+clusterAdminMaxLineCount=2000
+clusterAdminWarningLineCount=200
+
+# e-mail properties
+
+mail.host=
+linas.mail.host=
+mail.port=
+linas.mail.port=
+mail.from=
+linas.mail.from=
+mail.bcc=
+mail.cc=
+
+# E-mail scheduler properties
+mail.admin.notify=
+mail.admin.subject=New report scheduled
+mail.admin.message=Scheduling request for report '[REPORT_NAME]' is submitted. Please approve/deny the request from Portal's "admin" tab.
+
+# Equivalent of "linas.com.nokia.oss.webscript.scheduler.xlsCsvOutputDir" in scheduler.properties
+## This is configured in the config.xml file
+#linas.scheduledReportDirectory=/mnt/sharedrw/content3/scheduler/export
+
+# Default portal configuration path
+kpiPath=/custom/kpifiles;/kpifiles
+linas.kpiPath=/mnt/sharedrw/content3/custom/kpifiles;/mnt/sharedrw/content3/kpifiles;/kpifiles
+
+# Support customization of RSF Portal XML configurations: false= files are merged; true= files will be separated 
+com.nsn.oss.repcps.pmportal.binding.RSFFileParser.disposeAll=false
+com.nsn.oss.repcps.pmportal.binding.DashboardFileParser.disposeAll=false
+##do KPI header replacements with Per instead of / or remove + 
+#com.nokia.oss.qengine.header.doreplacement=false
+
+
+## KPI editor
+# Fix counter directory for content packages
+#It will add the paths content_dir/counters and custom/content_dir/counters automatically when doing validation
+#The user may deactivate by tech, example: com.nokia.oss.qengine.genkpis.updateDir.rsran_RU30=false
+com.nokia.oss.qengine.genkpis.updateDir.default=true
+
+
+##Detailed Reports navigation tree configuration
+#Set the tree to load uiconfs instead of report paths
+com.nokia.oss.qengine.detailedReports.navTree.useUiConf=false
+
+com.nokia.oss.qengine.devMode.detailedReports.defaultReports.text=Local Default Reports
+com.nokia.oss.qengine.devMode.detailedReports.customReports.text=Local Custom Reports
+
+
+
+# PR NA05278111 New algorithm to select the master temporary table to use in the final report query as a union
+# between the all the temporary tables used in the report.
+
+# master setting to enable/disable the funtionality all together.
+com.nokia.oss.qengine.masterisunionall.active=true
+
+# alias used in the temporary table - DEFAULT is ALLTABLES - temporaty table name will be JF_<DEFINED ALIAS>_<RANDOM NUMBER>
+#com.nokia.oss.qengine.masterisunionall.name=
+
+# SQL template used to union all temporary tables
+com.nokia.oss.qengine.masterisunionall.inertemplate=\nselect\n  \#pivots\#\nfrom\n  (\n\#all_tables_union\#\n  ) p\n
+com.nokia.oss.qengine.masterisunionall.finalsqltemplate=\    (\n      select\n        %s\n      from\n        %s\n    )
+
+# SQL fragment to use in combined levels to prevent null entries in pivot keys 
+com.nsn.oss.pm.combined.name.sqlfragment=nvl(#ALIAS#.co_name, nvl(#ALIAS#.co_object_instance,  'NN('||#ALIAS#.co_gid||')'))
+
+## Asynchronous service supoort
+#Task executor pool size. This number meas the maximum number of reports that can be 
+#executed simuntaneously by the application server when using async services
+com.nsn.oss.pm.asynctaskexecutor.poolsize=20
+linas.com.nsn.oss.pm.asynctaskexecutor.poolsize=200
+
+#Properties for OpenAPI
+##Will contain the relation between content packages and koala ids
+com.nokia.oss.qengine.koala.adaptation.name.rsran_RU50=NOKRWW,NOKAXC
+com.nokia.oss.qengine.koala.adaptation.name.rsihspa_FDR40=NOKIWW
+com.nokia.oss.qengine.koala.adaptation.name.nokbsc_RG30EP1S3=NOKBSC
+com.nokia.oss.qengine.koala.adaptation.name.rslte_RL60=NOKLTE
+com.nokia.oss.qengine.koala.adaptation.name.rsfemto_FE30=NOKFTO 
+com.nokia.oss.qengine.koala.adaptation.name.liqapps_LA15=NOKACS, RASWPM,LACRCT,LACCOD,LACRCC
+com.nokia.oss.qengine.koala.adaptation.name.nokbsr_RGR20=NOKBSR
+
+com.nokia.oss.qengine.koala.adaptation.name.nss_M162=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.rsmgw_U60=NOKMWW
+com.nokia.oss.qengine.koala.adaptation.name.pcosgn_SG91=PCOSGN
+com.nokia.oss.qengine.koala.adaptation.name.rssaegw_NG31=PCOFNG
+com.nokia.oss.qengine.koala.adaptation.name.rsmme_NS30=PCOFNS
+com.nokia.oss.qengine.koala.adaptation.name.rspaco_FI50CD7=PCOGGN
+com.nokia.oss.qengine.koala.adaptation.name.rscmd_51=ICDCMD
+com.nokia.oss.qengine.koala.adaptation.name.rsomw_UI50EP2=NOKOMW
+com.nokia.oss.qengine.koala.adaptation.name.rsomw_UI50EP3=NOKOMW
+com.nokia.oss.qengine.koala.adaptation.name.semnpc_63=SEMNPC
+com.nokia.oss.qengine.koala.adaptation.name.nokium_10EP1=NOKIUM
+com.nokia.oss.qengine.koala.adaptation.name.pm_tla_8000=PM_TLA
+com.nokia.oss.qengine.koala.adaptation.name.jmbcom_JUNOS13=JMBCOM
+com.nokia.oss.qengine.koala.adaptation.name.cgnepm_IOS15=CGNEPM
+com.nokia.oss.qengine.koala.adaptation.name.noktas_TV162=NOKTAS,NOKSAU
+com.nokia.oss.qengine.koala.adaptation.name.nssr_MR170=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.nokobw_BA60=NOKOBW
+com.nokia.oss.qengine.koala.adaptation.name.rscsf_92=IMSCSF
+com.nokia.oss.qengine.koala.adaptation.name.rscsf_100=IMSCSF
+com.nokia.oss.qengine.koala.adaptation.name.rscsf_101=IMSCSF
+com.nokia.oss.qengine.koala.adaptation.name.rshss_92=IMSHSS
+com.nokia.oss.qengine.koala.adaptation.name.rshss_100=IMSHSS
+com.nokia.oss.qengine.koala.adaptation.name.rshss_101=IMSHSS
+com.nokia.oss.qengine.koala.adaptation.name.rsdra_100=IMSDRA
+com.nokia.oss.qengine.koala.adaptation.name.rsdra_101=IMSDRA
+com.nokia.oss.qengine.koala.adaptation.name.rsnthlr_50SP2=MADNHR
+com.nokia.oss.qengine.koala.adaptation.name.rsnthlr_60SP2=MADNHR
+com.nokia.oss.qengine.koala.adaptation.name.rsnthlr_70=MADNHR
+com.nokia.oss.qengine.koala.adaptation.name.rsnds_90SP1=NDSADM,NDSRDS,NDSBDS,NDSPGW,NDSPDS
+com.nokia.oss.qengine.koala.adaptation.name.rsnds_90SP2=NDSADM,NDSRDS,NDSBDS,NDSPGW,NDSPDS
+com.nokia.oss.qengine.koala.adaptation.name.madesp_R13A=MADESP
+com.nokia.oss.qengine.koala.adaptation.name.madhsp_R12=MADHSP
+com.nokia.oss.qengine.koala.adaptation.name.madhgp_R10=MADHGP
+com.nokia.oss.qengine.koala.adaptation.name.eran_W11=MADERA 
+com.nokia.oss.qengine.koala.adaptation.name.ebss_G10=MADEBP
+com.nokia.oss.qengine.koala.adaptation.name.ebss_G12=MADEBP
+com.nokia.oss.qengine.koala.adaptation.name.madela_L12B=MADELA
+com.nokia.oss.qengine.koala.adaptation.name.hran_R12=MADHRP
+com.nokia.oss.qengine.koala.adaptation.name.hran_R13=MADHRP
+com.nokia.oss.qengine.koala.adaptation.name.hran_R15=MADHRP
+com.nokia.oss.qengine.koala.adaptation.name.hbss_R8=MADHBP
+com.nokia.oss.qengine.koala.adaptation.name.hbss_R13=MADHBP
+com.nokia.oss.qengine.koala.adaptation.name.hbss_R15=MADHBP
+com.nokia.oss.qengine.koala.adaptation.name.madhlt_LTE5=MADHLT
+com.nokia.oss.qengine.koala.adaptation.name.madhlt_LTE6=MADHLT
+
+
+
+## Relation with adaptation support packages and KOALA ids. TO BE REMOVED when ITK adds this automatically
+com.nokia.oss.qengine.koala.adaptation.name.rsran=NOKRWW,NOKAXC
+com.nokia.oss.qengine.koala.adaptation.name.rsihspa=NOKIWW
+com.nokia.oss.qengine.koala.adaptation.name.nokbsc=NOKBSC
+com.nokia.oss.qengine.koala.adaptation.name.rslte=NOKLTE
+com.nokia.oss.qengine.koala.adaptation.name.rsfemto=NOKFTO
+com.nokia.oss.qengine.koala.adaptation.name.nokbsr=NOKBSR
+
+com.nokia.oss.qengine.koala.adaptation.name.nss=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.rsmgw=NOKMWW
+com.nokia.oss.qengine.koala.adaptation.name.pcosgn=PCOSGN
+com.nokia.oss.qengine.koala.adaptation.name.rssaegw=PCOFNG
+com.nokia.oss.qengine.koala.adaptation.name.rsmme=PCOFNS
+regional.com.nokia.oss.qengine.koala.adaptation.name.rspaco=PCOGGN
+com.nokia.oss.qengine.koala.adaptation.name.rscmd=ICDCMD
+com.nokia.oss.qengine.koala.adaptation.name.rsomw=NOKOMW
+com.nokia.oss.qengine.koala.adaptation.name.noktas=NOKTAS,NOKSAU
+com.nokia.oss.qengine.koala.adaptation.name.nss=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.rscsf=IMSCSF
+com.nokia.oss.qengine.koala.adaptation.name.rshss=IMSHSS
+com.nokia.oss.qengine.koala.adaptation.name.rsdra=IMSDRA
+com.nokia.oss.qengine.koala.adaptation.name.rsnthlr=MADNHR
+com.nokia.oss.qengine.koala.adaptation.name.eran=MADERA 
+com.nokia.oss.qengine.koala.adaptation.name.ebss=MADEBP
+com.nokia.oss.qengine.koala.adaptation.name.hran=MADHRP
+com.nokia.oss.qengine.koala.adaptation.name.hbss=MADHBP
+
+
+# Releases for OSS5 
+com.nokia.oss.qengine.koala.adaptation.name.rsfemto_FE30=NOKFTO
+com.nokia.oss.qengine.koala.adaptation.name.rsfemto_FE30EP2=NOKFTO
+linas.com.nokia.oss.qengine.koala.adaptation.name.nokacs=NOKACS
+linas.com.nokia.oss.qengine.koala.adaptation.name.nokacs_RS10=NOKACS
+com.nokia.oss.qengine.koala.adaptation.name.bss=REPBSS
+com.nokia.oss.qengine.koala.adaptation.name.bss_RG30EP1S3=REPBSS
+com.nokia.oss.qengine.koala.adaptation.name.bss_RG30EP1S2=REPBSS
+com.nokia.oss.qengine.koala.adaptation.name.bss_RG30EP1S1=REPBSS
+com.nokia.oss.qengine.koala.adaptation.name.bss_RG30=REPBSS
+com.nokia.oss.qengine.koala.adaptation.name.rslte_RL60=NOKLTE
+com.nokia.oss.qengine.koala.adaptation.name.rslte_RL50=NOKLTE
+com.nokia.oss.qengine.koala.adaptation.name.rslte_RL40=NOKLTE
+com.nokia.oss.qengine.koala.adaptation.name.rsran_RU30=NOKRWW
+com.nokia.oss.qengine.koala.adaptation.name.rsran_RU40=NOKRWW
+com.nokia.oss.qengine.koala.adaptation.name.rsihspa_IH40=NOKIWW
+com.nokia.oss.qengine.koala.adaptation.name.rsihspa_FDRU40=NOKIWW
+com.nokia.oss.qengine.koala.adaptation.name.rsran_RU40=NOKRWW,NOKAXC
+com.nokia.oss.qengine.koala.adaptation.name.rsgsmr=REPBSR
+com.nokia.oss.qengine.koala.adaptation.name.rsgsmr_SR20=REPBSR
+
+com.nokia.oss.qengine.koala.adaptation.name.nss_M151=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.nss_M15=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.nss_M161=XMLNSS
+com.nokia.oss.qengine.koala.adaptation.name.rsmgw_U50EP1=NOKMWW
+com.nokia.oss.qengine.koala.adaptation.name.rsmgw_U50EP2=NOKMWW
+com.nokia.oss.qengine.koala.adaptation.name.rsomw_UI50=NOKOMW
+com.nokia.oss.qengine.koala.adaptation.name.rsomw_UI50EP1=NOKOMW
+com.nokia.oss.qengine.koala.adaptation.name.rssg2g=REPSGS
+com.nokia.oss.qengine.koala.adaptation.name.rssg2g_SG8CD2=REPSGS
+com.nokia.oss.qengine.koala.adaptation.name.rssg2g_SG8=REPSGS
+com.nokia.oss.qengine.koala.adaptation.name.rssg2g_SG8CD3=REPSGS
+com.nokia.oss.qengine.koala.adaptation.name.rssg2g_SG91=REPSGS
+com.nokia.oss.qengine.koala.adaptation.name.rssaegw_NG20=PCOFNG
+com.nokia.oss.qengine.koala.adaptation.name.rssaegw_NG10CD8=PCOFNG
+com.nokia.oss.qengine.koala.adaptation.name.rssaegw_NG21=PCOFNG
+com.nokia.oss.qengine.koala.adaptation.name.rssaegw_NG30PP1=PCOFNG
+com.nokia.oss.qengine.koala.adaptation.name.rsmme_NS21FULL=PCOFNS
+com.nokia.oss.qengine.koala.adaptation.name.rsmme_NS21=PCOFNS
+com.nokia.oss.qengine.koala.adaptation.name.rsmme_NS20=PCOFNS
+linas.com.nokia.oss.qengine.koala.adaptation.name.rspaco_FI50CD2=PCOGGN,PCOCGW,PCODHC,PCOFWP,PCOGNS,PCOBGP,ICDCMD,MADN3P
+linas.com.nokia.oss.qengine.koala.adaptation.name.rspaco=PCOGGN,PCOCGW,PCODHC,PCOFWP,PCOGNS,PCOBGP,ICDCMD,MADN3P
+com.nokia.oss.qengine.koala.adaptation.name.rscmd_40=ICDCMD,MADN3P
+com.nokia.oss.qengine.koala.adaptation.name.rspcs_62=NOKPCS
+com.nokia.oss.qengine.koala.adaptation.name.rspcs_63=NOKPCS
+com.nokia.oss.qengine.koala.adaptation.name.rspcs=NOKPCS
+
+regional.com.nokia.oss.qengine.koala.adaptation.name.rsjmbh_JUNOS1011=JMBHPM
+regional.com.nokia.oss.qengine.koala.adaptation.name.rscmbh_IOS1215=PMCMBH
+regional.com.nokia.oss.qengine.koala.adaptation.name.rsjmbh=JMBHPM
+regional.com.nokia.oss.qengine.koala.adaptation.name.rscmbh=PMCMBH
+
+
+
+######### Semi-Open Api: NOKBSC Mapping ###########
+regional.com.nokia.owner.datamodule.mapping.nokbsc=bsc
+
+#Properties for RTPM
+##Maximum allowed size of the sliding window
+com.nokia.oss.qengine.rtpm.maxWindowSize=2
+##Default pooling interval for run the report
+com.nokia.oss.qengine.rtpm.poolingInterval=30
+
+#Properties for T&P Service
+thresholder.service.baseUrl=http://localhost
+thresholder.service.port=8080
+thresholder.service.apiPath=/sqm/rs/thresholderRestAPI
+# thresholder.execution.hour: 0-23
+thresholder.execution.hour=6
+# thresholder.execution.minutes: 0-59
+thresholder.execution.minutes=0
+# thresholder.execution.day: MON,TUE,WED,THU,FRI,SAT,SUN
+thresholder.execution.day=MON
+thresholder.exportFolder=/mnt/sharedrw/rep/thresholder/export
+thresholder.report.max=1000
+
+#Automatic DN Calculation
+#com.nsn.oss.pm.tp.dn.sql=nvl(dn_tp.co_ext_dn, dn_tp.co_dn)
+#com.nsn.oss.pm.tp.dn.table=utp_common_objects
+com.nsn.oss.pm.tp.dn.active=true
+com.nsn.oss.pm.tp.dn.renamelevel.match-string=.*\\d|.*-.*|.*_.*
+##########
+
+# Allowed values:
+#app.thresholder.evalution.period.RAW=1m, 5m, 10m, 15m, 20m, 30m, 1h, 2h, 3h, 4h, 6h, 8h, 12h, 1d, 1w
+#app.thresholder.evalution.period.HOUR=1h, 2h, 3h, 4h, 6h, 8h, 12h, 1d
+#app.thresholder.evalution.period.DAY=1d
+#app.thresholder.evalution.period.WEEK=1w
+
+app.thresholder.evalution.period.timelevels=RAW,HOUR,DAY,WEEK
+app.thresholder.evalution.period.RAW=1m,5m,10m,15m,20m,30m,1h,2h,3h,4h,6h,8h,12h,1d
+app.thresholder.evalution.period.HOUR=1h,2h,3h,4h,6h,8h,12h,1d
+app.thresholder.evalution.period.DAY=1d
+app.thresholder.evalution.period.WEEK=1w
+
+
+
+#Max number of simultaneous tasks for Upload
+app.maxNumberOfSimultaneousTasksUpload=3
+
+# Default time out for tooltip of the Error Indicated Text Area
+app.errorIndicatedTextAreaTooltipTimeout=3000
+
+app.com.nsn.oss.pm.cm.enabled=false
+app.com.nsn.oss.pm.cm.history.enabled=true
+
+app.com.nsn.oss.pm.stackedchart.enabled = true
+app.com.nsn.oss.pm.xlsxperobject.enabled=true
+
+#Enable visual time reference in charts
+app.com.nsn.oss.pm.exportTimeReference=true
+
+kpicreator.validation.maxcounters=30
+
+#Enable Advanced Settings in Scheduler
+app.scheduler.showAdvancedSettings = false
+app.isAdvancedSchedulingActive=true
+
+app.scheduler.customRootFolder=/mnt/sharedrw/content3/scheduler/exportCustom
+
+#Enable WorkingSet Manager
+app.com.nokia.oss.pm.workingsetmanager.enabled=true
+regional.app.com.nokia.oss.pm.workingsetmanager.enabled=false
+
+#Enable ReportImportExport
+app.com.nokia.oss.pm.reportimportexport.enabled=true
+regional.app.com.nokia.oss.pm.reportimportexport.enabled=false
+
+#Default timelevel granularity
+com.nokia.oss.pm.timelevel.default.granularity.RAW=15
+com.nokia.oss.pm.timelevel.default.granularity.15MIN=15
+com.nokia.oss.pm.timelevel.default.granularity.30MIN=30

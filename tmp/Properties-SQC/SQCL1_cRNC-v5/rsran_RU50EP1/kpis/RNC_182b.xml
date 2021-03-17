@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <temp_table_ref src="rsran_RU50EP1/counters/CELLRES_ext2.xml" />
+  <kpi name="RNC_182b">
+    <formula>decode(
+			(cellres_ext2.period_duration_sum),0,null, 
+
+			(100*(cellres.prxtot_denom_0 + 
+			cellres.prxtot_denom_1 + 
+			cellres.prxtot_denom_2 + 
+			cellres.prxtot_denom_3 + 
+			cellres.prxtot_denom_4)
+			 / 
+			(cellres_ext2.period_duration_sum*60*5)))</formula>
+    <kpi_info>
+      <title><![CDATA[Cell Avail RRI]]></title>
+      <use><![CDATA[Cell availability in percentage calculated from RRI messages. In formula there is expected that RRIndicationPeriod is set to 200ms]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      100*(
+&lt;br&gt;      sum(prxtot_denom_0 
+&lt;br&gt;         + prxtot_denom_1
+&lt;br&gt;         + prxtot_denom_2 
+&lt;br&gt;         + prxtot_denom_3 
+&lt;br&gt;         + prxtot_denom_4) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;          sum(period_duration_sum*60*5)
+&lt;br&gt;      )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cell Avail RRI]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_1180a">
+    <formula>100*decode(
+			(decode(
+			(lcelld.denom_rrc_conn_ue),0,null, 
+
+			(lcelld.sum_rrc_conn_ue)
+			 / 
+			(lcelld.denom_rrc_conn_ue))),0,null, 
+
+			(lcelld.cell_load_unl_pow_res)
+			 / 
+			(decode(
+			(lcelld.denom_rrc_conn_ue),0,null, 
+
+			(lcelld.sum_rrc_conn_ue)
+			 / 
+			(lcelld.denom_rrc_conn_ue))))</formula>
+    <kpi_info>
+      <title><![CDATA[Penetration of LTE dongle UEs]]></title>
+      <use><![CDATA[This KPI measures the ratio of UEs with unlimited power supply resources among the RRC connected UEs.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * AVG(CELL_LOAD_UNL_POW_RES)
+&lt;br&gt;/
+&lt;br&gt;(SUM(SUM_RRC_CONN_UE)
+&lt;br&gt;/
+&lt;br&gt;SUM(DENOM_RRC_CONN_UE))</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:47.264 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Penetr LTE dongle UEs</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

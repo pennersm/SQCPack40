@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/PRSS5_ext.xml" />
+  <kpi name="flng_603a">
+    <formula>100*decode(PMIP.PMIP_RECV_PBU_REQUESTS_S5_S2,0,null,
+	(
+	 PRSS5_ext.PMIP_PBA_RESP_SENT_S5_S2_0
+	 /
+	 PMIP.PMIP_RECV_PBU_REQUESTS_S5_S2))</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 PMIP Proxy Binding Update received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of PMIPv6 proxy binding update (PBU) requests received by P-GW node on S5/S2 interface, i.e., the number of PBA response messages sent on S5/S2 interface with cause code 'Request Accepted' when compared to the number of PBU request messages received on S5/S2 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(prss5_id,&amp;#039;0&amp;#039;,b.PMIP_PBA_RESP_SENT_S5_S2,0)) ;Request accepted
+&lt;br&gt;------------------------------------------------------------------------- *100
+&lt;br&gt;sum(a.PMIP_RECV_PBU_REQUESTS_S5_S2)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = PMIP
+&lt;br&gt;b = PMIP Proxy Binding Ack sent on S5/S2 interface</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:18.897 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW030.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 PMIP PBU rcv SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

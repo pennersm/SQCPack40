@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LNCELHO.xml"/>
+  <kpi name="LTE_708a">
+    <formula>decode(
+			((lncelho.intra_ho_att_nb)),0,null, 
+
+			(100*(lncelho.intra_ho_fail_nb))
+			 / 
+			((lncelho.intra_ho_att_nb)))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra eNB Neighbour HO failure ratio]]></title>
+      <use><![CDATA[Ratio between the number of Intra eNB Handover failures and total atts. UPDATED: Updated when Intra eNB Handover fails for any reason.  The counter is updated in the source side of the handover.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum(INTRA_HO_CANCEL_NB)                                 
+&lt;br&gt;100      *      ------------------------
+&lt;br&gt;                   sum(INTRA_HO_ATT_NB)                      
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LNCELHO_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Intra eNB NB HO  cancel rate]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

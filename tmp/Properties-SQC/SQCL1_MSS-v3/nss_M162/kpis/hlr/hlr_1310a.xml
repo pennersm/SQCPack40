@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HL1HLR.xml" />
+  <kpi name="hlr_1310a">
+    <formula>
+    	decode(hl1hlr.PRN_RETRY_ATTEMPT,0,0, 100 * (hl1hlr.PRN_RETRY_SUCC/ hl1hlr.PRN_RETRY_ATTEMPT) )
+	</formula>
+    <kpi_info>
+      <title><![CDATA[PRN retry success ratio]]></title>
+      <use><![CDATA[Indicates the Provide Roaming Number (PRN) retry procedure success ratio.]]></use>
+
+  	  <use_experience><![CDATA[
+	  <br>This KPI is similar to msc_1310a. New KPI ID reference. This new KPI ID reference is to to be used starting from M15.1 report sets. ts.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: HLR
+	  <br>KPI CLASS: Mobility
+	  <br>MEASUREMENT(S): HLR measurement, part one (M83/53H) 
+	  <br>
+	  ]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; SUM( PRN_RETRY_SUCC ) 
+&lt;br&gt;---------------------- * 100 
+&lt;br&gt; SUM( PRN_RETRY_ATTEMPT ) 
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_HL1HLR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PRN retry SR HLR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

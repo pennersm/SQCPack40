@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/ATMVC.xml" />
+  <kpi name="MGW_578b">
+    <formula>decode(
+			(atmvc.eg_cap_vc*atmvc.period_duration),0,null,
+
+			(100*(atmvc.eg_rec_cells_vc)
+			 /
+			(atmvc.eg_cap_vc*atmvc.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Virtual channel egress utilization]]></title>
+      <use><![CDATA[The utilization percent oc VC egress cells]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum( EG_REC_CELLS_VC )/avg( EG_CAP_VC * PERIOD_DURATION * 60 )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_atmvc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Virtual channel egress utilization]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml">
+		<counters>
+			<counter alias="rnc_334a">sum(rrc_conn_acc_comp)</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_341b">
+		<formula>
+			decode((servlev.rnc_334a),0,null,(100*(servlev.rrc_conn_act_fail_bts)/servlev.rnc_334a))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RRC Active FR due to BTS]]>
+			</title>
+			<use>
+				<![CDATA[Percentage of RRC connection active failures caused by a BTS.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum(RRC_CONN_ACT_FAIL_BTS)
+------- 
+RNC_334a
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RRC Active FR due to BTS]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

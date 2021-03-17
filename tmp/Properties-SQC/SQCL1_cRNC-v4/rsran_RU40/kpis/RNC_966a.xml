@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml" />
+	<kpi name="RNC_966a">
+		<formula>
+			decode((servlev.rab_stp_att_ps_inter+servlev.rab_stp_att_ps_backg),0,null,(100*(servlev.rab_stp_fail_ps_inter_ac+servlev.rab_stp_fail_ps_backg_ac)/(servlev.rab_stp_att_ps_inter+servlev.rab_stp_att_ps_backg)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[NRT RAB Setup FR due to AC]]>
+			</title>
+			<use>
+				<![CDATA[NRT RAB Setup failure rate caused by Admission Control.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum ( RAB_STP_FAIL_PS_INTER_AC
++ RAB_STP_FAIL_PS_BACKG_AC )
+------------------------------ 
+sum (RAB_STP_ATT_PS_INTER 
++ RAB_STP_ATT_PS_BACKG )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[NRT RAB Setup FR due to AC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

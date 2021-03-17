@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LHORLF (LTE Handover - RLF trigger)</header>
+    <csv_title>LHORLF (LTE Handover - RLF trigger)</csv_title>
+    <report-description>LTE Handover - RLF trigger (M8027) measures the performance of the proprierary RLF triggered Handover procedures per cell. For MCC/MNC primary PLMN-id should be used.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <HO_RLF_PREP_ATT/>
+    <HO_RLF_PREP_SUCC/>
+    <HO_RLF_SUCC/>
+    <RCR_UE_CONTEXT_RETR_ATT/>
+    <RCR_UE_CONTEXT_RETR_SUCC/>
+    <RCR_UE_CONTEXT_RETR_FAIL_TIM/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LHORLF" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LHORLF</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="HO_RLF_PREP_ATT" symmetrical="true">SUM(HO_RLF_PREP_ATT)</counter>
+          <counter alias="HO_RLF_PREP_SUCC" symmetrical="true">SUM(HO_RLF_PREP_SUCC)</counter>
+          <counter alias="HO_RLF_SUCC" symmetrical="true">SUM(HO_RLF_SUCC)</counter>
+          <counter alias="RCR_UE_CONTEXT_RETR_ATT" symmetrical="true">SUM(RCR_UE_CONTEXT_RETR_ATT)</counter>
+          <counter alias="RCR_UE_CONTEXT_RETR_SUCC" symmetrical="true">SUM(RCR_UE_CONTEXT_RETR_SUCC)</counter>
+          <counter alias="RCR_UE_CONTEXT_RETR_FAIL_TIM" symmetrical="true">SUM(RCR_UE_CONTEXT_RETR_FAIL_TIM)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LHORLF</alias_name>
+    <ui_name>LTE Handover - RLF trigger</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LHORLF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HO_RLF_PREP_ATT">
+    <formula>LHORLF.HO_RLF_PREP_ATT</formula>
+    <kpi_info>
+      <title>HO_RLF_PREP_ATT (M8027C0)</title>
+      <use>This measurement provides the number of attempted Handover Preparations, which is caused by the reception of a RLF Indication message. UPDATED: Intra-eNB HO: Trigger Event: Sending of eNB-internal message in case that this message indicates the start of a RLF-triggered Handover Preparation procedure as a result of a previously received RLF indication. Inter-eNB HO via X2: Trigger Event: Sending of the X2AP:HANDOVER REQUEST message to the requesting eNB to start a RLF-triggered Handover Preparation procedure as a result of a previously received X2AP:RLF INDICATION message from the requesting eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HO_RLF_PREP_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_RLF_PREP_ATT (M8027C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HO_RLF_PREP_SUCC">
+    <formula>LHORLF.HO_RLF_PREP_SUCC</formula>
+    <kpi_info>
+      <title>HO_RLF_PREP_SUCC (M8027C1)</title>
+      <use>This measurement provides the number of successful Handover Preparations, which is caused by the reception of a RLF Indication message. UPDATED: Intra-eNB HO: Trigger Event: Reception of eNB-internal message in case that this message indicates the successful outcome of the RLF-triggered Handover Preparation procedure. Inter-eNB HO via X2: Trigger Event: Reception of the X2AP:HANDOVER REQUEST ACKNOWLEDGE message from the requesting eNB as a result of a RLF-triggered Handover Preparation.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HO_RLF_PREP_SUCC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_RLF_PREP_SUCC (M8027C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HO_RLF_SUCC">
+    <formula>LHORLF.HO_RLF_SUCC</formula>
+    <kpi_info>
+      <title>HO_RLF_SUCC (M8027C2)</title>
+      <use>This measurement provides the number of successful Handovers, which is caused by the reception of a RLF Indication message. UPDATED: Intra-eNB HO: Trigger Event: Reception of eNB-internal message in case that this message indicates the successful outcome of the RLF-triggered Handover. Inter-eNB HO via X2: Trigger Event: Reception of the X2AP:UE CONTEXT RELEASE message from the requesting eNB in case that this message indicates the successful outcome of the RLF-triggered Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HO_RLF_SUCC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_RLF_SUCC (M8027C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RCR_UE_CONTEXT_RETR_ATT">
+    <formula>LHORLF.RCR_UE_CONTEXT_RETR_ATT</formula>
+    <kpi_info>
+      <title>RCR_UE_CONTEXT_RETR_ATT (M8027C3)</title>
+      <use>This measurement provides the number of attempted UE Context Retrievals during RRC Connection Reestablishment procedure. UPDATED: Intra-eNB HO: Sending of eNB-internal message in case that this message indicates the RLF Indication after the suspension of the RRC Connection Reestablishment procedure. inter-eNB HO via X2: Trigger Event: Sending of X2AP:RLF INDICATION message to the serving eNB after the suspension of the RRC Connection Reestablishment procedure. In case that multiple X2AP:RLF INDICATION messages are sent, for example, because the original serving eNB cannot be defined uniquely, the counter is updated only once.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RCR_UE_CONTEXT_RETR_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RCR_UE_CONTEXT_RETR_ATT (M8027C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RCR_UE_CONTEXT_RETR_SUCC">
+    <formula>LHORLF.RCR_UE_CONTEXT_RETR_SUCC</formula>
+    <kpi_info>
+      <title>RCR_UE_CONTEXT_RETR_SUCC (M8027C4)</title>
+      <use>This measurement provides the number of successful UE Context Retrievals during RRC Connection Reestablishment procedure. UPDATED: Intra-eNB HO: Trigger Event: Sending of eNB-internal message in case that this message indicates the successful allocation of the UE context as a result of a successful RLF-triggered Handover Preparation. inter-eNB HO via X2: Trigger Event: Sending of X2AP:HANDOVER REQUEST ACKNOWLEDGE message after the allocation of the UE context at the requesting eNB as a result of a successful RLF-triggered Handover Preparation.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RCR_UE_CONTEXT_RETR_SUCC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RCR_UE_CONTEXT_RETR_SUCC (M8027C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RCR_UE_CONTEXT_RETR_FAIL_TIM">
+    <formula>LHORLF.RCR_UE_CONTEXT_RETR_FAIL_TIM</formula>
+    <kpi_info>
+      <title>RCR_UE_CONTEXT_RETR_FAIL_TIM (M8027C5)</title>
+      <use>This measurement provides the number of failed UE Context Retrievals during RRC Connection Reestablishment procedure. The UE Context Retrieval failure is caused by the expiration of the corresponding guard timer. UPDATED: Expiration of the guard timer for the UE context retrieval during RLF-triggered Handover procedure (T301). As a result the pending RRC Connection Reestablishment procedure fails.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RCR_UE_CONTEXT_RETR_FAIL_TIM)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RCR_UE_CONTEXT_RETR_FAIL_TIM (M8027C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LHORLF.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lhorlf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml" />
+  <kpi name="sgsn_2130a">
+    <formula>100* decode( 
+            (nvl(mobmgmnt.succ_periodical_ra_updat,0) + 
+            nvl(mobmgmnt.succ_intra_papu_ra_updat,0) + 
+            nvl(mobmgmnt.succ_inter_papu_ra_updat,0) + 
+            nvl(mobmgmn2.iu_succ_intra_papu_3g_2g_sho,0) + 
+            nvl(iumm2.iu_succ_intra_papu_2g3g_isho,0) + 
+            nvl(mobmgmn2.iu_succ_inter_papu_3g_2g_sho,0) + 
+            nvl(iumm2.iu_succ_inter_papu_2g3g_isho,0) + 
+            nvl(iumm1.iu_succ_periodic_ra_upd,0) + 
+            nvl(iumm1.iu_succ_in_intra_papu_ra_upd,0) + 
+            nvl(iumm1.iu_succ_in_inter_papu_ra_upd,0) + 
+            nvl(mobmgmnt.succ_outg_inter_sgsn_ra_updat,0) + 
+            nvl(iumm1.iu_succ_og_inter_sgsn_ra_upd,0) + 
+            nvl(mobmgmnt.succ_outg_inter_sys_rau,0) + 
+            nvl(iumm2.iu_succ_og_inte_sgsn_3g2g_isho,0)),0,null,
+            
+            mobmgmnt.succ_outg_inter_sgsn_ra_updat
+             / 
+            (nvl(mobmgmnt.succ_periodical_ra_updat,0) + 
+            nvl(mobmgmnt.succ_intra_papu_ra_updat,0) + 
+            nvl(mobmgmnt.succ_inter_papu_ra_updat,0) + 
+            nvl(mobmgmn2.iu_succ_intra_papu_3g_2g_sho,0) + 
+            nvl(iumm2.iu_succ_intra_papu_2g3g_isho,0) + 
+            nvl(mobmgmn2.iu_succ_inter_papu_3g_2g_sho,0) + 
+            nvl(iumm2.iu_succ_inter_papu_2g3g_isho,0) + 
+            nvl(iumm1.iu_succ_periodic_ra_upd,0) + 
+            nvl(iumm1.iu_succ_in_intra_papu_ra_upd,0) + 
+            nvl(iumm1.iu_succ_in_inter_papu_ra_upd,0) + 
+            nvl(mobmgmnt.succ_outg_inter_sgsn_ra_updat,0) + 
+            nvl(iumm1.iu_succ_og_inter_sgsn_ra_upd,0) + 
+            nvl(mobmgmnt.succ_outg_inter_sys_rau,0) + 
+            nvl(iumm2.iu_succ_og_inte_sgsn_3g2g_isho,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[Pure 2G inter SGSN RAU share]]></title>
+      <use><![CDATA[This KPI shows the share of pure 2G inter SGSN routing area updates.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_OUTG_INTER_SGSN_RA_UPDAT)
+&lt;br&gt;------------------------------------- *100
+&lt;br&gt;sum(SUCC_PERIODICAL_RA_UPDAT + 
+&lt;br&gt;   SUCC_INTRA_PAPU_RA_UPDAT + 
+&lt;br&gt;   SUCC_INTER_PAPU_RA_UPDAT + 
+&lt;br&gt;   IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+&lt;br&gt;   IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+&lt;br&gt;   IU_SUCC_INTER_PAPU_3G_2G_SHO + 
+&lt;br&gt;   IU_SUCC_INTER_PAPU_2G3G_ISHO + 
+&lt;br&gt;   IU_SUCC_PERIODIC_RA_UPD + 
+&lt;br&gt;   IU_SUCC_IN_INTRA_PAPU_RA_UPD + 
+&lt;br&gt;   IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+&lt;br&gt;   SUCC_OUTG_INTER_SGSN_RA_UPDAT + 
+&lt;br&gt;   IU_SUCC_OG_INTER_SGSN_RA_UPD + 
+&lt;br&gt;   SUCC_OUTG_INTER_SYS_RAU + 
+&lt;br&gt;   IU_SUCC_OG_INTE_SGSN_3G2G_ISHO)</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_MOBMGMNT_{OBJ_AGG}_{TIME_AGG},RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG},RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG},RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/01/21 11:54:23.404 +0000</date>
+          <comment><![CDATA[Source: rssg2g094.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>2G inter SGSN RAU share</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

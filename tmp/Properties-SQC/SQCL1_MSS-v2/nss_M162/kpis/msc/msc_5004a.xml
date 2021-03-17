@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_5004a">
+    <formula>decode(
+			(vlrnmsc.totalaverage),0,null, 
+
+			((vlr1msc.imsidetachgsmattempt + 
+			vlr1msc.imsidetachumtsattempt + 
+			vlr1msc.imsi_detach_sip_attempt)
+			 / 
+			vlrnmsc.totalaverage))</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI detach attempts per VLR subscriber for BHCA]]></title>
+      <use><![CDATA[IMSI detach attempts per VLR subscribers for busy hour call attempts (BHCA).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM( 
+&lt;br&gt;    a.IMSIDetachGSMAttempt
+&lt;br&gt;    + a.IMSIDetachUMTSAttempt
+&lt;br&gt;    + a.IMSI_Detach_SIP_Attempt ) 
+&lt;br&gt;-----------------------------------------
+&lt;br&gt;AVG (
+&lt;br&gt;    b.TotalAverage ) 
+&lt;br&gt;
+&lt;br&gt;;For the BH 
+&lt;br&gt;
+&lt;br&gt;Counter from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;Counters from measures:
+&lt;br&gt;a = M82 = VLR measurement, part one
+&lt;br&gt;b = M80 = VLR measurement, part n
+&lt;br&gt; 
+&lt;br&gt;b =&amp;amp;gt; TOTALAVERAGE counter aggregation: AVG for time and SUM for network</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg},rns_ps_vlrnmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IMSI Detc Att VLR Subs BHCA</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

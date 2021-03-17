@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="MGW_308a">
+    <formula>100*decode(
+			(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas),0,0, 
+
+			conn.all_tdm_cas
+			 / 
+			(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of TDM termination reservation attempts]]></title>
+      <use><![CDATA[Indicates the share of TDM termination reservation attempts of all ATM, IP and TDM termination reservation attempts in measured ISU]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*  sum(ALL_TDM_CAS)  / sum(ALL_ATM_CAS + ALL_IP_CAS + ALL_TDM_CAS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of TDM termination reservation attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

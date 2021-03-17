@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU50EP1/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_5505b">
+    <formula>100*decode(
+			(servlev.rrc_conn_stp_att_csfb_1 - 
+			servlev.rrc_acc_rel_csfb_1 - 
+			servlev.rrc_att_rep_csfb_1),0,null, 
+
+			(servlev.rrc_conn_stp_att_csfb_1 - 
+			servlev.rrc_stp_acc_fail_csfb_1 - 
+			servlev.rrc_acc_rel_csfb_1
+			)
+			 / 
+			(servlev.rrc_conn_stp_att_csfb_1 - 
+			servlev.rrc_acc_rel_csfb_1 - 
+			servlev.rrc_att_rep_csfb_1))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Setup and Access Complete Ratio from end user perspective for CSFB]]></title>
+      <use><![CDATA[RRC Setup and Access Complete Ratio [%] over the reporting period from the end user perspective for all RRC Setup Requests with &quot;CSFB Indication&quot; IE]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(RRC_CONN_STP_ATT_CSFB-RRC_STP_ACC_FAIL_CSFB-RRC_ACC_REL_CSFB) 
+&lt;br&gt;/ 
+&lt;br&gt;sum(RRC_CONN_STP_ATT_CSFB-RRC_ACC_REL_CSFB-RRC_ATT_REP_CSFB)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/11/28 13:25:58.462 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RRC stp and acc CR Usr CSFB</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LIENBHO (LTE Inter eNB Handover)</header>
+    <csv_title>LIENBHO (LTE Inter eNB Handover)</csv_title>
+    <report-description>LTE Inter eNB Handover measurement (M8014) measures Inter eNB Handovers</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <INTER_ENB_HO_PREP/>
+    <FAIL_ENB_HO_PREP_TIME/>
+    <FAIL_ENB_HO_PREP_AC/>
+    <FAIL_ENB_HO_PREP_OTHER/>
+    <ATT_INTER_ENB_HO/>
+    <SUCC_INTER_ENB_HO/>
+    <INTER_ENB_HO_FAIL/>
+    <INTER_ENB_S1_HO_PREP/>
+    <INTER_S1_HO_PREP_FAIL_TIME/>
+    <INTER_S1_HO_PREP_FAIL_NORR/>
+    <INTER_S1_HO_PREP_FAIL_OTHER/>
+    <INTER_ENB_S1_HO_ATT/>
+    <INTER_ENB_S1_HO_SUCC/>
+    <INTER_ENB_S1_HO_FAIL/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LIENBHO" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LIENBHO</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="INTER_ENB_HO_PREP" symmetrical="true">SUM(INTER_ENB_HO_PREP)</counter>
+          <counter alias="FAIL_ENB_HO_PREP_TIME" symmetrical="true">SUM(FAIL_ENB_HO_PREP_TIME)</counter>
+          <counter alias="FAIL_ENB_HO_PREP_AC" symmetrical="true">SUM(FAIL_ENB_HO_PREP_AC)</counter>
+          <counter alias="FAIL_ENB_HO_PREP_OTHER" symmetrical="true">SUM(FAIL_ENB_HO_PREP_OTHER)</counter>
+          <counter alias="ATT_INTER_ENB_HO" symmetrical="true">SUM(ATT_INTER_ENB_HO)</counter>
+          <counter alias="SUCC_INTER_ENB_HO" symmetrical="true">SUM(SUCC_INTER_ENB_HO)</counter>
+          <counter alias="INTER_ENB_HO_FAIL" symmetrical="true">SUM(INTER_ENB_HO_FAIL)</counter>
+          <counter alias="INTER_ENB_S1_HO_PREP" symmetrical="true">SUM(INTER_ENB_S1_HO_PREP)</counter>
+          <counter alias="INTER_S1_HO_PREP_FAIL_TIME" symmetrical="true">SUM(INTER_S1_HO_PREP_FAIL_TIME)</counter>
+          <counter alias="INTER_S1_HO_PREP_FAIL_NORR" symmetrical="true">SUM(INTER_S1_HO_PREP_FAIL_NORR)</counter>
+          <counter alias="INTER_S1_HO_PREP_FAIL_OTHER" symmetrical="true">SUM(INTER_S1_HO_PREP_FAIL_OTHER)</counter>
+          <counter alias="INTER_ENB_S1_HO_ATT" symmetrical="true">SUM(INTER_ENB_S1_HO_ATT)</counter>
+          <counter alias="INTER_ENB_S1_HO_SUCC" symmetrical="true">SUM(INTER_ENB_S1_HO_SUCC)</counter>
+          <counter alias="INTER_ENB_S1_HO_FAIL" symmetrical="true">SUM(INTER_ENB_S1_HO_FAIL)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LIENBHO</alias_name>
+    <ui_name>LTE Inter eNB Handover</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LIENBHO.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_ENB_HO_PREP">
+    <formula>LIENBHO.INTER_ENB_HO_PREP</formula>
+    <kpi_info>
+      <title>INTER_ENB_HO_PREP (M8014C0)</title>
+      <use>The number of Inter-eNB X2-based Handover preparations. The Mobility management (MM) receives a list with target cells from the RRM and decides to start an Inter-eNB X2-based Handover. UPDATED: The transmission of an X2AP: Handover Request to the target eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_ENB_HO_PREP)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_ENB_HO_PREP (M8014C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_ENB_HO_PREP_TIME">
+    <formula>LIENBHO.FAIL_ENB_HO_PREP_TIME</formula>
+    <kpi_info>
+      <title>FAIL_ENB_HO_PREP_TIME (M8014C2)</title>
+      <use>The number of failed Inter-eNB X2-based Handover preparations due to timer TX2RELOCprep. UPDATED: The expiration of timer TX2RELOCprep
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_ENB_HO_PREP_TIME)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ENB_HO_PREP_TIME (M8014C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_ENB_HO_PREP_AC">
+    <formula>LIENBHO.FAIL_ENB_HO_PREP_AC</formula>
+    <kpi_info>
+      <title>FAIL_ENB_HO_PREP_AC (M8014C3)</title>
+      <use>The number of failed Inter-eNB X2-based Handover preparations due to the target eNB's admission control reasons. UPDATED: The reception of an X2AP: Handover Preparation Failure message from the target eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_ENB_HO_PREP_AC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ENB_HO_PREP_AC (M8014C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_ENB_HO_PREP_OTHER">
+    <formula>LIENBHO.FAIL_ENB_HO_PREP_OTHER</formula>
+    <kpi_info>
+      <title>FAIL_ENB_HO_PREP_OTHER (M8014C5)</title>
+      <use>The number of failed Inter-eNB X2-based Handover preparations due to the target eNB's other reasons. UPDATED: The counter is updated if the failure detected does not match any other failure counter.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_ENB_HO_PREP_OTHER)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ENB_HO_PREP_OTHER (M8014C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ATT_INTER_ENB_HO">
+    <formula>LIENBHO.ATT_INTER_ENB_HO</formula>
+    <kpi_info>
+      <title>ATT_INTER_ENB_HO (M8014C6)</title>
+      <use>The number of Inter-eNB X2-based Handover attempts. UPDATED: The reception of an X2AP: Handover Request Acknowledge message from the target eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ATT_INTER_ENB_HO)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ATT_INTER_ENB_HO (M8014C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_INTER_ENB_HO">
+    <formula>LIENBHO.SUCC_INTER_ENB_HO</formula>
+    <kpi_info>
+      <title>SUCC_INTER_ENB_HO (M8014C7)</title>
+      <use>The number of successful Inter-eNB X2-based Handover completions. UPDATED: The reception of a X2AP: Release Resource message sent by the target eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_INTER_ENB_HO)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_INTER_ENB_HO (M8014C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_ENB_HO_FAIL">
+    <formula>LIENBHO.INTER_ENB_HO_FAIL</formula>
+    <kpi_info>
+      <title>INTER_ENB_HO_FAIL (M8014C8)</title>
+      <use>Number of Inter eNB Handover failures due to expiration of guarding timer TX2RELOCoverall UPDATED: The expiration of timer TX2RELOCoverall.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_ENB_HO_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_ENB_HO_FAIL (M8014C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_ENB_S1_HO_PREP">
+    <formula>LIENBHO.INTER_ENB_S1_HO_PREP</formula>
+    <kpi_info>
+      <title>INTER_ENB_S1_HO_PREP (M8014C14)</title>
+      <use>The number of Inter eNB S1-based Handover preparations UPDATED: This counter is updated following the transmission of an S1AP: HANDOVER REQUIRED message from the source eNB to the MME if this message prepares an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_ENB_S1_HO_PREP)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_ENB_S1_HO_PREP (M8014C14)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_S1_HO_PREP_FAIL_TIME">
+    <formula>LIENBHO.INTER_S1_HO_PREP_FAIL_TIME</formula>
+    <kpi_info>
+      <title>INTER_S1_HO_PREP_FAIL_TIME (M8014C15)</title>
+      <use>The number of failed Inter eNB S1-based Handover preparations due to the expiry of the guarding timer TS1RELOCprep. UPDATED: This counter is updated at the expiry of the guarding timer TS1RELOCprep if the timer was started because of the preparation of an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_S1_HO_PREP_FAIL_TIME)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_S1_HO_PREP_FAIL_TIME (M8014C15)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_S1_HO_PREP_FAIL_NORR">
+    <formula>LIENBHO.INTER_S1_HO_PREP_FAIL_NORR</formula>
+    <kpi_info>
+      <title>INTER_S1_HO_PREP_FAIL_NORR (M8014C16)</title>
+      <use>The number of failed Inter eNB S1-based Handover preparations with cause "No Radio Resources Available in Target Cell". UPDATED: This counter is updated following the reception of an S1AP: HANDOVER PREPARATION FAILURE message from MME to source eNB with cause "No Radio Resources Available in Target Cell" if this message is received in response to the preparation of an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_S1_HO_PREP_FAIL_NORR)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_S1_HO_PREP_FAIL_NORR (M8014C16)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_S1_HO_PREP_FAIL_OTHER">
+    <formula>LIENBHO.INTER_S1_HO_PREP_FAIL_OTHER</formula>
+    <kpi_info>
+      <title>INTER_S1_HO_PREP_FAIL_OTHER (M8014C17)</title>
+      <use>The number of failed Inter eNB S1-based Handover preparations due to the reception of an S1AP: HANDOVER PREPARATION FAILURE message with a cause other than "No Radio Resources Available in Target Cell." UPDATED: This counter is updated following the reception of an S1AP: HANDOVER PREPARATION FAILURE message from the MME to the source eNB with any other cause than "No Radio Resources Available in Target Cell" in case that this message is received in response to the preparation of an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_S1_HO_PREP_FAIL_OTHER)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_S1_HO_PREP_FAIL_OTHER (M8014C17)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_ENB_S1_HO_ATT">
+    <formula>LIENBHO.INTER_ENB_S1_HO_ATT</formula>
+    <kpi_info>
+      <title>INTER_ENB_S1_HO_ATT (M8014C18)</title>
+      <use>The number of Inter eNB S1-based Handover attempts UPDATED: This counter is updated following the reception of an S1AP: HANDOVER COMMAND message from the MME to the source eNB in case that this message is received in response to the preparation of an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_ENB_S1_HO_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_ENB_S1_HO_ATT (M8014C18)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_ENB_S1_HO_SUCC">
+    <formula>LIENBHO.INTER_ENB_S1_HO_SUCC</formula>
+    <kpi_info>
+      <title>INTER_ENB_S1_HO_SUCC (M8014C19)</title>
+      <use>The number of successful Inter eNB S1-based Handover completions UPDATED: This counter is updated following the reception of an S1AP: UE CONTEXT RELEASE COMMAND message from the MME to the source eNB with the cause value Radio Network Layer (Successful Handover) in case that this message is received for an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_ENB_S1_HO_SUCC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_ENB_S1_HO_SUCC (M8014C19)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_ENB_S1_HO_FAIL">
+    <formula>LIENBHO.INTER_ENB_S1_HO_FAIL</formula>
+    <kpi_info>
+      <title>INTER_ENB_S1_HO_FAIL (M8014C20)</title>
+      <use>The number of Inter eNB S1-based Handover failures UPDATED: This counter is updated following the expiry of the guarding timer TS1RELOCoverall in case that this timer was started because of an Inter eNB Handover.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_ENB_S1_HO_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_ENB_S1_HO_FAIL (M8014C20)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LIENBHO.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lienbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

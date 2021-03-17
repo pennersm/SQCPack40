@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MTPS.xml" />
+  <kpi name="sgsn_975a">
+    <formula>decode(
+			(mtps.period_duration*60*mtps.bitrate*1000),0,NULL, 
+
+			(100*((mtps.msus_received*6 + 
+			mtps.sif_and_sio_octets_received)*8)
+			 / 
+			(mtps.period_duration*60*mtps.bitrate*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[MTP utilization in receive]]></title>
+      <use><![CDATA[This KPI Indicates utilization of MTP in receiving.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;  sum(MSUS_RECEIVED * 6  
+&lt;br&gt;    + SIF_AND_SIO_OCTETS_RECEIVED) * 8 
+&lt;br&gt;------------------------------------------------ *100 
+&lt;br&gt;    PERIOD_DURATION * 60 * max(BITRATE) * 1000
+&lt;br&gt;
+&lt;br&gt;counters from table(s): RSG_P_MEAS_MTPS_O2</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_mtps_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTP util in rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

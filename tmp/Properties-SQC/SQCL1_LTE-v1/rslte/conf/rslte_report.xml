@@ -1,0 +1,1239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <report pragma="default">
+    <default-obj-drill-column>MRBTS name</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(mrbts.co_name, nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) "MRBTS name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts
+				#tmp_meas_tables#
+			where
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.mrbts_gid = mrbts.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS">
+      <add-column id="DN" tooltip-ref="MRBTS Name">nvl(mrbts.co_ext_dn, mrbts.co_dn)</add-column>
+    </report-level>
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>LNBTS name</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(mrbts.co_name, nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')'))"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')'))"LNBTS name",			
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts
+				#tmp_meas_tables#
+			where
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				#first_tmp_table#.lnbts_gid = lnbts.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS">
+	  <add-column id="DN" tooltip-ref="LNBTS Name">nvl(lnbts.co_ext_dn, lnbts.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM" add-on-sort="2,1,3,4,5" obj-drill-column="ftm_id">
+      <add-column id="DN" tooltip-ref="ftm_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-ETHLK" add-on-sort="2,1,3,4,5" obj-drill-column="ethlk_id">
+      <add-column id="DN" tooltip-ref="ethlk_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/ETHLK-'||#first_tmp_table#.ethlk_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO" add-on-sort="2,1,3,4,5" obj-drill-column="ipno_id">
+      <add-column id="DN" tooltip-ref="ipno_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF" add-on-sort="2,1,3,4,5" obj-drill-column="ieif_id">
+      <add-column id="DN" tooltip-ref="ieif_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IPPM" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF" add-on-sort="2,1,3,4,5" obj-drill-column="ivif_id">
+      <add-column id="DN" tooltip-ref="ivif_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-IPPM1" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id||'/IPPM1-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-PHBPM1" add-on-sort="2,1,3,4,5" obj-drill-column="phbpm_id">
+      <add-column id="DN" tooltip-ref="phbpm_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id||'/PHBPM1-'||#first_tmp_table#.phbpm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-PHBPM" add-on-sort="2,1,3,4,5" obj-drill-column="phbpm_id">
+      <add-column id="DN" tooltip-ref="phbpm_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/PHBPM-'||#first_tmp_table#.phbpm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IPRM" add-on-sort="2,1,3,4,5" obj-drill-column="iprm_id">
+      <add-column id="DN" tooltip-ref="iprm_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IPRM-'||#first_tmp_table#.iprm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TOPIK" add-on-sort="2,1,3,4,5" obj-drill-column="topik_id">
+      <add-column id="DN" tooltip-ref="topik_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/TOPIK-'||#first_tmp_table#.topik_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TWAMP" add-on-sort="2,1,3,4,5" obj-drill-column="twamp_id">
+      <add-column id="DN" tooltip-ref="twamp_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/TWAMP-'||#first_tmp_table#.twamp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPSECC" add-on-sort="2,1,3,4,5" obj-drill-column="ipsecc_id">
+      <add-column id="DN" tooltip-ref="ipsecc_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPSECC-'||#first_tmp_table#.ipsecc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-L2SWI" add-on-sort="2,1,3,4,5" obj-drill-column="l2swi_id">
+      <add-column id="DN" tooltip-ref="l2swi_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/L2SWI-'||#first_tmp_table#.l2swi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC" add-on-sort="2,1,3,4,5" obj-drill-column="tac_id">
+      <add-column id="DN" tooltip-ref="tac_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TAC-'||#first_tmp_table#.tac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC/LTE-LTAC" add-on-sort="2,1,3,4,5" obj-drill-column="ltac_id">
+      <add-column id="DN" tooltip-ref="ltac_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TAC-'||#first_tmp_table#.tac_id||'/LTAC-'||#first_tmp_table#.ltac_id</add-column>
+    </report-level>
+	<report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB" add-on-sort="2,1,3,4,5" obj-drill-column="topb_id">
+      <add-column id="DN" tooltip-ref="topb_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPF" add-on-sort="2,1,3,4,5" obj-drill-column="topf_id">
+      <add-column id="DN" tooltip-ref="topf_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id||'/TOPF-'||#first_tmp_table#.topf_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPP" add-on-sort="2,1,3,4,5" obj-drill-column="topp_id">
+      <add-column id="DN" tooltip-ref="topp_id">nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id||'/TOPP-'||#first_tmp_table#.topp_id</add-column>
+    </report-level>
+
+  </report>
+    <report pragma="default">
+    <default-obj-drill-column>LNBTS type</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide>
+    <default-add-on-sort>1,2,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				#keys#,
+				#kpis#
+			from
+				dual
+				#tmp_meas_tables#
+			where
+				1=1
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/LNBTS-TYPE" />
+  </report>
+  
+<!--     <report pragma="default"> -->
+<!--     <default-obj-drill-column>ftm_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				#first_tmp_table#.lnbts_gid = lnbts.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-L2SWI" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB" /> -->
+<!--   </report> -->
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>topb_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				#first_tmp_table#.lnbts_gid = lnbts.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPF" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TOPB/LTE-TOPP" /> -->
+<!--   </report> -->
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>ipno_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				#first_tmp_table#.lnbts_gid = lnbts.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-ETHLK" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TWAMP" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-TOPIK" /> -->
+<!--   </report> -->
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>tac_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				#first_tmp_table#.lnbts_gid = lnbts.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-TAC/LTE-LTAC" /> -->
+<!--   </report> -->
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>ieif_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				#first_tmp_table#.lnbts_gid = lnbts.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IPPM" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-PHBPM" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IPRM" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPSECC" /> -->
+<!--   </report> -->
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>ivif_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				#first_tmp_table#.lnbts_gid = lnbts.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-IPPM_1" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LTE-FTM/LTE-IPNO/LTE-IEIF/LTE-IVIF/LTE-PHBPM_1" /> -->
+<!--   </report> -->
+  <report pragma="default">
+    <default-obj-drill-column>LNCEL name</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(mrbts.co_name, nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')'))"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')'))"LNBTS name",
+				nvl(lncel.co_name, nvl(lncel.co_object_instance, 'NN('||lncel.co_gid||')'))"LNCEL name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel
+				#tmp_meas_tables#
+			where
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				lncel.co_oc_id=3130 and
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lncel.co_parent_gid = lnbts.co_gid and
+				#first_tmp_table#.lncel_gid = lncel.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL">
+      <add-column id="DN" tooltip-ref="LNCEL Name">nvl(lncel.co_ext_dn, lncel.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT" add-on-sort="2,1,3,4,5,6" obj-drill-column="hot_id">
+      <add-column id="DN" tooltip-ref="hot_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC" add-on-sort="2,1,3,4,5,6" obj-drill-column="lac_id">
+      <add-column id="DN" tooltip-ref="lac_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id</add-column>
+    </report-level>
+  </report>
+
+    <report pragma="default"> 
+     <default-obj-drill-column>dmcc_id</default-obj-drill-column> 
+     <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID</column-to-hide> 
+     <default-add-on-sort>2,1,3,4,5</default-add-on-sort> 
+     <sql-kpi><![CDATA[select 
+ 				#time#, 
+ 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "Source PLMN name", 
+ 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"Source MRBTS name", 
+ 				nvl(lnbts.co_sc_name, 'MacroBTS') "Source LNBTS_TYPE", 
+ 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"Source LNBTS name", 
+ 				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"Source LNCEL name", 
+ 				target.plmn_name "Target PLMN name", 
+ 				target.mrbts_name "Target MRBTS name", 
+ 				nvl(target.lnbts_co_sc_name, 'MacroBTS') "Target LNBTS_TYPE", 
+ 				target.lnbts_name "Target LNBTS name", 
+ 				target.lnbts_id "Target LNBTS ID", 
+ 				target.lncel_name "Target LNCEL name", 
+ 				target.lcr_id "Target LCR ID", 
+ 				#keys#, 
+ 				#kpis# 
+ 			from 
+ 				utp_common_objects plmn, 
+ 				utp_common_objects mrbts, 
+ 				utp_common_objects lnbts, 
+ 				utp_common_objects lncel, 
+ 				(select lncel.co_gid gid, 
+                                nvl (plmn.co_name, 'NN(' || plmn.co_gid || ')') plmn_name, 
+                                nvl (mrbts.co_name, 'NN(' || mrbts.co_gid || ')') mrbts_name, 
+                                lnbts.co_sc_name lnbts_co_sc_name, 
+                                nvl (lnbts.co_name, 'NN(' || lnbts.co_gid || ')') lnbts_name, 
+                                nvl (lncel.co_name, 'NN(' || lncel.co_gid || ')') lncel_name, 
+                                lnbts.co_object_instance lnbts_id, 
+                                lncel.co_object_instance lcr_id, 
+                                C_LTE_LNCEL.LNCEL_EUTRA_CEL_ID  eci, 
+                                lncel.co_state state 
+                           from utp_common_objects plmn, 
+                                utp_common_objects mrbts, 
+                                utp_common_objects lnbts, 
+                                utp_common_objects lncel, 
+                                ROH_C_LTE_LNCEL C_LTE_LNCEL 
+                           where lncel.co_oc_id = 3130 and 
+                                    lncel.co_parent_gid = lnbts.co_gid and 
+                                    lnbts.co_oc_id = 3129 and 
+                                    lnbts.co_parent_gid = mrbts.co_gid and 
+                                    mrbts.co_oc_id = 3128 and 
+                                    C_LTE_LNCEL.CONF_ID = 1 and 
+                                    C_LTE_LNCEL.VALID_FINISH_TIME > SYSDATE and 
+                                    C_LTE_LNCEL.CO_GID = lncel.co_gid and 
+                                    mrbts.co_parent_gid = plmn.co_gid) target 
+ 				   #tmp_meas_tables# 
+ 			where 
+ 				plmn.co_oc_id=16 and 
+ 				mrbts.co_oc_id=3128 and 
+ 				lnbts.co_oc_id=3129 and 
+ 				lncel.co_oc_id=3130 and 
+ 				mrbts.co_parent_gid = plmn.co_gid and 
+ 				lnbts.co_parent_gid = mrbts.co_gid and 
+ 				lncel.co_parent_gid = lnbts.co_gid and 
+ 				#first_tmp_table#.eci_id = target.eci(+) and 
+ 				#first_tmp_table#.lncel_gid = lncel.co_gid 
+ 				#tmp_table_joins# 
+ 				#add_on_criteria# 
+ 			order by 
+ 				#add_on_sort#]]></sql-kpi> 
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-ECI" add-on-sort="2,1,3,4,5,6" obj-drill-column="eci_id">
+      <add-column id="DN" tooltip-ref="eci_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/ECI-'||#first_tmp_table#.eci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-ECI/LTE-DMCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/ECI-'||#first_tmp_table#.eci_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-ECI/LTE-DMCC/LTE-DMNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/ECI-'||#first_tmp_table#.eci_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+   </report> 
+
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>mnc_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4,5</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts, -->
+<!-- 				utp_common_objects lncel -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				lncel.co_oc_id=3130 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				lncel.co_parent_gid = lnbts.co_gid and -->
+<!-- 				#first_tmp_table#.lncel_gid = lncel.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC" /> -->
+<!--   </report> -->
+<!--   <report pragma="default"> -->
+<!--     <default-obj-drill-column>mcc_id</default-obj-drill-column> -->
+<!--     <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID</column-to-hide> -->
+<!--     <default-add-on-sort>2,1,3,4,5</default-add-on-sort> -->
+<!--     <sql-kpi><![CDATA[select -->
+<!-- 				#time#, -->
+<!-- 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", -->
+<!-- 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", -->
+<!-- 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", -->
+<!-- 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", -->
+<!-- 				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name", -->
+<!-- 				#keys#, -->
+<!-- 				#kpis# -->
+<!-- 			from -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects mrbts, -->
+<!-- 				utp_common_objects lnbts, -->
+<!-- 				utp_common_objects lncel -->
+<!-- 				#tmp_meas_tables# -->
+<!-- 			where -->
+<!-- 				plmn.co_oc_id=16 and -->
+<!-- 				mrbts.co_oc_id=3128 and -->
+<!-- 				lnbts.co_oc_id=3129 and -->
+<!-- 				lncel.co_oc_id=3130 and -->
+<!-- 				mrbts.co_parent_gid = plmn.co_gid and -->
+<!-- 				lnbts.co_parent_gid = mrbts.co_gid and -->
+<!-- 				lncel.co_parent_gid = lnbts.co_gid and -->
+<!-- 				#first_tmp_table#.lncel_gid = lncel.co_gid -->
+<!-- 				#tmp_table_joins# -->
+<!-- 				#add_on_criteria# -->
+<!-- 			order by -->
+<!-- 				#add_on_sort#]]></sql-kpi> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC" add-on-sort="2,1,3,4,5" obj-drill-column="mcc_id" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC" add-on-sort="2,1,3,4,5" obj-drill-column="lac_id" /> -->
+<!--     <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT" add-on-sort="2,1,3,4,5" obj-drill-column="hot_id" /> -->
+<!--   </report> -->
+
+   <report pragma="default"> 
+     <default-obj-drill-column>tcid_id</default-obj-drill-column> 
+     <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID</column-to-hide> 
+     <default-add-on-sort>2,1,3,4,5</default-add-on-sort> 
+     <sql-kpi><![CDATA[select 
+ 				#time#, 
+ 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", 
+ 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", 
+ 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", 
+ 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", 
+ 				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name", 
+ 				target.plmn_name "Target PLMN name", 
+ 				target.rnc_name "Target RNC name", 
+ 				target.wbts_name "Target WBTS name", 
+ 				target.wbts_id "Target WBTS ID", 
+ 				target.wcel_name "Target WCEL name", 
+ 				target.lcr_id "Target LCR ID", 
+ 				#keys#, 
+ 				#kpis# 
+ 			from 
+ 				utp_common_objects plmn, 
+ 				utp_common_objects mrbts, 
+ 				utp_common_objects lnbts, 
+ 				utp_common_objects lncel, 
+ 				(select wcel.co_gid gid, 
+                                nvl (plmn.co_name, 'NN(' || plmn.co_gid || ')') plmn_name, 
+                                nvl (rnc.co_name, 'NN(' || rnc.co_gid || ')') rnc_name, 
+                                rnc.co_object_instance rnc_id, 
+                                nvl (wbts.co_name, 'NN(' || wbts.co_gid || ')') wbts_name, 
+                                nvl (wcel.co_name, 'NN(' || wcel.co_gid || ')') wcel_name, 
+                                wbts.co_object_instance wbts_id, 
+                                wcel.co_object_instance lcr_id, 
+                                C_WCEL.wcel_cell_id  ci_id, 
+                                to_number(C_WCEL.wcel_mcc) wcel_mcc, 
+                                to_number(C_WCEL.wcel_mnc) wcel_mnc,                      
+                                wcel.co_state state 
+                           from utp_common_objects plmn, 
+                                utp_common_objects rnc, 
+                                utp_common_objects wbts, 
+                                utp_common_objects wcel, 
+                                ROH_C_WCEL C_WCEL 
+                           where wcel.co_oc_id = 813 and 
+                                    wcel.co_parent_gid = wbts.co_gid and 
+                                    wbts.co_oc_id = 812 and 
+                                    wbts.co_parent_gid = rnc.co_gid and 
+                                    rnc.co_oc_id = 811 and 
+                                    C_WCEL.CONF_ID = 1 and 
+                                    C_WCEL.VALID_FINISH_TIME > SYSDATE and 
+                                    C_WCEL.CO_GID = wcel.co_gid and 
+                                    rnc.co_parent_gid = plmn.co_gid) target 
+ 				#tmp_meas_tables# 
+ 			where 
+ 				plmn.co_oc_id=16 and 
+ 				mrbts.co_oc_id=3128 and 
+ 				lnbts.co_oc_id=3129 and 
+ 				lncel.co_oc_id=3130 and 
+ 				mrbts.co_parent_gid = plmn.co_gid and 
+ 				lnbts.co_parent_gid = mrbts.co_gid and 
+ 				lncel.co_parent_gid = lnbts.co_gid and 
+ 				#first_tmp_table#.tcid_id = target.ci_id(+) and 
+ 				to_number(#first_tmp_table#.hot_id) = target.rnc_id(+) and 
+ 				to_number(#first_tmp_table#.dmcc_id) = target.wcel_mcc(+) and 
+ 				to_number(#first_tmp_table#.dmnc_id) = target.wcel_mnc(+) and 
+ 				#first_tmp_table#.lncel_gid = lncel.co_gid 
+ 				#tmp_table_joins# 
+ 				#add_on_criteria# 
+ 			order by 
+ 				#add_on_sort#]]></sql-kpi>    
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT/LTE-TCID" add-on-sort="2,1,3,4,5,6" obj-drill-column="tcid_id">
+      <add-column id="DN" tooltip-ref="tcid_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TCID-'||#first_tmp_table#.tcid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT/LTE-TCID/LTE-DMCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-HOT/LTE-TCID/LTE-DMCC/LTE-DMNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+   </report> 
+
+   <report pragma="default"> 
+     <default-obj-drill-column>dmcc_id</default-obj-drill-column> 
+     <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID</column-to-hide> 
+     <default-add-on-sort>2,1,3,4,5</default-add-on-sort> 
+     <sql-kpi><![CDATA[select 
+ 				#time#, 
+ 				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name", 
+ 				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name", 
+ 				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE", 
+ 				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name", 
+ 				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name", 
+ 				target.segment_id "Target SEGMENT ID", 
+ 				target.segment_name "Target SEGMENT name", 
+ 				target.bts_name "Target BTS name", 
+ 				#keys#, 
+ 				#kpis# 
+ 			from 
+ 				utp_common_objects plmn, 
+ 				utp_common_objects mrbts, 
+ 				utp_common_objects lnbts, 
+ 				utp_common_objects lncel, 
+ 				(SELECT 
+ 							sc_table.segment_id segment_id, 
+ 							NVL(sc_table.segment_name,'NN('||sc_table.segment_id||')')  segment_name, 
+ 							bts.co_gid bts_co_gid, 
+ 							NVL(bts.co_name, 'NN('||sc_table.la_id_lac||' '||sc_table.cell_id ||')') bts_name, 
+ 							sc_table.cell_id ci_id, 
+ 							to_number(sc_table.la_id_lac) lac_id, 
+ 							to_number(sc_table.la_id_mcc_number) bts_mcc, 
+ 							to_number(sc_table.la_id_mnc_number) bts_mnc 
+ 						FROM utp_common_objects bts, 
+ 							ROH_C_BTS sc_table 
+ 						WHERE bts.co_oc_id = 4 AND 
+ 							bts.co_gid = sc_table.co_gid AND 
+ 							sc_table.valid_finish_time > SYSDATE  AND 
+ 							sc_table.conf_id = 1 AND 
+ 							sc_table.master_bts = 1 AND 
+ 							sc_table.object_state = 1) target 
+ 				#tmp_meas_tables# 
+ 			where 
+ 				plmn.co_oc_id=16 and 
+ 				mrbts.co_oc_id=3128 and 
+ 				lnbts.co_oc_id=3129 and 
+ 				lncel.co_oc_id=3130 and 
+ 				mrbts.co_parent_gid = plmn.co_gid and 
+ 				lnbts.co_parent_gid = mrbts.co_gid and 
+ 				lncel.co_parent_gid = lnbts.co_gid and 
+ 				#first_tmp_table#.tcid_id = target.ci_id(+) and  
+ 				to_number(#first_tmp_table#.lac_id) = target.lac_id(+) and  
+ 				to_number(#first_tmp_table#.dmcc_id) = target.bts_mcc(+) and  
+ 				to_number(#first_tmp_table#.dmnc_id) = target.bts_mnc(+) and  
+ 				#first_tmp_table#.lncel_gid = lncel.co_gid 
+ 				#tmp_table_joins# 
+ 				#add_on_criteria# 
+ 			order by 
+ 				#add_on_sort#]]></sql-kpi> 
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC/LTE-TCID1" add-on-sort="2,1,3,4,5,6" obj-drill-column="tcid_id">
+      <add-column id="DN" tooltip-ref="tcid_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/TCID1-'||#first_tmp_table#.tcid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC/LTE-TCID1/LTE-DMCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/TCID1-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/LTE-MCC/LTE-MNC/LTE-LAC/LTE-TCID1/LTE-DMCC/LTE-DMNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl(lncel.co_ext_dn, lncel.co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/TCID1-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+
+   </report> 
+    <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')') "MRBTS name",
+				sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.mrbts_gid = mrbts.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/ALRMSEV" />
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')') "MRBTS name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.mrbts_gid = mrbts.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/ALRMSEV/ALRMTYPE" />
+  </report>
+  
+    <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')') "PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')') "MRBTS name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.alarm "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alr) alrm
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				#first_tmp_table#.mrbts_gid = mrbts.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/ALRMSEV/ALRMTYPE/ALARM" />
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>LNBTS_GID,MRBTS_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name",
+				lnbts.co_object_instance "LNBTS ID",
+				sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				#first_tmp_table#.lnbts_gid = lnbts.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/ALRMSEV" />
+  </report>
+  
+    <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+    <column-to-hide>LNBTS_GID,MRBTS_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name",
+				lnbts.co_object_instance "LNBTS ID",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				#first_tmp_table#.lnbts_gid = lnbts.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/ALRMSEV/ALRMTYPE" />
+  </report>
+  
+    <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>LNBTS_GID,MRBTS_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name",
+				lnbts.co_object_instance "LNBTS ID",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.alarm "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alr) alrm
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				#first_tmp_table#.lnbts_gid = lnbts.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/ALRMSEV/ALRMTYPE/ALARM" />
+  </report>
+    
+  <report pragma="default">
+    <default-obj-drill-column>Severity</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID,SEVERITY_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name",
+				lnbts.co_object_instance "LNBTS ID",
+				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name",
+				sevr.severity "Severity",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lncel.co_parent_gid = lnbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				lncel.co_oc_id=3130 and
+				#first_tmp_table#.lncel_gid = lncel.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV" />
+  </report>
+
+  <report pragma="default">
+    <default-obj-drill-column>Type</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID,SEVERITY_ID,ALARM_TYPE_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name",
+				lnbts.co_object_instance "LNBTS ID",
+				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lncel.co_parent_gid = lnbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				lncel.co_oc_id=3130 and
+				#first_tmp_table#.lncel_gid = lncel.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE" />
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>Alarm</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID,LNBTS_GID,LNCEL_GID,SEVERITY_ID,ALARM_TYPE_ID,ALARM_ID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl(plmn.co_name, 'NN('||plmn.co_gid||')')"PLMN name",
+				nvl(mrbts.co_name, 'NN('||mrbts.co_gid||')')"MRBTS name",
+				nvl(lnbts.co_sc_name, 'MacroBTS') "LNBTS_TYPE",
+				nvl(lnbts.co_name, 'NN('||lnbts.co_gid||')')"LNBTS name",
+				lnbts.co_object_instance "LNBTS ID",
+				nvl(lncel.co_name, 'NN('||lncel.co_gid||')')"LNCEL name",
+				sevr.severity "Severity",
+				alrtyp.type "Type",
+				alrm.alarm "Alarm",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel,
+				(select
+				sev.severity_id, 
+				nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev) sevr,
+				(select
+				typ.alarm_type_id, 
+				nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ) alrtyp,
+				(select
+				alr.alarm_id, nvl(alr.text, 'NN('||alr.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alr) alrm
+				#tmp_meas_tables#
+			where
+				mrbts.co_parent_gid = plmn.co_gid and
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lncel.co_parent_gid = lnbts.co_gid and
+				mrbts.co_oc_id=3128 and
+				lnbts.co_oc_id=3129 and
+				lncel.co_oc_id=3130 and
+				#first_tmp_table#.lncel_gid = lncel.co_gid and
+				#first_tmp_table#.severity_id = sevr.severity_id and
+				#first_tmp_table#.alarm_type_id = alrtyp.alarm_type_id and
+				#first_tmp_table#.alarm_id = alrm.alarm_id
+				#tmp_table_joins#
+				#add_on_criteria#
+				order by
+				#add_on_sort#
+    ]]></sql-kpi>
+    <report-level id="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE/ALARM" />
+  </report>
+  
+  <report pragma="default">
+    <default-obj-drill-column>MR Name</default-obj-drill-column>
+    <column-to-hide>MR_GID</column-to-hide>
+    <default-add-on-sort>2,1</default-add-on-sort>
+    <report-level id="PLMN/MR_LNBTS">
+      <add-column id="DN" tooltip-ref="MR_LNBTS Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MR_LNCEL">
+      <add-column id="DN" tooltip-ref="MR_LNCEL Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MR_MRBTS">
+      <add-column id="DN" tooltip-ref="MR_MRBTS Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level> 
+    <sql-kpi><![CDATA[select
+				#id_pivot#,
+				decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')))"MR Name",
+				#kpis#
+			from
+				utp_common_objects mr
+				#tmp_meas_tables#
+			where
+				mr.co_oc_id=109 and
+				#first_tmp_table#.mr_gid = mr.co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by 2,1,3]]></sql-kpi>
+  </report>
+  <report pragma="default">
+    <report-level id="PLMN/WS_MRBTS" />
+    <report-level id="PLMN/WS_LNCEL" />
+    <report-level id="PLMN/WS_LNBTS" />
+    <report-level id="PLMN/LTE_BAND" />
+    <column-to-hide>WS_DUMMY</column-to-hide>
+    <default-add-on-sort>1,2</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#id_pivot#,
+				1 WS_DUMMY,
+				#kpis#
+			from
+				dual
+				#tmp_meas_tables#
+			where
+				1=1
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+  </report>
+  
+   <group name="PLMN/LTE_BAND">
+    <supports>
+      <filter-level>LNCEL</filter-level>
+    </supports>
+    <object-id-ref>lncel_gid</object-id-ref>
+    <group-id-ref>LTE_BAND</group-id-ref>
+    <sql><![CDATA[select lncel_gid, band from 
+    (SELECT
+CO_GID LNCEL_GID,
+CASE
+WHEN LNCEL_EARFCN_DL BETWEEN    0 AND 599      THEN 'BAND 1'  
+WHEN LNCEL_EARFCN_DL BETWEEN  600 AND 1199     THEN 'BAND 2'
+WHEN LNCEL_EARFCN_DL BETWEEN 1200 AND 1949     THEN 'BAND 3'
+WHEN LNCEL_EARFCN_DL BETWEEN 1950 AND 2399     THEN 'BAND 4' 
+WHEN LNCEL_EARFCN_DL BETWEEN 2400 AND 2649     THEN 'BAND 5' 
+WHEN LNCEL_EARFCN_DL BETWEEN 2650 AND 2749     THEN 'BAND 6' 
+WHEN LNCEL_EARFCN_DL BETWEEN 2750 AND 3449     THEN 'BAND 7' 
+WHEN LNCEL_EARFCN_DL BETWEEN 3450 AND 3799     THEN 'BAND 8' 
+WHEN LNCEL_EARFCN_DL BETWEEN 3800 AND 4149     THEN 'BAND 9' 
+WHEN LNCEL_EARFCN_DL BETWEEN 4150 AND 4749     THEN 'BAND 10'
+WHEN LNCEL_EARFCN_DL BETWEEN 4750 AND 4949     THEN 'BAND 11'
+WHEN LNCEL_EARFCN_DL BETWEEN 5010 AND 5179     THEN 'BAND 12'
+WHEN LNCEL_EARFCN_DL BETWEEN 5180 AND 5279     THEN 'BAND 13'
+WHEN LNCEL_EARFCN_DL BETWEEN 5280 AND 5379     THEN 'BAND 14'
+                  
+WHEN LNCEL_EARFCN_DL BETWEEN 5730 AND 5849     THEN 'BAND 17'
+WHEN LNCEL_EARFCN_DL BETWEEN 5850 AND 5999     THEN 'BAND 18'
+WHEN LNCEL_EARFCN_DL BETWEEN 6000 AND 6149     THEN 'BAND 19'
+WHEN LNCEL_EARFCN_DL BETWEEN 6150 AND 6449     THEN 'BAND 20'
+WHEN LNCEL_EARFCN_DL BETWEEN 6450 AND 6599     THEN 'BAND 21'
+WHEN LNCEL_EARFCN_DL BETWEEN 6600 AND 7399     THEN 'BAND 22'
+WHEN LNCEL_EARFCN_DL BETWEEN 7500 AND 7699     THEN 'BAND 23'
+WHEN LNCEL_EARFCN_DL BETWEEN 7700 AND 8039     THEN 'BAND 24'
+WHEN LNCEL_EARFCN_DL BETWEEN 8040 AND 8689     THEN 'BAND 25'
+                  
+WHEN LNCEL_EARFCN_DL BETWEEN 36000 AND 36199   THEN 'BAND 33'
+WHEN LNCEL_EARFCN_DL BETWEEN 36200 AND 36349   THEN 'BAND 34'
+WHEN LNCEL_EARFCN_DL BETWEEN 36350 AND 36949   THEN 'BAND 35'
+WHEN LNCEL_EARFCN_DL BETWEEN 36950 AND 37549   THEN 'BAND 36'
+WHEN LNCEL_EARFCN_DL BETWEEN 37550 AND 37749   THEN 'BAND 37'
+WHEN LNCEL_EARFCN_DL BETWEEN 37750 AND 38249   THEN 'BAND 38'
+WHEN LNCEL_EARFCN_DL BETWEEN 38250 AND 38649   THEN 'BAND 39'
+WHEN LNCEL_EARFCN_DL BETWEEN 38650 AND 39649   THEN 'BAND 40'
+WHEN LNCEL_EARFCN_DL BETWEEN 39650 AND 41589   THEN 'BAND 41'
+WHEN LNCEL_EARFCN_DL BETWEEN 41590 AND 43589   THEN 'BAND 42'
+WHEN LNCEL_EARFCN_DL BETWEEN 43590 AND 45589   THEN 'BAND 43'
+ELSE 'BAND UNKNOWN' END BAND    
+FROM
+ROH_C_LTE_LNCEL
+WHERE
+CONF_ID = 1
+AND VALID_FINISH_TIME > SYSDATE
+AND OBJECT_STATE = 1) ]]></sql>
+  </group>
+  
+  <group name="PLMN/WS_LNBTS">
+    <supports>
+      <filter-level>LNBTS</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_LNBTS</group-id-ref>
+    <sql><![CDATA[select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+	    		leg.la_object_class=3129]]></sql>
+  </group>
+  <group name="PLMN/WS_LNCEL">
+    <supports>
+      <filter-level>LNCEL</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_LNCEL</group-id-ref>
+    <sql><![CDATA[select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+	    		leg.la_object_class=3130]]></sql>
+  </group>
+  <group name="PLMN/WS_MRBTS">
+    <supports>
+      <filter-level>MRBTS</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_MRBTS</group-id-ref>
+    <sql><![CDATA[select
+	    		w.setname ws, leg.la_co_gid ws_gid
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+	    		leg.la_object_class=3128]]></sql>
+  </group>
+<drill-conf>
+    <time-drill from="month" to="week"/>
+    <time-drill from="monthbh" to="weekbh"/>
+    <time-drill from="monthbh2" to="weekbh2"/>
+  </drill-conf>
+  <drill-conf>
+    <object-drill from="PLMN" to="PLMN/MRBTS"/>
+    <object-drill from="PLMN/MR_LNBTS" to="PLMN/MRBTS/LNBTS"/>
+    <object-drill from="PLMN/MR_LNCEL" to="PLMN/MRBTS/LNBTS/LNCEL"/>
+    <object-drill from="PLMN/MR_MRBTS" to="PLMN/MRBTS"/>
+    <object-drill from="PLMN/WS_LNBTS" to="PLMN/MRBTS/LNBTS"/>
+    <object-drill from="PLMN/WS_LNCEL" to="PLMN/MRBTS/LNBTS/LNCEL"/>
+    <object-drill from="PLMN/WS_MRBTS" to="PLMN/MRBTS"/>
+ </drill-conf>
+</object-conf>
+

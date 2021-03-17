@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2174a">
+    <formula>100*decode(
+			(traffic.allo_dur_hs_dsch_ret_16_int + 
+			traffic.allo_dur_hs_dsch_ret_64_int + 
+			traffic.allo_dur_hs_dsch_ret_128_int + 
+			traffic.allo_dur_hs_dsch_ret_384_int + 
+			traffic.allo_dur_hs_dsch_ret_16_bgr + 
+			traffic.allo_dur_hs_dsch_ret_64_bgr + 
+			traffic.allo_dur_hs_dsch_ret_128_bgr + 
+			traffic.allo_dur_hs_dsch_ret_384_bgr),0,null, 
+
+			(traffic.allo_dur_hs_dsch_ret_64_int + 
+			traffic.allo_dur_hs_dsch_ret_64_bgr)
+			 / 
+			(traffic.allo_dur_hs_dsch_ret_16_int + 
+			traffic.allo_dur_hs_dsch_ret_64_int + 
+			traffic.allo_dur_hs_dsch_ret_128_int + 
+			traffic.allo_dur_hs_dsch_ret_384_int + 
+			traffic.allo_dur_hs_dsch_ret_16_bgr + 
+			traffic.allo_dur_hs_dsch_ret_64_bgr + 
+			traffic.allo_dur_hs_dsch_ret_128_bgr + 
+			traffic.allo_dur_hs_dsch_ret_384_bgr))</formula>
+    <kpi_info>
+      <title><![CDATA[Bitrate utilization, HS-DSCH return channel 64 UL, NRT]]></title>
+      <use><![CDATA[The share of HS-DSCH return channel 64 kbps allocation duration compared to total HS-DSCH return channel allocations for background services (NRT).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum( ALLO_DUR_HS_DSCH_RET_64_INT 
+&lt;br&gt;   + ALLO_DUR_HS_DSCH_RET_64_BGR ) 
+&lt;br&gt;------------------------------- 
+&lt;br&gt;sum( ALLO_DUR_HS_DSCH_RET_16_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_64_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_128_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_384_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_16_BGR 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_64_BGR 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_128_BGR 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_384_BGR ) 
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:53.580 +0100</date>
+          <comment><![CDATA[Source: RSRAN108.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>BitR util HS-DSCH 64 UL,NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

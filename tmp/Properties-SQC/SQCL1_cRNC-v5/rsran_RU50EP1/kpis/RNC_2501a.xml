@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_2501a">
+    <formula>100*decode(
+			(softho.cell_del_req_on_sho_for_nrt + 
+			softho.cell_del_fail_on_sho_for_nrt),0,null, 
+
+			softho.cell_del_fail_on_sho_for_nrt
+			 / 
+			(softho.cell_del_req_on_sho_for_nrt + 
+			softho.cell_del_fail_on_sho_for_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of 1b events from all, NRT]]></title>
+      <use><![CDATA[Percentage of periodical reports from all reports triggered by event 1b, NRT.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(CELL_DEL_FAIL_ON_SHO_FOR_NRT)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;sum(cell_del_req_on_sho_for_nrt +
+&lt;br&gt;CELL_DEL_FAIL_ON_SHO_FOR_NRT)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_SOFTHO_{obj_agg}_{time_agg},nokrww_ps_SOFHORNC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:38.949 +0100</date>
+          <comment><![CDATA[Source: RSRAN028.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>R of 1b evt from all NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

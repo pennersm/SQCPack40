@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SMMT.xml" />
+  <kpi name="flns_3111a">
+    <formula>decode(
+			(smmt.period_duration*60),0,null, 
+
+			(smmt.pdn_connectivity_failed_ue + 
+			smmt.pdn_connectivity_failed_enb + 
+			smmt.ddbearer_ueinit_act_succ + 
+			smmt.ddbearer_ueinit_act_fail + 
+			smmt.ddbearer_pgwinit_act_succ + 
+			smmt.ddbearer_pgwinit_act_fail)
+			/ 
+			(smmt.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Bearer activation per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS bearer activation procedures per second.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(PDN_CONNECTIVITY_FAILED_UE + 
+&lt;br&gt;   PDN_CONNECTIVITY_FAILED_ENB +
+&lt;br&gt;   DDBEARER_UEINIT_ACT_SUCC + 
+&lt;br&gt;   DDBEARER_UEINIT_ACT_FAIL +
+&lt;br&gt;   DDBEARER_PGWINIT_ACT_SUCC + 
+&lt;br&gt;   DDBEARER_PGWINIT_ACT_FAIL)
+&lt;br&gt;-----------------------------------
+&lt;br&gt;sum(period_duration * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_SMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.534 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Bearer act pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

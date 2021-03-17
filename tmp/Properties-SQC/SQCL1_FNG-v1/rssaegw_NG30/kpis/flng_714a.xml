@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCCRS_ext.xml"/>
+  <kpi name="flng_714a">
+    <formula>decode(
+			((GTPCCRS_ext.gtpc_create_resp_sent)),0,NULL, 
+
+			((GTPCCRS_ext.gtpc_create_resp_sent_128))
+			 / 
+			((GTPCCRS_ext.gtpc_create_resp_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create PDP context success ratio, excluding retransmissions]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v1 create PDP context request messages received when retransmissions are excluded (and based on response counters), i.e., the number of create PDP context response messages sent with cause code 'Request Accepted' when compared to the total number of create PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(crs_id,'128',GTPC_CREATE_RESP_SENT,0)) ;Request accepted
+&lt;br&gt;-------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_CREATE_RESP_SENT)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCCRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Cre PDP ctx SR, excl retx]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

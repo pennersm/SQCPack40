@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCCRS_ext.xml"/>
+  <kpi name="flng_752a">
+    <formula>decode(
+			((GTPCCRS_ext.gtpc_create_resp_sent)),0,NULL, 
+
+			((GTPCCRS_ext.gtpc_create_resp_sent_211))
+			 / 
+			((GTPCCRS_ext.gtpc_create_resp_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create PDP context responses sent "All dynamic PDP addresses are occupied" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 create PDP context responses sent with cause code "All dynamic PDP addresses are occupied" (211) when compared to total number of GTP-C v1 create PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(crs_id,'211',GTPC_CREATE_RESP_SENT,0)) ;All dynamic PDP addresses are occupied 
+&lt;br&gt;------------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_CREATE_RESP_SENT)  ;all CRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCCRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Create PDP resp 211 ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

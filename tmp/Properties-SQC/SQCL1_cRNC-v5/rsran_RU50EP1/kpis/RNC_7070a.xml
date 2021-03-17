@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/NBHSU.xml" />
+  <kpi name="RNC_7070a">
+    <formula>decode(
+			(nbhsu.edchharqretrmean + 
+			nbhsu.edchharqretrrecpdumean),0,null, 
+
+			(100*(nbhsu.edchharqretrmean
+			 / 
+			(nbhsu.edchharqretrmean + 
+			nbhsu.edchharqretrrecpdumean))))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA HARQ not acknowledged Ratio]]></title>
+      <use><![CDATA[HSUPA Hybrid Automatic Repeat Request (HARQ) not acknowledged Ratio.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* avg( edchHarqRetrMean / (edchHarqRetrMean +
+&lt;br&gt;edchHarqRetrRecPDUMean) )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_nbhsu_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[E-DCH HARQ Non-Ack Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

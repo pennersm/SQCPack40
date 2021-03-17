@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_PSN_IP FPSN measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_PSN_IP FPSN measurement dump</csv_title>
+    <report-description>FTM PSN tunnel IP</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PwtUnknownPWHdr_15 />
+    <PwtPktRecv_15 />
+    <PwtPktTransm_15 />
+    <PwtPktLost_15 />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FPSN" meas_level="PLMN/RNC/WBTS/FTM/PWNE/PWTIP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PwtUnknownPWHdr_15">SUM(PwtUnknownPWHdr_15)</counter>
+      <counter alias="PwtPktRecv_15">SUM(PwtPktRecv_15)</counter>
+      <counter alias="PwtPktTransm_15">SUM(PwtPktTransm_15)</counter>
+      <counter alias="PwtPktLost_15">SUM(PwtPktLost_15)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FPSN</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FPSN.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PwtUnknownPWHdr_15">
+    <formula>FPSN.PwtUnknownPWHdr_15</formula>
+    <kpi_info>
+      <title>PwtUnknownPWHdr_15</title>
+      <use>The number of received Ethernet frames whose pseudowire header is not configured or has a reserved value. The counter is incremented every second by the number of Ethernet frames received by the interface that were discarded as they contain an invalid pseudowire header (MPLS shim).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PwtUnknownPWHdr_15)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PwtUnknownPWHdr_15 (M5114C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PwtPktRecv_15">
+    <formula>FPSN.PwtPktRecv_15</formula>
+    <kpi_info>
+      <title>PwtPktRecv_15</title>
+      <use>Number of received packets on a tunnel. The counter is incremented every second by the number of packets received via the pseudowire tunnel.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PwtPktRecv_15)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PwtPktRecv_15 (M5114C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PwtPktTransm_15">
+    <formula>FPSN.PwtPktTransm_15</formula>
+    <kpi_info>
+      <title>PwtPktTransm_15</title>
+      <use>Number of transmitted packets on a tunnel. The counter is incremented every second by the number of packets transmitted via the pseudowire tunnel.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PwtPktTransm_15)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PwtPktTransm_15 (M5114C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PwtPktLost_15">
+    <formula>FPSN.PwtPktLost_15</formula>
+    <kpi_info>
+      <title>PwtPktLost_15</title>
+      <use>Number of lost Ethernet frames carrying PWE frames. UPDATED: The counter is updated every time there is a gap between the expected and the received PW sequence number.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PwtPktLost_15)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PwtPktLost_15 (M5114C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FPSN.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fpsn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

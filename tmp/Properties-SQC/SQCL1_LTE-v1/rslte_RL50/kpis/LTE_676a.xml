@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LVLPHB.xml"/>
+  <kpi name="LTE_676a">
+    <formula>decode(
+			((lvlphb.ifdroppedpackets_ef + 
+			lvlphb.ifpackets_ef)),0,null, 
+
+			(100*(lvlphb.ifdroppedpackets_ef))
+			 / 
+			((lvlphb.ifdroppedpackets_ef + 
+			lvlphb.ifpackets_ef)))</formula>
+    <kpi_info>
+      <title><![CDATA[TOT VLAN Intf PHB PKTS to send  DR due CG]]></title>
+      <use><![CDATA[ratio between the number of dropped IP Packets  in the IP scheduler due to congestion  within the Expedited Forwarding PHB  and total number of  IP Packets to transmitte .
+The KPI is available for both the Ethernet-based IP interface and for each VLAN interface of the BTS.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100 *       sum(ifDroppedPackets_EF)
+&lt;br&gt;          ---------------------------------
+&lt;br&gt;         sum(ifDroppedPackets_EF+ifPackets_EF)                    
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LVLPHB_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[TOT VLAN Intf PHB PKTS to send  DR due CG]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

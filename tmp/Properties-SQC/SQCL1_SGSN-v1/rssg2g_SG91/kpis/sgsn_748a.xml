@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml" />
+  <kpi name="sgsn_748a">
+    <formula>100*decode(
+			(iumm1.iu_succ_combined_attach + 
+			iumm1.iu_fail_comb_attach_in_ps),0,NULL, 
+
+			(iumm1.iu_fail_comb_attach_8)
+			 / 
+			(iumm1.iu_succ_combined_attach + 
+			iumm1.iu_fail_comb_attach_in_ps))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu combined attach services NA failure ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of combined attach failures from Iu interface due to reason #8 GPRS services and non-GPRS services not allowed. The failures are compared to all attempts]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(IU_FAIL_COMB_ATTACH_8)
+&lt;br&gt;-------------------------------------------------------------- * 100
+&lt;br&gt;sum(IU_SUCC_COMBINED_ATTACH +
+&lt;br&gt;       IU_FAIL_COMB_ATTACH_IN_PS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_iu_mobility_mgmt</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iumm1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu combined attach services NA failure ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/ROU_ext.xml" />
+  <temp_table_ref src="nss/counters/ROU.xml" />
+  <kpi name="msc_2151a">
+    <formula>rou_ext.route_erlangs_x100_1*rou.period_duration/60</formula>
+    <kpi_info>
+      <title><![CDATA[Traffic volume on routes - M391 unrestricted measurement period]]></title>
+      <use><![CDATA[Amount of traffic volume on routes. KPI to be used for any M391 measure period duration. Calculation based on raw data tables.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>Same KPI as msc_448d (new KPI ID reference starting from M15.1).
+		<br>
+		<br>The ROUTE_ERLANGS_x100 counter is multiplied by 100. This counter has to be divided by 100 to provide the correct values.
+		<br>The KPI formula aggregation is defined as AVG for 15 minutes up to hour and SUM for hour up.
+		<br>This KPI is valid for any M391 (Route measurement) PERIOD_DURATION configuration.
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC; ROUTE
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Route measurement  (391/187H)
+		<br>
+		<br>]]></use_experience>
+		
+      <known_problems />
+      <open_questions />
+      <pm_class />
+	    <formula>
+	    &lt;br&gt;
+	    &lt;br&gt;AVG(ROUTE_ERLANGS_x100/100) * COUNT(distinct period_start_time) * AVG(period_duration/60)
+		&lt;br&gt;
+		&lt;br&gt;Counters from RAW view(s)
+		</formula>
+      <unit>[Ehr]</unit>
+      <tables>rns_ps_ROU_ROUTE2_RAW</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Traff vol on routes M361_Any</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

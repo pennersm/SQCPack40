@@ -1,0 +1,174 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M592 ULOAD measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M592 ULOAD measurement dump</csv_title>
+    <report-description>Unit load measurement in CDS(ULOAD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <COMP_AVERAGE_LOAD/>
+    <COMP_PEAK_LOAD/>
+    <COMP_PEAK_LOAD_PERCENT/>
+    <COMP_PEAK_LOAD_DATE/>
+    <COMP_PEAK_LOAD_TIME/>
+    <COMP_INVALID_RECORD/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/CDS/UNIT" name="ULOAD" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="COMP_AVERAGE_LOAD" symmetrical="true">AVG(COMP_AVERAGE_LOAD)</counter>
+      <counter alias="COMP_PEAK_LOAD" symmetrical="true">SUM(COMP_PEAK_LOAD)</counter>
+      <counter alias="COMP_PEAK_LOAD_PERCENT" symmetrical="true">MAX(COMP_PEAK_LOAD_PERCENT)</counter>
+      <counter alias="COMP_PEAK_LOAD_DATE" symmetrical="true">SUM(COMP_PEAK_LOAD_DATE)</counter>
+      <counter alias="COMP_PEAK_LOAD_TIME" symmetrical="true">SUM(COMP_PEAK_LOAD_TIME)</counter>
+      <counter alias="COMP_INVALID_RECORD" symmetrical="true">AVG(COMP_INVALID_RECORD)</counter>
+    </counters>
+    <table_name>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ULOAD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ULOAD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMP_AVERAGE_LOAD">
+    <formula>ULOAD.COMP_AVERAGE_LOAD</formula>
+    <kpi_info>
+      <title>COMP_AVERAGE_LOAD</title>
+      <use>The average load rate in percentage (0.0...100.0).When the measurement object is a computer unit (COMP), the value
+is the arithmetical average of samples taken from the processor
+load.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMP_AVERAGE_LOAD)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMP_AVERAGE_LOAD (M592B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMP_PEAK_LOAD">
+    <formula>ULOAD.COMP_PEAK_LOAD</formula>
+    <kpi_info>
+      <title>COMP_PEAK_LOAD</title>
+      <use>Not in use.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMP_PEAK_LOAD)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMP_PEAK_LOAD (M592B2C888)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMP_PEAK_LOAD_PERCENT">
+    <formula>ULOAD.COMP_PEAK_LOAD_PERCENT</formula>
+    <kpi_info>
+      <title>COMP_PEAK_LOAD_PERCENT</title>
+      <use>The peak load rate in percentage (0...100).This is the highest recorded value of the processor load during
+a measurement period. The peak load is an average load of 4 seconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(COMP_PEAK_LOAD_PERCENT)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMP_PEAK_LOAD_PERCENT (M592B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMP_PEAK_LOAD_DATE">
+    <formula>ULOAD.COMP_PEAK_LOAD_DATE</formula>
+    <kpi_info>
+      <title>COMP_PEAK_LOAD_DATE</title>
+      <use>The date of peak load. Date in format ddmmyyyy(d = day, m = month, Y = year)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMP_PEAK_LOAD_DATE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMP_PEAK_LOAD_DATE (M592B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMP_PEAK_LOAD_TIME">
+    <formula>ULOAD.COMP_PEAK_LOAD_TIME</formula>
+    <kpi_info>
+      <title>COMP_PEAK_LOAD_TIME</title>
+      <use>The time of the peak load. The time indicatesthe sampling moment that followed the sampling period with the highest
+load rate during the measurement period. Time in format hhmmssdd
+(h = hour, m = minutes, s = seconds,
+d = hundreds of seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COMP_PEAK_LOAD_TIME)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMP_PEAK_LOAD_TIME (M592B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMP_INVALID_RECORD">
+    <formula>ULOAD.COMP_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>COMP_INVALID_RECORD</title>
+      <use>Tag appears with field value 1 when unit typeand index are unknown.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMP_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMP_INVALID_RECORD (M592B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

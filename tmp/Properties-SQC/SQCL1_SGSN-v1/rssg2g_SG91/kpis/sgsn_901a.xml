@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IURA.xml" />
+  <kpi name="sgsn_901a">
+    <formula>decode(
+			((iura.avg_of_sccp_conn_den)),0,NULL, 
+
+			((iura.avg_of_sccp_conn_sum)
+			 / 
+			(iura.avg_of_sccp_conn_den)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average amount of SCCP connections in use]]></title>
+      <use><![CDATA[This KPI shows the average amount of SCCP connections in use. This gives information about network usage, more specifically about how many users that have a SCCP connection (corresponding to a RRC connection in the radio world) between the UE and the core network]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(AVG_OF_SCCP_CONN_SUM)
+&lt;br&gt;-------------------------------------------------
+&lt;br&gt;sum(AVG_OF_SCCP_CONN_DEN)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_iu_ranap</formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_iura_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average amount of SCCP connections in use]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

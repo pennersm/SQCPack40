@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>FSMMON (FSM Level Monitoring)</header>
+    <csv_title>FSMMON (FSM Level Monitoring)</csv_title>
+    <report-description>FSM Level Monitoring</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <FSM_MAX_USED_R99_SU/>
+    <FSM_MAX_USED_HSUPA_SU/>
+    <FSM_AVAIL_R99_SU/>
+    <FSM_AVAIL_HSUPA_SU/>
+    <FSM_CONF_HSDPA_SU/>
+    <FSM_CONF_PIC_SU/>
+    <FSM_CONF_HSFACH_SU/>
+    <FSM_USED_CCCH_SU/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="FSMMON" omes_name="FSM_Level_Monitoring" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FSM" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>FSMMON</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="FSM_MAX_USED_R99_SU" symmetrical="true">MAX(FSM_MAX_USED_R99_SU)</counter>
+          <counter alias="FSM_MAX_USED_HSUPA_SU" symmetrical="true">MAX(FSM_MAX_USED_HSUPA_SU)</counter>
+          <counter alias="FSM_AVAIL_R99_SU" symmetrical="true">MAX(FSM_AVAIL_R99_SU)</counter>
+          <counter alias="FSM_AVAIL_HSUPA_SU" symmetrical="true">MAX(FSM_AVAIL_HSUPA_SU)</counter>
+          <counter alias="FSM_CONF_HSDPA_SU" symmetrical="true">MAX(FSM_CONF_HSDPA_SU)</counter>
+          <counter alias="FSM_CONF_PIC_SU" symmetrical="true">MAX(FSM_CONF_PIC_SU)</counter>
+          <counter alias="FSM_CONF_HSFACH_SU" symmetrical="true">MAX(FSM_CONF_HSFACH_SU)</counter>
+          <counter alias="FSM_USED_CCCH_SU" symmetrical="true">MAX(FSM_USED_CCCH_SU)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FSMMON</alias_name>
+    <ui_name>FSM Level Monitoring</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FSMMON.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_MAX_USED_R99_SU">
+    <formula>FSMMON.FSM_MAX_USED_R99_SU</formula>
+    <kpi_info>
+      <title>FSM_MAX_USED_R99_SU (M5012C0)</title>
+      <use>The maximum usage of subunits for R99 CEs in the FSM, obtained by sampling with a predefined sampling period during the measurement period. The counter includes: - CE resources used for DCHs. - CEs used for CCCHs. CCCHs don't utilize R99 CEs if BTS includes Flexi Rel3 HW.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_MAX_USED_R99_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_MAX_USED_R99_SU (M5012C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_MAX_USED_HSUPA_SU">
+    <formula>FSMMON.FSM_MAX_USED_HSUPA_SU</formula>
+    <kpi_info>
+      <title>FSM_MAX_USED_HSUPA_SU (M5012C1)</title>
+      <use>The maximum usage of subunits for HSUPA in the FSM, obtained by sampling with a predefined sampling period during the measurement period. UPDATED: The counter is updated over the measurement period. The value of the counter is the maximum value of all samples.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_MAX_USED_HSUPA_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_MAX_USED_HSUPA_SU (M5012C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_AVAIL_R99_SU">
+    <formula>FSMMON.FSM_AVAIL_R99_SU</formula>
+    <kpi_info>
+      <title>FSM_AVAIL_R99_SU (M5012C2)</title>
+      <use>The number of the available subunits for R99 Channel Elements in the FSM. The counter indicates the minimum value of HW capacity and licensed capacity available for R99 CE in the FSM. The licensed capacity considered in this counter is the sum of: - number of dedicated R99 CE licenses from all LCGs present in FSM, - R99 CE capacity of hybrid HSUPA resource steps which is allocated to the HSUPA schedulers present in FSM, - total number of licensed R99 CEs in the common baseband pool. Current usage of the common pool is not considered. UPDATED: The counter is updated when FSM configuration, HW capacity or licensed capacity is changed.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_AVAIL_R99_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_AVAIL_R99_SU (M5012C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_AVAIL_HSUPA_SU">
+    <formula>FSMMON.FSM_AVAIL_HSUPA_SU</formula>
+    <kpi_info>
+      <title>FSM_AVAIL_HSUPA_SU (M5012C3)</title>
+      <use>The number of the available subunits for HSUPA processing in the FSM. The counter indicates the minimum value of HW capacity and licensed capacity available for HSUPA in the FSM. The licensed capacity considered in this counter is the sum of HSUPA resource steps which can be allocated for HSUPA processing due to HSUPA Processing Set licenses allocated to schedulers of the FSM. UPDATED: The counter is updated when FSM configuration, HW capacity or licensed capacity is changed.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_AVAIL_HSUPA_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_AVAIL_HSUPA_SU (M5012C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_CONF_HSDPA_SU">
+    <formula>FSMMON.FSM_CONF_HSDPA_SU</formula>
+    <kpi_info>
+      <title>FSM_CONF_HSDPA_SU (M5012C4)</title>
+      <use>The total number of configured subunits for HSDPA processing in the FSM UPDATED: The counter is updated when HSDPA is allocated in FSM (at system module start-up)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_CONF_HSDPA_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_CONF_HSDPA_SU (M5012C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_CONF_PIC_SU">
+    <formula>FSMMON.FSM_CONF_PIC_SU</formula>
+    <kpi_info>
+      <title>FSM_CONF_PIC_SU (M5012C5)</title>
+      <use>The number of configured subunits for PIC processing in the FSM. UPDATED: The counter is updated when PIC configuration is changed in the FSM.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_CONF_PIC_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_CONF_PIC_SU (M5012C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_CONF_HSFACH_SU">
+    <formula>FSMMON.FSM_CONF_HSFACH_SU</formula>
+    <kpi_info>
+      <title>FSM_CONF_HSFACH_SU (M5012C6)</title>
+      <use>The number of configured subunits for HS-FACH processing in the FSM. UPDATED: The counter is updated when HS-FACH configuration is changed in the FSM.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_CONF_HSFACH_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_CONF_HSFACH_SU (M5012C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FSM_USED_CCCH_SU">
+    <formula>FSMMON.FSM_USED_CCCH_SU</formula>
+    <kpi_info>
+      <title>FSM_USED_CCCH_SU (M5012C7)</title>
+      <use>The number of used subunits for CCCH processing in the FSM. Note: Only additional CCCHs consuming R99 CEs or CCCH processing sets are calculated; that is, CCCH capacity included in HW price is not visible in counters. UPDATED: The counter is updated when usage of CCH subunits is changed in the FSM.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(FSM_USED_CCCH_SU)</formula>
+      <unit>subunit</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FSM_USED_CCCH_SU (M5012C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FSMMON.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fsmmon_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

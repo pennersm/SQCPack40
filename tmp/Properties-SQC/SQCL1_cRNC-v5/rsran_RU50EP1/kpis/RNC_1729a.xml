@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_1729a">
+    <formula>decode(
+			(traffic.allo_success_edch_str + 
+			traffic.ul_dch_sel_max_hsupa_usr_str + 
+			traffic.ul_dch_sel_bts_hw_str + 
+			traffic.edch_allo_canc_na_as_str + 
+			traffic.setup_fail_edch_ue_str + 
+			traffic.setup_fail_edch_bts_str + 
+			traffic.setup_fail_edch_trans_str + 
+			traffic.setup_fail_edch_other_str),0,null, 
+
+			(100*(traffic.setup_fail_edch_bts_str)
+			 / 
+			(traffic.allo_success_edch_str + 
+			traffic.ul_dch_sel_max_hsupa_usr_str + 
+			traffic.ul_dch_sel_bts_hw_str + 
+			traffic.edch_allo_canc_na_as_str + 
+			traffic.setup_fail_edch_ue_str + 
+			traffic.setup_fail_edch_bts_str + 
+			traffic.setup_fail_edch_trans_str + 
+			traffic.setup_fail_edch_other_str)))</formula>
+    <kpi_info>
+      <title><![CDATA[Streaming HSUPA Setup Failure Rate - BTS]]></title>
+      <use><![CDATA[This KPI provides information about the HSUPA Setup Failure Ratio due to BTS failures, for Streaming traffic class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(SETUP_FAIL_EDCH_BTS_STR)
+&lt;br&gt;---------------------------------
+&lt;br&gt;RNC_1723a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>STR HSUPA stp FR BTS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml" />
+  <kpi name="sgsn_805a">
+    <formula>100*decode(
+			(iusm.iu_succ_impl_pdp_deact_sgsn + 
+			iusm.iu_fail_impl_pdp_deact_sgsn),0,NULL, 
+
+			(iusm.iu_succ_impl_pdp_deact_sgsn)
+			 / 
+			(iusm.iu_succ_impl_pdp_deact_sgsn + 
+			iusm.iu_fail_impl_pdp_deact_sgsn))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu implicit PDP deactivation success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of implicit PDP context deactivations to Iu interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(IU_SUCC_IMPL_PDP_DEACT_SGSN)
+&lt;br&gt;--------------------------------------------------------------------- * 100
+&lt;br&gt;sum(IU_SUCC_IMPL_PDP_DEACT_SGSN+
+&lt;br&gt;       IU_FAIL_IMPL_PDP_DEACT_SGSN)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_iu_session_mgmt</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iusm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu implicit PDP deactivation success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

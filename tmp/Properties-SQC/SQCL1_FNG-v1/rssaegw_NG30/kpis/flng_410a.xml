@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DIDFRS_ext.xml" />
+  <kpi name="flng_410a">
+    <formula>decode(
+			((DIDFRS_ext.GTPCV2_DEL_IND_D_RES_SENT_ALL)),0,NULL, 
+
+			((DIDFRS_ext.GTPCV2_DEL_IND_DATAFW_RES_SENT))
+			 / 
+			((DIDFRS_ext.GTPCV2_DEL_IND_D_RES_SENT_ALL)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Indirect Data Forward responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete indirect data forward responses sent for a specific cause code when compared to total number of GTP-C v2 delete indirect data forward response messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum(decode(didfrs_id,'x',GTPCV2_DEL_IND_DATAFW_RES_SENT,0))  ;DIDFRS for cause code x
+&lt;br&gt;-------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DEL_IND_DATAFW_RES_SENT)  ;all DIDFRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DIDFRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Ind Da FW re sent rat]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

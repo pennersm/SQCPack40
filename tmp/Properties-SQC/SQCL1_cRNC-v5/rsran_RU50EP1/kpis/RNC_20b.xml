@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+    <kpi name="RNC_20b">
+    <formula>decode(
+			(servlev.rrc_conn_stp_att +
+			servlev.rrc_conn_setup_comp_aft_dir -
+			servlev.rrc_con_setup_comp_directed),0,null,
+
+			100*(servlev.rrc_conn_stp_comp)
+			 /
+			(servlev.rrc_conn_stp_att +
+			servlev.rrc_conn_setup_comp_aft_dir -
+			servlev.rrc_con_setup_comp_directed))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Connection setup Success Ratio]]></title>
+      <use><![CDATA[RRC Connection setup success ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;    100*sum(RRC_CONN_STP_COMP)
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;        sum(RRC_CONN_STP_ATT 
+&lt;br&gt;          + RRC_CONN_SETUP_COMP_AFT_DIR 
+&lt;br&gt;          - RRC_CON_SETUP_COMP_DIRECTED)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RRC Connection setup Success Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

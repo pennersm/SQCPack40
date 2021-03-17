@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 NetQoS NetQoS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 NetQoS NetQoS measurement dump</csv_title>
+    <report-description>Flexi platform network QOS statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PACKET_DROPPED />
+    <PACKETS_ENQUEUED />
+    <BYTES_DROPPED />
+    <BYTE_ENQUEUED />
+    <PACKETS_DROPPED />
+    <OCTETS_DROPPED />
+    <OCTETS_ENQUEUED />
+  </column_order>
+  <temp_table name="NetQoS" meas_level="PLMN/FING/FNODE/NGIF/QUEUE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PACKET_DROPPED" time-alias="PACKET_DROPPED" timeagg="SUM(PACKET_DROPPED)">SUM(PACKET_DROPPED)</counter>
+      <counter alias="PACKETS_ENQUEUED" time-alias="PACKETS_ENQUEUED" timeagg="SUM(PACKETS_ENQUEUED)">SUM(PACKETS_ENQUEUED)</counter>
+      <counter alias="BYTES_DROPPED" time-alias="BYTES_DROPPED" timeagg="SUM(BYTES_DROPPED)">SUM(BYTES_DROPPED)</counter>
+      <counter alias="BYTE_ENQUEUED" time-alias="BYTE_ENQUEUED" timeagg="SUM(BYTE_ENQUEUED)">SUM(BYTE_ENQUEUED)</counter>
+      <counter alias="PACKETS_DROPPED" time-alias="PACKETS_DROPPED" timeagg="SUM(PACKETS_DROPPED)">SUM(PACKETS_DROPPED)</counter>
+      <counter alias="OCTETS_DROPPED" time-alias="OCTETS_DROPPED" timeagg="SUM(OCTETS_DROPPED)">SUM(OCTETS_DROPPED)</counter>
+      <counter alias="OCTETS_ENQUEUED" time-alias="OCTETS_ENQUEUED" timeagg="SUM(OCTETS_ENQUEUED)">SUM(OCTETS_ENQUEUED)</counter>
+    </counters>
+    <table_name>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NetQoS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NetQoS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PACKET_DROPPED">
+    <formula>NetQoS.PACKET_DROPPED</formula>
+    <kpi_info>
+      <title>PACKET_DROPPED</title>
+      <use>The total number of outbound packets chosen to be dropped from the queue. Updated: When a packet is dropped when attempted to be added to the queue of outbound packets for the network interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PACKET_DROPPED)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PACKET_DROPPED (m02005c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PACKETS_ENQUEUED">
+    <formula>NetQoS.PACKETS_ENQUEUED</formula>
+    <kpi_info>
+      <title>PACKETS_ENQUEUED</title>
+      <use>The number of packets that are passed to the queue. UPDATED: When a packet is added to the queue of outbound packets for the network interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PACKETS_ENQUEUED)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PACKETS_ENQUEUED (m2005c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="BYTES_DROPPED">
+    <formula>NetQoS.BYTES_DROPPED</formula>
+    <kpi_info>
+      <title>BYTES_DROPPED</title>
+      <use>The total number of bytes that are dropped from the queue. UPDATED: When a packet is dropped when attempted to be enqueued</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(BYTES_DROPPED)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>BYTES_DROPPED (m02005c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="BYTE_ENQUEUED">
+    <formula>NetQoS.BYTE_ENQUEUED</formula>
+    <kpi_info>
+      <title>BYTE_ENQUEUED</title>
+      <use>The total number of bytes that are enqueued to the queue UPDATED: When a packet is successfully enqueued to the queue</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(BYTE_ENQUEUED)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>BYTE_ENQUEUED (m02005c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+<kpi name="PACKETS_DROPPED">
+    <formula>NetQoS.PACKETS_DROPPED</formula>
+    <kpi_info>
+      <title>PACKETS_DROPPED</title>
+      <use>The number of outbound packets chosen to be dropped from the queue. UPDATED: When a packet is dropped when attempted to be added to the queue of outbound packets for the network interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PACKETS_DROPPED)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PACKETS_DROPPED (m2005c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OCTETS_DROPPED">
+    <formula>NetQoS.OCTETS_DROPPED</formula>
+    <kpi_info>
+      <title>OCTETS_DROPPED</title>
+      <use>The number of octets that are chosen to be dropped from the queue. UPDATED: When a packet is dropped when attempted to be added to the queue of outbound packets for the network interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(OCTETS_DROPPED)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>OCTETS_DROPPED (m2005c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OCTETS_ENQUEUED">
+    <formula>NetQoS.OCTETS_ENQUEUED</formula>
+    <kpi_info>
+      <title>OCTETS_ENQUEUED</title>
+      <use>The number of octets that are passed to the queue. UPDATED: When a packet is added to the queue of outbound packets for the network interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(OCTETS_ENQUEUED)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>OCTETS_ENQUEUED (m2005c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

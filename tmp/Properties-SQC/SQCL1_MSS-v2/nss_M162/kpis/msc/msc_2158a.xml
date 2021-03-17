@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_2158a">
+    <formula>(tc_ext.tcat_traffx100_14)/100</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA (erl) SIP calls and HO cases]]></title>
+      <use><![CDATA[Indicates total traffic amount during busy hour. Shows whether the MSC/MSS is performing within capacity provisions.  In this formula SIP and HO calls are included.]]></use>
+		
+		<use_experience><![CDATA[ 
+		<br>Same KPI as msc_573c (new KPI ID reference starting from M15.1).
+		<br>
+		<br>This BHCA does include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+		<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+		<br>
+		<br>13 = IMSC&#160;HO&#160;INC = Incoming inter-MSC handovers
+		<br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc. 
+		<br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+		<br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+		<br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+		<br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+		<br>74 = SIP ORIG = SIP originating traffic
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+		<br>
+		<br>]]></use_experience>
+		
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+      	&lt;br&gt;
+      	&lt;br&gt;AVG( tcat_traffx100 )
+		&lt;br&gt;----------------------------- 
+		&lt;br&gt;          100 
+		&lt;br&gt;
+		&lt;br&gt;;WHERE traffic_category_id IN (32, 34, 45, 15, 16, 13, 74)
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}
+		&lt;br&gt;
+		</formula>
+		
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BHCA SIP Calls HO Cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

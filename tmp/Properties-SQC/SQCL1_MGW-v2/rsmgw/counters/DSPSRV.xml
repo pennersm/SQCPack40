@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>DSPSRV (DSP Service Statistics)</header>
+    <csv_title>DSPSRV (DSP Service Statistics)</csv_title>
+    <report-description>609/261H DSP Service Statistics Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DSP_SERVICE_CURR_RES_ALLOC />
+    <DSP_SERVICE_PEAK_RES_ALLOC />
+    <DSP_SERVICE_SUCC_RES_ALLOC />
+    <DSP_SERVICE_FAIL_RES_ALLOC />
+    <DSP_SERVICE_FAIL_RES_MODIFY />
+  </column_order>
+  <temp_table name="DSPSRV" meas_level="PLMN/RSMGW-MGW/RSMGW-SERVT" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>DSPSRV</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="DSP_SERVICE_CURR_RES_ALLOC"  symmetrical="true"  itk_id="DSP_SERVICE_CURR_RES_ALLOC">AVG(DSP_SERVICE_CURR_RES_ALLOC)</counter>
+          <counter alias="DSP_SERVICE_PEAK_RES_ALLOC"  symmetrical="true"  itk_id="DSP_SERVICE_PEAK_RES_ALLOC">MAX(DSP_SERVICE_PEAK_RES_ALLOC)</counter>
+          <counter alias="DSP_SERVICE_SUCC_RES_ALLOC"  symmetrical="true"  itk_id="DSP_SERVICE_SUCC_RES_ALLOC">SUM(DSP_SERVICE_SUCC_RES_ALLOC)</counter>
+          <counter alias="DSP_SERVICE_FAIL_RES_ALLOC"  symmetrical="true"  itk_id="DSP_SERVICE_FAIL_RES_ALLOC">SUM(DSP_SERVICE_FAIL_RES_ALLOC)</counter>
+          <counter alias="DSP_SERVICE_FAIL_RES_MODIFY"  symmetrical="true"  itk_id="DSP_SERVICE_FAIL_RES_MODIFY">SUM(DSP_SERVICE_FAIL_RES_MODIFY)</counter>
+    </counters>
+    <table_name>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DSPSRV</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>DSPSRV.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DSP_SERVICE_CURR_RES_ALLOC" itk_id="DSP_SERVICE_CURR_RES_ALLOC">
+    <formula>DSPSRV.DSP_SERVICE_CURR_RES_ALLOC</formula>
+    <kpi_info>
+      <title>DSP_SERVICE_CURR_RES_ALLOC (M609C0)</title>
+      <use>The current number of resources allocated for a specific DSP service type.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(DSP_SERVICE_CURR_RES_ALLOC)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DSP_SERVICE_CURR_RES_ALLOC (M609C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DSP_SERVICE_PEAK_RES_ALLOC" itk_id="DSP_SERVICE_PEAK_RES_ALLOC">
+    <formula>DSPSRV.DSP_SERVICE_PEAK_RES_ALLOC</formula>
+    <kpi_info>
+      <title>DSP_SERVICE_PEAK_RES_ALLOC (M609C1)</title>
+      <use>The peak number of resources allocated for a specific DSP service type.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(DSP_SERVICE_PEAK_RES_ALLOC)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DSP_SERVICE_PEAK_RES_ALLOC (M609C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DSP_SERVICE_SUCC_RES_ALLOC" itk_id="DSP_SERVICE_SUCC_RES_ALLOC">
+    <formula>DSPSRV.DSP_SERVICE_SUCC_RES_ALLOC</formula>
+    <kpi_info>
+      <title>DSP_SERVICE_SUCC_RES_ALLOC (M609C2)</title>
+      <use>The total cumulative number of the resources allocated for a specific DSP service type.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DSP_SERVICE_SUCC_RES_ALLOC)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DSP_SERVICE_SUCC_RES_ALLOC (M609C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DSP_SERVICE_FAIL_RES_ALLOC" itk_id="DSP_SERVICE_FAIL_RES_ALLOC">
+    <formula>DSPSRV.DSP_SERVICE_FAIL_RES_ALLOC</formula>
+    <kpi_info>
+      <title>DSP_SERVICE_FAIL_RES_ALLOC (M609C3)</title>
+      <use>The number of DSP resource modification failures.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DSP_SERVICE_FAIL_RES_ALLOC)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DSP_SERVICE_FAIL_RES_ALLOC (M609C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DSP_SERVICE_FAIL_RES_MODIFY" itk_id="DSP_SERVICE_FAIL_RES_MODIFY">
+    <formula>DSPSRV.DSP_SERVICE_FAIL_RES_MODIFY</formula>
+    <kpi_info>
+      <title>DSP_SERVICE_FAIL_RES_MODIFY (M609C4)</title>
+      <use>The number of DSP resource modification failures.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DSP_SERVICE_FAIL_RES_MODIFY)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_dspsrv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DSP_SERVICE_FAIL_RES_MODIFY (M609C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

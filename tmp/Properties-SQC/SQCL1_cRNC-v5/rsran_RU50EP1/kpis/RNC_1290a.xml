@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_1290a">
+    <formula>decode(
+			(rrc.denom_st_trans_time_dch_fach),0,null, 
+
+			((rrc.sum_st_trans_time_dch_fach)
+			 / 
+			(rrc.denom_st_trans_time_dch_fach)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average state transition time from Cell-DCH state to Cell-FACH state]]></title>
+      <use><![CDATA[This KPI monitors the RRC state transition times from Cell-DCH state to Cell-FACH state]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(SUM_ST_TRANS_TIME_DCH_FACH)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;SUM(DENOM_ST_TRANS_TIME_DCH_FACH)</formula>
+      <unit>[ms]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>StateTransTime DCH-FACH</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

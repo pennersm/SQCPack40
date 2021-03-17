@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsmgw/counters/H248GR1.xml" />
+  <kpi name="MGW_714b">
+    <formula>100*decode(
+			(h248gr1.handled_add_cmds_req + 
+			h248gr1.handled_modify_cmds_req + 
+			h248gr1.handled_move_cmds_req + 
+			h248gr1.handled_subtract_cmds_req + 
+			h248gr1.hndl_audit_capab_cmds_req + 
+			h248gr1.hndl_audit_value_cmds_req + 
+			h248gr1.handled_serv_chg_cmds_rpl + 
+			h248gr1.handled_notify_cmds_rpl),0,null, 
+
+			((h248gr1.handled_add_cmds_req + 
+			h248gr1.handled_modify_cmds_req + 
+			h248gr1.handled_move_cmds_req + 
+			h248gr1.handled_subtract_cmds_req + 
+			h248gr1.hndl_audit_capab_cmds_req + 
+			h248gr1.hndl_audit_value_cmds_req + 
+			h248gr1.handled_serv_chg_cmds_rpl + 
+			h248gr1.handled_notify_cmds_rpl) - 
+			(h248gr1.error_add_cmds_req + 
+			h248gr1.error_modify_cmds_req + 
+			h248gr1.error_move_cmds_req + 
+			h248gr1.error_subtract_cmds_req + 
+			h248gr1.error_audit_capab_cmds_req + 
+			h248gr1.error_audit_value_cmds_req + 
+			h248gr1.error_serv_chg_cmds_rpl + 
+			h248gr1.error_notify_cmds_rpl))
+			 / 
+			(h248gr1.handled_add_cmds_req + 
+			h248gr1.handled_modify_cmds_req + 
+			h248gr1.handled_move_cmds_req + 
+			h248gr1.handled_subtract_cmds_req + 
+			h248gr1.hndl_audit_capab_cmds_req + 
+			h248gr1.hndl_audit_value_cmds_req + 
+			h248gr1.handled_serv_chg_cmds_rpl + 
+			h248gr1.handled_notify_cmds_rpl))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful resource handling command requests]]></title>
+      <use><![CDATA[Share of successfully handled resource handling commands of all received resource handling command requests in MGW. Resource handling commands include Add, Modify, Move and Subtract commands.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(HANDLED_ADD_CMDS_REQ + HANDLED_MODIFY_CMDS_REQ 
+&lt;br&gt;+ HANDLED_MOVE_CMDS_REQ + HANDLED_SUBTRACT_CMDS_REQ
+&lt;br&gt;+HNDL_AUDIT_CAPAB_CMDS_REQ+HNDL_AUDIT_VALUE_CMDS_REQ
+&lt;br&gt;+HANDLED_SERV_CHG_CMDS_RPL+HANDLED_NOTIFY_CMDS_RPL)
+&lt;br&gt;
+&lt;br&gt;- (ERROR_ADD_CMDS_REQ + ERROR_MODIFY_CMDS_REQ 
+&lt;br&gt;+ ERROR_MOVE_CMDS_REQ + ERROR_SUBTRACT_CMDS_REQ
+&lt;br&gt;+ERROR_AUDIT_CAPAB_CMDS_REQ+ERROR_AUDIT_VALUE_CMDS_REQ
+&lt;br&gt;+ERROR_SERV_CHG_CMDS_RPL+ERROR_NOTIFY_CMDS_RPL))
+&lt;br&gt;
+&lt;br&gt;----------------------------------------------
+&lt;br&gt;
+&lt;br&gt;sum(HANDLED_ADD_CMDS_REQ + HANDLED_MODIFY_CMDS_REQ 
+&lt;br&gt;+ HANDLED_MOVE_CMDS_REQ + HANDLED_SUBTRACT_CMDS_REQ
+&lt;br&gt;+HNDL_AUDIT_CAPAB_CMDS_REQ+HNDL_AUDIT_VALUE_CMDS_REQ
+&lt;br&gt;+HANDLED_SERV_CHG_CMDS_RPL+HANDLED_NOTIFY_CMDS_RPL)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_h248gr1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of successful resource handling command requests]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

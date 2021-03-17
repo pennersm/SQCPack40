@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <report pragma="default" itk_id="2816d000502ca2729acf0eccaa5bc1b47fc02391130390632376bb8db907a02f">
+    <default-obj-drill-column>MGW name</default-obj-drill-column>
+    <column-to-hide>MGW_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("mgw".co_name, nvl("mgw".co_object_instance, 'NN('||"mgw".co_gid||')')) "MGW name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "mgw"
+				#tmp_meas_tables#
+			where
+				#first_tmp_table#.mgw_gid = "mgw".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSMGW-MGW" itk_id="PLMN/RSMGW-MGW">
+      <add-column id="DN" tooltip-ref="MGW Name">nvl("mgw".co_ext_dn, "mgw".co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-ASSNAME" add-on-sort="2,1,3,4" obj-drill-column="assname_id" itk_id="PLMN/RSMGW-MGW/RSMGW-ASSNAME">
+      <add-column id="DN" tooltip-ref="assname_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/ASSNAME-'||#first_tmp_table#.assname_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND" add-on-sort="2,1,3,4" obj-drill-column="assind_id" itk_id="PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND">
+      <add-column id="DN" tooltip-ref="assind_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/ASSNAME-'||#first_tmp_table#.assname_id||'/ASSIND-'||#first_tmp_table#.assind_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-CGNU" add-on-sort="2,1,3,4" obj-drill-column="cgnu_id" itk_id="PLMN/RSMGW-MGW/RSMGW-CGNU">
+      <add-column id="DN" tooltip-ref="cgnu_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/CGNU-'||#first_tmp_table#.cgnu_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA" add-on-sort="2,1,3,4" obj-drill-column="cgna_id" itk_id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA">
+      <add-column id="DN" tooltip-ref="cgna_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/CGNU-'||#first_tmp_table#.cgnu_id||'/CGNA-'||#first_tmp_table#.cgna_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-DSPP" add-on-sort="2,1,3,4" obj-drill-column="dspp_id" itk_id="PLMN/RSMGW-MGW/RSMGW-DSPP">
+      <add-column id="DN" tooltip-ref="dspp_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/DSPP-'||#first_tmp_table#.dspp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-GRP" add-on-sort="2,1,3,4" obj-drill-column="grp_id" itk_id="PLMN/RSMGW-MGW/RSMGW-GRP">
+      <add-column id="DN" tooltip-ref="grp_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/GRP-'||#first_tmp_table#.grp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-IF" add-on-sort="2,1,3,4" obj-drill-column="if_id" itk_id="PLMN/RSMGW-MGW/RSMGW-IF">
+      <add-column id="DN" tooltip-ref="if_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IF-'||#first_tmp_table#.if_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI" add-on-sort="2,1,3,4" obj-drill-column="vpi_id" itk_id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI">
+      <add-column id="DN" tooltip-ref="vpi_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IF-'||#first_tmp_table#.if_id||'/VPI-'||#first_tmp_table#.vpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI" add-on-sort="2,1,3,4" obj-drill-column="vci_id" itk_id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI">
+      <add-column id="DN" tooltip-ref="vci_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IF-'||#first_tmp_table#.if_id||'/VPI-'||#first_tmp_table#.vpi_id||'/VCI-'||#first_tmp_table#.vci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-IMA" add-on-sort="2,1,3,4" obj-drill-column="ima_group_id" itk_id="PLMN/RSMGW-MGW/RSMGW-IMA">
+      <add-column id="DN" tooltip-ref="ima_group_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IMA-'||#first_tmp_table#.ima_group_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-IPROU" add-on-sort="2,1,3,4" obj-drill-column="iprou_id" itk_id="PLMN/RSMGW-MGW/RSMGW-IPROU">
+      <add-column id="DN" tooltip-ref="iprou_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/IPROU-'||#first_tmp_table#.iprou_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-MRNC" add-on-sort="2,1,3,4" obj-drill-column="mrnc_id" itk_id="PLMN/RSMGW-MGW/RSMGW-MRNC">
+      <add-column id="DN" tooltip-ref="mrnc_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/MRNC-'||#first_tmp_table#.mrnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-NETC" add-on-sort="2,1,3,4" obj-drill-column="netc_id" itk_id="PLMN/RSMGW-MGW/RSMGW-NETC">
+      <add-column id="DN" tooltip-ref="netc_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/NETC-'||#first_tmp_table#.netc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-NETC/RSMGW-SPC" add-on-sort="2,1,3,4" obj-drill-column="spc_id" itk_id="PLMN/RSMGW-MGW/RSMGW-NETC/RSMGW-SPC">
+      <add-column id="DN" tooltip-ref="spc_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/NETC-'||#first_tmp_table#.netc_id||'/SPC-'||#first_tmp_table#.spc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-PHYTTP" add-on-sort="2,1,3,4" obj-drill-column="phyttp_id" itk_id="PLMN/RSMGW-MGW/RSMGW-PHYTTP">
+      <add-column id="DN" tooltip-ref="phyttp_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/PHYTTP-'||#first_tmp_table#.phyttp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-ROUTE" add-on-sort="2,1,3,4" obj-drill-column="route_id" itk_id="PLMN/RSMGW-MGW/RSMGW-ROUTE">
+      <add-column id="DN" tooltip-ref="route_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/ROUTE-'||#first_tmp_table#.route_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SERVT" add-on-sort="2,1,3,4" obj-drill-column="serv_type_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SERVT">
+      <add-column id="DN" tooltip-ref="serv_type_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SERVT-'||#first_tmp_table#.serv_type_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SLN" add-on-sort="2,1,3,4" obj-drill-column="sln_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN">
+      <add-column id="DN" tooltip-ref="sln_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SLN-'||#first_tmp_table#.sln_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE" add-on-sort="2,1,3,4" obj-drill-column="sl_type_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE">
+      <add-column id="DN" tooltip-ref="sl_type_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SL_TYPE-'||#first_tmp_table#.sl_type_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET" add-on-sort="2,1,3,4" obj-drill-column="snet_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET">
+      <add-column id="DN" tooltip-ref="snet_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SL_TYPE-'||#first_tmp_table#.sl_type_id||'/SNET-'||#first_tmp_table#.snet_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD" add-on-sort="2,1,3,4" obj-drill-column="spcd_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD">
+      <add-column id="DN" tooltip-ref="spcd_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SL_TYPE-'||#first_tmp_table#.sl_type_id||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN" add-on-sort="2,1,3,4" obj-drill-column="slsn_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN">
+      <add-column id="DN" tooltip-ref="slsn_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SL_TYPE-'||#first_tmp_table#.sl_type_id||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id||'/SLSN-'||#first_tmp_table#.slsn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1" add-on-sort="2,1,3,4" obj-drill-column="snet_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1">
+      <add-column id="DN" tooltip-ref="snet_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO" add-on-sort="2,1,3,4" obj-drill-column="sio_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO">
+      <add-column id="DN" tooltip-ref="sio_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SIO-'||#first_tmp_table#.sio_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC" add-on-sort="2,1,3,4" obj-drill-column="opc_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC">
+      <add-column id="DN" tooltip-ref="opc_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SIO-'||#first_tmp_table#.sio_id||'/OPC-'||#first_tmp_table#.opc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC" add-on-sort="2,1,3,4" obj-drill-column="dspc_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC">
+      <add-column id="DN" tooltip-ref="dspc_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SIO-'||#first_tmp_table#.sio_id||'/OPC-'||#first_tmp_table#.opc_id||'/DSPC-'||#first_tmp_table#.dspc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1" add-on-sort="2,1,3,4" obj-drill-column="spcd_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1">
+      <add-column id="DN" tooltip-ref="spcd_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1" add-on-sort="2,1,3,4" obj-drill-column="slsn_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1">
+      <add-column id="DN" tooltip-ref="slsn_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id||'/SLSN-'||#first_tmp_table#.slsn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN" add-on-sort="2,1,3,4" obj-drill-column="ssn_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN">
+      <add-column id="DN" tooltip-ref="ssn_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SSN-'||#first_tmp_table#.ssn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS" add-on-sort="2,1,3,4" obj-drill-column="ss_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS">
+      <add-column id="DN" tooltip-ref="ss_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SSN-'||#first_tmp_table#.ssn_id||'/SS-'||#first_tmp_table#.ss_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SP" add-on-sort="2,1,3,4" obj-drill-column="sp_code_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SP">
+      <add-column id="DN" tooltip-ref="sp_code_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SP-'||#first_tmp_table#.sp_code_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET" add-on-sort="2,1,3,4" obj-drill-column="net_code_id" itk_id="PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET">
+      <add-column id="DN" tooltip-ref="net_code_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/SP-'||#first_tmp_table#.sp_code_id||'/NET-'||#first_tmp_table#.net_code_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-TCU" add-on-sort="2,1,3,4" obj-drill-column="tcu_id" itk_id="PLMN/RSMGW-MGW/RSMGW-TCU">
+      <add-column id="DN" tooltip-ref="tcu_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/TCU-'||#first_tmp_table#.tcu_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG" add-on-sort="2,1,3,4" obj-drill-column="tpg_id" itk_id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG">
+      <add-column id="DN" tooltip-ref="tpg_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/TCU-'||#first_tmp_table#.tcu_id||'/TPG-'||#first_tmp_table#.tpg_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE" add-on-sort="2,1,3,4" obj-drill-column="unit_type_id" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE">
+      <add-column id="DN" tooltip-ref="unit_type_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||#first_tmp_table#.unit_type_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" add-on-sort="2,1,3,4" obj-drill-column="unit_index_id" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT">
+      <add-column id="DN" tooltip-ref="unit_index_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||#first_tmp_table#.unit_type_id||'/UNIT-'||#first_tmp_table#.unit_index_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF" add-on-sort="2,1,3,4" obj-drill-column="ethif_id" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF">
+      <add-column id="DN" tooltip-ref="ethif_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||#first_tmp_table#.unit_type_id||'/UNIT-'||#first_tmp_table#.unit_index_id||'/ETHIF-'||#first_tmp_table#.ethif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF" add-on-sort="2,1,3,4" obj-drill-column="ipif_if" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF">
+      <add-column id="DN" tooltip-ref="ipif_if">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||#first_tmp_table#.unit_type_id||'/UNIT-'||#first_tmp_table#.unit_index_id||'/IPIF-'||#first_tmp_table#.ipif_if</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB" add-on-sort="2,1,3,4" obj-drill-column="pdb_id" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB">
+      <add-column id="DN" tooltip-ref="pdb_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||#first_tmp_table#.unit_type_id||'/UNIT-'||#first_tmp_table#.unit_index_id||'/IPIF-'||#first_tmp_table#.ipif_if||'/PHB-'||#first_tmp_table#.pdb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-WAC" add-on-sort="2,1,3,4" obj-drill-column="wac_id" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-WAC">
+      <add-column id="DN" tooltip-ref="wac_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/UTYPE-'||#first_tmp_table#.unit_type_id||'/UNIT-'||#first_tmp_table#.unit_index_id||'/WAC-'||#first_tmp_table#.wac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSMGW-MGW/RSMGW-VMGW" add-on-sort="2,1,3,4" obj-drill-column="vmgw_id" itk_id="PLMN/RSMGW-MGW/RSMGW-VMGW">
+      <add-column id="DN" tooltip-ref="vmgw_id">nvl("mgw".co_ext_dn, "mgw".co_dn)||'/VMGW-'||#first_tmp_table#.vmgw_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default" itk_id="7c139d86f73145abbc6e64e089bd10a666f9ab2bf1d5c0e7531538a87eb79adb">
+    <default-obj-drill-column>MR Name</default-obj-drill-column>
+    <column-to-hide>MR_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <report-level id="PLMN/MR_RSMGW-MGW" itk_id="PLMN/MR_RSMGW-MGW">
+      <add-column id="DN" tooltip-ref="MR_MGW Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <sql-kpi><![CDATA[select
+        #id_pivot#,
+        decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) "MR Name",
+        #kpis#
+      from
+        utp_common_objects mr
+        #tmp_meas_tables#
+      where
+        mr.co_oc_id=109 and
+        #first_tmp_table#.mr_gid = mr.co_gid
+        #tmp_table_joins#
+        #add_on_criteria#
+      order by 2,1,3]]></sql-kpi>
+  </report>
+  <report pragma="default" itk_id="8f9d7d139803896a43e91ec9bc0bfdace99819f9b08242c65b3f838bd4191cc7">
+    <column-to-hide>WS_DUMMY</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <report-level id="PLMN/WS_RSMGW-MGW" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <sql-kpi><![CDATA[select
+        #id_pivot#,
+        1 WS_DUMMY,
+        #kpis#
+      from
+        dual
+        #tmp_meas_tables#
+      where
+        1=1
+        #tmp_table_joins#
+        #add_on_criteria#
+      order by
+        #add_on_sort#]]></sql-kpi>
+  </report>
+  <group name="PLMN/WS_RSMGW-MGW" itk_id="PLMN/WS_RSMGW-MGW">
+    <supports>
+      <filter-level>RSMGW-MGW</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSMGW-MGW</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <drill-conf>
+    <time-drill from="month"    to="week" itk_id="month_week"/>
+    <time-drill from="monthbh"    to="weekbh" itk_id="monthbh_weekbh"/>
+    <time-drill from="monthbh2"   to="weekbh2" itk_id="monthbh2_weekbh2"/>
+  </drill-conf>
+  <drill-conf>
+    <object-drill from="PLMN" to="PLMN/RSMGW-MGW" itk_id="PLMN_PLMN/RSMGW-MGW"/>
+    <object-drill from="PLMN/MR_RSMGW-MGW" to="PLMN/RSMGW-MGW" itk_id="PLMN/MR_RSMGW-MGW_PLMN/RSMGW-MGW"/>
+    <object-drill from="PLMN/WS_RSMGW-MGW" to="PLMN/RSMGW-MGW" itk_id="PLMN/WS_RSMGW-MGW_PLMN/RSMGW-MGW"/>
+  </drill-conf>
+</object-conf>

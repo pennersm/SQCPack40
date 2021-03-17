@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_2116a">
+    <formula>100*decode(
+			((SERVLEV.rrc_conn_acc_comp + 
+			servlev.rrc_reloc_acc_comp_1)),0,null, 
+
+			((servlev.ue_supp_cs_voice_over_hspa_1))
+			 / 
+			((SERVLEV.rrc_conn_acc_comp + 
+			servlev.rrc_reloc_acc_comp_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA CS Voice Capability Ratio]]></title>
+      <use><![CDATA[HSPA CS Voice Capability Ratio, compares the number CS Voice over HSPA capable UE with RRC Connections against the total number of RRC Connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (ue_supp_cs_voice_over_hspa)
+&lt;br&gt;100 * --------------------------------------------
+&lt;br&gt;      sum (rrc_conn_acc_comp + rrc_reloc_acc_comp)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSPA CS Voice Capa ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

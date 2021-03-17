@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="msc_2057b">
+    <formula>100*decode(
+			(VLRNMSC.REG_AVG_TOTAL),0,null, 
+
+			(VLRNMSC.REG_AVG_NAT_TOTAL)
+			 / 
+			(VLRNMSC.REG_AVG_TOTAL))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of National roamer subscribers in VLR. ENH_VLR Opt.]]></title>
+      <use><![CDATA[The ratio of the national roamer registered normal subscribers related to the number of normal registered subscribers in VLR during the reporting time. Calculated from the quotient of NATIONAL ROAMER TOTAL counters and the sum of AVERAGE TOTAL counters. This KPI is to be used if parameter ENH_VLR_MEAS_PER_LAC is activated but SIM_USIM_MEAS_PER_LAI is not activated.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI is only applicable if the FIFILE parameter ENH_VLR_MEAS_PER_LAC is activated but SIM_USIM_MEAS_PER_LAI is not activated.
+<br>If both ENH_VLR_MEAS_PER_LAC and SIM_USIM_MEAS_PER_LAI are activated please use msc_2057a KPI.
+<br>If ENH_VLR_MEAS_PER_LAC is not activated it's not possible to calculate this KPI.
+<br>
+<br>PUBLISHED: M16.0
+<br>LAST UPDATE: 28-10-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Subscriber
+<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+<br>
+<br>NOTES: This KPI includes optional features.
+<br>
+<br>The ENH_VLR_MEAS_PER_LAC FIFILE functionality must be provided and active in order to have ATTACHED + REGISTERED + NATIONAL ROAMING + INTERNATIONAL ROAMING counter details to be available.
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>For Object:
+&lt;br&gt;       SUM( REG_AVG_NAT_TOTAL )
+&lt;br&gt;100 * ---------------------------------------
+&lt;br&gt;       SUM( REG_AVG_TOTAL )
+&lt;br&gt;
+&lt;br&gt;For Time:
+&lt;br&gt;       AVG( REG_AVG_NAT_TOTAL )
+&lt;br&gt;100 * ---------------------------------------
+&lt;br&gt;       AVG( REG_AVG_TOTAL )
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED tables
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[NAT Roam Subs Ratio in VLR Off-On]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/LULAC_ext.xml" />
+  <kpi name="msc_2180b">
+    <formula>decode (
+			((nvl(lulac_ext.inter_vlr_loc_update_attempt_1,0) + nvl(lulac_ext.inter_vlr_loc_update_attempt_2,0)) + 
+			(nvl(lulac_ext.ie_vlr_lu_reroute_1,0) + nvl(lulac_ext.ie_vlr_lu_reroute_2,0)))
+			, 0, null, 
+			(100*((nvl(lulac_ext.inter_vlr_loc_update_success_1,0) + nvl(lulac_ext.inter_vlr_loc_update_success_2,0)) / 
+			((nvl(lulac_ext.inter_vlr_loc_update_attempt_1,0) + nvl(lulac_ext.inter_vlr_loc_update_attempt_2,0)) + 
+			(nvl(lulac_ext.ie_vlr_lu_reroute_1,0) + nvl(lulac_ext.ie_vlr_lu_reroute_2,0))))))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Inter-VLR LU per LAC SR reRou]]></title>
+      <use><![CDATA[The ratio of successful Inter-VLR location updates compared to all location updates of this type for the given LAC. 
+In the attempt related part, this KPI includes the reroutings of the non-supporting UEs (2G and 3G) in a MOCN configuration during the Inter-VLR Location Update attempts.]]></use>
+      <use_experience />
+	  <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( INTER_VLR_LOC_UPDATE_SUCCESS )
+&lt;br&gt;100 *  ----------------------------------------------------------------
+&lt;br&gt;       SUM( INTER_VLR_LOC_UPDATE_ATTEMPT + IE_VLR_LU_REROUTE )
+&lt;br&gt;                            ; Where ACCESS_TYPE "2G" or "3G" 
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_lulac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inter-VLR LU per LAC SR reRou</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

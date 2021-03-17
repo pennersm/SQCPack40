@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LVLPHB.xml" />
+  <kpi name="LTE_697a">
+    <formula>
+decode(
+	lvlphb.period_duration
+	,0,null, 
+	(8*lvlphb.ifoctets_af2)
+	 /
+	((lvlphb.period_duration)*60*1000)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[AVG OuTBound VLAN Interface PHB_Class_2 Throughput]]></title>
+      <use><![CDATA[The KPI gives indication about averaged Ou( TBound Throughput of data using Expedited Forwarding PHB class 2 . The KPI is available for both the Ethernet-based IP interface and for each VLAN interface of the BTS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;( ifOctets_AF2 )*8 
+&lt;br&gt; -------------------------------
+&lt;br&gt; (period_duration )*60 *1000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>NOKLTE_PS_LPHB_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LVLPHB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/08/03 17:59:37.83 +0100</date>
+          <comment><![CDATA[Source: RSLTE033.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>AVG OUTB VLAN Intf  PHB_Class_2 DR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

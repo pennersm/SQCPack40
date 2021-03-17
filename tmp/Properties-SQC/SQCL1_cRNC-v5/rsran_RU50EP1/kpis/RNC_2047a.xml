@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_2047a">
+    <formula>100*decode(
+			((HSDPAW.hsupa_pwr_ratio_distr_class_01 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_02 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_03 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_04 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_05)),0,null, 
+
+			((HSDPAW.hsupa_pwr_ratio_distr_class_05))
+			 / 
+			((HSDPAW.hsupa_pwr_ratio_distr_class_01 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_02 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_03 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_04 + 
+			HSDPAW.hsupa_pwr_ratio_distr_class_05)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Transmitted Power Ratio - Class 5 Ratio]]></title>
+      <use><![CDATA[Percentage of time samples indicating that HSUPA Transmitted Power Ratio matches Class 5 range (80% <= power) of CPICH power, compared to the total number of samples.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                                                                        sum (hsupa_pwr_ratio_distr_class_05)
+&lt;br&gt;100 * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (hsupa_pwr_ratio_distr_class_01 + hsupa_pwr_ratio_distr_class_02 + hsupa_pwr_ratio_distr_class_03 + hsupa_pwr_ratio_distr_class_04 + hsupa_pwr_ratio_distr_class_05)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HSUPA TransPwr,Clas5 Rate]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 RADIUS_DISCONNECT RSDI measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 RADIUS_DISCONNECT RSDI measurement dump</csv_title>
+    <report-description>Radius disconnect statistics per disconnect server profile.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DISCONNECT_REQUESTS />
+    <DISCONNECT_ACK />
+    <DISCONNECT_NAK />
+    <DISCONNECT_MSG_RECV_DROPPED />
+  </column_order>
+  <temp_table name="RSDI" meas_level="PLMN/FING/FNODE/RADIUSDI" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="DISCONNECT_REQUESTS" time-alias="DISCONNECT_REQUESTS" timeagg="SUM(DISCONNECT_REQUESTS)">SUM(DISCONNECT_REQUESTS)</counter>
+      <counter alias="DISCONNECT_ACK" time-alias="DISCONNECT_ACK" timeagg="SUM(DISCONNECT_ACK)">SUM(DISCONNECT_ACK)</counter>
+      <counter alias="DISCONNECT_NAK" time-alias="DISCONNECT_NAK" timeagg="SUM(DISCONNECT_NAK)">SUM(DISCONNECT_NAK)</counter>
+      <counter alias="DISCONNECT_MSG_RECV_DROPPED" time-alias="DISCONNECT_MSG_RECV_DROPPED" timeagg="SUM(DISCONNECT_MSG_RECV_DROPPED)">SUM(DISCONNECT_MSG_RECV_DROPPED)</counter>
+    </counters>
+    <table_name>pcofng_ps_rsdi_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RSDI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RSDI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_rsdi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DISCONNECT_REQUESTS">
+    <formula>RSDI.DISCONNECT_REQUESTS</formula>
+    <kpi_info>
+      <title>DISCONNECT_REQUESTS</title>
+      <use>This counter contains the number of received Disconnect Request messages per disconnect server profile. UPDATED: Updated when a Disconnect Request message is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DISCONNECT_REQUESTS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_rsdi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DISCONNECT_REQUESTS (m3038c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DISCONNECT_ACK">
+    <formula>RSDI.DISCONNECT_ACK</formula>
+    <kpi_info>
+      <title>DISCONNECT_ACK</title>
+      <use>This counter contains the number of sent Disconnect-ACK messages per disconnect server profile. UPDATED: Updated when a Disconnect-ACK message is sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DISCONNECT_ACK)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_rsdi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DISCONNECT_ACK (m3038c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DISCONNECT_NAK">
+    <formula>RSDI.DISCONNECT_NAK</formula>
+    <kpi_info>
+      <title>DISCONNECT_NAK</title>
+      <use>This counter contains the number of sent Disconnect-NAK messages per disconnect server profile. UPDATED: Updated when a Disconnect-NAK message is sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DISCONNECT_NAK)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_rsdi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DISCONNECT_NAK (m3038c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DISCONNECT_MSG_RECV_DROPPED">
+    <formula>RSDI.DISCONNECT_MSG_RECV_DROPPED</formula>
+    <kpi_info>
+      <title>DISCONNECT_MSG_RECV_DROPPED</title>
+      <use>This counter contains the number of times the received Disconnect Request message has been dropped per disconnect server profile. UPDATED: Updated when a Disconnect Request message is received from an unknown disconnect server or the message content is faulty. For example; message length is invalid or message's authenticator is wrongly calculated or Acct-Session-Id attribute is missing.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DISCONNECT_MSG_RECV_DROPPED)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_rsdi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DISCONNECT_MSG_RECV_DROPPED (m3038c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

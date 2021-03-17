@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_2333a">
+    <formula>100*decode(
+			(intsysho.intra_intra_hho_att_nrt + 
+			intsysho.intra_inter_hho_att_nrt + 
+			intsysho.inter_hho_att_nrt + 
+			intsysho.hho_att_caused_sho_incap_nrt + 
+			intsysho.immed_hho_csd_sho_incap_nrt),0,null, 
+
+			(intsysho.con_drps_hho_intra_intra_nrt + 
+			intsysho.con_drps_hho_intra_inter_nrt + 
+			intsysho.con_drps_hho_inter_nrt + 
+			intsysho.conn_drops_hho_csd_incap_nrt)
+			 / 
+			(intsysho.intra_intra_hho_att_nrt + 
+			intsysho.intra_inter_hho_att_nrt + 
+			intsysho.inter_hho_att_nrt + 
+			intsysho.hho_att_caused_sho_incap_nrt + 
+			intsysho.immed_hho_csd_sho_incap_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC connection drop ratio during Intra System HHO for NRT]]></title>
+      <use><![CDATA[RRC connection drop ratio during Intra System Hard Handover for non-real time connections]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(conn_drps_hho_intra_intra_nrt +
+&lt;br&gt;conn_drps_hho_intra_inter_nrt + 
+&lt;br&gt;conn_drps_hho_inter_nrt +
+&lt;br&gt;conn_drops_hho_csd_incap_nrt)
+&lt;br&gt;----------------------------------------
+&lt;br&gt;SUM(intra_intra_hho_att_nrt +
+&lt;br&gt;intra_inter_hho_att_nrt +
+&lt;br&gt;inter_hho_att_nrt +
+&lt;br&gt;hho_att_caused_sho_incap_nrt +
+&lt;br&gt;immed_hho_csd_sho_incap_nrt)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_INTSYSHO_{obj_agg}_{time_agg},nokrww_ps_INTSHORN_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:55.494 +0100</date>
+          <comment><![CDATA[Source: RSRAN121.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra-Sys HHO DR NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

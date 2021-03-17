@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_1159a">
+    <formula>decode(
+			(softho.one_cell_in_edch_as_dura + 
+			softho.two_cells_in_edch_as_dura + 
+			softho.three_cells_in_edch_as_dura),0,null, 
+
+			(100*(softho.three_cells_in_edch_as_dura)
+			 / 
+			(softho.one_cell_in_edch_as_dura + 
+			softho.two_cells_in_edch_as_dura + 
+			softho.three_cells_in_edch_as_dura)))</formula>
+    <kpi_info>
+      <title><![CDATA[Three cells in HSUPA associated UL AS]]></title>
+      <use><![CDATA[Usage of three cells in the AS for HSUPA]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          sum (THREE_CELLS_IN_EDCH_AS_DURA)
+&lt;br&gt;100* ---------------------------------------------------------
+&lt;br&gt;          sum(ONE_CELL_IN_EDCH_AS_DURA
+&lt;br&gt;              + TWO_CELLS_IN_EDCH_AS_DURA
+&lt;br&gt;              + THREE_CELLS_IN_EDCH_AS_DURA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_softho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Three cells in HSUPA associated UL AS]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

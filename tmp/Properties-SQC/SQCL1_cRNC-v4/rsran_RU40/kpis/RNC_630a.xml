@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran_RU40/counters/HSDPAW_ext.xml" />
+  <kpi name="RNC_630a">
+    <formula>(decode(
+			hsdpaw.mac_hs_pdu_retr_dist_cl_0_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_1_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_2_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_3_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_4_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_5_1,0,null,
+
+			100*(hsdpaw.mac_hs_pdu_retr_dist_cl_2_1)
+			 /
+			(hsdpaw.mac_hs_pdu_retr_dist_cl_0_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_1_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_2_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_3_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_4_1 +
+			hsdpaw.mac_hs_pdu_retr_dist_cl_5_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[MAC-hs retransmission share, class 2]]></title>
+      <use><![CDATA[The percentage of MAC-hs PDUs that are correctly delivered with two retransmissions.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; 100 * sum(MAC_HS_PDU_RETR_DIST_CL_2)
+&lt;br&gt;-------------------------------------------------------------
+&lt;br&gt; sum(MAC_HS_PDU_RETR_DIST_CL_0
+&lt;br&gt;     + MAC_HS_PDU_RETR_DIST_CL_1
+&lt;br&gt;     + MAC_HS_PDU_RETR_DIST_CL_2
+&lt;br&gt;     + MAC_HS_PDU_RETR_DIST_CL_3
+&lt;br&gt;     + MAC_HS_PDU_RETR_DIST_CL_4
+&lt;br&gt;     + MAC_HS_PDU_RETR_DIST_CL_5)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[MAC-hs retransmission share, class 2]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

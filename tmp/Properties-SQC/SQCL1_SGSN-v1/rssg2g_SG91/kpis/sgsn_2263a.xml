@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2263a">
+    <formula>decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTER_PAPU_3G_2G_SHO))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))</formula>
+    <kpi_info>
+      <title><![CDATA[3G to 2G incoming Inter PAPU RAU (with contexts) requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of incoming 3G to 2G inter PAPU routing area update request procedures with PDP contexts per second.
+This KPI can be used to measure the signaling transaction load/capacity.
+]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( IU_SUCC_INTER_PAPU_3G_2G_SHO +
+&lt;br&gt;   IU_FAIL_INTER_PAPU_3G_2G_SHO )
+&lt;br&gt;------------------------------------ *
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;max( PEAK_GB_PDP_CONT ) 
+&lt;br&gt;-----------------------------------
+&lt;br&gt;max( PEAK_ATTACH_GB_USERS )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[32 in interPAP RA wctx /s]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

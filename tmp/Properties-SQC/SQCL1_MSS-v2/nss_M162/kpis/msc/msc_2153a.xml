@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_2153a">
+    <formula>
+decode(
+	(vlr1msc.imsiattachgsmattempt + 
+	vlr1msc.imsiattachumtsattempt +
+	vlr1msc.EPS_IMSI_ATTACH_ATT),0,null, 
+
+	(100*(
+			vlr1msc.imsiattachgsmattempt 
+			+ vlr1msc.imsiattachumtsattempt 
+			+ vlr1msc.EPS_IMSI_ATTACH_ATT 
+			- vlr1msc.imsiattachgsmsucc 
+			- vlr1msc.imsiattachumtssucc
+			- vlr1msc.EPS_IMSI_ATTACH_SUCC 
+		)
+		/ 
+		(vlr1msc.imsiattachgsmattempt + 
+		vlr1msc.imsiattachumtsattempt +
+		vlr1msc.EPS_IMSI_ATTACH_ATT)
+	)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI attach failure ratio in the target VLR (GSM + UMTS + EPS)]]></title>
+      <use><![CDATA[Indicates the share of failed IMSI attaches for GSM + UMTS + EPS ]]></use>
+      
+      	<use_experience><![CDATA[
+      	<br>Same KPI as the msc_467c. New KPI ID starting from M15.1.
+		<br>      
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+		<br> 
+      	]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+      	&lt;br&gt;
+		&lt;br&gt;           SUM( IMSIAttachGSMAttempt + IMSIAttachUMTSAttempt + EPS_IMSI_ATTACH_ATT ) 
+		&lt;br&gt;         - SUM( IMSIAttachGSMSucc + IMSIAttachUMTSSucc + EPS_IMSI_ATTACH_SUCC ) 
+		&lt;br&gt;100 * -------------------------------------------------------------------------------- 
+		&lt;br&gt;           SUM( IMSIAttachGSMAttempt + IMSIAttachUMTSAttempt + EPS_IMSI_ATTACH_ATT ) 
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}
+		&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}
+		&lt;br&gt;
+		</formula>
+		
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[IMSI Att FR GSM UMTS EPS]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

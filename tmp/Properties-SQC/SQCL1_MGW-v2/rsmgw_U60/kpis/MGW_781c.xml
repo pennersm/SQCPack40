@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/AEC.xml" />
+  <kpi name="MGW_781c">
+    <formula>
+decode(
+	(aec.iu_aec_success + 
+	aec.a_aec_success + 
+	aec.ater_aec_success + 
+	aec.aoip_aec_success + 
+	aec.iu_aec_reservation_failure + 
+	aec.a_aec_reservation_failure + 
+	aec.ater_aec_reservation_failure + 
+	aec.aoip_aec_reservation_failure),0,null, 
+
+	100*((aec.iu_aec_success + 
+	aec.a_aec_success + 
+	aec.ater_aec_success + 
+	aec.aoip_aec_success)
+	 / 
+	(aec.iu_aec_success + 
+	aec.a_aec_success + 
+	aec.ater_aec_success + 
+	aec.aoip_aec_success + 
+	aec.iu_aec_reservation_failure + 
+	aec.a_aec_reservation_failure + 
+	aec.ater_aec_reservation_failure + 
+	aec.aoip_aec_reservation_failure))
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Acoustic Echo Cancellation success ratio]]></title>
+      <use><![CDATA[Indicates success ratio of all resources reservation attempts with Acoustic Echo Cancellation in Iu, A, AoIP and Ater interfaces in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(IU_AEC_SUCCESS + A_AEC_SUCCESS+ ATER_AEC_SUCCESS + AOIP_AEC_SUCCESS) 
+&lt;br&gt;100 * ------------------------------------------------------------------------
+&lt;br&gt;      SUM(IU_AEC_SUCCESS   + A_AEC_SUCCESS + 
+&lt;br&gt;          ATER_AEC_SUCCESS + AOIP_AEC_SUCCESS +
+&lt;br&gt;          IU_AEC_RESERVATION_FAILURE   + A_AEC_RESERVATION_FAILURE +
+&lt;br&gt;          ATER_AEC_RESERVATION_FAILURE + AOIP_AEC_RESERVATION_FAILURE)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_aec_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Acoust Echo Cancel SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

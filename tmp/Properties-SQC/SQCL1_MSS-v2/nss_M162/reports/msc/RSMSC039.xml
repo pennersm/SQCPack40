@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSMSC M162 Report Set</report_version>
+    <release number="8.1.2-64"/>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSMSC039 - Success of call by clear codes</header>
+    <csv_title>Success of call by clear codes</csv_title>
+    <valid-report-levels>PLMN,PLMN/MSC</valid-report-levels>
+    <valid-time-levels>day,hour,raw,whole_period,week</valid-time-levels>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[
+    <br>This report shows the traffic by clear codes.
+    <br>
+    <br>Measurements:
+    <br>M131: Clear code measurement    
+	<br>This report has the following drill definitions:
+	<br>- From msc_601c KPI to RSMSC040 report
+	<br>- From tra_msc131b KPI to RSMSC040 report
+	<br>- From msc_670a KPI to RSMSC040 report
+	<br>- From msc_669a KPI to RSMSC040 report
+	<br>- From msc_2310a KPI to RSMSC040 report
+    ]]></help_text>
+     <history>
+      <revision>
+        <author><![CDATA[NSN]]></author>
+        <date>2011/08/30 16:55:27.344 +0000</date>
+        <comment><![CDATA[Source: RSMSC039.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Success of call by clear codes</report-description>
+    <report-title>Success of call by clear codes</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <msc_601c ui_name="Dropped calls" chartType="line" group="Dropped calls"  report_drill="RSMSC_CLEAR_CODES"/>
+    <msc_1293a ui_name="Calls cleared - IP CAC" group="Dropped calls"/>
+    <tra_msc123b ui_name="Attempts" group="Teleservices usage" yAxis="2"/>
+    <tra_msc124b ui_name="Successful" group="Teleservices usage" yAxis="2"/>
+    <tra_msc131b ui_name="Technically successful" group="Teleservices usage"   report_drill="RSMSC_CLEAR_CODES"/>
+    <tra_msc126b ui_name="Failed - this NE" group="Teleservices usage" yAxis="2"/>
+    <msc_670a ui_name="Fail ratio - this NE" group="Teleservices usage"   report_drill="RSMSC_CLEAR_CODES"/>
+    <tra_msc127b ui_name="Failed - other NE" group="Teleservices usage" yAxis="2"/>
+    <msc_669a ui_name="Fail ratio - other NE" group="Teleservices usage"   report_drill="RSMSC_CLEAR_CODES"/>
+    <tra_msc129c ui_name="Failed - radio" group="Teleservices usage" yAxis="2"/>
+    <msc_2310a ui_name="Fail ratio - radio" group="Teleservices usage" yAxis="2"  report_drill="RSMSC_CLEAR_CODES"/>
+  </column_order>
+
+  <!-- Drills configuration -->  
+  <report_drill id="RSMSC_CLEAR_CODES" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_traffic_uiConf.xml"/>
+            </param>
+			<param key="reportLevel">
+				<string value="PLMN/MSC/CC_NSS"/>
+			</param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC040.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Traffic by clear codes report"/>
+            </param>
+        </drill>
+  </report_drill>
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_601c.xml#msc_601c" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_1293a.xml#msc_1293a" />
+  <kpi_ref ref="nss_M162/kpis/msc/tra_msc123b.xml#tra_msc123b" />
+  <kpi_ref ref="nss_M162/kpis/msc/tra_msc124b.xml#tra_msc124b" />
+  <kpi_ref ref="nss_M162/kpis/msc/tra_msc131b.xml#tra_msc131b" />
+  <kpi_ref ref="nss_M162/kpis/msc/tra_msc126b.xml#tra_msc126b" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_670a.xml#msc_670a" />
+  <kpi_ref ref="nss_M162/kpis/msc/tra_msc127b.xml#tra_msc127b" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_669a.xml#msc_669a" />
+  <kpi_ref ref="nss_M162/kpis/msc/tra_msc129c.xml#tra_msc129c" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2310a.xml#msc_2310a" />
+</conf_file>
+

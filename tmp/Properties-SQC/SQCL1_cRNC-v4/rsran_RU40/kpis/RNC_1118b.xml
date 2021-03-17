@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_1118b">
+    <formula>decode(
+			(traffic.period_duration),0,null, 
+
+			((traffic.allo_dur_edch_int + 
+			traffic.allo_dur_edch_bgr + 
+			traffic.allo_dur_edch_str_1)
+			 / 
+			(traffic.period_duration*60*100)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-DCH allocation duration]]></title>
+      <use><![CDATA[The sum of E-DCH allocation durations for interactive, background and streaming class connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (ALLO_DUR_EDCH_INT 
+&lt;br&gt;+ ALLO_DUR_EDCH_BGR
+&lt;br&gt;+ ALLO_DUR_EDCH_STR)
+&lt;br&gt;--------------------
+&lt;br&gt;SUM(PERIOD_DURATION)*60*100</formula>
+      <unit>minutes</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[E-DCH allocation duration]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

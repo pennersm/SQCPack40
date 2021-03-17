@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/UMLM.xml" />
+  <temp_table_ref src="rsmme/counters/MMMT.xml"/>
+  <kpi name="flns_3213a">
+    <formula>decode(
+            (umlm.overload_control_drop_proc +
+            mmmt.eps_attach_succ + mmmt.eps_attach_fail + 
+            mmmt.eps_tau_succ + mmmt.eps_tau_fail + 
+            mmmt.eps_periodic_tau_succ + mmmt.eps_periodic_tau_fail + 
+            mmmt.eps_paging_succ + mmmt.eps_paging_fail + 
+            mmmt.eps_service_request_succ + mmmt.eps_service_request_fail + 
+            mmmt.eps_path_switch_x2_succ + mmmt.eps_x2ho_sgw_chg_succ +  
+            mmmt.eps_path_switch_x2_fail +  
+            mmmt.eps_s1ho_succ + mmmt.intramme_s1ho_sgw_chg_succ +  
+            mmmt.eps_s1ho_fail + mmmt.intramme_s1ho_sgw_chg_fail +  
+            mmmt.intermme_s1ho_wo_sgw_chg_succ + mmmt.intermme_s1ho_in_fail + 
+            mmmt.eps_detach),0,null,
+            
+            (umlm.overload_control_drop_proc
+            /
+            (umlm.overload_control_drop_proc +
+            mmmt.eps_attach_succ + mmmt.eps_attach_fail + 
+            mmmt.eps_tau_succ + mmmt.eps_tau_fail + 
+            mmmt.eps_periodic_tau_succ + mmmt.eps_periodic_tau_fail + 
+            mmmt.eps_paging_succ + mmmt.eps_paging_fail + 
+            mmmt.eps_service_request_succ + mmmt.eps_service_request_fail + 
+            mmmt.eps_path_switch_x2_succ + mmmt.eps_x2ho_sgw_chg_succ +  
+            mmmt.eps_path_switch_x2_fail +  
+            mmmt.eps_s1ho_succ + mmmt.intramme_s1ho_sgw_chg_succ +  
+            mmmt.eps_s1ho_fail + mmmt.intramme_s1ho_sgw_chg_fail +  
+            mmmt.intermme_s1ho_wo_sgw_chg_succ + mmmt.intermme_s1ho_in_fail + 
+            mmmt.eps_detach)))
+            </formula>
+    <kpi_info>
+      <title><![CDATA[Overload control dropped procedures ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped procedures due to overload control.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(OVERLOAD_CONTROL_DROP_PROC)
+&lt;br&gt;------------------------------ *100
+&lt;br&gt;sum(OVERLOAD_CONTROL_DROP_PROC +
+&lt;br&gt;   EPS_ATTACH_SUCC + EPS_ATTACH_FAIL + 
+&lt;br&gt;   EPS_TAU_SUCC + EPS_TAU_FAIL + 
+&lt;br&gt;   EPS_PERIODIC_TAU_SUCC + EPS_PERIODIC_TAU_FAIL + 
+&lt;br&gt;   EPS_PAGING_SUCC + EPS_PAGING_FAIL + 
+&lt;br&gt;   EPS_SERVICE_REQUEST_SUCC + EPS_SERVICE_REQUEST_FAIL + 
+&lt;br&gt;   EPS_PATH_SWITCH_X2_SUCC + EPS_X2HO_SGW_CHG_SUCC +  
+&lt;br&gt;   EPS_PATH_SWITCH_X2_FAIL +  
+&lt;br&gt;   EPS_S1HO_SUCC + INTRAMME_S1HO_SGW_CHG_SUCC +  
+&lt;br&gt;   EPS_S1HO_FAIL + INTRAMME_S1HO_SGW_CHG_FAIL +  
+&lt;br&gt;   INTERMME_S1HO_WO_SGW_CHG_SUCC + INTERMME_S1HO_IN_FAIL + 
+&lt;br&gt;   EPS_DETACH) </formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_UMLM_{OBJ_AGG}_{TIME_AGG},PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/02 00:43:42.497 +0100</date>
+          <comment><![CDATA[Source: RSMME000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Ovld ctrl drop procs ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

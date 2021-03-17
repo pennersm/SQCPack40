@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/RESTC.xml"/>
+  <kpi name="cds_599a">
+    <formula>100*decode(
+			(restc.period_duration*60),0,null,
+
+			restc.restmeas_disk_time_sec
+			 /
+			(restc.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[Unit disconnected time ratio]]></title>
+      <use><![CDATA[Ratio of unit disconnected time.
+	  <br>This KPI is similar to msc_599a. New KPI ID reference (CDS NE). This new KPI ID reference is to to be used starting from M15.1 report sets.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;     sum (RESTMEAS_DISK_TIME_SEC)
+&lt;br&gt;100* --------------------
+&lt;br&gt;    (period_duration * 60)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_RESTC_CDS_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_restc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Unit disconnected time ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

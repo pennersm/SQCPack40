@@ -1,0 +1,168 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M290 CLANSAPI measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M290 CLANSAPI measurement dump</csv_title>
+    <report-description>LAN Switch Availability measurement(CLANSAPI)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <WARM_RESTARTS/>
+    <COLD_RESTARTS/>
+    <LAST_RESTART_TIME/>
+    <TOPOLOGY_CHANGES/>
+    <!--<TRANSMITTED_PEAK_UTIL_RATE />
+    <RECEIVED_PEAK_UTIL_RATE />-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/CDS/UNIT/PIU" name="CLANSAPI" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="WARM_RESTARTS" symmetrical="true">SUM(WARM_RESTARTS)</counter>
+      <counter alias="COLD_RESTARTS" symmetrical="true">SUM(COLD_RESTARTS)</counter>
+			<counter alias="LAST_RESTART_TIME" symmetrical="true">SUM(LAST_RESTART_TIME)</counter>
+      <counter alias="TOPOLOGY_CHANGES" symmetrical="true">SUM(TOPOLOGY_CHANGES)</counter>
+      <!--<counter alias="TRANSMITTED_PEAK_UTIL_RATE" timeagg="MAX(TRANSMITTED_PEAK_UTIL_RATE)">MAX(TRANSMITTED_PEAK_UTIL_RATE)</counter>
+      <counter alias="RECEIVED_PEAK_UTIL_RATE" timeagg="MAX(RECEIVED_PEAK_UTIL_RATE)">MAX(RECEIVED_PEAK_UTIL_RATE)</counter>-->
+    </counters>
+    <table_name>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CLANSAPI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CLANSAPI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="WARM_RESTARTS">
+    <formula>CLANSAPI.WARM_RESTARTS</formula>
+    <kpi_info>
+      <title>WARM_RESTARTS</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(WARM_RESTARTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WARM_RESTARTS (M290B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COLD_RESTARTS">
+    <formula>CLANSAPI.COLD_RESTARTS</formula>
+    <kpi_info>
+      <title>COLD_RESTARTS</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(COLD_RESTARTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COLD_RESTARTS (M290B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LAST_RESTART_TIME">
+    <formula>CLANSAPI.LAST_RESTART_TIME</formula>
+    <kpi_info>
+      <title>LAST_RESTART_TIME</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LAST_RESTART_TIME)</formula>
+      <unit>time</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LAST_RESTART_TIME (M290B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOPOLOGY_CHANGES">
+    <formula>CLANSAPI.TOPOLOGY_CHANGES</formula>
+    <kpi_info>
+      <title>TOPOLOGY_CHANGES</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOPOLOGY_CHANGES)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOPOLOGY_CHANGES (M290B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!--<kpi name="TRANSMITTED_PEAK_UTIL_RATE">
+    <formula>CLANSAPI.TRANSMITTED_PEAK_UTIL_RATE</formula>
+    <kpi_info>
+      <title>TRANSMITTED_PEAK_UTIL_RATE</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(TRANSMITTED_PEAK_UTIL_RATE)</formula>
+      <unit>byte</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_PEAK_UTIL_RATE (M288B2C27)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>-->
+  <!-- <kpi name="RECEIVED_PEAK_UTIL_RATE">
+    <formula>CLANSAPI.RECEIVED_PEAK_UTIL_RATE</formula>
+    <kpi_info>
+      <title>RECEIVED_PEAK_UTIL_RATE</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(RECEIVED_PEAK_UTIL_RATE)</formula>
+      <unit>byte</unit>
+      <tables>rns_ps_clansapi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECEIVED_PEAK_UTIL_RATE (M288B2C29)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>-->
+</conf_file>

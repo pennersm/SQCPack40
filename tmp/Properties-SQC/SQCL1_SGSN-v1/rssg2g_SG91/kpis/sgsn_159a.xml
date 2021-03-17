@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUOV.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml" />
+  <kpi name="sgsn_159a">
+    <formula>decode(
+			(iumm1.iu_succ_gprs_attach + 
+			iumm1.iu_fail_gprs_attach),0,NULL, 
+
+			(100*(iuov.rej_iu_attach_attempts_ep + 
+			iuov.rej_iu_attach_attempts)
+			 / 
+			(iumm1.iu_succ_gprs_attach + 
+			iumm1.iu_fail_gprs_attach)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu attach requests not processed due to processor overload]]></title>
+      <use><![CDATA[This KPI shows the ratio of Iu attach requests not processed due to processor overload when compared to all Iu attach attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(a.REJ_IU_ATTACH_ATTEMPTS_EP + a.REJ_IU_ATTACH_ATTEMPTS)
+&lt;br&gt;---------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(b.IU_SUCC_GPRS_ATTACH + b.IU_FAIL_GPRS_ATTACH)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):
+&lt;br&gt;a = p_sgsn_iu_overload
+&lt;br&gt;b = p_sgsn_iu_mobility_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iuov_{obj_agg}_{time_agg}, rsg_ps_iumm1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu attach requests not processed due to processor overload]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4026a">
+    <formula>
+decode(TC_ext.tcat_ok_amount_23,0,null,
+	( ((TC_ext.tcat_answ_tr_2 / 100) / TC_ext.PERIOD_START_TIME_1 * TC_ext.PERIOD_DURATION_1 * 60 * TC_ext.PERIOD_START_TIME_1)
+	/
+	TC_ext.tcat_ok_amount_23
+	)
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MOC-PSTN Average Call Duration]]></title>
+      <use><![CDATA[Provides the average call duration of MOC-PSTN or other PLMN.]]></use>
+
+<use_experience><![CDATA[ 
+<br>TCat_Id:
+<br>   123 = 2G OUT OTH -> 2G originating and outgoing calls to other PLMN or PSTN
+<br>   125 = 3G OUT OTH -> 3G originating and outgoing calls to other PLMN or PSTN
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MOC-PSTN Average Speech Call Duration&quot; KPI.
+<br>This KPI proposal is counting both speech + data calls.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#149; For OBJECT level:
+&lt;br&gt;
+&lt;br&gt;(SUM( tcat_answ_tr ) / 100) * AVG( DURATION ) * 60
+&lt;br&gt;;WHERE Tcat_ID = 123, 125
+&lt;br&gt;--------------------------------
+&lt;br&gt;SUM( tcat_ok_amount )
+&lt;br&gt;;WHERE Tcat_ID = 123, 125
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED views(s)
+&lt;br&gt;
+&lt;br&gt;&amp;#149; For TIME level:
+&lt;br&gt;
+&lt;br&gt;(AVG( tcat_answ_tr ) / 100) * SUM( DURATION ) * 60
+&lt;br&gt;;WHERE Tcat_ID = 123, 125
+&lt;br&gt;--------------------------------
+&lt;br&gt;SUM( tcat_ok_amount )
+&lt;br&gt;;WHERE Tcat_ID = 123, 125
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;(SUM( tcat_answ_tr ) / 100) / COUNT(DISTINCT period_start_time) * AVG( DURATION ) * COUNT(DISTINCT period_start_time) * 60
+&lt;br&gt;;WHERE Tcat_ID = 123, 125
+&lt;br&gt;---------------------------------
+&lt;br&gt;SUM( tcat_ok_amount )
+&lt;br&gt;;WHERE Tcat_ID = 123, 125</formula>
+      <unit>[Seconds]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg MOC-PSTN call dur</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

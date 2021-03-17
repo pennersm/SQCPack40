@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_5012a">
+    <formula>
+TC_ext.TCAT_CALL_AMOUNT_32_MAX
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Mobile BHCA only]]></title>
+      <use><![CDATA[Mobile only busy hour call attempts]]></use>
+
+<use_experience><![CDATA[
+<br> Must be used the RAW views since NetAct defined aggregated rules for counter (tcat_call_amount) are SUM for TIME + NETWORK.
+<br>
+<br>BH is found when MAX ( tcat_call_amount ) ;WHERE traffic_category_id in (32, 34, 33, 35) = (3G_ORIG, 2G_ORIG, 3G_TER, 2G_TER) gets its greatest value
+<br>
+<br>- Traffic Categories IDs:
+<br>32=3G ORIG=Orig traff from a 3G radio network when the call is started
+<br>33=3G TERM=Term traff to a 3G radio network when the call is started
+<br>34=2G ORIG=Orig traff from GSM radio network when the call is started
+<br>35=2G TERM=Term traff to GSM radio network when the call is started
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (20/14H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;MAX ( TCAT_CALL_AMOUNT )
+&lt;br&gt;;WHERE traffic_category_id in (32, 34, 33, 35)
+&lt;br&gt;;For the BH
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s)
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mobile only BHCA</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

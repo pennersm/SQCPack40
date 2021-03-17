@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_694a">
+    <formula>100*decode(
+			rrc.rb_setup,0,null, 
+
+			rrc.rb_setup_fail_uns_conf
+			 / 
+			rrc.rb_setup)</formula>
+    <kpi_info>
+      <title><![CDATA[Radio Bearer Setup Failure due to unsupported configuration ratio]]></title>
+      <use><![CDATA[The ratio of unsuccessful Radio Bearer Setup procedures due to unsupported configurations. This takes into account only the failures, for which a RRC: RADIO BEARER SETUP FAILURE message with the cause &quot;configuration unsupported&quot; was received]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(RB_SETUP_FAIL_UNS_CONF)/ sum(RB_SETUP)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Radio Bearer Setup Failure due to unsupported configuration ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

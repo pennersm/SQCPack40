@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <report pragma="default">
+    <default-obj-drill-column>LNBTS name</default-obj-drill-column>
+    <column-to-hide>LNBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("mrbts".co_name, nvl("mrbts".co_object_instance, 'NN('||"mrbts".co_gid||')')) "MRBTS name",
+				nvl("lnbts".co_name, nvl("lnbts".co_object_instance, 'NN('||"lnbts".co_gid||')')) "LNBTS name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "mrbts",
+				utp_common_objects "lnbts"
+				#tmp_meas_tables#
+			where
+				"lnbts".co_parent_gid = "mrbts".co_gid and
+				#first_tmp_table#.lnbts_gid = "lnbts".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS">
+      <add-column id="DN" tooltip-ref="LNBTS Name">nvl("lnbts".co_ext_dn, "lnbts".co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM" add-on-sort="2,1,3,4,5" obj-drill-column="ftm_id">
+      <add-column id="DN" tooltip-ref="ftm_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-ETHLK" add-on-sort="2,1,3,4,5" obj-drill-column="ethlk_id">
+      <add-column id="DN" tooltip-ref="ethlk_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/ETHLK-'||#first_tmp_table#.ethlk_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO" add-on-sort="2,1,3,4,5" obj-drill-column="ipno_id">
+      <add-column id="DN" tooltip-ref="ipno_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF" add-on-sort="2,1,3,4,5" obj-drill-column="ieif_id">
+      <add-column id="DN" tooltip-ref="ieif_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IPPM" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF" add-on-sort="2,1,3,4,5" obj-drill-column="ivif_id">
+      <add-column id="DN" tooltip-ref="ivif_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF/RSLTE-IPPM-1" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF/RSLTE-PHBPM-1" add-on-sort="2,1,3,4,5" obj-drill-column="phbpm_id">
+      <add-column id="DN" tooltip-ref="phbpm_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id||'/PHBPM-'||#first_tmp_table#.phbpm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-PHBPM" add-on-sort="2,1,3,4,5" obj-drill-column="phbpm_id">
+      <add-column id="DN" tooltip-ref="phbpm_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/PHBPM-'||#first_tmp_table#.phbpm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IPRM" add-on-sort="2,1,3,4,5" obj-drill-column="iprm_id">
+      <add-column id="DN" tooltip-ref="iprm_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IPRM-'||#first_tmp_table#.iprm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-TOPIK" add-on-sort="2,1,3,4,5" obj-drill-column="topik_id">
+      <add-column id="DN" tooltip-ref="topik_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/TOPIK-'||#first_tmp_table#.topik_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-TWAMP" add-on-sort="2,1,3,4,5" obj-drill-column="twamp_id">
+      <add-column id="DN" tooltip-ref="twamp_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/TWAMP-'||#first_tmp_table#.twamp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPSECC" add-on-sort="2,1,3,4,5" obj-drill-column="ipsecc_id">
+      <add-column id="DN" tooltip-ref="ipsecc_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPSECC-'||#first_tmp_table#.ipsecc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-L2SWI" add-on-sort="2,1,3,4,5" obj-drill-column="l2swi_id">
+      <add-column id="DN" tooltip-ref="l2swi_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/L2SWI-'||#first_tmp_table#.l2swi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TAC" add-on-sort="2,1,3,4,5" obj-drill-column="tac_id">
+      <add-column id="DN" tooltip-ref="tac_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TAC-'||#first_tmp_table#.tac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TAC/RSLTE-LTAC" add-on-sort="2,1,3,4,5" obj-drill-column="ltac_id">
+      <add-column id="DN" tooltip-ref="ltac_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TAC-'||#first_tmp_table#.tac_id||'/LTAC-'||#first_tmp_table#.ltac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB" add-on-sort="2,1,3,4,5" obj-drill-column="topb_id">
+      <add-column id="DN" tooltip-ref="topb_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPF" add-on-sort="2,1,3,4,5" obj-drill-column="topf_id">
+      <add-column id="DN" tooltip-ref="topf_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id||'/TOPF-'||#first_tmp_table#.topf_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPP" add-on-sort="2,1,3,4,5" obj-drill-column="topp_id">
+      <add-column id="DN" tooltip-ref="topp_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id||'/TOPP-'||#first_tmp_table#.topp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-WIFICNF" add-on-sort="2,1,3,4,5" obj-drill-column="wificnf_id">
+      <add-column id="DN" tooltip-ref="wificnf_id">nvl("lnbts".co_ext_dn, "lnbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/WIFICNF-'||#first_tmp_table#.wificnf_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>LNCEL name</default-obj-drill-column>
+    <column-to-hide>LNCEL_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("mrbts".co_name, nvl("mrbts".co_object_instance, 'NN('||"mrbts".co_gid||')')) "MRBTS name",
+				nvl("lnbts".co_name, nvl("lnbts".co_object_instance, 'NN('||"lnbts".co_gid||')')) "LNBTS name",
+				nvl("lncel".co_name, nvl("lncel".co_object_instance, 'NN('||"lncel".co_gid||')')) "LNCEL name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "mrbts",
+				utp_common_objects "lnbts",
+				utp_common_objects "lncel"
+				#tmp_meas_tables#
+			where
+				"lnbts".co_parent_gid = "mrbts".co_gid and
+				"lncel".co_parent_gid = "lnbts".co_gid and
+				#first_tmp_table#.lncel_gid = "lncel".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL">
+      <add-column id="DN" tooltip-ref="LNCEL Name">nvl("lncel".co_ext_dn, "lncel".co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI" add-on-sort="2,1,3,4,5,6" obj-drill-column="eci_id">
+      <add-column id="DN" tooltip-ref="eci_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/ECI-'||#first_tmp_table#.eci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI/RSLTE-DMCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/ECI-'||#first_tmp_table#.eci_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI/RSLTE-DMCC/RSLTE-DMNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/ECI-'||#first_tmp_table#.eci_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HBC" add-on-sort="2,1,3,4,5,6" obj-drill-column="hbc_id">
+      <add-column id="DN" tooltip-ref="hbc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HBC-'||#first_tmp_table#.hbc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT" add-on-sort="2,1,3,4,5,6" obj-drill-column="hot_id">
+      <add-column id="DN" tooltip-ref="hot_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1" add-on-sort="2,1,3,4,5,6" obj-drill-column="tcid_id">
+      <add-column id="DN" tooltip-ref="tcid_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TCID-'||#first_tmp_table#.tcid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1/RSLTE-DMNC-1" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC" add-on-sort="2,1,3,4,5,6" obj-drill-column="lac_id">
+      <add-column id="DN" tooltip-ref="lac_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID" add-on-sort="2,1,3,4,5,6" obj-drill-column="tcid_id">
+      <add-column id="DN" tooltip-ref="tcid_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/TCID-'||#first_tmp_table#.tcid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2/RSLTE-DMNC-2" add-on-sort="2,1,3,4,5,6" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("lncel".co_ext_dn, "lncel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>MRBTS name</default-obj-drill-column>
+    <column-to-hide>MRBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("mrbts".co_name, nvl("mrbts".co_object_instance, 'NN('||"mrbts".co_gid||')')) "MRBTS name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "mrbts"
+				#tmp_meas_tables#
+			where
+				#first_tmp_table#.mrbts_gid = "mrbts".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSLTE-MRBTS">
+      <add-column id="DN" tooltip-ref="MRBTS Name">nvl("mrbts".co_ext_dn, "mrbts".co_dn)</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>MR Name</default-obj-drill-column>
+    <column-to-hide>MR_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <report-level id="PLMN/MR_RSLTE-LNBTS">
+      <add-column id="DN" tooltip-ref="MR_LNBTS Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MR_RSLTE-LNCEL">
+      <add-column id="DN" tooltip-ref="MR_LNCEL Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MR_RSLTE-MRBTS">
+      <add-column id="DN" tooltip-ref="MR_MRBTS Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <sql-kpi><![CDATA[select
+        #id_pivot#,
+        decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) "MR Name",
+        #kpis#
+      from
+        utp_common_objects mr
+        #tmp_meas_tables#
+      where
+        mr.co_oc_id=109 and
+        #first_tmp_table#.mr_gid = mr.co_gid
+        #tmp_table_joins#
+        #add_on_criteria#
+      order by 2,1,3]]></sql-kpi>
+  </report>
+  <report pragma="default">
+    <column-to-hide>WS_DUMMY</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <report-level id="PLMN/WS_RSLTE-LNBTS"/>
+    <report-level id="PLMN/WS_RSLTE-LNCEL"/>
+    <report-level id="PLMN/WS_RSLTE-MRBTS"/>
+    <sql-kpi><![CDATA[select
+        #id_pivot#,
+        1 WS_DUMMY,
+        #kpis#
+      from
+        dual
+        #tmp_meas_tables#
+      where
+        1=1
+        #tmp_table_joins#
+        #add_on_criteria#
+      order by
+        #add_on_sort#]]></sql-kpi>
+  </report>
+  <group name="PLMN/WS_RSLTE-LNBTS">
+    <supports>
+      <filter-level>RSLTE-LNBTS</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSLTE-LNBTS</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <group name="PLMN/WS_RSLTE-LNCEL">
+    <supports>
+      <filter-level>RSLTE-LNCEL</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSLTE-LNCEL</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <group name="PLMN/WS_RSLTE-MRBTS">
+    <supports>
+      <filter-level>RSLTE-MRBTS</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSLTE-MRBTS</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <drill-conf>
+    <time-drill from="month" to="week"/>
+    <time-drill from="monthbh" to="weekbh"/>
+    <time-drill from="monthbh2" to="weekbh2"/>
+  </drill-conf>
+  <drill-conf>
+    <object-drill from="PLMN" to="PLMN/RSLTE-MRBTS"/>
+    <object-drill from="PLMN/MR_RSLTE-LNBTS" to="PLMN/RSLTE-MRBTS/RSLTE-LNBTS"/>
+    <object-drill from="PLMN/MR_RSLTE-LNCEL" to="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL"/>
+    <object-drill from="PLMN/MR_RSLTE-MRBTS" to="PLMN/RSLTE-MRBTS"/>
+    <object-drill from="PLMN/WS_RSLTE-LNBTS" to="PLMN/RSLTE-MRBTS/RSLTE-LNBTS"/>
+    <object-drill from="PLMN/WS_RSLTE-LNCEL" to="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL"/>
+    <object-drill from="PLMN/WS_RSLTE-MRBTS" to="PLMN/RSLTE-MRBTS"/>
+  </drill-conf>
+</object-conf>

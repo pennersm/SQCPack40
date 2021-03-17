@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LIANBHO (LTE Intra eNB Handover)</header>
+    <csv_title>LIANBHO (LTE Intra eNB Handover)</csv_title>
+    <report-description>LTE Intra eNB Handover measurement (8009)measures Intra eNB Handovers</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <TOT_NOT_START_HO_PREP />
+    <TOT_HO_DECISION />
+    <INTRA_ENB_HO_PREP />
+    <FAIL_ENB_HO_PREP_AC />
+    <FAIL_ENB_HO_PREP_OTH />
+    <ATT_INTRA_ENB_HO />
+    <SUCC_INTRA_ENB_HO />
+    <ENB_INTRA_HO_FAIL />
+    <ENB_HO_DROP_RLFAIL />
+    <ENB_HO_DROP_OTHERFAIL />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LIANBHO" meas_level="PLMN/MRBTS/LNBTS/LNCEL_A1" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LIANBHO</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="TOT_NOT_START_HO_PREP" symmetrical="true">SUM(TOT_NOT_START_HO_PREP)</counter>
+	  <counter alias="TOT_HO_DECISION" symmetrical="true">SUM(TOT_HO_DECISION)</counter>
+	  <counter alias="INTRA_ENB_HO_PREP" symmetrical="true">SUM(INTRA_ENB_HO_PREP)</counter>
+	  <counter alias="FAIL_ENB_HO_PREP_AC" symmetrical="true">SUM(FAIL_ENB_HO_PREP_AC)</counter>
+	  <counter alias="FAIL_ENB_HO_PREP_OTH" symmetrical="true">SUM(FAIL_ENB_HO_PREP_OTH)</counter>
+	  <counter alias="ATT_INTRA_ENB_HO" symmetrical="true">SUM(ATT_INTRA_ENB_HO)</counter>
+	  <counter alias="SUCC_INTRA_ENB_HO" symmetrical="true">SUM(SUCC_INTRA_ENB_HO)</counter>
+	  <counter alias="ENB_INTRA_HO_FAIL" symmetrical="true">SUM(ENB_INTRA_HO_FAIL)</counter>
+	  <counter alias="ENB_HO_DROP_RLFAIL" symmetrical="true">SUM(ENB_HO_DROP_RLFAIL)</counter>
+	  <counter alias="ENB_HO_DROP_OTHERFAIL" symmetrical="true">SUM(ENB_HO_DROP_OTHERFAIL)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LIANBHO</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LIANBHO.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TOT_NOT_START_HO_PREP">
+    <formula>LIANBHO.TOT_NOT_START_HO_PREP</formula>
+    <kpi_info>
+      <title>TOT_NOT_START_HO_PREP</title>
+      <use>The number of not started Handover preparations. The RRM receives an RRC Measurement Report (UE -&gt; eNB), but the RRM decides not to start a Handover preparation phase. No target cell list will be handed over to the mobility management (MM) unit. UPDATED: The reception of an RRC Measurement Report message sent by the UE to eNB and of the RRM decision not to execute a handover. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TOT_NOT_START_HO_PREP)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOT_NOT_START_HO_PREP (M8009C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TOT_HO_DECISION">
+    <formula>LIANBHO.TOT_HO_DECISION</formula>
+    <kpi_info>
+      <title>TOT_HO_DECISION</title>
+      <use>The number of positive Handover decisions. In case of a positive Handover decision, the RRM transmits a target cell list to the mobility management (MM) unit. UPDATED: The reception of an RRC Measurement Report message sent by the UE to eNB and of an RRM decision to execute a handover. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TOT_HO_DECISION)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOT_HO_DECISION (M8009C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTRA_ENB_HO_PREP">
+    <formula>LIANBHO.INTRA_ENB_HO_PREP</formula>
+    <kpi_info>
+      <title>INTRA_ENB_HO_PREP</title>
+      <use>The number of Intra-eNB Handover preparations. UPDATED: An internal eNB trigger. The eNB MM receives a list with the target cells from RRM and decides on an Intra-eNB Handover. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTRA_ENB_HO_PREP)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_ENB_HO_PREP (M8009C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="FAIL_ENB_HO_PREP_AC">
+    <formula>LIANBHO.FAIL_ENB_HO_PREP_AC</formula>
+    <kpi_info>
+      <title>FAIL_ENB_HO_PREP_AC</title>
+      <use>The number of failed Intra-eNB Handover preparations due to Admission Control. Includes failures to set up data forwarding in the target cell. UPDATED: An internal eNB trigger. The eNB MM receives a list with the target cells from the RRM. The MM or RRM AC decides not to execute an Intra-eNB Handover. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(FAIL_ENB_HO_PREP_AC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ENB_HO_PREP_AC (M8009C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+	<kpi name="FAIL_ENB_HO_PREP_OTH">
+    <formula>LIANBHO.FAIL_ENB_HO_PREP_OTH</formula>
+    <kpi_info>
+      <title>FAIL_ENB_HO_PREP_OTH</title>
+      <use>The number of failed Intra-eNB Handover preparations due to other reasons. UPDATED: An internal eNB trigger. The eNB MM receives a list with the target cells from RRM. The MM or RRM AC decides not to execute an Intra-eNB Handover. The counter is updated if the failure detected does not match any other failure counter. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(FAIL_ENB_HO_PREP_OTH)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ENB_HO_PREP_OTH (M8009C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi> 
+  <kpi name="ATT_INTRA_ENB_HO">
+    <formula>LIANBHO.ATT_INTRA_ENB_HO</formula>
+    <kpi_info>
+      <title>ATT_INTRA_ENB_HO</title>
+      <use>The number of Intra-eNB Handover attempts. UPDATED: The transmission of an RRC Connection Reconfiguration message sent by the eNB to UE, which indicates a Handover Command to the UE. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ATT_INTRA_ENB_HO)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ATT_INTRA_ENB_HO (M8009C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SUCC_INTRA_ENB_HO">
+    <formula>LIANBHO.SUCC_INTRA_ENB_HO</formula>
+    <kpi_info>
+      <title>SUCC_INTRA_ENB_HO</title>
+      <use>The number of successful Intra-eNB Handover completions. UPDATED: The reception of an internal UE Context Release Request for the handover on the source side. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SUCC_INTRA_ENB_HO)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_INTRA_ENB_HO (M8009C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ENB_INTRA_HO_FAIL">
+    <formula>LIANBHO.ENB_INTRA_HO_FAIL</formula>
+    <kpi_info>
+      <title>ENB_INTRA_HO_FAIL</title>
+      <use>The number of Intra-eNB Handover failures due to the guarding timer THOoverall. UPDATED: The counter is updated to the source cell when timer THOoverall expires.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ENB_INTRA_HO_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ENB_INTRA_HO_FAIL (M8009C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ENB_HO_DROP_RLFAIL">
+    <formula>LIANBHO.ENB_HO_DROP_RLFAIL</formula>
+    <kpi_info>
+      <title>ENB_HO_DROP_RLFAIL</title>
+      <use>The number of Intra-eNB Handover drops due to Radio Link Failure. UPDATED: The counter is updated when an intra eNB handover is dropped because of the Radio Link Failure.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ENB_HO_DROP_RLFAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ENB_HO_DROP_RLFAIL (M8009C12)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ENB_HO_DROP_OTHERFAIL">
+    <formula>LIANBHO.ENB_HO_DROP_OTHERFAIL</formula>
+    <kpi_info>
+      <title>ENB_HO_DROP_OTHERFAIL</title>
+      <use>The number of Intra-eNB Handover drops due to other failures. UPDATED: The counter is updated when an Intra-eNB handover is dropped because of other failure. The counter is updated if the failure detected does not match any other failure counter. Updated to the source cell.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ENB_HO_DROP_OTHERFAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ENB_HO_DROP_OTHERFAIL (M8009C13)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LIANBHO.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lianbho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

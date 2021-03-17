@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml"/>
+  <temp_table_ref src="rssaegw/counters/GREtun.xml"/>
+  <kpi name="flng_398a">
+    <formula>decode(
+			((PMIP.pmip_bytes_in_recv_pmip_msgs + 
+			GREtun.gre_tun_ipv4_bytes_received + 
+			GREtun.gre_tun_ipv6_bytes_received)),0,NULL, 
+
+			((PMIP.pmip_bytes_in_recv_pmip_msgs))
+			 / 
+			((PMIP.pmip_bytes_in_recv_pmip_msgs + 
+			GREtun.gre_tun_ipv4_bytes_received + 
+			GREtun.gre_tun_ipv6_bytes_received)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP signaling to data received ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 data signaling received when compared to all received PMIPv6 data (sign+user).
+If the ratio of signaling to data bandwidth usage is too high, some abnormal events are possible happened in S5-PMIP interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (pmip_bytes_in_recv_pmip_msgs)
+&lt;br&gt;------------------------------------- * 100
+&lt;br&gt;sum (pmip_bytes_in_recv_pmip_msgs + 
+&lt;br&gt;   gre_tun_ipv4_bytes_received + 
+&lt;br&gt;   gre_tun_ipv6_bytes_received)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PMIP_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_GREtun_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP sig-data rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

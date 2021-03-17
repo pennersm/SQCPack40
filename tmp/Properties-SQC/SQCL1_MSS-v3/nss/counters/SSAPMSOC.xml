@@ -1,0 +1,388 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M198 SSAPMSOC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M198 SSAPMSOC measurement dump</csv_title>
+    <report-description>SSAP measurement (SSAPMSOC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SSAP_OC_STARTED/>
+    <SSAP_OC_CAUSED_BY_T3/>
+    <SSAP_OC_CAUSED_BY_T4/>
+    <SSAP_OC_CAUSED_BY_T7/>
+    <SSAP_OC_CAUSED_BY_T9/>
+    <SSAP_OC_UNKNOWN_CAUSE/>
+    <SSAP_OC_ERRORS/>
+    <SSAP_OC_SHORT_TERM_DENIAL/>
+    <SSAP_OC_LONG_TERM_DENIAL/>
+    <SSAP_OC_UNKNOWN_ERROR/>
+    <SSAP_OC_ABORTED/>
+    <SSAP_OC_REJECTED/>
+    <SSAP_OC_CANCELLED/>
+    <!--SSAP_OC_SUM_STARTED_IN />
+    <SSAP_OC_SUM_STARTED_OUT />
+    <SSAP_DI_SUM_STARTED_IN />
+    <SSAP_DI_SUM_STARTED_OUT /-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/DEST/SUB/OC" name="SSAPMSOC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SSAP_OC_STARTED" symmetrical="true">SUM(SSAP_OC_STARTED)</counter>
+      <counter alias="SSAP_OC_CAUSED_BY_T3" symmetrical="true">SUM(SSAP_OC_CAUSED_BY_T3)</counter>
+      <counter alias="SSAP_OC_CAUSED_BY_T4" symmetrical="true">SUM(SSAP_OC_CAUSED_BY_T4)</counter>
+      <counter alias="SSAP_OC_CAUSED_BY_T7" symmetrical="true">SUM(SSAP_OC_CAUSED_BY_T7)</counter>
+      <counter alias="SSAP_OC_CAUSED_BY_T9" symmetrical="true">SUM(SSAP_OC_CAUSED_BY_T9)</counter>
+      <counter alias="SSAP_OC_UNKNOWN_CAUSE" symmetrical="true">SUM(SSAP_OC_UNKNOWN_CAUSE)</counter>
+      <counter alias="SSAP_OC_ERRORS" symmetrical="true">SUM(SSAP_OC_ERRORS)</counter>
+      <counter alias="SSAP_OC_SHORT_TERM_DENIAL" symmetrical="true">SUM(SSAP_OC_SHORT_TERM_DENIAL)</counter>
+      <counter alias="SSAP_OC_LONG_TERM_DENIAL" symmetrical="true">SUM(SSAP_OC_LONG_TERM_DENIAL)</counter>
+      <counter alias="SSAP_OC_UNKNOWN_ERROR" symmetrical="true">SUM(SSAP_OC_UNKNOWN_ERROR)</counter>
+      <counter alias="SSAP_OC_ABORTED" symmetrical="true">SUM(SSAP_OC_ABORTED)</counter>
+      <counter alias="SSAP_OC_REJECTED" symmetrical="true">SUM(SSAP_OC_REJECTED)</counter>
+      <counter alias="SSAP_OC_CANCELLED" symmetrical="true">SUM(SSAP_OC_CANCELLED)</counter>
+<!--      <counter alias="SSAP_OC_SUM_STARTED_IN" timeagg="SUM(SSAP_OC_SUM_STARTED_IN)">SUM(SSAP_OC_SUM_STARTED_IN)</counter>
+      <counter alias="SSAP_OC_SUM_STARTED_OUT" timeagg="SUM(SSAP_OC_SUM_STARTED_OUT)">SUM(SSAP_OC_SUM_STARTED_OUT)</counter>
+      <counter alias="SSAP_DI_SUM_STARTED_IN" timeagg="SUM(SSAP_DI_SUM_STARTED_IN)">SUM(SSAP_DI_SUM_STARTED_IN)</counter>
+      <counter alias="SSAP_DI_SUM_STARTED_OUT" timeagg="SUM(SSAP_DI_SUM_STARTED_OUT)">SUM(SSAP_DI_SUM_STARTED_OUT)</counter> -->
+    </counters>
+    <table_name>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SSAPMSOC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SSAPMSOC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_STARTED">
+    <formula>SSAPMSOC.SSAP_OC_STARTED</formula>
+    <kpi_info>
+      <title>SSAP_OC_STARTED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_STARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_STARTED (M198B4C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_CAUSED_BY_T3">
+    <formula>SSAPMSOC.SSAP_OC_CAUSED_BY_T3</formula>
+    <kpi_info>
+      <title>SSAP_OC_CAUSED_BY_T3</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_CAUSED_BY_T3)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_CAUSED_BY_T3 (M198B4C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_CAUSED_BY_T4">
+    <formula>SSAPMSOC.SSAP_OC_CAUSED_BY_T4</formula>
+    <kpi_info>
+      <title>SSAP_OC_CAUSED_BY_T4</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_CAUSED_BY_T4)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_CAUSED_BY_T4 (M198B4C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_CAUSED_BY_T7">
+    <formula>SSAPMSOC.SSAP_OC_CAUSED_BY_T7</formula>
+    <kpi_info>
+      <title>SSAP_OC_CAUSED_BY_T7</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_CAUSED_BY_T7)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_CAUSED_BY_T7 (M198B4C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_CAUSED_BY_T9">
+    <formula>SSAPMSOC.SSAP_OC_CAUSED_BY_T9</formula>
+    <kpi_info>
+      <title>SSAP_OC_CAUSED_BY_T9</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_CAUSED_BY_T9)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_CAUSED_BY_T9 (M198B4C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_UNKNOWN_CAUSE">
+    <formula>SSAPMSOC.SSAP_OC_UNKNOWN_CAUSE</formula>
+    <kpi_info>
+      <title>SSAP_OC_UNKNOWN_CAUSE</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_UNKNOWN_CAUSE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_UNKNOWN_CAUSE (M198B4C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_ERRORS">
+    <formula>SSAPMSOC.SSAP_OC_ERRORS</formula>
+    <kpi_info>
+      <title>SSAP_OC_ERRORS</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_ERRORS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_ERRORS (M198B4C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_SHORT_TERM_DENIAL">
+    <formula>SSAPMSOC.SSAP_OC_SHORT_TERM_DENIAL</formula>
+    <kpi_info>
+      <title>SSAP_OC_SHORT_TERM_DENIAL</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_SHORT_TERM_DENIAL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_SHORT_TERM_DENIAL (M198B4C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_LONG_TERM_DENIAL">
+    <formula>SSAPMSOC.SSAP_OC_LONG_TERM_DENIAL</formula>
+    <kpi_info>
+      <title>SSAP_OC_LONG_TERM_DENIAL</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_LONG_TERM_DENIAL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_LONG_TERM_DENIAL (M198B4C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_UNKNOWN_ERROR">
+    <formula>SSAPMSOC.SSAP_OC_UNKNOWN_ERROR</formula>
+    <kpi_info>
+      <title>SSAP_OC_UNKNOWN_ERROR</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_UNKNOWN_ERROR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_UNKNOWN_ERROR (M198B4C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_ABORTED">
+    <formula>SSAPMSOC.SSAP_OC_ABORTED</formula>
+    <kpi_info>
+      <title>SSAP_OC_ABORTED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_ABORTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_ABORTED (M198B4C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_REJECTED">
+    <formula>SSAPMSOC.SSAP_OC_REJECTED</formula>
+    <kpi_info>
+      <title>SSAP_OC_REJECTED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_REJECTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_REJECTED (M198B4C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SSAP_OC_CANCELLED">
+    <formula>SSAPMSOC.SSAP_OC_CANCELLED</formula>
+    <kpi_info>
+      <title>SSAP_OC_CANCELLED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SSAP_OC_CANCELLED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_CANCELLED (M198B4C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!-->kpi name="SSAP_OC_SUM_STARTED_IN">
+    <formula>SSAPMSOC.SSAP_OC_SUM_STARTED_IN</formula>
+    <kpi_info>
+      <title>SSAP_OC_SUM_STARTED_IN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SSAP_OC_SUM_STARTED_IN)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_SUM_STARTED_IN (M198B0C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SSAP_OC_SUM_STARTED_OUT">
+    <formula>SSAPMSOC.SSAP_OC_SUM_STARTED_OUT</formula>
+    <kpi_info>
+      <title>SSAP_OC_SUM_STARTED_OUT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SSAP_OC_SUM_STARTED_OUT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_OC_SUM_STARTED_OUT (M198B0C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SSAP_DI_SUM_STARTED_IN">
+    <formula>SSAPMSOC.SSAP_DI_SUM_STARTED_IN</formula>
+    <kpi_info>
+      <title>SSAP_DI_SUM_STARTED_IN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SSAP_DI_SUM_STARTED_IN)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_DI_SUM_STARTED_IN (M198B1C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SSAP_DI_SUM_STARTED_OUT">
+    <formula>SSAPMSOC.SSAP_DI_SUM_STARTED_OUT</formula>
+    <kpi_info>
+      <title>SSAP_DI_SUM_STARTED_OUT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SSAP_DI_SUM_STARTED_OUT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ssapmsoc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SSAP_DI_SUM_STARTED_OUT (M198B1C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+</conf_file>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/URS_ext.xml"/>
+  <kpi name="flng_107a">
+    <formula>decode(
+			((URS_ext.gtpc_update_resp_sent_all)),0,NULL, 
+
+			((URS_ext.gtpc_update_resp_sent))
+			 / 
+			((URS_ext.gtpc_update_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 update PDP context responses sent for a specific cause code when compared to total number of GTP-C v1 update PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(urs_id,'x',GTPC_UPDATE_RESP_SENT,0))  ;URS for cause code x
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_UPDATE_RESP_SENT)  ;all URS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_URS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Upd PDP resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

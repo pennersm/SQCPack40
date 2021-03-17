@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<report id="RSLTE250 - LTE Radio Objects Hierarchy" thresholds="false">
+		<report-level key="mrbts">PLMN/MRBTS</report-level>
+		<level>PLMN/MRBTS</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSLTE250 - LTE Radio Objects Hierarchy</title>
+		<help-text>
+		<![CDATA[<br>Report lists all LTE radio NEs in the network.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">plmn.co_gid</pivot>
+			<pivot level="MRBTS">MRBTS.co_gid</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="co_name">
+				<alias>MRBTS name</alias>
+			</column>
+			<column col-id="co_sc_name">
+				<alias>Mode</alias>
+			</column>
+			<column col-id="co_gid" columnType="KEY">
+				<alias>co_gid</alias>
+			</column>
+			<column col-id="vendor">
+				<alias>Vendor</alias>
+			</column>
+			<column col-id="sys_ver_mrbts">
+				<alias>MRBTS_Sys_Ver</alias>
+			</column>
+			<column col-id="sys_ver_LNBTS">
+				<alias>LNBTS_Sys_Ver</alias>
+			</column>
+			<column col-id="sys_ver_LNCEL">
+				<alias>LNCEL_Sys_Ver</alias>
+			</column>
+			<column col-id="co_dn">
+				<alias>DN</alias>
+			</column>
+			<column col-id="int_id" columnType="KEY">
+				<alias>Int ID</alias>
+			</column>
+			<column col-id="sw_name">
+				<alias>Software object class name</alias>
+			</column>
+			<column col-id="package_id">
+				<alias>Package ID</alias>
+			</column>
+			<column col-id="active_package_id">
+				<alias>Active Package ID</alias>
+			</column>
+			<column col-id="row_update_date">
+				<alias>Row update</alias>
+			</column>
+			<column col-id="longitude" columnType="KEY">
+				<alias>longitude</alias>
+			</column>
+			<column col-id="latitude" columnType="KEY">
+				<alias>latitude</alias>
+			</column>
+			<column col-id="height" columnType="KEY">
+				<alias>height</alias>
+			</column>
+			<column col-id="plmn_co_gid" columnType="KEY">
+			<alias>PLMN_GID</alias>
+			</column>
+			<column col-id="mrbts_co_gid" columnType="KEY">
+			<alias>MRBTS_GID</alias>
+			</column>
+			<column col-id="LNBTS_co_gid" columnType="KEY">
+			<alias>LNBTS_GID</alias>
+			</column>
+			<column col-id="LNCEL_co_gid" columnType="KEY">
+			<alias>LNCEL_GID</alias>
+			</column>
+			
+		</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Objects MRBTS:</span><br><br>
+		 		]]>
+		</literal>
+
+		<sql>
+			<![CDATA[
+
+			SELECT
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') PLMN_NAME,
+			plmn.co_gid plmn_co_gid,
+			nvl(MRBTS.co_name,'NN('||MRBTS.co_gid||')') MRBTS_NAME,
+			MRBTS.co_gid mrbts_co_gid,
+			MRBTS.co_dn,
+			MRBTS.co_sc_name,
+			MRBTS.co_oc_vendor vendor,
+			MRBTS.co_ocv_sys_version sys_ver_mrbts
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects MRBTS
+								
+			WHERE
+			    #object_selection# and
+			    plmn.co_oc_id = 16 AND
+				MRBTS.co_oc_id=3128 and				
+				MRBTS.co_parent_gid = plmn.co_gid  
+	 		]]>
+	 	</sql>
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Objects LNBTS:</span><br><br>
+		 		]]>
+		</literal>
+
+
+		<sql>
+			<![CDATA[
+	 	
+	 	SELECT
+				nvl(plmn.co_name,'NN('||plmn.co_gid||')') PLMN_NAME,
+				plmn.co_gid plmn_co_gid,
+				nvl(MRBTS.co_name,'NN('||MRBTS.co_gid||')') MRBTS_NAME,
+				MRBTS.co_gid mrbts_co_gid,
+				MRBTS.co_ocv_sys_version sys_ver_mrbts,
+				nvl(LNBTS.co_name,'NN('||LNBTS.co_gid||')') LNBTS_NAME,
+				LNBTS.co_gid LNBTS_co_gid,
+				LNBTS.co_oc_vendor vendor,
+				LNBTS.co_ocv_sys_version sys_ver_LNBTS,
+				LNBTS.co_dn
+				
+					
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects MRBTS,
+				utp_common_objects LNBTS
+
+								
+			WHERE
+				#object_selection# and
+				MRBTS.co_oc_id=3128 and
+				plmn.co_oc_id = 16 AND
+				LNBTS.co_oc_id = 3129 AND
+				MRBTS.co_parent_gid = plmn.co_gid  and
+				LNBTS.co_parent_gid=MRBTS.co_gid 
+			]]>
+	 	</sql>
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Objects LNCEL:</span><br><br>
+		 		]]>
+		</literal>
+
+		<sql>
+			<![CDATA[
+	 	SELECT
+				nvl(plmn.co_name,'NN('||plmn.co_gid||')') PLMN_NAME,
+				plmn.co_gid plmn_co_gid,
+				nvl(MRBTS.co_name,'NN('||MRBTS.co_gid||')') MRBTS_NAME,
+				MRBTS.co_gid mrbts_co_gid,
+				nvl(LNBTS.co_name,'NN('||LNBTS.co_gid||')') LNBTS_NAME,
+				LNBTS.co_gid LNBTS_co_gid,
+				nvl(LNCEL.co_name,'NN('||LNCEL.co_gid||')') LNCEL_NAME,
+				LNCEL.co_gid LNCEL_co_gid,
+				LNCEL.co_oc_vendor vendor,
+				LNCEL.co_dn
+				
+					
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects MRBTS,
+				utp_common_objects LNBTS,
+				utp_common_objects LNCEL
+				
+								
+			WHERE
+				#object_selection# and
+				MRBTS.co_oc_id=3128 and
+				plmn.co_oc_id = 16 AND
+				LNBTS.co_oc_id = 3129 AND
+				LNCEL.co_oc_id = 3130 and 
+				MRBTS.co_parent_gid = plmn.co_gid  and
+				LNBTS.co_parent_gid=MRBTS.co_gid and 
+				LNCEL.co_parent_gid=LNBTS.co_gid
+			]]>
+	 	</sql>
+	 	
+	</report>
+</reports>

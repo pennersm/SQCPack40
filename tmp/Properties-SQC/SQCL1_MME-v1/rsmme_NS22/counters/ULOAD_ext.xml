@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Unit_Load</header>
+    <csv_title>Nokia Siemens Flexi NS2.2 Unit Load ULOAD measurement dump</csv_title>
+    <report-description>Unit Load Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="ULOAD" meas_level="PLMN/FLEXINS/MME-UNIT" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+        <counter alias="CPPU_CPU_avg">avg ( CASE WHEN UNIT_ID LIKE '%CPPU%' THEN COMP_AVERAGE_LOAD ELSE NULL END )</counter>
+        <counter alias="MMDU_CPU_avg">avg ( CASE WHEN UNIT_ID LIKE '%MMDU%' THEN COMP_AVERAGE_LOAD ELSE NULL END )</counter>
+        <counter alias="IPDU_CPU_avg">avg ( CASE WHEN UNIT_ID LIKE '%IPDU%' THEN COMP_AVERAGE_LOAD ELSE NULL END )</counter>
+        <counter alias="MCHU_CPU_avg">avg ( CASE WHEN UNIT_ID LIKE '%MCHU%' THEN COMP_AVERAGE_LOAD ELSE NULL END )</counter>
+        <counter alias="OMU_CPU_avg">avg ( CASE WHEN UNIT_ID LIKE '%OMU%' THEN COMP_AVERAGE_LOAD ELSE NULL END )</counter>
+        <counter alias="CPPUS_COUNT">COUNT (DISTINCT (CASE WHEN UNIT_ID LIKE '%CPPU%' THEN FINS_ID||UNIT_ID ELSE NULL END))</counter>
+	    <counter alias="MMDUS_COUNT">COUNT (DISTINCT (CASE WHEN UNIT_ID LIKE '%MMDU%' THEN FINS_ID||UNIT_ID ELSE NULL END))</counter>
+	    <counter alias="IPDUS_COUNT">COUNT (DISTINCT (CASE WHEN UNIT_ID LIKE '%IPDU%' THEN FINS_ID||UNIT_ID ELSE NULL END))</counter>
+    </counters>
+    <table_name>pcofns_ps_uload_unit1_{TIME_AGG}</table_name>
+    <alias_name>ULOAD_ext</alias_name>
+  </temp_table>
+</conf_file>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPCAC.xml" />
+  <kpi name="MGW_1008a">
+    <formula>decode(
+			(ipcac.ip_attempts),0,null, 
+
+			(100*(ipcac.ip_atts_rejected_other)
+			 / 
+			(ipcac.ip_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP termination reservation failure ratio]]></title>
+      <use><![CDATA[Indicates failure ratio of all IP reservation attempts in MGW. This includes MGW internal and external IP failure reasons.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           sum (IP_ATTS_REJECTED_OTHER)
+&lt;br&gt;100 x -------------------------------------
+&lt;br&gt;           sum (IP_ATTEMPTS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ipcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[IP termination reservation failure ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_273d">
+    <formula>decode(
+			(signtrc.mgw_1000b + 
+			signtrc.mgw_1001a),0,null, 
+
+			(100*signtrc.mgw_1000b
+			 / 
+			(signtrc.mgw_1000b + 
+			signtrc.mgw_1001a)))</formula>
+    <kpi_info>
+      <title><![CDATA[Success ratio of codec resource reservations]]></title>
+      <use><![CDATA[Indicates success ratio of resource reservations, when reserving signalling transcoding codec in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;            mgw_1000b
+&lt;br&gt;100 * ---------------------
+&lt;br&gt;      mgw_1000b + mgw_1001a</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Codec resour srv SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

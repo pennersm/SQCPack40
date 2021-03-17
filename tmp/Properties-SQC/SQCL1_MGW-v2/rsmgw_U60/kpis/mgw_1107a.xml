@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/PTCAPAL.xml" />
+  <kpi name="mgw_1107a">
+    <formula>decode(
+			(ptcapal.nb_ip_res_attempts),0,null, 
+
+			(100*(ptcapal.nb_ip_reject_no_capa)
+			 / 
+			(ptcapal.nb_ip_res_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[Nb-IP port type capacity licence rejection ratio]]></title>
+      <use><![CDATA[Indicates rejection ratio of Nb-IP port type capacity reservations, which have been rejected by the capacity limit of the licence in MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM(NB_IP_REJECT_NO_CAPA)
+&lt;br&gt;100 *  ------------------------
+&lt;br&gt;       SUM(NB_IP_RES_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ptcapal_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Nb-IP port type no capa rej</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

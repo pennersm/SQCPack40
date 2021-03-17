@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NBE1VC (NodeB E1 Virtual Channel)</header>
+    <csv_title>NBE1VC (NodeB E1 Virtual Channel)</csv_title>
+    <report-description>NodeB E1 Virtual Channel</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <egressCellsE1VC/>
+    <ingressCellsE1VC/>
+    <vcUsageRatioMaxE1VC/>
+    <vcUsageRatioMeanE1VC/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="NBE1VC" omes_name="SVCIE1" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3E1/RSRAN-SVPI-1/RSRAN-SVCI-1" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>NBE1VC</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="egressCellsE1VC" symmetrical="true">SUM(egressCellsE1VC)</counter>
+          <counter alias="ingressCellsE1VC" symmetrical="true">SUM(ingressCellsE1VC)</counter>
+          <counter alias="vcUsageRatioMaxE1VC" symmetrical="true">MAX(vcUsageRatioMaxE1VC)</counter>
+          <counter alias="vcUsageRatioMeanE1VC" symmetrical="true">AVG(vcUsageRatioMeanE1VC)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NBE1VC</alias_name>
+    <ui_name>NodeB E1 Virtual Channel</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NBE1VC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="egressCellsE1VC">
+    <formula>NBE1VC.egressCellsE1VC</formula>
+    <kpi_info>
+      <title>egressCellsE1VC (egressCellsE1VC)</title>
+      <use>The total number of transmitted ATM cells. UPDATED: When an ATM cell is transmitted.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(egressCellsE1VC)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>egressCellsE1VC (egressCellsE1VC)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ingressCellsE1VC">
+    <formula>NBE1VC.ingressCellsE1VC</formula>
+    <kpi_info>
+      <title>ingressCellsE1VC (ingressCellsE1VC)</title>
+      <use>The total number of received ATM cells. UPDATED: When an ATM cell is received.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ingressCellsE1VC)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ingressCellsE1VC (ingressCellsE1VC)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="vcUsageRatioMaxE1VC">
+    <formula>NBE1VC.vcUsageRatioMaxE1VC</formula>
+    <kpi_info>
+      <title>vcUsageRatioMaxE1VC (vcUsageRatioMaxE1VC)</title>
+      <use>The maximum VC usage ratio. UPDATED: Transmitted ATM cells without idle cells are counted during 10s sampling period. At the end of every 10s period the usage ratio is calculated: vcUsageRatio=[(used bandwidth) / (configured vc-bandwidth)] x100. (used bandwidth) = (# of transmitted ATM-cells in egress direction) / (measurement interval) (configured VC-bandwidth) = configured peak cell rate of the VC At the end of the measurement interval the maximum value is calculated
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(vcUsageRatioMaxE1VC)</formula>
+      <unit>Percentage</unit>
+      <tables>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>vcUsageRatioMaxE1VC (vcUsageRatioMaxE1VC)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="vcUsageRatioMeanE1VC">
+    <formula>NBE1VC.vcUsageRatioMeanE1VC</formula>
+    <kpi_info>
+      <title>vcUsageRatioMeanE1VC (vcUsageRatioMeanE1VC)</title>
+      <use>The average VC usage ratio. UPDATED: Transmitted ATM cells without idle cells are counted during 10s sampling period. At the end of every 10s period the usage ratio is calculated: vcUsageRatio=[(used bandwidth) / (configured vc-bandwidth)] x100. (used bandwidth) = (# of transmitted ATM-cells in egress direction) / (measurement interval) (configured VC-bandwidth) = configured peak cell rate of the VC At the end of the measurement interval the mean value is calculated
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(vcUsageRatioMeanE1VC)</formula>
+      <unit>Percentage</unit>
+      <tables>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>vcUsageRatioMeanE1VC (vcUsageRatioMeanE1VC)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>NBE1VC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_nbe1vc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

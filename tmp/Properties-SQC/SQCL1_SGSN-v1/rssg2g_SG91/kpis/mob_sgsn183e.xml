@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <kpi name="mob_sgsn183e">
+    <formula>decode(
+			(mobmgmnt.succ_combined_attach + 
+			mobmgmnt.fail_combined_attach + 
+			mobmgmnt.fail_comb_attach_sim_not_prov + 
+			mobmgmnt.fail_comb_attach_illegal_ms + 
+			mobmgmnt.fail_comb_attach_illegal_me + 
+			mobmgmnt.fail_comb_attach_ser_nonser_na + 
+			mobmgmnt.fail_comb_attach_ser_na_plmn + 
+			mobmgmnt.fail_comb_attach_no_cell_in_la + 
+			mobmgmnt.comb_attach_fail_plmn_na + 
+			mobmgmnt.comb_attach_fail_la_na + 
+			mobmgmnt.comb_attach_fail_roaming_na + 
+			mobmgmnt.comb_attach_fail_prot_error + 
+			mobmgmnt.fail_comb_attach_22),0,NULL, 
+
+			(100*(mobmgmnt.fail_comb_attach_sim_not_prov)
+			 / 
+			(mobmgmnt.succ_combined_attach + 
+			mobmgmnt.fail_combined_attach + 
+			mobmgmnt.fail_comb_attach_sim_not_prov + 
+			mobmgmnt.fail_comb_attach_illegal_ms + 
+			mobmgmnt.fail_comb_attach_illegal_me + 
+			mobmgmnt.fail_comb_attach_ser_nonser_na + 
+			mobmgmnt.fail_comb_attach_ser_na_plmn + 
+			mobmgmnt.fail_comb_attach_no_cell_in_la + 
+			mobmgmnt.comb_attach_fail_plmn_na + 
+			mobmgmnt.comb_attach_fail_la_na + 
+			mobmgmnt.comb_attach_fail_roaming_na + 
+			mobmgmnt.comb_attach_fail_prot_error + 
+			mobmgmnt.fail_comb_attach_22)))</formula>
+    <kpi_info>
+      <title><![CDATA[Failure ratio of combined attach from Gb interface due to SIM not provisioned for GPRS]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of combined attach from Gb interface resulting from SIM not being provisioned for GPRS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(FAIL_COMB_ATTACH_SIM_NOT_PROV)
+&lt;br&gt;------------------------------------------------------------------- * 100
+&lt;br&gt;sum(SUCC_COMBINED_ATTACH + FAIL_COMBINED_ATTACH+
+&lt;br&gt;       FAIL_COMB_ATTACH_SIM_NOT_PROV+
+&lt;br&gt;       FAIL_COMB_ATTACH_ILLEGAL_MS + FAIL_COMB_ATTACH_ILLEGAL_ME +
+&lt;br&gt;       FAIL_COMB_ATTACH_SER_NONSER_NA + FAIL_COMB_ATTACH_SER_NA_PLMN + 
+&lt;br&gt;       FAIL_COMB_ATTACH_NO_CELL_IN_LA + COMB_ATTACH_FAIL_PLMN_NA +
+&lt;br&gt;       COMB_ATTACH_FAIL_LA_NA + COMB_ATTACH_FAIL_ROAMING_NA + 
+&lt;br&gt;       COMB_ATTACH_FAIL_PROT_ERROR + FAIL_COMB_ATTACH_22)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_mobility_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_mobmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Failure ratio of combined attach from Gb interface due to SIM not provisioned for GPRS]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

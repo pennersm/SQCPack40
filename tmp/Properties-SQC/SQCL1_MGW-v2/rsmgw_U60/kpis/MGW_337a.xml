@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/STM1.xml" />
+  <kpi name="MGW_337a">
+    <formula>100*decode(
+			(stm1.period_duration*60),0,null, 
+
+			(stm1.fe_path1_bbe
+			 / 
+			(stm1.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of  PATH1_BBE at the Far End]]></title>
+      <use><![CDATA[The Ratio of  BBE to total seconds in available time at the Far End (ITU-T G.826). An errored block is a block in which one or more bits have an error. B3 byte in section overhead header (SOH) is used for the path termination section error monitoring using Bit Interleaved Parity 8 (BIP-8) code, in an even parity. The BIP-8 is computed over all bits or previous STM frames after scrambling and is placed in byte B3 of the current frame before scrambling. In this case the block means STM-1 frame. The STM-1 payload cell rate is 149760 kbit/s. The path termination section is one of the SDH layers (regeneration, multiplex and path) (ITU-T G.707).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(FE_PATH1_BBE) / sum(PERIOD_DURATION * 60 ))</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_stm1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ratio of  PATH1_BBE at the Far End]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

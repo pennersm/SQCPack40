@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml"/>
+  <kpi name="tra_msc127b">
+    <formula>ccmea_ext.ccmeas_signalling_3 + ccmea_ext.ccmeas_ring_3 + ccmea_ext.ccmeas_speech_3</formula>
+    <kpi_info>
+      <title><![CDATA[Failed teleservice usage attempts due problem in the other network elements]]></title>
+      <use><![CDATA[The unsuccessful (clear code equal to 800H - BFFH) usage attempts due a problem in network (other network element) of teleservice services (T11, T12, T40, T41, T42, T43, T60, T61 and T62). Radio network failures are excluded i.e. clear codes B13H-B14H, B16H, B1AH-B1FH.]]></use>
+
+<use_experience><![CDATA[ 
+<br>===>>> Numerator approach analysis:
+<br>
+<br>+++ INCLUDING
+<br>
+<br>0800H - 0BFFH => External congestion clear code group
+<br>      +
+<br>0C00 - 0CFF => This inlcudes the following subscriber clear code causes:
+<br>   0C01 &#150; UNKNOWN DIALLING FROM SUBSCRIBER SIGNALLING
+<br>   0C02 &#150; INSUFFICIENT DIALLING FROM SUBSCRIBER SIGNALLING
+<br>   0C09 &#150; SERVICE OR FACILITY ACTIVATION RESTRICTED
+<br>   0C0A &#150; SERVICE OR FACILITY USAGE RESTRICTED
+<br>   0C0B &#150; INCONSISTENCY BETWEEN A AND B SUBSCRIBERS
+<br>   0C0C &#150; INVOCATION OF CLIR IS NOT ALLOWED
+<br>   0C0D &#150; BEARER CAPABILITY NOT PRESENTLY AVAILABLE
+<br>   0C0E &#150; SUBSCRIBER, INTERACTION ERROR
+<br>   0C10 &#150; CARRIER ACCESS CODE NOT ALLOWED
+<br>   0C11 &#150; DATA CALL TO OPERATOR
+<br>
+<br>--- EXCLUDING
+<br>
+<br>   0B13 &#150; RADIO INTERFACE FAILURE
+<br>   0B14 &#150; HANDOVER FAILURE
+<br>   0B16 &#150; REMOTE EQUIPMENT FAILURE
+<br>      +
+<br>   (B1AH  - B1FH):
+<br>   0B1A &#150; BSSMAP PROTOCOL ERROR
+<br>   0B1B &#150; RADIO INTERFACE MESSAGE FAILURE
+<br>   0B1C &#150; RADIO INTERFACE FAILURE REVERSION TO OLD CHANNEL
+<br>   0B1D &#150; O&amp;M RELEASED INSIDE NETWORK
+<br>   0B1E &#150; RADIO RESOURCE UNAVAILABLE
+<br>   0B1F &#150; REQUESTED TERRESTRIAL RESOURCE UNAVAILABLE
+<br>
+<br>===>>> Denominator approach analysis:
+<br>In the denominator all the services are counted: teleservices + bearer services + supplementary services.
+<br>
+<br>NOTE: This Clear Code range should be agreed separately with the customer. These are just examples.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 07-04-2009
+<br>THEORETICAL SUMMARY LEVELS: PLMN - MSC - CC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN - MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Clear Code Measurement M131
+<br>
+<br>NOTES: This KPI is similar to msc_669a KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;              SUM(CCMEAS_SIGNALLING)
+&lt;br&gt;            + SUM(CCMEAS_RING)
+&lt;br&gt;            + SUM(CCMEAS_SPEECH)
+&lt;br&gt;
+&lt;br&gt;;where clearcode_id = from 800H to CFFH except B13H-B14H, B16H, B1AH-B1FH
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_CCMEA_{obj_agg}_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_ccmea_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Failed teleservice usage attempts due problem in the other network elements]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTP_C_v2_create_session_response_received CSRR measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTP_C_v2_create_session_response_received CSRR measurement dump</csv_title>
+    <report-description>GTP-C v2 create session response received</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <GTPCV2_CREATE_SESS_RESP_RECV />
+  </column_order>
+  <temp_table name="CSRR" meas_level="PLMN/FING/FNODE/GTPCV2/CSRR" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="GTPCV2_CREATE_SESS_RESP_RECV" time-alias="GTPCV2_CREATE_SESS_RESP_RECV" timeagg="SUM(GTPCV2_CREATE_SESS_RESP_RECV)">SUM(GTPCV2_CREATE_SESS_RESP_RECV)</counter>
+    </counters>
+    <table_name>pcofng_ps_csrr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CSRR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CSRR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_csrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GTPCV2_CREATE_SESS_RESP_RECV">
+    <formula>CSRR.GTPCV2_CREATE_SESS_RESP_RECV</formula>
+    <kpi_info>
+      <title>GTPCV2_CREATE_SESS_RESP_RECV</title>
+      <use>This counter contains the number of received Create Session Response messages grouped by the cause code. UPDATED: Updated when a Create Session Response message by the cause code is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GTPCV2_CREATE_SESS_RESP_RECV)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_csrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GTPCV2_CREATE_SESS_RESP_RECV (m3052c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+  <kpi name="mob_msc155b">
+    <formula>100*decode(
+			(ho1.outierplmniermscintragsmok + 
+			ho1.outierplmniermscgsmtoumtsok + 
+			ho1.outierplmniermscumtstogsmok + 
+			ho1.outierplmniermscintraumtsok + 
+			ho1.outierplmniermscintragsmnok + 
+			ho1.outierplmniermscgsmtoumtsnok + 
+			ho1.outierplmniermscumtstogsmnok + 
+			ho1.outierplmniermscintraumtsnok),0,null, 
+
+			(ho1.outierplmniermscintragsmok + 
+			ho1.outierplmniermscgsmtoumtsok + 
+			ho1.outierplmniermscumtstogsmok + 
+			ho1.outierplmniermscintraumtsok)
+			 / 
+			(ho1.outierplmniermscintragsmok + 
+			ho1.outierplmniermscgsmtoumtsok + 
+			ho1.outierplmniermscumtstogsmok + 
+			ho1.outierplmniermscintraumtsok + 
+			ho1.outierplmniermscintragsmnok + 
+			ho1.outierplmniermscgsmtoumtsnok + 
+			ho1.outierplmniermscumtstogsmnok + 
+			ho1.outierplmniermscintraumtsnok))</formula>
+    <kpi_info>
+      <title><![CDATA[Outgoing Inter-PLMN HOs success ratio in the network]]></title>
+      <use><![CDATA[Indicates success ratio of Outgoing Inter-PLMN HOs in the network.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;            sum(
+&lt;br&gt;              OutIerPlmnIerMscIntraGsmOk
+&lt;br&gt;            + OutIerPlmnIerMscGsmToUmtsOk
+&lt;br&gt;            + OutIerPlmnIerMscUmtsToGsmOk 
+&lt;br&gt;            + OutIerPlmnIerMscIntraUmtsOk)
+&lt;br&gt;   100 * -------------------------------------------------------------------
+&lt;br&gt;           sum(
+&lt;br&gt;              OutIerPlmnIerMscIntraGsmOk
+&lt;br&gt;            + OutIerPlmnIerMscGsmToUmtsOk
+&lt;br&gt;            + OutIerPlmnIerMscUmtsToGsmOk 
+&lt;br&gt;              OutIerPlmnIerMscIntraUmtsOk) 
+&lt;br&gt;          +sum(
+&lt;br&gt;              OutIerPlmnIerMscIntraGsmNok
+&lt;br&gt;            + OutIerPlmnIerMscGsmToUmtsNok
+&lt;br&gt;            + OutIerPlmnIerMscUmtsToGsmNok
+&lt;br&gt;            + OutIerPlmnIerMscIntraUmtsNok)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s) :
+&lt;br&gt;RNS_PS_HO1_MSC_{time_agg}, RNS_PS_HO1BH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Outgoing Inter-PLMN HOs success ratio in the network]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

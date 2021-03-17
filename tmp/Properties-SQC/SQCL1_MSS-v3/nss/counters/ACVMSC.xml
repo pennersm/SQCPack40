@@ -1,0 +1,444 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M86 ACVMSC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M86 ACVMSC measurement dump</csv_title>
+    <report-description>AC/VLR measurement(ACVMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <NUMBEROFVLRUS/>
+    <NUMBEROFANSWVLRUS/>
+    <ATTEMPTAUTHWITHTRIPLET/>
+    <SUCCESSFAUTHWITHTRIPLET/>
+    <FAILEDAUTHWITHTRIPLET/>
+    <ATTEMPTAUTHWITHQUINTET/>
+    <SUCCESSFAUTHWITHQUINTET/>
+    <FAILEDAUTHWITHQUINTET/>
+    <NUMBEROFREUSEDTRIPLETS/>
+    <NUMBEROFSYNCFAIL/>
+    <NUMBEROFUSERREJECT/>
+    <DATAMISSINGIFVALUEIS_1/>
+    <TOTALNUMBOFREQUEST/>
+    <TOTALNUMBOFANSWERED/>
+    <TOTALNUMBOFUNKNOWNSUBSC/>
+    <TOTALNUMBOFTRIPLETS/>
+    <TOTALNUMBOFSYNCREQ/>
+    <TOTALNUMBOFNOTANSWERED/>
+    <TOTALNUMBOFQUINTETS/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC6" name="ACVMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="NUMBEROFVLRUS" object-formula="SUM(NUMBEROFVLRUS)" time-alias="NUMBEROFVLRUS" time-formula="AVG(NUMBEROFVLRUS)">SUM(NUMBEROFVLRUS)</counter>
+      <counter alias="NUMBEROFANSWVLRUS" object-formula="SUM(NUMBEROFANSWVLRUS)" time-alias="NUMBEROFANSWVLRUS" time-formula="AVG(NUMBEROFANSWVLRUS)">SUM(NUMBEROFANSWVLRUS)</counter>
+      <counter alias="ATTEMPTAUTHWITHTRIPLET" symmetrical="true">SUM(ATTEMPTAUTHWITHTRIPLET)</counter>
+      <counter alias="SUCCESSFAUTHWITHTRIPLET" symmetrical="true">SUM(SUCCESSFAUTHWITHTRIPLET)</counter>
+      <counter alias="FAILEDAUTHWITHTRIPLET" symmetrical="true">SUM(FAILEDAUTHWITHTRIPLET)</counter>
+      <counter alias="ATTEMPTAUTHWITHQUINTET" symmetrical="true">SUM(ATTEMPTAUTHWITHQUINTET)</counter>
+      <counter alias="SUCCESSFAUTHWITHQUINTET" symmetrical="true">SUM(SUCCESSFAUTHWITHQUINTET)</counter>
+      <counter alias="FAILEDAUTHWITHQUINTET" symmetrical="true">SUM(FAILEDAUTHWITHQUINTET)</counter>
+      <counter alias="NUMBEROFREUSEDTRIPLETS" symmetrical="true">SUM(NUMBEROFREUSEDTRIPLETS)</counter>
+      <counter alias="NUMBEROFSYNCFAIL" symmetrical="true">SUM(NUMBEROFSYNCFAIL)</counter>
+      <counter alias="NUMBEROFUSERREJECT" symmetrical="true">SUM(NUMBEROFUSERREJECT)</counter>
+      <counter alias="DATAMISSINGIFVALUEIS_1" symmetrical="true">SUM(DATAMISSINGIFVALUEIS_1)</counter>
+      <counter alias="TOTALNUMBOFREQUEST" symmetrical="true">SUM(TOTALNUMBOFREQUEST)</counter>
+      <counter alias="TOTALNUMBOFANSWERED" symmetrical="true">SUM(TOTALNUMBOFANSWERED)</counter>
+      <counter alias="TOTALNUMBOFUNKNOWNSUBSC" symmetrical="true">SUM(TOTALNUMBOFUNKNOWNSUBSC)</counter>
+      <counter alias="TOTALNUMBOFTRIPLETS" symmetrical="true">SUM(TOTALNUMBOFTRIPLETS)</counter>
+      <counter alias="TOTALNUMBOFSYNCREQ" symmetrical="true">SUM(TOTALNUMBOFSYNCREQ)</counter>
+      <counter alias="TOTALNUMBOFNOTANSWERED" symmetrical="true">SUM(TOTALNUMBOFNOTANSWERED)</counter>
+      <counter alias="TOTALNUMBOFQUINTETS" symmetrical="true">SUM(TOTALNUMBOFQUINTETS)</counter>
+    </counters>
+    <table_name>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ACVMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ACVMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMBEROFVLRUS">
+    <formula>ACVMSC.NUMBEROFVLRUS</formula>
+    <kpi_info>
+      <title>NUMBEROFVLRUS</title>
+      <use>Number of the installed VLR units in the MSC.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(NUMBEROFVLRUS)">SUM(NUMBEROFVLRUS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBEROFVLRUS (M86B4C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMBEROFANSWVLRUS">
+    <formula>ACVMSC.NUMBEROFANSWVLRUS</formula>
+    <kpi_info>
+      <title>NUMBEROFANSWVLRUS</title>
+      <use>Number of VLR units which responded toinquiry. This number can be different from the NUMBER OF VLRUS in
+the case when some of the VLRUs are temporarily out of order or
+they are overloaded.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(NUMBEROFANSWVLRUS)">SUM(NUMBEROFANSWVLRUS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBEROFANSWVLRUS (M86B4C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ATTEMPTAUTHWITHTRIPLET">
+    <formula>ACVMSC.ATTEMPTAUTHWITHTRIPLET</formula>
+    <kpi_info>
+      <title>ATTEMPTAUTHWITHTRIPLET</title>
+      <use>Number of authentication attempts with triplet.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ATTEMPTAUTHWITHTRIPLET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ATTEMPTAUTHWITHTRIPLET (M86B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCCESSFAUTHWITHTRIPLET">
+    <formula>ACVMSC.SUCCESSFAUTHWITHTRIPLET</formula>
+    <kpi_info>
+      <title>SUCCESSFAUTHWITHTRIPLET</title>
+      <use>Number of successful authentications withtriplet.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCCESSFAUTHWITHTRIPLET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCCESSFAUTHWITHTRIPLET (M86B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAILEDAUTHWITHTRIPLET">
+    <formula>ACVMSC.FAILEDAUTHWITHTRIPLET</formula>
+    <kpi_info>
+      <title>FAILEDAUTHWITHTRIPLET</title>
+      <use>Number of failed authentications with triplet.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAILEDAUTHWITHTRIPLET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAILEDAUTHWITHTRIPLET (M86B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ATTEMPTAUTHWITHQUINTET">
+    <formula>ACVMSC.ATTEMPTAUTHWITHQUINTET</formula>
+    <kpi_info>
+      <title>ATTEMPTAUTHWITHQUINTET</title>
+      <use>Number of authentication attempts with quintet.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ATTEMPTAUTHWITHQUINTET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ATTEMPTAUTHWITHQUINTET (M86B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCCESSFAUTHWITHQUINTET">
+    <formula>ACVMSC.SUCCESSFAUTHWITHQUINTET</formula>
+    <kpi_info>
+      <title>SUCCESSFAUTHWITHQUINTET</title>
+      <use>Number of successful authentications withquintet.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCCESSFAUTHWITHQUINTET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCCESSFAUTHWITHQUINTET (M86B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAILEDAUTHWITHQUINTET">
+    <formula>ACVMSC.FAILEDAUTHWITHQUINTET</formula>
+    <kpi_info>
+      <title>FAILEDAUTHWITHQUINTET</title>
+      <use>Number of failed authentications with quintet.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAILEDAUTHWITHQUINTET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAILEDAUTHWITHQUINTET (M86B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMBEROFREUSEDTRIPLETS">
+    <formula>ACVMSC.NUMBEROFREUSEDTRIPLETS</formula>
+    <kpi_info>
+      <title>NUMBEROFREUSEDTRIPLETS</title>
+      <use>The number of reused authentication triplets.If the report contains more than one page, this data is printed
+out only in the first part of the report.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMBEROFREUSEDTRIPLETS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBEROFREUSEDTRIPLETS (M86B3C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMBEROFSYNCFAIL">
+    <formula>ACVMSC.NUMBEROFSYNCFAIL</formula>
+    <kpi_info>
+      <title>NUMBEROFSYNCFAIL</title>
+      <use>The number of synchronisation fails of UMTSsubscribers, this data is printed only on the first part of the
+report.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMBEROFSYNCFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBEROFSYNCFAIL (M86B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMBEROFUSERREJECT">
+    <formula>ACVMSC.NUMBEROFUSERREJECT</formula>
+    <kpi_info>
+      <title>NUMBEROFUSERREJECT</title>
+      <use>UMTS MS can decide if it is attachedto a valid (not fraudulent) network, and can reject the authentication,
+this data is printed only in the first part of the report.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMBEROFUSERREJECT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBEROFUSERREJECT (M86B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DATAMISSINGIFVALUEIS_1">
+    <formula>ACVMSC.DATAMISSINGIFVALUEIS_1</formula>
+    <kpi_info>
+      <title>DATAMISSINGIFVALUEIS_1</title>
+      <use>This line appears in the ASCII reportif a fault happened during the data collecting. It means that the
+printed authentication counters are not reliable. (The problem can
+be: some of the VLRUs don't work, overloaded situation).
+In XML report the allowed value for this counter is '1' and
+is sent only in case when 'DATA MISSING IN TRANSFERRED
+VECTOR COUNTERS' line appears in ASCII report.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DATAMISSINGIFVALUEIS_1)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATAMISSINGIFVALUEIS_1 (M86B4C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFREQUEST">
+    <formula>ACVMSC.TOTALNUMBOFREQUEST</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFREQUEST</title>
+      <use>Total number of authentication vector requeststhat have been sent by the VLRs. The TOTAL REQUEST contains the
+TOTAL SYNCHRONISATION REQUEST This counter is printed in the last
+part of a multi-part report. This field is not shown if there is
+no any data of transferred authentication vectors.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFREQUEST)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFREQUEST (M86B3C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFANSWERED">
+    <formula>ACVMSC.TOTALNUMBOFANSWERED</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFANSWERED</title>
+      <use>Total number of successful answers receivedto the VLR authentication vector requests.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFANSWERED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFANSWERED (M86B3C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFUNKNOWNSUBSC">
+    <formula>ACVMSC.TOTALNUMBOFUNKNOWNSUBSC</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFUNKNOWNSUBSC</title>
+      <use>Total number of subscribers whose data cannotbe found in the AUC of the HLR.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFUNKNOWNSUBSC)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFUNKNOWNSUBSC (M86B3C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFTRIPLETS">
+    <formula>ACVMSC.TOTALNUMBOFTRIPLETS</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFTRIPLETS</title>
+      <use>Total number of transferred authentication triplets.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFTRIPLETS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFTRIPLETS (M86B3C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFSYNCREQ">
+    <formula>ACVMSC.TOTALNUMBOFSYNCREQ</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFSYNCREQ</title>
+      <use>The total number of synchronisation requestwhich can be sent when the mobile rejects the authentication because
+the sequence number is out of range. This counter is printed in
+the last part of a multi-part report. This field is not shown if
+there is no any data of transferred authentication vectors.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFSYNCREQ)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFSYNCREQ (M86B3C23)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFNOTANSWERED">
+    <formula>ACVMSC.TOTALNUMBOFNOTANSWERED</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFNOTANSWERED</title>
+      <use>Total number of not answered authenticationvector requests.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFNOTANSWERED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFNOTANSWERED (M86B3C24)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTALNUMBOFQUINTETS">
+    <formula>ACVMSC.TOTALNUMBOFQUINTETS</formula>
+    <kpi_info>
+      <title>TOTALNUMBOFQUINTETS</title>
+      <use>Total number of transferred authentication quintets.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTALNUMBOFQUINTETS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_acvmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTALNUMBOFQUINTETS (M86B3C25)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

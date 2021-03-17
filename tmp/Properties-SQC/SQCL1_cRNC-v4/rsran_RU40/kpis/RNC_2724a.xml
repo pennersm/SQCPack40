@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml"/>
+  <kpi name="RNC_2724a">
+    <formula>100*decode(
+			((RRC.CELL_UPDATE_ATT_CS_CALL)),0,NULL,((RRC.CELL_UPDATE_ATT_CS_CALL - 
+			RRC.CELL_UPDATE_SUCC_CS_CALL))
+			 / 
+			((RRC.CELL_UPDATE_ATT_CS_CALL)))</formula>
+    <kpi_info>
+      <title><![CDATA[Cell upd failure ratio, voice calls]]></title>
+      <use><![CDATA[Cell update failure ratio for voice calls]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula> sum( CELL_UPDATE_ATT_CS_CALL - CELL_UPDATE_SUCC_CS_CALL ) 
+&lt;br&gt;100*--------------------------------------------------------
+&lt;br&gt;          sum( CELL_UPDATE_ATT_CS_CALL )          
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_RRC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[FR cell upd, voice calls ]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

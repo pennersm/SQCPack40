@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSG2G Combi-SGSN SG91</report_version>
+    <release number="5.9.2-64" />
+    <min_obj_agg />
+    <valid-time-levels>day,hour,raw,whole_period,week</valid-time-levels>
+    <nw_tp />
+    <maxrows />
+    <header>RSSG2G096 - Capacity</header>
+    <csv_title>Capacity</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[<br>	This report provides information about how well the installed capacity matches the demand, for example in terms of attached subscribers, throughput and CPU load.
+    <br>Note, to see the full content of this report the optional feature codes 327, 342 and 887 must be purchased and activated in the SGSN.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2014/01/20 20:06:09.960 +0000</date>
+        <comment><![CDATA[Source: rssg2g095.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Capacity</report-description>
+    <report-title>Capacity</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <sgsn_2284a ui_name="PAPU CPU load, ave" group="CPU load" report_drill="RSSG2G_CPU_LOAD" />
+    <sgsn_2238a ui_name="IOCP load, ave" group="CPU load" />
+    <sgsn_2308a ui_name="SMMU CPU load, ave" group="CPU load" report_drill="RSSG2G_CPU_LOAD" />
+    <sgsn_2309a ui_name="MCHU CPU load, ave" group="CPU load" report_drill="RSSG2G_CPU_LOAD" />
+    <sgsn_2310a ui_name="GBU CPU load, ave" group="CPU load" report_drill="RSSG2G_CPU_LOAD" />
+    <sgsn_2311a ui_name="IPPU CPU load, ave" group="CPU load" report_drill="RSSG2G_CPU_LOAD" />
+    <sgsn_2377a ui_name="MMDU CPU load, ave" group="CPU load" report_drill="RSSG2G_CPU_LOAD" />
+    <sgsn_462a ui_name="Attach-RAU rej PAPU capa exceed" group="" report_drill="RSSG2G_PAPU_RESOURCES" />
+    <sgsn_338c ui_name="PAPU utilization (attached sub)" group="" report_drill="RSSG2G_PAPU_USER" />
+    <sgsn_703b ui_name="PDP ctx" group="" chartType="bar" yAxis="1" report_drill="RSSG2G_PAPU_USER" />
+    <sgsn_434a ui_name="DT PDP ctx" group="" chartType="bar" yAxis="1" report_drill="RSSG2G_PAPU_USER" />
+    <sgsn_901a ui_name="SCCP conn in use" group="" chartType="bar" yAxis="1" report_drill="RSSG2G_RAB" />
+    <sgsn_828b ui_name="RABs in use" group="" chartType="bar" yAxis="1" report_drill="RSSG2G_RAB" />
+    <sgsn_2015a ui_name="Gb DL" group="Throughput" />
+    <sgsn_2014a ui_name="Gb UL" group="Throughput" />
+    <sgsn_548a ui_name="Iu DL" group="Throughput" />
+    <sgsn_547a ui_name="Iu UL" group="Throughput" />
+    <sgsn_2059a ui_name="Iu DL (ATCA)" group="Throughput" />
+    <sgsn_2058a ui_name="Iu UL (ATCA)" group="Throughput" />
+    <sgsn_2009a ui_name="Ave packet size" group="" chartType="bar" yAxis="1" />
+    <sgsn_2424a ui_name="Ave packet size (ATCA)" group="" chartType="bar" yAxis="1" />
+    <sgsn_597a ui_name="Dropped data license limit" group="" report_drill="RSSG2G_TRAFFIC" />
+<!--     <sgsn_339a ui_name="Ave NS-VC load" /> -->
+    <sgsn_372a ui_name="Gb" group="Overload rejections" />
+    <sgsn_373a ui_name="Iu" group="Overload rejections" />
+  </column_order>
+  
+  <report_drill id="RSSG2G_CPU_LOAD" >
+	<drill reportLevel="PLMN/SGSN" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_Common_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+            <string value="PLMN/SGSN/CU"/>
+        </param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G011.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to CPU load (UNIT level)"/>
+		</param>
+	</drill>
+  </report_drill>
+  
+  <report_drill id="RSSG2G_PAPU_RESOURCES" >
+	<drill reportLevel="PLMN/SGSN" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_Common_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+            <string value="PLMN/SGSN/PAPU"/>
+        </param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G005.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to PAPU resources (PAPU level)"/>
+		</param>
+	</drill>
+  </report_drill>
+  
+  <report_drill id="RSSG2G_PAPU_USER" >
+	<drill reportLevel="PLMN/SGSN" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_Common_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+            <string value="PLMN/SGSN/PAPU"/>
+        </param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G022.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to PAPU user (PAPU level)"/>
+		</param>
+	</drill>
+  </report_drill>
+  
+  <report_drill id="RSSG2G_RAB" >
+	<drill reportLevel="PLMN/SGSN" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_3G_traffic_and_services_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+            <string value="PLMN/SGSN/RNC_SGSN"/>
+        </param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G035.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to 3G Radio Access Bearer (RNC level)"/>
+		</param>
+	</drill>
+  </report_drill>
+  
+  <report_drill id="RSSG2G_TRAFFIC" >
+	<drill reportLevel="PLMN/SGSN" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_Common_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+            <string value="PLMN/SGSN/PAPU"/>
+        </param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G045.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to Traffic (PAPU level)"/>
+		</param>
+	</drill>
+  </report_drill>
+  
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2284a.xml#sgsn_2284a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2238a.xml#sgsn_2238a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2308a.xml#sgsn_2308a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2309a.xml#sgsn_2309a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2310a.xml#sgsn_2310a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2311a.xml#sgsn_2311a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2377a.xml#sgsn_2377a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_462a.xml#sgsn_462a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_338c.xml#sgsn_338c" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_703b.xml#sgsn_703b" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_434a.xml#sgsn_434a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_901a.xml#sgsn_901a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_828b.xml#sgsn_828b" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2015a.xml#sgsn_2015a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2014a.xml#sgsn_2014a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_548a.xml#sgsn_548a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_547a.xml#sgsn_547a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2059a.xml#sgsn_2059a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2058a.xml#sgsn_2058a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2009a.xml#sgsn_2009a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2424a.xml#sgsn_2424a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_597a.xml#sgsn_597a" />
+<!--     <kpi_ref ref="rssg2g_SG91/kpis/sgsn_339a.xml#sgsn_339a" /> -->
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_372a.xml#sgsn_372a" />
+    <kpi_ref ref="rssg2g_SG91/kpis/sgsn_373a.xml#sgsn_373a" />
+</conf_file>
+

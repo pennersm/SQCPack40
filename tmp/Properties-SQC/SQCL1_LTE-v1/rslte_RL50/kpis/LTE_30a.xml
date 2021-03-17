@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LRDB.xml"/>
+  <kpi name="LTE_30a">
+    <formula>decode(
+			((lrdb.data_rb_stp_comp)),0,null, 
+
+			(100*(lrdb.rb_rel_req_other))
+			 / 
+			((lrdb.data_rb_stp_comp)))</formula>
+    <kpi_info>
+      <title><![CDATA[RB ABNORM REL due other Reass]]></title>
+      <use><![CDATA[Ratio between the number of abnormal Radio Bearer release due Other reasons and the number of all established Radio Bearers ]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum(RB_REL_REQ_OTHER )                                 
+&lt;br&gt;100      *      -------------------------------- 
+&lt;br&gt;                   sum(DATA_RB_STP_COMP)                      
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LRDB_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RB ABNORM REL due other Reass]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ACHSPC.xml"/>
+  <kpi name="hlr_451a">
+    <formula>100*decode(
+			ACHSPC.NUMBEROFREQUESTS,0,null, 
+
+			ACHSPC.NUMBEROFANSWERED
+			 / 
+			ACHSPC.NUMBEROFREQUESTS)</formula>
+    <kpi_info>
+      <title><![CDATA[Authentication request answer ratio per SPC]]></title>
+      <use><![CDATA[The KPI indicates authentication request answer rate per SPC.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_524d KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: PLMN->HLR->SPC
+	  <br>KPI CLASS: Security
+	  <br>MEASUREMENT(S): AC measurement in HLR (M87)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      sum (numberOfAnswered) 
+&lt;br&gt;100 * ------------------ 
+&lt;br&gt;      sum (numberOfRequests)
+&lt;br&gt;
+&lt;br&gt;Counters from views:
+&lt;br&gt;RNS_PS_ACHSPC_SPC3_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_achspc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Auth req answ ratio SPC]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

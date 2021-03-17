@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/AALRR.xml" />
+  <kpi name="RNC_768a">
+    <formula>decode(
+			(aalrr.aal2_succeeded + 
+			aalrr.aal2_rejected + 
+			aalrr.res_ext_cap + 
+			aalrr.res_int_cap + 
+			aalrr.res_other),0,null, 
+
+			100*(aalrr.aal2_rejected)
+			 / 
+			(aalrr.aal2_succeeded + 
+			aalrr.aal2_rejected + 
+			aalrr.res_ext_cap + 
+			aalrr.res_int_cap + 
+			aalrr.res_other))</formula>
+    <kpi_info>
+      <title><![CDATA[Blocking due to ALCAP Signaling failure ratio]]></title>
+      <use><![CDATA[The ratio of AAL2 resource reservations which have failed due to ALCAP signalling]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(AAL2_REJECTED)
+&lt;br&gt;     ---------------
+&lt;br&gt;     sum(AAL2_SUCCEEDED+
+&lt;br&gt;      AAL2_REJECTED+
+&lt;br&gt;      RES_EXT_CAP+
+&lt;br&gt;      RES_INT_CAP+
+&lt;br&gt;      RES_OTHER )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalrr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Blocking due to ALCAP Signaling failure ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

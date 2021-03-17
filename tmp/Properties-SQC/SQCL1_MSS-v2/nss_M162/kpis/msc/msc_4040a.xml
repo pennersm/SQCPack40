@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <kpi name="msc_4040a">
+    <formula>
+decode(SERVI_ext.MSCSSM_USAGE_18,0,null,
+	100 * (SERVI_ext.MSCSSM_USAGE_19 / SERVI_ext.MSCSSM_USAGE_18 )
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[MTC Traffic Channel Allocation Ratio (GSM)]]></title>
+      <use><![CDATA[Provides the success ratio of the channel allocation for mobile terminated GSM calls.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Service_ID:
+<br>   107H = BSM ASSIGNMENT COMPLETE MTC
+<br>   106H = BSM ASSIGNMENT REQUEST MTC
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 31-07-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Service measurement  (M128/80H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MTC Traffic Channel Allocation Ratio&quot; (GSM) KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( MSCSSM_USAGE )
+&lt;br&gt;          ;WHERE Service_ID = 107H
+&lt;br&gt;100 * ---------------------------
+&lt;br&gt;       SUM( MSCSSM_USAGE )
+&lt;br&gt;          ;WHERE Service_ID = 106H
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTC traff chan alloc SR(GSM)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

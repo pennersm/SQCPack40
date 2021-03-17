@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="mob_vlr87b">
+    <formula>decode(
+			(NVL(vlr1msc.pagingthroughaifattempts, 0) + 
+			NVL(vlr1msc.alterpagingthroughsgsnattempts, 0)),0,null, 
+
+			(100*
+			(NVL(vlr1msc.pagingthroughaifsucc, 0) 
+			+ NVL(vlr1msc.alterpagingthroughsgsnsucc, 0))
+			 / 
+			(NVL(vlr1msc.pagingthroughaifattempts, 0) + 
+			 NVL(vlr1msc.alterpagingthroughsgsnattempts, 0))))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging through CS domain without MS search success ratio]]></title>
+      <use><![CDATA[Indicates the success ratio of paging including alternate CS paging (call & SMS). MS search not included.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>The counters&#039; AIF references are wrong (misleading information). Instead AIF should be CS. Please see counter additional comments.
+		<br>
+		<br>PUBLISHED: M14.0
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+		<br>
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+		<formula>&lt;br&gt;          sum(PagingThroughAIFSucc 
+		&lt;br&gt;            + AlterPagingThroughSGSNSucc) 
+		&lt;br&gt;   100 * ----------------------------------------------------------------------------------------- 
+		&lt;br&gt;          sum(PagingThroughAIFAttempts 
+		&lt;br&gt;            + AlterPagingThroughSGSNAttempts) 
+		&lt;br&gt; 
+		&lt;br&gt;Counters from view(s): 
+		&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}</formula>
+		
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Pag Thrgh CS Dmn Wo MSSrchSR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

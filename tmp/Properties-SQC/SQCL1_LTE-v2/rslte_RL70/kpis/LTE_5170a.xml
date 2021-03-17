@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_5170a">
+    <formula>100*decode(
+			(lcelld.pdcch_init_order_att + 
+			lcelld.d_preamb_pdcch_unavail),0,null, 
+
+			lcelld.pdcch_order_success
+			 / 
+			(lcelld.pdcch_init_order_att + 
+			lcelld.d_preamb_pdcch_unavail))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Total PDCCH Order Attempts Success Ratio]]></title>
+      <use><![CDATA[There are defined two indicators. First one  describes the ratio of the successful PDCCH orders in relation to PDCCH order attempts without the case when a dedicated preamble could not be assigned  because lack of dedicated preamble resources, while at the denominator of the second indicator they are counted.  Both indicators provide a PDCCH Order Attemts Success Ratio from UE point of view, i.e. transmitted retransmissions are not counted.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(PDCCH_ORDER_SUCCESS)/sum(PDCCH_INIT_ORDER_ATT + D_PREAMB_PDCCH_UNAVAIL)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/26 12:02:40.324 +0100</date>
+          <comment><![CDATA[Source: RSLTE038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Total PDCCH Order Att SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

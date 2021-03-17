@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_727a">
+    <formula>decode(
+			(cellres.avail_wcell_exists_in_rnw_db - 
+			cellres.avail_wcell_blocked_by_user),0,null, 
+
+			100*(cellres.avail_wcell_in_wo_state)
+			 / 
+			(cellres.avail_wcell_exists_in_rnw_db - 
+			cellres.avail_wcell_blocked_by_user))</formula>
+    <kpi_info>
+      <title><![CDATA[Cell Availability, excluding blocked by user state (BLU)]]></title>
+      <use><![CDATA[Cell Availability, excluding blocked by user state (BLU). The KPI gives cell availability defined as the percentage of time the cell(s) is in working state. This KPI shows specificly the availability on times when the cell has not been BLU.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(AVAIL_WCELL_IN_WO_STATE)
+&lt;br&gt;/
+&lt;br&gt;sum(AVAIL_WCELL_EXISTS_IN_RNW_DB - AVAIL_WCELL_BLOCKED_BY_USER)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cell Availability, excluding blocked by user state (BLU)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IPDA.xml"/>
+  <kpi name="sgsn_2065a">
+    <formula>decode(
+			((IPDA.IPPU_GTP_PACKETS_DL + 
+			4294967296*IPDA.IPPU_GTP_PACKETS_DL_OFL)),0,NULL, 
+
+			((IPDA.IPPU_GTP_BYTES_SENT_DL + 
+			4294967296*IPDA.IPPU_GTP_BYTES_SENT_DL_OFL))
+			 / 
+			((IPDA.IPPU_GTP_PACKETS_DL + 
+			4294967296*IPDA.IPPU_GTP_PACKETS_DL_OFL)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average IPPU 3G DL packet size]]></title>
+      <use><![CDATA[This KPI shows the average size of IPPU 3G DL packets passing through the SGSN. 
+This KPI is relevant only with ATCA hardware.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(IPPU_GTP_BYTES_SENT_DL + 4294967296 * IPPU_GTP_BYTES_SENT_DL_OFL) 
+&lt;br&gt;----------------------------------------------------------------------- 
+&lt;br&gt;sum(IPPU_GTP_PACKETS_DL + 4294967296 * IPPU_GTP_PACKETS_DL_OFL)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[B]</unit>
+      <tables>RSG_PS_IPDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg IPPU 3G DL pkt size]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

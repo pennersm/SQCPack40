@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMCCFA.xml" />
+	<kpi name="AXC_2a">
+		<formula>
+			decode((atmccfa.netotcellsingress),0,null,100*(atmccfa.netotcellsdroppedupcingress)/(atmccfa.netotcellsingress))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[AXC cell drop ratio due to policing]]>
+			</title>
+			<use>
+				<![CDATA[Ratio of discarded cells due to policing in ingress]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum ( neTotCellsDroppedUpcIngress )
+----------------------------
+SUM( neTotCellsIngress )
+				</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokaxc_ps_ATMCCFA_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[AXC cell drop ratio due to policing]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

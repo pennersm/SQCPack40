@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ACHHLR.xml"/>
+  <kpi name="hlr_527a">
+    <formula>100*decode(
+			achhlr.totnumberofreq,0,null,
+
+			(achhlr.totnumberoftriplets +
+			achhlr.totnumberofquintets)
+			 /
+			achhlr.totnumberofreq)</formula>
+    <kpi_info>
+      <title><![CDATA[Authentication triplets and quintets per authentication request]]></title>
+      <use><![CDATA[The KPI indicates average number of triplets + quintets sent per authentication request. NWE level]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_527a KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS:HLR
+	  <br>KPI CLASS: Security
+	  <br>MEASUREMENT(S): AC measurement in HLR (M87)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt; sum(totNumberOfTriplets)
+&lt;br&gt;  + sum(totNumberOfQuintets)
+&lt;br&gt;----------------------------------------------- * 100
+&lt;br&gt; sum (totnumberOfReq)
+&lt;br&gt;
+&lt;br&gt;Counters from views:
+&lt;br&gt;RNS_PS_ACHHLR_HLR_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_achhlr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Auth trp qts per auth req HLR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

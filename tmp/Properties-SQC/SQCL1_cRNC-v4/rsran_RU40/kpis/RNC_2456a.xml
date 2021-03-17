@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/NWLOG.xml" />
+  <kpi name="RNC_2456a">
+    <formula>100*decode(
+			(nwlog.transmit_packets + 
+			nwlog.transmit_drops + 
+			nwlog.transmit_errors),0,null, 
+
+			nwlog.transmit_drops
+			 / 
+			(nwlog.transmit_packets + 
+			nwlog.transmit_drops + 
+			nwlog.transmit_errors))</formula>
+    <kpi_info>
+      <title><![CDATA[Transmitted Ethernet packets Drop Ratio]]></title>
+      <use><![CDATA[Drop Ratio of packets trasmission at logical interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(TRANSMIT_DROPS)
+&lt;br&gt;---------------------
+&lt;br&gt;sum(TRANSMIT_PACKETS+
+&lt;br&gt;TRANSMIT_DROPS+
+&lt;br&gt;TRANSMIT_ERRORS)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_NWLOG_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:54.394 +0100</date>
+          <comment><![CDATA[Source: RSRAN113.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>FPIFC transm pkt DR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CBRR_ext.xml" />
+  <kpi name="flng_481a">
+    <formula>decode( ((CBRR_ext.gtpcv2_cr_bearer_resp_recv_all)),0,NULL, ((CBRR_ext.gtpcv2_create_bearer_resp_recv)) / ((CBRR_ext.gtpcv2_cr_bearer_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Bearer responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create bearer responses received for a specific cause code when compared to total number of GTP-C v2 create bearer response messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(cbrr_id,'x',GTPCV2_CREATE_BEARER_RESP_RECV,0))  ;CBRR for cause code x
+	  <br>---------------------------------------------------------------------------------------- *100 
+
+	  <br>sum(GTPCV2_CREATE_BEARER_RESP_RECV)  ;all CBRR's  
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CBRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cre Bearer resp rcv ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

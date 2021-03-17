@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Cell_Resource</header>
+    <csv_title>NOKIA RNC RN5.0;RN4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 Cell_Resource CELLRES measurement dump</csv_title>
+    <report-description>Cell Resource measurement (M1000) measures cell resources and availability.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsran/RSRAN.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CELLRESRAW" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC" type="PM" master="yes" pragma="RSRAN" create="yes">
+  <!--<temp_table name="CELLRESRAW" meas_level="PLMN/RNC/WBTS/WCEL" type="PM" master="yes" pragma="RSRAN" create="yes">-->
+    <counters>
+ 
+      	<counter alias="rnc_645c">
+        sum(decode(
+			(denom_hsdpa_users_per_cell),0,0, 
+
+			((sum_hsdpa_users_in_cell)
+			 / 
+			(denom_hsdpa_users_per_cell))))
+			/
+			count(distinct period_start_time)
+		</counter>
+		<counter alias="rnc_726e">
+			sum(decode(
+			(dur_hsdpa_users_1_or_2 + 
+			dur_hsdpa_users_3_or_4 + 
+			dur_hsdpa_users_5_or_6 + 
+			dur_hsdpa_users_7_or_8 + 
+			dur_hsdpa_users_9_or_10 + 
+			dur_hsdpa_users_11_or_12 + 
+			dur_hsdpa_users_13_or_14 + 
+			dur_hsdpa_users_15_or_16 + 
+			dura_hsdpa_users_17_to_20 + 
+			dura_hsdpa_users_21_to_24 + 
+			dura_hsdpa_users_25_to_28 + 
+			dura_hsdpa_users_29_to_32 + 
+			dura_hsdpa_users_33_to_36 + 
+			dura_hsdpa_users_37_to_40 + 
+			dura_hsdpa_users_41_to_44 + 
+			dura_hsdpa_users_45_to_48 + 
+			nvl(dura_hsdpa_users_49_to_52,0) + 
+			nvl(dura_hsdpa_users_53_to_56,0) + 
+			nvl(dura_hsdpa_users_57_to_60,0) + 
+			nvl(dura_hsdpa_users_61_to_64,0) + 
+			nvl(dura_hsdpa_users_65_to_72,0)),0,0, 
+
+			((dura_hsdpa_users_1 + 
+			2*(dur_hsdpa_users_1_or_2 - dura_hsdpa_users_1) +
+			3*dura_hsdpa_users_3 + 
+			4*(dur_hsdpa_users_3_or_4 - dura_hsdpa_users_3) +
+			5.5*dur_hsdpa_users_5_or_6 + 
+			7.5*dur_hsdpa_users_7_or_8 + 
+			9.5*dur_hsdpa_users_9_or_10 + 
+			11.5*dur_hsdpa_users_11_or_12 + 
+			13.5*dur_hsdpa_users_13_or_14 + 
+			15.5*dur_hsdpa_users_15_or_16 + 
+			18.5*dura_hsdpa_users_17_to_20 + 
+			22.5*dura_hsdpa_users_21_to_24 + 
+			26.5*dura_hsdpa_users_25_to_28 + 
+			30.5*dura_hsdpa_users_29_to_32 + 
+			34.5*dura_hsdpa_users_33_to_36 + 
+			38.5*dura_hsdpa_users_37_to_40 + 
+			42.5*dura_hsdpa_users_41_to_44 + 
+			46.5*dura_hsdpa_users_45_to_48 + 
+			50.5*nvl(dura_hsdpa_users_49_to_52,0) + 
+			54.5*nvl(dura_hsdpa_users_53_to_56,0) + 
+			58.5*nvl(dura_hsdpa_users_57_to_60,0) + 
+			62.5*nvl(dura_hsdpa_users_61_to_64,0) + 
+			68.5*nvl(dura_hsdpa_users_65_to_72,0))
+			 / 
+			(dur_hsdpa_users_1_or_2 + 
+			dur_hsdpa_users_3_or_4 + 
+			dur_hsdpa_users_5_or_6 + 
+			dur_hsdpa_users_7_or_8 + 
+			dur_hsdpa_users_9_or_10 + 
+			dur_hsdpa_users_11_or_12 + 
+			dur_hsdpa_users_13_or_14 + 
+			dur_hsdpa_users_15_or_16 + 
+			dura_hsdpa_users_17_to_20 + 
+			dura_hsdpa_users_21_to_24 + 
+			dura_hsdpa_users_25_to_28 + 
+			dura_hsdpa_users_29_to_32 + 
+			dura_hsdpa_users_33_to_36 + 
+			dura_hsdpa_users_37_to_40 + 
+			dura_hsdpa_users_41_to_44 + 
+			dura_hsdpa_users_45_to_48 + 
+			nvl(dura_hsdpa_users_49_to_52,0) + 
+			nvl(dura_hsdpa_users_53_to_56,0) + 
+			nvl(dura_hsdpa_users_57_to_60,0) + 
+			nvl(dura_hsdpa_users_61_to_64,0) + 
+			nvl(dura_hsdpa_users_65_to_72,0)))))
+			/
+			count(distinct period_start_time)
+			</counter>
+		<counter alias="rnc_1036b">
+      		sum(decode(
+			(denom_hsupa_users_per_cell),0,0, 
+
+			((sum_hsupa_users_in_cell)
+			 / 
+			(denom_hsupa_users_per_cell))))
+			/
+			count(distinct period_start_time)
+			</counter>
+		<counter alias="RNC_1037b">
+			sum(decode(
+			((dur_hsupa_users_1_or_2 + 
+			dur_hsupa_users_3_or_4 + 
+			dur_hsupa_users_5_or_6 + 
+			dur_hsupa_users_7_or_8 + 
+			dur_hsupa_users_9_or_10 + 
+			dur_hsupa_users_11_or_12 + 
+			dur_hsupa_users_13_or_14 + 
+			dur_hsupa_users_15_or_16 + 
+			dur_hsupa_users_17_or_18 + 
+			dur_hsupa_users_19_or_20)),0,0, 
+
+			((1.5*dur_hsupa_users_1_or_2 + 
+			3.5*dur_hsupa_users_3_or_4 + 
+			5.5*dur_hsupa_users_5_or_6 + 
+			7.5*dur_hsupa_users_7_or_8 + 
+			9.5*dur_hsupa_users_9_or_10 + 
+			11.5*dur_hsupa_users_11_or_12 + 
+			13.5*dur_hsupa_users_13_or_14 + 
+			15.5*dur_hsupa_users_15_or_16 + 
+			17.5*dur_hsupa_users_17_or_18 + 
+			19.5*dur_hsupa_users_19_or_20 +
+			22.5*nvl(dura_hsupa_users_21_to_24,0) + 
+			26.5*nvl(dura_hsupa_users_25_to_28,0) + 
+			30.5*nvl(dura_hsupa_users_29_to_32,0) + 
+			34.5*nvl(dura_hsupa_users_33_to_36,0) + 
+			38.5*nvl(dura_hsupa_users_37_to_40,0) + 
+			42.5*nvl(dura_hsupa_users_41_to_44,0) + 
+			46.5*nvl(dura_hsupa_users_45_to_48,0) + 
+			50.5*nvl(dura_hsupa_users_49_to_52,0) + 
+			54.5*nvl(dura_hsupa_users_53_to_56,0) + 
+			58.5*nvl(dura_hsupa_users_57_to_60,0) + 
+			62.5*nvl(dura_hsupa_users_61_to_64,0) + 
+			68.5*nvl(dura_hsupa_users_65_to_72,0))
+			 / 
+			(dur_hsupa_users_1_or_2 + 
+			dur_hsupa_users_3_or_4 + 
+			dur_hsupa_users_5_or_6 + 
+			dur_hsupa_users_7_or_8 + 
+			dur_hsupa_users_9_or_10 + 
+			dur_hsupa_users_11_or_12 + 
+			dur_hsupa_users_13_or_14 + 
+			dur_hsupa_users_15_or_16 + 
+			dur_hsupa_users_17_or_18 + 
+			dur_hsupa_users_19_or_20 +
+			nvl(dura_hsupa_users_21_to_24,0) + 
+			nvl(dura_hsupa_users_25_to_28,0) + 
+			nvl(dura_hsupa_users_29_to_32,0) + 
+			nvl(dura_hsupa_users_33_to_36,0) + 
+			nvl(dura_hsupa_users_37_to_40,0) + 
+			nvl(dura_hsupa_users_41_to_44,0) + 
+			nvl(dura_hsupa_users_45_to_48,0) + 
+			nvl(dura_hsupa_users_49_to_52,0) + 
+			nvl(dura_hsupa_users_53_to_56,0) + 
+			nvl(dura_hsupa_users_57_to_60,0) + 
+			nvl(dura_hsupa_users_61_to_64,0) + 
+			nvl(dura_hsupa_users_65_to_72,0)))))
+			/
+			count(distinct period_start_time)
+			</counter>
+    </counters>
+    <table_name>NOKRWW_PS_CELLRES_MNC1_RAW</table_name>
+    <alias_name>cellresraw</alias_name>
+  </temp_table>
+</conf_file>
+

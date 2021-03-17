@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 MTP_Traf_SP MTPTSP measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 MTP_Traf_SP MTPTSP measurement dump</csv_title>
+    <report-description>MTP Signalling Traffic of Signalling Points</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SIF_AND_SIO_OCT_REC_WITH_OPC />
+    <TOTAL_OCTETS_TRANS_TO_DPC />
+    <STP_1 />
+    <TRANSMITTED_OCTETS_1 />
+    <STP_2 />
+    <TRANSMITTED_OCTETS_2 />
+    <STP_3 />
+    <TRANSMITTED_OCTETS_3 />
+    <STP_4 />
+    <TRANSMITTED_OCTETS_4 />
+    <STP_5 />
+    <TRANSMITTED_OCTETS_5 />
+    <STP_6 />
+    <TRANSMITTED_OCTETS_6 />
+    <STP_7 />
+    <TRANSMITTED_OCTETS_7 />
+    <STP_8 />
+    <TRANSMITTED_OCTETS_8 />
+  </column_order>
+  <temp_table name="MTPTSP" meas_level="PLMN/RNC/SNET/SPCD" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SIF_AND_SIO_OCT_REC_WITH_OPC">SUM(SIF_AND_SIO_OCT_REC_WITH_OPC)</counter>
+      <counter alias="TOTAL_OCTETS_TRANS_TO_DPC">SUM(TOTAL_OCTETS_TRANS_TO_DPC)</counter>
+      <counter alias="STP_1">SUM(STP_1)</counter>
+      <counter alias="TRANSMITTED_OCTETS_1">SUM(TRANSMITTED_OCTETS_1)</counter>
+      <counter alias="STP_2">SUM(STP_2)</counter>
+      <counter alias="TRANSMITTED_OCTETS_2">SUM(TRANSMITTED_OCTETS_2)</counter>
+      <counter alias="STP_3">SUM(STP_3)</counter>
+      <counter alias="TRANSMITTED_OCTETS_3">SUM(TRANSMITTED_OCTETS_3)</counter>
+      <counter alias="STP_4">SUM(STP_4)</counter>
+      <counter alias="TRANSMITTED_OCTETS_4">SUM(TRANSMITTED_OCTETS_4)</counter>
+      <counter alias="STP_5">SUM(STP_5)</counter>
+      <counter alias="TRANSMITTED_OCTETS_5">SUM(TRANSMITTED_OCTETS_5)</counter>
+      <counter alias="STP_6">SUM(STP_6)</counter>
+      <counter alias="TRANSMITTED_OCTETS_6">SUM(TRANSMITTED_OCTETS_6)</counter>
+      <counter alias="STP_7">SUM(STP_7)</counter>
+      <counter alias="TRANSMITTED_OCTETS_7">SUM(TRANSMITTED_OCTETS_7)</counter>
+      <counter alias="STP_8">SUM(STP_8)</counter>
+      <counter alias="TRANSMITTED_OCTETS_8">SUM(TRANSMITTED_OCTETS_8)</counter>
+    </counters>
+    <table_name>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MTPTSP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MTPTSP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SIF_AND_SIO_OCT_REC_WITH_OPC">
+    <formula>MTPTSP.SIF_AND_SIO_OCT_REC_WITH_OPC</formula>
+    <kpi_info>
+      <title>SIF_AND_SIO_OCT_REC_WITH_OPC</title>
+      <use>Number of SIF and SIO octets received from OPC, 6.1 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SIF_AND_SIO_OCT_REC_WITH_OPC)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIF_AND_SIO_OCT_REC_WITH_OPC (M213B2C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TOTAL_OCTETS_TRANS_TO_DPC">
+    <formula>MTPTSP.TOTAL_OCTETS_TRANS_TO_DPC</formula>
+    <kpi_info>
+      <title>TOTAL_OCTETS_TRANS_TO_DPC</title>
+      <use>Number for transmitted SIF and SIO octets to DPC (total), 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TOTAL_OCTETS_TRANS_TO_DPC)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTAL_OCTETS_TRANS_TO_DPC (M213B2C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_1">
+    <formula>MTPTSP.STP_1</formula>
+    <kpi_info>
+      <title>STP_1</title>
+      <use>Signalling Transfer Point 1 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_1)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_1 (M213B3C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_1">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_1</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_1</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 1, 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_1)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_1 (M213B3C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_2">
+    <formula>MTPTSP.STP_2</formula>
+    <kpi_info>
+      <title>STP_2</title>
+      <use>Signalling Transfer Point 2 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_2)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_2 (M213B3C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_2">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_2</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_2</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 2, 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_2)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_2 (M213B3C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_3">
+    <formula>MTPTSP.STP_3</formula>
+    <kpi_info>
+      <title>STP_3</title>
+      <use>Signalling Transfer Point 3 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_3)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_3 (M213B3C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_3">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_3</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_3</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 3, 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_3)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_3 (M213B3C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_4">
+    <formula>MTPTSP.STP_4</formula>
+    <kpi_info>
+      <title>STP_4</title>
+      <use>Signalling Transfer Point 4 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_4)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_4 (M213B3C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_4">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_4</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_4</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 4, 6.2 in ITU-T Q.752,</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_4)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_4 (M213B3C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_5">
+    <formula>MTPTSP.STP_5</formula>
+    <kpi_info>
+      <title>STP_5</title>
+      <use>Signalling Transfer Point 5 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_5)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_5 (M213B3C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_5">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_5</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_5</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 5, 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_5)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_5 (M213B3C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_6">
+    <formula>MTPTSP.STP_6</formula>
+    <kpi_info>
+      <title>STP_6</title>
+      <use>Signalling Transfer Point 6 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_6)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_6 (M213B3C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_6">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_6</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_6</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 6, 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_6)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_6 (M213B3C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_7">
+    <formula>MTPTSP.STP_7</formula>
+    <kpi_info>
+      <title>STP_7</title>
+      <use>Signalling Transfer Point 7 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_7)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_7 (M213B3C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_7">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_7</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_7</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 7, 6.2 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_7)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_7 (M213B3C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="STP_8">
+    <formula>MTPTSP.STP_8</formula>
+    <kpi_info>
+      <title>STP_8</title>
+      <use>Signalling Transfer Point 8 identifier. UPDATED: Not updated, not a counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(STP_8)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>STP_8 (M213B3C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS_8">
+    <formula>MTPTSP.TRANSMITTED_OCTETS_8</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS_8</title>
+      <use>Number for transmitted SIF and SIO octets to DPC via STP 8, 6.2 in ITU-T Q.752</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS_8)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptsp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS_8 (M213B3C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

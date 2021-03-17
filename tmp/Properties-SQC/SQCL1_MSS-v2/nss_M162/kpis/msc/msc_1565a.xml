@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VMSCT.xml" />
+  <kpi name="msc_1565a">
+    <formula>
+		decode( vmsct.vmsc_att_hlr_inquiry, 0, null,
+			100 * (vmsct.vmsc_succ_hlr_inquiry)
+			/ (vmsct.vmsc_att_hlr_inquiry)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of successful HLR Inquiries per VMSC]]></title>
+      <use><![CDATA[Ratio of successful HLR Inquiries per VMSC. Percentage of received MAP-SendRoutingInformationAck messages compared with the number of sent MAP-SendRoutingInformation messages to HLR per VMSC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM(VMSC_SUCC_HLR_INQUIRY) 
+&lt;br&gt; 100 * ----------------------------------------
+&lt;br&gt;       SUM(VMSC_ATT_HLR_INQUIRY) 
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)</formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_VMSCT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:57.167 +0000</date>
+          <comment><![CDATA[Source: RSMSC025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>VMSC HLR inquiry SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

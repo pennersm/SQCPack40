@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CSRS_ext.xml" />
+  <kpi name="flng_756a">
+    <formula>decode( 
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent)),0,NULL, 
+	
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent_18)) 
+			/ 
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses sent "New PDN type due to network preference" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent with cause code "New PDN type due to network preference" (18) when compared to total number of GTP-C v2 create session response messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(csrs_id,('18' or 'cs_1_18'),GTPCV2_CRE_SESS_RESP_SENT,0)) ;New PDN type due to network preference
+<br>-------------------------------------------------------------------------------------------------------------- *100
+<br>sum(GTPCV2_CRE_SESS_RESP_SENT)
+<br>
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cre Sess resp sent 18 rat]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

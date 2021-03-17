@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_692a">
+    <formula>100*decode(
+			(vlr1msc.pagingthroughaifattempts + 
+			vlr1msc.mssearchattempts + 
+			vlr1msc.subscriberbusy),0,null, 
+
+			(vlr1msc.mssearchsucc + 
+			vlr1msc.pagingthroughaifsucc)
+			 / 
+			(vlr1msc.pagingthroughaifattempts + 
+			vlr1msc.mssearchattempts + 
+			vlr1msc.subscriberbusy))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging success ratio with no PS Paging and busy as failure]]></title>
+      <use><![CDATA[Indicates the success ratio of CS paging, where SUBSCRIBER BUSY cases are to be counted as failed paging cases, the KPI should be modified as follows (assuming that paging is not done via SGSN).]]></use>
+
+<use_experience><![CDATA[ 
+<br>When the subscriber is busy, no paging is sent to the air, thus SUBSCRIBER BUSY counter is incremented, but not the other paging counters in MSC. The MSC knows that the subscriber has an ongoing call, and the new terminating transaction is proceeding according to the transaction type and the user&#146;s services (for example, CALL HOLD supplementary service is invoked for an incoming speech call). 
+<br>PUBLISHED:  M12
+<br>LAST UPDATE: 10-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum(MSSearchSucc
+&lt;br&gt;            + PagingThroughAIFSucc)
+&lt;br&gt;   100 * -----------------------------------------------------------------------------------------
+&lt;br&gt;          sum(PagingThroughAIFAttempts
+&lt;br&gt;            +MSSearchAttempts + SubscriberBusy)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Paging success ratio with no PS Paging and busy as failure]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

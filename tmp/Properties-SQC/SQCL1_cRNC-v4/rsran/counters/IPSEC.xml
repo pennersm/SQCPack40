@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_IPSec IPSEC measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_IPSec IPSEC measurement dump</csv_title>
+    <report-description>AXC IPSec (M5219)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <Protected_ESPFramesTx />
+    <Protected_ESPFramesRx />
+    <Discarded_ESPFramesTx />
+    <Discarded_ESPFramesRx />
+    <Bypassed_FramesTx />
+    <Bypassed_FramesRx />
+  </column_order>
+  <temp_table name="IPSEC" meas_level="PLMN/RNC/WBTS/AXC/IPSEC" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="Protected_ESPFramesTx" timeagg="SUM(Protected_ESPFramesTx)">SUM(Protected_ESPFramesTx)</counter>
+      <counter alias="Protected_ESPFramesRx" timeagg="SUM(Protected_ESPFramesRx)">SUM(Protected_ESPFramesRx)</counter>
+      <counter alias="Discarded_ESPFramesTx" timeagg="SUM(Discarded_ESPFramesTx)">SUM(Discarded_ESPFramesTx)</counter>
+      <counter alias="Discarded_ESPFramesRx" timeagg="SUM(Discarded_ESPFramesRx)">SUM(Discarded_ESPFramesRx)</counter>
+      <counter alias="Bypassed_FramesTx" timeagg="SUM(Bypassed_FramesTx)">SUM(Bypassed_FramesTx)</counter>
+      <counter alias="Bypassed_FramesRx" timeagg="SUM(Bypassed_FramesRx)">SUM(Bypassed_FramesRx)</counter>
+    </counters>
+    <table_name>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPSEC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPSEC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Protected_ESPFramesTx">
+    <formula>IPSEC.Protected_ESPFramesTx</formula>
+    <kpi_info>
+      <title>Protected_ESPFramesTx</title>
+      <use>(Not Supported in AXC)The number of successfully encrypted ESP packets in egress direction. UPDATED: The counter is updated when an outbound packet has been encrypted successfully.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Protected_ESPFramesTx)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Protected_ESPFramesTx (M5219C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Protected_ESPFramesRx">
+    <formula>IPSEC.Protected_ESPFramesRx</formula>
+    <kpi_info>
+      <title>Protected_ESPFramesRx</title>
+      <use>(Not Supported in AXC)The number of successfully decrypted ESP packets in ingress direction. UPDATED: The counter is updated when an inbound packet has been decrypted successfully.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Protected_ESPFramesRx)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Protected_ESPFramesRx (M5219C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Discarded_ESPFramesTx">
+    <formula>IPSEC.Discarded_ESPFramesTx</formula>
+    <kpi_info>
+      <title>Discarded_ESPFramesTx</title>
+      <use>(Not Supported in AXC)The number of dropped ESP packets in egress direction because of failed encryption. UPDATED: The counter is updated when an outbound packet was dropped after it could not be decrypted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Discarded_ESPFramesTx)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Discarded_ESPFramesTx (M5219C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Discarded_ESPFramesRx">
+    <formula>IPSEC.Discarded_ESPFramesRx</formula>
+    <kpi_info>
+      <title>Discarded_ESPFramesRx</title>
+      <use>(Not Supported in AXC)The number of dropped ESP packets in ingress direction because of failed encryption. UPDATED: The counter is updated when an inbound packet was dropped after it could not be decrypted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Discarded_ESPFramesRx)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Discarded_ESPFramesRx (M5219C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Bypassed_FramesTx">
+    <formula>IPSEC.Bypassed_FramesTx</formula>
+    <kpi_info>
+      <title>Bypassed_FramesTx</title>
+      <use>(Not Supported in AXC)The number of bypassed ESP packets in egress direction. UPDATED: The counter is updated for every packet that is bypassed in egress direction.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Bypassed_FramesTx)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Bypassed_FramesTx (M5219C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Bypassed_FramesRx">
+    <formula>IPSEC.Bypassed_FramesRx</formula>
+    <kpi_info>
+      <title>Bypassed_FramesRx</title>
+      <use>(Not Supported in AXC)The number of bypassed ESP packets in ingress direction. UPDATED: The counter is updated for every packet that is bypassed in ingress direction.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Bypassed_FramesRx)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_ipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Bypassed_FramesRx (M5219C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

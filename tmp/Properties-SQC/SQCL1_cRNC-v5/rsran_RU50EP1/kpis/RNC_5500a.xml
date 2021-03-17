@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran_RU50EP1/counters/INTERSHO_ext.xml" />
+  <kpi name="RNC_5500a">
+    <formula>100*decode(
+			(INTERSHO.lte_n_isho_att_dch_cch_1 + 
+			INTERSHO.lte_n_isho_att_hspa_dch_1 + 
+			INTERSHO.lte_n_isho_att_cs_rel_1 + 
+			INTERSHO.lte_n_isho_att_periodic_1),0,null, 
+
+			(INTERSHO.lte_n_isho_succ_dch_cch_1 + 
+			INTERSHO.lte_n_isho_succ_hspa_dch_1 + 
+			INTERSHO.lte_n_isho_succ_cs_rel_1 + 
+			INTERSHO.lte_n_isho_succ_periodic_1)
+			 / 
+			(INTERSHO.lte_n_isho_att_dch_cch_1 + 
+			INTERSHO.lte_n_isho_att_hspa_dch_1 + 
+			INTERSHO.lte_n_isho_att_cs_rel_1 + 
+			INTERSHO.lte_n_isho_att_periodic_1))</formula>
+    <kpi_info>
+      <title><![CDATA[LTE ISHO Success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of the outgoing Inter-system Hard Handovers from WCDMA -&amp;gt; LTE.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(LTE_N_ISHO_SUCC_DCH_CCH+
+&lt;br&gt;LTE_N_ISHO_SUCC_HSPA_DCH+
+&lt;br&gt;LTE_N_ISHO_SUCC_CS_REL+
+&lt;br&gt;LTE_N_ISHO_SUCC_PERIODIC)
+&lt;br&gt;/ 
+&lt;br&gt;sum(LTE_N_ISHO_ATT_DCH_CCH+
+&lt;br&gt;LTE_N_ISHO_ATT_HSPA_DCH+
+&lt;br&gt;LTE_N_ISHO_ATT_CS_REL+
+&lt;br&gt;LTE_N_ISHO_ATT_PERIODIC)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intersho_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/06/10 13:25:58.468 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>LTE ISHO SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

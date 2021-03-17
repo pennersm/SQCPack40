@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LENBLD (LTE eNB Load)</header>
+    <csv_title>LENBLD (LTE eNB Load)</csv_title>
+    <report-description>LTE eNB Load measurement (M8018) measures load and capacity relevant internal indicators per eNB.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <ENB_LOAD_ACT_UE_AVG/>
+    <ENB_LOAD_ACT_UE_MAX/>
+    <UE_CONT_REL_INIT_ENB/>
+    <ACT_UE_CONT_REL_INIT_ENB/>
+    <UE_CONT_REL_INIT_MME/>
+    <ACT_UE_CONT_REL_INIT_MME/>
+    <SUM_ACTIVE_UE_ENB/>
+    <DENOM_ACTIVE_UE_ENB/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LENBLD" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LENBLD</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="ENB_LOAD_ACT_UE_AVG" symmetrical="true">AVG(ENB_LOAD_ACT_UE_AVG)</counter>
+          <counter alias="ENB_LOAD_ACT_UE_MAX" symmetrical="true">MAX(ENB_LOAD_ACT_UE_MAX)</counter>
+          <counter alias="UE_CONT_REL_INIT_ENB" symmetrical="true">SUM(UE_CONT_REL_INIT_ENB)</counter>
+          <counter alias="ACT_UE_CONT_REL_INIT_ENB" symmetrical="true">SUM(ACT_UE_CONT_REL_INIT_ENB)</counter>
+          <counter alias="UE_CONT_REL_INIT_MME" symmetrical="true">SUM(UE_CONT_REL_INIT_MME)</counter>
+          <counter alias="ACT_UE_CONT_REL_INIT_MME" symmetrical="true">SUM(ACT_UE_CONT_REL_INIT_MME)</counter>
+          <counter alias="SUM_ACTIVE_UE_ENB" symmetrical="true">SUM(SUM_ACTIVE_UE_ENB)</counter>
+          <counter alias="DENOM_ACTIVE_UE_ENB" symmetrical="true">SUM(DENOM_ACTIVE_UE_ENB)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LENBLD</alias_name>
+    <ui_name>LTE eNB Load</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LENBLD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ENB_LOAD_ACT_UE_AVG">
+    <formula>LENBLD.ENB_LOAD_ACT_UE_AVG</formula>
+    <kpi_info>
+      <title>ENB_LOAD_ACT_UE_AVG (M8018C0)</title>
+      <use>The average number of active UEs per eNB. A UE is defined as "active" if at least a single non-GBR DRB has been successfully configured for it. UPDATED: The arithmetical average of samples taken from the number of UEs, having one SRB and at least one DRB established.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ENB_LOAD_ACT_UE_AVG)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ENB_LOAD_ACT_UE_AVG (M8018C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ENB_LOAD_ACT_UE_MAX">
+    <formula>LENBLD.ENB_LOAD_ACT_UE_MAX</formula>
+    <kpi_info>
+      <title>ENB_LOAD_ACT_UE_MAX (M8018C1)</title>
+      <use>The maximum number of active UEs per eNB. A UE is defined as "active" if at least a single non-GBR DRB has been successfully configured for it. UPDATED: The maximum value of the samples of UEs having one SRB and at least one DRB established during a measurement period.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(ENB_LOAD_ACT_UE_MAX)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ENB_LOAD_ACT_UE_MAX (M8018C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UE_CONT_REL_INIT_ENB">
+    <formula>LENBLD.UE_CONT_REL_INIT_ENB</formula>
+    <kpi_info>
+      <title>UE_CONT_REL_INIT_ENB (M8018C4)</title>
+      <use>The number of UE contexts being released due to S1 Reset procedure initiated by eNB (all released UE contexts are counted RRC Connected with or without DRB). Number is updated once by the number of affected UEs. UPDATED: Transmission of an S1AP: RESET Message. (partial or global)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UE_CONT_REL_INIT_ENB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UE_CONT_REL_INIT_ENB (M8018C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ACT_UE_CONT_REL_INIT_ENB">
+    <formula>LENBLD.ACT_UE_CONT_REL_INIT_ENB</formula>
+    <kpi_info>
+      <title>ACT_UE_CONT_REL_INIT_ENB (M8018C5)</title>
+      <use>The number of active UE contexts being released due to S1 Reset procedure initiated by eNB (all released active UE contexts are counted RRC Connected with at least one DRB). Number is updated once by the number of affected UEs. UPDATED: Transmission of an S1AP: RESET Message. (partial or global)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ACT_UE_CONT_REL_INIT_ENB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACT_UE_CONT_REL_INIT_ENB (M8018C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UE_CONT_REL_INIT_MME">
+    <formula>LENBLD.UE_CONT_REL_INIT_MME</formula>
+    <kpi_info>
+      <title>UE_CONT_REL_INIT_MME (M8018C6)</title>
+      <use>The number of UE contexts being released due to S1 Reset procedure initiated by MME (All released UE contexts are counted RRC Connected with or without DRB.). Number is updated once by the number of affected UEs. UPDATED: Reception of an S1AP: RESET Message (partial or global) sent by MME to the eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UE_CONT_REL_INIT_MME)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UE_CONT_REL_INIT_MME (M8018C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ACT_UE_CONT_REL_INIT_MME">
+    <formula>LENBLD.ACT_UE_CONT_REL_INIT_MME</formula>
+    <kpi_info>
+      <title>ACT_UE_CONT_REL_INIT_MME (M8018C7)</title>
+      <use>The number of active UE contexts being released due to S1 Reset procedure initiated by MME (all released active UE contexts are counted RRC Connected with at least one DRB). Number is updated once by the number of affected UEs. UPDATED: Reception of an S1AP: RESET Message (partial or global) sent by MME to the eNB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ACT_UE_CONT_REL_INIT_MME)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACT_UE_CONT_REL_INIT_MME (M8018C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUM_ACTIVE_UE_ENB">
+    <formula>LENBLD.SUM_ACTIVE_UE_ENB</formula>
+    <kpi_info>
+      <title>SUM_ACTIVE_UE_ENB (M8018C8)</title>
+      <use>This measurement provides the sum of sampled values for measuring the number of simultaneously Active UEs. This counter, divided by the denominator DENOM_ACTIVE_UE_ENB, provides the average number of Active UEs per eNB. A UE is active if at least a single non-GBR DRB has been successfully configured for it. UPDATED: This counter is updated after each sampling interval with the sample taken from the number of Active UEs.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUM_ACTIVE_UE_ENB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_ACTIVE_UE_ENB (M8018C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DENOM_ACTIVE_UE_ENB">
+    <formula>LENBLD.DENOM_ACTIVE_UE_ENB</formula>
+    <kpi_info>
+      <title>DENOM_ACTIVE_UE_ENB (M8018C9)</title>
+      <use>The number of samples taken for counter SUM_ACTIVE_UE_ENB used as a denominator for average calculation. UPDATED: This counter is updated by value 1 when the number of Active UEs is summed to counter SUM_ACTIVE_UE_ENB.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DENOM_ACTIVE_UE_ENB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DENOM_ACTIVE_UE_ENB (M8018C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LENBLD.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lenbld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

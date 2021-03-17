@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/DIAGXX.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/DCCDR_ext.xml" />
+  <kpi name="flng_562a">
+    <formula>100*decode(DIAGXX.DIA_GXC_CCR_DRA,0,null,
+	(
+	 DCCDR_ext.DIA_GXC_CCA_DRA_RECV_2001
+	 /
+	 DIAGXX.DIA_GXC_CCR_DRA))</formula>
+    <kpi_info>
+      <title><![CDATA[Gxc CCR sent DRA success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of Diameter Credit-Control-Request (CCR) messages sent to DRA on Gxc interface, i.e., the number of Credit-Control-Answer (CCA) response messages received from DRA with cause code 'DIAMETER_SUCCESS' when compared to the number of CCR messages sent to DRA on Gxc interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(dccdr_id,(&amp;#039;2001&amp;#039; or &amp;#039;2002&amp;#039;),b.DIA_GXC_CCA_DRA_RECV,0)) ;Request successful completed
+&lt;br&gt;------------------------------------------------------------------------------------------------ *100
+&lt;br&gt;sum(a.DIA_GXC_CCR_DRA)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = Diameter_Gxx
+&lt;br&gt;b = Diameter_GXC_CCA_DRA_RECV</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.663 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW069.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxc CCR sent DRA SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

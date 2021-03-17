@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_TOP FTOP measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_TOP FTOP measurement dump</csv_title>
+    <report-description>FTM Timing over Packet</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <topSLS15 />
+    <topMinPhaseError15 />
+    <topAvePhaseError15 />
+    <topMaxPhaseError15 />
+    <topRxSyncMsg15 />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FTOP" meas_level="PLMN/RNC/WBTS/FTM/IPNO/TOPIK" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="topSLS15">SUM(topSLS15)</counter>
+      <counter alias="topMinPhaseError15">MIN(topMinPhaseError15)</counter>
+      <counter alias="topAvePhaseError15">AVG(topAvePhaseError15)</counter>
+      <counter alias="topMaxPhaseError15">MAX(topMaxPhaseError15)</counter>
+      <counter alias="topRxSyncMsg15">SUM(topRxSyncMsg15)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FTOP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FTOP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topSLS15">
+    <formula>FTOP.topSLS15</formula>
+    <kpi_info>
+      <title>topSLS15</title>
+      <use>The number of seconds during this interval while the timing over packet service was in synchronous state. UPDATED: The counter is incremented every second when the timing over packet service is in synchronous state.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(topSLS15)</formula>
+      <unit>s</unit>
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topSLS15 (M5116C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topMinPhaseError15">
+    <formula>FTOP.topMinPhaseError15</formula>
+    <kpi_info>
+      <title>topMinPhaseError15</title>
+      <use>The minimum value of the timing over packet service phase error in microseconds during the interval. UPDATED: The value is updated every minute using the following formula: minValue = min (minValue, actualValue)</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(topMinPhaseError15)</formula>
+      <unit>microseconds</unit>
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMinPhaseError15 (M5116C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topAvePhaseError15">
+    <formula>FTOP.topAvePhaseError15</formula>
+    <kpi_info>
+      <title>topAvePhaseError15</title>
+      <use>The average value of the timing over packet service phase error in microseconds during the interval. UPDATED: The value is updated every minute using the following formula: aveValueNew = (aveValueOld * (actualIntervalLength - 1) + actualValue) / actualIntervalLength</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(topAvePhaseError15)</formula>
+      <unit>microseconds</unit>
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topAvePhaseError15 (M5116C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topMaxPhaseError15">
+    <formula>FTOP.topMaxPhaseError15</formula>
+    <kpi_info>
+      <title>topMaxPhaseError15</title>
+      <use>The maximum value of the timing over packet service phase error in microseconds during the interval. UPDATED: The value is updated every minute using the following formula: maxValue = max (maxValue, actualValue)</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(topMaxPhaseError15)</formula>
+      <unit>microseconds</unit>
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMaxPhaseError15 (M5116C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="topRxSyncMsg15">
+    <formula>FTOP.topRxSyncMsg15</formula>
+    <kpi_info>
+      <title>topRxSyncMsg15</title>
+      <use>The number of received ToP event messages. Event messages are time stamped and used for clock recovery. UPDATED: The counter is incremented every second by the number of received synchronisation messages.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(topRxSyncMsg15)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topRxSyncMsg15 (M5116C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FTOP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_ftop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

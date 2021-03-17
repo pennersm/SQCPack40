@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_5127a">
+    <formula>100 - 
+			100*(decode(
+			(intsysho.att_ifho_cell_shutdown_nrt + 
+			intsysho.att_ifho_cell_shutdown_rt),0,null, 
+
+			(intsysho.succ_ifho_cell_shutdown_nrt + 
+			intsysho.succ_ifho_cell_shutdown_rt)
+			 / 
+			(intsysho.att_ifho_cell_shutdown_nrt + 
+			intsysho.att_ifho_cell_shutdown_rt)))</formula>
+    <kpi_info>
+      <title><![CDATA[IFHO Drop Ratio for cell shutdown]]></title>
+      <use><![CDATA[Inter frequency handover Drop Ratio for cell shutdown.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100-100* 
+&lt;br&gt;( sum(SUCC_IFHO_CELL_SHUTDOWN_NRT + SUCC_IFHO_CELL_SHUTDOWN_RT)
+&lt;br&gt;/
+&lt;br&gt;sum(ATT_IFHO_CELL_SHUTDOWN_NRT + ATT_IFHO_CELL_SHUTDOWN_RT) )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_INTSYSHO_{obj_agg}_{time_agg},nokrww_ps_INTSHORN_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:56.34 +0100</date>
+          <comment><![CDATA[Source: RSRAN124.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IFHO DR for cell shutdown</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

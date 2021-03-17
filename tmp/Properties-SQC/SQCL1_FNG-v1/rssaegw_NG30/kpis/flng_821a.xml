@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/DIAGXX.xml" />
+  <kpi name="flng_821a">
+    <formula>decode(
+				diagxx.period_duration,0,null, 
+				(diagxx.dia_gx_ccr_pcrf + diagxx.dia_gxc_ccr_pcrf)
+				/ 
+				(diagxx.period_duration*60)
+					)</formula>
+    <kpi_info>
+      <title><![CDATA[Gxx (CCR to PCRF) transactions per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of Gx and Gxc (CCR to PCRF) request messages per second.
+      This KPI can be used to measure the signalling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_GX_CCR_PCRF +
+&lt;br&gt;   DIA_GXC_CCR_PCRF)
+&lt;br&gt;---------------------------
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNG_PS_DIAGXX_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:30.513 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW081.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gxx (CCR-PCRF) trans pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

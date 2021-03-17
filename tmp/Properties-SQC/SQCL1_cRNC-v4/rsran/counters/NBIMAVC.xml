@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 SVCIMA NBIMAVC measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 SVCIMA NBIMAVC measurement dump</csv_title>
+    <report-description>NodeB IMA Virtual Channel</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <egressCellsIMAVC />
+    <ingressCellsIMAVC />
+    <vcUsageRatioMaxIMAVC />
+    <vcUsageRatioMeanIMAVC />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="NBIMAVC" meas_level="PLMN/RNC/WBTS/S3IM/SVPI_2/SVCI_2" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="egressCellsIMAVC">SUM(egressCellsIMAVC)</counter>
+      <counter alias="ingressCellsIMAVC">SUM(ingressCellsIMAVC)</counter>
+      <counter alias="vcUsageRatioMaxIMAVC">MAX(vcUsageRatioMaxIMAVC)</counter>
+      <counter alias="vcUsageRatioMeanIMAVC">AVG(vcUsageRatioMeanIMAVC)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NBIMAVC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NBIMAVC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="egressCellsIMAVC">
+    <formula>NBIMAVC.egressCellsIMAVC</formula>
+    <kpi_info>
+      <title>egressCellsIMAVC</title>
+      <use>The total number of transmitted ATM cells. UPDATED: When an ATM cell is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(egressCellsIMAVC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>egressCellsIMAVC (egressCellsIMAVC)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ingressCellsIMAVC">
+    <formula>NBIMAVC.ingressCellsIMAVC</formula>
+    <kpi_info>
+      <title>ingressCellsIMAVC</title>
+      <use>The total number of received ATM cells. UPDATED: When an ATM cell is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ingressCellsIMAVC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ingressCellsIMAVC (ingressCellsIMAVC)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="vcUsageRatioMaxIMAVC">
+    <formula>NBIMAVC.vcUsageRatioMaxIMAVC</formula>
+    <kpi_info>
+      <title>vcUsageRatioMaxIMAVC</title>
+      <use>The maximum VC usage ratio. UPDATED: Transmitted ATM cells without idle cells are counted during 10s sampling period. At the end of every 10s period the usage ratio is calculated: vcUsageRatio=[(used bandwidth) / (configured vc-bandwidth)] x100.
+(used bandwidth) = (# of transmitted ATM-cells in egress direction) / (measurement interval)
+(configured VC-bandwidth) = configured peak cell rate of the VC
+At the end of the measurement interval the maximum value is calculated</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(vcUsageRatioMaxIMAVC)</formula>
+      <unit>Percentage</unit>
+      <tables>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>vcUsageRatioMaxIMAVC (vcUsageRatioMaxIMAVC)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="vcUsageRatioMeanIMAVC">
+    <formula>NBIMAVC.vcUsageRatioMeanIMAVC</formula>
+    <kpi_info>
+      <title>vcUsageRatioMeanIMAVC</title>
+      <use>The average VC usage ratio. UPDATED: Transmitted ATM cells without idle cells are counted during 10s sampling period. At the end of every 10s period the usage ratio is calculated: vcUsageRatio=[(used bandwidth) / (configured vc-bandwidth)] x100.
+(used bandwidth) = (# of transmitted ATM-cells in egress direction) / (measurement interval)
+(configured VC-bandwidth) = configured peak cell rate of the VC
+At the end of the measurement interval the mean value is calculated</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(vcUsageRatioMeanIMAVC)</formula>
+      <unit>Percentage</unit>
+      <tables>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>vcUsageRatioMeanIMAVC (vcUsageRatioMeanIMAVC)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>NBIMAVC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_nbimavc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

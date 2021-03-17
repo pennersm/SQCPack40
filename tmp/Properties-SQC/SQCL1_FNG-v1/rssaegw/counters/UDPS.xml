@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 UdpStat UDPS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 UdpStat UDPS measurement dump</csv_title>
+    <report-description>Collects the UDP statistics for each node. The measurement type collects the UDP statistics every 30 seconds. The data is measured on per-node level. It collects information on the UDP datagram that are flowing in and flowing out of the node. The data collected is not affected by licensing of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <UDP_IN_DATAGRAMS />
+    <UDP_NO_PORTS />
+    <UDP_IN_ERRORS />
+    <UDP_OUT_DATAGRAMS />
+  </column_order>
+  <temp_table name="UDPS" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>UDPS</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="UDP_IN_DATAGRAMS">SUM(UDP_IN_DATAGRAMS)</counter>
+      <counter alias="UDP_NO_PORTS">SUM(UDP_NO_PORTS)</counter>
+      <counter alias="UDP_IN_ERRORS">SUM(UDP_IN_ERRORS)</counter>
+      <counter alias="UDP_OUT_DATAGRAMS">SUM(UDP_OUT_DATAGRAMS)</counter>
+    </counters>
+    <table_name>pcofng_ps_udps_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>UDPS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>UDPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_udps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UDP_IN_DATAGRAMS">
+    <formula>UDPS.UDP_IN_DATAGRAMS</formula>
+    <kpi_info>
+      <title>UDP_IN_DATAGRAMS</title>
+      <use>The total number of UDP and UDPv6 datagrams are delivered to UDP and UDPv6 users. UPDATED: When an UDP or UDPv6 datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UDP_IN_DATAGRAMS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_udps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UDP_IN_DATAGRAMS (m2069c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UDP_NO_PORTS">
+    <formula>UDPS.UDP_NO_PORTS</formula>
+    <kpi_info>
+      <title>UDP_NO_PORTS</title>
+      <use>The total number of received UDP and UDPv6 datagrams with no process on the destination port. UPDATED: When an UDP or UDPv6 datagram is received on the destination port with no process.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UDP_NO_PORTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_udps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UDP_NO_PORTS (m2069c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UDP_IN_ERRORS">
+    <formula>UDPS.UDP_IN_ERRORS</formula>
+    <kpi_info>
+      <title>UDP_IN_ERRORS</title>
+      <use>The total number of datagrams received with an error. UPDATED: When an erroneous datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UDP_IN_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_udps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UDP_IN_ERRORS (m2069c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UDP_OUT_DATAGRAMS">
+    <formula>UDPS.UDP_OUT_DATAGRAMS</formula>
+    <kpi_info>
+      <title>UDP_OUT_DATAGRAMS</title>
+      <use>The total number of UDP and UDPv6 datagrams sent. UPDATED: When an UDP or UDPv6 datagram is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UDP_OUT_DATAGRAMS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_udps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UDP_OUT_DATAGRAMS (m2069c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

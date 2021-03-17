@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_5230d">
+    <formula>100*decode(
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0)),0,null, 
+
+			luest.sign_est_f_rrccompl_error
+			 / 
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN RRC Connection Setup Failure Ratio per Cause RRCCOMPL_ERROR]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific RRC connection]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(SIGN_EST_F_RRCCOMPL_ERROR) /
+&lt;br&gt;sum(SIGN_CONN_ESTAB_ATT_MO_S+
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_MT+
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_MO_D+
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_OTHERS +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_EMG+
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_HIPRIO+
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_DEL_TOL)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LUEST_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/07/21 11:23:39.501 +0100</date>
+          <comment><![CDATA[Source: RSLTE038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RRC FR RRCCOMPL_ERROR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

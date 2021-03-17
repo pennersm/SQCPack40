@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TBSCTC_ext.xml" />
+  <kpi name="msc_1383a">
+    <formula>
+		decode(tbsctc_ext.bscrnc_calls_tcid_14,0,null,
+		
+		100* (tbsctc_ext.bscrnc_answer_tcid_14)
+		/
+		(tbsctc_ext.bscrnc_calls_tcid_14))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[2G Terminating answered data calls ratio per BSC]]></title>
+      <use><![CDATA[Percentage of data calls terminated in the measured BSC that have been answered.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_IDs:
+<br>14 => DATA TERM
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 17-11-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC-BSCM;TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC-BSCM;TCAT
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic Measurement per BSC/RNC (M399)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>          sum(BSCRNC_ANSWER); where Tcat_ID=14
+<br>100 * ----------------------------------
+<br>          sum(BSCRNC_CALLS); where Tcat_ID=14
+<br>
+<br>
+<br>Use AGGREGATED view(s)/table(s)
+<br>
+<br>Use view(s):
+<br>RNS_P_TBSCTC_&lt;Object&gt;_&lt;Time&gt;]]></formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_TBSCTC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.948 +0000</date>
+          <comment><![CDATA[Source: RSMSC060.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>2G DATA TERM call answ rto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

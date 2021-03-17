@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/RSDI.xml"/>
+  <kpi name="flng_309a">
+    <formula>decode(
+			((RSDI.disconnect_requests)),0,NULL, 
+
+			((RSDI.disconnect_ack))
+			 / 
+			((RSDI.disconnect_requests)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[RADIUS Disconnect success ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of successful Disconnect Acknowledgement responses (Disconnect-ACK) sent to RADIUS server when compared to the Disconnect Request messages (Disconnect-Request) received from RADIUS server.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>  sum (disconnect_ack)
+&lt;br&gt;------------------------- * 100
+&lt;br&gt;sum (disconnect_requests)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_RSDI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RADIUS Disconnect SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

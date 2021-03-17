@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml"/>
+  <kpi name="sgsn_940a">
+    <formula>100* decode(
+			(nvl(sesmgmnt.SUCC_MO_PDP_CONTEXT_ACT,0) + nvl(sesmgmnt.MO_SEC_PDP_ACTIVATION_SUCC,0)
+            + nvl(IUSM.IU_SUCC_MO_PDP_CON_ACT,0) + nvl(IUSM.IU_MO_SEC_PDP_ACTIVATION_SUCC,0)),0,NULL,
+            
+            ( (nvl(sesmgmnt.FAIL_NWR_PDP_CONTEXT_DEACT,0) + nvl(sesmgmnt.NWR_PDP_DEACT_NET_FAILURE,0) +  
+            nvl(sesmgmnt.NWR_PDP_DEACT_REACT_REQ,0) + nvl(sesmgmnt.NWR_PDP_DEACT_LLC_SNDCP_FAIL,0) + 
+            nvl(IUSM.IU_FAIL_NWR_PDP_CON_DEACT,0) + nvl(IUSM.IU_NWR_PDP_DEACT_38,0) + 
+            nvl(IUSM.IU_NWR_PDP_DEACT_39,0))
+			 / 
+			(nvl(sesmgmnt.SUCC_MO_PDP_CONTEXT_ACT,0) + nvl(sesmgmnt.MO_SEC_PDP_ACTIVATION_SUCC,0) + 
+            nvl(IUSM.IU_SUCC_MO_PDP_CON_ACT,0) + nvl(IUSM.IU_MO_SEC_PDP_ACTIVATION_SUCC,0))
+            ))</formula>
+    <kpi_info>
+      <title><![CDATA[2G/3G PDP context cut-off ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of started PDP contexts, which are abnormally ended without being terminated by the subscriber.
+<br>This formula is applicable to both 2G-only, 3G-only or 2G/3G (combined) networks.]]></use>
+      <use_experience><![CDATA[- This "combi" formula is actually valid for all scenarios: in 2G-only networks, the 3G counters will automatically be zero, so the result would be the same as the 2G-only formula; and vice versa for 3G-only networks. Additionally, if a PDP context is activated in 2G and then changes to 3G during the context and drops the context in 3G, then the 3G-only formula will show too high values since the drop is included in the numerator but the establishment is not counted in the denominator. With this combi mode formula this scenario is also covered.
+<br>- It is estimated that this formula may provides a little bit too high values as it seems that there is a risk that counter FAIL_NWR_PDP_CONTEXT_DEACT and corresponding Iu counter IU_FAIL_NWR_PDP_CON_DEACT may have also some amount of MS related faults as there is not possibility exactly know in the SGSN about some failures if they are Radio or MS related.
+<br>- In the network level (having one or more SGSN) this would work fine but if you try to measure these figures only for one SGSN in the network where are several SGSN's then the number of inter SGSN handovers will cause probably some deviation to the SGSN level figures.]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(a.FAIL_NWR_PDP_CONTEXT_DEACT + 
+&lt;br&gt;   a.NWR_PDP_DEACT_NET_FAILURE +  
+&lt;br&gt;   a.NWR_PDP_DEACT_REACT_REQ +  
+&lt;br&gt;   a.NWR_PDP_DEACT_LLC_SNDCP_FAIL + 
+&lt;br&gt;   b.IU_FAIL_NWR_PDP_CON_DEACT + 
+&lt;br&gt;   b.IU_NWR_PDP_DEACT_38 + 
+&lt;br&gt;   b.IU_NWR_PDP_DEACT_39)  
+&lt;br&gt;------------------------------------- *100
+&lt;br&gt;sum(a.SUCC_MO_PDP_CONTEXT_ACT + 
+&lt;br&gt;   a.MO_SEC_PDP_ACTIVATION_SUCC + 
+&lt;br&gt;   b.IU_SUCC_MO_PDP_CON_ACT + 
+&lt;br&gt;   b.IU_MO_SEC_PDP_ACTIVATION_SUCC)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): 
+&lt;br&gt;a = p_sgsn_session_management  
+&lt;br&gt;b = p_sgsn_iu_session_management</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_sesmgmnt_{OBJ_AGG}_{TIME_AGG},RSG_PS_IUSM_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G/3G PDP ctx cut-off ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

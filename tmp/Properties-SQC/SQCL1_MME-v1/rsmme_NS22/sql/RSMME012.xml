@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<report id="RSMME012 - FlexiNSs" thresholds="false">
+		<report-level key="FLEXINS">PLMN/FLEXINS</report-level>
+		<level>PLMN/FLEXINS</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSMME012 - FlexiNSs</title>
+		<help-text>
+		<![CDATA[<br>Report lists all FlexiNSs in the network.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">plmn.co_gid</pivot>
+			<pivot level="FLEXINS">flexins.co_gid</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="co_name" columnType="KEY">
+				<alias>FLEXINS name</alias>
+			</column>
+			<column col-id="vendor" columnType="KEY">
+				<alias>Vendor</alias>
+			</column>
+			<column col-id="sys_ver" columnType="KEY">
+				<alias>Sys Version</alias>
+			</column>
+			<column col-id="co_dn" columnType="KEY">
+				<alias>DN</alias>
+			</column>
+			<column col-id="int_id" columnType="KEY">
+				<alias>Int ID</alias>
+			</column>
+			<column col-id="sw_name" columnType="KEY">
+				<alias>Software object class name</alias>
+			</column>
+			<column col-id="package_id" columnType="KEY">
+				<alias>Package ID</alias>
+			</column>
+			<column col-id="active_package_id" columnType="KEY">
+				<alias>Active Package ID</alias>
+			</column>
+			<column col-id="row_update_date" columnType="KEY">
+				<alias>Row update</alias>
+			</column>
+		</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Objects:</span><br><br>
+		 		]]>
+		</literal>
+
+
+		<sql>
+			<![CDATA[
+
+			SELECT
+				flexins.co_name,
+				flexins.co_oc_vendor vendor,
+				flexins.co_ocv_sys_version sys_ver,
+				flexins.co_dn,
+				flexins.co_int_id int_id
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects flexins				
+			WHERE
+			    #object_selection# and
+				flexins.co_oc_id=3766 and				
+				flexins.co_parent_gid = plmn.co_gid
+	 		]]>
+	 	</sql>
+
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Software:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT
+				flexins.co_name,
+				sw.name sw_name,
+				sw.package_id,
+				sw.active_package_id,
+				sw.row_update_date
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects flexins,
+				a_sw_package sw
+			WHERE  
+			    #object_selection# and
+				flexins.co_oc_id=3766 and				
+				flexins.co_parent_gid = plmn.co_gid
+				and sw.is_running=1
+				and flexins.co_int_id = sw.int_id
+			ORDER BY sw.int_id, sw.row_update_date
+	 		]]>
+	 	</sql>
+
+	</report>
+</reports>

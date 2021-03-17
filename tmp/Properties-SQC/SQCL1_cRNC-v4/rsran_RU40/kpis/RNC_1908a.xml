@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1908a">
+    <formula>decode(
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr),0,null, 
+
+			(100*(pktcall.hs_e_req_hs_e_allo_int + 
+			pktcall.hs_e_req_hs_e_allo_bgr + 
+			pktcall.hs_e_req_hs_d_allo_int + 
+			pktcall.hs_e_req_hs_d_allo_bgr + 
+			pktcall.hs_d_req_hs_d_allo_int + 
+			pktcall.hs_d_req_hs_d_allo_bgr + 
+			pktcall.hs_e_req_d_d_allo_int + 
+			pktcall.hs_e_req_d_d_allo_bgr + 
+			pktcall.hs_d_req_d_d_allo_int + 
+			pktcall.hs_d_req_d_d_allo_bgr + 
+			pktcall.d_d_req_d_d_allo_int + 
+			pktcall.d_d_req_d_d_allo_bgr)
+			 / 
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[Packet Session Setup Success Ratio, NRT]]></title>
+      <use><![CDATA[This KPI provides information about the packet session success ratio for Interactive and Background traffic]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(HS_E_REQ_HS_E_ALLO_INT 
+&lt;br&gt;+ HS_E_REQ_HS_E_ALLO_BGR
+&lt;br&gt;+ HS_E_REQ_HS_D_ALLO_INT
+&lt;br&gt;+ HS_E_REQ_HS_D_ALLO_BGR
+&lt;br&gt;+ HS_D_REQ_HS_D_ALLO_INT
+&lt;br&gt;+ HS_D_REQ_HS_D_ALLO_BGR
+&lt;br&gt;+ HS_E_REQ_D_D_ALLO_INT
+&lt;br&gt;+ HS_E_REQ_D_D_ALLO_BGR
+&lt;br&gt;+ HS_D_REQ_D_D_ALLO_INT
+&lt;br&gt;+ HS_D_REQ_D_D_ALLO_BGR
+&lt;br&gt;+ D_D_REQ_D_D_ALLO_INT
+&lt;br&gt;+ D_D_REQ_D_D_ALLO_BGR)
+&lt;br&gt;---------------------------
+&lt;br&gt;sum(PS_ATT_HSDSCH_EDCH_INT
+&lt;br&gt;+ PS_ATT_HSDSCH_EDCH_BGR
+&lt;br&gt;+ PS_ATT_HSDSCH_DCH_INT
+&lt;br&gt;+ PS_ATT_HSDSCH_DCH_BGR
+&lt;br&gt;+ PS_ATT_DCH_DCH_INT
+&lt;br&gt;+ PS_ATT_DCH_DCH_BGR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PSSR, NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

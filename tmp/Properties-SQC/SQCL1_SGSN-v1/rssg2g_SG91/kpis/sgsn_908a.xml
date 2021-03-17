@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSD.xml" />
+  <kpi name="sgsn_908a">
+    <formula>decode(
+			(60*iusd.period_duration*1048576),0,NULL, 
+
+			((8*(iusd.iu_avg_gtp_bytes_dl_sum + 
+			4294967296*iusd.iu_avg_gtp_bytes_dl_sum_ofl))
+			 / 
+			(60*iusd.period_duration*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu DL GTP average throughput, SGSN]]></title>
+      <use><![CDATA[This KPI shows the downlink average GTP data throughput on SGSN level for Iu interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(8* (IU_AVG_GTP_BYTES_DL_SUM + 4294967296*IU_AVG_GTP_BYTES_DL_SUM_OFL) )
+&lt;br&gt;--------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;sum(60* period_duration * 1048576)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_iu_sgsn_data</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>rsg_ps_iusd_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu DL GTP average throughput, SGSN]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/T38FAX.xml" />
+  <kpi name="mgw_1127a">
+    <formula>decode(
+			(t38fax.t38_received_packets),0,null, 
+
+			(100*(t38fax.t38_received_invalid_packets)
+			 / 
+			(t38fax.t38_received_packets)))</formula>
+    <kpi_info>
+      <title><![CDATA[Received T.38 Fax data packet invalid ratio for IP based Route]]></title>
+      <use><![CDATA[Ratio of invalid T.38 Fax data packets received for IP Based Route]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(T38_RECEIVED_INVALID_PACKETS)
+&lt;br&gt;100 * ---------------------------------
+&lt;br&gt;         SUM(T38_RECEIVED_PACKETS )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_t38fax_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inval T38 Fax pckt rcv IP</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

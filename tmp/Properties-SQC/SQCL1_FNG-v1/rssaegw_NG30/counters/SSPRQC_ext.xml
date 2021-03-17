@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="SSPRQC_ext" meas_level="PLMN/FING/FNODE/SSPROF/QCI_1" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="SM_NBR_ACT_SESS_QCI">SUM(SM_NBR_ACT_SESS_QCI)</counter>
+			<counter alias="SM_NBR_ACT_BEAR_QCI">SUM(SM_NBR_ACT_BEAR_QCI)</counter>
+			<!-- Auxiliary counters -->
+			<counter alias="SM_NBR_ACT_SESS_QCI_ALL">MAX(SM_NBR_ACT_SESS_QCI_ALL)</counter>
+			<counter alias="SM_NBR_ACT_BEAR_QCI_ALL">MAX(SM_NBR_ACT_BEAR_QCI_ALL)</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		ssprqc.*,
+		SM_NBR_ACT_SESS_QCI_ALL,
+		SM_NBR_ACT_BEAR_QCI_ALL
+FROM
+	pcofng_ps_ssprqc_qci_{TIME_AGG} ssprqc,
+	(
+		SELECT 
+			fing_id, fnode_id, 
+			period_start_time,
+			SUM(SM_NBR_ACT_SESS_QCI) SM_NBR_ACT_SESS_QCI_ALL,
+			SUM(SM_NBR_ACT_BEAR_QCI) SM_NBR_ACT_BEAR_QCI_ALL
+		FROM
+			 pcofng_ps_ssprqc_qci_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	ssprqc.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = ssprqc.fnode_id and
+	ssprqc.period_start_time = fnode_level.period_start_time AND
+	ssprqc.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	ssprqc.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+			]]>
+		</table_name>
+		<alias_name>SSPRQC_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>SSPRQC_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="SM_NBR_ACT_SESS_QCI">
+		<formula>SSPRQC_ext.SM_NBR_ACT_SESS_QCI</formula>
+		<kpi_info>
+			<title>SM_NBR_ACT_SESS_QCI</title>
+			<use>This gauge contains the number of active sessions grouped according to the QoS class identifier (QCI).Note
+				that in a high availability deployment this gauge is synchronized between the active and standby nodes, and the
+				synchronized values summed up for a node pair indicate double values.&lt;br/&gt;
+				UPDATED: Updated when a session is activated or deactivated; additionally when the session QCI value is modified.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(SM_NBR_ACT_SESS_QCI)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>SM_NBR_ACT_SESS_QCI (dummy_m3033c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+  <kpi name="SM_NBR_ACT_BEAR_QCI">
+    <formula>SSPRQC_ext.SM_NBR_ACT_BEAR_QCI</formula>
+    <kpi_info>
+      <title>SM_NBR_ACT_BEAR_QCI</title>
+      <use>This gauge contains the number of active bearers grouped according to the QoS class identifier (QCI). UPDATED: Updated when a bearer is activated or deactivated; additionally when the bearer QCI value is modified.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SM_NBR_ACT_BEAR_QCI)">SUM(SM_NBR_ACT_BEAR_QCI)</formula>
+     <unit>no</unit>
+      <tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SM_NBR_ACT_BEAR_QCI (m3033c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+	<!-- Auxiliary counters -->
+	<kpi name="SM_NBR_ACT_SESS_QCI_ALL">
+		<formula>SSPRQC_ext.SM_NBR_ACT_SESS_QCI_ALL</formula>
+		<kpi_info>
+			<title>SM_NBR_ACT_SESS_QCI_ALL</title>
+			<use>This gauge contains the number of active sessions grouped according to the QoS class identifier (QCI).Note
+				that in a high availability deployment this gauge is synchronized between the active and standby nodes, and the
+				synchronized values summed up for a node pair indicate double values. &lt;br/&gt;
+				UPDATED: Updated when a session is activated or deactivated; additionally when the session QCI value is modified.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>;MAX(SM_NBR_ACT_SESS_QCI)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>SM_NBR_ACT_SESS_QCI (dummy_m3033c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="SM_NBR_ACT_BEAR_QCI_ALL">
+		<formula>SSPRQC_ext.SM_NBR_ACT_BEAR_QCI_ALL</formula>
+		<kpi_info>
+			<title>SM_NBR_ACT_BEAR_QCI_ALL</title>
+			<use>This gauge contains the number of active bearers grouped according to the QoS class identifier (QCI). UPDATED: Updated when a bearer is activated or deactivated; additionally when the bearer QCI value is modified.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>;MAX(SM_NBR_ACT_BEAR_QCI)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>SM_NBR_ACT_BEAR_QCI (m3033c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

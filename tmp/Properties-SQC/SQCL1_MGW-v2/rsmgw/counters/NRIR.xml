@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>NRIR (NRI Routing)</header>
+    <csv_title>NRIR (NRI Routing)</csv_title>
+    <report-description>773/305H NRI Routing Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ALL_NNSF_ROUTINGS />
+    <NNSF_WITHOUT_NRI />
+  </column_order>
+  <temp_table name="NRIR" meas_level="PLMN/RSMGW-MGW/RSMGW-SP" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>NRIR</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="ALL_NNSF_ROUTINGS"  symmetrical="true"  itk_id="ALL_NNSF_ROUTINGS">SUM(ALL_NNSF_ROUTINGS)</counter>
+          <counter alias="NNSF_WITHOUT_NRI"  symmetrical="true"  itk_id="NNSF_WITHOUT_NRI">SUM(NNSF_WITHOUT_NRI)</counter>
+    </counters>
+    <table_name>nokmww_ps_nrir_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NRIR</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>NRIR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_nrir_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ALL_NNSF_ROUTINGS" itk_id="ALL_NNSF_ROUTINGS">
+    <formula>NRIR.ALL_NNSF_ROUTINGS</formula>
+    <kpi_info>
+      <title>ALL_NNSF_ROUTINGS (M773C0)</title>
+      <use>The number of all NNSF (NAS Node Selection Functionality) routing events. Shows the total number of MSS selections made by the NNSF in the MGW.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ALL_NNSF_ROUTINGS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_nrir_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ALL_NNSF_ROUTINGS (M773C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NNSF_WITHOUT_NRI" itk_id="NNSF_WITHOUT_NRI">
+    <formula>NRIR.NNSF_WITHOUT_NRI</formula>
+    <kpi_info>
+      <title>NNSF_WITHOUT_NRI (M773C1)</title>
+      <use>The number of NNSF (NAS Node Selection Functionality) routing events when the NRI (Network Resource Identifier) can not be used for routing. Shows the number of MSS selections made by the NNSF when NRI does not contain valid information for routing.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NNSF_WITHOUT_NRI)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_nrir_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NNSF_WITHOUT_NRI (M773C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

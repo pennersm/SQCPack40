@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_2100a">
+    <formula>100*decode(
+			((HSDPAW.capable_dc_hsdpa_users_sum)),0,null, 
+
+			((HSDPAW.active_dc_hsdpa_users_2c_sum + 
+			HSDPAW.active_dc_hsdpa_users_1c_sum))
+			 / 
+			((HSDPAW.capable_dc_hsdpa_users_sum)))</formula>
+    <kpi_info>
+      <title><![CDATA[DC HSDPA Usage Ratio, per Cell]]></title>
+      <use><![CDATA[DC HSDPA Usage Ratio provides information about the ratio between active DC HSPA users and the total number of DC HSPA users connected to each cell.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (active_dc_hsdpa_users_2c_sum + active_dc_hsdpa_users_1c_sum)
+&lt;br&gt;100 * -----------------------------------------------------------------
+&lt;br&gt;                      sum (capable_dc_hsdpa_users_sum)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DC HSPA Usage Ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

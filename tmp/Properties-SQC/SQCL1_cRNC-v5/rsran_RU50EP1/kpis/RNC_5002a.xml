@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_5002a">
+    <formula>100*decode(
+			(traffic.allo_success_edch_str + 
+			traffic.ul_dch_sel_max_hsupa_usr_str + 
+			traffic.ul_dch_sel_bts_hw_str + 
+			traffic.edch_allo_canc_na_as_str + 
+			traffic.setup_fail_edch_ue_str + 
+			traffic.setup_fail_edch_bts_str + 
+			traffic.setup_fail_edch_trans_str + 
+			traffic.setup_fail_edch_other_str),0,null, 
+
+			traffic.allo_success_edch_str
+			 / 
+			(traffic.allo_success_edch_str + 
+			traffic.ul_dch_sel_max_hsupa_usr_str + 
+			traffic.ul_dch_sel_bts_hw_str + 
+			traffic.edch_allo_canc_na_as_str + 
+			traffic.setup_fail_edch_ue_str + 
+			traffic.setup_fail_edch_bts_str + 
+			traffic.setup_fail_edch_trans_str + 
+			traffic.setup_fail_edch_other_str))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Resource Accessibility for RT Traffic]]></title>
+      <use><![CDATA[The accessibility of all started resource allocations for E-DCH for RT Traffic. The number of times when E-DCH channel has been established divided by the number of times when HS-DSCH channel has been selected by cell specific PS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(ALLO_SUCCESS_EDCH_STR)
+&lt;br&gt;/
+&lt;br&gt;sum(ALLO_SUCCESS_EDCH_STR + 
+&lt;br&gt;UL_DCH_SEL_MAX_HSUPA_USR_STR + 
+&lt;br&gt;UL_DCH_SEL_BTS_HW_STR + 
+&lt;br&gt;EDCH_ALLO_CANC_NA_AS_STR + 
+&lt;br&gt;SETUP_FAIL_EDCH_UE_STR + 
+&lt;br&gt;SETUP_FAIL_EDCH_BTS_STR + 
+&lt;br&gt;SETUP_FAIL_EDCH_TRANS_STR + 
+&lt;br&gt;SETUP_FAIL_EDCH_OTHER_STR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:38.95 +0100</date>
+          <comment><![CDATA[Source: RSRAN003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSUPA res acc for RT traf</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

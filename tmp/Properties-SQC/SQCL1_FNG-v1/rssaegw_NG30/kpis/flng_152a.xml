@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DDNFR_ext.xml"/>
+  <kpi name="flng_152a">
+    <formula>decode(
+			((DDNFR_ext.gtpcv2_dl_data_notif_f_r_all)),0,NULL, 
+
+			((DDNFR_ext.gtpcv2_dl_data_notif_fail_recv))
+			 / 
+			((DDNFR_ext.gtpcv2_dl_data_notif_f_r_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification Failures received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 downlink data notification failures received for a specific cause code when compared to total number of GTP-C v2 downlink data notification failures messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(ddnfr_id,'x',GTPCV2_DL_DATA_NOTIF_FAIL_RECV,0))  ;DDNFR for cause code x
+&lt;br&gt;------------------------------------------------------------------------------------ *100
+&lt;br&gt;sum(GTPCV2_DL_DATA_NOTIF_FAIL_RECV)  ;all DDNFR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DDNFR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DL data not fail rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 Signaling_Load_WBTS SIGLDW measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 Signaling_Load_WBTS SIGLDW measurement dump</csv_title>
+    <report-description>Signaling Load in WBTS</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <REJECT_RL_SETUPS_CONGESTION />
+    <PEAK_RL_SETUPS_PER_SECOND />
+    <PEAK_RL_OPER_PER_SECOND />
+    <AVG_RL_SETUP_QUEUING_TIME />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="SIGLDW" meas_level="PLMN/RNC/WBTS/HWUNIT" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="REJECT_RL_SETUPS_CONGESTION">SUM(REJECT_RL_SETUPS_CONGESTION)</counter>
+      <counter alias="PEAK_RL_SETUPS_PER_SECOND">MAX(PEAK_RL_SETUPS_PER_SECOND)</counter>
+      <counter alias="PEAK_RL_OPER_PER_SECOND">MAX(PEAK_RL_OPER_PER_SECOND)</counter>
+      <counter alias="AVG_RL_SETUP_QUEUING_TIME">AVG(AVG_RL_SETUP_QUEUING_TIME)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SIGLDW</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SIGLDW.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="REJECT_RL_SETUPS_CONGESTION">
+    <formula>SIGLDW.REJECT_RL_SETUPS_CONGESTION</formula>
+    <kpi_info>
+      <title>REJECT_RL_SETUPS_CONGESTION</title>
+      <use>Number of rejected radio link setup requests because of congestion on MCU (signaling load too high). UPDATED: The counter is updated over the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(REJECT_RL_SETUPS_CONGESTION)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJECT_RL_SETUPS_CONGESTION (M5004C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PEAK_RL_SETUPS_PER_SECOND">
+    <formula>SIGLDW.PEAK_RL_SETUPS_PER_SECOND</formula>
+    <kpi_info>
+      <title>PEAK_RL_SETUPS_PER_SECOND</title>
+      <use>Peak radio link setup messages handled per second, where handled means setups that are not rejected because of congestion. UPDATED: The counter is updated over the measurement period. The value of the counter is the peak value from all the samples during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(PEAK_RL_SETUPS_PER_SECOND)</formula>
+      <unit>Events/s</unit>
+      <tables>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_RL_SETUPS_PER_SECOND (M5004C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PEAK_RL_OPER_PER_SECOND">
+    <formula>SIGLDW.PEAK_RL_OPER_PER_SECOND</formula>
+    <kpi_info>
+      <title>PEAK_RL_OPER_PER_SECOND</title>
+      <use>Peak radio link operations handled per second, where handled means operations that are not rejected because of congestion. UPDATED: The counter is updated over the measurement period. The value of the counter is the peak value from all the samples during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(PEAK_RL_OPER_PER_SECOND)</formula>
+      <unit>Events/s</unit>
+      <tables>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_RL_OPER_PER_SECOND (M5004C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_RL_SETUP_QUEUING_TIME">
+    <formula>SIGLDW.AVG_RL_SETUP_QUEUING_TIME</formula>
+    <kpi_info>
+      <title>AVG_RL_SETUP_QUEUING_TIME</title>
+      <use>Average radio link setup request message queuing time before taken into handling in ms. UPDATED: The counter is updated over the measurement period. The value of the counter is the average value from all the samples during the measurement period</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVG_RL_SETUP_QUEUING_TIME)</formula>
+      <unit>Milliseconds</unit>
+      <tables>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_RL_SETUP_QUEUING_TIME (M5004C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>SIGLDW.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_sigldw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

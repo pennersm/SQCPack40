@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PTHR.xml" />
+  <kpi name="sgsn_433b">
+    <formula>decode(pthr.gb_avg_pdp_amount_den,0,NULL,
+    				pthr.gb_avg_pdp_amount_sum/pthr.gb_avg_pdp_amount_den)
+    				+
+    		decode(pthr.iu_avg_pdp_amount_den,0,NULL,
+    				pthr.iu_avg_pdp_amount_sum/pthr.iu_avg_pdp_amount_den)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Average PDP contexts, Traffic/Bearer Class]]></title>
+      <use><![CDATA[This KPI shows the average of PDP contexts at both Gb and Iu interface per traffic/bearer class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GB_AVG_PDP_AMOUNT_SUM)       sum(IU_AVG_PDP_AMOUNT_SUM)
+&lt;br&gt;------------------------- + ------------------------
+&lt;br&gt;sum(GB_AVG_PDP_AMOUNT_DEN)        sum(IU_AVG_PDP_AMOUNT_DEN)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_papu_throughput</formula>
+      <unit>[#]</unit>
+      <tables>RSG_PS_PTHR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average PDP contexts, Traffic/Bearer Class]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

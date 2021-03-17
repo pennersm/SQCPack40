@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/GBSD.xml">
+    <counters>
+      <!-- sgsn_171a  -->
+      <counter alias="sgsn_171a">decode(
+			(sum(avg_gtp_bytes_sent_dl_den)),0,NULL, 
+
+			((sum(avg_gtp_bytes_sent_dl_sum) + 4294967296 * sum(avg_gtp_bytes_sent_dl_sum_of))
+			 / 
+			(sum(avg_gtp_bytes_sent_dl_den)*1048576)))</counter>
+	 <!-- sgsn_172a  -->
+      <counter alias="sgsn_172a">decode(
+			(sum(avg_gtp_bytes_sent_ul_den)),0,NULL, 
+
+			((sum(avg_gtp_bytes_sent_ul_sum) + 4294967296 * sum(avg_gtp_bytes_sent_ul_sum_of))
+			 / 
+			(sum(avg_gtp_bytes_sent_ul_den)*1048576)))</counter>
+    </counters>
+    
+  </temp_table_ref>
+  <kpi name="sgsn_173a">
+    <formula>gbsd.sgsn_171a + gbsd.sgsn_172a</formula>
+    <kpi_info>
+      <title><![CDATA[Gn GTP average data volume, SGSN]]></title>
+      <use><![CDATA[This KPI shows the total average GTP data volume on SGSN level for Gn (Gb+Iu) traffic]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sgsn_171a + sgsn_172a) 
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_gb_sgsn_data</formula>
+      <unit>[MB]</unit>
+      <tables>rsg_ps_gbsd_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gn GTP average data volume, SGSN]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

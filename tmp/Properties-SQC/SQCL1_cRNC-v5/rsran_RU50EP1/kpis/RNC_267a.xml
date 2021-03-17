@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/STM1.xml" />
+  <kpi name="RNC_267a">
+    <formula>decode(
+			(stm1.period_duration*60),0,null, 
+
+			100*(stm1.fe_path3_ses)
+			 / 
+			(stm1.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[FE_PATH3_SES_RATIO]]></title>
+      <use><![CDATA[The Ratio of  SES to total seconds in available time at the Far End (ITU-TG.826).The number of one seconds periods which contain >= threshold erroredblocks or at least one defect. The threshold can be handled by Exchangeterminal configuration handling MML. At the end of each one secondinterval the contents of the counters may be obtained by the relevantmanaged objects. The object is path termination section (B3) errors. In thiscase the block means STM-1 frame. The STM-1 payload cell rate is 149760kbit/s. The path termination section is one of the SDH layers (regeneration,multiplex and path) (ITU-T G.707).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(FE_PATH3_SES) / (PERIOD_DURATION * 60 ))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_stm1_unitid_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[FE_PATH3_SES_RATIO]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

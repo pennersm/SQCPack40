@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMVCC.xml" />
+	<kpi name="RNC_1058a">
+		<formula>
+			decode((atmvcc.in_rec_cells_vc),0,null,(100*((atmvcc.in_rec_cells_vc-atmvcc.in_tot_cells_vc-atmvcc.in_queued_cells_vc)/atmvcc.in_rec_cells_vc)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average VCC ingress cell drop ratio]]>
+			</title>
+			<use>
+				<![CDATA[Number of cells dropped in the ingress compared to number of received cells.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum (( IN_REC_CELLS_VC 
+-IN_TOT_CELLS_VC 
+- IN_QUEUED_CELLS_VC )
+----------------------- 
+sum (IN_REC_CELLS_VC ))
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_atmvcc_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average VCC ingress cell drop ratio]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

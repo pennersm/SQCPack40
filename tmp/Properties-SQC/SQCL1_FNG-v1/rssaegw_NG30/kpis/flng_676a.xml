@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml" />
+  <kpi name="flng_676a">
+    <formula>decode(
+			(ssprof.sm_nbr_act_sess_rat_2g + 
+			ssprof.sm_nbr_act_sess_rat_3g + 
+			ssprof.sm_nbr_act_sess_rat_4g + 
+			ssprof.sm_nbr_act_sess_rat_unknown + 
+			ssprof.sm_act_sess_rat_hrpd + 
+			ssprof.sm_act_sess_rat_ehrpd + 
+			ssprof.sm_nbr_act_sess_rat_wlan),0,null,
+
+			(ssprof.sm_nbr_act_sess_rat_wlan
+			/ 
+			(ssprof.sm_nbr_act_sess_rat_2g + 
+			ssprof.sm_nbr_act_sess_rat_3g + 
+			ssprof.sm_nbr_act_sess_rat_4g + 
+			ssprof.sm_nbr_act_sess_rat_unknown + 
+			ssprof.sm_act_sess_rat_hrpd + 
+			ssprof.sm_act_sess_rat_ehrpd + 
+			ssprof.sm_nbr_act_sess_rat_wlan)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[WLAN active sessions ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of active sessions using the WLAN radio access type when compared to total number of active sessions.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SM_NBR_ACT_SESS_RAT_WLAN)
+&lt;br&gt;-------------------------------- *100
+&lt;br&gt;sum(SM_NBR_ACT_SESS_RAT_2G +
+&lt;br&gt;   SM_NBR_ACT_SESS_RAT_3G +
+&lt;br&gt;   SM_NBR_ACT_SESS_RAT_4G +
+&lt;br&gt;   SM_NBR_ACT_SESS_RAT_UNKNOWN +
+&lt;br&gt;   SM_ACT_SESS_RAT_HRPD +
+&lt;br&gt;   SM_ACT_SESS_RAT_EHRPD +
+&lt;br&gt;   SM_NBR_ACT_SESS_RAT_WLAN)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:28.172 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW014.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>WLAN active sess ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

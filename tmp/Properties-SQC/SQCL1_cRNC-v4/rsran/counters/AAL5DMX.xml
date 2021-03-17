@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AAL5MeaDMX AAL5DMX measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AAL5MeaDMX AAL5DMX measurement dump</csv_title>
+    <report-description>AAL5 Protocol in DMX</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CELL_TX_CNT />
+    <CELL_RX_CNT />
+    <CELL_DISCARD_CNT />
+    <AAL5_PDU_DISCARD_CNT />
+    <INVALID_FIELDS />
+    <INCORRECT_FIELDS />
+    <RSM_TIMER_EXP />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="AAL5DMX" meas_level="PLMN/RNC/UTYPE/UNITID1" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CELL_TX_CNT">SUM(CELL_TX_CNT)</counter>
+      <counter alias="CELL_RX_CNT">SUM(CELL_RX_CNT)</counter>
+      <counter alias="CELL_DISCARD_CNT">SUM(CELL_DISCARD_CNT)</counter>
+      <counter alias="AAL5_PDU_DISCARD_CNT">SUM(AAL5_PDU_DISCARD_CNT)</counter>
+      <counter alias="INVALID_FIELDS">SUM(INVALID_FIELDS)</counter>
+      <counter alias="INCORRECT_FIELDS">SUM(INCORRECT_FIELDS)</counter>
+      <counter alias="RSM_TIMER_EXP">SUM(RSM_TIMER_EXP)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AAL5DMX</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AAL5DMX.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CELL_TX_CNT">
+    <formula>AAL5DMX.CELL_TX_CNT</formula>
+    <kpi_info>
+      <title>CELL_TX_CNT</title>
+      <use>Transmitted cells.The amount of cells sent by Segmentation and
+            Reassembly (SAR).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CELL_TX_CNT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELL_TX_CNT (M547C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CELL_RX_CNT">
+    <formula>AAL5DMX.CELL_RX_CNT</formula>
+    <kpi_info>
+      <title>CELL_RX_CNT</title>
+      <use>Received cells.The amount of cells received for active virtual
+            channel connections (VCC) by Segmentation and Reassembly (SAR).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CELL_RX_CNT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELL_RX_CNT (M547C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CELL_DISCARD_CNT">
+    <formula>AAL5DMX.CELL_DISCARD_CNT</formula>
+    <kpi_info>
+      <title>CELL_DISCARD_CNT</title>
+      <use>Discarded cells (STR-NM-M4NE-REQ-02.00).Cells discarded by
+            Segmentation and Reassembly (SAR) in unit. Received cells are
+            discarded if the Virtual Channel Connection (VCC) on which the cells are
+            mapped is not active in SAR.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CELL_DISCARD_CNT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELL_DISCARD_CNT (M547C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL5_PDU_DISCARD_CNT">
+    <formula>AAL5DMX.AAL5_PDU_DISCARD_CNT</formula>
+    <kpi_info>
+      <title>AAL5_PDU_DISCARD_CNT</title>
+      <use>"Discarded AAL5 CPCS-PDUs (STR-NM-M4NE-REQ-02.00).The amount
+            of discarded Common Part Convergence Sublayer Protocol Data Units .
+            This counter indicates the discarding of AAL5 received cells. Cells
+            are discarded due to an overflow of the receiving buffer, an
+            overflow of the receiving FIFO, an overflow of the status queue in
+            internal communication or the received packet being bigger than
+            the biggest packet allowed."</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL5_PDU_DISCARD_CNT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL5_PDU_DISCARD_CNT (M547C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INVALID_FIELDS">
+    <formula>AAL5DMX.INVALID_FIELDS</formula>
+    <kpi_info>
+      <title>INVALID_FIELDS</title>
+      <use>"Invalid Fields (STR-NM-M4NE-REQ-02.00).The counter is updated
+            due to an invalid Common Part indication (CPI) in the trailer, an
+            oversized received SDU or the received packet being bigger than the
+            biggest packet allowed (length violation)."</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INVALID_FIELDS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INVALID_FIELDS (M547C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INCORRECT_FIELDS">
+    <formula>AAL5DMX.INCORRECT_FIELDS</formula>
+    <kpi_info>
+      <title>INCORRECT_FIELDS</title>
+      <use>Incorrect Fields (STR-NM-M4NE-REQ-02.00).The counter is updated due
+            to an incorrect length of the received Common Part Convergence
+            Sublayer Protocol Data Unit (CPSC-PDU) PAD field; cells disappeared
+            on the way or Cyclic Redundancy Check - 32 (CRC-32) violation of
+            trailer i.e. data disappeared or bit error.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INCORRECT_FIELDS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INCORRECT_FIELDS (M547C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RSM_TIMER_EXP">
+    <formula>AAL5DMX.RSM_TIMER_EXP</formula>
+    <kpi_info>
+      <title>RSM_TIMER_EXP</title>
+      <use>"Reassembly timer expirations (STR-NM-M4NE-REQ-02.00).When
+            reassembly timer expires, the current Common Part Convergence
+            Sublayer Protocol Data Unit (CPCS-PDU) is discarded."</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RSM_TIMER_EXP)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RSM_TIMER_EXP (M547C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>AAL5DMX.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_aal5dmx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

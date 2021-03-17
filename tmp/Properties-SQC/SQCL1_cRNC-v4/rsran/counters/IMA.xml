@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 IMA IMA measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 IMA IMA measurement dump</csv_title>
+    <report-description>AXC IMA group interface measurement (M5203)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <groupUnavailSecNE />
+    <groupTxNumFailureNE />
+    <groupTxNumFailureFE />
+  </column_order>
+  <temp_table name="IMA" meas_level="PLMN/RNC/WBTS/AXC/IMAG" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="groupUnavailSecNE" timeagg="SUM(groupUnavailSecNE)">SUM(groupUnavailSecNE)</counter>
+      <counter alias="groupTxNumFailureNE" timeagg="SUM(groupTxNumFailureNE)">SUM(groupTxNumFailureNE)</counter>
+      <counter alias="groupTxNumFailureFE" timeagg="SUM(groupTxNumFailureFE)">SUM(groupTxNumFailureFE)</counter>
+    </counters>
+    <table_name>nokaxc_ps_ima_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IMA</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IMA.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_ima_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="groupUnavailSecNE">
+    <formula>IMA.groupUnavailSecNE</formula>
+    <kpi_info>
+      <title>groupUnavailSecNE</title>
+      <use>Count of one second intervals where the Group Traffic State Machine (GTSM) is Down. The GTSM is down when 
+   e.g. Insufficient Links is active or while the in group is in startup. For a complete list please refer to 
+   the standard. Standard: [AF-PHY-0086.001]. 
+   UPDATED: The counter is incremented for every second in which the IMA Group Traffic State Machine (GTSM) 
+   is down.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(groupUnavailSecNE)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_ima_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>groupUnavailSecNE (IMA-17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="groupTxNumFailureNE">
+    <formula>IMA.groupTxNumFailureNE</formula>
+    <kpi_info>
+      <title>groupTxNumFailureNE</title>
+      <use>NE Group Failure count: counts of starts of periods with either Config-Aborted or Insufficient-Links active.
+   Standard: [AF-PHY-0086.001]. 
+   UPDATED: The counter increments whenever the GTSM (Group Traffic State Machine)transitions to the state down.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(groupTxNumFailureNE)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ima_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>groupTxNumFailureNE (IMA-18)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="groupTxNumFailureFE">
+    <formula>IMA.groupTxNumFailureFE</formula>
+    <kpi_info>
+      <title>groupTxNumFailureFE</title>
+      <use>FE Group Failure count: counts of starts of periods with either: Start-up-FE, Config-Aborted-FE, 
+   Insufficient-Links-FE, Blocked-FE active. Standard: [AF-PHY-0086.001]. 
+   UPDATED. The counter increments whenever the GTSM (Group Traffic State Machine) of the far end transitions 
+   to the state down (and communicates this over ICP cells).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(groupTxNumFailureFE)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ima_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>groupTxNumFailureFE (IMA-19)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

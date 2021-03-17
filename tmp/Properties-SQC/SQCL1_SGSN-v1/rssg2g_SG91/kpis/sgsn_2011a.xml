@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUDA.xml"/>
+  <kpi name="sgsn_2011a">
+    <formula>decode(
+			((IUDA.iu_gtp_packets_in_dl + 
+			4294967296*IUDA.iu_gtp_packets_in_dl_ofl)),0,NULL, 
+
+			((IUDA.iu_gtp_bytes_sent_in_dl + 
+			4294967296*IUDA.iu_gtp_bytes_sent_in_dl_ofl))
+			 / 
+			((IUDA.iu_gtp_packets_in_dl + 
+			4294967296*IUDA.iu_gtp_packets_in_dl_ofl)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average 3G DL packet size]]></title>
+      <use><![CDATA[This KPI shows the average size of 3G DL packets passing through the SGSN.
+Use: Assuming that subscribers are generating roughly same traffic mix in different networks, the packet sizes should also be roughly the same. If especially the downlink packets are smaller than usual, it is an indication of possible packet fragmentation somewhere along the path from the server to the SGSN, and this then needs to be analysed more closely.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (iu_gtp_bytes_sent_in_dl + 4294967296 * iu_gtp_bytes_sent_in_dl_ofl)
+&lt;br&gt;------------------------------------------------------------------------
+&lt;br&gt;   sum (iu_gtp_packets_in_dl + 4294967296 * iu_gtp_packets_in_dl_ofl)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[B]</unit>
+      <tables>RSG_PS_IUDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg 3G DL pkt size]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

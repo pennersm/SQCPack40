@@ -1,0 +1,247 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M400 DBSDXI measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M400 DBSDXI measurement dump</csv_title>
+    <report-description>DB Datafull DX interface statistics (DBSDXI)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <REPLICATION_ATTEMPT/>
+    <REPLICATION_SUCCESSFUL/>
+    <REPLICATION_RE_ATTEMPT/>
+    <REPLICATION_RE_SUCCESSFUL/>
+    <FETCHING_ATTEMPT/>
+    <FETCHING_SUCCESSFUL/>
+    <FETCHING_RE_ATTEMPT/>
+    <FETCHING_RE_SUCCESSFUL/>
+    <NUMBER_OF_DIRTY_RECORDS/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/HLR/DB" name="DBSDXI" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="REPLICATION_ATTEMPT" symmetrical="true">SUM(REPLICATION_ATTEMPT)</counter>
+      <counter alias="REPLICATION_SUCCESSFUL" symmetrical="true">SUM(REPLICATION_SUCCESSFUL)</counter>
+      <counter alias="REPLICATION_RE_ATTEMPT" symmetrical="true">SUM(REPLICATION_RE_ATTEMPT)</counter>
+      <counter alias="REPLICATION_RE_SUCCESSFUL" symmetrical="true">SUM(REPLICATION_RE_SUCCESSFUL)</counter>
+      <counter alias="FETCHING_ATTEMPT" symmetrical="true">SUM(FETCHING_ATTEMPT)</counter>
+      <counter alias="FETCHING_SUCCESSFUL" symmetrical="true">SUM(FETCHING_SUCCESSFUL)</counter>
+      <counter alias="FETCHING_RE_ATTEMPT" symmetrical="true">SUM(FETCHING_RE_ATTEMPT)</counter>
+      <counter alias="FETCHING_RE_SUCCESSFUL" symmetrical="true">SUM(FETCHING_RE_SUCCESSFUL)</counter>
+      <counter alias="NUMBER_OF_DIRTY_RECORDS" symmetrical="true">SUM(NUMBER_OF_DIRTY_RECORDS)</counter>
+    </counters>
+    <table_name>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DBSDXI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DBSDXI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REPLICATION_ATTEMPT">
+    <formula>DBSDXI.REPLICATION_ATTEMPT</formula>
+    <kpi_info>
+      <title>REPLICATION_ATTEMPT</title>
+      <use>Counter shows the number of attempted data replication transactions to the external database (e.g. VLR address at lcoation update). 
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REPLICATION_ATTEMPT)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REPLICATION_ATTEMPT (M400B1C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REPLICATION_SUCCESSFUL">
+    <formula>DBSDXI.REPLICATION_SUCCESSFUL</formula>
+    <kpi_info>
+      <title>REPLICATION_SUCCESSFUL</title>
+      <use>Counter shows the number of successful data replication transaction to the external database. Successful transaction means that the DXA acknowledges the request.
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REPLICATION_SUCCESSFUL)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REPLICATION_SUCCESSFUL (M400B1C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REPLICATION_RE_ATTEMPT">
+    <formula>DBSDXI.REPLICATION_RE_ATTEMPT</formula>
+    <kpi_info>
+      <title>REPLICATION_RE_ATTEMPT</title>
+      <use>Counter shows the number of data replication attempts towards external database initiated by the background replication process.
+
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REPLICATION_RE_ATTEMPT)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REPLICATION_RE_ATTEMPT (M400B1C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REPLICATION_RE_SUCCESSFUL">
+    <formula>DBSDXI.REPLICATION_RE_SUCCESSFUL</formula>
+    <kpi_info>
+      <title>REPLICATION_RE_SUCCESSFUL</title>
+      <use>Counter shows the number of successful replication attempts initiated by the background replication process.
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REPLICATION_RE_SUCCESSFUL)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REPLICATION_RE_SUCCESSFUL (M400B1C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FETCHING_ATTEMPT">
+    <formula>DBSDXI.FETCHING_ATTEMPT</formula>
+    <kpi_info>
+      <title>FETCHING_ATTEMPT</title>
+      <use>Counter shows the number of data fetching attempts from the external database. 
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FETCHING_ATTEMPT)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FETCHING_ATTEMPT (M400B1C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FETCHING_SUCCESSFUL">
+    <formula>DBSDXI.FETCHING_SUCCESSFUL</formula>
+    <kpi_info>
+      <title>FETCHING_SUCCESSFUL</title>
+      <use>Counter shows the number of successful data fetching from the external database. 
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FETCHING_SUCCESSFUL)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FETCHING_SUCCESSFUL (M400B1C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FETCHING_RE_ATTEMPT">
+    <formula>DBSDXI.FETCHING_RE_ATTEMPT</formula>
+    <kpi_info>
+      <title>FETCHING_RE_ATTEMPT</title>
+      <use>Counter shows the number of data fetching attempts which are resent towards external databas (e.g. first attempt fails and spare DXA answers data fetching attempt) from the external database. 
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FETCHING_RE_ATTEMPT)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FETCHING_RE_ATTEMPT (M400B1C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FETCHING_RE_SUCCESSFUL">
+    <formula>DBSDXI.FETCHING_RE_SUCCESSFUL</formula>
+    <kpi_info>
+      <title>FETCHING_RE_SUCCESSFUL</title>
+      <use>Counter shows the number of successful data fetching attempts which are resent.
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FETCHING_RE_SUCCESSFUL)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FETCHING_RE_SUCCESSFUL (M400B1C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMBER_OF_DIRTY_RECORDS">
+    <formula>DBSDXI.NUMBER_OF_DIRTY_RECORDS</formula>
+    <kpi_info>
+      <title>NUMBER_OF_DIRTY_RECORDS</title>
+      <use>Counter shows the number of dirty records per database on unit level in the moment of the report creation.
+
+Measured object:HLR/DB (Values in AUC/HLRU/Virtual/EIR/Service data)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMBER_OF_DIRTY_RECORDS)</formula>
+      <unit>Integer number</unit>
+      <tables>rns_ps_dbsdxi{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBER_OF_DIRTY_RECORDS (M400B1C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

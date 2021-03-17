@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_5012a">
+    <formula>100*decode(
+			(traffic.rel_edch_norm_str + 
+			traffic.rel_edch_hsdsch_scc_str + 
+			traffic.rel_edch_rl_fail_str + 
+			traffic.rel_edch_other_fail_str),0,null, 
+
+			(traffic.rel_edch_norm_str + 
+			traffic.rel_edch_hsdsch_scc_str)
+			 / 
+			(traffic.rel_edch_norm_str + 
+			traffic.rel_edch_hsdsch_scc_str + 
+			traffic.rel_edch_rl_fail_str + 
+			traffic.rel_edch_other_fail_str))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Resource Retainability for RT Traffic]]></title>
+      <use><![CDATA[The retainability of all successfully allocated E-DCH resources for RT traffic.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *
+&lt;br&gt;sum(REL_EDCH_NORM_STR + 
+&lt;br&gt;REL_EDCH_HSDSCH_SCC_STR)
+&lt;br&gt;/
+&lt;br&gt;sum(REL_EDCH_NORM_STR + 
+&lt;br&gt;REL_EDCH_HSDSCH_SCC_STR + 
+&lt;br&gt;REL_EDCH_RL_FAIL_STR + 
+&lt;br&gt;REL_EDCH_OTHER_FAIL_STR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:38.113 +0100</date>
+          <comment><![CDATA[Source: RSRAN003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSUPA res retain RT traf</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

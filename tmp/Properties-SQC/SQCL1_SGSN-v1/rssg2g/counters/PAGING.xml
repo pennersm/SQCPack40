@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 paging measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 paging measurement dump</csv_title>
+    <report-description>Paging measurement(PAGING)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <llgmm_paging_attempts />
+    <ra_level_pagings />
+    <sgsn_level_pagings />
+    <unsucc_pagings />
+    <!--gtp_data_in_bytes_sent_in_ul />
+    <gtp_data_in_bytes_sent_in_dl /-->
+    <DATA_PERIOD_DURATION />
+  </column_order>
+  <temp_table name="paging" meas_level="PLMN/SGSN/PAPU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="llgmm_paging_attempts" symmetrical="true">SUM(llgmm_paging_attempts)</counter>
+      <counter alias="ra_level_pagings" symmetrical="true">SUM(ra_level_pagings)</counter>
+      <counter alias="sgsn_level_pagings" symmetrical="true">SUM(sgsn_level_pagings)</counter>
+      <counter alias="unsucc_pagings" symmetrical="true">SUM(unsucc_pagings)</counter>
+<!--      <counter alias="gtp_data_in_bytes_sent_in_ul" symmetrical="true">SUM(gtp_data_in_bytes_sent_in_ul)</counter>
+      <counter alias="gtp_data_in_bytes_sent_in_dl" symmetrical="true">SUM(gtp_data_in_bytes_sent_in_dl)</counter> -->
+      <counter alias="DATA_PERIOD_DURATION" time-alias="DATA_PERIOD_DURATION" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+    </counters>
+    <table_name>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>paging</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>paging.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="llgmm_paging_attempts">
+    <formula>paging.llgmm_paging_attempts</formula>
+    <kpi_info>
+      <title>llgmm_paging_attempts</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(llgmm_paging_attempts)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>llgmm_paging_attempts</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ra_level_pagings">
+    <formula>paging.ra_level_pagings</formula>
+    <kpi_info>
+      <title>ra_level_pagings</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ra_level_pagings)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ra_level_pagings</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="sgsn_level_pagings">
+    <formula>paging.sgsn_level_pagings</formula>
+    <kpi_info>
+      <title>sgsn_level_pagings</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(sgsn_level_pagings)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sgsn_level_pagings</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="unsucc_pagings">
+    <formula>paging.unsucc_pagings</formula>
+    <kpi_info>
+      <title>unsucc_pagings</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(unsucc_pagings)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>unsucc_pagings</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!--kpi name="gtp_data_in_bytes_sent_in_ul">
+    <formula>paging.gtp_data_in_bytes_sent_in_ul</formula>
+    <kpi_info>
+      <title>gtp_data_in_bytes_sent_in_ul</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(gtp_data_in_bytes_sent_in_ul)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>gtp_data_in_bytes_sent_in_ul</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="gtp_data_in_bytes_sent_in_dl">
+    <formula>paging.gtp_data_in_bytes_sent_in_dl</formula>
+    <kpi_info>
+      <title>gtp_data_in_bytes_sent_in_dl</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(gtp_data_in_bytes_sent_in_dl)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>gtp_data_in_bytes_sent_in_dl</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+  <kpi name="DATA_PERIOD_DURATION">
+    <formula>paging.DATA_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>DATA_PERIOD_DURATION</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_paging_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATA_PERIOD_DURATION</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

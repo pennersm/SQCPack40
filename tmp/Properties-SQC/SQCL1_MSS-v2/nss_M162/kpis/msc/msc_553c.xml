@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/MEGMGW.xml" />
+  <kpi name="msc_553c">
+    <formula>
+		decode( megmgw.tot_hand_transactions_inc_rep, 0, null,
+			100 * (megmgw.tot_lost_transactions_inc_rep)
+			/ (megmgw.tot_hand_transactions_inc_rep)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Megaco lost transactions (in incoming replies) ratio]]></title>
+      <use><![CDATA[This KPI presents the ratio of the lost Megaco transactions compared to all the transactions sent by the MSS]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.4, the counter&#039;s source aggregated tables do change.
+<br>
+<br>NOTE: The counter in NetAct DB is missleading, but works OK. Loss of the transaction is noticed in the sending side if there is no response to a transaction and the T-MAX timer of the transaction expires.
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 11-01-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC; MGWMNAME;MGW_ID
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; MGWMNAME; MGW_ID
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MEGACO measurement M354
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+      	<![CDATA[
+<br>        SUM(TOT_LOST_TRANSACTIONS_INC_REP ) 
+<br>100 * -------------------------------------------------- 
+<br>        SUM( TOT_HAND_TRANSACTIONS_INC_REP ) 
+<br>
+<br>Counters from view(s):
+<br>RNS_PS_MEGMGW_&lt;Object&gt;_&lt;Time&gt;
+		]]>
+	  </formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_MEGMGW_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:57.886 +0000</date>
+          <comment><![CDATA[Source: RSMSC044.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Megaco Lost Trans Inc ReplieR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

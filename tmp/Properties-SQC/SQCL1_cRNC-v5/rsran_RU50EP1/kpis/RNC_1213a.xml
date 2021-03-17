@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1213a">
+    <formula>decode(
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr),0,null, 
+
+			(100*(pktcall.hs_e_req_d_d_allo_int + 
+			pktcall.hs_e_req_d_d_allo_bgr)
+			 / 
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[NRT HS-DSCH/E-DCH Packet Call Redirection Ratio - DCH/DCH]]></title>
+      <use><![CDATA[This KPI provides information about the ratio of DCH/DCH allocations after an HS-DCSH/E-DCH being requested, detailed for PS NRT traffic (PS Interactive &amp; Background).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(HS_E_REQ_D_D_ALLO_INT+HS_E_REQ_D_D_ALLO_BGR)
+&lt;br&gt;----------------------------------------------------
+&lt;br&gt;SUM(PS_ATT_HSDSCH_EDCH_INT+PS_ATT_HSDSCH_EDCH_BGR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NRT HSUPA redir DCH/DCH</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

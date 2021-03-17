@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+  <kpi name="mob_msc152c">
+    <formula>
+    nvl(ho1.inierplmniermscintragsmok,0) 
+			              + nvl(ho1.inierplmniermscgsmtoumtsok,0)
+			              + nvl(ho1.inierplmniermscumtstogsmok,0)
+			              + nvl(ho1.inierplmniermscintraumtsok,0)
+			              + nvl(ho1.IN_INTR_P_GSM_IHSPA_SUCC,0)
+            			  + nvl(ho1.IN_INTR_P_UMTS_IHSPA_SUCC,0)  
+			              + nvl(ho1.inierplmniermscintragsmnok,0) 
+			              + nvl(ho1.inierplmniermscgsmtoumtsnok,0) 
+			              + nvl(ho1.inierplmniermscumtstogsmnok,0) 
+		              	  + nvl(ho1.inierplmniermscintraumtsnok,0)
+		              	  + nvl(ho1.IN_INTR_P_GSM_IHSPA_FAIL,0)  
+            			  + nvl(ho1.IN_INTR_P_UMTS_IHSPA_FAIL,0)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Incoming Inter-PLMN HO attempts in the network]]></title>
+      <use><![CDATA[Indicates number of incoming Inter-PLMN HO attempts in the network.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Incoming inter-PLMN HOs cannot be known if HO fails before target MSC gets notification about the HO.
+<br>Starting from M14.6, this KPI already considers I-HSPA traffic.
+<br>In Incoming Inter-MSC handover cases it is not possible to identify if the source is UMTS or I-HSPA.
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 17-05-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Handover measurement  part 1 (M81/51H)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum(
+&lt;br&gt;			InIerPlmnIerMscIntraGsmOk 
+&lt;br&gt;            + InIerPlmnIerMscGsmToUmtsOk 
+&lt;br&gt;            + InIerPlmnIerMscUmtsToGsmOk 
+&lt;br&gt;            + InIerPlmnIerMscIntraUmtsOk 
+&lt;br&gt;            + IN_INTR_P_GSM_IHSPA_SUCC  
+&lt;br&gt;            + IN_INTR_P_UMTS_IHSPA_SUCC  
+&lt;br&gt;            +  InIerPlmnIerMscIntraGsmNok 
+&lt;br&gt;            + InIerPlmnIerMscGsmToUmtsNok 
+&lt;br&gt;            + InIerPlmnIerMscUmtsToGsmNok 
+&lt;br&gt;            + InIerPlmnIerMscIntraUmtsNok  
+&lt;br&gt;            + IN_INTR_P_GSM_IHSPA_FAIL  
+&lt;br&gt;            + IN_INTR_P_UMTS_IHSPA_FAIL)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s) :
+&lt;br&gt;RNS_PS_HO1_MSC_{time_agg}
+&lt;br&gt;BH counters from view(s)
+&lt;br&gt;RNS_PS_HO1BH_MSC_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Incoming Inter-PLMN HO attempts in the network]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

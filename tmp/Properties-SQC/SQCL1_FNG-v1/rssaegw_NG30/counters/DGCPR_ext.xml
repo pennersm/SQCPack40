@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="DGCPR_ext" meas_level="PLMN/FING/FNODE/GXXAPP/DGCPR" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="DIA_GX_CCA_PCRF_RECV">SUM(DIA_GX_CCA_PCRF_RECV)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="DIA_GX_CCA_PCRF_RECV_ALL">MAX(DIA_GX_CCA_PCRF_RECV_ALL)</counter>
+			<counter alias="DIA_GX_CCA_PCRF_RECV_2001"> SUM(decode(dgcpr_id,'2001',dia_gx_cca_pcrf_recv,'2002',dia_gx_cca_pcrf_recv, 0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		dgcpr.*,
+		DIA_GX_CCA_PCRF_RECV_ALL,
+		DIA_GX_CCA_PCRF_RECV_2001
+FROM
+	pcofng_ps_dgcpr_dgcpr_{TIME_AGG} dgcpr,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(DIA_GX_CCA_PCRF_RECV) DIA_GX_CCA_PCRF_RECV_ALL,
+			SUM(DECODE(DGCPR_ID,'2001',DIA_GX_CCA_PCRF_RECV,'2002',DIA_GX_CCA_PCRF_RECV,0)) DIA_GX_CCA_PCRF_RECV_2001
+		FROM
+			 pcofng_ps_dgcpr_dgcpr_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	dgcpr.fing_id = fnode_level.fing_id and fnode_level.fnode_id = dgcpr.fnode_id and 
+	dgcpr.period_start_time = fnode_level.period_start_time AND
+	dgcpr.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	dgcpr.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+
+			]]>
+		</table_name>
+		<alias_name>DGCPR_ext</alias_name>
+	</temp_table>
+  <kpi name="period_duration">
+    <formula>DGCPR_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dgcpr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_CCA_PCRF_RECV">
+    <formula>DGCPR_ext.DIA_GX_CCA_PCRF_RECV</formula>
+    <kpi_info>
+      <title>DIA_GX_CCA_PCRF_RECV</title>
+      <use>This counter contains the total number of received Gx CCA messages from PCRF by cause code. UPDATED: Updated when a Gx CCA message is received from PCRF</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GX_CCA_PCRF_RECV)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_dgcpr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCA_PCRF_RECV (m3068c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+	<!-- Auxiliary Counters -->
+  <kpi name="DIA_GX_CCA_PCRF_RECV_ALL">
+    <formula>DGCPR_ext.DIA_GX_CCA_PCRF_RECV_ALL</formula>
+    <kpi_info>
+      <title>DIA_GX_CCA_PCRF_RECV_ALL</title>
+      <use>This counter contains the total number of received Gx CCA messages from PCRF by cause code. UPDATED: Updated when a Gx CCA message is received from PCRF</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(DIA_GX_CCA_PCRF_RECV_ALL)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_dgcpr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCA_PCRF_RECV_ALL (m3068c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_CCA_PCRF_RECV_2001">
+    <formula>DGCPR_ext.DIA_GX_CCA_PCRF_RECV_2001</formula>
+    <kpi_info>
+      <title>DIA_GX_CCA_PCRF_RECV_2001</title>
+      <use>This counter contains the number of received Gx CCA messages from PCRF by cause code 2001 or 2002.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DECODE(DGCPR_ID,2001 or 2002,DIA_GX_CCA_PCRF_RECV,0))</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_dgcpr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCA_PCRF_RECV_2001 (m3068c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

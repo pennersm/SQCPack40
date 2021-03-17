@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>M3UAT (M3UA Traffic Statistics)</header>
+    <csv_title>M3UAT (M3UA Traffic Statistics)</csv_title>
+    <report-description>M3UA Traffic Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <USER_DATA_MSG_SENT_NODE/>
+    <USER_DATA_MSG_RECEIVED_NODE/>
+    <CTRL_MSG_SENT_NODE/>
+    <CTRL_MSG_RCVD_NODE/>
+    <USER_DATA_OCTET_SENT_NODE/>
+    <USER_DATA_OCTET_RECEIVED_NODE/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="M3UAT" omes_name="M3UATraffic" meas_level="PLMN/RSRAN-RNC/RSRAN-FPNODE" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>M3UAT</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="USER_DATA_MSG_SENT_NODE" symmetrical="true">SUM(USER_DATA_MSG_SENT_NODE)</counter>
+          <counter alias="USER_DATA_MSG_RECEIVED_NODE" symmetrical="true">SUM(USER_DATA_MSG_RECEIVED_NODE)</counter>
+          <counter alias="CTRL_MSG_SENT_NODE" symmetrical="true">SUM(CTRL_MSG_SENT_NODE)</counter>
+          <counter alias="CTRL_MSG_RCVD_NODE" symmetrical="true">SUM(CTRL_MSG_RCVD_NODE)</counter>
+          <counter alias="USER_DATA_OCTET_SENT_NODE" symmetrical="true">SUM(USER_DATA_OCTET_SENT_NODE)</counter>
+          <counter alias="USER_DATA_OCTET_RECEIVED_NODE" symmetrical="true">SUM(USER_DATA_OCTET_RECEIVED_NODE)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>M3UAT</alias_name>
+    <ui_name>M3UA Traffic Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>M3UAT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USER_DATA_MSG_SENT_NODE">
+    <formula>M3UAT.USER_DATA_MSG_SENT_NODE</formula>
+    <kpi_info>
+      <title>USER_DATA_MSG_SENT_NODE (M2013C2)</title>
+      <use>The number of user data messages sent by M3UA. This includes messages sent on all the connections. UPDATED: When a user data message is sent on the connection.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(USER_DATA_MSG_SENT_NODE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DATA_MSG_SENT_NODE (M2013C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USER_DATA_MSG_RECEIVED_NODE">
+    <formula>M3UAT.USER_DATA_MSG_RECEIVED_NODE</formula>
+    <kpi_info>
+      <title>USER_DATA_MSG_RECEIVED_NODE (M2013C3)</title>
+      <use>The number of user data messages received by the M3UA stack. This includes messages received on all the connections. UPDATED: When a user data message is received on the connection.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(USER_DATA_MSG_RECEIVED_NODE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DATA_MSG_RECEIVED_NODE (M2013C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTRL_MSG_SENT_NODE">
+    <formula>M3UAT.CTRL_MSG_SENT_NODE</formula>
+    <kpi_info>
+      <title>CTRL_MSG_SENT_NODE (M2013C4)</title>
+      <use>The number of control messages sent by the M3UA stack. This includes messages sent on all the connections. UPDATED: When a M3UA message is sent to the peer M3UA node.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTRL_MSG_SENT_NODE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTRL_MSG_SENT_NODE (M2013C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CTRL_MSG_RCVD_NODE">
+    <formula>M3UAT.CTRL_MSG_RCVD_NODE</formula>
+    <kpi_info>
+      <title>CTRL_MSG_RCVD_NODE (M2013C5)</title>
+      <use>The number of control messages received by the M3UA stack. This includes messages received on all the connections. UPDATED: When a M3UA message is received from the peer M3UA node.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CTRL_MSG_RCVD_NODE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CTRL_MSG_RCVD_NODE (M2013C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USER_DATA_OCTET_SENT_NODE">
+    <formula>M3UAT.USER_DATA_OCTET_SENT_NODE</formula>
+    <kpi_info>
+      <title>USER_DATA_OCTET_SENT_NODE (M2013C6)</title>
+      <use>The number of user octets sent by the M3UA stack. This includes messages sent on all the connections. UPDATED: When a user data message is sent on the connection.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(USER_DATA_OCTET_SENT_NODE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DATA_OCTET_SENT_NODE (M2013C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USER_DATA_OCTET_RECEIVED_NODE">
+    <formula>M3UAT.USER_DATA_OCTET_RECEIVED_NODE</formula>
+    <kpi_info>
+      <title>USER_DATA_OCTET_RECEIVED_NODE (M2013C7)</title>
+      <use>The number of user octets received by the M3UA stack. This includes messages received on all the connections. UPDATED: When a user data message is received on the connection.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(USER_DATA_OCTET_RECEIVED_NODE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DATA_OCTET_RECEIVED_NODE (M2013C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>M3UAT.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_m3uat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

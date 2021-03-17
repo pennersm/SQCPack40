@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="msc_2055c">
+    <formula>100*nvl(decode(
+	                       (VLRNMSC.SIM_AVG_REG_TOTAL + 
+						   VLRNMSC.USIM_AVG_REG_TOTAL + 
+						   VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null,
+						   (VLRNMSC.ATT_SIM_AVG_TOTAL + 
+						   VLRNMSC.ATT_USIM_AVG_TOTAL + 
+						   VLRNMSC.ATT_UNKNOWN_AVG_TOTAL)
+						   / 
+						   (VLRNMSC.SIM_AVG_REG_TOTAL + 
+						   VLRNMSC.USIM_AVG_REG_TOTAL + 
+						   VLRNMSC.UNKNOWN_AVG_REG_TOTAL)
+						   ),
+					decode(
+						  (VLRNMSC.REG_AVG_TOTAL),0,null, 
+						  (VLRNMSC.ATT_AVG_TOTAL)
+						  / 
+						  (VLRNMSC.REG_AVG_TOTAL)
+						  )
+					)
+	</formula>	
+	<kpi_info>
+      <title><![CDATA[Ratio of attached subscribers in VLR. Parameter superset.]]></title>
+      <use><![CDATA[The ratio of the attached normal subscribers related to the number of registered normal subscribers in VLR during the reporting time.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>
+		<br>This KPI is applicable if (SIM_USIM_MEAS_PER_LAI) + (ENH_VLR_MEAS_PER_LAC) FIFILE parameters are activated and if (ENH_VLR_MEAS_PER_LAC) parameter is activated but (SIM_USIM_MEAS_PER_LAI) is not activated.
+		<br>If ENH_VLR_MEAS_PER_LAC is not activated it's not possible to calculate this KPI.
+		<br>
+		<br>This 2 to 1 KPI approach is achieved by taking advantage of the NVL function: NVL( msc_2055a , msc_2055b )
+		<br>The implemented formula covers two different KPI specifications: 
+		<br>
+		<br>=>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are activated, the KPI formula is specified by "msc_2055a" 
+		<br>=>If ENH_VLR_MEAS_PER_LAC is activated but SIM_USIM_MEAS_PER_LAI is not activated, the KPI formula is specified by "msc_2055b"
+		<br>=>If ENH_VLR_MEAS_PER_LAC is not activated it's not possible to calculate this KPI.
+		<br>
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Subscriber
+		<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+		<br>
+		<br>NOTES: This KPI includes optional features.
+		<br>
+		<br>The SIM_USIM_MEAS_PER_LAI FIFILE functionality must be provided and active in order for this SIM + USIM + UNKNOWN counter details to be available.
+		<br>The ENH_VLR_MEAS_PER_LAC FIFILE functionality must be provided and active in order to have ATTACHED + REGISTERED + NATIONAL ROAMING + INTERNATIONAL ROAMING counter details to be available.
+		<br>]]>
+		</use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      	<formula>
+		&lt;br&gt; 
+		&lt;br&gt;                  ( ATT_SIM_AVG_TOTAL + ATT_USIM_AVG_TOTAL + ATT_UNKNOWN_AVG_TOTAL)
+		&lt;br&gt;msc_2055a = 100 * ---------------------------------------------------------------------------------------------------------
+		&lt;br&gt;                  ( SIM_AVG_REG_TOTAL + USIM_AVG_REG_TOTAL + UNKNOWN_AVG_REG_TOTAL ) 
+		&lt;br&gt; 
+		&lt;br&gt; 
+		&lt;br&gt;
+		&lt;br&gt;                   ATT_AVG_TOTAL 
+		&lt;br&gt;msc_2055b = 100 * --------------------
+		&lt;br&gt;                   REG_AVG_TOTAL 
+		&lt;br&gt;
+		&lt;br&gt;	
+		&lt;br&gt;
+		&lt;br&gt; nvl(  
+		&lt;br&gt; decode( 
+		&lt;br&gt;    ( VLRNMSC.SIM_AVG_REG_TOTAL +  
+		&lt;br&gt;      VLRNMSC.USIM_AVG_REG_TOTAL +  
+		&lt;br&gt;      VLRNMSC.UNKNOWN_AVG_REG_TOTAL ), 0, null,  
+		&lt;br&gt; 100 *  
+		&lt;br&gt;    ( VLRNMSC.ATT_SIM_AVG_TOTAL +  
+		&lt;br&gt;      VLRNMSC.ATT_USIM_AVG_TOTAL +  
+		&lt;br&gt;      VLRNMSC.ATT_UNKNOWN_AVG_TOTAL ) 
+		&lt;br&gt;     /  
+		&lt;br&gt;    ( VLRNMSC.SIM_AVG_REG_TOTAL +  
+		&lt;br&gt;      VLRNMSC.USIM_AVG_REG_TOTAL +  
+		&lt;br&gt;      VLRNMSC.UNKNOWN_AVG_REG_TOTAL ) ) 
+		&lt;br&gt; , 
+		&lt;br&gt; decode( 
+		&lt;br&gt;    ( VLRNMSC.REG_AVG_TOTAL), 0, null,  
+		&lt;br&gt; 100 *  
+		&lt;br&gt;    ( VLRNMSC.ATT_AVG_TOTAL ) 
+		&lt;br&gt;     /  
+		&lt;br&gt;    ( VLRNMSC.REG_AVG_TOTAL ) ) 
+		&lt;br&gt; )
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Att Subs Rt VLR Param SuperSet]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

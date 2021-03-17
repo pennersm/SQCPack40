@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml">
+		<counters>
+			<counter alias="rnc_214a">sum(rrc_conn_stp_att)</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_331b">
+		<formula>
+			decode((servlev.rnc_214a),0,null,(100*(servlev.rrc_conn_stp_fail_trans)/servlev.rnc_214a))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RRC Setup FR due to TRANS]]>
+			</title>
+			<use>
+				<![CDATA[Percentage of RRC setup failures caused by Transmission.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum(RRC_CONN_STP_FAIL_TRANS)
+---------- 
+RNC_214a
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RRC Setup FR due to TRANS]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

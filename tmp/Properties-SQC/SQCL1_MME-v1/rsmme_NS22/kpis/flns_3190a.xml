@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/S11.xml" />
+  <kpi name="flns_3190a">
+    <formula>decode(
+            s11.s11_gtp2_msg_rcv,0,null,
+            
+            (s11.s11_gtp2_msg_decode_fail
+            / 
+            s11.s11_gtp2_msg_rcv))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S11 messages received error ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of S11 (GTP-C v2) messages received with decoding failure.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(S11_GTP2_MSG_DECODE_FAIL)
+&lt;br&gt;------------------------------ *100
+&lt;br&gt;sum(S11_GTP2_MSG_RCV)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_S11_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.650 +0100</date>
+          <comment><![CDATA[Source: RSMME017.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S11 msgs rcvd rerr atio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

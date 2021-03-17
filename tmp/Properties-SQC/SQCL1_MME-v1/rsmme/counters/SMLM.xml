@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.0;NS1.0 CD4;NS1.0 CD2 M54 SMLM measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.0;NS1.0 CD4;NS1.0 CD2 M54 SMLM measurement dump</csv_title>
+    <report-description>Security Measurement(SMLM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <EPS_AUTH_SUCC />
+    <EPS_AUTH_FAIL_BY_UE />
+    <EPS_AUTH_REJECT_BY_MME />
+    <EPS_SEC_MODE_PROC_SUCC />
+    <EPS_SEC_MODE_PROC_FAIL />
+    <EPS_IDENTITY_REQUEST_SUCC />
+    <EPS_IDENTITY_REQUEST_FAIL />
+  </column_order>
+  <temp_table name="SMLM" meas_level="PLMN/FLEXINS" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_AUTH_SUCC" time-alias="EPS_AUTH_SUCC" timeagg="SUM(EPS_AUTH_SUCC)">SUM(EPS_AUTH_SUCC)</counter>
+      <counter alias="EPS_AUTH_FAIL_BY_UE" time-alias="EPS_AUTH_FAIL_BY_UE" timeagg="SUM(EPS_AUTH_FAIL_BY_UE)">SUM(EPS_AUTH_FAIL_BY_UE)</counter>
+      <counter alias="EPS_AUTH_REJECT_BY_MME" time-alias="EPS_AUTH_REJECT_BY_MME" timeagg="SUM(EPS_AUTH_REJECT_BY_MME)">SUM(EPS_AUTH_REJECT_BY_MME)</counter>
+      <counter alias="EPS_SEC_MODE_PROC_SUCC" time-alias="EPS_SEC_MODE_PROC_SUCC" timeagg="SUM(EPS_SEC_MODE_PROC_SUCC)">SUM(EPS_SEC_MODE_PROC_SUCC)</counter>
+      <counter alias="EPS_SEC_MODE_PROC_FAIL" time-alias="EPS_SEC_MODE_PROC_FAIL" timeagg="SUM(EPS_SEC_MODE_PROC_FAIL)">SUM(EPS_SEC_MODE_PROC_FAIL)</counter>
+      <counter alias="EPS_IDENTITY_REQUEST_SUCC" time-alias="EPS_IDENTITY_REQUEST_SUCC" timeagg="SUM(EPS_IDENTITY_REQUEST_SUCC)">SUM(EPS_IDENTITY_REQUEST_SUCC)</counter>
+      <counter alias="EPS_IDENTITY_REQUEST_FAIL" time-alias="EPS_IDENTITY_REQUEST_FAIL" timeagg="SUM(EPS_IDENTITY_REQUEST_FAIL)">SUM(EPS_IDENTITY_REQUEST_FAIL)</counter>
+    </counters>
+    <table_name>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SMLM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SMLM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_AUTH_SUCC">
+    <formula>SMLM.EPS_AUTH_SUCC</formula>
+    <kpi_info>
+      <title>EPS_AUTH_SUCC</title>
+      <use>The number of successfully performed authentication procedures</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_AUTH_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_AUTH_SUCC (M54C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_AUTH_FAIL_BY_UE">
+    <formula>SMLM.EPS_AUTH_FAIL_BY_UE</formula>
+    <kpi_info>
+      <title>EPS_AUTH_FAIL_BY_UE</title>
+      <use>The number of failed authentication procedure caused by UE.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_AUTH_FAIL_BY_UE)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_AUTH_FAIL_BY_UE (M54C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_AUTH_REJECT_BY_MME">
+    <formula>SMLM.EPS_AUTH_REJECT_BY_MME</formula>
+    <kpi_info>
+      <title>EPS_AUTH_REJECT_BY_MME</title>
+      <use>The number of authentication procedure rejected by MME.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_AUTH_REJECT_BY_MME)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_AUTH_REJECT_BY_MME (M54C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_SEC_MODE_PROC_SUCC">
+    <formula>SMLM.EPS_SEC_MODE_PROC_SUCC</formula>
+    <kpi_info>
+      <title>EPS_SEC_MODE_PROC_SUCC</title>
+      <use>The number of successfully performed security mode procedures</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_SEC_MODE_PROC_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_SEC_MODE_PROC_SUCC (M54C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_SEC_MODE_PROC_FAIL">
+    <formula>SMLM.EPS_SEC_MODE_PROC_FAIL</formula>
+    <kpi_info>
+      <title>EPS_SEC_MODE_PROC_FAIL</title>
+      <use>The number of failed security mode procedures.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_SEC_MODE_PROC_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_SEC_MODE_PROC_FAIL (M54C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_IDENTITY_REQUEST_SUCC">
+    <formula>SMLM.EPS_IDENTITY_REQUEST_SUCC</formula>
+    <kpi_info>
+      <title>EPS_IDENTITY_REQUEST_SUCC</title>
+      <use>The number of successfully performed identity request procedures.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_IDENTITY_REQUEST_SUCC)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_IDENTITY_REQUEST_SUCC (M54C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_IDENTITY_REQUEST_FAIL">
+    <formula>SMLM.EPS_IDENTITY_REQUEST_FAIL</formula>
+    <kpi_info>
+      <title>EPS_IDENTITY_REQUEST_FAIL</title>
+      <use>The number failed identity request procedures.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_IDENTITY_REQUEST_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_smlm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_IDENTITY_REQUEST_FAIL (M54C006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml" />
+  <kpi name="msc_1313a">
+    <formula>
+cgr.CGRCGROUP_ANSW_TRAFF_IN_X100/100
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Incoming calls answered traffic per TDM CGR]]></title>
+      <use><![CDATA[Indicates the answered traffic for incoming calls. The traffic is calculated from the moment the call is answered until the call release.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For OBJECT level:
+&lt;br&gt;SUM( CGRCGROUP_ANSW_TRAFF_IN_X100_1 ) / 100
+&lt;br&gt;
+&lt;br&gt;For TIME level: 
+&lt;br&gt;AVG( CGRCGROUP_ANSW_TRAFF_IN_X100_1 ) / 100
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;SUM( CGRCGROUP_ANSW_TRAFF_IN_X100_1 ) / 100 / COUNT( DISTINCT period_start_time )</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_CGR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inc answ call traff</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

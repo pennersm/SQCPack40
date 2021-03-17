@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>RNC_capa_usage</header>
+    <csv_title>Nokia Siemens RNC RN5.0;RN4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 RNC_capa_usage CAPAUSE measurement dump</csv_title>
+    <report-description>RNC Capacity Usage</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsran/RSRAN.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CAPAUSE_ext2" meas_level="PLMN/RNC5" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="SUM_OF_MAX_RRC_CONN_MODE_USERS">SUM(MAX_RRC_CONN_MODE_USERS)</counter>
+      <counter alias="RNC_COUNT">MAX(RNC_COUNT)</counter>
+    </counters>
+    <table_name>
+    <![CDATA[(select
+    			#time_level_key# period_start_time,
+				rnc.co_gid rnc_id,
+				MAX(MAX_RRC_CONN_MODE_USERS) MAX_RRC_CONN_MODE_USERS,
+				COUNT(DISTINCT RNC_ID) RNC_COUNT
+			from
+				#grouping_sql#
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				nokrww_ps_capause_{OBJ_AGG}_{TIME_AGG} p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				rnc.co_gid = p.rnc_id and
+				rnc.co_parent_gid = plmn.co_gid and
+				plmn.co_oc_id=16 and
+				rnc.co_oc_id=811
+			group by
+				#time_level_key#,
+				rnc.co_gid)]]>
+	</table_name>
+    <alias_name>CAPAUSE_ext2</alias_name>
+  </temp_table>
+</conf_file>
+

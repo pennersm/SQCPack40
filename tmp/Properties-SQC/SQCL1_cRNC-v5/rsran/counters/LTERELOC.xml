@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LTERELOC (LTE Relocation)</header>
+    <csv_title>LTERELOC (LTE Relocation)</csv_title>
+    <report-description>LTE Relocation measurement (M1036) measures RANAP signalling of outgoing inter-system handover from 3G to LTE.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <LTE_PS_ISHO_OUT_PREP_REQ/>
+    <LTE_PS_ISHO_OUT_PREP_SUCC/>
+    <LTE_PS_ISHO_OUT_FAIL_RNL/>
+    <LTE_PS_ISHO_OUT_FAIL_TRL/>
+    <LTE_PS_ISHO_OUT_FAIL_NAS/>
+    <LTE_PS_ISHO_OUT_FAIL_PROT/>
+    <LTE_PS_ISHO_OUT_FAIL_MISC/>
+    <LTE_PS_ISHO_OUT_FAIL_NST/>
+    <LTE_PS_ISHO_CANCEL_TOTAL/>
+    <LTE_PS_ISHO_FAIL_OVE_TIME/>
+    <LTE_PS_ISHO_CANCEL_PREP_TIME/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LTERELOC" omes_name="LTE_Relocation" meas_level="PLMN/RSRAN-RNC/RSRAN-ENB-1/RSRAN-RMSC-3/RSRAN-RSGS-3/RSRAN-MCC-11/RSRAN-MNC-11" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>LTERELOC</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_PREP_REQ" symmetrical="true">SUM(LTE_PS_ISHO_OUT_PREP_REQ)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_PREP_SUCC" symmetrical="true">SUM(LTE_PS_ISHO_OUT_PREP_SUCC)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_FAIL_RNL" symmetrical="true">SUM(LTE_PS_ISHO_OUT_FAIL_RNL)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_FAIL_TRL" symmetrical="true">SUM(LTE_PS_ISHO_OUT_FAIL_TRL)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_FAIL_NAS" symmetrical="true">SUM(LTE_PS_ISHO_OUT_FAIL_NAS)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_FAIL_PROT" symmetrical="true">SUM(LTE_PS_ISHO_OUT_FAIL_PROT)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_FAIL_MISC" symmetrical="true">SUM(LTE_PS_ISHO_OUT_FAIL_MISC)</counter>
+          <counter alias="LTE_PS_ISHO_OUT_FAIL_NST" symmetrical="true">SUM(LTE_PS_ISHO_OUT_FAIL_NST)</counter>
+          <counter alias="LTE_PS_ISHO_CANCEL_TOTAL" symmetrical="true">SUM(LTE_PS_ISHO_CANCEL_TOTAL)</counter>
+          <counter alias="LTE_PS_ISHO_FAIL_OVE_TIME" symmetrical="true">SUM(LTE_PS_ISHO_FAIL_OVE_TIME)</counter>
+          <counter alias="LTE_PS_ISHO_CANCEL_PREP_TIME" symmetrical="true">SUM(LTE_PS_ISHO_CANCEL_PREP_TIME)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LTERELOC</alias_name>
+    <ui_name>LTE Relocation</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LTERELOC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_PREP_REQ">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_PREP_REQ</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_PREP_REQ (M1036C0)</title>
+      <use>The number of outgoing LTE PS ISHO preparation requests. UPDATED: When the RNC sends RANAP: RELOCATION REQUIRED to the SGSN.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_PREP_REQ)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_PREP_REQ (M1036C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_PREP_SUCC">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_PREP_SUCC</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_PREP_SUCC (M1036C1)</title>
+      <use>The number of successful outgoing LTE PS ISHO preparations. UPDATED: When the RNC receives RANAP: RELOCATION COMMAND from the SGSN.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_PREP_SUCC)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_PREP_SUCC (M1036C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_FAIL_RNL">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_FAIL_RNL</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_FAIL_RNL (M1036C2)</title>
+      <use>The number of failed outgoing LTE PS ISHO preparations due to radio network layer cause. UPDATED: When the RNC receives RANAP: RELOCATION PREPARATION FAILURE from the SGSN during an outgoing LTE PS ISHO with "radio network layer" or "radio network layer extension" category as the cause.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_FAIL_RNL)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_FAIL_RNL (M1036C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_FAIL_TRL">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_FAIL_TRL</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_FAIL_TRL (M1036C3)</title>
+      <use>The number of failed outgoing LTE PS ISHO preparations due to transport layer cause. UPDATED: When the RNC receives RANAP: RELOCATION PREPARATION FAILURE from the SGSN during outgoing LTE PS ISHO with "transport layer" category as the cause.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_FAIL_TRL)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_FAIL_TRL (M1036C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_FAIL_NAS">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_FAIL_NAS</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_FAIL_NAS (M1036C4)</title>
+      <use>The number of failed outgoing LTE PS ISHO preparations due to non-access stratum cause. UPDATED: When the RNC receives RANAP: RELOCATION PREPARATION FAILURE from the SGSN during an outgoing LTE PS ISHO with "non-access stratum" category as the cause.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_FAIL_NAS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_FAIL_NAS (M1036C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_FAIL_PROT">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_FAIL_PROT</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_FAIL_PROT (M1036C5)</title>
+      <use>The number of failed outgoing LTE PS ISHO preparations due to protocol cause. UPDATED: When the RNC receives RANAP: RELOCATION PREPARATION FAILURE from the SGSN during an outgoing LTE PS ISHO with "protocol" category as the cause.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_FAIL_PROT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_FAIL_PROT (M1036C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_FAIL_MISC">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_FAIL_MISC</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_FAIL_MISC (M1036C6)</title>
+      <use>The number of failed outgoing LTE PS ISHO preparations due to miscellaneous cause. UPDATED: When the RNC receives RANAP: RELOCATION PREPARATION FAILURE from the SGSN during an outgoing LTE PS ISHO with "miscellaneous" category as the cause.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_FAIL_MISC)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_FAIL_MISC (M1036C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_OUT_FAIL_NST">
+    <formula>LTERELOC.LTE_PS_ISHO_OUT_FAIL_NST</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_OUT_FAIL_NST (M1036C7)</title>
+      <use>The number of failed outgoing LTE PS ISHO preparations due to non-standard cause. UPDATED: When the RNC receives RANAP: RELOCATION PREPARATION FAILURE from the SGSN during an outgoing LTE PS ISHO with "non-standard" category as the cause.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_OUT_FAIL_NST)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_OUT_FAIL_NST (M1036C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_CANCEL_TOTAL">
+    <formula>LTERELOC.LTE_PS_ISHO_CANCEL_TOTAL</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_CANCEL_TOTAL (M1036C8)</title>
+      <use>The total number of LTE PS ISHO cancellations by the RNC.Counter M1036C10 can be updated along with this counter if the reason for cancellation was timer expiry. UPDATED: When the RNC sends RANAP: RELOCATION CANCEL to the core network.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_CANCEL_TOTAL)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_CANCEL_TOTAL (M1036C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_FAIL_OVE_TIME">
+    <formula>LTERELOC.LTE_PS_ISHO_FAIL_OVE_TIME</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_FAIL_OVE_TIME (M1036C9)</title>
+      <use>The number of LTE PS ISHO failures due to timer TRelocOverall expiry. UPDATED: When the RNC sends RANAP: IU RELEASE REQUEST or RANAP: RELOCATION CANCEL to the core network after TRelocOverall timer expiry. If Relocation Cancel was sent, M1036C8 is also updated along with this counter.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_FAIL_OVE_TIME)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_FAIL_OVE_TIME (M1036C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_PS_ISHO_CANCEL_PREP_TIME">
+    <formula>LTERELOC.LTE_PS_ISHO_CANCEL_PREP_TIME</formula>
+    <kpi_info>
+      <title>LTE_PS_ISHO_CANCEL_PREP_TIME (M1036C10)</title>
+      <use>The number of LTE PS ISHO cancellations by the RNC due to timer TRelocPrep expiry. M1036C8 is also updated along with this counter. UPDATED: When the RNC sends RANAP: RELOCATION CANCEL to the core network after TRelocPrep timer expiry.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_PS_ISHO_CANCEL_PREP_TIME)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_PS_ISHO_CANCEL_PREP_TIME (M1036C10)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LTERELOC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ltereloc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

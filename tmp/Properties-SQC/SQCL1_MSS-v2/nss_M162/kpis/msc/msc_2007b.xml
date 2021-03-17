@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+  <kpi name="msc_2007b">
+    <formula>decode(
+			(HO1.intramscgsmtoumtsok + 
+			HO1.intramscgsmtoumtsnok + 
+			HO1.interplmnintramscgsmtoumtsok + 
+			HO1.interplmnintramscgsmtoumtsnok + 
+			HO1.incomingintermscgsmtoumtsok + 
+			HO1.incomingintermscgsmtoumtsnok + 
+			HO1.outgoingintermscgsmtoumtsok + 
+			HO1.outgoingintermscgsmtoumtsnok + 
+			HO1.inierplmniermscgsmtoumtsok + 
+			HO1.inierplmniermscgsmtoumtsnok + 
+			HO1.outierplmniermscgsmtoumtsok + 
+			HO1.outierplmniermscgsmtoumtsnok),0,null,
+			( 100 * 
+			(HO1.intramscgsmtoumtsok + 
+			HO1.interplmnintramscgsmtoumtsok + 
+			HO1.incomingintermscgsmtoumtsok + 
+			HO1.outgoingintermscgsmtoumtsok + 
+			HO1.inierplmniermscgsmtoumtsok + 
+			HO1.outierplmniermscgsmtoumtsok)
+			 / 
+			(HO1.intramscgsmtoumtsok + 
+			HO1.intramscgsmtoumtsnok + 
+			HO1.interplmnintramscgsmtoumtsok + 
+			HO1.interplmnintramscgsmtoumtsnok + 
+			HO1.incomingintermscgsmtoumtsok + 
+			HO1.incomingintermscgsmtoumtsnok + 
+			HO1.outgoingintermscgsmtoumtsok + 
+			HO1.outgoingintermscgsmtoumtsnok + 
+			HO1.inierplmniermscgsmtoumtsok + 
+			HO1.inierplmniermscgsmtoumtsnok + 
+			HO1.outierplmniermscgsmtoumtsok + 
+			HO1.outierplmniermscgsmtoumtsnok)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter System HO (GSM -> UMTS) Success Ratio]]></title>
+      <use><![CDATA[Inter System HO (GSM -> UMTS) Success Ratio]]></use>
+
+	<use_experience><![CDATA[ 
+	<br>In order to avoid double count, this KPI should only be used at MSC level.
+	<br>In Incoming Inter-MSC handover cases it is not possible to identify if the source is UMTS or I-HSPA.
+	<br>In Outgoing Inter-MSC handover cases it is not possible to identify if the target is UMTS or I-HSPA.
+	<br>
+	<br>PUBLISHED: M14.6
+	<br>
+	<br>RECOMMENDED SUMMARY LEVELS: MSC
+	<br>KPI CLASS: Mobility
+	<br>MEASUREMENT(S): Handover measurement  part 1 (M81/51H)
+	<br>
+	<br>]]></use_experience>
+	
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      <formula>&lt;br&gt;
+	  &lt;br&gt;SUM( intraMscGsmToUmtsOk  
+	  &lt;br&gt;   + InterPlmnIntraMscGsmToUmtsOk   
+	  &lt;br&gt;   + IncomingInterMscGsmToUmtsOk   
+	  &lt;br&gt;   + OutgoingInterMscGsmToUmtsOk   
+	  &lt;br&gt;   + InIerPlmnIerMscGsmToUmtsOk     
+	  &lt;br&gt;   + OutIerPlmnIerMscGsmToUmtsOk  ) 
+	  &lt;br&gt;------------------------------------- * 100 
+	  &lt;br&gt;SUM( intraMscGsmToUmtsOk  
+	  &lt;br&gt;   + intraMscGsmToUmtsNok  
+	  &lt;br&gt;   + InterPlmnIntraMscGsmToUmtsOk   
+	  &lt;br&gt;   + InterPlmnIntraMscGsmToUmtsNok  
+	  &lt;br&gt;   + IncomingInterMscGsmToUmtsOk   
+	  &lt;br&gt;   + IncomingInterMscGsmToUmtsNok  
+	  &lt;br&gt;   + OutgoingInterMscGsmToUmtsOk   
+	  &lt;br&gt;   + OutgoingInterMscGsmToUmtsNok  
+	  &lt;br&gt;   + InIerPlmnIerMscGsmToUmtsOk   
+	  &lt;br&gt;   + InIerPlmnIerMscGsmToUmtsNok   
+	  &lt;br&gt;   + OutIerPlmnIerMscGsmToUmtsOk  
+	  &lt;br&gt;   + OutIerPlmnIerMscGsmToUmtsNok ) 
+	  &lt;br&gt;
+	  &lt;br&gt;Use Aggregated tables</formula>
+	  
+      <unit>[%]</unit>
+      <tables>RNS_PS_HO1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IntSysHO GSM UMTS SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

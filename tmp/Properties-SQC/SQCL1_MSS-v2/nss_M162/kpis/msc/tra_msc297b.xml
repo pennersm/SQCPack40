@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ANN.xml"/>
+  <kpi name="tra_msc297b">
+    <formula>100*(decode(
+			(ann.vanid_calls + 
+			ann.vanid_congested_calls),0,null, 
+
+			ann.vanid_congested_calls
+			 / 
+			(ann.vanid_calls + 
+			ann.vanid_congested_calls)))</formula>
+    <kpi_info>
+      <title><![CDATA[Announcement failure ratio of internal announcement device]]></title>
+      <use><![CDATA[Indicates failure ratio of announcements given by internal announcement device.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum(VANID_CONGESTED_CALLS)
+&lt;br&gt;   100 * ---------------------------------------- 
+&lt;br&gt;          sum(VANID_CALLS + VANID_CONGESTED_CALLS)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_ANN_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ann_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Announcement failure ratio of internal announcement device]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

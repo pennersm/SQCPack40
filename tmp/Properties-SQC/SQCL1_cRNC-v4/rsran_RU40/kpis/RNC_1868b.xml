@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <kpi name="RNC_1868b">
+    <formula>decode(
+			(((SERVLEV.denom_rab_hld_tm_cs_conv)*100*60*60)),0,null, 
+
+			(1000*(SERVLEV.avg_rab_hld_tm_cs_conv))
+			 / 
+			(((SERVLEV.denom_rab_hld_tm_cs_conv)*100*60*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average CS Conversational traffic per call]]></title>
+      <use><![CDATA[This KPI provides information about the average CS Conversational traffic per call.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      1000 * sum (avg_rab_hld_tm_cs_conv)
+&lt;br&gt;------------------------------------------------
+&lt;br&gt;(sum (denom_rab_hld_tm_cs_conv) * 100 * 60 * 60)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[mE]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CS Conv per call]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

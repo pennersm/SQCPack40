@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_462b">
+    <formula>decode(
+			(vlr1msc.periodiclocreggsmattempt + 
+			vlr1msc.periodiclocregumtsattempt),0,null, 
+
+			(100*(vlr1msc.periodiclocreggsmsucc + 
+			vlr1msc.periodiclocregumtssucc)
+			 / 
+			(vlr1msc.periodiclocreggsmattempt + 
+			vlr1msc.periodiclocregumtsattempt)))</formula>
+    <kpi_info>
+      <title><![CDATA[Periodic LU success ratio (GSM and  UMTS)]]></title>
+      <use><![CDATA[Indicates the share of successful periodic location updates. For GSM and UMTS]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.6, the UMTS LU attempts also count the I-HSPA related events (LU attempts via I-HSPA).
+<br>PUBLISHED: M14.0
+<br>LAST UPDATE: 03-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          sum(PeriodicLocRegGSMSucc)
+&lt;br&gt;         +sum(PeriodicLocRegUMTSSucc)
+&lt;br&gt;   100 * -----------------------------------------------------------------        
+&lt;br&gt;          sum(PeriodicLocRegGSMAttempt) 
+&lt;br&gt;         +sum(PeriodicLocRegUMTSAttempt) 
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}
+&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Periodic LU success ratio (GSM and  UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

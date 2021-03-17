@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/DIA.xml"/>
+  <kpi name="flng_348a">
+    <formula>decode(
+			((DIA.dia_capability_exch_req_sent)),0,NULL, 
+
+			((DIA.dia_capability_exch_ans_recv))
+			 / 
+			((DIA.dia_capability_exch_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Capabilities Exchange Answer/Request ratio, Flexi-NG initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of Capabilities-Exchange-Answers (CEA) received as response to Flexi-NG initiated Capabilities-Exchange-Requests (CER).
+The probability to get a negative (recognized) answer from Diameter server is pretty small. 
+The indication of a potential problem is the mismatch between request/answer massages (no or unrecognized answer).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (dia_capability_exch_ans_recv)
+&lt;br&gt;---------------------------------- * 100
+&lt;br&gt;sum (dia_capability_exch_req_sent)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DIA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CEA/CER ratio, Flexi-NG]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

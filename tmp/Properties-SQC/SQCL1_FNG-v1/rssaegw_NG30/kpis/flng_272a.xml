@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/PRS_ext.xml"/>
+  <kpi name="flng_272a">
+    <formula>decode(
+			((PRS_ext.pmip_pba_resp_sent_all)),0,NULL, 
+
+			((PRS_ext.pmip_pba_resp_sent))
+			 / 
+			((PRS_ext.pmip_pba_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Ack responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 proxy binding acknowledgement (PBA) responses sent for a specific cause code when compared to total number of PMIP proxy binding acknowledgement (PBA) responses messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(prs_id,'x',PMIP_PBA_RESP_SENT,0))  ;PRS for cause code x
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_PBA_RESP_SENT)  ;all PRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP PBA resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

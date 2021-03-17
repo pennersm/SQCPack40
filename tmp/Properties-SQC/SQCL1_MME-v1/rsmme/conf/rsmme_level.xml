@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="1.0">
+  <level name="FLEXINS" rank="35">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="FLEXINS" column="co_gid" />
+      </id-components>
+      <filter-attribute>flexins.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select
+				flexins.co_gid, nvl(flexins.co_name, 'NN('||flexins.co_gid||')') name
+			from
+				utp_common_objects flexins
+			where
+				
+				flexins.co_oc_id=3766 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MME-MCC" rank="45">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FLEXINS" column="flexins_gid" />
+        <id level="MME-MCC" column="mcc_id" />
+      </id-components>
+      <filter-attribute>flexins.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				flexins.co_gid flexins_gid,
+				p1.mcc_id mcc_id,
+				nvl(flexins.co_name, 'NN('||flexins.co_gid||')')||'/'||p1.mcc_id name
+			from
+				utp_common_objects flexins,
+				pcofns_PD_MCC_OBJECTS p1
+			where
+				flexins.co_oc_id=3766 and
+				flexins.co_gid = p1.flexins_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="MME-SMMU" rank="55">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FLEXINS" column="flexins_gid" />
+        <id level="MME-SMMU" column="smmu_id" />
+      </id-components>
+      <filter-attribute>flexins.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				flexins.co_gid flexins_gid,
+				p1.smmu_id smmu_id,
+				nvl(flexins.co_name, 'NN('||flexins.co_gid||')')||'/'||p1.smmu_id name
+			from
+				utp_common_objects flexins,
+				pcofns_PD_SMMU_OBJECTS p1
+			where
+				flexins.co_oc_id=3766 and
+				flexins.co_gid = p1.flexins_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="MME-MMDU" rank="60">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FLEXINS" column="flexins_gid" />
+        <id level="MME-MMDU" column="mmdu_id" />
+      </id-components>
+      <filter-attribute>flexins.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				flexins.co_gid flexins_gid,
+				p1.mmdu_id mmdu_id,
+				nvl(flexins.co_name, 'NN('||flexins.co_gid||')')||'/'||p1.mmdu_id name
+			from
+				utp_common_objects flexins,
+				pcofns_PD_MMDU_OBJECTS p1
+			where
+				flexins.co_oc_id=3766 and
+				flexins.co_gid = p1.flexins_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="MME-UNIT" rank="65">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MME-UNIT" column="unit_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.unit_id unit_id,
+				p1.unit_id name
+			from
+				pcofns_PD_UNIT_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MME-MNC" rank="75">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FLEXINS" column="flexins_gid" />
+        <id level="MME-MCC" column="mcc_id" />
+        <id level="MME-MNC" column="mnc_id" />
+      </id-components>
+      <filter-attribute>flexins.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				flexins.co_gid flexins_gid,
+				p1.mcc_id mcc_id,
+				p2.mnc_id mnc_id,
+				nvl(flexins.co_name, 'NN('||flexins.co_gid||')')||'/'||p1.mcc_id||'/'||p2.mnc_id name
+			from
+				utp_common_objects flexins,
+				pcofns_PD_MCC_OBJECTS p1,
+				pcofns_PD_MNC_OBJECTS p2
+			where
+				flexins.co_oc_id=3766 and
+				flexins.co_gid = p1.flexins_gid and
+				p1.mcc_id = p2.mcc_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="MME-PIU" rank="85">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MME-PIU" column="piu_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.piu_id piu_id,
+				p1.piu_id name
+			from
+				pcofns_PD_PIU_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MME-TA" rank="95">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FLEXINS" column="flexins_gid" />
+        <id level="MME-MCC" column="mcc_id" />
+        <id level="MME-MNC" column="mnc_id" />
+        <id level="MME-TA" column="ta_id" />
+      </id-components>
+      <filter-attribute>flexins.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				flexins.co_gid flexins_gid,
+				p1.mcc_id mcc_id,
+				p2.mnc_id mnc_id,
+				p3.ta_id ta_id,
+				nvl(flexins.co_name, 'NN('||flexins.co_gid||')')||'/'||p1.mcc_id||'/'||p2.mnc_id||'/'||p3.ta_id name
+			from
+				utp_common_objects flexins,
+				pcofns_PD_MCC_OBJECTS p1,
+				pcofns_PD_MNC_OBJECTS p2,
+				pcofns_PD_TA_OBJECTS p3
+			where
+				flexins.co_oc_id=3766 and
+				flexins.co_gid = p1.flexins_gid and
+				p1.mcc_id = p2.mcc_id and
+				p2.mnc_id = p3.mnc_id and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="MME-LIF" rank="105">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MME-LIF" column="lif_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.lif_id lif_id,
+				p1.lif_id name
+			from
+				pcofns_PD_LIF_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MME-TRA" rank="115">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MME-TRA" column="tra_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.tra_id tra_id,
+				p1.tra_id name
+			from
+				pcofns_PD_TRA_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="WS_FLEXINS" rank="5042">
+		<processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+			<id-components>
+				<id level="WS_FLEXINS" column="ws" />
+			</id-components>
+			<name column="ws" />
+			<sql>
+				<![CDATA[
+					select
+			    		distinct w.setname ws
+			    	from
+			    		w_manual_sets w,
+			    		utp_legacy leg
+			    	where
+			    		w.int_id = leg.la_int_id and
+					    leg.la_object_class=3766
+					order by 1
+				]]>
+			</sql>
+		</processor>
+	</level>
+	<level name="MR_FLEXINS" rank="4022">
+		<processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+			<id-components>
+				<id level="MR_FLEXINS" column="co_gid" />
+			</id-components>
+			<name column="name" />
+			<sql>
+				<![CDATA[
+				select distinct mr.co_gid,
+                    decode(nvl(mr.co_name,'NN ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) name
+                from
+                    utp_common_objects mr,
+                    utp_common_objects o
+                where
+                    o.co_oc_id=3766 and
+                    o.co_mr_gid=mr.co_gid and
+                    mr.co_oc_id=109 and
+                    mr.co_gid<>0 and
+                    mr.co_gid is not null
+                order by 2
+                ]]>
+            </sql>
+		</processor>
+	</level>
+</object-conf>
+

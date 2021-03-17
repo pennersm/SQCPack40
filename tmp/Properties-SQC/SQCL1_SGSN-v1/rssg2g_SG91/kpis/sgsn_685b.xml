@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <kpi name="sgsn_685b">
+    <formula>decode(
+			(sesmgmnt.succ_mo_pdp_context_act),0,NULL,
+
+			(sesmgmnt.dur_mo_pdp_act_sum/100)
+			 /
+			(sesmgmnt.succ_mo_pdp_context_act))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb PDP activation procedure average duration]]></title>
+      <use><![CDATA[This KPI shows the average duration of successful PDP activation procedures from Gb interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DUR_MO_PDP_ACT_SUM/100)
+&lt;br&gt;---------------------------------------------------------
+&lt;br&gt;sum(SUCC_MO_PDP_CONTEXT_ACT)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_session management</formula>
+      <unit>[Seconds]</unit>
+      <tables>rsg_ps_sesmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb PDP activation procedure average duration]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

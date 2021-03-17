@@ -1,0 +1,228 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M212 AVANSRR measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M212 AVANSRR measurement dump</csv_title>
+    <report-description>MTP signalling set and route set availability measurement(AVANSRR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SL_SET_START_FAILURE/>
+    <SL_SET_STOP_FAILURE/>
+    <SL_SET_DURATION_OF_UNA/>
+    <SR_SET_UNA_DUE_TO_TFP_REC/>
+    <SR_SET_UNA_TO_GIVEN_DEST/>
+    <SR_SET_UNA_DURA_DUE_TO_TFP_REC/>
+    <SR_SET_UNA_DURA_TO_GIVEN_DEST/>
+    <INITIATION_OF_BROADCAST_TFP/>
+    <INITIATION_OF_BROADCAST_TFA/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/SRR/SNET/SPC/SLSN" name="AVANSRR" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SL_SET_DURATION_OF_UNA" symmetrical="true">SUM(SL_SET_DURATION_OF_UNA)</counter>
+      <counter alias="SR_SET_UNA_DUE_TO_TFP_REC" symmetrical="true">SUM(SR_SET_UNA_DUE_TO_TFP_REC)</counter>
+      <counter alias="SR_SET_UNA_TO_GIVEN_DEST" symmetrical="true">SUM(SR_SET_UNA_TO_GIVEN_DEST)</counter>
+      <counter alias="SR_SET_UNA_DURA_DUE_TO_TFP_REC" symmetrical="true">SUM(SR_SET_UNA_DURA_DUE_TO_TFP_REC)</counter>
+      <counter alias="SR_SET_UNA_DURA_TO_GIVEN_DEST" symmetrical="true">SUM(SR_SET_UNA_DURA_TO_GIVEN_DEST)</counter>
+      <counter alias="INITIATION_OF_BROADCAST_TFP" symmetrical="true">SUM(INITIATION_OF_BROADCAST_TFP)</counter>
+      <counter alias="INITIATION_OF_BROADCAST_TFA" symmetrical="true">SUM(INITIATION_OF_BROADCAST_TFA)</counter>
+      <counter alias="SL_SET_START_FAILURE">SUM(SL_SET_START_FAILURE)</counter>
+      <counter alias="SL_SET_STOP_FAILURE">SUM(SL_SET_STOP_FAILURE)</counter>
+    </counters>
+    <table_name>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AVANSRR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AVANSRR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SL_SET_START_FAILURE">
+    <formula>AVANSRR.SL_SET_START_FAILURE</formula>
+    <kpi_info>
+      <title>SL_SET_START_FAILURE</title>
+      <use>Start of signalling link set failure(4.3 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SL_SET_START_FAILURE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SL_SET_START_FAILURE (M212B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SL_SET_STOP_FAILURE">
+    <formula>AVANSRR.SL_SET_STOP_FAILURE</formula>
+    <kpi_info>
+      <title>SL_SET_STOP_FAILURE</title>
+      <use>Stop of signalling link set failure (4.4in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SL_SET_STOP_FAILURE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SL_SET_STOP_FAILURE (M212B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SL_SET_DURATION_OF_UNA">
+    <formula>AVANSRR.SL_SET_DURATION_OF_UNA</formula>
+    <kpi_info>
+      <title>SL_SET_DURATION_OF_UNA</title>
+      <use>Duration of unavailability of signalling linkset (4.2 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SL_SET_DURATION_OF_UNA)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SL_SET_DURATION_OF_UNA (M212B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SR_SET_UNA_DUE_TO_TFP_REC">
+    <formula>AVANSRR.SR_SET_UNA_DUE_TO_TFP_REC</formula>
+    <kpi_info>
+      <title>SR_SET_UNA_DUE_TO_TFP_REC</title>
+      <use>Unavailability of signalling route setdue to transfer prohibited message received (4.7 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SR_SET_UNA_DUE_TO_TFP_REC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SR_SET_UNA_DUE_TO_TFP_REC (M212B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SR_SET_UNA_TO_GIVEN_DEST">
+    <formula>AVANSRR.SR_SET_UNA_TO_GIVEN_DEST</formula>
+    <kpi_info>
+      <title>SR_SET_UNA_TO_GIVEN_DEST</title>
+      <use>Unavailability of signalling route set(4.9 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SR_SET_UNA_TO_GIVEN_DEST)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SR_SET_UNA_TO_GIVEN_DEST (M212B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SR_SET_UNA_DURA_DUE_TO_TFP_REC">
+    <formula>AVANSRR.SR_SET_UNA_DURA_DUE_TO_TFP_REC</formula>
+    <kpi_info>
+      <title>SR_SET_UNA_DURA_DUE_TO_TFP_REC</title>
+      <use>Duration of unavailability of signalling routeset due to transfer prohibited message received (4.8 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SR_SET_UNA_DURA_DUE_TO_TFP_REC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SR_SET_UNA_DURA_DUE_TO_TFP_REC (M212B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SR_SET_UNA_DURA_TO_GIVEN_DEST">
+    <formula>AVANSRR.SR_SET_UNA_DURA_TO_GIVEN_DEST</formula>
+    <kpi_info>
+      <title>SR_SET_UNA_DURA_TO_GIVEN_DEST</title>
+      <use>Duration of unavailability of signalling routeset (4.10 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SR_SET_UNA_DURA_TO_GIVEN_DEST)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SR_SET_UNA_DURA_TO_GIVEN_DEST (M212B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INITIATION_OF_BROADCAST_TFP">
+    <formula>AVANSRR.INITIATION_OF_BROADCAST_TFP</formula>
+    <kpi_info>
+      <title>INITIATION_OF_BROADCAST_TFP</title>
+      <use>Transmission of transfer prohibited messagestarted due to signalling link failure (4.5 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INITIATION_OF_BROADCAST_TFP)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INITIATION_OF_BROADCAST_TFP (M212B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INITIATION_OF_BROADCAST_TFA">
+    <formula>AVANSRR.INITIATION_OF_BROADCAST_TFA</formula>
+    <kpi_info>
+      <title>INITIATION_OF_BROADCAST_TFA</title>
+      <use>Transmission of transfer allowed messagestarted due to signalling link restoration (4.6 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INITIATION_OF_BROADCAST_TFA)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_AVANSRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INITIATION_OF_BROADCAST_TFA (M212B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

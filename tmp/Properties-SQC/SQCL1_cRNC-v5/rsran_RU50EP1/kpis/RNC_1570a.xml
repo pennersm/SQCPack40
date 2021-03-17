@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1570a">
+    <formula>decode(
+			(servlev.rab_stp_att_cs_conv),0,null, 
+
+			(100*(servlev.rab_stp_fail_cs_conv_iu_cs)
+			 / 
+			(servlev.rab_stp_att_cs_conv)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup FR for CS Conversational due to lack of Iu-CS transport resources]]></title>
+      <use><![CDATA[This KPI provides information about the RT CS conversatinal RAB setup failure rate due to lack of Iu-CS transport resources]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *  sum(RAB_STP_FAIL_CS_CONV_IU_CS)
+&lt;br&gt;------------------
+&lt;br&gt;RNC_268a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB stp FR CS Conv Iu-CS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  </conf_file>
+

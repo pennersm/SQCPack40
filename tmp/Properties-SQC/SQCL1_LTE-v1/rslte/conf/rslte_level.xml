@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <level name="MRBTS" rank="15">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MRBTS" column="co_gid" />
+      </id-components>
+      <filter-attribute>mrbts.co_gid</filter-attribute>
+      <name column="name" />
+	  <dn>nvl(mrbts.co_ext_dn, mrbts.co_dn)</dn>
+      <sql><![CDATA[select
+                mrbts.co_gid, nvl(mrbts.co_name, nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) ) name
+				#dn#
+			from
+				utp_common_objects plmn,
+				utp_common_objects mrbts
+			where
+				plmn.co_oc_id=16 and
+				mrbts.co_oc_id=3128 and
+				mrbts.co_parent_gid = plmn.co_gid and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="LNBTS-TYPE" rank="19">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="LNBTS-TYPE" column="type" />
+      </id-components>
+      <filter-attribute>lnbts.co_sc_name</filter-attribute>
+      <name column="type" />
+      <sql><![CDATA[select distinct
+				nvl(lnbts.co_sc_name, 'MacroBTS') type
+			from
+				utp_common_objects lnbts
+			where
+				lnbts.co_oc_id=3129 and
+				#object_filter#
+			order by 1]]></sql>
+    </processor>
+  </level>
+  <level name="LNBTS" rank="20">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="LNBTS" column="co_gid" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+      <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)</dn>
+      <sql><![CDATA[select
+				lnbts.co_gid, nvl(mrbts.co_name, nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) ) name
+				#dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_oc_id=3129 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-FTM" rank="25">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p1.ftm_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid, 
+				p1.ftm_id ftm_id, 
+                nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p1.ftm_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_FTM_OBJECTS p1
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p1.lnbts_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="LNCEL" rank="35">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="LNCEL" column="co_gid" />
+      </id-components>
+      <filter-attribute>lncel.co_gid</filter-attribute>
+      <name column="name" />
+      <dn>nvl(lncel.co_ext_dn, lncel.co_dn)</dn>
+      <sql><![CDATA[select
+				lncel.co_gid, nvl(lncel.co_name, nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || nvl(lncel.co_name,'LNCEL-'|| nvl(lncel.co_object_instance, 'NN('||lncel.co_gid||')')) ) name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_common_objects lncel
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lncel.co_parent_gid = lnbts.co_gid and
+				lncel.co_oc_id=3130 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IPNO" rank="45">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p2.ftm_id||'/IPNO-'||p2.ipno_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid, 
+                p2.ftm_id ftm_id,
+                p2.ipno_id ipno_id, nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance,'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p2.ftm_id || '/' || p2.ipno_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IPNO_OBJECTS p2
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p2.lnbts_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-TAC" rank="85">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-TAC" column="tac_id" />      
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p1.ftm_id||'/TAC-'||p2.tac_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+                p1.ftm_id ftm_id,
+                p2.tac_id tac_id,
+                nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || lnbts.co_gid, nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) ||'/'|| p1.ftm_id || '/' || p2.tac_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_FTM_OBJECTS p1,
+				NOKLTE_PD_TAC_OBJECTS p2
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p1.lnbts_gid and
+				p1.ftm_id = p2.ftm_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-LTAC" rank="135">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+		<id level="LTE-TAC" column="TAC_id" />
+		<id level="LTE-LTAC" column="LTAC_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p1.ftm_id||'/TAC-'||p2.tac_id||'/LTAC-'||p3.ltac_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p1.ftm_id ftm_id,
+				p2.tac_id tac_id,
+				p3.ltac_id ltac_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p1.ftm_id || '/' || p2.tac_id || '/' || p3.ltac_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_FTM_OBJECTS p1,
+				NOKLTE_PD_TAC_OBJECTS p2,
+				NOKLTE_PD_LTAC_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p1.lnbts_gid and
+				p1.ftm_id = p2.ftm_id and
+				p2.tac_id = p3.tac_id and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>  
+  <level name="LTE-TWAMP" rank="155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-TWAMP" column="twamp_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p1.ftm_id||'/IPNO-'||p2.ipno_id||'/TWAMP-'||p3.twamp_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p1.ftm_id ftm_id,
+				p2.ipno_id ipno_id,
+				p3.twamp_id twamp_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || lnbts.co_gid,'LNBTS-'|| nvl(lnbts.co_name, nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p1.ftm_id || '/' || p2.ipno_id || '/' || p3.twamp_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_FTM_OBJECTS p1,
+				NOKLTE_PD_IPNO_OBJECTS p2,
+				NOKLTE_PD_TWAMP_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p1.lnbts_gid and
+				p1.ftm_id = p2.ftm_id and
+				p2.ipno_id = p3.ipno_id and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-TOPIK" rank="155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-TOPIK" column="topik_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p1.ftm_id||'/IPNO-'||p2.ipno_id||'/TOPIK-'||p3.topik_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p1.ftm_id ftm_id,
+				p2.ipno_id ipno_id,
+				p3.topik_id topik_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p1.ftm_id || '/' || p2.ipno_id || '/' || p3.topik_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_FTM_OBJECTS p1,
+				NOKLTE_PD_IPNO_OBJECTS p2,
+				NOKLTE_PD_TOPIK_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p1.lnbts_gid and
+				p1.ftm_id = p2.ftm_id and
+				p2.ipno_id = p3.ipno_id and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-ETHLK" rank="55">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-ETHLK" column="ethlk_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p2.ftm_id||'/ETHLK-'||p2.ethlk_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p2.ftm_id ftm_id,
+				p2.ethlk_id ethlk_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p2.ftm_id || '/' || p2.ethlk_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_ETHLK_OBJECTS p2
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p2.lnbts_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IPSECC" rank="65">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPSECC" column="ipsecc_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+       <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p2.ftm_id||'/IPSECC-'||p2.ipsecc_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p2.ftm_id ftm_id,
+				p2.ipsecc_id ipsecc_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'||  nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p2.ftm_id || '/' || p2.ipsecc_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IPSECC_OBJECTS p2
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p2.lnbts_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IEIF" rank="85">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IEIF" column="ieif_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+       <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p3.ftm_id||'/IPNO-'||p3.ipno_id||'/IEIF-'||p3.ieif_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p3.ftm_id ftm_id,
+				p3.ipno_id ipno_id,
+				p3.ieif_id ieif_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p3.ftm_id || '/' || p3.ipno_id || '/' || p3.ieif_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IEIF_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p3.lnbts_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IPRM" rank="95">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IPRM" column="iprm_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p3.ftm_id||'/IPNO-'||p3.ipno_id||'/IPRM-'||p3.iprm_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p3.ftm_id ftm_id,
+				p3.ipno_id ipno_id,
+				p3.iprm_id iprm_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p3.ftm_id || '/' || p3.ipno_id || '/' || p3.iprm_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IPRM_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p3.lnbts_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-MCC" rank="96">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <id-components>
+        <id level="LTE-MCC" column="mcc_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.mcc_id mcc_id,
+				p2.mcc_id name
+			from
+				noklte_PD_MCC_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-MNC" rank="100">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <id-components>
+        <id level="LTE-MCC" column="mcc_id" />
+        <id level="LTE-MNC" column="mnc_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.mcc_id mcc_id,
+				p2.mnc_id mnc_id,
+				p2.mcc_id || '/' || p2.mnc_id name
+			from
+				noklte_PD_MNC_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-ECI" rank="101">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+       <id-components>
+        <id level="LTE-ECI" column="eci_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.eci_id eci_id,
+				p1.eci_id name
+			from
+			noklte_PD_ECI_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IPPM" rank="105">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IEIF" column="ieif_id" />
+        <id level="LTE-IPPM" column="ippm_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p4.ftm_id||'/IPNO-'||p4.ipno_id||'/IEIF-'||p4.ieif_id||'/IPPM-'||p4.ippm_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p4.ftm_id ftm_id,
+				p4.ipno_id ipno_id,
+				p4.ieif_id ieif_id,
+				p4.ippm_id ippm_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p4.ftm_id || '/' || p4.ipno_id || '/' || p4.ieif_id || '/' || p4.ippm_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IPPM_OBJECTS p4
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p4.lnbts_gid and
+				#object_filter#
+			order by 6]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-PHBPM" rank="115">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IEIF" column="ieif_id" />
+        <id level="LTE-PHBPM" column="phbpm_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p4.ftm_id||'/IPNO-'||p4.ipno_id||'/IEIF-'||p4.ieif_id||'/PHBPM-'||p4.phbpm_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p4.ftm_id ftm_id,
+				p4.ipno_id ipno_id,
+				p4.ieif_id ieif_id,
+				p4.phbpm_id phbpm_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p4.ftm_id || '/' || p4.ipno_id || '/' || p4.ieif_id || '/' || p4.phbpm_id name
+                #dn#		
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_PHBPM_OBJECTS p4
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p4.lnbts_gid and
+				#object_filter#
+			order by 6]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IVIF" rank="125">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IEIF" column="ieif_id" />
+        <id level="LTE-IVIF" column="ivif_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p4.ftm_id||'/IPNO-'||p4.ipno_id||'/IEIF-'||p4.ieif_id||'/IVIF-'||p4.ivif_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p4.ftm_id ftm_id,
+				p4.ipno_id ipno_id,
+				p4.ieif_id ieif_id,
+				p4.ivif_id ivif_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p4.ftm_id || '/' || p4.ipno_id || '/' || p4.ieif_id || '/' || p4.ivif_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IVIF_OBJECTS p4
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p4.lnbts_gid and
+				#object_filter#
+			order by 6]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-IPPM1" rank="135">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IEIF" column="ieif_id" />
+        <id level="LTE-IVIF" column="ivif_id" />
+        <id level="LTE-IPPM1" column="ippm_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p5.ftm_id||'/IPNO-'||p5.ipno_id||'/IEIF-'||p5.ieif_id||'/IVIF-'||p5.ivif_id||'/IPPM1-'||p5.ippm_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p5.ftm_id ftm_id,
+				p5.ipno_id ipno_id,
+				p5.ieif_id ieif_id,
+				p5.ivif_id ivif_id,
+				p5.ippm_id ippm_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p5.ftm_id || '/' || p5.ipno_id || '/' || p5.ieif_id || '/' || p5.ivif_id || '/' || p5.ippm_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_IPPM1_OBJECTS p5
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p5.lnbts_gid and
+				#object_filter#
+			order by 7]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-PHBPM1" rank="145">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-IPNO" column="ipno_id" />
+        <id level="LTE-IEIF" column="ieif_id" />
+        <id level="LTE-IVIF" column="ivif_id" />
+        <id level="LTE-PHBPM1" column="phbpm_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p5.ftm_id||'/IPNO-'||p5.ipno_id||'/IEIF-'||p5.ieif_id||'/IVIF-'||p5.ivif_id||'/PHBPM1-'||p5.phbpm_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p5.ftm_id ftm_id,
+				p5.ipno_id ipno_id,
+				p5.ieif_id ieif_id,
+				p5.ivif_id ivif_id,
+				p5.phbpm_id phbpm_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' || nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p5.ftm_id || '/' || p5.ipno_id || '/' || p5.ieif_id || '/' || p5.ivif_id || '/' || p5.phbpm_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				noklte_PD_PHBPM1_OBJECTS p5
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and
+				lnbts.co_gid = p5.lnbts_gid and
+				#object_filter#
+			order by 7]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-L2SWI" rank="135">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-L2SWI" column="l2swi_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p2.ftm_id||'/L2SWI-'||p2.l2swi_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p2.ftm_id ftm_id,
+				p2.l2swi_id l2swi_id,
+				nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) || '/' || p2.ftm_id || '/' || p2.l2swi_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_L2SWI_OBJECTS p2
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p2.lnbts_gid and
+				
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-TOPB" rank="105">
+        <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+        <id-components>
+            <id level="LNBTS" column="lnbts_gid"/>
+            <id level="LTE-FTM" column="ftm_id"/>
+          <id level="LTE-TOPB" column="topb_id"/>
+        </id-components>
+        <filter-attribute>lnbts.co_gid</filter-attribute>
+        <name column="name"/>
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p2.ftm_id||'/TOPB-'||p2.topb_id</dn>
+        <sql><![CDATA[select distinct
+                lnbts.co_gid lnbts_gid,
+                p2.ftm_id ftm_id,
+                p2.topb_id topb_id,
+                nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' ||nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) ||'/'||p2.ftm_id||'/'||p2.topb_id name
+                #dn#
+            from
+                utp_common_objects mrbts,
+                utp_common_objects lnbts,
+                NOKLTE_PD_TOPB_OBJECTS p2
+            where
+                lnbts.co_parent_gid = mrbts.co_gid and
+                lnbts.co_gid = p2.lnbts_gid and
+                #object_filter#
+            order by 4]]></sql>
+      </processor>
+    </level>
+  <level name="LTE-TOPF" rank="185">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-TOPB" column="topb_id" />
+        <id level="LTE-TOPF" column="topf_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name" />
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p3.ftm_id||'/TOPB-'||p3.topb_id||'/TOPF-'||p3.topf_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p3.ftm_id ftm_id,
+				p3.topb_id topb_id,
+				p3.topf_id topf_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' ||nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) ||'/'||p3.ftm_id||'/'||p3.topb_id||'/'||p3.topf_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_TOPF_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p3.lnbts_gid and
+				
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-TOPP" rank="195">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LNBTS" column="lnbts_gid" />
+        <id level="LTE-FTM" column="ftm_id" />
+        <id level="LTE-TOPB" column="topb_id" />
+        <id level="LTE-TOPP" column="topp_id" />
+      </id-components>
+      <filter-attribute>lnbts.co_gid</filter-attribute>
+      <name column="name"/>
+        <dn>nvl(lnbts.co_ext_dn, lnbts.co_dn)||'/FTM-'||p3.ftm_id||'/TOPB-'||p3.topb_id||'/TOPP-'||p3.topp_id</dn>
+      <sql><![CDATA[select distinct
+				lnbts.co_gid lnbts_gid,
+				p3.ftm_id ftm_id,
+				p3.topb_id topb_id,
+				p3.topp_id topp_id,
+				nvl(mrbts.co_name,'MRBTS-'|| nvl(mrbts.co_object_instance, 'NN('||mrbts.co_gid||')')) || '/' ||nvl(lnbts.co_name,'LNBTS-'|| nvl(lnbts.co_object_instance, 'NN('||lnbts.co_gid||')')) ||'/'||p3.ftm_id||'/'||p3.topb_id||'/'||p3.topp_id name
+                #dn#
+			from
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				NOKLTE_PD_TOPP_OBJECTS p3
+			where
+				lnbts.co_parent_gid = mrbts.co_gid and 
+				lnbts.co_gid = p3.lnbts_gid and
+				
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>  
+  <level name="LTE-LAC" rank="150">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LTE-LAC" column="lac_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.lac_id lac_id,
+				p2.lac_id name
+			from
+				noklte_PD_LAC_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-TCID1" rank="155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LTE-LAC" column="lac_id" />
+        <id level="LTE-TCID1" column="tcid_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.lac_id lac_id,
+				p2.tcid_id tcid_id,
+				p2.lac_id || '/' || p2.tcid_id name
+			from
+				noklte_PD_TCID1_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-HOT" rank="160">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LTE-HOT" column="hot_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.hot_id hot_id,
+				p2.hot_id name
+			from
+				noklte_PD_HOT_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="LTE-TCID" rank="165">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LTE-HOT" column="hot_id" />
+        <id level="LTE-TCID" column="tcid_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.hot_id hot_id,
+				p2.tcid_id tcid_id,
+				p2.hot_id || '/' || p2.tcid_id name
+			from
+				noklte_PD_TCID_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="LTE-DMCC" rank="170">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LTE-DMCC" column="dmcc_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.dmcc_id dmcc_id,
+				p2.dmcc_id name
+			from
+				noklte_PD_DMCC_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="LTE-DMNC" rank="175">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LTE-DMCC" column="dmcc_id" />
+        <id level="LTE-DMNC" column="dmnc_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p2.dmcc_id dmcc_id,
+				p2.dmnc_id dmnc_id,
+				p2.dmcc_id || '/' || p2.dmnc_id name
+			from
+				noklte_PD_DMNC_OBJECTS p2
+			where
+				1=1 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+    <level name="ALRMSEV" rank="1225">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="ALRMSEV" column="severity_id"/>
+      </id-components>
+      <name column="severity"/>
+      <sql><![CDATA[select
+				sev.severity_id, nvl(sev.severity_name, 'NN('||sev.severity_id||')') severity
+			from
+				REPALS_D_SEVERITY_MEMBERS sev
+			where
+				1=1 and
+				#object_filter#
+			order by 1]]></sql>
+    </processor>
+  </level>
+  
+    <level name="ALRMTYPE" rank="1230">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="ALRMTYPE" column="alarm_type_id"/>
+      </id-components>
+      <name column="type"/>
+      <sql><![CDATA[select
+				typ.alarm_type_id, nvl(typ.alarm_type, 'NN('||typ.alarm_type_id||')') type
+			from
+				REPALS_D_ALARMTYPE_MEMBERS typ
+			where
+				1=1 and
+				#object_filter#
+			order by 1]]></sql>
+    </processor>
+  </level>
+  <level name="ALARM" rank="1235">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="ALARM" column="alarm_id"/>
+      </id-components>
+      <name column="alarm"/>
+      <sql><![CDATA[select
+				alrm.alarm_id, nvl(alrm.text, 'NN('||alrm.alarm_id||')') alarm
+			from
+				REPALS_D_ALARM_MEMBERS alrm
+			where
+				1=1 and
+				#object_filter#
+			order by 1]]></sql>
+    </processor>
+  </level>  
+      <level name="WS_MRBTS" rank="5048">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="WS_MRBTS" column="ws" />
+      </id-components>
+      <name column="ws" />
+      <sql><![CDATA[select
+	    		distinct w.setname ws
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+			    leg.la_object_class=3128
+			order by 1]]></sql>
+    </processor>
+  </level>
+  <level name="WS_LNBTS" rank="5054">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="WS_LNBTS" column="ws" />
+      </id-components>
+      <name column="ws" />
+      <sql><![CDATA[select
+	    		distinct w.setname ws
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+			    leg.la_object_class=3129
+			order by 1]]></sql>
+    </processor>
+  </level>
+   <level name="LTE_BAND" rank="14">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="LTE_BAND" column="band" />
+      </id-components>
+      <name column="band" />
+      <sql><![CDATA[select distinct trim(band) band
+      		from
+      			(SELECT
+CO_GID LNCEL_GID,
+CASE
+WHEN LNCEL_EARFCN_DL BETWEEN    0 AND 599      THEN 'BAND 1'  
+WHEN LNCEL_EARFCN_DL BETWEEN  600 AND 1199     THEN 'BAND 2'
+WHEN LNCEL_EARFCN_DL BETWEEN 1200 AND 1949     THEN 'BAND 3'
+WHEN LNCEL_EARFCN_DL BETWEEN 1950 AND 2399     THEN 'BAND 4' 
+WHEN LNCEL_EARFCN_DL BETWEEN 2400 AND 2649     THEN 'BAND 5' 
+WHEN LNCEL_EARFCN_DL BETWEEN 2650 AND 2749     THEN 'BAND 6' 
+WHEN LNCEL_EARFCN_DL BETWEEN 2750 AND 3449     THEN 'BAND 7' 
+WHEN LNCEL_EARFCN_DL BETWEEN 3450 AND 3799     THEN 'BAND 8' 
+WHEN LNCEL_EARFCN_DL BETWEEN 3800 AND 4149     THEN 'BAND 9' 
+WHEN LNCEL_EARFCN_DL BETWEEN 4150 AND 4749     THEN 'BAND 10'
+WHEN LNCEL_EARFCN_DL BETWEEN 4750 AND 4949     THEN 'BAND 11'
+WHEN LNCEL_EARFCN_DL BETWEEN 5010 AND 5179     THEN 'BAND 12'
+WHEN LNCEL_EARFCN_DL BETWEEN 5180 AND 5279     THEN 'BAND 13'
+WHEN LNCEL_EARFCN_DL BETWEEN 5280 AND 5379     THEN 'BAND 14'
+                  
+WHEN LNCEL_EARFCN_DL BETWEEN 5730 AND 5849     THEN 'BAND 17'
+WHEN LNCEL_EARFCN_DL BETWEEN 5850 AND 5999     THEN 'BAND 18'
+WHEN LNCEL_EARFCN_DL BETWEEN 6000 AND 6149     THEN 'BAND 19'
+WHEN LNCEL_EARFCN_DL BETWEEN 6150 AND 6449     THEN 'BAND 20'
+WHEN LNCEL_EARFCN_DL BETWEEN 6450 AND 6599     THEN 'BAND 21'
+WHEN LNCEL_EARFCN_DL BETWEEN 6600 AND 7399     THEN 'BAND 22'
+WHEN LNCEL_EARFCN_DL BETWEEN 7500 AND 7699     THEN 'BAND 23'
+WHEN LNCEL_EARFCN_DL BETWEEN 7700 AND 8039     THEN 'BAND 24'
+WHEN LNCEL_EARFCN_DL BETWEEN 8040 AND 8689     THEN 'BAND 25'
+                  
+WHEN LNCEL_EARFCN_DL BETWEEN 36000 AND 36199   THEN 'BAND 33'
+WHEN LNCEL_EARFCN_DL BETWEEN 36200 AND 36349   THEN 'BAND 34'
+WHEN LNCEL_EARFCN_DL BETWEEN 36350 AND 36949   THEN 'BAND 35'
+WHEN LNCEL_EARFCN_DL BETWEEN 36950 AND 37549   THEN 'BAND 36'
+WHEN LNCEL_EARFCN_DL BETWEEN 37550 AND 37749   THEN 'BAND 37'
+WHEN LNCEL_EARFCN_DL BETWEEN 37750 AND 38249   THEN 'BAND 38'
+WHEN LNCEL_EARFCN_DL BETWEEN 38250 AND 38649   THEN 'BAND 39'
+WHEN LNCEL_EARFCN_DL BETWEEN 38650 AND 39649   THEN 'BAND 40'
+WHEN LNCEL_EARFCN_DL BETWEEN 39650 AND 41589   THEN 'BAND 41'
+WHEN LNCEL_EARFCN_DL BETWEEN 41590 AND 43589   THEN 'BAND 42'
+WHEN LNCEL_EARFCN_DL BETWEEN 43590 AND 45589   THEN 'BAND 43'
+ELSE 'BAND UNKNOWN' END BAND    
+FROM
+ROH_C_LTE_LNCEL
+WHERE
+CONF_ID = 1
+AND VALID_FINISH_TIME > SYSDATE
+AND OBJECT_STATE = 1) 
+			order by 1]]></sql>
+    </processor>
+  </level>
+  <level name="WS_LNCEL" rank="5058">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="WS_LNCEL" column="ws" />
+      </id-components>
+      <name column="ws" />
+      <sql><![CDATA[select
+	    		distinct w.setname ws
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+			    leg.la_object_class=3130
+			order by 1]]></sql>
+    </processor>
+  </level>
+    <level name="MR_MRBTS" rank="4032">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_MRBTS" column="co_gid" />
+      </id-components>
+      <name column="name" />
+        <sql><![CDATA[select
+                distinct mr.co_gid,
+                decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) name
+                from
+                    utp_common_objects mr,
+                    utp_common_objects o
+                where
+                    o.co_oc_id=3128 and
+                    o.co_mr_gid=mr.co_gid and
+                    mr.co_oc_id=109 and
+                    mr.co_gid<>0 and
+                    mr.co_gid is not null
+                order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MR_LNBTS" rank="4038">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_LNBTS" column="co_gid" />
+      </id-components>
+      <name column="name" />
+        <sql><![CDATA[select
+                distinct mr.co_gid,
+                decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) name
+                from
+                    utp_common_objects mr,
+                    utp_common_objects o
+                where
+                    o.co_oc_id=3129 and
+                    o.co_mr_gid=mr.co_gid and
+                    mr.co_oc_id=109 and
+                    mr.co_gid<>0 and
+                    mr.co_gid is not null
+                order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MR_LNCEL" rank="4040">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_LNCEL" column="co_gid" />
+      </id-components>
+      <name column="name" />
+        <sql><![CDATA[select
+                distinct mr.co_gid,
+                decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) name
+                from
+                    utp_common_objects mr,
+                    utp_common_objects o
+                where
+                    o.co_oc_id=3130 and
+                    o.co_mr_gid=mr.co_gid and
+                    mr.co_oc_id=109 and
+                    mr.co_gid<>0 and
+                    mr.co_gid is not null
+                order by 2]]></sql>
+    </processor>
+  </level>
+</object-conf>

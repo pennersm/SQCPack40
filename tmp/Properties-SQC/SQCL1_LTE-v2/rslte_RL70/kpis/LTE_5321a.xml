@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_5321a">
+    <formula>100*decode(
+			lcelld.rrc_conn_ue_avg,0,null, 
+
+			(decode(
+			100,0,null, 
+
+			lcelld.ca_dl_cap_ue_avg
+			 / 
+			100))
+			 / 
+			lcelld.rrc_conn_ue_avg)</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Penetration of the CA Capable UEs into the Network]]></title>
+      <use><![CDATA[This KPI shows the ratio of the averaged number of the CA capable UEs and average number of UEs in RRC_CONNECTED state.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * (avg(CA_DL_CAP_UE_AVG) / 100)
+&lt;br&gt;/
+&lt;br&gt;avg(RRC_CONN_UE_AVG)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/10/03 15:59:25.221 +0100</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN Penetration of the CA Cap UEs into the Netw</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

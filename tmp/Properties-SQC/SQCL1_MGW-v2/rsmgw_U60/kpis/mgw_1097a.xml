@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/RTPRTIP.xml" />
+  <kpi name="mgw_1097a">
+    <formula>decode(
+			(rtprtip.ipbr_lost_rtp_packets + 
+			rtprtip.ipbr_received_rtp_packets),0,null, 
+
+			(100*(rtprtip.ipbr_received_rtp_packets)
+			 / 
+			(rtprtip.ipbr_lost_rtp_packets + 
+			rtprtip.ipbr_received_rtp_packets)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP data packet received ratio for IP Based Route]]></title>
+      <use><![CDATA[Received ratio of received RTP data packets for IP Based Route]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                 SUM(IPBR_RECEIVED_RTP_PACKETS)
+&lt;br&gt;100 *  -----------------------------------------------------
+&lt;br&gt;       SUM(IPBR_LOST_RTP_PACKETS + IPBR_RECEIVED_RTP_PACKETS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_rtprtip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Rcv RTP pckt IP Based Route rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

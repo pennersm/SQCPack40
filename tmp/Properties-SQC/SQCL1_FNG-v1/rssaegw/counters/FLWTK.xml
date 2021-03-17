@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Flow_tracking FLWTK measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Flow_tracking FLWTK measurement dump</csv_title>
+    <report-description>NG flow tracking statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SESS_WITH_1_TO_5_FLOWS />
+    <SESS_WITH_6_TO_20_FLOWS />
+    <SESS_WITH_21_TO_45_FLOWS />
+    <SESS_WITH_46_TO_80_FLOWS />
+    <SESS_WITH_81_TO_150_FLOWS />
+    <SESS_WITH_151_TO_220_FLOWS />
+    <SESS_WITH_221_TO_290_FLOWS />
+    <SESS_WITH_291_TO_360_FLOWS />
+    <SESS_WITH_361_TO_430_FLOWS />
+    <SESS_WITH_431_TO_512_FLOWS />
+    <DELETED_IDLE_FLOWS />
+  </column_order>
+  <temp_table name="FLWTK" meas_level="PLMN/FING/FNODE/FLWTK" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="SESS_WITH_1_TO_5_FLOWS" time-alias="SESS_WITH_1_TO_5_FLOWS" timeagg="AVG(SESS_WITH_1_TO_5_FLOWS)">SUM(SESS_WITH_1_TO_5_FLOWS)</counter>
+      <counter alias="SESS_WITH_6_TO_20_FLOWS" time-alias="SESS_WITH_6_TO_20_FLOWS" timeagg="AVG(SESS_WITH_6_TO_20_FLOWS)">SUM(SESS_WITH_6_TO_20_FLOWS)</counter>
+      <counter alias="SESS_WITH_21_TO_45_FLOWS" time-alias="SESS_WITH_21_TO_45_FLOWS" timeagg="AVG(SESS_WITH_21_TO_45_FLOWS)">SUM(SESS_WITH_21_TO_45_FLOWS)</counter>
+      <counter alias="SESS_WITH_46_TO_80_FLOWS" time-alias="SESS_WITH_46_TO_80_FLOWS" timeagg="AVG(SESS_WITH_46_TO_80_FLOWS)">SUM(SESS_WITH_46_TO_80_FLOWS)</counter>
+      <counter alias="SESS_WITH_81_TO_150_FLOWS" time-alias="SESS_WITH_81_TO_150_FLOWS" timeagg="AVG(SESS_WITH_81_TO_150_FLOWS)">SUM(SESS_WITH_81_TO_150_FLOWS)</counter>
+      <counter alias="SESS_WITH_151_TO_220_FLOWS" time-alias="SESS_WITH_151_TO_220_FLOWS" timeagg="AVG(SESS_WITH_151_TO_220_FLOWS)">SUM(SESS_WITH_151_TO_220_FLOWS)</counter>
+      <counter alias="SESS_WITH_221_TO_290_FLOWS" time-alias="SESS_WITH_221_TO_290_FLOWS" timeagg="AVG(SESS_WITH_221_TO_290_FLOWS)">SUM(SESS_WITH_221_TO_290_FLOWS)</counter>
+      <counter alias="SESS_WITH_291_TO_360_FLOWS" time-alias="SESS_WITH_291_TO_360_FLOWS" timeagg="AVG(SESS_WITH_291_TO_360_FLOWS)">SUM(SESS_WITH_291_TO_360_FLOWS)</counter>
+      <counter alias="SESS_WITH_361_TO_430_FLOWS" time-alias="SESS_WITH_361_TO_430_FLOWS" timeagg="AVG(SESS_WITH_361_TO_430_FLOWS)">SUM(SESS_WITH_361_TO_430_FLOWS)</counter>
+      <counter alias="SESS_WITH_431_TO_512_FLOWS" time-alias="SESS_WITH_431_TO_512_FLOWS" timeagg="AVG(SESS_WITH_431_TO_512_FLOWS)">SUM(SESS_WITH_431_TO_512_FLOWS)</counter>
+      <counter alias="DELETED_IDLE_FLOWS" time-alias="DELETED_IDLE_FLOWS" timeagg="SUM(DELETED_IDLE_FLOWS)">SUM(DELETED_IDLE_FLOWS)</counter>
+    </counters>
+    <table_name>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FLWTK</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FLWTK.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_1_TO_5_FLOWS">
+    <formula>FLWTK.SESS_WITH_1_TO_5_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_1_TO_5_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 1 to 5 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 1 to 5 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_1_TO_5_FLOWS)">SUM(SESS_WITH_1_TO_5_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_1_TO_5_FLOWS (m3082c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_6_TO_20_FLOWS">
+    <formula>FLWTK.SESS_WITH_6_TO_20_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_6_TO_20_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 6 to 20 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 6 to 20 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_6_TO_20_FLOWS)">SUM(SESS_WITH_6_TO_20_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_6_TO_20_FLOWS (m3082c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_21_TO_45_FLOWS">
+    <formula>FLWTK.SESS_WITH_21_TO_45_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_21_TO_45_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 21 to 45 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 21 to 45 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_21_TO_45_FLOWS)">SUM(SESS_WITH_21_TO_45_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_21_TO_45_FLOWS (m3082c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_46_TO_80_FLOWS">
+    <formula>FLWTK.SESS_WITH_46_TO_80_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_46_TO_80_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 46 to 80 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 46 to 80 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_46_TO_80_FLOWS)">SUM(SESS_WITH_46_TO_80_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_46_TO_80_FLOWS (m3082c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_81_TO_150_FLOWS">
+    <formula>FLWTK.SESS_WITH_81_TO_150_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_81_TO_150_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 81 to 150 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 81 to 150 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_81_TO_150_FLOWS)">SUM(SESS_WITH_81_TO_150_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_81_TO_150_FLOWS (m3082c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_151_TO_220_FLOWS">
+    <formula>FLWTK.SESS_WITH_151_TO_220_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_151_TO_220_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 151 to 220 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 151 to 220 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_151_TO_220_FLOWS)">SUM(SESS_WITH_151_TO_220_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_151_TO_220_FLOWS (m3082c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_221_TO_290_FLOWS">
+    <formula>FLWTK.SESS_WITH_221_TO_290_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_221_TO_290_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 221 to 290 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 221 to 290 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_221_TO_290_FLOWS)">SUM(SESS_WITH_221_TO_290_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_221_TO_290_FLOWS (m3082c0007)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_291_TO_360_FLOWS">
+    <formula>FLWTK.SESS_WITH_291_TO_360_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_291_TO_360_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 291 to 360 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 291 to 360 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_291_TO_360_FLOWS)">SUM(SESS_WITH_291_TO_360_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_291_TO_360_FLOWS (m3082c0008)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_361_TO_430_FLOWS">
+    <formula>FLWTK.SESS_WITH_361_TO_430_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_361_TO_430_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 361 to 430 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 361 to 430 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_361_TO_430_FLOWS)">SUM(SESS_WITH_361_TO_430_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_361_TO_430_FLOWS (m3082c0009)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SESS_WITH_431_TO_512_FLOWS">
+    <formula>FLWTK.SESS_WITH_431_TO_512_FLOWS</formula>
+    <kpi_info>
+      <title>SESS_WITH_431_TO_512_FLOWS</title>
+      <use>This gauge contains the number of PDN connections that have 431 to 512 flows. UPDATED: Updated every 5 seconds with the number of PDN connections that have 431 to 512 flows.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SESS_WITH_431_TO_512_FLOWS)">SUM(SESS_WITH_431_TO_512_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SESS_WITH_431_TO_512_FLOWS (m3082c0010)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DELETED_IDLE_FLOWS">
+    <formula>FLWTK.DELETED_IDLE_FLOWS</formula>
+    <kpi_info>
+      <title>DELETED_IDLE_FLOWS</title>
+      <use>This counter contains the number of flows deleted due to flow inactivity timer expiration. The flow inactivity timer is set through the flow-inactivity-time parameter in the PCC rule filter configuration. UPDATED: Updated each time a flow is deleted due to the flow inactivity timer expiration.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DELETED_IDLE_FLOWS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_flwtk_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DELETED_IDLE_FLOWS (m3082c0011)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

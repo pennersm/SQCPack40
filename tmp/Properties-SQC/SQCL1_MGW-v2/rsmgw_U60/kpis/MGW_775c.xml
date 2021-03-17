@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_775c">
+    <formula>decode(
+			(signtrc.mgw_1002b),0,null, 
+
+			(100*(signtrc.inside_cat2_nb_ip + 
+			signtrc.inside_cat2_mb + 
+			signtrc.inside_cat2_nb_atm + 
+			signtrc.inside_cat2_iu_atm + 
+			signtrc.inside_cat2_iu_ip)
+			 / 
+			signtrc.mgw_1002b))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful codec modification inside codec category 2]]></title>
+      <use><![CDATA[Indicates share of successful codec modification inside codec category 2 of all successful codec modifications in measured MGW. Codec category 2 includes  FR AMR-WB and UTMS AMR-WB codecs.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM (INSIDE_CAT2_NB_IP  + INSIDE_CAT2_MB +
+&lt;br&gt;           INSIDE_CAT2_NB_ATM + INSIDE_CAT2_IU_ATM +
+&lt;br&gt;           INSIDE_CAT2_IU_IP)
+&lt;br&gt;100 * ---------------------------------------------
+&lt;br&gt;                       mgw_1002b
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shr  Suc CodMod Inside CodCat2</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

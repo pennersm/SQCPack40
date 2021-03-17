@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="CBRS_ext" meas_level="PLMN/FING/FNODE/GTPCV2/CBRS" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="GTPCV2_CREATE_BEARER_RESP_SENT">SUM(GTPCV2_CREATE_BEARER_RESP_SENT)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="GTPCV2_CR_BEARER_RESP_SENT_ALL">MAX(gtpcv2_cr_bearer_resp_sent_all)</counter>
+			<counter alias="GTPCV2_CR_BEARER_RESP_SENT_16"> SUM(decode(cbrs_id,'16',gtpcv2_create_bearer_resp_sent,'cs_1_16',gtpcv2_create_bearer_resp_sent, 0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		cbrs.*,
+		GTPCV2_CR_BEARER_RESP_SENT_ALL,
+		GTPCV2_CR_BEARER_RESP_SENT_16A
+FROM
+	pcofng_ps_cbrs_cbrs_{TIME_AGG} cbrs,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(GTPCV2_CREATE_BEARER_RESP_SENT) GTPCV2_CR_BEARER_RESP_SENT_ALL,
+			SUM(DECODE(CBRS_ID,'16',GTPCV2_CREATE_BEARER_RESP_SENT,'cs_1_16',GTPCV2_CREATE_BEARER_RESP_SENT,0)) GTPCV2_CR_BEARER_RESP_SENT_16A
+		FROM
+			 pcofng_ps_cbrs_cbrs_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	cbrs.fing_id = fnode_level.fing_id and fnode_level.fnode_id = cbrs.fnode_id and 
+	cbrs.period_start_time = fnode_level.period_start_time AND
+	cbrs.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	cbrs.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+
+		
+			]]>
+		</table_name>
+		<alias_name>CBRS_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>CBRS_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_cbrs_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_CREATE_BEARER_RESP_SENT">
+		<formula>CBRS_ext.GTPCV2_CREATE_BEARER_RESP_SENT</formula>
+		<kpi_info>
+			<title>GTPCV2_CREATE_BEARER_RESP_SENT</title>
+			<use>This counter contains the number of sent Create Bearer Response 
+			messages grouped by the cause code. UPDATED: Updated when a Create Bearer Response 
+			message is sent.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(GTPCV2_CREATE_BEARER_RESP_SENT)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_cbrs_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_CREATE_BEARER_RESP_SENT (m3050c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_CR_BEARER_RESP_SENT_ALL">
+		<formula>CBRS_ext.GTPCV2_CR_BEARER_RESP_SENT_ALL</formula>
+		<kpi_info>
+			<title>GTPCV2_CR_BEARER_RESP_SENT_ALL</title>
+			<use>
+			This counter contains the number of sent Create Bearer Response
+			messages by all cause codes. &lt;br/&gt;UPDATED: Updated when a 
+			Create Bearer Response message with a specific cause code is sent
+			</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(GTPCV2_CR_BEARER_RESP_SENT_ALL)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_cbrs_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_CR_BEARER_RESP_SENT_ALL (m3050c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<!-- Auxiliary Counters -->
+	<kpi name="GTPCV2_CR_BEARER_RESP_SENT_16">
+		<formula>CBRS_ext.GTPCV2_CR_BEARER_RESP_SENT_16</formula>
+		<kpi_info>
+			<title>GTPCV2_CR_BEARER_RESP_SENT_16</title>
+			<use>
+			This counter contains the number of sent Create Bearer Response
+			messages by cause code 16. &lt;br/&gt;UPDATED: Updated when a Create 
+			Bearer Response message with a specific cause code is sent
+			</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(DECODE(CBRS_ID,16,GTPCV2_CREATE_BEARER_RESP_SENT,0))</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_cbrs_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_CR_BEARER_RESP_SENT_16 (m3050c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

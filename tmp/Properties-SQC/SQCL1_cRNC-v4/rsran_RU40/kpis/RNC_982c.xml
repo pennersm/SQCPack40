@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_982c">
+    <formula>decode(
+			(hsdpaw.period_duration_sum),0,null, 
+
+			(hsdpaw.received_hs_macd_bits)
+			 / 
+			(1000*hsdpaw.period_duration_sum*60))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA Throughput]]></title>
+      <use><![CDATA[HSDPA throughput on frame protocol level.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum ( RECEIVED_HS_MACD_BITS )
+&lt;br&gt;------------------------------------
+&lt;br&gt;sum ( 1000 * PERIOD_DURATION_SUM * 60 )</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/03/29 11:30:55.422 +0100</date>
+          <comment><![CDATA[Source: RSRAN068.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSDPA thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

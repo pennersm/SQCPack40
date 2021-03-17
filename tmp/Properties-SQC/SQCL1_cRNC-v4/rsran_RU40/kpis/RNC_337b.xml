@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml">
+		<counters>
+			<counter alias="rnc_327a">sum(rrc_conn_stp_comp)</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_337b">
+		<formula>
+			decode((servlev.rnc_327a),0,null,(100*(servlev.rrc_conn_acc_fail_rnc)/servlev.rnc_327a))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RRC Access FR due to RNC]]>
+			</title>
+			<use>
+				<![CDATA[Percentage of RRC access failures caused by RNC&#039;s internal reasons.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum(RRC_CONN_ACC_FAIL_RNC)
+---------- 
+RNC_327a
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RRC Access FR due to RNC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

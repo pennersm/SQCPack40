@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	
+	<report id="RSSG2G069 - Gb Links Configuration" thresholds="false">
+		<report-level key="PAPU">PLMN/SGSN/PAPU/NSEI/NSVC</report-level>
+		<level>PLMN/SGSN/PAPU/NSEI/NSVC</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSSG2G069 - Gb Links Configuration</title>
+		<help-text>
+		<![CDATA[<br>				This is a CM report that gives information about the Gb links configured per SGSN.
+<br>Use case specific instructions:
+<br>To run this report &#034;NS-VC data measurement&#034; (012) must be activated in SGSN.
+<br>
+<br>Report columns:
+<br>
+<br>1. SGSN - &#034;SGSN name&#034;
+<br>- stores the SGSN identifier.
+<br>
+<br>2. PAPU_INDEX - &#034;PAPU logical index&#034; [#]
+<br>- stores the logical PAPU index;
+<br>
+<br>3. NSEI - &#034;NSE id&#034;
+<br>- stores the NSE identifier (Gb link).
+<br>
+<br>4. NSVCI - &#034;NS-VC id&#034;
+<br>- stores the NS-VC identifier.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="SGSN">sgsn.co_gid</pivot>
+			<pivot level="PAPU">papu.co_gid</pivot>			
+			<pivot level="NSEI_SGSN">p1.nse_id</pivot>
+			<pivot level="NSVC">p1.nsvc_id</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="time_stamp" columnType="KEY">
+				<alias>Time stamp</alias>
+			</column>
+			<column col-id="SGSN name" columnType="KEY">
+				<alias>SGSN name</alias>
+			</column>
+			<column col-id="PAPU logical index" columnType="KEY">
+				<alias>PAPU logical index</alias>
+			</column>
+			<column col-id="NSE id" columnType="KEY">
+				<alias>NSE id</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="NS-VC id" columnType="KEY">
+				<alias>NS-VC id</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>		
+		</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br>
+				<br><br>
+				<br>
+		 		]]>
+		</literal>
+
+		<sql table-width="550">
+			<![CDATA[
+
+			SELECT
+				p1.time_stamp "Time stamp",
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') "SGSN name",
+				NVL(papu.co_object_instance, 'NN('||papu.co_gid||')') "PAPU logical index",
+				p1.nse_id "NSE id",
+				p1.nsvc_id "NS-VC id"
+			FROM
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_NSVC_OBJECTS p1
+			WHERE
+				#object_selection# AND
+				papu.co_parent_gid = sgsn.co_gid AND
+				sgsn.co_oc_id=463 AND
+				sgsn.co_gid= p1.sgsn_gid AND
+				papu.co_object_instance=p1.papu_gid AND
+				papu.co_oc_id=462
+			ORDER BY 3,2,1
+
+
+	 		]]>
+	 	</sql>	
+	</report>
+</reports>

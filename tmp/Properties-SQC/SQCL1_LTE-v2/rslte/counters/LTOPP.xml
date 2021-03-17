@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LTOPP (LTE TOP PhaseSync Statistics)</header>
+    <csv_title>LTOPP (LTE TOP PhaseSync Statistics)</csv_title>
+    <report-description>LTE TOP PhaseSync Statistics measurement (M51138) contains PM counters to measure Timing over Packet (TOP) PhaseSync statistics.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <topRxPhaseSyncMsg/>
+    <topMinPhaseSyncError/>
+    <topAvgPhaseSyncError/>
+    <topMaxPhaseSyncError/>
+    <topPhaseSyncSLS/>
+    <topRxMultiCastPhaseSyncMsg/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LTOPP" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPP" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LTOPP</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="topRxPhaseSyncMsg" symmetrical="true">SUM(topRxPhaseSyncMsg)</counter>
+          <counter alias="topMinPhaseSyncError" symmetrical="true">MIN(topMinPhaseSyncError)</counter>
+          <counter alias="topAvgPhaseSyncError" symmetrical="true">AVG(topAvgPhaseSyncError)</counter>
+          <counter alias="topMaxPhaseSyncError" symmetrical="true">MAX(topMaxPhaseSyncError)</counter>
+          <counter alias="topPhaseSyncSLS" symmetrical="true">SUM(topPhaseSyncSLS)</counter>
+          <counter alias="topRxMultiCastPhaseSyncMsg" symmetrical="true">SUM(topRxMultiCastPhaseSyncMsg)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LTOPP</alias_name>
+    <ui_name>LTE TOP PhaseSync Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LTOPP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topRxPhaseSyncMsg">
+    <formula>LTOPP.topRxPhaseSyncMsg</formula>
+    <kpi_info>
+      <title>topRxPhaseSyncMsg (M51138C0)</title>
+      <use>The number of received ToP sync event messages. Event messages are time stamped and used for clock recovery. UPDATED: The counter is incremented every second by the number of received ToP sync event messages.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topRxPhaseSyncMsg)</formula>
+      <unit>packets</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topRxPhaseSyncMsg (M51138C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topMinPhaseSyncError">
+    <formula>LTOPP.topMinPhaseSyncError</formula>
+    <kpi_info>
+      <title>topMinPhaseSyncError (M51138C1)</title>
+      <use>The minimum value of the estimated phase error, between the current phase of the network element and the estimated phase based on the ToP traffic flow used for recovering the timing in nanoseconds during the interval. The minimum estimated phase error value has a sign and can be positive or negative. UPDATED: "The value is updated every minute using the following formula: minValue = min (minValue, actualValue)"
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(topMinPhaseSyncError)</formula>
+      <unit>nanoseconds</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMinPhaseSyncError (M51138C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topAvgPhaseSyncError">
+    <formula>LTOPP.topAvgPhaseSyncError</formula>
+    <kpi_info>
+      <title>topAvgPhaseSyncError (M51138C2)</title>
+      <use>The average value of the estimated phase error, between the current phase of the network element and the estimated phase based on the ToP traffic flow used for recovering the timing in nanoseconds during the interval. The average estimated phase error value has a sign and can be positive or negative. UPDATED: "The value is updated every minute using the following formula: aveValueNew = (aveValueOld * (actualIntervalLength - 1) + actualValue) / actualIntervalLength"
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(topAvgPhaseSyncError)</formula>
+      <unit>nanoseconds</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topAvgPhaseSyncError (M51138C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topMaxPhaseSyncError">
+    <formula>LTOPP.topMaxPhaseSyncError</formula>
+    <kpi_info>
+      <title>topMaxPhaseSyncError (M51138C3)</title>
+      <use>The maximum value of the estimated phase error, between the current phase of the network element and the estimated phase based on the ToP traffic flow used for recovering the timing in nanoseconds during the interval. The maximum estimated phase error value has a sign and can be positive or negative. UPDATED: "The value is updated every minute using the following formula: maxValue = max (maxValue, actualValue)"
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(topMaxPhaseSyncError)</formula>
+      <unit>nanoseconds</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMaxPhaseSyncError (M51138C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topPhaseSyncSLS">
+    <formula>LTOPP.topPhaseSyncSLS</formula>
+    <kpi_info>
+      <title>topPhaseSyncSLS (M51138C4)</title>
+      <use>The number of seconds during this interval while the timing over packet phase synchronisation service was in locked state. UPDATED: The number of seconds during this interval while the timing over packet phase synchronisation service was in locked state.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topPhaseSyncSLS)</formula>
+      <unit>Seconds</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topPhaseSyncSLS (M51138C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topRxMultiCastPhaseSyncMsg">
+    <formula>LTOPP.topRxMultiCastPhaseSyncMsg</formula>
+    <kpi_info>
+      <title>topRxMultiCastPhaseSyncMsg (M51138C5)</title>
+      <use>The number of received ToP phase synchronisation event messages in ethernet multicast mode. Event messages are time stamped and used for clock recovery. UPDATED: The counter is incremented every second by the number of received phase synchronisation messages in ethernet multicast mode.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topRxMultiCastPhaseSyncMsg)</formula>
+      <unit>packets</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topRxMultiCastPhaseSyncMsg (M51138C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LTOPP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltopp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

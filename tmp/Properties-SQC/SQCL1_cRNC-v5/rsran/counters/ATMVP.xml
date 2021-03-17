@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>ATMVP (ATM Virtual Path Connection)</header>
+    <csv_title>ATMVP (ATM Virtual Path Connection)</csv_title>
+    <report-description>ATM Virtual Path Connection</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <IN_TOT_CELLS_VP/>
+    <EG_TOT_CELLS_VP/>
+    <IN_REC_CELLS_VP/>
+    <IN_QUEUED_CELLS_VP/>
+    <IN_CAP_VP/>
+    <EG_REC_CELLS_VP/>
+    <EG_QUEUED_CELLS_VP/>
+    <EG_CAP_VP/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="ATMVP" omes_name="ATM_virtual_path" meas_level="PLMN/RSRAN-RNC/RSRAN-IF/RSRAN-VPI" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>ATMVP</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="IN_TOT_CELLS_VP" symmetrical="true">SUM(IN_TOT_CELLS_VP)</counter>
+          <counter alias="EG_TOT_CELLS_VP" symmetrical="true">SUM(EG_TOT_CELLS_VP)</counter>
+          <counter alias="IN_REC_CELLS_VP" symmetrical="true">SUM(IN_REC_CELLS_VP)</counter>
+          <counter alias="IN_QUEUED_CELLS_VP" symmetrical="true">AVG(IN_QUEUED_CELLS_VP)</counter>
+          <counter alias="IN_CAP_VP" symmetrical="true">AVG(IN_CAP_VP)</counter>
+          <counter alias="EG_REC_CELLS_VP" symmetrical="true">SUM(EG_REC_CELLS_VP)</counter>
+          <counter alias="EG_QUEUED_CELLS_VP" symmetrical="true">AVG(EG_QUEUED_CELLS_VP)</counter>
+          <counter alias="EG_CAP_VP" symmetrical="true">AVG(EG_CAP_VP)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ATMVP</alias_name>
+    <ui_name>ATM Virtual Path Connection</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ATMVP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IN_TOT_CELLS_VP">
+    <formula>ATMVP.IN_TOT_CELLS_VP</formula>
+    <kpi_info>
+      <title>IN_TOT_CELLS_VP (M529C0)</title>
+      <use>The number of ingress cells transmitted through a virtual path connection in the ingress direction. The received cells are partly stored in the buffer,the other cells will be transmitted. But some cells are dropped without transmitted. UPDATED:When an ATM cell is transmitted through a virtual path connection in the ingress direction.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(IN_TOT_CELLS_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IN_TOT_CELLS_VP (M529C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="EG_TOT_CELLS_VP">
+    <formula>ATMVP.EG_TOT_CELLS_VP</formula>
+    <kpi_info>
+      <title>EG_TOT_CELLS_VP (M529C1)</title>
+      <use>The number of egress cells transmitted to a virtual path connection in the egress direction.The received cells are partly stored in the buffer,the other cells will be transmitted. But some cells are dropped without transmitted. UPDATED:When an ATM cell is transmitted to a virtual path connection in the egress direction.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(EG_TOT_CELLS_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EG_TOT_CELLS_VP (M529C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IN_REC_CELLS_VP">
+    <formula>ATMVP.IN_REC_CELLS_VP</formula>
+    <kpi_info>
+      <title>IN_REC_CELLS_VP (M529C2)</title>
+      <use>The number of ingress cells received from a virtual path connection. UPDATED:When an ATM cell is received to the ATM interface unit for the ATM VP connection (ingress).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(IN_REC_CELLS_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IN_REC_CELLS_VP (M529C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IN_QUEUED_CELLS_VP">
+    <formula>ATMVP.IN_QUEUED_CELLS_VP</formula>
+    <kpi_info>
+      <title>IN_QUEUED_CELLS_VP (M529C3)</title>
+      <use>The number of ingress cells in virtual path connection level queue(s). UPDATED:The counter is updated at the end of the measurement period by the number of ATM cells in the ingress virtual path level queue(s).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(IN_QUEUED_CELLS_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IN_QUEUED_CELLS_VP (M529C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IN_CAP_VP">
+    <formula>ATMVP.IN_CAP_VP</formula>
+    <kpi_info>
+      <title>IN_CAP_VP (M529C4)</title>
+      <use>The configured ingress bandwidth for the virtual path connection. This counter is always zero for virtual path connection termination points since the ingress peak cell rate is not defined for those connections. UPDATED:This value is sampled at the end of the measurement period.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(IN_CAP_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IN_CAP_VP (M529C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="EG_REC_CELLS_VP">
+    <formula>ATMVP.EG_REC_CELLS_VP</formula>
+    <kpi_info>
+      <title>EG_REC_CELLS_VP (M529C5)</title>
+      <use>The number of egress cells received from a virtual path connection. UPDATED:When an ATM cell is received from the switch fabric direction to the ATM interface unit for the ATM VP connection (egress).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(EG_REC_CELLS_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EG_REC_CELLS_VP (M529C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="EG_QUEUED_CELLS_VP">
+    <formula>ATMVP.EG_QUEUED_CELLS_VP</formula>
+    <kpi_info>
+      <title>EG_QUEUED_CELLS_VP (M529C6)</title>
+      <use>The number of egress cells in virtual path connection level queue(s). UPDATED:The counter is updated at the end of the measurement period by the number of ATM cells in the egress virtual path level queue(s).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(EG_QUEUED_CELLS_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EG_QUEUED_CELLS_VP (M529C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="EG_CAP_VP">
+    <formula>ATMVP.EG_CAP_VP</formula>
+    <kpi_info>
+      <title>EG_CAP_VP (M529C7)</title>
+      <use>The configured egress bandwidth for the virtual path connection. UPDATED:This value is sampled at the end of the measurement period.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(EG_CAP_VP)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EG_CAP_VP (M529C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>ATMVP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_atmvp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

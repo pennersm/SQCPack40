@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml" />
+  <temp_table_ref src="rssg2g/counters/IUDA.xml" />
+  <kpi name="sgsn_914a">
+    <formula>
+    		(
+    			((data.gtp_data_in_bytes_sent_in_ul +
+				4294967296*data.gtp_data_bytes_sent_in_ul_ofl)
+	 			/
+				1048576)
+				-
+				nvl((iuda.iu_gtp_bytes_sent_in_ul +
+										4294967296*iuda.iu_gtp_bytes_sent_in_ul_ofl)
+										 /
+										1048576,0)
+			)
+
+			+
+			(
+				((data.gtp_data_in_bytes_sent_in_dl +
+				4294967296*data.gtp_data_bytes_sent_in_dl_ofl)
+			 	/
+				1048576)
+				-
+				nvl((iuda.iu_gtp_bytes_sent_in_dl +
+									4294967296*iuda.iu_gtp_bytes_sent_in_dl_ofl)
+ 									/
+									1048576,0)
+    		)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[GTP data sent total, Gb]]></title>
+      <use><![CDATA[This KPI shows the total amount of GTP megabytes sent both uplink and downlink on Gb/Gn interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sgsn_913a + sgsn_912a)</formula>
+      <unit>[MB]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[GTP data sent total, Gb]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

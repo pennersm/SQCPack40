@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="M1000C238">
+    <formula>round(decode(
+			nvl((cellres.hspa_dl_power_samples),0),0,0, 
+
+			10*log(10,((cellres.hspa_dl_power_samples*(power(10,(cellres.ave_hspa_dl_power
+			 / 
+			10))
+			 / 
+			1000))
+			 / 
+			(cellres.hspa_dl_power_samples))*1000)),3)</formula>
+    <kpi_info>
+      <title><![CDATA[AVE HSPA DL POWER]]></title>
+      <use><![CDATA[The average used HSPA power during the measurement period. The used HSPA power is calculated from the difference between the PtxTotal and PtxNonHSPA (or PtxNonHSDPA) values. UPDATED:This counter is updated periodically according to RNC internal timer whose period with WBTS is RRIndPeriod and with NBxxx the period is MIN(PrxTotalReportPeriod, PtxTotalReportPeriod). When the timer expires, the HSPA DL power value is calculated based on the information of latest received non-HSPA power value in NBAP:PRIVATE:RADIO RESOURCE MEASUREMENT REPORT or NBAP: COMMON MEASUREMENT REPORT.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;ROUND(DECODE(NVL(SUM(HSPA_DL_POWER_SAMPLES),0),0,0,10*LOG(10,(SUM(HSPA_DL_POWER_SAMPLES*(POWER(10,(AVE_HSPA_DL_POWER/10))/1000))/SUM(HSPA_DL_POWER_SAMPLES))*1000)),3)</formula>
+      <unit>[dBm]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[AVE HSPA DL POWER]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

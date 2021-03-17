@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+
+  <temp_table_ref src="rsran/counters/M3UAC.xml" />
+
+  <kpi name="RNC_2845a">
+    <formula><![CDATA[8*decode((M3UAC.period_duration*60*1000000), 0, NULL, 
+(M3UAC.USER_DATA_OCTET_RECEIVED)/(M3UAC.period_duration*60*1000000))]]></formula>
+    <kpi_info>
+      <title>Connection Received User Data Throughput</title>
+      <use>Received user data throughput on the M3UA Connection</use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[8* 
+sum(USER_DATA_OCTET_RECEIVED)
+----------------------------------------
+sum(period_duration * 60 * 1000000)]]></formula>
+      <unit>Mbps</unit>
+      <tables>nokrww_ps_m3uac_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromExcelXmlApp]]></author>
+          <date>2014/11/05 15:49:41.705 +0000</date>
+          <comment><![CDATA[Source: excel_reports/kpis_RU50 EP1.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Connection Received User Data Throughput</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

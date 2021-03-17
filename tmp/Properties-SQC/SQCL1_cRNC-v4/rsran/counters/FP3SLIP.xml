@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>FP3SLIP (PPP Single Link IP Statistics)</header>
+    <csv_title>FP3SLIP (PPP Single Link IP Statistics)</csv_title>
+    <report-description>PPP Single Link IP Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ifInPackets15 />
+    <ifInOctets15 />
+    <ifOutPackets15 />
+    <ifOutOctets15 />
+    <ifInErrors15 />
+    <cacMaxReservedBitRate />
+    <cacMinReservedBitRate />
+    <cacAvgReservedBitRate />
+    <cacMaxCommittedBitRate />
+    <ifIpOutDropPackets />
+    <ifIpOutDropOctets />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FP3SLIP" meas_level="PLMN/RNC/WBTS/FTM/P3SL/IPPM" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ifInPackets15">SUM(ifInPackets15)</counter>
+      <counter alias="ifInOctets15">SUM(ifInOctets15)</counter>
+      <counter alias="ifOutPackets15">SUM(ifOutPackets15)</counter>
+      <counter alias="ifOutOctets15">SUM(ifOutOctets15)</counter>
+      <counter alias="ifInErrors15">SUM(ifInErrors15)</counter>
+      <counter alias="cacMaxReservedBitRate">MAX(cacMaxReservedBitRate)</counter>
+      <counter alias="cacMinReservedBitRate">MIN(cacMinReservedBitRate)</counter>
+      <counter alias="cacAvgReservedBitRate">AVG(cacAvgReservedBitRate)</counter>
+      <counter alias="cacMaxCommittedBitRate">MAX(cacMaxCommittedBitRate)</counter>
+      <counter alias="ifIpOutDropPackets">SUM(ifIpOutDropPackets)</counter>
+      <counter alias="ifIpOutDropOctets">SUM(ifIpOutDropOctets)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FP3SLIP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FP3SLIP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInPackets15">
+    <formula>FP3SLIP.ifInPackets15</formula>
+    <kpi_info>
+      <title>ifInPackets15</title>
+      <use>The number of inbound packets that were delivered to higher-layer protocols. UPDATED: The counter is updated when an inbound packet has been delivered to higher-layer protocols.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInPackets15)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInPackets15 (M5135C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInOctets15">
+    <formula>FP3SLIP.ifInOctets15</formula>
+    <kpi_info>
+      <title>ifInOctets15</title>
+      <use>The total number of octets received by the interface, including framing characters. UPDATED: The counter is updated when octets are received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInOctets15)</formula>
+      <unit>kB</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInOctets15 (M5135C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutPackets15">
+    <formula>FP3SLIP.ifOutPackets15</formula>
+    <kpi_info>
+      <title>ifOutPackets15</title>
+      <use>The number of outbound packets that were successfully transmitted. UPDATED: The counter is updated when packets have been transmitted successfully.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutPackets15)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutPackets15 (M5135C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutOctets15">
+    <formula>FP3SLIP.ifOutOctets15</formula>
+    <kpi_info>
+      <title>ifOutOctets15</title>
+      <use>The total number of octets transmitted by the interface, including framing characters. UPDATED: The counter is updated when octets are transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutOctets15)</formula>
+      <unit>kB</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutOctets15 (M5135C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInErrors15">
+    <formula>FP3SLIP.ifInErrors15</formula>
+    <kpi_info>
+      <title>ifInErrors15</title>
+      <use>The number of inbound packets that contained errors preventing them from being deliverable to a higher-layer protocol. UPDATED: The counter is updated when erroneous packets are received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInErrors15)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInErrors15 (M5135C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxReservedBitRate">
+    <formula>FP3SLIP.cacMaxReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxReservedBitRate</title>
+      <use>This is the maximum value of the reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. UPDATED: The counter is updated when the maximum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxReservedBitRate (M5135C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMinReservedBitRate">
+    <formula>FP3SLIP.cacMinReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMinReservedBitRate</title>
+      <use>This is the minimum value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. UPDATED: The counter is updated when the minimum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(cacMinReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMinReservedBitRate (M5135C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacAvgReservedBitRate">
+    <formula>FP3SLIP.cacAvgReservedBitRate</formula>
+    <kpi_info>
+      <title>cacAvgReservedBitRate</title>
+      <use>This is the average value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. UPDATED: The counter is updated when the average value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(cacAvgReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacAvgReservedBitRate (M5135C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxCommittedBitRate">
+    <formula>FP3SLIP.cacMaxCommittedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxCommittedBitRate</title>
+      <use>This is the maximum bit rate (kbps) which can be allocated by the CAC which
+is specified by the following configuration parameters:-
+If traffic shaping type is "OFF" or "WFQ", it is the
+subtraction of DCNCommittedBitRate and SignallingCommittedBitRate
+cacCommittedBitRate - DCNCommittedBitRate - SignallingCommittedBitRate
+If traffic shaping type is "PATH", committed bit rate (CIR)
+is used. Otherwise DCNCommittedBitRate and/or SignallingCommittedBitRate
+shall be subtracted if management plane and/or control plane use the same
+interface
+In case of Hybrid backhaul (Eth/VLAN + ML-PPP)
+If traffic shaping type is "PATH".
+Ethernet/VLAN interfaces: Committed Information Rate (CIR) of the
+CAC instance. 
+ML-PPP interface: cacCommittedBitRate
+DCNCommittedBitRate and/or SignallingCommittedBitRate shall be
+subtracted if management plane and/or control plane use the same interface.
+UPDATED:The counter is updated when the value of the allocated bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxCommittedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxCommittedBitRate (M5135C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutDropPackets">
+    <formula>FP3SLIP.ifIpOutDropPackets</formula>
+    <kpi_info>
+      <title>ifIpOutDropPackets</title>
+      <use>The total number of packets that could not be transmitted over the interface due to congestion. UPDATED: The counter is updated for every packet that cannot be transmitted over the interface due to congestion.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutDropPackets)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutDropPackets (M5135C11)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutDropOctets">
+    <formula>FP3SLIP.ifIpOutDropOctets</formula>
+    <kpi_info>
+      <title>ifIpOutDropOctets</title>
+      <use>The total number of octets that could not be transmitted over the interface due to congestion. UPDATED: The counter is updated for every octet that cannot be transmitted over the interface due to congestion.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutDropOctets)</formula>
+      <unit>kB</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutDropOctets (M5135C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FP3SLIP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fp3slip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

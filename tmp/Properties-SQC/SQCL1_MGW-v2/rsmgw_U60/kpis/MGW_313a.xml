@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="MGW_313a">
+    <formula>decode(
+			(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas),0,null, 
+
+			(100*((conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas) - 
+			(conn.all_atm_cas_unsuccess + 
+			conn.all_ip_cas_unsuccess + 
+			conn.all_tdm_cas_unsuccess + 
+			conn.all_cas_erroneous_resource_req))
+			 / 
+			(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas)))</formula>
+    <kpi_info>
+      <title><![CDATA[Connection success rate]]></title>
+      <use><![CDATA[Indicates the successful ratio of connection reservation attempts in measured ISU]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum((ALL_ATM_CAS + ALL_IP_CAS + ALL_TDM_CAS) 
+&lt;br&gt;- (ALL_ATM_CAS_UNSUCCESS + ALL_IP_CAS_UNSUCCESS 
+&lt;br&gt;+ ALL_TDM_CAS_UNSUCCESS + ALL_CAS_ERRONEOUS_RESOURCE_REQ))
+&lt;br&gt; /sum (ALL_ATM_CAS + ALL_IP_CAS + ALL_TDM_CAS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Connection success rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

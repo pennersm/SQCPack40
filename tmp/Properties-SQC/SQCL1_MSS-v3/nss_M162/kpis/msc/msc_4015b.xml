@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_4015b">
+    <formula>
+decode((VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null,
+	((TC_ext.tcat_answ_tr_1/100) / TC_ext.PERIOD_START_TIME_1 * TC_ext.PERIOD_DURATION_1 * TC_ext.PERIOD_START_TIME_1 * 60)
+	/
+	(VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL)
+)
+   </formula>
+    <kpi_info>
+      <title><![CDATA[Speech Mean Holding Time per subscriber (answer)]]></title>
+      <use>
+        <![CDATA[Indicates the average number of seconds of speech traffic per subscriber. It is expressed as the ratio between the total call duration from answer divided by the total number of VLR users. SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated.
+      
+FORMULA NOTES:
+Tcat_Ids:
+86 = VOICE ORIG 2G
+88 = VOICE ORIG 3G
+101 = DATA ORIG 2G
+103 = DATA ORIG 3G
+90 = VOICE INCOMING
+105 = DATA INCOMING
+
+Both M20 + M80 measures have the same BH criteria = max of avg(TCAT_TRAFF_X100). It is this BH criteria that shall be used for this KPI.
+
+Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+
+Starting from M14.6, this KPI is to be used if the SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated in the MSC/VLR. If not activated please use msc_4015a KPI.
+		]]>
+	  </use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_Ids:
+<br>   86 = VOICE ORIG 2G
+<br>   88 = VOICE ORIG 3G
+<br>   101 = DATA ORIG 2G
+<br>   103 = DATA ORIG 3G
+<br>   90 = VOICE INCOMING
+<br>   105 = DATA INCOMING
+<br>
+<br>Both M20 + M80 measures have the same BH criteria = max of avg(TCAT_TRAFF_X100). It is this BH criteria that shall be used for this KPI.
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>
+<br>Starting from M14.6, this KPI is to be used if the SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated in the MSC/VLR. If not activated please use msc_4015a KPI.
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 15-07-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->TCAT
+<br>PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br> + 
+<br>VLR measurement, part n (M80/50H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;Total Speech Traffic per Customer (answer)&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#149; For OBJECT level:
+&lt;br&gt;
+&lt;br&gt;(SUM( a.tcat_answ_tr_x100 ) / 100) * AVG( DURATION ) * 60 
+&lt;br&gt;;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105 
+&lt;br&gt;---------------------------------- 
+&lt;br&gt;msc_2047a 
+&lt;br&gt; 
+&lt;br&gt;Use AGGREGATED views(s) 
+&lt;br&gt; 
+&lt;br&gt;For TIME level: 
+&lt;br&gt; 
+&lt;br&gt;(AVG( a.tcat_answ_tr_x100 ) / 100) * SUM( DURATION ) * 60 
+&lt;br&gt;;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105 
+&lt;br&gt;----------------------------------- 
+&lt;br&gt;msc_2047a 
+&lt;br&gt; 
+&lt;br&gt;a = M20 = Traffic category measurement (M20/14H) 
+	  </formula>
+      <unit>[Seconds]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG},rns_ps_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Speech MHT per subsc (answer)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

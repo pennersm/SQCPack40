@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FATM.xml" />
+  <kpi name="RNC_1142a">
+    <formula>decode(
+			(fatm.totCellsIngress),0,null, 
+
+			(100*(fatm.discHec + 
+			fatm.discCells)
+			 / 
+			(fatm.totCellsIngress)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ingress cell error ratio]]></title>
+      <use><![CDATA[Cell error ratio (HEC errors, protocol errors)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum ( discHec + discCells) 
+&lt;br&gt;---------------------
+&lt;br&gt;sum ( totCellsIngress )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_fatm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ingress cell error ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

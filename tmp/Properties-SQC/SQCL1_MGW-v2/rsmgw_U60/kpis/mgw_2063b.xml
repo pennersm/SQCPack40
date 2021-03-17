@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CLU.xml" />
+   <kpi name="mgw_2063b">
+    <formula>
+decode(
+			(nvl(CLU.PC_IU_AVERAGE,0) + nvl(CLU.PC_IU_IP_AVERAGE,0) + nvl(CLU.PC_NB_IP_AVERAGE,0) + nvl(CLU.PC_MB_AVERAGE,0) + nvl(CLU.PC_ATER_AVERAGE,0) + nvl(CLU.PC_AOIP_AVERAGE,0) + nvl(CLU.PC_MB_LTE_AVERAGE,0)),0,0, 
+			(               
+				(nvl(CLU.PC_IU_AVERAGE,0) + nvl(CLU.PC_IU_IP_AVERAGE,0) + nvl(CLU.PC_NB_IP_AVERAGE,0) + nvl(CLU.PC_MB_AVERAGE,0) + nvl(CLU.PC_ATER_AVERAGE,0) + nvl(CLU.PC_AOIP_AVERAGE,0) + nvl(CLU.PC_MB_LTE_AVERAGE,0))
+				/
+				( decode(CLU.PC_IU_AVERAGE,null,0,1) + decode(CLU.PC_IU_IP_AVERAGE,null,0,1) + decode(CLU.PC_NB_IP_AVERAGE,null,0,1) + decode(CLU.PC_MB_AVERAGE,null,0,1) + decode(CLU.PC_ATER_AVERAGE,null,0,1) + decode(CLU.PC_AOIP_AVERAGE,null,0,1) + decode(CLU.PC_MB_LTE_AVERAGE,null,0,1))
+			)
+	   )
+</formula>	   
+	<kpi_info>
+      <title><![CDATA[Average port capacity licence usage ratio]]></title>
+      <use><![CDATA[Provides the average port capacity license usage at MGW level. This KPI considers the WCDMA access port capacity license usage, the IP based WCDMA access port capacity license usage, the IP backbone port capacity license usage, the Mb-IP access port capacity license usage, the Ater access port capacity license usage, the AoIP port capacity licence usage and the VoLTE access port capacity licence usage ratio.  
+]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;AVG(  mgw_1112a, mgw_1114a, mgw_1116a, mgw_1118a, mgw_1120a, mgw_1143a, mgw_2060a)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_CLU_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/08/28 17:39:30.793 +0100</date>
+          <comment><![CDATA[Source: RSMGW100.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg MGW port cap lic usg rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TCPIP.xml" />
+  <kpi name="MGW_507a">
+    <formula>100*decode(
+			tcpip.ips_total,0,null, 
+
+			(tcpip.ips_badsum + 
+			tcpip.ips_toosmall + 
+			tcpip.ips_tooshort + 
+			tcpip.ips_toolong + 
+			tcpip.ips_badhlen + 
+			tcpip.ips_badlen + 
+			tcpip.ips_badoptions + 
+			tcpip.ips_badvers)
+			 / 
+			tcpip.ips_total)</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of discarded IP datagrams]]></title>
+      <use><![CDATA[Percentage of discarded IP datagrams]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum( IPS_BADSUM + IPS_TOOSMALL + IPS_TOOSHORT 
+&lt;br&gt;+ IPS_TOOLONG + IPS_BADHLEN + IPS_BADLEN 
+&lt;br&gt;+ IPS_BADOPTIONS + IPS_BADVERS ) / sum(IPS_TOTAL)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_tcpip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Percentage of discarded IP datagrams]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

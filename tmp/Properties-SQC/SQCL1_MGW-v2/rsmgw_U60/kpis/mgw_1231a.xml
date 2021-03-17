@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/RTPRTIP.xml" />
+  <kpi name="mgw_1231a">
+    <formula>
+	decode(
+	(rtprtip.ipbr_sent_rtcp_mux_hc_negot +
+	rtprtip.ipbr_sent_rtcp_mux_negot +
+	rtprtip.ipbr_rec_rtcp_mux_hc_negot +
+	rtprtip.ipbr_rec_rtcp_mux_negot),0,null,
+	100*(rtprtip.ipbr_rec_rtcp_mux_hc_negot +
+	rtprtip.ipbr_rec_rtcp_mux_negot)
+	/
+	(rtprtip.ipbr_sent_rtcp_mux_hc_negot +
+	rtprtip.ipbr_sent_rtcp_mux_negot +
+	rtprtip.ipbr_rec_rtcp_mux_hc_negot +
+	rtprtip.ipbr_rec_rtcp_mux_negot))</formula>
+    <kpi_info>
+      <title><![CDATA[Usage ratio of multiplexing negotiations in receiving direction]]></title>
+      <use><![CDATA[Indicates the usage ratio of multiplexing negotiations in receiving direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM(IPBR_REC_RTCP_MUX_HC_NEGOT+
+&lt;br&gt;					        IPBR_REC_RTCP_MUX_NEGOT) 
+&lt;br&gt;100 *  -----------------------------------------------------------------------
+&lt;br&gt;            SUM(IPBR_SENT_RTCP_MUX_HC_NEGOT+IPBR_SENT_RTCP_MUX_NEGOT+
+&lt;br&gt;				  IPBR_REC_RTCP_MUX_HC_NEGOT+IPBR_REC_RTCP_MUX_NEGOT)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_RTPRTIP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.564 +0100</date>
+          <comment><![CDATA[Source: RSMGW033b.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Usg rto mux neg rcv dir</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/IDFT.xml"/>
+  <kpi name="flng_430a">
+    <formula>decode(
+			((IDFT.IDFT_GTPU_DL_PKTS + 
+			IDFT.IDFT_GTPU_DROP_PKT)),0,NULL, 
+
+			((IDFT.IDFT_GTPU_DROP_PKT))
+			 / 
+			((IDFT.IDFT_GTPU_DL_PKTS + 
+			IDFT.IDFT_GTPU_DROP_PKT)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Indirect Data Forwarding Tunnel GTPU DL data drop ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped downlink GTP-U data over Indirect Data Forwarding Tunnel.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>             sum( IDFT_GTPU_DROP_PKT )                  
+&lt;br&gt;------------------------------------------------------- *100
+&lt;br&gt; sum( IDFT_GTPU_DL_PKTS + IDFT_GTPU_DROP_PKT )       
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_IDFT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IDFT GTPU DL data DR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

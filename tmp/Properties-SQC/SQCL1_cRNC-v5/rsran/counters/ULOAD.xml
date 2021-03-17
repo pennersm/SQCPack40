@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>ULOAD (Unit Load)</header>
+    <csv_title>ULOAD (Unit Load)</csv_title>
+    <report-description>Unit Load</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <AVERAGE_LOAD/>
+    <PEAK_LOAD/>
+    <PEAK_LOAD_DATE/>
+    <PEAK_LOAD_TIME/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="ULOAD" omes_name="Unit_Load" meas_level="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID_A3" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>ULOAD</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="AVERAGE_LOAD" symmetrical="true">AVG(AVERAGE_LOAD)</counter>
+          <counter alias="PEAK_LOAD" symmetrical="true">MAX(PEAK_LOAD)</counter>
+          <counter alias="PEAK_LOAD_DATE" invalid-time-levels="hour,day,week,month,bh,weekbh,monbh,whole_period" invalid-report-levels="PLMN,PLMN/RSRAN-RNC,PLMN/RSRAN-RNC/RSRAN-UTYPE" symmetrical="true">SUM(PEAK_LOAD_DATE)</counter>
+          <counter alias="PEAK_LOAD_TIME" invalid-time-levels="hour,day,week,month,bh,weekbh,monbh,whole_period" invalid-report-levels="PLMN,PLMN/RSRAN-RNC,PLMN/RSRAN-RNC/RSRAN-UTYPE" symmetrical="true">SUM(PEAK_LOAD_TIME)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ULOAD</alias_name>
+    <ui_name>Unit Load</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ULOAD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVERAGE_LOAD">
+    <formula>ULOAD.AVERAGE_LOAD</formula>
+    <kpi_info>
+      <title>AVERAGE_LOAD (M592C0)</title>
+      <use>The average load for a monitored computer unit. The value is the arithmetical average of samples taken from the processor load. The length of the sampling interval is 4 seconds. UPDATED:The sample of the load rate is updated every 4 seconds. The average value is calculated at the end of measurement period.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(AVERAGE_LOAD)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVERAGE_LOAD (M592C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PEAK_LOAD">
+    <formula>ULOAD.PEAK_LOAD</formula>
+    <kpi_info>
+      <title>PEAK_LOAD (M592C1)</title>
+      <use>The peak load of the monitored computer unit. This is the highest recorded value of the processor load during a measurement period. The length of the sampling interval is 4 seconds. UPDATED:When the sample of the load rate is the highest. Checked every 4 seconds.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(PEAK_LOAD)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_LOAD (M592C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PEAK_LOAD_DATE">
+    <formula>ULOAD.PEAK_LOAD_DATE</formula>
+    <kpi_info>
+      <title>PEAK_LOAD_DATE (M592C2)</title>
+      <use>The date of the peak load. The value is stored as an integer number in such format that e.g. 23rd December 2008 would produce value 23122008.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PEAK_LOAD_DATE)</formula>
+      <unit>date</unit>
+      <tables>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_LOAD_DATE (M592C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PEAK_LOAD_TIME">
+    <formula>ULOAD.PEAK_LOAD_TIME</formula>
+    <kpi_info>
+      <title>PEAK_LOAD_TIME (M592C3)</title>
+      <use>The time of the peak load. The time indicates the sampling moment that followed the observation period with the highest load rate. At unit restart when there is no load, which means that the peak load is zero, the time is the unit restart time. Otherwise, when the peak load is zero, the time shows when the peak load was last observed. The value is stored as an integer number in such format that e.g. 12:30:59 would produce value 123059.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PEAK_LOAD_TIME)</formula>
+      <unit>time</unit>
+      <tables>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_LOAD_TIME (M592C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>ULOAD.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

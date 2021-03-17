@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4008a">
+    <formula>
+decode(TC_ext.Tcat_ok_amount_22,0,null,
+	((TC_ext.Tcat_traffx100_17/100) / TC_ext.PERIOD_START_TIME_1 * TC_ext.PERIOD_DURATION_1 * TC_ext.PERIOD_START_TIME_1 * 60)
+	/
+	TC_ext.Tcat_ok_amount_22
+)
+   </formula>
+    <kpi_info>
+      <title><![CDATA[Mean Holding Time (seizure)]]></title>
+      <use><![CDATA[Indicates the average duration of calls from the seizure point to the call release.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI is for 2G + 3G MHT (seizure) analysis.
+<br>
+<br>Tcat_Ids:
+<br>   86 = VOICE ORIG 2G
+<br>   88 = VOICE ORIG 3G
+<br>   101 = DATA ORIG 2G
+<br>   103 = DATA ORIG 3G
+<br>   90 = VOICE INCOMING
+<br>   105 = DATA INCOMING
+<br>
+<br>This KPI is compliant with ex-S KPI. There are, however, different trigger points. In ex-S, the seizure is counted from the CM-service-request and in NSN the seizure is only counted after the assignment complete message. In both ex-S + NSN the average calculation is based on the total number of calls that have been answered.
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;Mean Holding Time (seizure)&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#149; For OBJECT level:
+&lt;br&gt;
+&lt;br&gt;  ( SUM( tcat_traffx100 ) / 100) * AVG( DURATION ) * 60
+&lt;br&gt;   ;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;----------------------------------------------------
+&lt;br&gt;   SUM( tcat_ok_amount )
+&lt;br&gt;   ;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;
+&lt;br&gt;&amp;#149; For TIME level:
+&lt;br&gt;
+&lt;br&gt;  ( AVG( tcat_traffx100 ) / 100) * SUM( DURATION ) * 60
+&lt;br&gt;   ;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;----------------------------------------------------
+&lt;br&gt;   SUM( tcat_ok_amount )
+&lt;br&gt;   ;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;  ( SUM( tcat_traffx100 ) / 100) / COUNT( DISTINCT period_start_time ) * AVG( DURATION ) * COUNT( DISTINCT period_start_time ) * 60
+&lt;br&gt;  ;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;----------------------------------------------------------------------------
+&lt;br&gt;   SUM( tcat_ok_amount )
+&lt;br&gt;   ;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105</formula>
+      <unit>[Seconds]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MHT (seizure)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

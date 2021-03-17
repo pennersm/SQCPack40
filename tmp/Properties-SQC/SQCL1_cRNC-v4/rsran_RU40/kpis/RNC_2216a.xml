@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_2216a">
+    <formula>100*decode(
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr),0,null, 
+
+			(pktcall.ps_setup_fail_trans_bgr + 
+			pktcall.ps_setup_fail_trans_int)
+			 / 
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr))</formula>
+    <kpi_info>
+      <title><![CDATA[PS Setup FR for I&B due to Transport]]></title>
+      <use><![CDATA[Packet call setup failure rate due to transport for interactive and background traffic class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum ( PS_SETUP_FAIL_TRANS_BGR
+&lt;br&gt;+ PS_SETUP_FAIL_TRANS_INT )
+&lt;br&gt;-------------------
+&lt;br&gt;RNC_2214a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:53.201 +0100</date>
+          <comment><![CDATA[Source: RSRAN101.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS stp FR I B Transport</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

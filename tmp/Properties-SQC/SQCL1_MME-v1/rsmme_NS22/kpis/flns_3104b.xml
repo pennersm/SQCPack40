@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3104b">
+    <formula>decode(
+			(mmmt.period_duration),0,null, 
+
+			(mmmt.eps_path_switch_x2_succ + 
+			nvl(mmmt.eps_x2ho_sgw_chg_succ,0) + 
+			mmmt.eps_path_switch_x2_fail + 
+			mmmt.eps_s1ho_succ + 
+			nvl(mmmt.intramme_s1ho_sgw_chg_succ,0) + 
+			mmmt.eps_s1ho_fail + 
+			nvl(mmmt.intramme_s1ho_sgw_chg_fail,0))
+			 / 
+			(mmmt.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Intra MME handover per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS intra MME handover procedures per second.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(EPS_PATH_SWITCH_X2_SUCC + 
+&lt;br&gt;   EPS_X2HO_SGW_CHG_SUCC +
+&lt;br&gt;   EPS_PATH_SWITCH_X2_FAIL +
+&lt;br&gt;   EPS_S1HO_SUCC +
+&lt;br&gt;   INTRAMME_S1HO_SGW_CHG_SUCC +
+&lt;br&gt;   EPS_S1HO_FAIL +
+&lt;br&gt;   INTRAMME_S1HO_SGW_CHG_FAIL)
+&lt;br&gt;--------------------------------- 
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/10/03 16:27:32.53 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Intra MME HO pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/WBTSMON.xml" /> 
+  <kpi name="RNC_2748a">
+    <formula>
+    100*decode(
+			wbtsmon.lic_hsupa_thr,0,null, 
+
+			wbtsmon.conf_hsupa_thr
+			 / 
+			wbtsmon.lic_hsupa_thr)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Configured HSUPA throughput ratio]]></title>
+      <use><![CDATA[Percentage of configured HSUPA troughput in reference to the licensed HSUPA troughput at BTS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(CONF_HSUPA_THR) 
+&lt;br&gt;------------------------- 
+&lt;br&gt;SUM(LIC_HSUPA_THR) </formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_WBTSMON_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Config HSUPA thp R]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

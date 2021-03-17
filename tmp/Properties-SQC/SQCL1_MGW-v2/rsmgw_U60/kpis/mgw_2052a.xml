@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsmgw/counters/M3UA.xml" />
+  <kpi name="mgw_2052a">
+    <formula>decode(m3ua.period_duration,0,NULL,100*m3ua.M3UA_ASSO_SET_DURATION_OF_CONG/(m3ua.period_duration*60*100)) </formula>
+    <kpi_info>
+      <title><![CDATA[Association set congestion ratio]]></title>
+      <use><![CDATA[Association set congestion ratio. This KPI provides a relationship between the cumulative duration of congestion of the association set and the total observation time (period duration). The period of congestion time begins when the association set becomes congested. Association set is congested if any association of the association set is in congested. Updating of the M3UA_ASSO_SET_DURATION_OF_CONG  counter ends when the congestion of the association set ends.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        SUM( M3UA_ASSO_SET_DURATION_OF_CONG )
+&lt;br&gt;100 * ------------------------------------------------------------
+&lt;br&gt;        SUM( period_duration * 60 * 1000)</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/08/28 17:39:30.650 +0100</date>
+          <comment><![CDATA[Source: RSMGW036.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Assoc set cong rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

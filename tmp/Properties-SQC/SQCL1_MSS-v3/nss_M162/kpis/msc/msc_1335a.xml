@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  	<temp_table_ref src="nss/counters/MEG.xml" />
+	<kpi name="msc_1335a">
+    <formula>
+decode(
+			(meg.period_duration),0,null, 
+
+			((meg.received_sctp_pack_total_size*8)
+			 / 
+			(meg.period_duration*60*1000)))
+ 	</formula>
+    <kpi_info>
+      <title><![CDATA[MC link received SCTP bandwidth]]></title>
+      <use><![CDATA[Indicates the SCTP bandwidth used in receiving direction per H.248 link.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For OBJECT level: 
+&lt;br&gt;
+&lt;br&gt; SUM( RECEIVED_SCTP_PACK_TOTAL_SIZE ) * 8
+&lt;br&gt; --------------------------------
+&lt;br&gt;    AVG( DURATION ) * 60 * 1000
+&lt;br&gt;
+&lt;br&gt;For TIME level: 
+&lt;br&gt;
+&lt;br&gt; SUM( RECEIVED_SCTP_PACK_TOTAL_SIZE ) * 8
+&lt;br&gt; --------------------------------
+&lt;br&gt;    SUM( DURATION ) * 60 * 1000
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt; SUM( RECEIVED_SCTP_PACK_TOTAL_SIZE ) * 8
+&lt;br&gt; -----------------------------------------------------
+&lt;br&gt; AVG( DURATION ) * COUNT( DISTINCT period_start_time ) * 60 * 1000</formula>
+      <unit>[kbit/s]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mc link rcvd SCTP bandwidth</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

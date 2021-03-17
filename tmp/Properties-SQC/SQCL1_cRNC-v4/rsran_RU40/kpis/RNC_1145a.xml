@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/FATMVC_ext.xml" />
+  <kpi name="RNC_1145a">
+    <formula>decode(
+			(fatmvc.period_duration),0,null, 
+
+			((fatmvc.totcellsingressvc_1)
+			 / 
+			(fatmvc.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average VCC ingress traffic]]></title>
+      <use><![CDATA[Average ingress VCC traffic over 15 min]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(totCellsIngressVC) 
+&lt;br&gt;-----------------------
+&lt;br&gt;sum ( PERIOD_DURATION * 60 )</formula>
+      <unit>[cell/s]</unit>
+      <tables>nokrww_ps_fatmvc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average VCC ingress traffic]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

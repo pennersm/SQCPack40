@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GV211_ext.xml" />
+  <kpi name="flng_532a">
+    <formula>100*decode(GV211_ext.CRE_SESS_RESP_SENT_S11_ALL,0,null,
+	(
+	 GV211_ext.GTPCV2_CRE_SESS_RESP_SENT_S11
+	 /
+	 GV211_ext.CRE_SESS_RESP_SENT_S11_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S11 Create Session responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent on S11 interface for a specific cause code when compared to total number of GTP-C v2 create session response messages sent on S11 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv211_id,&amp;#039;x&amp;#039;,GTPCV2_CRE_SESS_RESP_SENT_S11,0))  ;GV211 for cause code x
+&lt;br&gt;----------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_SENT_S11)  ;all GV211&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.256 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW063.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S11 Cre Sess res sent rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

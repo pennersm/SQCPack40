@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw_U60/counters/MTPSLU_ext.xml" />
+  <temp_table_ref src="rsmgw/counters/MTPSLU.xml" />
+  <temp_table_ref src="rsmgw/counters/M3UA.xml" />
+  <kpi name="mgw_5009c">
+    <formula>greatest( 
+decode(
+			(mtpslu_ext.mtp_corr_multi_recv_num*mtpslu.period_duration),0,0, 
+
+			(mtpslu.msus_received*(mtpslu_ext.sum_min_5_peakload_traffic_in
+			 / 
+			((mtpslu_ext.mtp_corr_multi_recv_num)*8
+			 / 
+			(mtpslu.period_duration*60)))
+			 / 
+			(mtpslu.period_duration*60))),
+
+decode(
+			(mtpslu_ext.mtp_corr_multi_recv_num*mtpslu.period_duration*m3ua.period_duration),0,0, 
+
+			(m3ua.m3ua_messages_received*
+			(mtpslu_ext.sum_min_5_peakload_traffic_in
+			 / 
+			((mtpslu_ext.mtp_corr_multi_recv_num)*8
+			 / 
+			(mtpslu.period_duration*60)))
+			 / 
+			(m3ua.period_duration*60)))
+,
+
+decode(
+			(mtpslu_ext.mtp_corr_multi_trans_num*mtpslu.period_duration),0,0, 
+
+			(mtpslu.msus_transmitted*(mtpslu_ext.sum_min_5_peakload_traffic_out
+			 / 
+			(((mtpslu_ext.mtp_corr_multi_trans_num)*8)
+			 / 
+			 (mtpslu.period_duration*60)))
+			 / 
+			(mtpslu.period_duration*60))),
+
+decode(
+			(mtpslu_ext.mtp_corr_multi_trans_num*mtpslu.period_duration*m3ua.period_duration),0,0, 
+
+			(m3ua.m3ua_messages_sent*(mtpslu_ext.sum_min_5_peakload_traffic_out
+			 / 
+			(((mtpslu_ext.mtp_corr_multi_trans_num)*8)
+			 / 
+			 (mtpslu.period_duration*60)))
+			 / 
+			(m3ua.period_duration*60)))
+)</formula>
+    <kpi_info>
+      <title><![CDATA[Signalling (msg/s/direction)]]></title>
+      <use><![CDATA[Maximum value of MTP and M3UA signalling message per second per direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;MAX( mgw_5007b , mgw_5003b , mgw_5008b , mgw_5004b )
+&lt;br&gt;=
+&lt;br&gt;MAX( 
+&lt;br&gt;( SUMoverSLSN( MSUS_RECEIVED * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_IN * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_RECEIVED + 6 * SUMoverSL MSUS_RECEIVED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) )
+&lt;br&gt;,
+&lt;br&gt;( SUMoverASS_index( M3UA_MESSAGES_RECEIVED * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_IN * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_RECEIVED + 6 * SUMoverSL MSUS_RECEIVED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) ) )
+&lt;br&gt;,
+&lt;br&gt;( SUMoverSLSN( MSUS_TRANSMITTED * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_OUT * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_TRANSMITTED + 6 * SUMoverSL MSUS_TRANSMITTED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) )
+&lt;br&gt;,
+&lt;br&gt;( SUMoverASS_index( M3UA_MESSAGES_SENT * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_OUT * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_TRANSMITTED + 6 * SUMoverSL MSUS_TRANSMITTED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) ) )
+&lt;br&gt;)</formula>
+      <unit>[#]</unit>
+      <tables>NOKMWW_PS_MTPSLU_{OBJ_AGG}_{TIME_AGG},NOKMWW_PS_M3UA_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/08/28 17:39:30.793 +0100</date>
+          <comment><![CDATA[Source: RSMGW044.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>sign_msg_s_direction</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

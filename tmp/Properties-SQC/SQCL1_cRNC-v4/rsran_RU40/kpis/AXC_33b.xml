@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ETHL.xml" />
+  <kpi name="AXC_33b">
+    <formula>100*decode(
+			ethl.inpkt15,0,null, 
+
+			(ethl.inpkterr15 + 
+			ethl.inunknownvlan15 + 
+			ethl.unknownpsnhdr15)
+			 / 
+			ethl.inpkt15)</formula>
+    <kpi_info>
+      <title><![CDATA[Ingress packet error ratio]]></title>
+      <use><![CDATA[Ingress packet error ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum (inPktErr15 +  inUnknownVlan15 + unknownPsnHdr15) / sum (inPkt15)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokaxc_ps_ethl_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/07/13 12:15:33.161 +0100</date>
+          <comment><![CDATA[Source: RSAXC003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Ingress packet err ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TRFOTFO.xml" />
+  <kpi name="MGW_740a">
+    <formula>decode(
+			(trfotfo.tfo_use_passive_negotiation + 
+			trfotfo.tfo_fail_passive_negotiation),0,null, 
+
+			(100*(trfotfo.tfo_use_passive_negotiation)
+			 / 
+			(trfotfo.tfo_use_passive_negotiation + 
+			trfotfo.tfo_fail_passive_negotiation)))</formula>
+    <kpi_info>
+      <title><![CDATA[Passive TFO service usage success ratio]]></title>
+      <use><![CDATA[Indicates the successful ratio of TFO service usage in MGW for TFOs (where MGW initiated codec negotiation)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *sum(TFO_USE_PASSIVE_NEGOTIATION) / sum(TFO_USE_PASSIVE_NEGOTIATION + TFO_FAIL_PASSIVE_NEGOTIATION)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_trfotfo_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Passive TFO service usage success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

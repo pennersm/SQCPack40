@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/AAL2SCH_AXC.xml" />
+  <kpi name="AXC_47a">
+    <formula>100*(decode(
+			(aal2sch.droppedoctetsq1 + 
+			aal2sch.droppedoctetsq2 + 
+			aal2sch.droppedoctetsq3 + 
+			aal2sch.droppedoctetsq4),0,null, 
+
+			aal2sch.droppedoctetsq2
+			 / 
+			(aal2sch.droppedoctetsq1 + 
+			aal2sch.droppedoctetsq2 + 
+			aal2sch.droppedoctetsq3 + 
+			aal2sch.droppedoctetsq4)))</formula>
+    <kpi_info>
+      <title><![CDATA[AAL2 Q2 dropped distribution ratio]]></title>
+      <use><![CDATA[Percentage of AAL2 buffering delay for schedulling queue 2 (Q2)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* (sum (droppedOctetsQ2) / ( sum(droppedOctetsQ1) + sum (droppedOctetsQ2) + sum (droppedOctetsQ3) + sum (droppedOctetsQ4)))
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokaxc_ps_aal2sch_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/07/13 12:15:33.833 +0100</date>
+          <comment><![CDATA[Source: RSAXC011.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>AAL2 drop delay Q2</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

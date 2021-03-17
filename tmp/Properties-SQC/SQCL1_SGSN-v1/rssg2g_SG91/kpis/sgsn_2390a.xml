@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2390a">
+    <formula>3600*decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_PERIODIC_RA_UPD + 
+			IUMM1.IU_FAIL_PERIODIC_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_PERIODIC_UP_PS + 
+			IUMM1.IU_SUCC_COMB_PERIODIC_UP_PS))
+			 / 
+			((IUMM1.period_duration*60)))
+            /
+            decode(
+			(paus.avg_attach_iu_users_sum * paus.avg_attach_iu_users_den),0,NULL,(paus.avg_attach_iu_users_sum / paus.avg_attach_iu_users_den))</formula>
+    <kpi_info>
+      <title><![CDATA[3G Periodic RAUs requests per subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of 3G periodic routing area update request procedures per subscriber per hour.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>3600 * sgsn_2140a
+&lt;br&gt;--------------------
+&lt;br&gt;sgsn_693a
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[3G Period RAU req /subs /h]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

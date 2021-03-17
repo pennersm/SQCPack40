@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 VLAN_IP_stats VLIP measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 VLAN_IP_stats VLIP measurement dump</csv_title>
+    <report-description>AXC VLAN IP statistics (M5221)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ifIpInPackets15 />
+    <ifIpInOctets15 />
+    <ifIpOutPackets15 />
+    <ifIpOutOctets15 />
+    <ifIpInErrors15 />
+    <ifIpOutDropOctets />
+    <ifIpOutDropPackets />
+    <cacMaxReservedBitRate />
+    <cacMinReservedBitRate />
+    <cacAvgReservedBitRate />
+    <cacMaxCommittedBitRate />
+  </column_order>
+  <temp_table name="VLIP" meas_level="PLMN/RNC/WBTS/AXC/IPNO/IEIF/IVIF/IPPM" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ifIpInPackets15" timeagg="SUM(ifIpInPackets15)">SUM(ifIpInPackets15)</counter>
+      <counter alias="ifIpInOctets15" timeagg="SUM(ifIpInOctets15)">SUM(ifIpInOctets15)</counter>
+      <counter alias="ifIpOutPackets15" timeagg="SUM(ifIpOutPackets15)">SUM(ifIpOutPackets15)</counter>
+      <counter alias="ifIpOutOctets15" timeagg="SUM(ifIpOutOctets15)">SUM(ifIpOutOctets15)</counter>
+      <counter alias="ifIpInErrors15" timeagg="SUM(ifIpInErrors15)">SUM(ifIpInErrors15)</counter>
+      <counter alias="ifIpOutDropOctets" timeagg="SUM(ifIpOutDropOctets)">SUM(ifIpOutDropOctets)</counter>
+      <counter alias="ifIpOutDropPackets" timeagg="SUM(ifIpOutDropPackets)">SUM(ifIpOutDropPackets)</counter>
+      <counter alias="cacMaxReservedBitRate" timeagg="MAX(cacMaxReservedBitRate)">MAX(cacMaxReservedBitRate)</counter>
+      <counter alias="cacMinReservedBitRate" timeagg="MIN(cacMinReservedBitRate)">MIN(cacMinReservedBitRate)</counter>
+      <counter alias="cacAvgReservedBitRate" timeagg="AVG(cacAvgReservedBitRate)">AVG(cacAvgReservedBitRate)</counter>
+      <counter alias="cacMaxCommittedBitRate" timeagg="MAX(cacMaxCommittedBitRate)">MAX(cacMaxCommittedBitRate)</counter>
+    </counters>
+    <table_name>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>VLIP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>VLIP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpInPackets15">
+    <formula>VLIP.ifIpInPackets15</formula>
+    <kpi_info>
+      <title>ifIpInPackets15</title>
+      <use>The number of inbound packets delivered to higher-layer protocols.  This counter is available only on AXCF units. UPDATED: The counter is updated when an inbound packet has been delivered to higher-layer protocols.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpInPackets15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpInPackets15 (M5221C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpInOctets15">
+    <formula>VLIP.ifIpInOctets15</formula>
+    <kpi_info>
+      <title>ifIpInOctets15</title>
+      <use>The total number of octects received by the interface, including framing characters.  This counter is available only on AXCF units. UPDATED: The counter is updated for every octet that is received over the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpInOctets15)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpInOctets15 (M5221C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutPackets15">
+    <formula>VLIP.ifIpOutPackets15</formula>
+    <kpi_info>
+      <title>ifIpOutPackets15</title>
+      <use>The number of outbound packets successfully transmitted.  This counter is available only on AXCF units. UPDATED: The counter is updated for every packet that is successfully transmitted over the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutPackets15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutPackets15 (M5221C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutOctets15">
+    <formula>VLIP.ifIpOutOctets15</formula>
+    <kpi_info>
+      <title>ifIpOutOctets15</title>
+      <use>The total number of octets transmitted by the interface, including framing characters.  This counter is available only on AXCF units. UPDATED: The counter is updated for every octet that is successfully transmitted over the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutOctets15)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutOctets15 (M5221C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpInErrors15">
+    <formula>VLIP.ifIpInErrors15</formula>
+    <kpi_info>
+      <title>ifIpInErrors15</title>
+      <use>The number of inbound packets containing errors that prevented them from being delivered to a higher-layer protocol. This counter is available only on AXCF units. UPDATED: The counter is updated foe every erroneous packets that is received over the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpInErrors15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpInErrors15 (M5221C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutDropOctets">
+    <formula>VLIP.ifIpOutDropOctets</formula>
+    <kpi_info>
+      <title>ifIpOutDropOctets</title>
+      <use>The total number of octects that could not be transmitted over the interface due to congestion. This counter is available only on AXCF units. UPDATED: The counter is updated for every octet that cannot be transmitted over the interface due to congestion.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutDropOctets)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutDropOctets (M5221C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutDropPackets">
+    <formula>VLIP.ifIpOutDropPackets</formula>
+    <kpi_info>
+      <title>ifIpOutDropPackets</title>
+      <use>The total number of packets that could not be transmitted over the interface due to congestion. This counter is available only on AXCF units. UPDATED: The counter is updated for every packet that cannot be transmitted over the interface due to congestion.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutDropPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutDropPackets (M5221C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxReservedBitRate">
+    <formula>VLIP.cacMaxReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxReservedBitRate</title>
+      <use>This is the maximum value of the reserved bit rate for CAC utilization (in kbps) measured during the measurement interval.  This counter is available only on AXCF units. UPDATED: The counter is updated when the maximum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxReservedBitRate (M5221C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMinReservedBitRate">
+    <formula>VLIP.cacMinReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMinReservedBitRate</title>
+      <use>This is the minimum value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval.  This counter is available only on AXCF units. UPDATED: The counter is updated when the minimum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(cacMinReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMinReservedBitRate (M5221C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacAvgReservedBitRate">
+    <formula>VLIP.cacAvgReservedBitRate</formula>
+    <kpi_info>
+      <title>cacAvgReservedBitRate</title>
+      <use>This is the average value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval.  This counter is available only on AXCF units. UPDATED: The counter is updated when the average value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(cacAvgReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacAvgReservedBitRate (M5221C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxCommittedBitRate">
+    <formula>VLIP.cacMaxCommittedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxCommittedBitRate</title>
+      <use>This is the maximum bit rate (in kbps) which can be allocated by the CAC, i.e. the commited information rate  (CIR) configured per CAC.  This counter is available only on AXCF units. UPDATED: The counter is updated when the value of the allocated bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxCommittedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokaxc_ps_vlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxCommittedBitRate (M5221C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

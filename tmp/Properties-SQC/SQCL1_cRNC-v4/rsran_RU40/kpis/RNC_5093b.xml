@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran_RU40/counters/RRC_ext.xml" />
+  <kpi name="RNC_5093b">
+    <formula>100*decode(
+			(servlev.moc_conv_call_atts + 
+			servlev.mtc_conv_call_atts + 
+			servlev.emergency_call_atts - 
+			servlev.rrc_att_rep_mo_conv - 
+			servlev.rrc_att_rep_mt_conv - 
+			servlev.rrc_att_rep_emergency - 
+			servlev.rrc_acc_rel_emergency - 
+			servlev.rrc_acc_rel_mo_conv - 
+			servlev.rrc_acc_rel_mt_conv - 
+			servlev.rrc_conn_stp_rej_emerg_call + 
+			rrc.cell_update_att_cs_call_1),0,null, 
+
+			(servlev.moc_conv_call_atts - 
+			servlev.moc_conv_call_fails + 
+			servlev.mtc_conv_call_atts - 
+			servlev.mtc_conv_call_fails + 
+			servlev.emergency_call_atts - 
+			servlev.emergency_call_fails - 
+			servlev.rrc_acc_rel_emergency - 
+			servlev.rrc_acc_rel_mo_conv - 
+			servlev.rrc_acc_rel_mt_conv + 
+			rrc.cell_update_succ_cs_call_1)
+			 / 
+			(servlev.moc_conv_call_atts + 
+			servlev.mtc_conv_call_atts + 
+			servlev.emergency_call_atts - 
+			servlev.rrc_att_rep_mo_conv - 
+			servlev.rrc_att_rep_mt_conv - 
+			servlev.rrc_att_rep_emergency - 
+			servlev.rrc_acc_rel_emergency - 
+			servlev.rrc_acc_rel_mo_conv - 
+			servlev.rrc_acc_rel_mt_conv - 
+			servlev.rrc_conn_stp_rej_emerg_call + 
+			rrc.cell_update_att_cs_call_1))
+			*decode(
+			servlev.rab_stp_att_cs_voice,0,null, 
+			servlev.rab_acc_comp_cs_voice
+			 / 
+			servlev.rab_stp_att_cs_voice)</formula>
+    <kpi_info>
+      <title><![CDATA[Voice Call Setup Success Ratio (RRC+CU)]]></title>
+      <use><![CDATA[Call Setup Success rate including both calls started from Idle state with RRC procedure and calls started from Cell_PCH state with Cell Update procedure]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(MOC_CONV_CALL_ATTS - 
+&lt;br&gt;MOC_CONV_CALL_FAILS + 
+&lt;br&gt;MTC_CONV_CALL_ATTS - 
+&lt;br&gt;MTC_CONV_CALL_FAILS +
+&lt;br&gt;EMERGENCY_CALL_ATTS - 
+&lt;br&gt;EMERGENCY_CALL_FAILS -
+&lt;br&gt;RRC_ACC_REL_EMERGENCY - 
+&lt;br&gt;RRC_ACC_REL_MO_CONV - 
+&lt;br&gt;RRC_ACC_REL_MT_CONV+
+&lt;br&gt;CELL_UPDATE_SUCC_CS_CALL) 
+&lt;br&gt;/
+&lt;br&gt;sum(MOC_CONV_CALL_ATTS + 
+&lt;br&gt;MTC_CONV_CALL_ATTS + 
+&lt;br&gt;EMERGENCY_CALL_ATTS - 
+&lt;br&gt;RRC_ATT_REP_MO_CONV - 
+&lt;br&gt;RRC_ATT_REP_MT_CONV - 
+&lt;br&gt;RRC_ATT_REP_EMERGENCY - 
+&lt;br&gt;RRC_ACC_REL_EMERGENCY - 
+&lt;br&gt;RRC_ACC_REL_MO_CONV - 
+&lt;br&gt;RRC_ACC_REL_MT_CONV - 
+&lt;br&gt;RRC_CONN_STP_REJ_EMERG_CALL+
+&lt;br&gt;CELL_UPDATE_ATT_CS_CALL) 
+&lt;br&gt;* sum(RAB_ACC_COMP_CS_VOICE) / sum(RAB_STP_ATT_CS_VOICE)</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{obj_agg}_{time_agg},NOKRWW_PS_RRC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:35.322 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Voice Call Setup SR (RRC+CU)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

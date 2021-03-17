@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/SLAHLR.xml" />
+  <kpi name="hlr_579a">
+    <formula>100*decode(
+			(slahlr.period_duration),0,null, 
+
+			(slahlr.dur_of_unavail_link_failure)
+			 / 
+			(slahlr.period_duration*60))
+			</formula>
+    <kpi_info>
+      <title><![CDATA[Link failure duration ratio]]></title>
+      <use><![CDATA[Indicates ratio of link failure duration (any reason) to duration of link unavailability]]></use>
+      
+      <use_experience><![CDATA[ 
+ 	  <br>This KPI is similar to msc_579b. New KPI ID reference (HLR NE).
+ 	  <br>This new KPI ID reference is to to be used starting from M15.1 report sets.
+ 	  <br> 
+	  <br>RECOMMENDED SUMMARY LEVELS: HLR; SLN; SLSN
+	  <br>
+	  <br>KPI CLASS: Resource
+	  <br>MEASUREMENT(S): MTP signalling link availability measurement (M208)
+	  <br>
+	  <br>]]></use_experience>
+      
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;  sum(DUR_OF_UNAVAIL_LINK_FAILURE)
+&lt;br&gt;------------------------------- * 100
+&lt;br&gt;  Measure Period_duration * 60(*)
+&lt;br&gt;
+&lt;br&gt;(*) Aggregation type: SUM for Time and AVERAGE for Network
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_SLHLR_{OBJ_AGG}_{TIME_AGG}
+&lt;br&gt;RNS_PS_SLAHLR_{OBJ_AGG}_{TIME_AGG}
+&lt;br&gt;
+&lt;br&gt;BH counters from view(s):
+&lt;br&gt;RNS_PS_SLHLRBH_{OBJ_AGG}_{TIME_AGG}
+&lt;br&gt;RNS_PS_SLAHLRBH_{OBJ_AGG}_{TIME_AGG}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SLAHLR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Link fail dur ratio HLR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

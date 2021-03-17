@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ROU.xml"/>
+  <kpi name="msc_740a">
+    <formula>100*decode(
+			(rou.route_attempt),0,null, 
+
+			((rou.route_cra)
+			 / 
+			(rou.route_attempt)))</formula>
+    <kpi_info>
+      <title><![CDATA[Calls with offered routes and cleared ratio]]></title>
+      <use><![CDATA[Shows the % of calls that have been offered to this route and have been cleared or alternative route had to be tried because of different congestion situations]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;           sum (ROUTE_CRA)
+&lt;br&gt;100 *  -----------------------------------------------
+&lt;br&gt;           sum (ROUTE_ATTEMPT)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_rou_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Calls with offered routes and cleared ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

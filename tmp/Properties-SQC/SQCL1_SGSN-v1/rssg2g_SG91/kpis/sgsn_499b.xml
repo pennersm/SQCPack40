@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <kpi name="sgsn_499b">
+    <formula>decode(
+			(sesmgmnt.succ_pdp_cont_modify_services),0,NULL,
+
+			((sesmgmnt.dur_mo_pdp_mod_sum/100)
+			 /
+			(sesmgmnt.succ_pdp_cont_modify_services)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb PDP modification procedure average duration]]></title>
+      <use><![CDATA[This KPI shows the average duration of successful PDP modification procedures from Gb interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DUR_MO_PDP_MOD_SUM / 100)
+&lt;br&gt;----------------------------------------------------------------
+&lt;br&gt;sum(SUCC_PDP_CONT_MODIFY_SERVICES)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_session management</formula>
+      <unit>[Seconds]</unit>
+      <tables>rsg_ps_sesmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb PDP modification procedure average duration]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

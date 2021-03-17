@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml">
+		<counters>
+			<counter alias="rnc_329a">
+				sum(rrc_conn_stp_fail_ac)
+			</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_964a">
+		<formula>
+			decode((servlev.rrc_conn_stp_att),0,null,(100*servlev.rnc_329a/(servlev.rrc_conn_stp_att)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RRC Setup FR due to AC]]>
+			</title>
+			<use>
+				<![CDATA[RRC setup failure rate caused by Admission Control.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * RNC_329a 
+--------------------
+sum ( RRC_CONN_STP_ATT )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RRC Setup FR due to AC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Netstat Netstat measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Netstat Netstat measurement dump</csv_title>
+    <report-description>Flexi platfrom network statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <RECV_PACKETS />
+    <RECV_OCTETS />
+    <RECV_DROPS />
+    <RECV_ERRORS />
+    <TRANSMIT_PACKETS />
+    <TRANSMIT_OCTETS />
+    <TRANSMIT_DROPS />
+    <TRANSMIT_ERRORS />
+    <RECEIVED_PACKETS />
+    <RECEIVED_OCTETS />
+    <RECEIVED_ERRORS />
+    <RECEIVED_DROPS />
+  </column_order>
+  <temp_table name="Netstat" meas_level="PLMN/FING/FNODE/NGIF" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="RECV_PACKETS" time-alias="RECV_PACKETS" timeagg="SUM(RECV_PACKETS)">SUM(RECV_PACKETS)</counter>
+      <counter alias="RECV_OCTETS" time-alias="RECV_OCTETS" timeagg="SUM(RECV_OCTETS)">SUM(RECV_OCTETS)</counter>
+      <counter alias="RECV_DROPS" time-alias="RECV_DROPS" timeagg="SUM(RECV_DROPS)">SUM(RECV_DROPS)</counter>
+      <counter alias="RECV_ERRORS" time-alias="RECV_ERRORS" timeagg="SUM(RECV_ERRORS)">SUM(RECV_ERRORS)</counter>
+      <counter alias="TRANSMIT_PACKETS" time-alias="TRANSMIT_PACKETS" timeagg="SUM(TRANSMIT_PACKETS)">SUM(TRANSMIT_PACKETS)</counter>
+      <counter alias="TRANSMIT_OCTETS" time-alias="TRANSMIT_OCTETS" timeagg="SUM(TRANSMIT_OCTETS)">SUM(TRANSMIT_OCTETS)</counter>
+      <counter alias="TRANSMIT_DROPS" time-alias="TRANSMIT_DROPS" timeagg="SUM(TRANSMIT_DROPS)">SUM(TRANSMIT_DROPS)</counter>
+      <counter alias="TRANSMIT_ERRORS" time-alias="TRANSMIT_ERRORS" timeagg="SUM(TRANSMIT_ERRORS)">SUM(TRANSMIT_ERRORS)</counter>
+      <counter alias="RECEIVED_PACKETS" time-alias="RECEIVED_PACKETS" timeagg="SUM(RECEIVED_PACKETS)">SUM(RECEIVED_PACKETS)</counter>
+      <counter alias="RECEIVED_OCTETS" time-alias="RECEIVED_OCTETS" timeagg="SUM(RECEIVED_OCTETS)">SUM(RECEIVED_OCTETS)</counter>
+      <counter alias="RECEIVED_ERRORS" time-alias="RECEIVED_ERRORS" timeagg="SUM(RECEIVED_ERRORS)">SUM(RECEIVED_ERRORS)</counter>
+      <counter alias="RECEIVED_DROPS" time-alias="RECEIVED_DROPS" timeagg="SUM(RECEIVED_DROPS)">SUM(RECEIVED_DROPS)</counter>
+    </counters>
+    <table_name>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>Netstat</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>Netstat.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECV_PACKETS">
+    <formula>Netstat.RECV_PACKETS</formula>
+    <kpi_info>
+      <title>RECV_PACKETS</title>
+      <use>The number of packets received by the logical interface.
+ UPDATED: When a packet is received on the logical interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECV_PACKETS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECV_PACKETS (m02004c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECV_OCTETS">
+    <formula>Netstat.RECV_OCTETS</formula>
+    <kpi_info>
+      <title>RECV_OCTETS</title>
+      <use>The number of octets received by the logical interface.
+ UPDATED: When a packet is received on the logical interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECV_OCTETS)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECV_OCTETS (m02004c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECV_DROPS">
+    <formula>Netstat.RECV_DROPS</formula>
+    <kpi_info>
+      <title>RECV_DROPS</title>
+      <use>The number of received packets dropped.
+ UPDATED: When a packet received by the logical interface is dropped.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECV_DROPS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECV_DROPS (m02004c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECV_ERRORS">
+    <formula>Netstat.RECV_ERRORS</formula>
+    <kpi_info>
+      <title>RECV_ERRORS</title>
+      <use>The number of erroneous packets received by the logical interface.
+ UPDATED: When an erroneous packet is received on the logical interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECV_ERRORS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECV_ERRORS (m02004c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMIT_PACKETS">
+    <formula>Netstat.TRANSMIT_PACKETS</formula>
+    <kpi_info>
+      <title>TRANSMIT_PACKETS</title>
+      <use>The number of packets transmitted out of the interface. UPDATED: When a packet is transmitted on the networking interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMIT_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMIT_PACKETS (m2004c0005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMIT_OCTETS">
+    <formula>Netstat.TRANSMIT_OCTETS</formula>
+    <kpi_info>
+      <title>TRANSMIT_OCTETS</title>
+      <use>The number of octets transmitted out of the interface. UPDATED: When a packet is transmitted on the networking interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMIT_OCTETS)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMIT_OCTETS (m2004c0006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMIT_DROPS">
+    <formula>Netstat.TRANSMIT_DROPS</formula>
+    <kpi_info>
+      <title>TRANSMIT_DROPS</title>
+      <use>The number of outbound packets chosen to be dropped. UPDATED: When a packet to be transmitted by the networking interface is dropped.</use>
+	  <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMIT_DROPS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMIT_DROPS (m2004c0008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMIT_ERRORS">
+    <formula>Netstat.TRANSMIT_ERRORS</formula>
+    <kpi_info>
+      <title>TRANSMIT_ERRORS</title>
+      <use>The number of outbound packets that are not transmitted because of errors. UPDATED: When a packet transmission fails on the networking interface.</use>
+	  <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMIT_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMIT_ERRORS (m2004c0007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECEIVED_PACKETS">
+    <formula>Netstat.RECEIVED_PACKETS</formula>
+    <kpi_info>
+      <title>RECEIVED_PACKETS</title>
+      <use>The number of packets received. UPDATED: When a packet is received on the networking interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECEIVED_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECEIVED_PACKETS (m2004c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+ <kpi name="RECEIVED_OCTETS">
+    <formula>Netstat.RECEIVED_OCTETS</formula>
+    <kpi_info>
+      <title>RECEIVED_OCTETS</title>
+      <use>The number of octets received. UPDATED: When a packet is received on the networking interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECEIVED_OCTETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECEIVED_OCTETS (m2004c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+ <kpi name="RECEIVED_ERRORS">
+    <formula>Netstat.RECEIVED_ERRORS</formula>
+    <kpi_info>
+      <title>RECEIVED_ERRORS</title>
+      <use>The number of inbound packets that contain errors. UPDATED: When an erroneous packet is received on the networking interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECEIVED_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECEIVED_ERRORS (m2004c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECEIVED_DROPS">
+    <formula>Netstat.RECEIVED_DROPS</formula>
+    <kpi_info>
+      <title>RECEIVED_DROPS</title>
+      <use>The number of inbound packets chosen to be dropped. UPDATED: When a packet received by the networking interface is dropped.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECEIVED_DROPS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECEIVED_DROPS (m2004c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

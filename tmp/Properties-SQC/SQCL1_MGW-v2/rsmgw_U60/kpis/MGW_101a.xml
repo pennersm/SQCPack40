@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/AAL2CAC.xml" />
+  <kpi name="MGW_101a">
+    <formula>decode(
+			(aal2cac.aal2_rm_succeeded + 
+			aal2cac.aal2_cac_rejected),0,null, 
+
+			(100*(aal2cac.aal2_cac_rejected)
+			 / 
+			(aal2cac.aal2_rm_succeeded + 
+			aal2cac.aal2_cac_rejected)))</formula>
+    <kpi_info>
+      <title><![CDATA[Unsuccessful ratio of connections due to CAC]]></title>
+      <use><![CDATA[Rejected connections due to CAC divided by successful connections. Up to MGW U5.0, this KPI was identified as mgw_556b.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum( AAL2_CAC_REJECTED ) / sum( AAL2_RM_SUCCEEDED + AAL2_CAC_REJECTED )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_aal2cac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Unsuccesful ratio of connections due to CAC]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

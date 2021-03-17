@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran/counters/AALRR.xml"/>
+  <kpi name="RNC_1793a">
+    <formula>decode(
+			(aalrr.aal2_succeeded_hsdpa + 
+			aalrr.transport_rejected_ext_hsdpa + 
+			aalrr.transport_rejected_int_hsdpa + 
+			aalrr.other_rejected_hsdpa),0,null, 
+
+			(100*(aalrr.transport_rejected_int_hsdpa)
+			 / 
+			(aalrr.aal2_succeeded_hsdpa + 
+			aalrr.transport_rejected_ext_hsdpa + 
+			aalrr.transport_rejected_int_hsdpa + 
+			aalrr.other_rejected_hsdpa)))</formula>
+    <kpi_info>
+      <title><![CDATA[Shared HSDPA AAL2 reservations failure ratio due to Internal CAC rejection]]></title>
+      <use><![CDATA[This KPI provides information about the shared HSDPA AAL2 resource allocation failure ratio due to Internal Call Admission Control rejection.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(TRANSPORT_REJECTED_INT_HSDPA) 
+&lt;br&gt;    ---------------------------- 
+&lt;br&gt;     sum(AAL2_SUCCEEDED_HSDPA 
+&lt;br&gt;       +TRANSPORT_REJECTED_EXT_HSDPA
+&lt;br&gt;       +TRANSPORT_REJECTED_INT_HSDPA
+&lt;br&gt;       + OTHER_REJECTED_HSDPA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalrr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shre HSDPA AAL2 FR intCAC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

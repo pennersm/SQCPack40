@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/T38FAX.xml" />
+  <kpi name="mgw_1126a">
+    <formula>decode(
+			(t38fax.period_duration),0,null, 
+
+			((t38fax.t38_received_bytes + 
+			t38fax.t38_sent_bytes)*8
+			 / 
+			(t38fax.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[T.38 Fax bandwidth average usage for IP based Route]]></title>
+      <use><![CDATA[T.38 Fax bandwidth average usage for IP Based Route during measurement period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(T38_RECEIVED_BYTES+ T38_SENT_BYTES) * 8
+&lt;br&gt;--------------------------------------------
+&lt;br&gt;       SUM(PERIOD_DURATION) * 60
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[bps]</unit>
+      <tables>nokmww_ps_t38fax_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg T.38 Fax bw usg IP Route</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

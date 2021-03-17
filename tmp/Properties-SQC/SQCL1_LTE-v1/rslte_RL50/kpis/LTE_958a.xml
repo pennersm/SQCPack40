@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUESD.xml" />
+  <kpi name="LTE_958a">
+    <formula>decode(
+			((luesd.period_duration*60)*1000)*luesd.avg_num_act_ue_qci_grp1,0,null, 
+
+			(luesd.pdcp_sdu_data_vol_ul_qci_1*8)
+			 / 
+			((luesd.period_duration*60)*1000))
+			 / 
+			luesd.avg_num_act_ue_qci_grp1</formula>
+    <kpi_info>
+      <title><![CDATA[Average End User Throughput with QCI profile 1, UL]]></title>
+      <use><![CDATA[This KPI describes the average end user throughput by dividing the cell thp by the number of users for QCI 1 in UL direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sum(PDCP_SDU_DATA_VOL_UL_QCI_1)*8)
+&lt;br&gt;----------------------------------
+&lt;br&gt;((period duration*60)*1000)
+&lt;br&gt;----------------------------------
+&lt;br&gt;sum(AVG_NUM_ACT_UE_QCI_GRP1)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>noklte_ps_LUESD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/23 10:51:18.524 +0100</date>
+          <comment><![CDATA[Source: RSLTE016.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg UE Thp, QCI 1 UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

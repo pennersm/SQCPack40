@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LHOBC (LTE Handover to eHRPD per eHRPD bandclass)</header>
+    <csv_title>LHOBC (LTE Handover to eHRPD per eHRPD bandclass)</csv_title>
+    <report-description>The measurement LTE Handover to eHRPD per eHRPD bandclass (M8025) contains counters which measure the Inter System Handover to eHRPD per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <ISYS_HO_EHRPD_PREP_BC/>
+    <ISYS_HO_EHRPD_PREP_FAIL1_BC/>
+    <ISYS_HO_EHRPD_PREP_FAIL2_BC/>
+    <ISYS_HO_EHRPD_PREP_FAIL3_BC/>
+    <ISYS_HO_EHRPD_PREP_SUCC_BC/>
+    <ISYS_HO_EHRPD_ATT_BC/>
+    <ISYS_HO_EHRPD_FAIL_TIM_BC/>
+    <ISYS_HO_EHRPD_SUCC_BC/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LHOBC" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HBC" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LHOBC</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="ISYS_HO_EHRPD_PREP_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_PREP_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_PREP_FAIL1_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_PREP_FAIL1_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_PREP_FAIL2_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_PREP_FAIL2_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_PREP_FAIL3_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_PREP_FAIL3_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_PREP_SUCC_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_PREP_SUCC_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_ATT_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_ATT_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_FAIL_TIM_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_FAIL_TIM_BC)</counter>
+          <counter alias="ISYS_HO_EHRPD_SUCC_BC" symmetrical="true">SUM(ISYS_HO_EHRPD_SUCC_BC)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LHOBC</alias_name>
+    <ui_name>LTE Handover to eHRPD per eHRPD bandclass</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LHOBC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_PREP_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_PREP_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_PREP_BC (M8025C0)</title>
+      <use>This measurement provides the number of Inter System Handover preparations to eHRPD per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. UPDATED: This counter is updated following the transmission of an RRC:HandoverFromEUTRAPreparationRequest message by the eNB to the UE (3GPP TS 36.331) in case that this message is sent to prepare a Inter System Handover to eHRPD.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_PREP_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_PREP_BC (M8025C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_PREP_FAIL1_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_PREP_FAIL1_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_PREP_FAIL1_BC (M8025C1)</title>
+      <use>This measurement provides the number of Failed Inter System Handover preparations to eHRPD caused by expiration of guarding timer TUlHoPrepTransferHrpd per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. The timer is started when the eNB sends an RRC:HandoverFromEUTRAPreparationRequest message (3GPP TS 36.331) to the UE in case that this message is sent to prepare a Inter System Handover to eHRPD. The timer expires when the eNB has not received the corresponding response message RRC:ULHandoverPreparationTransfer (3GPP TS 36.331) from the UE in time. UPDATED: This counter is updated following the expiration of the guarding timer TUlHoPrepTransferHrpd in case that this timer was started because of a Inter System Handover preparation to eHRPD.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_PREP_FAIL1_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_PREP_FAIL1_BC (M8025C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_PREP_FAIL2_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_PREP_FAIL2_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_PREP_FAIL2_BC (M8025C2)</title>
+      <use>This measurement provides the number of Failed Inter System Handover preparations to eHRPD caused by expiration of guarding timer TC2KRelocPrepHrpd per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. The timer is started when the eNB sends an S1AP:UPLINK S1 CDMA2000 TUNNELING message (3GPP TS 36.413) to the MME in case that this message is sent to prepare a Inter System Handover to eHRPD (CDMA2000 HO Required Indication is set to TRUE). The timer expires when the eNB has not received the corresponding response message S1AP:DOWNLINK S1 CDMA2000 TUNNELING (3GPP TS 36.413) from the MME in time. UPDATED: This counter is updated following the expiration of the guarding timer TC2KRelocPrepHrpd in case that this timer was started because of a Inter System Handover preparation to eHRPD.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_PREP_FAIL2_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_PREP_FAIL2_BC (M8025C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_PREP_FAIL3_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_PREP_FAIL3_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_PREP_FAIL3_BC (M8025C3)</title>
+      <use>This measurement provides the number of Failed Inter System Handover preparations to eHRPD per eHRPD bandclass caused by the reception of an S1AP:DOWNLINK S1 CDMA2000 TUNNELING (3GPP TS 36.413) message by the eNB from the MME which indicates a failed HO preparation to eHRPD. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. UPDATED: This counter is updated following the reception of an S1AP:DOWNLINK S1 CDMA2000 TUNNELING (3GPP TS 36.413) message by the eNB from the MME in case that this message indicates a failed Handover preparation to eHRPD (CDMA2000 HO Status is set to HO Failure).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_PREP_FAIL3_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_PREP_FAIL3_BC (M8025C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_PREP_SUCC_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_PREP_SUCC_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_PREP_SUCC_BC (M8025C4)</title>
+      <use>This measurement provides the number of Successful Inter System Handover preparations to eHRPD per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. UPDATED: This counter is updated following the reception of an S1AP:DOWNLINK S1 CDMA2000 TUNNELING (3GPP TS 36.413) message by the eNB from the MME in case that this message indicates a successful Handover preparation to eHRPD (CDMA2000 HO Status is set to HO Success).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_PREP_SUCC_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_PREP_SUCC_BC (M8025C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_ATT_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_ATT_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_ATT_BC (M8025C5)</title>
+      <use>This measurement provides the number of Inter System Handover attempts to eHRPD per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. UPDATED: This counter is updated following the transmission of an RRC:MobilityFromEUTRACommand message by the eNB to the UE (3GPP TS 36.331) in case that this message is sent for a Inter System Handover to eHRPD.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_ATT_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_ATT_BC (M8025C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_FAIL_TIM_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_FAIL_TIM_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_FAIL_TIM_BC (M8025C6)</title>
+      <use>This measurement provides the number of Failed Inter System Handover attempts to eHRPD caused by expiration of guarding timer TC2KRelocOverallHRPD per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. The timer is started when the eNB sends an RRC:MobilityFromEUTRACommand message to the UE (3GPP TS 36.331) in case that this message is sent for a Inter System Handover to eHRPD. The timer expires when the eNB has not received the corresponding handover related S1AP:UE CONTEXT RELEASE COMMAND message (3GPP TS 36.413) from the MME in time. UPDATED: This counter is updated following the expiration of the guarding timer TC2KRelocOverallHRPD in case that this timer was started because of a Inter System Handover to eHRPD.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_FAIL_TIM_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_FAIL_TIM_BC (M8025C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ISYS_HO_EHRPD_SUCC_BC">
+    <formula>LHOBC.ISYS_HO_EHRPD_SUCC_BC</formula>
+    <kpi_info>
+      <title>ISYS_HO_EHRPD_SUCC_BC (M8025C7)</title>
+      <use>This measurement provides the number of Successful Inter System Handover completions to eHRPD per eHRPD bandclass. For each handover relationship between the LTE cell (source of the inter system handover) and the eHRPD bandclass (target of the inter system handover) a separate counter is provided. UPDATED: This counter is updated following the reception of an S1AP:UE CONTEXT RELEASE COMMAND message by the eNB from the MME (3GPP TS 36.413) with cause value Radio Network Layer (Successful Handover) in case that this message is received for a Inter System Handover to eHRPD.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ISYS_HO_EHRPD_SUCC_BC)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_EHRPD_SUCC_BC (M8025C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LHOBC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lhobc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

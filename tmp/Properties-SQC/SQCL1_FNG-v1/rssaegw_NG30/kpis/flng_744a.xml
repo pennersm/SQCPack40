@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CPU_ext.xml"/>
+  <kpi name="flng_744a">
+    <formula>decode(greatest(CPU_ext.AVG_CPU_USAGE_FORW,CPU_ext.AVG_CPU_USAGE_APPL),0,NULL,
+	greatest(CPU_ext.AVG_CPU_USAGE_FORW,CPU_ext.AVG_CPU_USAGE_APPL))</formula>
+    <kpi_info>
+      <title><![CDATA[Average CPU usage, SE cores]]></title>
+      <use><![CDATA[This KPI shows the average CPU usage (load) of "fast path" or "simple executive - SE" cores which handle the user plane.
+		<br>Core id 0,1,2,3 are the Linux cores which handle the signaling.
+		<br>The "fast path" or "simple executive - SE" cores, which handle the user plane, can be further split into these groups:
+		<br>- Core 4 and 5: Forwarding
+		<br>- Core 6-14: Application
+		<br>- Core 15: Can be used for both forwarding and application
+		<br>In this KPI formula the Core id 15 is included in the application group.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>GREATEST[ avg(decode(cpu_id,(4-5),AVG_CPU_USAGE,NULL)), avg(decode(cpu_id,(6-15),AVG_CPU_USAGE,NULL)) ]
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg CPU usage, SE]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

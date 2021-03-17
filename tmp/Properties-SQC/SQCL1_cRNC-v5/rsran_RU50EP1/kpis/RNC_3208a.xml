@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_3208a">
+    <formula>100*decode(
+			pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr + 
+			pktcall.ps_att_hsdsch_edch_stre + 
+			pktcall.ps_att_hsdsch_dch_stre + 
+			pktcall.ps_att_dch_dch_stre,0,null, 
+
+			pktcall.ps_setup_fail_ac_cod_nrt
+			 /(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr + 
+			pktcall.ps_att_hsdsch_edch_stre + 
+			pktcall.ps_att_hsdsch_dch_stre + 
+			pktcall.ps_att_dch_dch_stre)) 
+			</formula>
+    <kpi_info>
+      <title><![CDATA[PS Setup FR due to AC Code NRT]]></title>
+      <use><![CDATA[Packet call setup failure rate caused by admission control because  downlink spreading code congestion.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum (  PS_SETUP_FAIL_AC_COD_NRT )
+&lt;br&gt;--------------------
+&lt;br&gt;RNC_930b
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/20 02:32:45.552 +0100</date>
+          <comment><![CDATA[Source: RSRAN073.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS stp FR, code</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

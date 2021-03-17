@@ -1,0 +1,286 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M85 EIRI measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M85 EIRI measurement dump</csv_title>
+    <report-description>EIR measurement(EIRI)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <REQ_FOR_POS_NOT_PROP_WORK_EQ/>
+    <REQ_FOR_STOLEN_EQ/>
+    <REQ_FOR_POS_ILLEGAL_EQ/>
+    <REQ_FOR_DUPLICATED_EQ/>
+    <REQ_FOR_IMPERSONATED_EQ/>
+    <REQUESTS_THIRD_PARTY_LISTING/>
+    <REQUESTS_UNSPECIFIED/>
+    <REQ_FOR_OTHER_REASON/>
+    <REGTYPEISLOCALIFVALUEIS_1/>
+    <REGTYPEISGLOBALIFVALUEIS_1/>
+    <REQUESTS/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/HLR/IMEI" name="EIRI" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="REQ_FOR_POS_NOT_PROP_WORK_EQ" symmetrical="true">SUM(REQ_FOR_POS_NOT_PROP_WORK_EQ)</counter>
+      <counter alias="REQ_FOR_STOLEN_EQ" symmetrical="true">SUM(REQ_FOR_STOLEN_EQ)</counter>
+      <counter alias="REQ_FOR_POS_ILLEGAL_EQ" symmetrical="true">SUM(REQ_FOR_POS_ILLEGAL_EQ)</counter>
+      <counter alias="REQ_FOR_DUPLICATED_EQ" symmetrical="true">SUM(REQ_FOR_DUPLICATED_EQ)</counter>
+      <counter alias="REQ_FOR_IMPERSONATED_EQ" symmetrical="true">SUM(REQ_FOR_IMPERSONATED_EQ)</counter>
+      <counter alias="REQUESTS_THIRD_PARTY_LISTING" symmetrical="true">SUM(REQUESTS_THIRD_PARTY_LISTING)</counter>
+      <counter alias="REQUESTS_UNSPECIFIED" symmetrical="true">SUM(REQUESTS_UNSPECIFIED)</counter>
+      <counter alias="REQ_FOR_OTHER_REASON" symmetrical="true">SUM(REQ_FOR_OTHER_REASON)</counter>
+      <counter alias="REGTYPEISLOCALIFVALUEIS_1" symmetrical="true">AVG(REGTYPEISLOCALIFVALUEIS_1)</counter>
+      <counter alias="REGTYPEISGLOBALIFVALUEIS_1" symmetrical="true">AVG(REGTYPEISGLOBALIFVALUEIS_1)</counter>
+      <counter alias="REQUESTS" symmetrical="true">SUM(REQUESTS)</counter>
+    </counters>
+    <table_name>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>EIRI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>EIRI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQ_FOR_POS_NOT_PROP_WORK_EQ">
+    <formula>EIRI.REQ_FOR_POS_NOT_PROP_WORK_EQ</formula>
+    <kpi_info>
+      <title>REQ_FOR_POS_NOT_PROP_WORK_EQ</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is (POSSIBLY) NOT WORKING - the device
+is (possibly) out of order.If IMEI belongs to black
+list then the reason code is NOT WORKING.If IMEI belongs
+to grey list then the reason code is POSSIBLY NOT WORKING</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQ_FOR_POS_NOT_PROP_WORK_EQ)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQ_FOR_POS_NOT_PROP_WORK_EQ (M85B6C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQ_FOR_STOLEN_EQ">
+    <formula>EIRI.REQ_FOR_STOLEN_EQ</formula>
+    <kpi_info>
+      <title>REQ_FOR_STOLEN_EQ</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is STOLEN - the device is stolen.If
+the reason code is STOLEN, IMEI always belongs to black list.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQ_FOR_STOLEN_EQ)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQ_FOR_STOLEN_EQ (M85B6C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQ_FOR_POS_ILLEGAL_EQ">
+    <formula>EIRI.REQ_FOR_POS_ILLEGAL_EQ</formula>
+    <kpi_info>
+      <title>REQ_FOR_POS_ILLEGAL_EQ</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is (POSSIBLY) ILLEGAL - the device is (possibly)
+illegal.If IMEI belongs to black list then the reason
+code is ILLEGALIf IMEI belongs to grey list then reason
+code is POSSIBLY ILLEGAL</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQ_FOR_POS_ILLEGAL_EQ)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQ_FOR_POS_ILLEGAL_EQ (M85B6C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQ_FOR_DUPLICATED_EQ">
+    <formula>EIRI.REQ_FOR_DUPLICATED_EQ</formula>
+    <kpi_info>
+      <title>REQ_FOR_DUPLICATED_EQ</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is (POSSIBLY) DUPLICATED - this IMEI (possibly)
+has been copied into several different mobilesIf IMEI
+belongs to black list then the reason code is DUPLICATEDIf
+IMEI belongs to grey list then the reason code is POSSIBLY DUPLICATED</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQ_FOR_DUPLICATED_EQ)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQ_FOR_DUPLICATED_EQ (M85B6C16)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQ_FOR_IMPERSONATED_EQ">
+    <formula>EIRI.REQ_FOR_IMPERSONATED_EQ</formula>
+    <kpi_info>
+      <title>REQ_FOR_IMPERSONATED_EQ</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is (POSSIBLY) IMPERSONATED - this IMEI
+is (possibly) not corresponding to the white list, it is (possibly)
+illegally issued and not provided by the manufacturer, operator,
+or a type of approval house.If IMEI belongs to black
+list then the reason code is IMPERSONATEDIf IMEI belongs
+to grey list then the reason code is POSSIBLY IMPERSONATED</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQ_FOR_IMPERSONATED_EQ)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQ_FOR_IMPERSONATED_EQ (M85B6C17)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQUESTS_THIRD_PARTY_LISTING">
+    <formula>EIRI.REQUESTS_THIRD_PARTY_LISTING</formula>
+    <kpi_info>
+      <title>REQUESTS_THIRD_PARTY_LISTING</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQUESTS_THIRD_PARTY_LISTING)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQUESTS_THIRD_PARTY_LISTING (M85B6C23)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQUESTS_UNSPECIFIED">
+    <formula>EIRI.REQUESTS_UNSPECIFIED</formula>
+    <kpi_info>
+      <title>REQUESTS_UNSPECIFIED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQUESTS_UNSPECIFIED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQUESTS_UNSPECIFIED (M85B6C25)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQ_FOR_OTHER_REASON">
+    <formula>EIRI.REQ_FOR_OTHER_REASON</formula>
+    <kpi_info>
+      <title>REQ_FOR_OTHER_REASON</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is some other</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQ_FOR_OTHER_REASON)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQ_FOR_OTHER_REASON (M85B6C99)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REGTYPEISLOCALIFVALUEIS_1">
+    <formula>EIRI.REGTYPEISLOCALIFVALUEIS_1</formula>
+    <kpi_info>
+      <title>REGTYPEISLOCALIFVALUEIS_1</title>
+      <use>The allowed value for this counter is 1.If counter is sent in XML report with respective value, it means
+that the registration type of device is LOCAL.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(REGTYPEISLOCALIFVALUEIS_1)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REGTYPEISLOCALIFVALUEIS_1 (M85B5C0)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REGTYPEISGLOBALIFVALUEIS_1">
+    <formula>EIRI.REGTYPEISGLOBALIFVALUEIS_1</formula>
+    <kpi_info>
+      <title>REGTYPEISGLOBALIFVALUEIS_1</title>
+      <use>The allowed value for this counter is 1.If counter is sent in XML report with respective value, it means
+that the registration type of device is GLOBAL.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(REGTYPEISGLOBALIFVALUEIS_1)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REGTYPEISGLOBALIFVALUEIS_1 (M85B5C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REQUESTS">
+    <formula>EIRI.REQUESTS</formula>
+    <kpi_info>
+      <title>REQUESTS</title>
+      <use>The number of IMEI requests for thosedevices whose reason code is NEW - new device. If the reason code is
+NEW, the IMEI always belongs to grey list.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REQUESTS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_EIRI{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REQUESTS (M85B6C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

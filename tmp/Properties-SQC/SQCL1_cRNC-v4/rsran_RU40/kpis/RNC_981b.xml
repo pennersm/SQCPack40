@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+	<temp_table_ref src="rsran/counters/SOFTHO.xml">
+		<counters>
+			<counter alias="rnc_980b">
+				decode(sum(
+			(one_cell_in_act_set_for_rt + 
+			two_cells_in_act_set_for_rt/2 + 
+			three_cells_in_act_set_rt/3)),0,null, 
+
+			(sum(one_cell_in_act_set_for_rt + 
+			two_cells_in_act_set_for_rt + 
+			three_cells_in_act_set_rt)
+			 / 
+			sum(one_cell_in_act_set_for_rt + 
+			two_cells_in_act_set_for_rt/2 + 
+			three_cells_in_act_set_rt/3)))	
+			</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_981b">
+		<formula>
+			decode(
+			(100*traffic.period_duration*60*softho.rnc_980b),0,null, 
+
+			((traffic.dur_for_amr_12_2_dl_in_srnc + 
+			traffic.dura_for_amr_12_2_dl_in_drnc)
+			 / 
+			(100*traffic.period_duration*60*softho.rnc_980b)))
+			</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[AMR Usage]]>
+			</title>
+			<use>
+				<![CDATA[The R99 AMR Erlang value is measured over the whole RNC and excluding SHO OH.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+sum ( dur_for_amr_12_2_dl_in_srnc + dura_for_amr_12_2_dl_in_drnc ) 
+---------------------------------------------------------------- 
+sum (100 * PERIOD_DURATION * 60) * RNC_980b 
+</pre>]]>
+			</formula>
+			<unit>[Erl]</unit>
+			<tables>
+				nokrww_ps_traffic_{obj_agg}_{time_agg},nokrww_ps_softho_{obj_agg}_{time_agg}
+			</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[AMR Usage]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

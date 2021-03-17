@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LS1AP.xml" />
+  <kpi name="LTE_894a">
+    <formula>100*decode(
+			(ls1ap.s1ap_global_reset_init_enb + 
+			ls1ap.s1ap_global_reset_init_mme),0,null, 
+
+			ls1ap.s1ap_global_reset_init_mme
+			 / 
+			(ls1ap.s1ap_global_reset_init_enb + 
+			ls1ap.s1ap_global_reset_init_mme))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN S1 Global Reset Distribution Rate, MME init]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific S1 global reset messages initiated by the MME to all S1 global reset messages which allows the eNode B to perform a &#039;bulk release&#039; of many UE-associated S1-signaling connections available on a S1 link with one message exchange between eNB and MME.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(S1AP_GLOBAL_RESET_INIT_MME)
+&lt;br&gt;      ------------------------------
+&lt;br&gt;      sum(S1AP_GLOBAL_RESET_INIT_ENB +
+&lt;br&gt;          S1AP_GLOBAL_RESET_INIT_MME)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LS1AP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/07 16:16:06.185 +0100</date>
+          <comment><![CDATA[Source: RSLTE003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S1 Global Reset Distribution Rate, MME init</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

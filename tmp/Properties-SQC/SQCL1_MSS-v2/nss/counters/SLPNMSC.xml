@@ -1,0 +1,328 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M209 SLPNMSC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M209 SLPNMSC measurement dump</csv_title>
+    <report-description>MTP signalling link performance measurement(SLPNMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <LINK_TYPE/>
+    <DUR_IN_SERVICE_STATE/>
+    <LINK_FAILURES_ALL_REASONS/>
+    <LINK_FAILURES_ABNORM_FIBR_BSNR/>
+    <LINK_FAILURES_EXC_DEL_OF_ACK/>
+    <LINK_FAILURES_EXC_ERROR_RATE/>
+    <LINK_FAILURES_EXC_DUR_OF_CONG/>
+    <LINK_FAILURES_ALI_OR_PROV_FAIL/>
+    <LINK_FAILURES_M_ERR_IND_SD_LOS/>
+    <SIGN_UNITS_RECEIVED_IN_ERROR/>
+    <NEGATIVE_ACKS/>
+    <AUTOMATIC_CHANGEOVERS/>
+    <AUTOMATIC_CHANGEBACKS/>
+    <LINK_RESTORATIONS/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/SLN/SNET/SPC/SLSN" name="SLPNMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="LINK_TYPE" symmetrical="true">MAX(LINK_TYPE)</counter>
+      <counter alias="DUR_IN_SERVICE_STATE" symmetrical="true">SUM(DUR_IN_SERVICE_STATE)</counter>
+      <counter alias="LINK_FAILURES_ALL_REASONS" symmetrical="true">SUM(LINK_FAILURES_ALL_REASONS)</counter>
+      <counter alias="LINK_FAILURES_ABNORM_FIBR_BSNR" symmetrical="true">SUM(LINK_FAILURES_ABNORM_FIBR_BSNR)</counter>
+      <counter alias="LINK_FAILURES_EXC_DEL_OF_ACK" symmetrical="true">SUM(LINK_FAILURES_EXC_DEL_OF_ACK)</counter>
+      <counter alias="LINK_FAILURES_EXC_ERROR_RATE" symmetrical="true">SUM(LINK_FAILURES_EXC_ERROR_RATE)</counter>
+      <counter alias="LINK_FAILURES_EXC_DUR_OF_CONG" symmetrical="true">SUM(LINK_FAILURES_EXC_DUR_OF_CONG)</counter>
+      <counter alias="LINK_FAILURES_ALI_OR_PROV_FAIL" symmetrical="true">SUM(LINK_FAILURES_ALI_OR_PROV_FAIL)</counter>
+      <counter alias="LINK_FAILURES_M_ERR_IND_SD_LOS" symmetrical="true">SUM(LINK_FAILURES_M_ERR_IND_SD_LOS)</counter>
+      <counter alias="SIGN_UNITS_RECEIVED_IN_ERROR" symmetrical="true">SUM(SIGN_UNITS_RECEIVED_IN_ERROR)</counter>
+      <counter alias="NEGATIVE_ACKS" symmetrical="true">SUM(NEGATIVE_ACKS)</counter>
+      <counter alias="AUTOMATIC_CHANGEOVERS" symmetrical="true">SUM(AUTOMATIC_CHANGEOVERS)</counter>
+      <counter alias="AUTOMATIC_CHANGEBACKS" symmetrical="true">SUM(AUTOMATIC_CHANGEBACKS)</counter>
+      <counter alias="LINK_RESTORATIONS" symmetrical="true">SUM(LINK_RESTORATIONS)</counter>
+    </counters>
+    <table_name>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SLPNMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SLPNMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_TYPE">
+    <formula>SLPNMSC.LINK_TYPE</formula>
+    <kpi_info>
+      <title>LINK_TYPE</title>
+      <use>Link type (0=TDM, 1=ATM)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(LINK_TYPE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_TYPE (M209B1C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_IN_SERVICE_STATE">
+    <formula>SLPNMSC.DUR_IN_SERVICE_STATE</formula>
+    <kpi_info>
+      <title>DUR_IN_SERVICE_STATE</title>
+      <use>Duration of signalling link in the in-servicestate (1.1 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_IN_SERVICE_STATE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_IN_SERVICE_STATE (M209B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_ALL_REASONS">
+    <formula>SLPNMSC.LINK_FAILURES_ALL_REASONS</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_ALL_REASONS</title>
+      <use>Signalling link failures - all reasons(1.2 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_ALL_REASONS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_ALL_REASONS (M209B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_ABNORM_FIBR_BSNR">
+    <formula>SLPNMSC.LINK_FAILURES_ABNORM_FIBR_BSNR</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_ABNORM_FIBR_BSNR</title>
+      <use>Signalling link failure - abnormal FIBR/BSNR(TDM) (1.3 in ITU-T Q.752, not used if link type = 1)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_ABNORM_FIBR_BSNR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_ABNORM_FIBR_BSNR (M209B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_EXC_DEL_OF_ACK">
+    <formula>SLPNMSC.LINK_FAILURES_EXC_DEL_OF_ACK</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_EXC_DEL_OF_ACK</title>
+      <use>-Caused by excessive delay of acknowledgement(TDM)(1.4 in ITU-T Q.752),</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_EXC_DEL_OF_ACK)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_EXC_DEL_OF_ACK (M209B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_EXC_ERROR_RATE">
+    <formula>SLPNMSC.LINK_FAILURES_EXC_ERROR_RATE</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_EXC_ERROR_RATE</title>
+      <use>Signalling link failure - excessive error rate(1.5 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_EXC_ERROR_RATE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_EXC_ERROR_RATE (M209B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_EXC_DUR_OF_CONG">
+    <formula>SLPNMSC.LINK_FAILURES_EXC_DUR_OF_CONG</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_EXC_DUR_OF_CONG</title>
+      <use>Signalling link failure - excessive durationof congestion (1.6 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_EXC_DUR_OF_CONG)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_EXC_DUR_OF_CONG (M209B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_ALI_OR_PROV_FAIL">
+    <formula>SLPNMSC.LINK_FAILURES_ALI_OR_PROV_FAIL</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_ALI_OR_PROV_FAIL</title>
+      <use>Signalling link alignment or proving failure(1.7 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_ALI_OR_PROV_FAIL)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_ALI_OR_PROV_FAIL (M209B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_FAILURES_M_ERR_IND_SD_LOS">
+    <formula>SLPNMSC.LINK_FAILURES_M_ERR_IND_SD_LOS</formula>
+    <kpi_info>
+      <title>LINK_FAILURES_M_ERR_IND_SD_LOS</title>
+      <use>MAA-ERROR indication with Error Type SDloss (ATM) (1.7 in ITU-T Q.2144, not used if link type = 0)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_FAILURES_M_ERR_IND_SD_LOS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_FAILURES_M_ERR_IND_SD_LOS (M209B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SIGN_UNITS_RECEIVED_IN_ERROR">
+    <formula>SLPNMSC.SIGN_UNITS_RECEIVED_IN_ERROR</formula>
+    <kpi_info>
+      <title>SIGN_UNITS_RECEIVED_IN_ERROR</title>
+      <use>Number of signal units received in error (TDM)(1.8 in ITU-T Q.752, not used if link is ATM link)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SIGN_UNITS_RECEIVED_IN_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIGN_UNITS_RECEIVED_IN_ERROR (M209B3C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NEGATIVE_ACKS">
+    <formula>SLPNMSC.NEGATIVE_ACKS</formula>
+    <kpi_info>
+      <title>NEGATIVE_ACKS</title>
+      <use>Number of negative acknowledgements received (TDM) (1.9 in ITU-T Q.752, not used if link is ATM link)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NEGATIVE_ACKS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NEGATIVE_ACKS (M209B3C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AUTOMATIC_CHANGEOVERS">
+    <formula>SLPNMSC.AUTOMATIC_CHANGEOVERS</formula>
+    <kpi_info>
+      <title>AUTOMATIC_CHANGEOVERS</title>
+      <use>Automatic changeover (1.10 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(AUTOMATIC_CHANGEOVERS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AUTOMATIC_CHANGEOVERS (M209B3C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AUTOMATIC_CHANGEBACKS">
+    <formula>SLPNMSC.AUTOMATIC_CHANGEBACKS</formula>
+    <kpi_info>
+      <title>AUTOMATIC_CHANGEBACKS</title>
+      <use>Automatic changeback (1.11 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(AUTOMATIC_CHANGEBACKS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AUTOMATIC_CHANGEBACKS (M209B3C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_RESTORATIONS">
+    <formula>SLPNMSC.LINK_RESTORATIONS</formula>
+    <kpi_info>
+      <title>LINK_RESTORATIONS</title>
+      <use>Signalling link restoration (1.12 inITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LINK_RESTORATIONS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLPNMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_RESTORATIONS (M209B3C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

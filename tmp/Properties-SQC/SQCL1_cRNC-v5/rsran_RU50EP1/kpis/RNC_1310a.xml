@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_1310a">
+    <formula>decode(
+			(hsdpaw.hsupa_number_of_unhappy_bits + 
+			hsdpaw.hsupa_number_of_happy_bits),0,null, 
+
+			(100*(hsdpaw.hsupa_number_of_happy_bits)
+			 / 
+			(hsdpaw.hsupa_number_of_unhappy_bits + 
+			hsdpaw.hsupa_number_of_happy_bits)))</formula>
+    <kpi_info>
+      <title><![CDATA[Happy Bit ratio]]></title>
+      <use><![CDATA[This KPI provides information about the happy bit ratio. It compares the number of Happy Bits indications against sum of Happy bit indications and Unhappy bits indications.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(HSUPA_NUMBER_OF_HAPPY_BITS)
+&lt;br&gt;-----------------------
+&lt;br&gt;SUM(HSUPA_NUMBER_OF_UNHAPPY_BITS+HSUPA_NUMBER_OF_HAPPY_BITS)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Happy bit ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

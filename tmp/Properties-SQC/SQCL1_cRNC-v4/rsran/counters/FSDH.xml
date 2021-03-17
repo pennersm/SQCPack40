@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_SDH_if FSDH measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_SDH_if FSDH measurement dump</csv_title>
+    <report-description>FTM SDH Interface</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <uasB315 />
+    <esB315 />
+    <sesB315 />
+    <bbeB315 />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FSDH" meas_level="PLMN/RNC/WBTS/FTM/SVTT" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="uasB315">SUM(uasB315)</counter>
+      <counter alias="esB315">SUM(esB315)</counter>
+      <counter alias="sesB315">SUM(sesB315)</counter>
+      <counter alias="bbeB315">SUM(bbeB315)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FSDH</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FSDH.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="uasB315">
+    <formula>FSDH.uasB315</formula>
+    <kpi_info>
+      <title>uasB315</title>
+      <use>Unavailable Seconds (UAS) on the SDH Path (B3):Counts the number of seconds for which the SDH Path on the interface is unavailable.The interface is defined unavailable from either the beginning of 10 contiguous SES B3, or from the beginning of a defect.An interface is available again after a 10-second absence of all defects and SES.While the interface is unavailable, the only count that is incremented is UAS.Defect: LOS, LOF, AIS-MS, AIS-AU, LOP-AU, UNEQ-HP, PLM-HP.Standard: [G.826] The counter is incremented for every second when the interface is in a period of unavailable time.Unavailable time starts when either a defect is active or at the beginning of 10 contiguous severely errored seconds (SES).Unavailable time ends at the beginning of 10 contiguous not severely errored seconds and the absence of all defects.The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(uasB315)</formula>
+      <unit>Seconds</unit>
+      <tables>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>uasB315 (M5102C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="esB315">
+    <formula>FSDH.esB315</formula>
+    <kpi_info>
+      <title>esB315</title>
+      <use>Errored Seconds (ES) on the SDH Path (B3):Counts the number of seconds with one or more errored blocks or at least one defect.Defect: LOS, LOF, AIS-MS, AIS-AU, LOP-AU, UNEQ-HP, PLM-HP.Errored block: A block in which one or more bits are corrupted.ES are not incremented during Unavailable Seconds (UAS)Standard: [G.826] The counter is incremented when a second contains errored blocks or at least one defect.The counter is not incremented during periods of unavailable time (UAS).The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(esB315)</formula>
+      <unit>Seconds</unit>
+      <tables>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>esB315 (M5102C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="sesB315">
+    <formula>FSDH.sesB315</formula>
+    <kpi_info>
+      <title>sesB315</title>
+      <use>Severely Errored Seconds (SES) on the SDH Path (B3):Counts the number of seconds which contain 30% errored blocks or at least one defect.Defect: LOS, LOF, AIS-MS, AIS-AU, LOP-AU, UNEQ-HP, PLM-HP.SES is a subset of ES.Errored block: A block in which one or more bits are corrupted. Detected by inspecting the bit interleaved parity (BIP) information.SES are not incremented during Unavailable Seconds (UAS).Standard: [G.826] The counter is incremented when a second contains at least 30% errored blocks or at least one defect.The counter is not incremented during periods of unavailable time (UAS).The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(sesB315)</formula>
+      <unit>Seconds</unit>
+      <tables>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sesB315 (M5102C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="bbeB315">
+    <formula>FSDH.bbeB315</formula>
+    <kpi_info>
+      <title>bbeB315</title>
+      <use>Background Block Errors (BBE) on the SDH Path (B3):Counts the number of errored blocks not occurring during SES or UAS.Errored block: A block in which one or more bits are corrupted. Detected by inspecting the bit interleaved parity (BIP) information.Standard: [G.826] The counter is updated every second by the number of errored blocks received during that second. The value is incremented only if the interface is available and not severely errored.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(bbeB315)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>bbeB315 (M5102C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FSDH.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

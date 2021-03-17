@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW051 - Delete Bearer Command cause code</header>
+    <csv_title>Delete Bearer Command cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v2 delete bearer failure indication messages sent per cause code on S11/S4 and S5/S8 interfaces.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the received 'Delete Bearer Command' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/04/07 18:22:15.899 +0100</date>
+        <comment><![CDATA[Source: RSSAEGW051.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Delete Bearer Command cause code</report-description>
+    <report-title>Delete Bearer Command cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_486a ui_name="Att" group="sent (S11/S4 and S5/S8)" master-group="Del Bearer Fail Ind" chartType="bar" yAxis="2" />
+    <flng_487a ui_name="Ratio" group="sent (S11/S4 and S5/S8)" master-group="Del Bearer Fail Ind" />
+    <flng_671a ui_name="Att" group="rcvd (S5)" master-group="Del Bearer Fail Ind" chartType="bar" yAxis="2" />
+    <flng_672a ui_name="Ratio" group="rcvd (S5)" master-group="Del Bearer Fail Ind" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCV2RESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                       		  -->
+  <kpi name="flng_486a">
+    <formula>(GTPCV2RESP.GTP_C_V2_DEL_BRER_FLR_IND_SENT)</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer Failure Indications sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 delete bearer failure indications sent per cause code.
+Delete Bearer Failure Indication sent: 
+- S11/S4 interface (MME/SGSN &lt;- SGW)
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTP_C_V2_DEL_BRER_FLR_IND_SENT)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DBFIS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Delete Bearer Fail sent]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_487a">
+    <formula>decode( ((GTPCV2RESP.GTPCV2_DEL_BEAR_F_IND_SENT_ALL)),0,NULL, ((GTPCV2RESP.GTP_C_V2_DEL_BRER_FLR_IND_SENT)) / ((GTPCV2RESP.GTPCV2_DEL_BEAR_F_IND_SENT_ALL)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer Failure Indications sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete bearer failure indications sent for a specific cause code when compared to total number of GTP-C v2 delete bearer failure indication messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(dbfis_id,'x',GTP_C_V2_DEL_BRER_FLR_IND_SENT,0))  ;DBFIS for cause code x
+	  <br>---------------------------------------------------------------------------------------- *100 
+
+	  sum(GTP_C_V2_DEL_BRER_FLR_IND_SENT)  ;all DBFIS's  
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DBFIS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Bearer Fail sent ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                       		  -->
+  <kpi name="flng_671a">
+    <formula>(GTPCV2RESP.GTPCV2_DEL_BEAR_FAIL_IND_RECV)</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer Failure Indications received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 delete bearer failure indications received per cause code.
+Delete Bearer Failure Indication received: 
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTPCV2_DEL_BEAR_FAIL_IND_RECV)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DBFIRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Delete Bearer Fail rcv]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_672a">
+    <formula>decode( ((GTPCV2RESP.GTPCV2_DEL_BEAR_F_IND_RECV_ALL)),0,NULL, ((GTPCV2RESP.GTPCV2_DEL_BEAR_FAIL_IND_RECV)) / ((GTPCV2RESP.GTPCV2_DEL_BEAR_F_IND_RECV_ALL)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer Failure Indications received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete bearer failure indications received for a specific cause code when compared to total number of GTP-C v2 delete bearer failure indication messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(dbfirs_id,'x',GTPCV2_DEL_BEAR_FAIL_IND_RECV,0))  ;DBFIRS for cause code x
+	  <br>------------------------------------------------------------------------------------- *100 
+
+	  sum(GTPCV2_DEL_BEAR_FAIL_IND_RECV)  ;all DBFIRS's  
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DBFIRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Bearer Fail rcv ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

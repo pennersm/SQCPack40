@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml" />
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <kpi name="sgsn_2111a">
+    <formula>decode(
+			(paus.avg_attach_gb_users_sum * paus.avg_attach_gb_users_den),0,null, 
+
+			(mobmgmnt.succ_periodical_ra_updat + 
+			mobmgmnt.succ_intra_papu_ra_updat + 
+			mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.succ_outg_inter_sgsn_ra_updat)
+			 / 
+			(paus.avg_attach_gb_users_sum / paus.avg_attach_gb_users_den) )</formula>
+    <kpi_info>
+      <title><![CDATA[Pure 2G RAU per 2G attached user]]></title>
+      <use><![CDATA[This KPI shows the amount of pure 2G routing area updates per 2G attached user.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_PERIODICAL_RA_UPDAT + 
+&lt;br&gt;   SUCC_INTRA_PAPU_RA_UPDAT + 
+&lt;br&gt;   SUCC_INTER_PAPU_RA_UPDAT + 
+&lt;br&gt;   SUCC_OUTG_INTER_SGSN_RA_UPDAT)
+&lt;br&gt;---------------------------------------
+&lt;br&gt;   sum(AVG_ATTACH_GB_USERS_SUM)
+&lt;br&gt;   ----------------------------
+&lt;br&gt;   sum(AVG_ATTACH_GB_USERS_DEN)</formula>
+      <unit>[#]</unit>
+      <tables>RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG},RSG_PS_MOBMGMNT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/01/21 11:54:23.275 +0000</date>
+          <comment><![CDATA[Source: rssg2g094.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Pure 2G RAU pr 2G user</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

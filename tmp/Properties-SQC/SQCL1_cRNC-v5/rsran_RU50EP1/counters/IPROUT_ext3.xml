@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>IPROUT (IP Based Route)</header>
+    <csv_title>IPROUT (IP Based Route)</csv_title>
+    <report-description>IP Based Route</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <OUT_DATA_IP_ROUTE/>
+    <IN_DATA_IP_ROUTE/>
+    <COMMITTED_BIT_RATE_IP_ROUTE/>
+    <SUM_RESERVED_RATE_IP_ROUTE/>
+    <MIN_RESERVED_RATE_IP_ROUTE/>
+    <MAX_RESERVED_RATE_IP_ROUTE/>
+    <SUM_IP_UDP_CONN_IP_ROUTE/>
+    <MIN_IP_UDP_CONN_IP_ROUTE/>
+    <MAX_IP_UDP_CONN_IP_ROUTE/>
+    <NBR_SAMPLES_IP_ROUTE/>
+    <IP_EG_BW_UTI_CLASS_1/>
+    <IP_EG_BW_UTI_CLASS_2/>
+    <IP_EG_BW_UTI_CLASS_3/>
+    <IP_EG_BW_UTI_CLASS_4/>
+    <IP_EG_BW_UTI_CLASS_5/>
+    <IP_EG_BW_CONFIG/>
+    <IP_EG_PEAK_THRPUT/>
+    <IP_IN_PEAK_THRPUT/>
+    <IN_MUX_PACKETS_IP_ROUTE/>
+    <IN_MUXED_PACKETS_IP_ROUTE/>
+    <IN_DISC_MUX_PACKETS_IP_ROUTE/>
+    <OUT_MUX_PACKETS_IP_ROUTE/>
+    <OUT_MUXED_PACKETS_IP_ROUTE/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="IPROUT_ext3" meas_level="PLMN/RSRAN-RNC/RSRAN-IPROU/RSRAN-RWB099" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <counters>
+     	<counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+     	
+     	<counter alias="OUT_DATA_IP_ROUTE_IUB">sum(CASE WHEN INTFACE LIKE 'IUB' THEN OUT_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	<counter alias="IN_DATA_IP_ROUTE_IUB">sum(CASE WHEN INTFACE LIKE 'IUB' THEN IN_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	<counter alias="COMTED_BIT_RATE_IP_ROUTE_IUB">avg(CASE WHEN INTFACE LIKE 'IUB' THEN COMMITTED_BIT_RATE_IP_ROUTE ELSE NULL END)</counter>
+     	<counter alias="IP_EG_BW_CONFIG_IUB">AVG(CASE WHEN INTFACE LIKE 'IUB' THEN IP_EG_BW_CONFIG ELSE NULL END)</counter>
+     	
+     	<counter alias="OUT_DATA_IP_ROUTE_IUR">sum(CASE WHEN INTFACE LIKE 'IUR' THEN OUT_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	<counter alias="IN_DATA_IP_ROUTE_IUR">sum(CASE WHEN INTFACE LIKE 'IUR' THEN IN_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	
+     	<counter alias="OUT_DATA_IP_ROUTE_IUCS">sum(CASE WHEN INTFACE LIKE 'IUCS' THEN OUT_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	<counter alias="IN_DATA_IP_ROUTE_IUCS">sum(CASE WHEN INTFACE LIKE 'IUCS' THEN IN_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	
+     	<counter alias="OUT_DATA_IP_ROUTE_IUPS">sum(CASE WHEN INTFACE LIKE 'IUPS' THEN OUT_DATA_IP_ROUTE ELSE NULL END)</counter>
+     	<counter alias="IN_DATA_IP_ROUTE_IUPS">sum(CASE WHEN INTFACE LIKE 'IUPS' THEN IN_DATA_IP_ROUTE ELSE NULL END)</counter>
+    </counters>
+    <table_name>nokrww_ps_iprout_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPROUT_ext3</alias_name>
+  </temp_table>
+   <kpi name="period_duration">
+    <formula>IPROUT_ext3.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_iprout_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="OUT_DATA_IP_ROUTE">
+    <formula>IPROUT_ext3.OUT_DATA_IP_ROUTE</formula>
+    <kpi_info>
+      <title>OUT_DATA_IP_ROUTE (M568C0)</title>
+      <use>The IP datagram data volume sent out to IP route (egress). Includes both the payload and IP datagram header bytes. UPDATED:When an IP datagram is sent.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(OUT_DATA_IP_ROUTE)</formula>
+      <unit>1000 bytes</unit>
+      <tables>nokrww_ps_iprout_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>OUT_DATA_IP_ROUTE (M568C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IN_DATA_IP_ROUTE">
+    <formula>IPROUT_ext3.IN_DATA_IP_ROUTE</formula>
+    <kpi_info>
+      <title>IN_DATA_IP_ROUTE (M568C1)</title>
+      <use>The IP datagram data volume received from IP route (ingress). Includes both the payload and IP datagram header bytes. UPDATED:When an IP datagram is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(IN_DATA_IP_ROUTE)</formula>
+      <unit>1000 bytes</unit>
+      <tables>nokrww_ps_iprout_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IN_DATA_IP_ROUTE (M568C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="COMMITTED_BIT_RATE_IP_ROUTE">
+    <formula>IPROUT_ext3.COMMITTED_BIT_RATE_IP_ROUTE</formula>
+    <kpi_info>
+      <title>COMMITTED_BIT_RATE_IP_ROUTE (M568C2)</title>
+      <use>IP Based Route configured bandwidth available for user connections at the end of the measurement interval. This is calculated with 'committed bit rate' - 'signalling bandwidth' - 'DCN bandwidth'. UPDATED:The counter is updated by the currently configured bit rate at the end of the measurement interval.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(COMMITTED_BIT_RATE_IP_ROUTE)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_iprout_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>COMMITTED_BIT_RATE_IP_ROUTE (M568C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+ 
+</conf_file>

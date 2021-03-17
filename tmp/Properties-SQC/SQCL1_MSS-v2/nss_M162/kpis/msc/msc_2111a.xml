@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_2111a">
+    <formula>
+decode(tc_ext.TCAT_CALL_AMOUNT_50,0,null,
+	100 * (tc_ext.TCAT_OK_AMOUNT_35 / tc_ext.TCAT_CALL_AMOUNT_50)
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IP PBX calls answer ratio]]></title>
+      <use><![CDATA[IP PBX answered calls compared against the total IP PBX call attempts.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Traffic category:
+<br>130 = IP PBX ORIG = IP PBX ORIGINATING CALLS (IPO)
+<br>131 = IP PBX TERM = IP PBX TERMINATING CALLS (IPT)
+<br>
+<br>These traffic categories are only available starting from M15.0 NE version.
+<br>
+<br>PUBLISHED: M15.0
+<br>
+<br>LAST UPDATE: 26-04-2011
+<br>
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC
+<br>
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>
+<br>KPI CLASS: Traffic
+<br>
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H) 
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;           SUM( tcat_ok_amount )
+&lt;br&gt;100 * ( ------------------------------ )
+&lt;br&gt;           SUM( tcat_call_amount )
+&lt;br&gt;
+&lt;br&gt;   ;WHERE traffic_category_id in (130, 131)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[IP PBX calls Answ Rt]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <kpi name="LTE_1154a">
+    <formula>100*decode(
+			(lcellr.agg1_used_pdcch + 
+			lcellr.agg2_used_pdcch + 
+			lcellr.agg4_used_pdcch + 
+			lcellr.agg8_used_pdcch + 
+			lcellr.agg1_blocked_pdcch + 
+			lcellr.agg2_blocked_pdcch + 
+			lcellr.agg4_blocked_pdcch + 
+			lcellr.agg8_blocked_pdcch),0,null, 
+
+			(lcellr.agg1_blocked_pdcch + 
+			lcellr.agg2_blocked_pdcch + 
+			lcellr.agg4_blocked_pdcch + 
+			lcellr.agg8_blocked_pdcch)
+			 / 
+			(lcellr.agg1_used_pdcch + 
+			lcellr.agg2_used_pdcch + 
+			lcellr.agg4_used_pdcch + 
+			lcellr.agg8_used_pdcch + 
+			lcellr.agg1_blocked_pdcch + 
+			lcellr.agg2_blocked_pdcch + 
+			lcellr.agg4_blocked_pdcch + 
+			lcellr.agg8_blocked_pdcch))</formula>
+    <kpi_info>
+      <title><![CDATA[AGG level blocking ratio]]></title>
+      <use><![CDATA[This KPI shows the Aggregation Group blocking ratio in PDCCH scheduling.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(AGG1_BLOCKED_PDCCH 
+&lt;br&gt;+ AGG2_BLOCKED_PDCCH 
+&lt;br&gt;+ AGG4_BLOCKED_PDCCH 
+&lt;br&gt;+ AGG8_BLOCKED_PDCCH)
+&lt;br&gt;/
+&lt;br&gt;SUM(AGG1_USED_PDCCH 
+&lt;br&gt;+ AGG2_USED_PDCCH 
+&lt;br&gt;+ AGG4_USED_PDCCH 
+&lt;br&gt;+ AGG8_USED_PDCCH 
+&lt;br&gt;+ AGG1_BLOCKED_PDCCH 
+&lt;br&gt;+ AGG2_BLOCKED_PDCCH 
+&lt;br&gt;+ AGG4_BLOCKED_PDCCH 
+&lt;br&gt;+  AGG8_BLOCKED_PDCCH)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLR_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:33.738 +0000</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>AGG level block R</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

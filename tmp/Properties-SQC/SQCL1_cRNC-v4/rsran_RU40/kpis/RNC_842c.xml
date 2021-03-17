@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTERSHO.xml" />
+  <kpi name="RNC_842c">
+    <formula>100*decode((intersho.is_hho_w_cm_sb_rt + 
+				intersho.is_hho_wo_cm_sb_rt),0,null,
+				intersho.is_hho_nocell_sb_rt
+				 / 
+				(intersho.is_hho_w_cm_sb_rt + 
+				intersho.is_hho_wo_cm_sb_rt))</formula>
+    <kpi_info>
+      <title><![CDATA[SB ISHO Cell Found ratio RT]]></title>
+      <use><![CDATA[The ratio that an inter-system HHO measurement due to Service Based ends making an inter-system HHO attempt, because a cell is good enough for inter-system HHO - for UEs with RT connection.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       100 * sum ( IS_HHO_NOCELL_SB_RT )
+&lt;br&gt;100 -  ---------------------------------
+&lt;br&gt;       sum ( IS_HHO_W_CM_SB_RT +
+&lt;br&gt;       IS_HHO_WO_CM_SB_RT )
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_INTERSHO_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:40.955 +0100</date>
+          <comment><![CDATA[Source: RSRAN050.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SB ISHO CFdR RT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>AUTIFH2 (AutoDef Inter Frequency HHO (RN4.0-&gt;))</header>
+    <csv_title>AUTIFH2 (AutoDef Inter Frequency HHO (RN4.0-&gt;))</csv_title>
+    <report-description>AutoDef Inter Frequency HHO (RN4.0-&gt;) Old</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <HHO_ADJ_INTER_FREQ_HHO_ATT/>
+    <HHO_ADJ_INTER_FREQ_HHO_COMPL/>
+    <CPICH_ECNO_IFHO_SUM/>
+    <CPICH_ECNO_IFHO_DENOM/>
+    <CPICH_RSCP_IFHO_SUM/>
+    <CPICH_RSCP_IFHO_DENOM/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="AUTIFH2" omes_name="AutoDef_IFHO_v2_Old" meas_level="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-HOT-1/RSRAN-TRCID-1/RSRAN-DMCC-1/RSRAN-DMNC-1" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>AUTIFH2</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="HHO_ADJ_INTER_FREQ_HHO_ATT" symmetrical="true">SUM(HHO_ADJ_INTER_FREQ_HHO_ATT)</counter>
+          <counter alias="HHO_ADJ_INTER_FREQ_HHO_COMPL" symmetrical="true">SUM(HHO_ADJ_INTER_FREQ_HHO_COMPL)</counter>
+          <counter alias="CPICH_ECNO_IFHO_SUM" symmetrical="true">SUM(CPICH_ECNO_IFHO_SUM)</counter>
+          <counter alias="CPICH_ECNO_IFHO_DENOM" symmetrical="true">SUM(CPICH_ECNO_IFHO_DENOM)</counter>
+          <counter alias="CPICH_RSCP_IFHO_SUM" symmetrical="true">SUM(CPICH_RSCP_IFHO_SUM)</counter>
+          <counter alias="CPICH_RSCP_IFHO_DENOM" symmetrical="true">SUM(CPICH_RSCP_IFHO_DENOM)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AUTIFH2</alias_name>
+    <ui_name>AutoDef Inter Frequency HHO (RN4.0-&gt;)</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AUTIFH2.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HHO_ADJ_INTER_FREQ_HHO_ATT">
+    <formula>AUTIFH2.HHO_ADJ_INTER_FREQ_HHO_ATT</formula>
+    <kpi_info>
+      <title>HHO_ADJ_INTER_FREQ_HHO_ATT (M1014C0)</title>
+      <use>The number of inter-frequency hard handover attempts. This counter is updated for a measurement object in which source and target cells are defined. Inter-RNC handovers are counted as well. If cells A and B are in the active set and inter-frequency hard handover to cell C is attempted, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED:When the SRNC starts resource allocation for an inter-frequency HHO. This counter is not updated if the hard handover is prevented by an ongoing layer-3 procedure.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HHO_ADJ_INTER_FREQ_HHO_ATT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HHO_ADJ_INTER_FREQ_HHO_ATT (M1014C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HHO_ADJ_INTER_FREQ_HHO_COMPL">
+    <formula>AUTIFH2.HHO_ADJ_INTER_FREQ_HHO_COMPL</formula>
+    <kpi_info>
+      <title>HHO_ADJ_INTER_FREQ_HHO_COMPL (M1014C1)</title>
+      <use>The number of completed inter-frequency hard handovers. This counter is updated for a measurement object in which source and target cells are defined. Inter-RNC handovers are counted as well. If cells A and B were in the active set and inter-frequency hard handover to cell C is successful, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED:When SRNC successfully ends inter-frequency HHO.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HHO_ADJ_INTER_FREQ_HHO_COMPL)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HHO_ADJ_INTER_FREQ_HHO_COMPL (M1014C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CPICH_ECNO_IFHO_SUM">
+    <formula>AUTIFH2.CPICH_ECNO_IFHO_SUM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_IFHO_SUM (M1014C2)</title>
+      <use>The sum of CPICH Ec/No values of an inter-frequency neighbour cell. This counter, along with the denominator M1014C3, is used to calculate the average CPICH Ec/No. After average calculation, the value can be converted to the dB unit using formula ((reporting_value/2)-24,5). UPDATED: When the RNC receives an inter-frequency measurement report from the UE.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CPICH_ECNO_IFHO_SUM)</formula>
+      <unit>Ec/No class</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_IFHO_SUM (M1014C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CPICH_ECNO_IFHO_DENOM">
+    <formula>AUTIFH2.CPICH_ECNO_IFHO_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_IFHO_DENOM (M1014C3)</title>
+      <use>This counter provides the number of samples taken for counter M1014C2. The information is needed in average calculation. UPDATED: Updated by value 1 when counter M1014C2 is updated.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CPICH_ECNO_IFHO_DENOM)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_IFHO_DENOM (M1014C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CPICH_RSCP_IFHO_SUM">
+    <formula>AUTIFH2.CPICH_RSCP_IFHO_SUM</formula>
+    <kpi_info>
+      <title>CPICH_RSCP_IFHO_SUM (M1014C4)</title>
+      <use>The sum of CPICH RSCP values of an inter-frequency neighbour cell. This counter, along with the denominator M1014C5, is used to calculate the average CPICH RSCP in dBm. UPDATED: When the RNC receives an inter-frequency measurement report from the UE.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CPICH_RSCP_IFHO_SUM)</formula>
+      <unit>dBm</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_RSCP_IFHO_SUM (M1014C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CPICH_RSCP_IFHO_DENOM">
+    <formula>AUTIFH2.CPICH_RSCP_IFHO_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_RSCP_IFHO_DENOM (M1014C5)</title>
+      <use>This counter provides the number of samples taken for counter M1014C4. The information is needed in average calculation. UPDATED: Updated by value 1 when counter M1014C4 is updated.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CPICH_RSCP_IFHO_DENOM)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_RSCP_IFHO_DENOM (M1014C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>AUTIFH2.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_autifh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

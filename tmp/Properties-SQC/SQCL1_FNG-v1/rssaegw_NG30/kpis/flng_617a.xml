@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/IPtra.xml" />
+  <kpi name="flng_617a">
+    <formula>100*decode((nvl(IPtra.IPV4_TPDU_PACKETS_RECEIVED,0) + 
+                         nvl(IPtra.IPV6_TPDU_PACKETS_RECEIVED,0) + 
+                         nvl(IPtra.IP_DL_PKTS_DROPPED_NO_SESSION,0)),0,null,
+	
+	 (nvl(IPtra.IP_DL_PKTS_DROPPED_NO_SESSION,0)
+      / 
+     (nvl(IPtra.IPV4_TPDU_PACKETS_RECEIVED,0) + 
+      nvl(IPtra.IPV6_TPDU_PACKETS_RECEIVED,0) + 
+      nvl(IPtra.IP_DL_PKTS_DROPPED_NO_SESSION,0))))</formula>
+    <kpi_info>
+      <title><![CDATA[Gi/SGi T-PDU packets drop ratio, user plane session not found]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped T-PDU packets received from the Gi/SGi interface because a user plane session was not found.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(IP_DL_PKTS_DROPPED_NO_SESSION)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(IPV4_TPDU_PACKETS_RECEIVED +
+&lt;br&gt;   IPV6_TPDU_PACKETS_RECEIVED +
+&lt;br&gt;   IP_DL_PKTS_DROPPED_NO_SESSION)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_IPTRA_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:16.928 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW011.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gi/SGi pkt DR, no sess</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

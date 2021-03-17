@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/M3UA.xml" />
+  <kpi name="RNC_1628a">
+    <formula>decode(
+			(m3ua.period_duration),0,null, 
+
+			(8*(m3ua.m3ua_sctp_octets_received_1)
+			 / 
+			(1000*60*m3ua.period_duration)))</formula>
+    <kpi_info>
+      <title><![CDATA[SCTP layer throughput - received]]></title>
+      <use><![CDATA[This KPI monitors the SCTP layer throughput in RNC based on the total number of received data in IP datagrams.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8 * SUM(M3UA_SCTP_OCTETS_RECEIVED)
+&lt;br&gt;------------
+&lt;br&gt;1000 * SUM(60 * PERIOD_DURATION)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_m3ua_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SCTP layer thp received</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/M3UA_ext.xml" />
+</conf_file>
+

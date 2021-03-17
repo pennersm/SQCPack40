@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/MGWTCP_ext.xml" />
+  <kpi name="msc_779b">
+    <formula>decode(
+			(mgwtcp_ext.mgwtcat_call_attempts_1),0,null, 
+
+			(100*(mgwtcp_ext.mgwtcat_call_attempts_ans_1)
+			 / 
+			(mgwtcp_ext.mgwtcat_call_attempts_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[PMGW call answer ratio]]></title>
+      <use><![CDATA[Call answer ratio per physical MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;         Sum (MGWTCAT_CALL_ATTEMPTS_ANSWERED)
+&lt;br&gt;100 * -----------------------------------
+&lt;br&gt;         Sum (MGWTCAT_CALL_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;;where traffic_category_id in (0, 1, 4, 5, 6)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_MGWTCP_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_mgwtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMGW call answer ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

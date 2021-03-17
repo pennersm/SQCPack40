@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5553a">
+    <formula>100*decode(
+			(lepsb.eps_bearer_stp_att_ini_qci_2 + 
+			lepsb.eps_bearer_stp_att_add_qci_2),0,null, 
+
+			(lepsb.eps_bearer_stp_com_ini_qci_2 + 
+			lepsb.eps_bearer_stp_com_add_qci_2)
+			 / 
+			(lepsb.eps_bearer_stp_att_ini_qci_2 + 
+			lepsb.eps_bearer_stp_att_add_qci_2))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB Setup Success Ratio, QCI2]]></title>
+      <use><![CDATA[The KPI describes the setup success ratio of the elementary E-RAB setup procedure used to setup the E-RAB between MME and UE for QCI2 DRBs.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(EPS_BEARER_STP_COM_INI_QCI_2 + EPS_BEARER_STP_COM_ADD_QCI_2) / sum(EPS_BEARER_STP_ATT_INI_QCI_2 + EPS_BEARER_STP_ATT_ADD_QCI_2)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/07/31 12:01:53.948 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB Stp SR, QCI2</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

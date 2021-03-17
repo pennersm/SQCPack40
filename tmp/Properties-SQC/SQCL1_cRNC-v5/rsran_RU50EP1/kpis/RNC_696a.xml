@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_696a">
+    <formula>100*decode(
+			rrc.rb_reconf,0,null, 
+
+			rrc.rb_reconf_fail
+			 / 
+			rrc.rb_reconf)</formula>
+    <kpi_info>
+      <title><![CDATA[Radio Bearer Reconfiguration Failure Ratio]]></title>
+      <use><![CDATA[The ratio of failed Radio Bearer Reconfiguration procedures. This takes into account only the failures, for which a RRC: RADIO BEARER RECONFIGURATION FAILURE message was received, and not the cases for which no response was received. The failure causes can be &quot;configuration unsupported&quot;, &quot;physical channel failure&quot;, &quot;invalid configuration&quot;, &quot;incompatible simultaneous reconfiguration&quot;, &quot;protocol error&quot;. Cf 3GPP TS 25.331 &#167;8.2]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(RB_RECONF_FAIL)/ sum(RB_RECONF)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Radio Bearer Reconfiguration Failure Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

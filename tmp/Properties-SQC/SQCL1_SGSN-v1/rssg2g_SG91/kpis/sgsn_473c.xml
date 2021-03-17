@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SMS.xml" />
+  <kpi name="sgsn_473c">
+    <formula>100*decode(
+			(sms.failed_mt_sms_deliveries + 
+			sms.successfully_received_mt_sms),0,NULL, 
+
+			(sms.successfully_received_mt_sms)
+			 / 
+			(sms.failed_mt_sms_deliveries + 
+			sms.successfully_received_mt_sms))</formula>
+    <kpi_info>
+      <title><![CDATA[Success ratio of Gb MT SMS delivery attempts]]></title>
+      <use><![CDATA[This KPI shows the success ratio of MT SMS delivery attempts from Gb interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCCESSFULLY_RECEIVED_MT_SMS)
+&lt;br&gt;------------------------------------------------------------------------- * 100
+&lt;br&gt;sum(FAILED_MT_SMS_DELIVERIES + SUCCESSFULLY_RECEIVED_MT_SMS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_sms</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_sms_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Success ratio of Gb MT SMS delivery attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

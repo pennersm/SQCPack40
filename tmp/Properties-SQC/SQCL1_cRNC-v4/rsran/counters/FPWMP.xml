@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_pseudo_MPLS FPWMP measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_pseudo_MPLS FPWMP measurement dump</csv_title>
+    <report-description>FTM Pseudowire MPLS</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PwUas_15 />
+    <PwSes_15 />
+    <Pseudowire_packet_loss />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FPWMP" meas_level="PLMN/RNC/WBTS/FTM/PWNE/PWMP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PwUas_15">SUM(PwUas_15)</counter>
+      <counter alias="PwSes_15">SUM(PwSes_15)</counter>
+      <counter alias="Pseudowire_packet_loss">SUM(Pseudowire_packet_loss)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fpwmp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FPWMP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FPWMP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fpwmp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PwUas_15">
+    <formula>FPWMP.PwUas_15</formula>
+    <kpi_info>
+      <title>PwUas_15</title>
+      <use>Unavailable Seconds (UAS): Counts the number of seconds for which the interface is unavailable. The interface is defined unavailable from either the beginning of: 10 contiguous SES, and/or a defect. An interface is available again after a 10 second absence of all defects and SES. While the interface is unavailable, the only count that is incremented is UAS. Defect: BFD down in ingress or egress only. Standard: [G.826]UPDATED: The counter is incremented for every second when the interface is in a period of unavailable time. Unavailable time starts when either a defect is active or the beginning of 10 contiguous severely errored seconds (SES). Unavailable time ends on the beginning of 10 contiguous not severely errored seconds and the absence of all defects. The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PwUas_15)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_fpwmp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PwUas_15 (M5113C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PwSes_15">
+    <formula>FPWMP.PwSes_15</formula>
+    <kpi_info>
+      <title>PwSes_15</title>
+      <use>Severley Errored Seconds (SES): Counts the number of seconds which contain a defect. Defect: BFD down in ingress or egress. SES are not incremented during Unavailable Seconds (UAS) Standard: [G.826].UPDATED: The counter is incremented when a second contains a defect. The counter is not incremented during periods of unavailable time (UAS). The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PwSes_15)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_fpwmp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PwSes_15 (M5113C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Pseudowire_packet_loss">
+    <formula>FPWMP.Pseudowire_packet_loss</formula>
+    <kpi_info>
+      <title>Pseudowire_packet_loss</title>
+      <use>Based on pseudowire sequence numbers, an estimation of the number of lost packets will be provided guided by RFC 4717. UPDATED: The counter is updated every second following the rules of RFC 4717.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Pseudowire_packet_loss)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fpwmp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Pseudowire_packet_loss (M5113C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FPWMP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fpwmp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 VLAN_IP_stats FVLIP measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 VLAN_IP_stats FVLIP measurement dump</csv_title>
+    <report-description>FTM VLAN IP Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ifInPackets />
+    <ifInOctets />
+    <ifOutPackets />
+    <ifOutOctets />
+    <ifInErrors />
+    <ifIpDroppedPacketsRateLimiting />
+    <ifIpDroppedPacketsFiltering />
+    <cacMaxReservedBitRate />
+    <cacMinReservedBitRate />
+    <cacAvgReservedBitRate />
+    <cacMaxCommittedBitRate />
+    <ifIpOutDropPackets />
+    <ifIpOutDropOctets />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FVLIP" meas_level="PLMN/RNC/WBTS/FTM/IPNO/IEIF/IVIF/IPPM1" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ifInPackets">SUM(ifInPackets)</counter>
+      <counter alias="ifInOctets">SUM(ifInOctets)</counter>
+      <counter alias="ifOutPackets">SUM(ifOutPackets)</counter>
+      <counter alias="ifOutOctets">SUM(ifOutOctets)</counter>
+      <counter alias="ifInErrors">SUM(ifInErrors)</counter>
+      <counter alias="ifIpDroppedPacketsRateLimiting">SUM(ifIpDroppedPacketsRateLimiting)</counter>
+      <counter alias="ifIpDroppedPacketsFiltering">SUM(ifIpDroppedPacketsFiltering)</counter>
+      <counter alias="cacMaxReservedBitRate">MAX(cacMaxReservedBitRate)</counter>
+      <counter alias="cacMinReservedBitRate">MIN(cacMinReservedBitRate)</counter>
+      <counter alias="cacAvgReservedBitRate">AVG(cacAvgReservedBitRate)</counter>
+      <counter alias="cacMaxCommittedBitRate">MAX(cacMaxCommittedBitRate)</counter>
+      <counter alias="ifIpOutDropPackets">SUM(ifIpOutDropPackets)</counter>
+      <counter alias="ifIpOutDropOctets">SUM(ifIpOutDropOctets)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FVLIP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FVLIP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInPackets">
+    <formula>FVLIP.ifInPackets</formula>
+    <kpi_info>
+      <title>ifInPackets</title>
+      <use>The number of inbound packets that were delivered to higher-layer protocols. UPDATED: The counter is updated when an inbound packet has been delivered to higher-layer protocols.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInPackets (M5124C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInOctets">
+    <formula>FVLIP.ifInOctets</formula>
+    <kpi_info>
+      <title>ifInOctets</title>
+      <use>The total number of octects received by the interface, including framing characters. UPDATED: The counter is updated whenever an octet is received on the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInOctets)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInOctets (M5124C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutPackets">
+    <formula>FVLIP.ifOutPackets</formula>
+    <kpi_info>
+      <title>ifOutPackets</title>
+      <use>The number of outbound packets that were successfully transmitted. UPDATED: The counter is updated for every packet that is transmitted successfully on the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutPackets (M5124C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifOutOctets">
+    <formula>FVLIP.ifOutOctets</formula>
+    <kpi_info>
+      <title>ifOutOctets</title>
+      <use>The total number of octets transmitted by the interface, including framing characters. UPDATED: The counter is updated for every octet that is transmitted successfully on the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifOutOctets)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifOutOctets (M5124C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifInErrors">
+    <formula>FVLIP.ifInErrors</formula>
+    <kpi_info>
+      <title>ifInErrors</title>
+      <use>The number of inbound packets that contained errors preventing them from being deliverable to a higher-layer protocol. UPDATED: The counter is updated whenever an erroneous packet is received on the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifInErrors)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifInErrors (M5124C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpDroppedPacketsRateLimiting">
+    <formula>FVLIP.ifIpDroppedPacketsRateLimiting</formula>
+    <kpi_info>
+      <title>ifIpDroppedPacketsRateLimiting</title>
+      <use>The number of dropped packets due to rate limiting. UPDATED: The counter is updated for every packet that is dropped due to the rate limiting conditions of the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpDroppedPacketsRateLimiting)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpDroppedPacketsRateLimiting (M5124C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpDroppedPacketsFiltering">
+    <formula>FVLIP.ifIpDroppedPacketsFiltering</formula>
+    <kpi_info>
+      <title>ifIpDroppedPacketsFiltering</title>
+      <use>The number of packets discarded due filter violations. UPDATED: The counter is updated for every packet that is dropped due to the filter violations.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpDroppedPacketsFiltering)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpDroppedPacketsFiltering (M5124C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxReservedBitRate">
+    <formula>FVLIP.cacMaxReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxReservedBitRate</title>
+      <use>This is the maximum value of the reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. UPDATED: The counter is updated when the maximum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxReservedBitRate (M5124C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMinReservedBitRate">
+    <formula>FVLIP.cacMinReservedBitRate</formula>
+    <kpi_info>
+      <title>cacMinReservedBitRate</title>
+      <use>This is the minimum value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. UPDATED: The counter is updated when the minimum value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(cacMinReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMinReservedBitRate (M5124C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacAvgReservedBitRate">
+    <formula>FVLIP.cacAvgReservedBitRate</formula>
+    <kpi_info>
+      <title>cacAvgReservedBitRate</title>
+      <use>This is the average value of reserved bit rate for CAC utilization (in kbps) measured during the measurement interval. UPDATED: The counter is updated when the average value of the reserved bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(cacAvgReservedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacAvgReservedBitRate (M5124C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cacMaxCommittedBitRate">
+    <formula>FVLIP.cacMaxCommittedBitRate</formula>
+    <kpi_info>
+      <title>cacMaxCommittedBitRate</title>
+      <use>This is the maximum bit rate (in kbps) which can be allocated by the CAC, i.e. the commited information rate  (CIR) configured per CAC. UPDATED: The counter is updated when the value of the allocated bit rate changes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(cacMaxCommittedBitRate)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cacMaxCommittedBitRate (M5124C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutDropPackets">
+    <formula>FVLIP.ifIpOutDropPackets</formula>
+    <kpi_info>
+      <title>ifIpOutDropPackets</title>
+      <use>The total number of packets that could not be transmitted over the interface due to congestion. UPDATED: The counter is updated for every packet that cannot be transmitted over the interface due to congestion.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutDropPackets)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutDropPackets (M5124C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpOutDropOctets">
+    <formula>FVLIP.ifIpOutDropOctets</formula>
+    <kpi_info>
+      <title>ifIpOutDropOctets</title>
+      <use>The total number of octects that could not be transmitted over the interface due to congestion. UPDATED: The counter is updated for every octet that cannot be transmitted over the interface due to congestion</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpOutDropOctets)</formula>
+      <unit>Kilobyte</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpOutDropOctets (M5124C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FVLIP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fvlip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

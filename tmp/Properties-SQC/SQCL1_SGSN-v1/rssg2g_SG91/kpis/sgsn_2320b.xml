@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g_SG91/counters/LOAD_OBJCOUNT_ext.xml"/>
+  <kpi name="sgsn_2320b">
+    <formula>LOAD_OBJCOUNT.ATCA_SGSN_COUNT</formula>
+    <kpi_info>
+      <title><![CDATA[Number of ATCA SGSNs]]></title>
+      <use><![CDATA[This KPI shows the number of ATCA SGSNs (based on IPPU and/or GBU units) that have actual measured traffic.
+	  The ATCA SGSNs that have no records for IPPU and/or GBU units for Load measurement within a given period are not counted by this KPI.
+	  This KPI is just meaningful on PLMN level.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>COUNT(DISTINCT CASE WHEN ( OBJECT_NAME || SGSN_GID LIKE 'IPPU%' OR OBJECT_NAME || SGSN_GID LIKE 'GBU%' ) THEN SGSN_GID ELSE NULL END)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_load_cu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[No. of ATCA SGSNs]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

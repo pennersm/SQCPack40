@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml"/>
+  <kpi name="tra_msc129b">
+    <formula>ccmea_ext.ccmeas_signalling_4 + ccmea_ext.ccmeas_ring_4 + ccmea_ext.ccmeas_speech_4</formula>
+    <kpi_info>
+      <title><![CDATA[Failed teleservice usage attempts due problem in the radio network]]></title>
+      <use><![CDATA[The unsuccessful (clear code equal to 205H, B13H-B14H, B16H, B1AH-B1FH, D00H-D01H, D04H, D07H-D08H) usage attempts due radio network error of teleservice services (T11, T12, T40, T41, T42, T43, T60, T61 and T62).]]></use>
+
+<use_experience><![CDATA[ 
+<br>Clear Codes considered in the KPI:
+<br>205H => Radio interface congestion
+<br>B13H => Radio interface failure
+<br>B14H => Handover failure
+<br>B16H => Remote equipment failure
+<br>0B1A => BSSMAP protocol error
+<br>0B1B => Radio interface message failure
+<br>0B1C => Radio interface failure reversion to old channel
+<br>0B1D => O&amp;M released inside network
+<br>0B1E => Radio resource unavailable
+<br>0B1F => Requested terrestrial resource unvailable
+<br>0D00 => Subscriber signalling message content error
+<br>0D01 => Subscriber signalling message format error
+<br>D04H => Subscriber signalling protocol error
+<br>D07H => No response to call establishment, alerting or connect
+<br>D08H => GSM ERH 4.08 protocol timer expires
+<br>
+<br>NOTE: Clear Code range for this case should be agreed separately with the customer. These are just examples.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 07-04-2009
+<br>THEORETICAL SUMMARY LEVELS: PLMN - MSC - CC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN - MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Clear Code Measurement M131
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;              SUM(CCMEAS_SIGNALLING)
+&lt;br&gt;            + SUM(CCMEAS_RING)
+&lt;br&gt;            + SUM(CCMEAS_SPEECH)
+&lt;br&gt;
+&lt;br&gt;   ;where clearcode_id in ( 205H, B13H-B14H, B16H, 
+&lt;br&gt;    B1AH-B1FH, D00H-D01H, D04H, D07H-D08H)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_CCMEA_{obj_agg}_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_ccmea_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Failed teleservice usage attempts due problem in the radio network]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

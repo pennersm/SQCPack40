@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LPQDL.xml"/>
+  <kpi name="LTE_433a">
+    <formula>decode(
+			((lpqdl.mimo_ol_div + 
+			lpqdl.mimo_ol_sm)),0,null, 
+
+			(100*(lpqdl.mimo_ol_div))
+			 / 
+			((lpqdl.mimo_ol_div + 
+			lpqdl.mimo_ol_sm)))</formula>
+    <kpi_info>
+      <title><![CDATA[MIMO OL Divt Mode Usage]]></title>
+      <use><![CDATA[This KPI provides % of   MIMO Open Loop Diversity mode usage.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100*      sum( MIMO_OL_DIV )
+&lt;br&gt;          ------------------------
+&lt;br&gt;          sum(  MIMO_OL_DIV + MIMO_OL_SM )
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LPQDL_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[MIMO OL Divt Mode Usage]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

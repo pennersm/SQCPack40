@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml"/>
+  <kpi name="flng_387a">
+    <formula>decode(
+			((PMIP.pmip_sent_hbi_requests)),0,NULL, 
+
+			((PMIP.pmip_recv_hba_responses))
+			 / 
+			((PMIP.pmip_sent_hbi_requests)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Heartbeat Responses received/Requests sent ratio]]></title>
+      <use><![CDATA[This KPI shows the number of Heart Beat Ack (HBA) response messages received as response to Heart Beat Indication (HBI) request messages sent.
+PMIP path management messaging is used between network elements to check if a peer element is alive and the indication of a potential problem is the mismatch between Heartbeat Request/Response massages.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (pmip_recv_hba_responses)
+&lt;br&gt;----------------------------- * 100
+&lt;br&gt;sum (pmip_sent_hbi_requests)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PMIP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP HBA Resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

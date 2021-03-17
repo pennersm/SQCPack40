@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNLAC.xml"/>
+  <kpi name="msc_2056a">
+    <formula>100*decode(
+			(VLRNLAC.SIM_AVG_REG + 
+			VLRNLAC.USIM_AVG_REG + 
+			VLRNLAC.UNKNOWN_AVG_REG),0,null, 
+
+			(VLRNLAC.ATT_SIM_AVG + 
+			VLRNLAC.ATT_USIM_AVG + 
+			VLRNLAC.ATT_UNKNOWN_AVG)
+			 / 
+			(VLRNLAC.SIM_AVG_REG + 
+			VLRNLAC.USIM_AVG_REG + 
+			VLRNLAC.UNKNOWN_AVG_REG))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of attached subscribers in LAC. SIM_USIM Opt.]]></title>
+      <use><![CDATA[The ratio of the attached notmal subscribers related to the number of registered normal subscribers in LAC during the reporting time. Calculated from the quotient of ATTACHED AVERAGE TOTAL counters and the sum of AVERAGE TOTAL counters. This KPI is to be used if SIM_USIM_MEAS_PER_LAI + ENH_VLR_MEAS_PER_LAC FIFILE parameters are activated.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI is only applicable if the SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are activated.
+<br>If ENH_VLR_MEAS_PER_LAC is activated but SIM_USIM_MEAS_PER_LAI is not activated please use msc_2056b KPI.
+<br>If ENH_VLR_MEAS_PER_LAC is not activated it's not possible to calculate this KPI.
+<br>
+<br>PUBLISHED: M16.0
+<br>LAST UPDATE: 28-10-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->LAC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: LAC
+<br>
+<br>KPI CLASS: Subscriber
+<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+<br>
+<br>NOTES: This KPI includes optional features.
+<br>
+<br>The SIM_USIM_MEAS_PER_LAI FIFILE functionality must be provided and active in order for this SIM + USIM + UNKNOWN counter details to be available.
+<br>
+<br>The ENH_VLR_MEAS_PER_LAC FIFILE functionality must be provided and active in order to have ATTACHED + REGISTERED + NATIONAL ROAMING + INTERNATIONAL ROAMING counter details to be available.
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>For Object:
+&lt;br&gt;       SUM( ATT_SIM_AVG + ATT_USIM_AVG + ATT_UNKNOWN_AVG )
+&lt;br&gt;100 * ----------------------------------------------------------------------
+&lt;br&gt;       SUM( SIM_AVG_REG + USIM_AVG_REG + UNKNOWN_AVG_REG )
+&lt;br&gt;
+&lt;br&gt;For Time:
+&lt;br&gt;       AVG( ATT_SIM_AVG + ATT_USIM_AVG + ATT_UNKNOWN_AVG)
+&lt;br&gt;100 * ----------------------------------------------------------------------
+&lt;br&gt;       AVG( SIM_AVG_REG + USIM_AVG_REG + UNKNOWN_AVG_REG )
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED tables
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLRNLAC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Att Subs Ratio in LAC On-On]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

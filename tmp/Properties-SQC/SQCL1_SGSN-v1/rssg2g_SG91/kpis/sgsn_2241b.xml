@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <kpi name="sgsn_2241b">
+    <formula>decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_power_off_detach + 
+			mobmgmnt.succ_mo_gprs_detach + 
+			mobmgmnt.succ_mo_combined_detach + 
+			mobmgmnt.succ_mo_imsi_detach + 
+			mobmgmnt.succ_impl_gprs_detach + 
+			mobmgmnt.succ_impl_combined_detach + 
+			mobmgmnt.general_undef_detach_failures + 
+			mobmgmnt.gprs_detached_inactive_subscri + 
+			mobmgmnt.nwr_gprs_detach_imsi_unk_hlr + 
+			mobmgmnt.nwr_gprs_detach_illegal_ms + 
+			mobmgmnt.nwr_gprs_detach_illegal_me + 
+			mobmgmnt.nwr_gprs_detach_gprs_ser_na + 
+			mobmgmnt.nwr_gprs_detach_ngprs_ser_na + 
+			mobmgmnt.nwr_gprs_detach_plmn_na + 
+			mobmgmnt.nwr_gprs_detach_la_na + 
+			mobmgmnt.nwr_gprs_detach_roaming_na + 
+			mobmgmnt.nwr_gprs_detach_gprs_na_plmn + 
+			mobmgmnt.nwr_gprs_detach_no_s_cel_in_la + 
+			mobmgmnt.FAIL_NWR_GPRS_DETACH_GEN + 
+			nvl(MOBMGMN2.HLR_INITIATED_DETACH,0)))
+			 / 
+			((mobmgmnt.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[2G detach requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of 2G detach request procedures per second. 
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( SUCC_POWER_OFF_DETACH + SUCC_MO_GPRS_DETACH + 
+&lt;br&gt;   SUCC_MO_COMBINED_DETACH + SUCC_MO_IMSI_DETACH + 
+&lt;br&gt;   SUCC_IMPL_GPRS_DETACH + SUCC_IMPL_COMBINED_DETACH +
+&lt;br&gt;   GENERAL_UNDEF_DETACH_FAILURES + GPRS_DETACHED_INACTIVE_SUBSCRI +
+&lt;br&gt;   NWR_GPRS_DETACH_IMSI_UNK_HLR + NWR_GPRS_DETACH_ILLEGAL_MS +
+&lt;br&gt;   NWR_GPRS_DETACH_ILLEGAL_ME + NWR_GPRS_DETACH_GPRS_SER_NA +
+&lt;br&gt;   NWR_GPRS_DETACH_NGPRS_SER_NA + NWR_GPRS_DETACH_PLMN_NA +
+&lt;br&gt;   NWR_GPRS_DETACH_LA_NA + NWR_GPRS_DETACH_ROAMING_NA +
+&lt;br&gt;   NWR_GPRS_DETACH_GPRS_NA_PLMN + NWR_GPRS_DETACH_NO_S_CEL_IN_LA +
+&lt;br&gt;   FAIL_NWR_GPRS_DETACH_GEN + HLR_INITIATED_DETACH )
+&lt;br&gt;--------------------------------------------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G detach req pr sec]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

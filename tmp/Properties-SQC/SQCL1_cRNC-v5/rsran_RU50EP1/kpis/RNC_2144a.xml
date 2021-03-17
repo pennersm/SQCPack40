@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CSHSPAU.xml"/>
+  <kpi name="RNC_2144a">
+    <formula>100*decode(
+			((CSHSPAU.cs_voice_hspa_jitter_class_0 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_1 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_2 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_3 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_4 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_5)),0,null, 
+
+			((CSHSPAU.cs_voice_hspa_jitter_class_1))
+			 / 
+			((CSHSPAU.cs_voice_hspa_jitter_class_0 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_1 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_2 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_3 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_4 + 
+			CSHSPAU.cs_voice_hspa_jitter_class_5)))</formula>
+    <kpi_info>
+      <title><![CDATA[Sample Share of CS Voice over HSPA calls average jitter is inside Class 1 range (5 ms<JITTER< 10 ms)]]></title>
+      <use><![CDATA[Sample Share of CS Voice over HSPA calls average jitter is inside Class 1 range (5 ms<JITTER< 10 ms)]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                                                                                   sum (cs_voice_hspa_jitter_class_1)
+&lt;br&gt;100 * ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (cs_voice_hspa_jitter_class_0 + cs_voice_hspa_jitter_class_1 + cs_voice_hspa_jitter_class_2 + cs_voice_hspa_jitter_class_3 + cs_voice_hspa_jitter_class_4 + cs_voice_hspa_jitter_class_5)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_CSHSPAU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CSVoiceHSPA_JitterClass1]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/L2TPDT.xml"/>
+  <kpi name="flng_628a">
+    <formula>100*decode((L2TPDT.L2TP_DL_PKTS + L2TPDT.L2TP_PKTS_DROPPED_UNK_BEARER),0,null,
+	(	
+	 L2TPDT.L2TP_PKTS_DROPPED_UNK_BEARER
+     / 
+    (L2TPDT.L2TP_DL_PKTS + L2TPDT.L2TP_PKTS_DROPPED_UNK_BEARER)))</formula>
+    <kpi_info>
+      <title><![CDATA[L2TP packets drop ratio, unknown bearer]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped L2TP packets due to an unknown bearer.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(L2TP_PKTS_DROPPED_UNK_BEARER)
+&lt;br&gt;--------------------------------- *100
+&lt;br&gt;sum(L2TP_DL_PKTS +
+&lt;br&gt;   L2TP_PKTS_DROPPED_UNK_BEARER)</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:19.944 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW053.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>L2TP pkt DR, unkn bearer</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

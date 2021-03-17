@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 CpuUsage_core CPUCOR measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 CpuUsage_core CPUCOR measurement dump</csv_title>
+    <report-description>CPU Usage Core Level</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+   <temp_table name="CPUCOR_ext" meas_level="PLMN/RNC/FPNODE/FPCPU1" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="MAX_AVG_CFPU_USAGE_CORE">MAX(MAX_AVG_CFPU_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_USSR_USAGE_CORE">MAX(MAX_AVG_USSR_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_CSPU_USAGE_CORE">MAX(MAX_AVG_CSPU_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_CSUP_USAGE_CORE">MAX(MAX_AVG_CSUP_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_SITP_USAGE_CORE">MAX(MAX_AVG_SITP_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_EITP_USAGE_CORE">MAX(MAX_AVG_EITP_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_USCP_USAGE_CORE">MAX(MAX_AVG_USCP_USAGE_CORE)</counter>
+	  <counter alias="MAX_AVG_USUP_USAGE_CORE">MAX(MAX_AVG_USUP_USAGE_CORE)</counter>
+	  
+		<counter alias="AVG_AVG_CSUP_USAGE_CORE_REL1">AVG(AVG_AVG_CSUP_USAGE_CORE_REL1)</counter>
+		<counter alias="AVG_MAX_CSUP_USAGE_CORE_REL1">MAX(AVG_MAX_CSUP_USAGE_CORE_REL1)</counter>
+		<counter alias="AVG_AVG_USUP_USAGE_CORE_REL1">AVG(AVG_AVG_USUP_USAGE_CORE_REL1)</counter>
+		<counter alias="AVG_MAX_USUP_USAGE_CORE_REL1">MAX(AVG_MAX_USUP_USAGE_CORE_REL1)</counter>
+		                                                                          
+		<counter alias="AVG_AVG_CSUP_USAGE_CORE_REL2">AVG(AVG_AVG_CSUP_USAGE_CORE_REL2)</counter>
+		<counter alias="AVG_MAX_CSUP_USAGE_CORE_REL2">MAX(AVG_MAX_CSUP_USAGE_CORE_REL2)</counter>
+		<counter alias="AVG_AVG_USUP_USAGE_CORE_REL2">AVG(AVG_AVG_USUP_USAGE_CORE_REL2)</counter>
+		<counter alias="AVG_MAX_USUP_USAGE_CORE_REL2">MAX(AVG_MAX_USUP_USAGE_CORE_REL2)</counter>
+
+		
+	   </counters>
+    <table_name><![CDATA[(
+	select
+		trunc( p.period_start_time, 'mi' ) period_start_time,
+		rnc_id,
+		fpnode_id,
+		fpcpu_id,
+		AVG(CASE WHEN FPNODE_ID LIKE ('CFPU-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_CFPU_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('USSR-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_USSR_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('CSPU-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_CSPU_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('CSUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_CSUP_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('EITP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_SITP_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('EIPU-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_EITP_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('USPU-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_USCP_USAGE_CORE,
+		AVG(CASE WHEN FPNODE_ID LIKE ('USUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END)  MAX_AVG_USUP_USAGE_CORE,
+		
+		AVG( CASE WHEN fpcpu_id between 7 and 10   then(  CASE WHEN FPNODE_ID LIKE ('CSUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_AVG_CSUP_USAGE_CORE_REL1,
+		AVG( CASE WHEN fpcpu_id =6  then(CASE WHEN FPNODE_ID LIKE ('CSUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_MAX_CSUP_USAGE_CORE_REL1,
+		AVG( CASE WHEN fpcpu_id between 6 and 11 then(  CASE WHEN FPNODE_ID LIKE ('USUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_AVG_USUP_USAGE_CORE_REL1,
+		AVG( CASE WHEN fpcpu_id =5 then(CASE WHEN FPNODE_ID LIKE ('USUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_MAX_USUP_USAGE_CORE_REL1,
+		
+		AVG( CASE WHEN fpcpu_id between 19 and 31   then(  CASE WHEN FPNODE_ID LIKE ('CSUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_AVG_CSUP_USAGE_CORE_REL2,
+		AVG( CASE WHEN fpcpu_id between 16 and 18   then(  CASE WHEN FPNODE_ID LIKE ('CSUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_MAX_CSUP_USAGE_CORE_REL2,
+		AVG( CASE WHEN fpcpu_id between 17 and 31   then(  CASE WHEN FPNODE_ID LIKE ('USUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_AVG_USUP_USAGE_CORE_REL2,
+		AVG( CASE WHEN fpcpu_id between 14 and 16   then(  CASE WHEN FPNODE_ID LIKE ('USUP-%') THEN AVG_CPU_USAGE_CORE ELSE NULL END) ELSE NULL END)  AVG_MAX_USUP_USAGE_CORE_REL2
+		
+	from 
+		#grouping_sql#
+		utp_common_objects plmn,
+		utp_common_objects rnc, 
+		nokrww_ps_cpucor_fpcpu_raw p
+	where
+		#add_on_clause# and
+		period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+		period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+		rnc.co_gid =p.rnc_id and
+		rnc.co_parent_gid = plmn.co_gid and
+		plmn.co_oc_id=16 and
+		rnc.co_oc_id=811
+		group by 
+			period_start_time,
+			rnc_id,
+			fpnode_id,
+			fpcpu_id)]]></table_name>
+    <alias_name>CPUCOR_ext</alias_name>
+  </temp_table>
+</conf_file>
+	
+
+

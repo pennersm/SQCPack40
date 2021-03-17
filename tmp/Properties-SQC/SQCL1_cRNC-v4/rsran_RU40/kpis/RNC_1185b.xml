@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml">
+    <counters>
+      <counter alias="rnc_1101b">sum(rel_allo_norm_hs_dsch_int + 
+					rel_allo_norm_hs_dsch_bgr + 
+					nvl(rel_allo_norm_hs_dsch_str,0) + 
+					rel_allo_oth_fail_hsdsch_int + 
+					rel_allo_oth_fail_hsdsch_bgr + 
+					nvl(rel_allo_oth_fail_hsdsch_str,0) + 
+					rel_allo_rl_fail_hs_dsch_int + 
+					rel_allo_rl_fail_hs_dsch_bgr + 
+					nvl(rel_allo_rl_fail_hs_dsch_str,0))</counter>
+      <counter alias="rnc_675a">sum(rel_allo_oth_fail_hsdsch_int + rel_allo_oth_fail_hsdsch_bgr)</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="RNC_1185b">
+    <formula>decode(
+			(traffic.rnc_1101b),0,null, 
+
+			(100*(traffic.rnc_675a + 
+			(traffic.rel_allo_oth_fail_hsdsch_str_1))
+			 / 
+			traffic.rnc_1101b))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH Allocation Release Rate due to Non-RL failures]]></title>
+      <use><![CDATA[Percentage of HS-DSCH allocation releases due other reason then radiolink. This KPI covers interactive, background and streaming class connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * (RNC_675a + SUM(REL_ALLO_OTH_FAIL_HSDSCH_STR))
+&lt;br&gt;---------------------
+&lt;br&gt;RNC_1101b</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HS-DSCH Allocation Release Rate due to Non-RL failures]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

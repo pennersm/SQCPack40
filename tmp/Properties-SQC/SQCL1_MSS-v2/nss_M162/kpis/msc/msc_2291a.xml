@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/PPLAC.xml" />
+  <kpi name="msc_2291a">
+    <formula>decode ((PPLAC.PAG_5TH_SMS_TMSI_ATT + PPLAC.PAG_5TH_SMS_IMSI_ATT), 0, null, (100* (PPLAC.PAG_5TH_SMS_TMSI_SUCC + PPLAC.PAG_5TH_SMS_IMSI_SUCC) / (PPLAC.PAG_5TH_SMS_TMSI_ATT + PPLAC.PAG_5TH_SMS_IMSI_ATT)))</formula>
+    <kpi_info>
+      <title><![CDATA[5th Paging for SMS calls SR]]></title>
+      <use><![CDATA[Success ratio of 5th Pagings for SMS calls on A, Iu, Gs and SGs Interfaces.]]></use>
+      <use_experience />
+	  <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( PAG_5TH_SMS_TMSI_SUCC + PAG_5TH_SMS_IMSI_SUCC )
+&lt;br&gt;100 *  ---------------------------------------------------------------------------------
+&lt;br&gt;       SUM( PAG_5TH_SMS_TMSI_ATT + PAG_5TH_SMS_IMSI_ATT )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_pplac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>5th Paging SMS SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,196 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M608 RESTC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M608 RESTC measurement dump</csv_title>
+    <report-description>Restart measurement in CDS (Availability performance measurement)(RESTC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <RESTMEAS_UNIT_RESTARTS/>
+    <RESTMEAS_ADM_RESTARTS/>
+    <RESTMEAS_DUPLEX_RESTARTS/>
+    <RESTMEAS_DUPLEX_DTIME_sec/>
+    <RESTMEAS_DISK_TIME_sec/>
+    <RESTMEAS_FAM_RESTARTS/>
+    <RESTMEAS_INVALID_RECORD/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/CDS/UNIT1" name="RESTC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="RESTMEAS_UNIT_RESTARTS" symmetrical="true">SUM(RESTMEAS_UNIT_RESTARTS)</counter>
+      <counter alias="RESTMEAS_ADM_RESTARTS" symmetrical="true">SUM(RESTMEAS_ADM_RESTARTS)</counter>
+      <counter alias="RESTMEAS_DUPLEX_RESTARTS" symmetrical="true">SUM(RESTMEAS_DUPLEX_RESTARTS)</counter>
+      <counter alias="RESTMEAS_DUPLEX_DTIME_sec" symmetrical="true">SUM(RESTMEAS_DUPLEX_DTIME_sec)</counter>
+      <counter alias="RESTMEAS_DISK_TIME_sec" symmetrical="true">SUM(RESTMEAS_DISK_TIME_sec)</counter>
+      <counter alias="RESTMEAS_FAM_RESTARTS" symmetrical="true">SUM(RESTMEAS_FAM_RESTARTS)</counter>
+      <counter alias="RESTMEAS_INVALID_RECORD" symmetrical="true">AVG(RESTMEAS_INVALID_RECORD)</counter>
+    </counters>
+    <table_name>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RESTC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RESTC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_UNIT_RESTARTS">
+    <formula>RESTC.RESTMEAS_UNIT_RESTARTS</formula>
+    <kpi_info>
+      <title>RESTMEAS_UNIT_RESTARTS</title>
+      <use>Number of all unit restarts (0...999999999).Thefield is updated immediately after a restart.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RESTMEAS_UNIT_RESTARTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_UNIT_RESTARTS (M608B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_ADM_RESTARTS">
+    <formula>RESTC.RESTMEAS_ADM_RESTARTS</formula>
+    <kpi_info>
+      <title>RESTMEAS_ADM_RESTARTS</title>
+      <use>Number of unit restarts initiated bythe operator with MML commands (0...999999999). The field is updated immediately
+after a restart.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RESTMEAS_ADM_RESTARTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_ADM_RESTARTS (M608B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_DUPLEX_RESTARTS">
+    <formula>RESTC.RESTMEAS_DUPLEX_RESTARTS</formula>
+    <kpi_info>
+      <title>RESTMEAS_DUPLEX_RESTARTS</title>
+      <use>Number of simultaneous restarts in duplicatedunits (0...999999999). The value is updated in a field of the unit
+that was the spare unit before the restart.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RESTMEAS_DUPLEX_RESTARTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_DUPLEX_RESTARTS (M608B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_DUPLEX_DTIME_sec">
+    <formula>RESTC.RESTMEAS_DUPLEX_DTIME_sec</formula>
+    <kpi_info>
+      <title>RESTMEAS_DUPLEX_DTIME_sec</title>
+      <use>In duplicated units, time during which bothunits have been out of service, that is, in some other state but
+not WO-EX or SP-EX(0...999999999 seconds). The field is updated
+when the active unit is in WO-EX state and only for the active unit.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RESTMEAS_DUPLEX_DTIME_sec)</formula>
+      <unit>sec</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_DUPLEX_DTIME_sec (M608B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_DISK_TIME_sec">
+    <formula>RESTC.RESTMEAS_DISK_TIME_sec</formula>
+    <kpi_info>
+      <title>RESTMEAS_DISK_TIME_sec</title>
+      <use>Time during which the unit has been out ofservice (0...999999999 seconds). The value is updated in a field
+of the unit in WO-EX state.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RESTMEAS_DISK_TIME_sec)</formula>
+      <unit>sec</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_DISK_TIME_sec (M608B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_FAM_RESTARTS">
+    <formula>RESTC.RESTMEAS_FAM_RESTARTS</formula>
+    <kpi_info>
+      <title>RESTMEAS_FAM_RESTARTS</title>
+      <use>Number of restarts in the program blocksof the units (0...999999999). The field is updated when the unit
+state administration service has restarted the program block in
+question.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RESTMEAS_FAM_RESTARTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_FAM_RESTARTS (M608B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RESTMEAS_INVALID_RECORD">
+    <formula>RESTC.RESTMEAS_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>RESTMEAS_INVALID_RECORD</title>
+      <use>This counter exist when unit type is 0x00(or 0xFFFF which is fault case), in that case only this counter
+is printed and localmoid is &quot;DN:UNIT-UNKNOWN&quot;.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(RESTMEAS_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_restc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RESTMEAS_INVALID_RECORD (M608B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

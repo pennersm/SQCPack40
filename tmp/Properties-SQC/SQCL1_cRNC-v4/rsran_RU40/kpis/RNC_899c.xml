@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_899c">
+    <formula>decode(
+			(traffic.allo_dur_hs_dsch_ret_16_int + 
+			traffic.allo_dur_hs_dsch_ret_64_int + 
+			traffic.allo_dur_hs_dsch_ret_128_int + 
+			traffic.allo_dur_hs_dsch_ret_384_int + 
+			traffic.allo_dur_hs_dsch_ret_16_bgr + 
+			traffic.allo_dur_hs_dsch_ret_64_bgr + 
+			traffic.allo_dur_hs_dsch_ret_128_bgr + 
+			traffic.allo_dur_hs_dsch_ret_384_bgr + 
+			traffic.allo_dur_hs_dsch_ret_16_str_1 + 
+			traffic.allo_dur_hs_dsch_ret_64_str_1 + 
+			traffic.allo_dur_hs_dsch_ret_128_str_1),0,null, 
+
+			(100*(traffic.allo_dur_hs_dsch_ret_384_int + 
+			traffic.allo_dur_hs_dsch_ret_384_bgr)
+			 / 
+			(traffic.allo_dur_hs_dsch_ret_16_int + 
+			traffic.allo_dur_hs_dsch_ret_64_int + 
+			traffic.allo_dur_hs_dsch_ret_128_int + 
+			traffic.allo_dur_hs_dsch_ret_384_int + 
+			traffic.allo_dur_hs_dsch_ret_16_bgr + 
+			traffic.allo_dur_hs_dsch_ret_64_bgr + 
+			traffic.allo_dur_hs_dsch_ret_128_bgr + 
+			traffic.allo_dur_hs_dsch_ret_384_bgr + 
+			traffic.allo_dur_hs_dsch_ret_16_str_1 + 
+			traffic.allo_dur_hs_dsch_ret_64_str_1 + 
+			traffic.allo_dur_hs_dsch_ret_128_str_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[Bitrate utilization, HS-DSCH return channel 384 UL]]></title>
+      <use><![CDATA[The share of HS-DSCH return channel 384 kbps allocation duration compared to total HS-DSCH return channel allocations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *
+&lt;br&gt;sum( ALLO_DUR_HS_DSCH_RET_384_INT
+&lt;br&gt;   + ALLO_DUR_HS_DSCH_RET_384_BGR )
+&lt;br&gt;-------------------------------
+&lt;br&gt;sum( ALLO_DUR_HS_DSCH_RET_16_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_64_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_128_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_384_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_16_BGR 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_64_BGR 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_128_BGR 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_384_BGR
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_16_STR
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_64_STR
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_RET_128_STR )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Bitrate utilization, HS-DSCH return channel 384 UL]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

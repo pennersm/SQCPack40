@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <kpi name="MGW_870b">
+    <formula>decode(
+			(signtrc.transcoder_cat1 + 
+			signtrc.transcoder_cat2 + 
+			signtrc.transcoder_cat3 + 
+			signtrc.transcoder_ater + 
+			signtrc.transcoder_ater_wb),0,null, 
+
+			(100*(signtrc.transcoder_ater)
+			 / 
+			(signtrc.transcoder_cat1 + 
+			signtrc.transcoder_cat2 + 
+			signtrc.transcoder_cat3 + 
+			signtrc.transcoder_ater + 
+			signtrc.transcoder_ater_wb)))</formula>
+    <kpi_info>
+      <title><![CDATA[Transcoder Ater usage ratio]]></title>
+      <use><![CDATA[Indicates usage ratio of transcoder Ater compared to usage of all successful usage of transcoder categories in measured MGW. Transcoder Ater includes the following codecs: FR AMR, HR AMR, GSM EFR, GSM FR and GSM HR.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;               SUM(TRANSCODER_ATER )
+&lt;br&gt;100 * ---------------------------------------
+&lt;br&gt;      SUM(TRANSCODER_CAT1 + TRANSCODER_CAT2 +
+&lt;br&gt;          TRANSCODER_CAT3 + TRANSCODER_ATER + 
+&lt;br&gt;          TRANSCODER_ATER_WB)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Transcoder Ater usg ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml"/>
+  <kpi name="RNC_2123a">
+    <formula>100*decode(
+			((TRAFFIC.rel_allo_rl_fail_hs_dsch_amr + 
+			TRAFFIC.rel_allo_oth_fail_hsdsch_amr + 
+			TRAFFIC.rel_allo_norm_hs_dsch_amr + 
+			TRAFFIC.swi_hspa_to_r99_cs_amr)),0,null, 
+
+			((TRAFFIC.rel_allo_norm_hs_dsch_amr + 
+			TRAFFIC.swi_hspa_to_r99_cs_amr))
+			 / 
+			((TRAFFIC.rel_allo_rl_fail_hs_dsch_amr + 
+			TRAFFIC.rel_allo_oth_fail_hsdsch_amr + 
+			TRAFFIC.rel_allo_norm_hs_dsch_amr + 
+			TRAFFIC.swi_hspa_to_r99_cs_amr)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA CS Voice Resource Retainability]]></title>
+      <use><![CDATA[HSDPA CS Voice Resource Retainability allows monitoring the basic information for retainability of the CS Voice resource (AMR) over HSPA.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                                     sum (rel_allo_norm_hs_dsch_amr + swi_hspa_to_r99_cs_amr)
+&lt;br&gt;100 * ----------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (rel_allo_rl_fail_hs_dsch_amr + rel_allo_oth_fail_hsdsch_amr + rel_allo_norm_hs_dsch_amr + swi_hspa_to_r99_cs_amr)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HSDPA CSVoice Retain SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

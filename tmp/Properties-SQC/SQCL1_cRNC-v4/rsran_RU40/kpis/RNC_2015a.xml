@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_2015a">
+    <formula>100*decode(
+			((SERVLEV.rrc_conn_acc_comp)),0,null, 
+
+			((servlev.rrc_conn_act_fail_trans_1))
+			 / 
+			((SERVLEV.rrc_conn_acc_comp)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Active FR due to Transmission]]></title>
+      <use><![CDATA[Percentage of RRC connection active failures caused by Transmission.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (rrc_conn_act_fail_trans)
+&lt;br&gt;100 * -----------------------------
+&lt;br&gt;         sum (rrc_conn_acc_comp)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RRC act FR due to Trans]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

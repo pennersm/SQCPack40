@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>ConnectionMeas</header>
+    <csv_title>NSN MGW U5.0EP1;U5.0;U4.2EP;U4.2;U4.1;U4.0;U3C ConnectionMeas CONN measurement dump</csv_title>
+    <report-description>Connection Measurement (645)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsmgw/RSMGW.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CONN" meas_level="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <counters>
+      <counter alias="period_duration">SUM(period_duration)</counter>
+      <counter alias="SUM_ALL_CAS_PEAK">MAX(ALL_CAS_PEAK)</counter>
+    </counters>
+    <table_name><![CDATA[
+    			(select
+				trunc( p.period_start_time, 'mi' ) period_start_time,
+				"mgw".co_gid mgw_id,
+				SUM(case when unit_type_id in ('335') then ALL_CAS_PEAK else 0 end) ALL_CAS_PEAK
+			from
+				#grouping_sql#
+				utp_common_objects "plmn",
+				utp_common_objects "mgw",
+				nokmww_ps_conn_unit3_raw p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				"mgw".co_gid = p.mgw_id and
+				"mgw".co_parent_gid = "plmn".co_gid and
+				"plmn".co_oc_id=16 and
+				"mgw".co_oc_id=757
+			group by
+				trunc( p.period_start_time, 'mi' ),
+				"mgw".co_gid  )]]></table_name>
+    <alias_name>conn_ext</alias_name>
+  </temp_table>
+</conf_file>
+

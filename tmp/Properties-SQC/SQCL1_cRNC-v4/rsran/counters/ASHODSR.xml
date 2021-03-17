@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 Autodef_SHO_DSR ASHODSR measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 Autodef_SHO_DSR ASHODSR measurement dump</csv_title>
+    <report-description>Autodef SHO DSR</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CPICH_ECNO_DET_SUM />
+    <CPICH_ECNO_DET_DENOM />
+    <CPICH_RSCP_DET_SUM />
+    <CPICH_RSCP_DET_DENOM />
+  </column_order>
+  <temp_table name="ASHODSR" meas_level="PLMN/RNC/HOS/SCID/MCC/MNC/SCR" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CPICH_ECNO_DET_SUM">SUM(CPICH_ECNO_DET_SUM)</counter>
+      <counter alias="CPICH_ECNO_DET_DENOM">SUM(CPICH_ECNO_DET_DENOM)</counter>
+      <counter alias="CPICH_RSCP_DET_SUM">SUM(CPICH_RSCP_DET_SUM)</counter>
+      <counter alias="CPICH_RSCP_DET_DENOM">SUM(CPICH_RSCP_DET_DENOM)</counter>
+    </counters>
+    <table_name>nokrww_ps_ashodsr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ASHODSR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ASHODSR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_ashodsr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_ECNO_DET_SUM">
+    <formula>ASHODSR.CPICH_ECNO_DET_SUM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_DET_SUM</title>
+      <use>Sum of linearized CPICH Ec/No values of the unidentified detected set cells reported by the UE. This counter, divided by the denominator M1028C1, provides the average CPICH Ec/No in range 0...49 defined in 3GPP TS 25.133.
+After average calculation, the value can be converted to the dB unit using formula ((reporting_value/2)-24,5). UPDATED: When the RNC receives 1A, 1B or 1C report from the UE. Both event triggered and possible periodic reports following after them update this counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_ECNO_DET_SUM)</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_ashodsr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_DET_SUM (M1028C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_ECNO_DET_DENOM">
+    <formula>ASHODSR.CPICH_ECNO_DET_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_DET_DENOM</title>
+      <use>The number of 1A/1B/1C reports updated to counter M1028C0, used as a denominator for average calculation. UPDATED: When the RNC receives a 1A, 1B or 1C report from the UE, this counter is updated by value 1.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_ECNO_DET_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_ashodsr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_DET_DENOM (M1028C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_RSCP_DET_SUM">
+    <formula>ASHODSR.CPICH_RSCP_DET_SUM</formula>
+    <kpi_info>
+      <title>CPICH_RSCP_DET_SUM</title>
+      <use>Sum of CPICH RSCP values of the unidentified detected set cells reported by the UE. This counter, divided by the denominator M1028C3, provides the average CPICH RSCP in dBm. UPDATED: When the RNC receives a 1A, 1B or 1C report from the UE. Both event triggered and possible periodic reports following after them update this counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_RSCP_DET_SUM)</formula>
+      <unit>dBm</unit>
+      <tables>nokrww_ps_ashodsr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_RSCP_DET_SUM (M1028C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_RSCP_DET_DENOM">
+    <formula>ASHODSR.CPICH_RSCP_DET_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_RSCP_DET_DENOM</title>
+      <use>The number of 1A/1B/1C reports updated to counter M1028C2, used as a denominator for average calculation. UPDATED: When the RNC receives a 1A, 1B or 1C report from the UE, this counter is updated by value 1.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_RSCP_DET_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_ashodsr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_RSCP_DET_DENOM (M1028C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

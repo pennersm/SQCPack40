@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 celldata measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 celldata measurement dump</csv_title>
+    <report-description>Cell data measurement dummy cells filtered(CELLDATA)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <bssgp_passed_data_in_bytes />
+    <discarded_data_by_bssgp />
+    <LLC_FRAMES_BSSGP_QUEUE_SUM />
+    <LLC_FRAMES_BSSGP_QUEUE_DEN />
+    <LLC_FRAMES_BSSGP_QUEUE_PEAK />
+    <!--succ_gprs_attach /-->
+    <MOBMGMNT_PERIOD_DURATION />
+  </column_order>
+  <temp_table name="celldata" meas_level="PLMN/SGSN/PAPU/LAC/RAC/BTS" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="bssgp_passed_data_in_bytes" symmetrical="true">SUM(bssgp_passed_data_in_bytes)</counter>
+      <counter alias="discarded_data_by_bssgp" symmetrical="true">SUM(discarded_data_by_bssgp)</counter>
+      <counter alias="LLC_FRAMES_BSSGP_QUEUE_SUM" symmetrical="true">SUM(LLC_FRAMES_BSSGP_QUEUE_SUM)</counter>
+          <counter alias="LLC_FRAMES_BSSGP_QUEUE_DEN" time-alias="LLC_FRAMES_BSSGP_QUEUE_DEN" time-formula="sum(LLC_FRAMES_BSSGP_QUEUE_DEN)" object-formula="AVG(LLC_FRAMES_BSSGP_QUEUE_DEN)"  >AVG(LLC_FRAMES_BSSGP_QUEUE_DEN)</counter>
+      <counter alias="LLC_FRAMES_BSSGP_QUEUE_PEAK" symmetrical="true">MAX(LLC_FRAMES_BSSGP_QUEUE_PEAK)</counter>
+<!--      <counter alias="succ_gprs_attach" symmetrical="true">SUM(succ_gprs_attach)</counter> -->
+      <counter alias="MOBMGMNT_PERIOD_DURATION">SUM(period_duration)</counter>
+    </counters>
+    <table_name>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>celldata</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>celldata.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="bssgp_passed_data_in_bytes">
+    <formula>celldata.bssgp_passed_data_in_bytes</formula>
+    <kpi_info>
+      <title>bssgp_passed_data_in_bytes</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(bssgp_passed_data_in_bytes)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>bssgp_passed_data_in_bytes</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="discarded_data_by_bssgp">
+    <formula>celldata.discarded_data_by_bssgp</formula>
+    <kpi_info>
+      <title>discarded_data_by_bssgp</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(discarded_data_by_bssgp)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>discarded_data_by_bssgp</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LLC_FRAMES_BSSGP_QUEUE_SUM">
+    <formula>celldata.LLC_FRAMES_BSSGP_QUEUE_SUM</formula>
+    <kpi_info>
+      <title>LLC_FRAMES_BSSGP_QUEUE_SUM</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(LLC_FRAMES_BSSGP_QUEUE_SUM)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LLC_FRAMES_BSSGP_QUEUE_SUM</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LLC_FRAMES_BSSGP_QUEUE_DEN">
+    <formula>celldata.LLC_FRAMES_BSSGP_QUEUE_DEN</formula>
+    <kpi_info>
+      <title>LLC_FRAMES_BSSGP_QUEUE_DEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(LLC_FRAMES_BSSGP_QUEUE_DEN)">AVG(LLC_FRAMES_BSSGP_QUEUE_DEN)*count(distinct period_start_time)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LLC_FRAMES_BSSGP_QUEUE_DEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LLC_FRAMES_BSSGP_QUEUE_PEAK">
+    <formula>celldata.LLC_FRAMES_BSSGP_QUEUE_PEAK</formula>
+    <kpi_info>
+      <title>LLC_FRAMES_BSSGP_QUEUE_PEAK</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(LLC_FRAMES_BSSGP_QUEUE_PEAK)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LLC_FRAMES_BSSGP_QUEUE_PEAK</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!--<kpi name="succ_gprs_attach">
+    <formula>celldata.succ_gprs_attach</formula>
+    <kpi_info>
+      <title>succ_gprs_attach</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(succ_gprs_attach)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>succ_gprs_attach</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+  <kpi name="MOBMGMNT_PERIOD_DURATION">
+    <formula>celldata.MOBMGMNT_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>MOBMGMNT_PERIOD_DURATION</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_celldata_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MOBMGMNT_PERIOD_DURATION</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IpStat IPV4S measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IpStat IPV4S measurement dump</csv_title>
+    <report-description>Collects the IPV4 statistics for each node. The measurement type collects data on IPv4 packets every 30 seconds. The data is measured on per-node level. It provides information on the IPv4 packets that are entering and exiting the nodes. The data collected is not affected by licensing of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IPV4_IN_RECEIVES />
+    <IPV4_IN_HEADER_ERRORS />
+    <IPV4_IN_ADDRESS_ERRORS />
+    <IPV4_FORWARDED_DATAGRAMS />
+    <IPV4_IN_UNKNOWN_PROTOCOLS />
+    <IPV4_IN_DISCARDS />
+    <IPV4_IN_DELIVERS />
+    <IPV4_OUT_REQUESTS />
+    <IPV4_OUT_DISCARDS />
+    <IPV4_OUT_NOROUTES />
+    <IPV4_REASSEMBLY_REQUIRED />
+    <IPV4_REASSEMBLY_OK />
+    <IPV4_REASSEMBLY_FAILS />
+    <IPV4_FRAGMENT_OK />
+    <IPV4_FRAGMENT_FAILS />
+    <IPV4_FRAGMENT_CREATES />
+  </column_order>
+  <temp_table name="IPV4S" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>IPV4S</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="IPV4_IN_RECEIVES">SUM(IPV4_IN_RECEIVES)</counter>
+      <counter alias="IPV4_IN_HEADER_ERRORS">SUM(IPV4_IN_HEADER_ERRORS)</counter>
+      <counter alias="IPV4_IN_ADDRESS_ERRORS">SUM(IPV4_IN_ADDRESS_ERRORS)</counter>
+      <counter alias="IPV4_FORWARDED_DATAGRAMS">SUM(IPV4_FORWARDED_DATAGRAMS)</counter>
+      <counter alias="IPV4_IN_UNKNOWN_PROTOCOLS">SUM(IPV4_IN_UNKNOWN_PROTOCOLS)</counter>
+      <counter alias="IPV4_IN_DISCARDS">SUM(IPV4_IN_DISCARDS)</counter>
+      <counter alias="IPV4_IN_DELIVERS">SUM(IPV4_IN_DELIVERS)</counter>
+      <counter alias="IPV4_OUT_REQUESTS">SUM(IPV4_OUT_REQUESTS)</counter>
+      <counter alias="IPV4_OUT_DISCARDS">SUM(IPV4_OUT_DISCARDS)</counter>
+      <counter alias="IPV4_OUT_NOROUTES">SUM(IPV4_OUT_NOROUTES)</counter>
+      <counter alias="IPV4_REASSEMBLY_REQUIRED">SUM(IPV4_REASSEMBLY_REQUIRED)</counter>
+      <counter alias="IPV4_REASSEMBLY_OK">SUM(IPV4_REASSEMBLY_OK)</counter>
+      <counter alias="IPV4_REASSEMBLY_FAILS">SUM(IPV4_REASSEMBLY_FAILS)</counter>
+      <counter alias="IPV4_FRAGMENT_OK">SUM(IPV4_FRAGMENT_OK)</counter>
+      <counter alias="IPV4_FRAGMENT_FAILS">SUM(IPV4_FRAGMENT_FAILS)</counter>
+      <counter alias="IPV4_FRAGMENT_CREATES">SUM(IPV4_FRAGMENT_CREATES)</counter>
+    </counters>
+    <table_name>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPV4S</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPV4S.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_IN_RECEIVES">
+    <formula>IPV4S.IPV4_IN_RECEIVES</formula>
+    <kpi_info>
+      <title>IPV4_IN_RECEIVES</title>
+      <use>The total number of received IPv4 datagrams. UPDATED: When a datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_IN_RECEIVES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_IN_RECEIVES (m2070c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_IN_HEADER_ERRORS">
+    <formula>IPV4S.IPV4_IN_HEADER_ERRORS</formula>
+    <kpi_info>
+      <title>IPV4_IN_HEADER_ERRORS</title>
+      <use>The total number of received IPv4 datagrams with header error. UPDATED: When a datagram with header error is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_IN_HEADER_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_IN_HEADER_ERRORS (m2070c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_IN_ADDRESS_ERRORS">
+    <formula>IPV4S.IPV4_IN_ADDRESS_ERRORS</formula>
+    <kpi_info>
+      <title>IPV4_IN_ADDRESS_ERRORS</title>
+      <use>The total number of datagrams chosen to be discarded because the IP address in their IP header destination field was not a valid address. UPDATED: When an invalid address datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_IN_ADDRESS_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_IN_ADDRESS_ERRORS (m2070c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_FORWARDED_DATAGRAMS">
+    <formula>IPV4S.IPV4_FORWARDED_DATAGRAMS</formula>
+    <kpi_info>
+      <title>IPV4_FORWARDED_DATAGRAMS</title>
+      <use>The total number of datagrams for which an attempt was made to find a route to forward them to the correct final destination. UPDATED: When a datagram is forwarded.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_FORWARDED_DATAGRAMS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_FORWARDED_DATAGRAMS (m2070c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_IN_UNKNOWN_PROTOCOLS">
+    <formula>IPV4S.IPV4_IN_UNKNOWN_PROTOCOLS</formula>
+    <kpi_info>
+      <title>IPV4_IN_UNKNOWN_PROTOCOLS</title>
+      <use>The total number of received datagrams with unknown protocol. UPDATED: When a datagram with unknown protocol is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_IN_UNKNOWN_PROTOCOLS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_IN_UNKNOWN_PROTOCOLS (m2070c0005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_IN_DISCARDS">
+    <formula>IPV4S.IPV4_IN_DISCARDS</formula>
+    <kpi_info>
+      <title>IPV4_IN_DISCARDS</title>
+      <use>The total number of datagrams chosen to be dropped. UPDATED: When an erroneous datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_IN_DISCARDS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_IN_DISCARDS (m2070c0006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_IN_DELIVERS">
+    <formula>IPV4S.IPV4_IN_DELIVERS</formula>
+    <kpi_info>
+      <title>IPV4_IN_DELIVERS</title>
+      <use>The total number of input datagrams successfully delivered. UPDATED: When a datagram is successfully delivered.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_IN_DELIVERS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_IN_DELIVERS (m2070c0007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_OUT_REQUESTS">
+    <formula>IPV4S.IPV4_OUT_REQUESTS</formula>
+    <kpi_info>
+      <title>IPV4_OUT_REQUESTS</title>
+      <use>The total number of locally sent IPv4 datagrams. UPDATED: When a datagram is successfully sent locally.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_OUT_REQUESTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_OUT_REQUESTS (m2070c0008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_OUT_DISCARDS">
+    <formula>IPV4S.IPV4_OUT_DISCARDS</formula>
+    <kpi_info>
+      <title>IPV4_OUT_DISCARDS</title>
+      <use>The total number of output datagrams chosen to be discarded due to resource shortage. UPDATED: When a datagram is discarded due to resource shortage.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_OUT_DISCARDS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_OUT_DISCARDS (m2070c0009)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_OUT_NOROUTES">
+    <formula>IPV4S.IPV4_OUT_NOROUTES</formula>
+    <kpi_info>
+      <title>IPV4_OUT_NOROUTES</title>
+      <use>The total number of datagrams discarded because no route could be found to transmit them to their destination. UPDATED: When a datagram is discarded because there is no route to transmit.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_OUT_NOROUTES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_OUT_NOROUTES (m2070c0010)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_REASSEMBLY_REQUIRED">
+    <formula>IPV4S.IPV4_REASSEMBLY_REQUIRED</formula>
+    <kpi_info>
+      <title>IPV4_REASSEMBLY_REQUIRED</title>
+      <use>The total number of datagrams for which reassembly was required. UPDATED: When a datagram requires reassembly.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_REASSEMBLY_REQUIRED)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_REASSEMBLY_REQUIRED (m2070c0011)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_REASSEMBLY_OK">
+    <formula>IPV4S.IPV4_REASSEMBLY_OK</formula>
+    <kpi_info>
+      <title>IPV4_REASSEMBLY_OK</title>
+      <use>The total number of IP datagrams successfully reassembled. UPDATED: When IP datagrams are successfully reassembled.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_REASSEMBLY_OK)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_REASSEMBLY_OK (m2070c0012)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_REASSEMBLY_FAILS">
+    <formula>IPV4S.IPV4_REASSEMBLY_FAILS</formula>
+    <kpi_info>
+      <title>IPV4_REASSEMBLY_FAILS</title>
+      <use>The total number of packets that failed the defragmentation. UPDATED: When packets fail defragmentation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_REASSEMBLY_FAILS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_REASSEMBLY_FAILS (m2070c0013)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_FRAGMENT_OK">
+    <formula>IPV4S.IPV4_FRAGMENT_OK</formula>
+    <kpi_info>
+      <title>IPV4_FRAGMENT_OK</title>
+      <use>The total number of outgoing IP datagrams that have been successfully fragmented at this entity. UPDATED: When IP datagrams are successfully fragmented at this entity.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_FRAGMENT_OK)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_FRAGMENT_OK (m2070c0014)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_FRAGMENT_FAILS">
+    <formula>IPV4S.IPV4_FRAGMENT_FAILS</formula>
+    <kpi_info>
+      <title>IPV4_FRAGMENT_FAILS</title>
+      <use>The total number of sent datagrams which could not be successfully fragmented. UPDATED: When datagrams are not fragmented.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_FRAGMENT_FAILS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_FRAGMENT_FAILS (m2070c0015)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV4_FRAGMENT_CREATES">
+    <formula>IPV4S.IPV4_FRAGMENT_CREATES</formula>
+    <kpi_info>
+      <title>IPV4_FRAGMENT_CREATES</title>
+      <use>The total number of outgoing datagram fragments that have been generated as a result of fragmentation at this entity. UPDATED: When datagram fragments are generated as a result of fragmentation at this entity.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV4_FRAGMENT_CREATES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv4s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV4_FRAGMENT_CREATES (m2070c0016)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

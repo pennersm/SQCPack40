@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/IPROUT.xml" />
+  <kpi name="mgw_1217a">
+    <formula>
+	decode(
+	iprout.out_mux_packets_ip_rout,0,null,
+	100*(iprout.out_muxed_packets_ip_route)
+	/
+	(iprout.out_mux_packets_ip_rout))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Average multiplexing ratio in sending direction]]></title>
+      <use><![CDATA[Average multiplexing ratio in sending direction in the IP based route.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             SUM(OUT_MUXED_PACKETS_IP_ROUTE) 
+			   &lt;br&gt;100 * ----------------------------------------  
+			   &lt;br&gt;             SUM(OUT_MUX_PACKETS_IP_ROUTE)
+			   &lt;br&gt;
+			   &lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_IPROUT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.641 +0100</date>
+          <comment><![CDATA[Source: RSMGW055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg mux ratio in send dir</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_1884c">
+    <formula>(celtpw.edch_data_scell_ul)*decode(
+			((hsdpaw.mace_pdus_2ms_tti*0.002 + 
+			hsdpaw.mace_pdus_10ms_tti*0.01)*1000),0,null, 
+
+			8
+			 / 
+			((hsdpaw.mace_pdus_2ms_tti*0.002 + 
+			hsdpaw.mace_pdus_10ms_tti*0.01)*1000))</formula>
+    <kpi_info>
+      <title><![CDATA[Average HSUPA Throughput per Session]]></title>
+      <use><![CDATA[Average HSUPA throughput per session by comparing the total amount of E-DCH transmitted data against the actual total amount of time used to transmitt that data.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(EDCH_DATA_SCELL_UL) * 8 
+&lt;br&gt;----------------------------------- 
+&lt;br&gt;(sum(MACE_PDUS_2MS_TTI * 0.002 +
+&lt;br&gt; MACE_PDUS_10MS_TTI * 0.01) * 1000)</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_CELTPW_{obj_agg}_{time_agg},nokrww_ps_HSDPAW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:09:59.416 +0100</date>
+          <comment><![CDATA[Source: RSRAN092.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSUPA thp per session</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

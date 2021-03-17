@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 MPLSStat MPLSS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 MPLSStat MPLSS measurement dump</csv_title>
+    <report-description>Calculates the MPLS statistics for each service node. The measurement type calculates the MPLS statistics every 30 seconds. The data is measured on per-node level. It provides information on the statistics related to the MPLS packets flowing into a node. The MPLS statistics of only the service nodes can be measured using this measurement type. The data collected is dependent on the MPLS licensing.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <MPLS_RECEIVED_PACKETS />
+    <MPLS_RECEIVED_OCTETS />
+    <MPLS_RECEIVED_ERRORS />
+    <MPLS_RECEIVED_UNKNOWNS />
+    <MPLS_TRANSMITTED_PACKETS />
+    <MPLS_TRANSMITTED_OCTETS />
+    <MPLS_TRANSMITTED_ERRORS />
+    <MPLS_TRANSMITTED_UNKNOWNS />
+  </column_order>
+  <temp_table name="MPLSS" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>MPLSS</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="MPLS_RECEIVED_PACKETS">SUM(MPLS_RECEIVED_PACKETS)</counter>
+      <counter alias="MPLS_RECEIVED_OCTETS">SUM(MPLS_RECEIVED_OCTETS)</counter>
+      <counter alias="MPLS_RECEIVED_ERRORS">SUM(MPLS_RECEIVED_ERRORS)</counter>
+      <counter alias="MPLS_RECEIVED_UNKNOWNS">SUM(MPLS_RECEIVED_UNKNOWNS)</counter>
+      <counter alias="MPLS_TRANSMITTED_PACKETS">SUM(MPLS_TRANSMITTED_PACKETS)</counter>
+      <counter alias="MPLS_TRANSMITTED_OCTETS">SUM(MPLS_TRANSMITTED_OCTETS)</counter>
+      <counter alias="MPLS_TRANSMITTED_ERRORS">SUM(MPLS_TRANSMITTED_ERRORS)</counter>
+      <counter alias="MPLS_TRANSMITTED_UNKNOWNS">SUM(MPLS_TRANSMITTED_UNKNOWNS)</counter>
+    </counters>
+    <table_name>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MPLSS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MPLSS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_RECEIVED_PACKETS">
+    <formula>MPLSS.MPLS_RECEIVED_PACKETS</formula>
+    <kpi_info>
+      <title>MPLS_RECEIVED_PACKETS</title>
+      <use>The number of MPLS packets received. UPDATED: When a MPLS packet is received by a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_RECEIVED_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_RECEIVED_PACKETS (m2074c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_RECEIVED_OCTETS">
+    <formula>MPLSS.MPLS_RECEIVED_OCTETS</formula>
+    <kpi_info>
+      <title>MPLS_RECEIVED_OCTETS</title>
+      <use>The number of MPLS octets received. UPDATED: When a MPLS packet is received by a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_RECEIVED_OCTETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_RECEIVED_OCTETS (m2074c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_RECEIVED_ERRORS">
+    <formula>MPLSS.MPLS_RECEIVED_ERRORS</formula>
+    <kpi_info>
+      <title>MPLS_RECEIVED_ERRORS</title>
+      <use>The number of inbound MPLS packets which contain errors. UPDATED: When an erroneous MPLS packet is received by a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_RECEIVED_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_RECEIVED_ERRORS (m2074c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_RECEIVED_UNKNOWNS">
+    <formula>MPLSS.MPLS_RECEIVED_UNKNOWNS</formula>
+    <kpi_info>
+      <title>MPLS_RECEIVED_UNKNOWNS</title>
+      <use>The number of MPLS packets received with an unknown MPLS label. UPDATED: When a MPLS packet with an unknown MPLS label is received by a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_RECEIVED_UNKNOWNS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_RECEIVED_UNKNOWNS (m2074c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_TRANSMITTED_PACKETS">
+    <formula>MPLSS.MPLS_TRANSMITTED_PACKETS</formula>
+    <kpi_info>
+      <title>MPLS_TRANSMITTED_PACKETS</title>
+      <use>The number of MPLS packets transmitted out of a network element. UPDATED: When a MPLS packet is transmitted out of a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_TRANSMITTED_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_TRANSMITTED_PACKETS (m2074c0005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_TRANSMITTED_OCTETS">
+    <formula>MPLSS.MPLS_TRANSMITTED_OCTETS</formula>
+    <kpi_info>
+      <title>MPLS_TRANSMITTED_OCTETS</title>
+      <use>The number of MPLS octets transmitted out of a network element. UPDATED: When a MPLS packet is transmitted out of a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_TRANSMITTED_OCTETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_TRANSMITTED_OCTETS (m2074c0006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_TRANSMITTED_ERRORS">
+    <formula>MPLSS.MPLS_TRANSMITTED_ERRORS</formula>
+    <kpi_info>
+      <title>MPLS_TRANSMITTED_ERRORS</title>
+      <use>The number of outbound MPLS packets that are not transmitted because of errors. UPDATED: When an MPLS packet transmission fails on a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_TRANSMITTED_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_TRANSMITTED_ERRORS (m2074c0007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MPLS_TRANSMITTED_UNKNOWNS">
+    <formula>MPLSS.MPLS_TRANSMITTED_UNKNOWNS</formula>
+    <kpi_info>
+      <title>MPLS_TRANSMITTED_UNKNOWNS</title>
+      <use>The number of MPLS packets transmitted with an unknown MPLS label. UPDATED: When a MPLS packet with an unknown MPLS label is transmitted from a network element.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MPLS_TRANSMITTED_UNKNOWNS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_mplss_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MPLS_TRANSMITTED_UNKNOWNS (m2074c0008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

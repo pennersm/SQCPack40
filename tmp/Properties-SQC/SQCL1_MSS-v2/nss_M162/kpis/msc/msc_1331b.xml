@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/DESVLR_ext.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/PLMNV_ext.xml" />
+  <kpi name="msc_1331b">
+    <formula>
+decode(
+( (desvlr_ext.AVG_NBR_HOME_SUBS_2G_1 + desvlr_ext.AVG_NBR_HOME_SUBS_3G_1 + desvlr_ext.AVG_NBR_HOME_SUBS_UNKNOWN_2
+	+ plmnv_ext.AVG_NBR_ROAM_SUBS_2G_1 + plmnv_ext.AVG_NBR_ROAM_SUBS_3G_1 + plmnv_ext.AVG_NBR_ROAM_SUBS_UNKNOWN_2 )
+	/ desvlr_ext.PERIOD_START_TIME_1) ,0,null,
+
+	100 * ( 
+	( (desvlr_ext.AVG_NBR_HOME_SUBS_2G_1 + plmnv_ext.AVG_NBR_ROAM_SUBS_2G_1) / desvlr_ext.PERIOD_START_TIME_1 )
+	/
+	( (desvlr_ext.AVG_NBR_HOME_SUBS_2G_1 + desvlr_ext.AVG_NBR_HOME_SUBS_3G_1 + desvlr_ext.AVG_NBR_HOME_SUBS_UNKNOWN_2
+	+ plmnv_ext.AVG_NBR_ROAM_SUBS_2G_1 + plmnv_ext.AVG_NBR_ROAM_SUBS_3G_1 + plmnv_ext.AVG_NBR_ROAM_SUBS_UNKNOWN_2 )
+	/ desvlr_ext.PERIOD_START_TIME_1) )
+)
+
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Share of 2G subscribers in VLR]]></title>
+      <use><![CDATA[Indicates the share of 2G subscribers in VLR. Calculation is done based on the average number of 2G home and roaming subscribers compared with the total average number of home and roaming subscribers.]]></use>
+      
+		<use_experience><![CDATA[ 
+		<br>
+		<br>This KPI is only applicable when the sales item N.1438/N.4123 is active. Only by then all the KPI's used counters will be available.
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(s): 
+		<br>VLR measurement, part n, subscribers per HLR (M339)
+		<br>  +
+		<br>VLR measurement, part n, subscribers per PLMN (M340)
+		<br>
+		<br>]]></use_experience>
+      
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+		<formula>
+		&lt;br&gt;
+		&lt;br&gt;For OBJECT level:   
+		&lt;br&gt;      SUM( AVG_NBR_HOME_SUBS_2G + AVG_NBR_ROAM_SUBS_2G )  
+		&lt;br&gt;------------------------------------------------------------------------------------------------------------------ * 100
+		&lt;br&gt;      SUM( AVG_NBR_HOME_SUBS_2G + AVG_NBR_HOME_SUBS_3G + AVG_NBR_HOME_SUBS_UNKNOWN + 
+		&lt;br&gt;           AVG_NBR_ROAM_SUBS_2G + AVG_NBR_ROAM_SUBS_3G + AVG_NBR_ROAM_SUBS_UNKNOWN )  
+		&lt;br&gt;  
+		&lt;br&gt;For TIME level:  
+		&lt;br&gt;      AVG( AVG_NBR_HOME_SUBS_2G + AVG_NBR_ROAM_SUBS_2G )  
+		&lt;br&gt;------------------------------------------------------------------------------------------------------------------ * 100
+		&lt;br&gt;      AVG( AVG_NBR_HOME_SUBS_2G + AVG_NBR_HOME_SUBS_3G + AVG_NBR_HOME_SUBS_UNKNOWN + 
+		&lt;br&gt;           AVG_NBR_ROAM_SUBS_2G + AVG_NBR_ROAM_SUBS_3G + AVG_NBR_ROAM_SUBS_UNKNOWN )  
+		&lt;br&gt; 
+		&lt;br&gt;Use AGGREGATED view(s)/table(s) 
+		&lt;br&gt; 
+		&lt;br&gt;          ==========   XXXXXXXXXX  ========== 
+		&lt;br&gt; 
+		&lt;br&gt;** SQL test formula - proof of concept 
+		&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains 
+		&lt;br&gt;** Formula based on RAW data table 
+		&lt;br&gt; 
+		&lt;br&gt;      SUM( AVG_NBR_HOME_SUBS_2G + AVG_NBR_ROAM_SUBS_2G ) 
+		&lt;br&gt;       / COUNT(DISTINCT period_start_time) 
+		&lt;br&gt;------------------------------------------------------------------------------------------------------------------ * 100 
+		&lt;br&gt;      SUM( AVG_NBR_HOME_SUBS_2G + AVG_NBR_HOME_SUBS_3G + AVG_NBR_HOME_SUBS_UNKNOWN + 
+		&lt;br&gt;           AVG_NBR_ROAM_SUBS_2G + AVG_NBR_ROAM_SUBS_3G + AVG_NBR_ROAM_SUBS_UNKNOWN ) 
+		&lt;br&gt;       / COUNT(DISTINCT period_start_time)       
+		&lt;br&gt;      
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>RNS_PS_DESVLR_DEST2_RAW, RNS_PS_PLMNV_PLMNNAME1_RAW</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Sh 2G subsc in VLR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

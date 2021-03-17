@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Diameter_Gy DGY measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Diameter_Gy DGY measurement dump</csv_title>
+    <report-description>Diameter statistics for Gy</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DIA_GY_CCR_OCS_SENT />
+    <DIA_GY_CCA_OCS_RECV />
+    <DIA_GY_CCA_OCS_RECV_NO_SUCCESS />
+    <DIA_GY_RAR_OCS_RECV />
+    <DIA_GY_RAA_OCS_SENT />
+    <DIA_GY_RAA_OCS_SENT_NO_SUCCESS />
+    <DIA_GY_TX_EXPIRED />
+    <DIA_GY_ASR_OCS_RECV />
+    <DIA_GY_ASA_OCS_SENT />
+    <DIA_GY_ASA_OCS_SENT_NO_SUCCESS />
+  </column_order>
+  <temp_table name="DGY" meas_level="PLMN/FING/FNODE/GYAPP" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="DIA_GY_CCR_OCS_SENT" time-alias="DIA_GY_CCR_OCS_SENT" timeagg="SUM(DIA_GY_CCR_OCS_SENT)">SUM(DIA_GY_CCR_OCS_SENT)</counter>
+      <counter alias="DIA_GY_CCA_OCS_RECV" time-alias="DIA_GY_CCA_OCS_RECV" timeagg="SUM(DIA_GY_CCA_OCS_RECV)">SUM(DIA_GY_CCA_OCS_RECV)</counter>
+      <counter alias="DIA_GY_CCA_OCS_RECV_NO_SUCCESS" time-alias="DIA_GY_CCA_OCS_RECV_NO_SUCCESS" timeagg="SUM(DIA_GY_CCA_OCS_RECV_NO_SUCCESS)">SUM(DIA_GY_CCA_OCS_RECV_NO_SUCCESS)</counter>
+      <counter alias="DIA_GY_RAR_OCS_RECV" time-alias="DIA_GY_RAR_OCS_RECV" timeagg="SUM(DIA_GY_RAR_OCS_RECV)">SUM(DIA_GY_RAR_OCS_RECV)</counter>
+      <counter alias="DIA_GY_RAA_OCS_SENT" time-alias="DIA_GY_RAA_OCS_SENT" timeagg="SUM(DIA_GY_RAA_OCS_SENT)">SUM(DIA_GY_RAA_OCS_SENT)</counter>
+      <counter alias="DIA_GY_RAA_OCS_SENT_NO_SUCCESS" time-alias="DIA_GY_RAA_OCS_SENT_NO_SUCCESS" timeagg="SUM(DIA_GY_RAA_OCS_SENT_NO_SUCCESS)">SUM(DIA_GY_RAA_OCS_SENT_NO_SUCCESS)</counter>
+      <counter alias="DIA_GY_TX_EXPIRED" time-alias="DIA_GY_TX_EXPIRED" timeagg="SUM(DIA_GY_TX_EXPIRED)">SUM(DIA_GY_TX_EXPIRED)</counter>
+      <counter alias="DIA_GY_ASR_OCS_RECV" time-alias="DIA_GY_ASR_OCS_RECV" timeagg="SUM(DIA_GY_ASR_OCS_RECV)">SUM(DIA_GY_ASR_OCS_RECV)</counter>
+      <counter alias="DIA_GY_ASA_OCS_SENT" time-alias="DIA_GY_ASA_OCS_SENT" timeagg="SUM(DIA_GY_ASA_OCS_SENT)">SUM(DIA_GY_ASA_OCS_SENT)</counter>
+      <counter alias="DIA_GY_ASA_OCS_SENT_NO_SUCCESS" time-alias="DIA_GY_ASA_OCS_SENT_NO_SUCCESS" timeagg="SUM(DIA_GY_ASA_OCS_SENT_NO_SUCCESS)">SUM(DIA_GY_ASA_OCS_SENT_NO_SUCCESS)</counter>
+    </counters>
+    <table_name>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DGY</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DGY.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_CCR_OCS_SENT">
+    <formula>DGY.DIA_GY_CCR_OCS_SENT</formula>
+    <kpi_info>
+      <title>DIA_GY_CCR_OCS_SENT</title>
+      <use>This counter contains the total number of Gy Credit Control Request (CCR) messages sent to the OCS</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_CCR_OCS_SENT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_CCR_OCS_SENT (m3074c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_CCA_OCS_RECV">
+    <formula>DGY.DIA_GY_CCA_OCS_RECV</formula>
+    <kpi_info>
+      <title>DIA_GY_CCA_OCS_RECV</title>
+      <use>This counter contains the total number of Gy Credit Control Answer (CCA) messages received from the OCS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_CCA_OCS_RECV)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_CCA_OCS_RECV (m3074c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_CCA_OCS_RECV_NO_SUCCESS">
+    <formula>DGY.DIA_GY_CCA_OCS_RECV_NO_SUCCESS</formula>
+    <kpi_info>
+      <title>DIA_GY_CCA_OCS_RECV_NO_SUCCESS</title>
+      <use>This counter contains the number of Gy Credit Control Answer (CCA) messages; received from the OCS, with result code other than success.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_CCA_OCS_RECV_NO_SUCCESS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_CCA_OCS_RECV_NO_SUCCESS (m3074c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_RAR_OCS_RECV">
+    <formula>DGY.DIA_GY_RAR_OCS_RECV</formula>
+    <kpi_info>
+      <title>DIA_GY_RAR_OCS_RECV</title>
+      <use>This counter contains the total number of Gy Re-Authorization Request (RAR) messages received from the OCS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_RAR_OCS_RECV)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_RAR_OCS_RECV (m3074c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_RAA_OCS_SENT">
+    <formula>DGY.DIA_GY_RAA_OCS_SENT</formula>
+    <kpi_info>
+      <title>DIA_GY_RAA_OCS_SENT</title>
+      <use>This counter contains the total number of Gy Re-Authorization Answer (RAA) messages sent to the OCS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_RAA_OCS_SENT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_RAA_OCS_SENT (m3074c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_RAA_OCS_SENT_NO_SUCCESS">
+    <formula>DGY.DIA_GY_RAA_OCS_SENT_NO_SUCCESS</formula>
+    <kpi_info>
+      <title>DIA_GY_RAA_OCS_SENT_NO_SUCCESS</title>
+      <use>This counter contains the number of Gy Re-Authorization Answer (RAA) messages; sent to the OCS, with result code other than success.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_RAA_OCS_SENT_NO_SUCCESS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_RAA_OCS_SENT_NO_SUCCESS (m3074c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_TX_EXPIRED">
+    <formula>DGY.DIA_GY_TX_EXPIRED</formula>
+    <kpi_info>
+      <title>DIA_GY_TX_EXPIRED</title>
+      <use>This counter contains the number of the Tx timer expirations for the Gy interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_TX_EXPIRED)</formula>
+      <unit>&gt;Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_TX_EXPIRED (m3074c0007)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_ASR_OCS_RECV">
+    <formula>DGY.DIA_GY_ASR_OCS_RECV</formula>
+    <kpi_info>
+      <title>DIA_GY_ASR_OCS_RECV</title>
+      <use>This counter contains the total number of Gy Abort Session Request (ASR) messages received from the OCS. UPDATED: Updated when a Gy ASR message is received from the OCS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_ASR_OCS_RECV)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_ASR_OCS_RECV (m3074c0008)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_ASA_OCS_SENT">
+    <formula>DGY.DIA_GY_ASA_OCS_SENT</formula>
+    <kpi_info>
+      <title>DIA_GY_ASA_OCS_SENT</title>
+      <use>This counter contains the total number of Gy Abort Session Answer (ASA) messages sent to the OCS. UPDATED: Updated when a Gy ASA message is sent to the OCS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_ASA_OCS_SENT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_ASA_OCS_SENT (m3074c0009)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GY_ASA_OCS_SENT_NO_SUCCESS">
+    <formula>DGY.DIA_GY_ASA_OCS_SENT_NO_SUCCESS</formula>
+    <kpi_info>
+      <title>DIA_GY_ASA_OCS_SENT_NO_SUCCESS</title>
+      <use>This counter contains the total number of Gy Abort Session Answer (ASA) messages, sent to the OCS, with result code other than success. UPDATED: Updated when a non-successful Gy ASA message is sent to the OCS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GY_ASA_OCS_SENT_NO_SUCCESS)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dgy_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GY_ASA_OCS_SENT_NO_SUCCESS (m3074c0010)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

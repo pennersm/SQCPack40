@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Diameter_Gxx DIAGXX measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 Diameter_Gxx DIAGXX measurement dump</csv_title>
+    <report-description>Diameter traffic collection statistics for Gx and Gxc interfaces</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DIA_GX_CCR_DRA />
+    <DIA_GX_CCR_PCRF />
+    <DIA_GXC_CCR_DRA />
+    <DIA_GXC_CCR_PCRF />
+    <DIA_GXX_FAILED_PCC_RULE_ACT />
+    <DIA_GX_RULE_FAILURE_CODE />
+  </column_order>
+  <temp_table name="DIAGXX" meas_level="PLMN/FING/FNODE/GXXAPP" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="DIA_GX_CCR_DRA" time-alias="DIA_GX_CCR_DRA" timeagg="SUM(DIA_GX_CCR_DRA)">SUM(DIA_GX_CCR_DRA)</counter>
+      <counter alias="DIA_GX_CCR_PCRF" time-alias="DIA_GX_CCR_PCRF" timeagg="SUM(DIA_GX_CCR_PCRF)">SUM(DIA_GX_CCR_PCRF)</counter>
+      <counter alias="DIA_GXC_CCR_DRA" time-alias="DIA_GXC_CCR_DRA" timeagg="SUM(DIA_GXC_CCR_DRA)">SUM(DIA_GXC_CCR_DRA)</counter>
+      <counter alias="DIA_GXC_CCR_PCRF" time-alias="DIA_GXC_CCR_PCRF" timeagg="SUM(DIA_GXC_CCR_PCRF)">SUM(DIA_GXC_CCR_PCRF)</counter>
+      <counter alias="DIA_GXX_FAILED_PCC_RULE_ACT" time-alias="DIA_GXX_FAILED_PCC_RULE_ACT" timeagg="SUM(DIA_GXX_FAILED_PCC_RULE_ACT)">SUM(DIA_GXX_FAILED_PCC_RULE_ACT)</counter>
+      <counter alias="DIA_GX_RULE_FAILURE_CODE" time-alias="DIA_GX_RULE_FAILURE_CODE" timeagg="SUM(DIA_GX_RULE_FAILURE_CODE)">SUM(DIA_GX_RULE_FAILURE_CODE)</counter>
+    </counters>
+    <table_name>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DIAGXX</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DIAGXX.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_CCR_DRA">
+    <formula>DIAGXX.DIA_GX_CCR_DRA</formula>
+    <kpi_info>
+      <title>DIA_GX_CCR_DRA</title>
+      <use>This counter contains the total number of sent Gx CCR messages to DRA. UPDATED: Updated when a Gx CCR message is sent to DRA</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GX_CCR_DRA)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCR_DRA (m3062c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_CCR_PCRF">
+    <formula>DIAGXX.DIA_GX_CCR_PCRF</formula>
+    <kpi_info>
+      <title>DIA_GX_CCR_PCRF</title>
+      <use>This counter contains the total number of sent Gx CCR messages to PCRF. UPDATED: Updated when a Gx CCR message is sent to PCRF</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GX_CCR_PCRF)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCR_PCRF (m3062c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GXC_CCR_DRA">
+    <formula>DIAGXX.DIA_GXC_CCR_DRA</formula>
+    <kpi_info>
+      <title>DIA_GXC_CCR_DRA</title>
+      <use>This counter contains the total number of sent Gxc CCR messages to DRA. UPDATED: Updated when a Gxc CCR message is sent to DRA</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GXC_CCR_DRA)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GXC_CCR_DRA (m3062c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GXC_CCR_PCRF">
+    <formula>DIAGXX.DIA_GXC_CCR_PCRF</formula>
+    <kpi_info>
+      <title>DIA_GXC_CCR_PCRF</title>
+      <use>This counter contains the total number of sent Gxc CCR messages to PCRF. UPDATED: Updated when a Gxc CCR message is sent to PCRF</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GXC_CCR_PCRF)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GXC_CCR_PCRF (m3062c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GXX_FAILED_PCC_RULE_ACT">
+    <formula>DIAGXX.DIA_GXX_FAILED_PCC_RULE_ACT</formula>
+    <kpi_info>
+      <title>DIA_GXX_FAILED_PCC_RULE_ACT</title>
+      <use>This counter contains the total number of failed pcc rule activations. UPDATED: Updated when a pcc rule fails to be activated</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GXX_FAILED_PCC_RULE_ACT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GXX_FAILED_PCC_RULE_ACT (dummy_m3062c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_RULE_FAILURE_CODE">
+    <formula>DIAGXX.DIA_GX_RULE_FAILURE_CODE</formula>
+    <kpi_info>
+      <title>DIA_GX_RULE_FAILURE_CODE</title>
+      <use>This counter contains the number of Charging Rule Reports on Gx with Rule Failure Code indication because of failure to activate PCC rules / rulebases. UPDATED: Updated when a Rule Failure Code report is generated because of the failure to activate PCC rules / rulebases.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GX_RULE_FAILURE_CODE)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_diagxx_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_RULE_FAILURE_CODE (m3062c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

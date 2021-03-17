@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>DSP_service_stat</header>
+    <csv_title>NOKIA RNC RN5.0;RN4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 DSP_service_stat DSPSRV measurement dump</csv_title>
+    <report-description>DSP service statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsran/RSRAN.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="DSPSRV_ext" meas_level="PLMN/RSRAN-RNC/RSRAN-SERVT" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <counters>
+	<counter alias="dsp_service_peak_res_alloc_0">max(CASE WHEN SERVT_ID IN ('RTPSR99') THEN dsp_service_peak_res_alloc ELSE 0 END)</counter>
+	<counter alias="dsp_service_peak_res_alloc_1">max(CASE WHEN SERVT_ID IN ('NRTPSR99') THEN dsp_service_peak_res_alloc ELSE 0 END)</counter>
+	<counter alias="dsp_service_peak_res_alloc_2">max(CASE WHEN SERVT_ID IN ('RTPSR99','NRTPSR99') THEN dsp_service_peak_res_alloc ELSE 0 END)</counter>
+	<counter alias="dsp_service_peak_res_alloc_3">max(CASE WHEN SERVT_ID IN ('AMR','IPIUAMR') THEN dsp_service_peak_res_alloc ELSE 0 END)</counter>
+	<counter alias="dsp_service_peak_res_alloc_4">max(CASE WHEN SERVT_ID IN ('ALLHSDPA') THEN dsp_service_peak_res_alloc ELSE 0 END)</counter>
+	<counter alias="dsp_service_peak_res_alloc_5">max(CASE WHEN SERVT_ID IN ('ALLHSUPA') THEN dsp_service_peak_res_alloc ELSE 0 END)</counter>
+    <counter alias="dsp_service_fail_res_alloc_4">sum(CASE WHEN SERVT_ID IN ('ALLHSDPA') THEN dsp_service_fail_res_alloc ELSE 0 END)</counter>
+	<counter alias="dsp_service_succ_res_alloc_4">sum(CASE WHEN SERVT_ID IN ('ALLHSDPA') THEN dsp_service_succ_res_alloc ELSE 0 END)</counter>
+    </counters>
+    <table_name>nokrww_ps_dspsrv_servt_{TIME_AGG}</table_name>
+    <alias_name>DSPSRV_ext</alias_name>
+  </temp_table>
+</conf_file>
+

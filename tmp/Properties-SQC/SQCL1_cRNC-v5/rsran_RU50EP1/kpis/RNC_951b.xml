@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ATMVP.xml" />
+  <kpi name="RNC_951b">
+    <formula>decode(
+			(atmvp.period_duration),0,null, 
+
+			((atmvp.in_tot_cells_vp*53*8)
+			 / 
+			(atmvp.period_duration*1000000*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[ATM interface based average throughput for incoming traffic (RNC side)]]></title>
+      <use><![CDATA[Average throughput for incoming ATM based Traffic in Controlling RNC for the reporting period for a selected logical interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(IN_TOT_CELLS_VP)*53*8
+&lt;br&gt;/
+&lt;br&gt;sum(PERIOD_DURATION)*1000000*60
+&lt;br&gt;</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_atmvp_vpi_raw</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[ATM interface based average throughput for incoming traffic (RNC side)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

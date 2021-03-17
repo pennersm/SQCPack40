@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_1328a">
+    <formula>decode(
+			(celltp.period_duration),0,null, 
+
+			((celltp.rt_hs_dsch_dl_strea_data*8)
+			 / 
+			(1000*celltp.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[RT PS HS-DSCH MAC-d throughput DL]]></title>
+      <use><![CDATA[This KPI monitors the cell throughput in downlink direction for HSDPA Streaming traffic]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum ( RT_HS_DSCH_DL_STREA_DATA * 8) 
+&lt;br&gt;-------------------------- 
+&lt;br&gt;sum ( 1000 * PERIOD_DURATION * 60 )</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_celltp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RT PS HSDPA MACd thp DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+
+</conf_file>
+

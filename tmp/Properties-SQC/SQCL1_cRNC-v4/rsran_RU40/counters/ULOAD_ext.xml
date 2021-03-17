@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Unit_Load</header>
+    <csv_title>Nokia Siemens RNC RN5.0;RN4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 Unit_Load ULOAD measurement dump</csv_title>
+    <report-description>Unit_Load</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsran/RSRAN.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="ULOAD_ext" meas_level="PLMN/RNC/UTYPE/UNITID7" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+	<counter alias="average_load_0">AVG(CASE WHEN UTYPE_ID IN ('329') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_1">AVG(CASE WHEN UTYPE_ID IN ('327') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_2">AVG(CASE WHEN UTYPE_ID IN ('330') THEN average_load ELSE null END)</counter>
+	
+	<counter alias="average_load_3">MAX(CASE WHEN UTYPE_ID IN ('329') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_4">MAX(CASE WHEN UTYPE_ID IN ('327') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_5">MAX(CASE WHEN UTYPE_ID IN ('330') THEN average_load ELSE null END)</counter>
+		
+	<counter alias="average_load_6">MAX(CASE WHEN UTYPE_ID IN ('331') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_7">MAX(CASE WHEN UTYPE_ID IN ('2') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_8">MAX(CASE WHEN UTYPE_ID IN ('324') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_9">MAX(CASE WHEN UTYPE_ID IN ('268') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_10">MAX(CASE WHEN UTYPE_ID IN ('326') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_11">MAX(CASE WHEN UTYPE_ID IN ('325') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_12">MAX(CASE WHEN UTYPE_ID IN ('286') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_13">MAX(CASE WHEN UTYPE_ID IN ('284') THEN average_load ELSE null END)</counter>
+	
+	<counter alias="average_load_nps1p">MAX(CASE WHEN UTYPE_ID IN ('286','287') THEN average_load ELSE null END)</counter>
+	<counter alias="average_load_npgep">MAX(CASE WHEN UTYPE_ID IN ('284','285') THEN average_load ELSE null END)</counter>
+	
+	<counter alias="icsu_min_average_load">MIN(CASE WHEN UTYPE_ID IN ('329') THEN average_load ELSE null END)</counter>
+	<counter alias="icsu_sum_average_load">SUM(CASE WHEN UTYPE_ID IN ('329') THEN average_load ELSE null END)/COUNT(DISTINCT CASE WHEN UTYPE_ID IN ('329') THEN period_start_time else null END)</counter>
+	
+	<counter alias="omu_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('2') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="mxu_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('268') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="npge_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('284') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="nps1_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('286') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="a2sp_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('324') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="nip1_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('325') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="nis1_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('326') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="rsmu_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('327') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="icsu_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('329') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="gtpu_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('330') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+	<counter alias="dmpg_unit_count">COUNT( DISTINCT CASE WHEN UTYPE_ID IN ('331') THEN RNC_ID || UNITID_ID ELSE NULL END)</counter>
+		
+    </counters>
+    <table_name>nokrww_ps_uload_unitid_{TIME_AGG}</table_name>
+    <alias_name>ULOAD_ext</alias_name>
+  </temp_table>
+</conf_file>
+

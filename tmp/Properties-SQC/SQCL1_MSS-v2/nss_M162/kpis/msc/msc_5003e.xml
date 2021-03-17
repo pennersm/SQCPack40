@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_5003e">
+    <formula>nvl(decode((vlrnmsc.totalaverage),0,null, 
+														((vlr1msc.imsiattachgsmattempt + 
+														vlr1msc.imsiattachumtsattempt + 
+														vlr1msc.imsi_attach_sip_attempt + 
+														vlr1msc.EPS_IMSI_ATTACH_ATT)
+																	/ 
+														vlrnmsc.totalaverage)),
+				 nvl(decode((vlrnmsc.SIM_AVG_REG_TOTAL + vlrnmsc.USIM_AVG_REG_TOTAL + vlrnmsc.UNKNOWN_AVG_REG_TOTAL),0,null, 
+														((vlr1msc.imsiattachgsmattempt + 
+														vlr1msc.imsiattachumtsattempt + 
+														vlr1msc.imsi_attach_sip_attempt + 
+														vlr1msc.EPS_IMSI_ATTACH_ATT)
+	 																/ 
+													   (vlrnmsc.SIM_AVG_REG_TOTAL
+														+ vlrnmsc.USIM_AVG_REG_TOTAL
+														+ vlrnmsc.UNKNOWN_AVG_REG_TOTAL)) ),
+					decode((vlrnmsc.REG_AVG_TOTAL),0,null,
+														((vlr1msc.imsiattachgsmattempt + 
+														vlr1msc.imsiattachumtsattempt + 
+														vlr1msc.imsi_attach_sip_attempt + 
+														vlr1msc.EPS_IMSI_ATTACH_ATT)
+																	/ 
+														(vlrnmsc.REG_AVG_TOTAL))))
+				 )
+			 )	 
+			</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI Attach Attempts per VLR Subscribers for BHCA. LTE (EPS) attach included. Parameter superset.]]></title>
+      <use><![CDATA[IMSI attach attempts per VLR subscribers for busy hour call attempts (BHCA). Starting from M14.6, also the LTE attachments are included.]]></use>
+
+	  <use_experience><![CDATA[BH is found for both M80 + M82 measures when MAX of AVG ( c.tcat_traffx100 ) WHERE c = M20 = &quot;Traffic category measurement&quot; is achieved.
+	  <br>
+	  <br>Starting from M14.6, also the LTE/EPS attachments are included.
+	  <br>
+	  <br>This KPI depends on the SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters.
+	  <br>This KPI is to be used if both (SIM_USIM_MEAS_PER_LAI) and (ENH_VLR_MEAS_PER_LAC) FIFILE parameters are not activated, if (SIM_USIM_MEAS_PER_LAI) FIFILE parameter is activated, if (SIM_USIM_MEAS_PER_LAI) is inactive and (ENH_VLR_MEAS_PER_LAC) is active.
+	  <br>
+	  <br>
+	  <br>The implemented formula covers three different KPI specifications: 
+	  <br>
+	  <br>=>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive, the KPI formula is specified by "msc_5003b" 
+	  <br>=>If parameter SIM_USIM_MEAS_PER_LAI FIFILE is active, the KPI formula is specified by "msc_5003c"
+	  <br>=>If SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active, the KPI formula is specified by "msc_5003d".
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+	  <br>KPI CLASS: Mobility
+	  <br>MEASUREMENT(S): VLR measurement, part n (80/50H), VLR measurement, part 1 (82/52H)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+	  &lt;br&gt;msc_5003b =
+	  &lt;br&gt;SUM( a.IMSIAttachGSMAttempt + a.IMSIAttachUMTSAttempt + a.IMSI_Attach_SIP_Attempt + a.EPS_IMSI_ATTACH_ATT)
+	  &lt;br&gt;---------------------------------------------------------------------------------------------------------
+	  &lt;br&gt;AVG (b.TotalAverage) 
+	  &lt;br&gt; 
+	  &lt;br&gt; 
+	  &lt;br&gt;msc_5003c =
+	  &lt;br&gt;SUM( a.IMSIAttachGSMAttempt + a.IMSIAttachUMTSAttempt + a.IMSI_Attach_SIP_Attempt + a.EPS_IMSI_ATTACH_ATT)
+	  &lt;br&gt;---------------------------------------------------------------------------------------------------------
+	  &lt;br&gt;AVG (b.SIM_AVG_REG_TOTAL + b.USIM_AVG_REG_TOTAL + b.UNKNOWN_AVG_REG_TOTAL)  
+	  &lt;br&gt; 
+	  &lt;br&gt;
+	  &lt;br&gt;msc_5003d =
+	  &lt;br&gt;            SUM( a.IMSIAttachGSMAttempt + a.IMSIAttachUMTSAttempt + a.IMSI_Attach_SIP_Attempt + a.EPS_IMSI_ATTACH_ATT)
+	  &lt;br&gt;            ---------------------------------------------------------------------------------------------------------
+	  &lt;br&gt;            AVG (b.REG_AVG_TOTAL) 
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from measurements:
+	  &lt;br&gt;a = M82 = VLR measurement, part one 
+	  &lt;br&gt;b = M80 = VLR measurement, part n
+	  &lt;br&gt;
+	  &lt;br&gt;
+	  &lt;br&gt;
+	  &lt;br&gt;nvl( decode( ( vlrnmsc.TotalAverage ), 0, null,  
+	  &lt;br&gt;           ( ( vlr1msc.IMSIAttachGSMAttempt +  
+	  &lt;br&gt;               vlr1msc.IMSIAttachUMTSAttempt +  
+	  &lt;br&gt;               vlr1msc.IMSI_Attach_SIP_Attempt +  
+	  &lt;br&gt;               vlr1msc.EPS_IMSI_ATTACH_ATT ) 
+	  &lt;br&gt;                /  
+	  &lt;br&gt;               vlrnmsc.TotalAverage ) ), 
+	  &lt;br&gt; 
+	  &lt;br&gt;nvl( decode( ( vlrnmsc.SIM_AVG_REG_TOTAL +  
+	  &lt;br&gt;               vlrnmsc.USIM_AVG_REG_TOTAL +  
+ 	  &lt;br&gt;               vlrnmsc.UNKNOWN_AVG_REG_TOTAL ), 0, null, 
+	  &lt;br&gt;           ( ( vlr1msc.IMSIAttachGSMAttempt +  
+	  &lt;br&gt;               vlr1msc.IMSIAttachUMTSAttempt +  
+	  &lt;br&gt;               vlr1msc.IMSI_Attach_SIP_Attempt +  
+	  &lt;br&gt;               vlr1msc.EPS_IMSI_ATTACH_ATT ) 
+	  &lt;br&gt;                /  
+	  &lt;br&gt;             ( vlrnmsc.SIM_AVG_REG_TOTAL +  
+	  &lt;br&gt;               vlrnmsc.USIM_AVG_REG_TOTAL +  
+	  &lt;br&gt;               vlrnmsc.UNKNOWN_AVG_REG_TOTAL ) ) ), 
+	  &lt;br&gt;			    
+	  &lt;br&gt;     decode( ( vlrnmsc.REG_AVG_TOTAL ), 0, null, 
+	  &lt;br&gt;           ( ( vlr1msc.IMSIAttachGSMAttempt +  
+	  &lt;br&gt;               vlr1msc.IMSIAttachUMTSAttempt +  
+	  &lt;br&gt;               vlr1msc.IMSI_Attach_SIP_Attempt +  
+	  &lt;br&gt;               vlr1msc.EPS_IMSI_ATTACH_ATT ) 
+	  &lt;br&gt;                /  
+	  &lt;br&gt;             ( vlrnmsc.REG_AVG_TOTAL ) ) 
+	  &lt;br&gt;	    ) 
+	  &lt;br&gt;    ) 
+	  &lt;br&gt;) 
+	  &lt;br&gt; 
+	  &lt;br&gt;;For the BH
+	  &lt;br&gt;
+	  </formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg},rns_ps_vlrnmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IMSIAttAttLTEVLRSubBHCA ParamSuperSet</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

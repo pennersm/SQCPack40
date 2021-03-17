@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMVCC.xml">
+		<counters>
+			<counter alias="rnc_753a">
+				decode(avg(period_duration)*count(distinct period_start_time),0,null,sum(eg_tot_cells_vc)/(avg(period_duration)*count(distinct period_start_time)*60))
+			</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_961a">
+		<formula>
+			decode((atmvcc.eg_cap_vc),0,null,(100*atmvcc.rnc_753a/(atmvcc.eg_cap_vc)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average ATM VCC egress utilization]]>
+			</title>
+			<use>
+				<![CDATA[The ratio between utilized average egress bandwidth and configured egress bandwidth for the virtual channel connection during measurement period. Average ATM VCC ingress utilization, can be used for UBR + as well.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 *RNC_753a 
+--------------
+sum(EG_CAP_VC)
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_atmvcc_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average ATM VCC egress utilization]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

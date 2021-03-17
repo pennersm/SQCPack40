@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>SCCPSM (SCCP Single Meters)</header>
+    <csv_title>SCCPSM (SCCP Single Meters)</csv_title>
+    <report-description>SCCP Single Meters</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SCCP_MSGS_TO_LOCAL_SUBSYSTEM/>
+    <SCCP_MSGS_FROM_LOCAL_SUBSYSTEM/>
+    <SCCP_STP_MESSAGES_HANDLED/>
+    <USER_INDEPENDENT_MESSAGES/>
+    <TOTAL_SCCP_MESSAGES_HANDLED/>
+    <MSGS_REQ_GTT_TO_LOCAL_SUBSYS/>
+    <MSGS_REQ_GTT_FROM_LOCAL_SUBSYS/>
+    <SCCP_STP_MSGS_REQUIRING_GTT/>
+    <TOTAL_MESSAGES_REQUIRING_GTT/>
+    <REASS_ERRORS_TIMER_EXPIRES/>
+    <REASS_ERRORS_SEGM_OUT_OF_SEQ/>
+    <REASS_ERRORS_NO_REASS_SPACE/>
+    <REASS_ERRORS_REASSEMBLY_FAILED/>
+    <SEGM_ERRORS_SEGM_NOT_SUPPORTED/>
+    <SEGM_ERRORS_SEGMENTATION_FAIL/>
+    <HOP_COUNTER_VIOLATIONS/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="SCCPSM" omes_name="SCCP_single_meters" meas_level="PLMN/RSRAN-RNC_A2" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>SCCPSM</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="SCCP_MSGS_TO_LOCAL_SUBSYSTEM" symmetrical="true">SUM(SCCP_MSGS_TO_LOCAL_SUBSYSTEM)</counter>
+          <counter alias="SCCP_MSGS_FROM_LOCAL_SUBSYSTEM" symmetrical="true">SUM(SCCP_MSGS_FROM_LOCAL_SUBSYSTEM)</counter>
+          <counter alias="SCCP_STP_MESSAGES_HANDLED" symmetrical="true">SUM(SCCP_STP_MESSAGES_HANDLED)</counter>
+          <counter alias="USER_INDEPENDENT_MESSAGES" symmetrical="true">SUM(USER_INDEPENDENT_MESSAGES)</counter>
+          <counter alias="TOTAL_SCCP_MESSAGES_HANDLED" symmetrical="true">SUM(TOTAL_SCCP_MESSAGES_HANDLED)</counter>
+          <counter alias="MSGS_REQ_GTT_TO_LOCAL_SUBSYS" symmetrical="true">SUM(MSGS_REQ_GTT_TO_LOCAL_SUBSYS)</counter>
+          <counter alias="MSGS_REQ_GTT_FROM_LOCAL_SUBSYS" symmetrical="true">SUM(MSGS_REQ_GTT_FROM_LOCAL_SUBSYS)</counter>
+          <counter alias="SCCP_STP_MSGS_REQUIRING_GTT" symmetrical="true">SUM(SCCP_STP_MSGS_REQUIRING_GTT)</counter>
+          <counter alias="TOTAL_MESSAGES_REQUIRING_GTT" symmetrical="true">SUM(TOTAL_MESSAGES_REQUIRING_GTT)</counter>
+          <counter alias="REASS_ERRORS_TIMER_EXPIRES" symmetrical="true">SUM(REASS_ERRORS_TIMER_EXPIRES)</counter>
+          <counter alias="REASS_ERRORS_SEGM_OUT_OF_SEQ" symmetrical="true">SUM(REASS_ERRORS_SEGM_OUT_OF_SEQ)</counter>
+          <counter alias="REASS_ERRORS_NO_REASS_SPACE" symmetrical="true">SUM(REASS_ERRORS_NO_REASS_SPACE)</counter>
+          <counter alias="REASS_ERRORS_REASSEMBLY_FAILED" symmetrical="true">SUM(REASS_ERRORS_REASSEMBLY_FAILED)</counter>
+          <counter alias="SEGM_ERRORS_SEGM_NOT_SUPPORTED" symmetrical="true">SUM(SEGM_ERRORS_SEGM_NOT_SUPPORTED)</counter>
+          <counter alias="SEGM_ERRORS_SEGMENTATION_FAIL" symmetrical="true">SUM(SEGM_ERRORS_SEGMENTATION_FAIL)</counter>
+          <counter alias="HOP_COUNTER_VIOLATIONS" symmetrical="true">SUM(HOP_COUNTER_VIOLATIONS)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SCCPSM</alias_name>
+    <ui_name>SCCP Single Meters</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SCCPSM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCCP_MSGS_TO_LOCAL_SUBSYSTEM">
+    <formula>SCCPSM.SCCP_MSGS_TO_LOCAL_SUBSYSTEM</formula>
+    <kpi_info>
+      <title>SCCP_MSGS_TO_LOCAL_SUBSYSTEM (M219B2C1)</title>
+      <use>Processed SCCP messages to local subsystem. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCCP_MSGS_TO_LOCAL_SUBSYSTEM)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCCP_MSGS_TO_LOCAL_SUBSYSTEM (M219B2C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCCP_MSGS_FROM_LOCAL_SUBSYSTEM">
+    <formula>SCCPSM.SCCP_MSGS_FROM_LOCAL_SUBSYSTEM</formula>
+    <kpi_info>
+      <title>SCCP_MSGS_FROM_LOCAL_SUBSYSTEM (M219B2C2)</title>
+      <use>Processed SCCP messages from local subsystem. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCCP_MSGS_FROM_LOCAL_SUBSYSTEM)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCCP_MSGS_FROM_LOCAL_SUBSYSTEM (M219B2C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCCP_STP_MESSAGES_HANDLED">
+    <formula>SCCPSM.SCCP_STP_MESSAGES_HANDLED</formula>
+    <kpi_info>
+      <title>SCCP_STP_MESSAGES_HANDLED (M219B2C3)</title>
+      <use>Processed STP messages to local subsystem. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCCP_STP_MESSAGES_HANDLED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCCP_STP_MESSAGES_HANDLED (M219B2C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USER_INDEPENDENT_MESSAGES">
+    <formula>SCCPSM.USER_INDEPENDENT_MESSAGES</formula>
+    <kpi_info>
+      <title>USER_INDEPENDENT_MESSAGES (M219B2C4)</title>
+      <use>Processed user independent SCCP messages. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(USER_INDEPENDENT_MESSAGES)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_INDEPENDENT_MESSAGES (M219B2C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTAL_SCCP_MESSAGES_HANDLED">
+    <formula>SCCPSM.TOTAL_SCCP_MESSAGES_HANDLED</formula>
+    <kpi_info>
+      <title>TOTAL_SCCP_MESSAGES_HANDLED (M219B2C5)</title>
+      <use>Processed SCCP messages, total. 9.3 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTAL_SCCP_MESSAGES_HANDLED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTAL_SCCP_MESSAGES_HANDLED (M219B2C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MSGS_REQ_GTT_TO_LOCAL_SUBSYS">
+    <formula>SCCPSM.MSGS_REQ_GTT_TO_LOCAL_SUBSYS</formula>
+    <kpi_info>
+      <title>MSGS_REQ_GTT_TO_LOCAL_SUBSYS (M219B2C6)</title>
+      <use>Messages requiring GT translation to local subsystem. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(MSGS_REQ_GTT_TO_LOCAL_SUBSYS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MSGS_REQ_GTT_TO_LOCAL_SUBSYS (M219B2C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MSGS_REQ_GTT_FROM_LOCAL_SUBSYS">
+    <formula>SCCPSM.MSGS_REQ_GTT_FROM_LOCAL_SUBSYS</formula>
+    <kpi_info>
+      <title>MSGS_REQ_GTT_FROM_LOCAL_SUBSYS (M219B2C7)</title>
+      <use>Messages requiring GT translation from local subsystem. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(MSGS_REQ_GTT_FROM_LOCAL_SUBSYS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MSGS_REQ_GTT_FROM_LOCAL_SUBSYS (M219B2C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCCP_STP_MSGS_REQUIRING_GTT">
+    <formula>SCCPSM.SCCP_STP_MSGS_REQUIRING_GTT</formula>
+    <kpi_info>
+      <title>SCCP_STP_MSGS_REQUIRING_GTT (M219B2C8)</title>
+      <use>STP messages requiring GT translation. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCCP_STP_MSGS_REQUIRING_GTT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCCP_STP_MSGS_REQUIRING_GTT (M219B2C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOTAL_MESSAGES_REQUIRING_GTT">
+    <formula>SCCPSM.TOTAL_MESSAGES_REQUIRING_GTT</formula>
+    <kpi_info>
+      <title>TOTAL_MESSAGES_REQUIRING_GTT (M219B2C9)</title>
+      <use>Messages requiring GT translation, total. 9.5 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOTAL_MESSAGES_REQUIRING_GTT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOTAL_MESSAGES_REQUIRING_GTT (M219B2C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REASS_ERRORS_TIMER_EXPIRES">
+    <formula>SCCPSM.REASS_ERRORS_TIMER_EXPIRES</formula>
+    <kpi_info>
+      <title>REASS_ERRORS_TIMER_EXPIRES (M219B2C10)</title>
+      <use>Reassembly error, Timer T(reass) expiry, 7.10 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REASS_ERRORS_TIMER_EXPIRES)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REASS_ERRORS_TIMER_EXPIRES (M219B2C10)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REASS_ERRORS_SEGM_OUT_OF_SEQ">
+    <formula>SCCPSM.REASS_ERRORS_SEGM_OUT_OF_SEQ</formula>
+    <kpi_info>
+      <title>REASS_ERRORS_SEGM_OUT_OF_SEQ (M219B2C11)</title>
+      <use>Reassembly error, Segment received out of sequence, 7.11 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REASS_ERRORS_SEGM_OUT_OF_SEQ)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REASS_ERRORS_SEGM_OUT_OF_SEQ (M219B2C11)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REASS_ERRORS_NO_REASS_SPACE">
+    <formula>SCCPSM.REASS_ERRORS_NO_REASS_SPACE</formula>
+    <kpi_info>
+      <title>REASS_ERRORS_NO_REASS_SPACE (M219B2C12)</title>
+      <use>Reassembly error, no reassembly space, 7.12 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REASS_ERRORS_NO_REASS_SPACE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REASS_ERRORS_NO_REASS_SPACE (M219B2C12)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REASS_ERRORS_REASSEMBLY_FAILED">
+    <formula>SCCPSM.REASS_ERRORS_REASSEMBLY_FAILED</formula>
+    <kpi_info>
+      <title>REASS_ERRORS_REASSEMBLY_FAILED (M219B2C13)</title>
+      <use>Reassembly error, Reassembly failed, 7.21 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REASS_ERRORS_REASSEMBLY_FAILED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REASS_ERRORS_REASSEMBLY_FAILED (M219B2C13)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SEGM_ERRORS_SEGM_NOT_SUPPORTED">
+    <formula>SCCPSM.SEGM_ERRORS_SEGM_NOT_SUPPORTED</formula>
+    <kpi_info>
+      <title>SEGM_ERRORS_SEGM_NOT_SUPPORTED (M219B2C14)</title>
+      <use>Segmentation error - Segmenting not supported, 7.19 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SEGM_ERRORS_SEGM_NOT_SUPPORTED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SEGM_ERRORS_SEGM_NOT_SUPPORTED (M219B2C14)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SEGM_ERRORS_SEGMENTATION_FAIL">
+    <formula>SCCPSM.SEGM_ERRORS_SEGMENTATION_FAIL</formula>
+    <kpi_info>
+      <title>SEGM_ERRORS_SEGMENTATION_FAIL (M219B2C15)</title>
+      <use>Segmentation error - Segmentation failed, 7.20 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SEGM_ERRORS_SEGMENTATION_FAIL)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SEGM_ERRORS_SEGMENTATION_FAIL (M219B2C15)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HOP_COUNTER_VIOLATIONS">
+    <formula>SCCPSM.HOP_COUNTER_VIOLATIONS</formula>
+    <kpi_info>
+      <title>HOP_COUNTER_VIOLATIONS (M219B2C16)</title>
+      <use>Hop counter violation, 7.13 in ITU-T Q.752. UPDATED:
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HOP_COUNTER_VIOLATIONS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HOP_COUNTER_VIOLATIONS (M219B2C16)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>SCCPSM.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_sccpsm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

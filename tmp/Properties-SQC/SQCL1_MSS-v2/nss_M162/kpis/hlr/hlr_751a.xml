@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/hlr/M3UAHI_ext.xml" />
+  <kpi name="hlr_751a">
+    <formula>decode(
+			(M3UAHI_ext.period_duration),0,null,
+
+			(greatest(M3UAHI_ext.m3ua_octets_received, M3UAHI_ext.m3ua_octets_sent)*8
+			 /
+			(60000*M3UAHI_ext.period_duration)))</formula>
+    <kpi_info>
+      <title><![CDATA[Maximum M3UA Association load]]></title>
+      <use><![CDATA[M3UA Association load]]></use>
+
+<use_experience><![CDATA[
+<br>We cannot sum sent+received side, as then the KPI does not correspond to the hw capabilities (two-way processing capacity [e.g. 400kb/s per *SU for M13 and earlier; 1 Mbp/s per *SU for M14.* => Applicable if the CP816 is installed]).
+<br>We need to define these as max(xxx_sent; xxx_received).
+<br>As the hw capacities are mentioned in [kbit/sec], we need to define KPIs too in same units (not [Bytes/sec]). The counters of xxx_octets must be multiplied by 8 in order to keep consistency and decrease any error probability in planning work.
+<br>
+<br>It is necessary to access the RAW table values to get the necessary MAX values because the NetAct default used aggregation rules for these counters are defined as SUM for time and SUM for network.
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: (HLR) - (ASSO_SETNAME) - (ASSO_INDEX)
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): M3UA association set measurement M661
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature. For HLR this KPI is only valid for M14.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;Greatest[ MAX( m3ua_octets_received ), MAX( m3ua_octets_sent ) ] * 8
+&lt;br&gt;----------------------------------------------------------------------------------
+&lt;br&gt;            60.000 * period_duration
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s)
+</formula>
+      <unit>[kbit/s]</unit>
+      <tables>rns_ps_m3uahi_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Max M3UA Association load HLR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

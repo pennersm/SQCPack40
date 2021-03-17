@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ATMIF.xml" />
+  <kpi name="RNC_2504a">
+    <formula>100*decode(
+			(atmif.in_cbr_rec_cell),0,null, 
+
+			(atmif.in_cbr_rec_cell - 
+			atmif.in_cbr_tr_cell - 
+			atmif.in_cbr_queued_cell)
+			 / 
+			(atmif.in_cbr_rec_cell))</formula>
+    <kpi_info>
+      <title><![CDATA[Average ATM interface CBR ingress cell drop ratio]]></title>
+      <use><![CDATA[Average ATM interface CBR ingress cell drop ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(IN_CBR_REC_CELL -
+&lt;br&gt;IN_CBR_TR_CELL -
+&lt;br&gt;IN_CBR_QUEUED_CELL)
+&lt;br&gt;----------------------------
+&lt;br&gt;SUM(IN_CBR_REC_CELL)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ATMIF_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:48.26 +0100</date>
+          <comment><![CDATA[Source: RSRAN081.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg ATM CBR in DR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

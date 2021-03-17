@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	
+	<report id="RSSG2G067 - CELL Configuration" thresholds="false">
+		<report-level key="PAPU">PLMN/SGSN/PAPU/LAC/RAC/CI/BTS</report-level>
+		<level>PLMN/SGSN/PAPU/LAC/RAC/CI/BTS</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSSG2G067 - CELL Configuration</title>
+		<help-text>
+			<![CDATA[<br>This is a CM report that gives information about the CELLs that are available per SGSN/PAPU/LAC/RAC.
+<br>To see this content at CELL level the 'Advanced cell & SA level' (898) license item must be activated in SGSN.
+<br>Use case specific instructions:
+<br>To run this report &#034;Gb Mobility Management measurement&#034; (001) must be activated in SGSN.
+<br>
+<br>Report columns:
+<br>
+<br>1. SGSN - &#034;SGSN name&#034;
+<br>- stores the SGSN identifier.
+<br>
+<br>2. PAPU_INDEX - &#034;PAPU logical index&#034; [#]
+<br>- stores the logical PAPU index; Possible values: 0-40; Values of 33-40 are shown if &#034;LRAS enhancement&#034; feature is activated and they indicate PAPU group used.
+<br>
+<br>3. LAC - &#034;Location Area Code&#034;
+<br>- stores the Location Area Code identifier.
+<br>
+<br>4. RAC - &#034;Routing Area Code&#034;
+<br>- stores the Routing Area Code identifier.
+<br>
+<br>5. CI - &#034;CELL Id&#034;
+<br>- stores the Cell identifier.
+<br>
+<br>6. MCC - &#034;Mobile Country Code&#034;
+<br>- stores the Mobile Country Code identifier.
+<br>
+<br>7. MNC - &#034;Mobile Network Code&#034;
+<br>- stores the Mobile Network Code identifier.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="SGSN">sgsn.co_gid</pivot>
+			<pivot level="PAPU">papu.co_gid</pivot>			
+			<pivot level="LAC_SGSN">p1.lac_id</pivot>
+			<pivot level="RAC">p1.rac_id</pivot>
+			<pivot level="CI_SGSN">p1.ci_id</pivot>
+			<pivot level="BTS_SGSN">bts.co_gid</pivot>
+		</pivots>
+
+		<columns>
+		    <column col-id="time_stamp" columnType="KEY">
+				<alias>Time stamp</alias>
+			</column>
+			<column col-id="SGSN name" columnType="KEY">
+				<alias>SGSN name</alias>
+			</column>
+			<column col-id="PAPU logical index" columnType="KEY">
+				<alias>PAPU logical index</alias>
+			</column>
+			<column col-id="BTS name" columnType="KEY">
+				<alias>BTS name</alias>
+			</column>
+			<column col-id="Location Area Code" columnType="KEY">
+				<alias>Location Area Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="Routing Area Code" columnType="KEY">
+				<alias>Routing Area Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="CELL Id" columnType="KEY">
+				<alias>CELL Id</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="Mobile Country Code" columnType="KEY">
+				<alias>Mobile Country Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+			<column col-id="Mobile Network Code" columnType="KEY">
+				<alias>Mobile Network Code</alias>
+				<kpi_format>decimal:#</kpi_format>
+			</column>
+		</columns>
+
+		<literal>
+			<![CDATA[
+				<br><br>
+				<br><br>
+				<br>
+		 		]]>
+		</literal>
+		
+		<sql table-width="1100">
+			<![CDATA[
+
+SELECT DISTINCT 
+				p1.time_stamp,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')')"SGSN name",
+				NVL(papu.co_object_instance, 'NN('||papu.co_gid||')')"PAPU logical index",
+				NVL(bts.co_name, 'NN('||bts.co_gid||')')"BTS name",
+				p1.lac_id "Location Area Code",
+				p1.rac_id "Routing Area Code",
+				p1.ci_id "CELL Id",
+				p1.mcc_id "Mobile Country Code",
+				p1.cell_id "Mobile Network Code"
+				
+			FROM
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				utp_common_objects bts,
+				RSG_PD_CELL_OBJECTS p1,
+				roh_ds_bts bts_param
+			WHERE
+			    #object_selection# AND
+				papu.co_parent_gid = sgsn.co_gid AND
+				sgsn.co_oc_id=463 AND
+				papu.co_object_instance=p1.papu_gid AND
+				papu.co_oc_id=462 AND
+				bts.co_oc_id = 4 AND
+				bts_param.la_id_lac = p1.lac_id AND
+				bts_param.ra_id_rac = p1.rac_id AND
+				bts_param.cell_id = p1.ci_id AND
+				bts_param.co_gid = bts.co_gid AND
+				TRUNC(bts_param.every_date)  = TRUNC(p1.time_stamp) AND
+				p1.mcc_id > -1 AND
+				p1.cell_id > -1
+			ORDER BY 3,2,1
+
+	 		]]>
+	 	</sql>
+
+	</report>
+</reports>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_984c">
+    <formula>decode(
+			(traffic.period_duration),0,0, 
+
+			(69.5*(traffic.dur_ps_backg_64_dl_in_srnc + 
+			traffic.dur_ps_intera_64_dl_in_srnc)
+			 / 
+			(1000*traffic.period_duration*60*100)))
+
++decode(
+			(traffic.period_duration),0,0, 
+ 
+			(136.7*(traffic.dur_ps_backg_128_dl_in_srnc + 
+			traffic.dur_ps_intera_128_dl_in_srnc)
+			 / 
+			(1000*traffic.period_duration*60*100)))
+
++decode(
+			(traffic.period_duration),0,0, 
+
+			(273.3*(traffic.dur_ps_backg_256_dl_in_srnc + 
+			traffic.dur_ps_intera_256_dl_in_srnc)
+			 / 
+			(1000*traffic.period_duration*60*100)))
+
++decode(
+			(traffic.period_duration),0,0, 
+
+			(407.7*(traffic.dur_ps_backg_384_dl_in_srnc + 
+			traffic.dur_ps_intera_384_dl_in_srnc)
+			 / 
+			(1000*traffic.period_duration*60*100)))
+
++decode(
+			(traffic.period_duration),0,0, 
+
+			(hsdpaw.received_hs_macd_bits
+			 / 
+			(1000*hsdpaw.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[DMCU Allocation Load]]></title>
+      <use><![CDATA[The Data and Macro Diversity Unit (DMCU) allocation load is calculated on top of Frame Protocol layer.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (RNC_1065c
+&lt;br&gt;+ RNC_1066c
+&lt;br&gt;+ RNC_1067c 
+&lt;br&gt;+ RNC_1068c 
+&lt;br&gt;+ RNC_982b)</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg},nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DMCU alloc Load</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

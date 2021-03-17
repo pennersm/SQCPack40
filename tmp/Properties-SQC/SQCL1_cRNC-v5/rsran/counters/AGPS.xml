@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>AGPS (A-GPS Server Interface)</header>
+    <csv_title>AGPS (A-GPS Server Interface)</csv_title>
+    <report-description>A-GPS Server Interface</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SUCC_DATA_REQ_AGPS_SERVER/>
+    <UNSUCC_DATA_REQ_AGPS_SERVER/>
+    <SUCC_CONN_AGPS_SERVER/>
+    <UNSUCC_CONN_AGPS_SERVER/>
+    <LOST_CONN_AGPS_SERVER/>
+    <SUCC_POS_CALC_AGPS_SERVER/>
+    <UNSUCC_POS_CALC_AGPS_SERVER/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="AGPS" omes_name="LCS_AGPS" meas_level="PLMN/RSRAN-RNC/RSRAN-AGPSIF" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>AGPS</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="SUCC_DATA_REQ_AGPS_SERVER" symmetrical="true">SUM(SUCC_DATA_REQ_AGPS_SERVER)</counter>
+          <counter alias="UNSUCC_DATA_REQ_AGPS_SERVER" symmetrical="true">SUM(UNSUCC_DATA_REQ_AGPS_SERVER)</counter>
+          <counter alias="SUCC_CONN_AGPS_SERVER" symmetrical="true">SUM(SUCC_CONN_AGPS_SERVER)</counter>
+          <counter alias="UNSUCC_CONN_AGPS_SERVER" symmetrical="true">SUM(UNSUCC_CONN_AGPS_SERVER)</counter>
+          <counter alias="LOST_CONN_AGPS_SERVER" symmetrical="true">SUM(LOST_CONN_AGPS_SERVER)</counter>
+          <counter alias="SUCC_POS_CALC_AGPS_SERVER" symmetrical="true">SUM(SUCC_POS_CALC_AGPS_SERVER)</counter>
+          <counter alias="UNSUCC_POS_CALC_AGPS_SERVER" symmetrical="true">SUM(UNSUCC_POS_CALC_AGPS_SERVER)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AGPS</alias_name>
+    <ui_name>A-GPS Server Interface</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AGPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_DATA_REQ_AGPS_SERVER">
+    <formula>AGPS.SUCC_DATA_REQ_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>SUCC_DATA_REQ_AGPS_SERVER (M1020C0)</title>
+      <use>The total number of successfully served AGPS data requests from AGPS server. UPDATED:When the requested AGPS data is received from AGPS server.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_DATA_REQ_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_DATA_REQ_AGPS_SERVER (M1020C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUCC_DATA_REQ_AGPS_SERVER">
+    <formula>AGPS.UNSUCC_DATA_REQ_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>UNSUCC_DATA_REQ_AGPS_SERVER (M1020C1)</title>
+      <use>The number of unsuccessfully served AGPS data requests from AGPS server. At least one of requested AGPS data sets is missing. UPDATED:When the response to AGPS data request is received from the AGPS server and at least of of the requested AGPS data sets is missing.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUCC_DATA_REQ_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUCC_DATA_REQ_AGPS_SERVER (M1020C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_CONN_AGPS_SERVER">
+    <formula>AGPS.SUCC_CONN_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>SUCC_CONN_AGPS_SERVER (M1020C2)</title>
+      <use>The number of successfully established TCP connections to AGPS server. UPDATED:When the connection has been successfully established to the AGPS server.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_CONN_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_CONN_AGPS_SERVER (M1020C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUCC_CONN_AGPS_SERVER">
+    <formula>AGPS.UNSUCC_CONN_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>UNSUCC_CONN_AGPS_SERVER (M1020C3)</title>
+      <use>The number of unsuccessful TCP connection establishments to AGPS server. UPDATED:When the TCP connection establishment to AGPS server fails.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUCC_CONN_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUCC_CONN_AGPS_SERVER (M1020C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LOST_CONN_AGPS_SERVER">
+    <formula>AGPS.LOST_CONN_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>LOST_CONN_AGPS_SERVER (M1020C4)</title>
+      <use>The number of lost TCP connections to AGPS server. UPDATED:When the established TCP connection to AGPS server is lost.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LOST_CONN_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOST_CONN_AGPS_SERVER (M1020C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_POS_CALC_AGPS_SERVER">
+    <formula>AGPS.SUCC_POS_CALC_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>SUCC_POS_CALC_AGPS_SERVER (M1020C5)</title>
+      <use>The number of successful position calculations using the A-GPS server. UPDATED:When the requested UE position is received from the A-GPS server
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_POS_CALC_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_POS_CALC_AGPS_SERVER (M1020C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUCC_POS_CALC_AGPS_SERVER">
+    <formula>AGPS.UNSUCC_POS_CALC_AGPS_SERVER</formula>
+    <kpi_info>
+      <title>UNSUCC_POS_CALC_AGPS_SERVER (M1020C6)</title>
+      <use>The number of unsuccessful position calculations using the A-GPS server. UPDATED:When the response to position calculation request is received from the A-GPS server and the UE position is not included in the response or when the response to request is not received at all.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUCC_POS_CALC_AGPS_SERVER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUCC_POS_CALC_AGPS_SERVER (M1020C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>AGPS.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_agps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

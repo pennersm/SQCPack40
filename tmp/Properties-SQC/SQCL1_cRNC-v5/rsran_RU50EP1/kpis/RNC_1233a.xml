@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_1233a">
+    <formula>decode(
+			rrc.att_rb_setup_hsdpa,0,null, 
+
+			(100*(rrc.fail_rb_setup_hsdpa_ue)
+			 / 
+			(rrc.att_rb_setup_hsdpa)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH RB Setup Failure Rate due to UE - RRC Signalling]]></title>
+      <use><![CDATA[This KPI  provides information about the Radio Bearer Setup Failure Ratio for HSDPA accessibility, due to UE responding with a failure message.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* SUM(FAIL_RB_SETUP_HSDPA_UE)
+&lt;br&gt;------------------------------------
+&lt;br&gt;SUM(ATT_RB_SETUP_HSDPA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HS-DSCH RB stp FR UE</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

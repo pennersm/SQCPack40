@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_2775a">
+    <formula>decode(
+				servlev.rab_acc_comp_cs_voice,0,null, 
+
+				celltp.cs_dch_ul_data_vol
+				/ 
+				(1000 * servlev.rab_acc_comp_cs_voice)
+					)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[CS DCH UL Data volume per session]]></title>
+      <use><![CDATA[CS Call DCH data volume in the uplink direction per session]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(CS_DCH_UL_DATA_VOL )
+&lt;br&gt;/
+&lt;br&gt;sum(1000 * RAB_ACC_COMP_CS_VOICE)</formula>
+      <unit>[kB]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg},nokrww_ps_CELLTP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:35.900 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CS DCH UL D Vol sess</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

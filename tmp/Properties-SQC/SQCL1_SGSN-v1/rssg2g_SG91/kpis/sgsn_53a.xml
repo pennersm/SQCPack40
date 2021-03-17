@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <temp_table_ref src="rssg2g/counters/OVERLOAD.xml" />
+  <kpi name="sgsn_53a">
+    <formula>decode(
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_inv_pdp_actmsg + 
+			sesmgmnt.fail_mo_pdp_act_insuf_res + 
+			sesmgmnt.fail_mo_pdp_act_act_re_ggsn + 
+			sesmgmnt.fail_mo_pdp_act_rej_unspec + 
+			sesmgmnt.fail_mo_pdp_act_nsapi_used + 
+			sesmgmnt.mo_pdp_act_fail_so_out_of_ord + 
+			nvl(overload.rej_pdp_cont_act_attempts,0)),0,NULL, 
+
+			(100*(sesmgmnt.succ_mo_pdp_context_act)
+			 / 
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_inv_pdp_actmsg + 
+			sesmgmnt.fail_mo_pdp_act_insuf_res + 
+			sesmgmnt.fail_mo_pdp_act_act_re_ggsn + 
+			sesmgmnt.fail_mo_pdp_act_rej_unspec + 
+			sesmgmnt.fail_mo_pdp_act_nsapi_used + 
+			sesmgmnt.mo_pdp_act_fail_so_out_of_ord + 
+			nvl(overload.rej_pdp_cont_act_attempts,0))))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb PDP context activation success ratio (only 'technical failures' included)]]></title>
+      <use><![CDATA[This KPI measures the PDP context activation performance on Gb interface when subscription related failures such as wrong APN settings are excluded.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(a.SUCC_MO_PDP_CONTEXT_ACT)
+&lt;br&gt;-------------------------------------------------------------------------------------------------------------------- * 100
+&lt;br&gt;sum(a.SUCC_MO_PDP_CONTEXT_ACT + a.FAIL_MO_PDP_CONTEXT_ACT +
+&lt;br&gt;         a.FAIL_MO_PDP_ACT_INV_PDP_ACTMSG + a.FAIL_MO_PDP_ACT_INSUF_RES +
+&lt;br&gt;         a.FAIL_MO_PDP_ACT_ACT_RE_GGSN + a.FAIL_MO_PDP_ACT_REJ_UNSPEC +
+&lt;br&gt;         a.FAIL_MO_PDP_ACT_NSAPI_USED + a.MO_PDP_ACT_FAIL_SO_OUT_OF_ORD + 
+&lt;br&gt;         b.REJ_PDP_CONT_ACT_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;where a = counters from table: p_sgsn_session_management
+&lt;br&gt;               b =  counters from table: p_sgsn_overload</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_sesmgmnt_{obj_agg}_{time_agg},rsg_ps_overload_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb PDP context activation success ratio (only 'technical failures' included)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

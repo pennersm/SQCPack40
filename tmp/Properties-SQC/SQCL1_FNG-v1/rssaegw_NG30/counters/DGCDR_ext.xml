@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="DGCDR_ext" meas_level="PLMN/FING/FNODE/GXXAPP/DGCDR" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="DIA_GX_CCA_DRA_RECV">SUM(DIA_GX_CCA_DRA_RECV)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="DIA_GX_CCA_DRA_RECV_ALL">MAX(DIA_GX_CCA_DRA_RECV_ALL)</counter>
+			<counter alias="DIA_GX_CCA_DRA_RECV_2001"> SUM(decode(dgcdr_id,'2001',dia_gx_cca_dra_recv,'2002',dia_gx_cca_dra_recv, 0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		dgcdr.*,
+		DIA_GX_CCA_DRA_RECV_ALL,
+		DIA_GX_CCA_DRA_RECV_2001
+FROM
+	pcofng_ps_dgcdr_dgcdr_{TIME_AGG} dgcdr,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(DIA_GX_CCA_DRA_RECV) DIA_GX_CCA_DRA_RECV_ALL,
+			SUM(DECODE(DGCDR_ID,'2001',DIA_GX_CCA_DRA_RECV,'2002',DIA_GX_CCA_DRA_RECV,0)) DIA_GX_CCA_DRA_RECV_2001
+		FROM
+			 pcofng_ps_dgcdr_dgcdr_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	dgcdr.fing_id = fnode_level.fing_id and fnode_level.fnode_id = dgcdr.fnode_id and 
+	dgcdr.period_start_time = fnode_level.period_start_time AND
+	dgcdr.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	dgcdr.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+
+			]]>
+		</table_name>
+		<alias_name>DGCDR_ext</alias_name>
+	</temp_table>
+  <kpi name="period_duration">
+    <formula>DGCDR_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dgcdr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_CCA_DRA_RECV">
+    <formula>DGCDR_ext.DIA_GX_CCA_DRA_RECV</formula>
+    <kpi_info>
+      <title>DIA_GX_CCA_DRA_RECV</title>
+      <use>This counter contains the total number of received Gx CCA messages from DRA by cause code. UPDATED: Updated when a Gx CCA message is received from DRA</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DIA_GX_CCA_DRA_RECV)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_dgcdr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCA_DRA_RECV (m3067c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+	<!-- Auxiliary Counters -->
+  <kpi name="DIA_GX_CCA_DRA_RECV_ALL">
+    <formula>DGCDR_ext.DIA_GX_CCA_DRA_RECV_ALL</formula>
+    <kpi_info>
+      <title>DIA_GX_CCA_DRA_RECV_ALL</title>
+      <use>This counter contains the total number of received Gx CCA messages from DRA by cause code. UPDATED: Updated when a Gx CCA message is received from DRA</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(DIA_GX_CCA_DRA_RECV_ALL)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_dgcdr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCA_DRA_RECV_ALL (m3067c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DIA_GX_CCA_DRA_RECV_2001">
+    <formula>DGCDR_ext.DIA_GX_CCA_DRA_RECV_2001</formula>
+    <kpi_info>
+      <title>DIA_GX_CCA_DRA_RECV_2001</title>
+      <use>This counter contains the number of received Gx CCA messages from DRA by cause code 2001 or 2002.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DECODE(DGCDR_ID,2001 or 2002,DIA_GX_CCA_DRA_RECV,0))</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_dgcdr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DIA_GX_CCA_DRA_RECV_2001 (m3067c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

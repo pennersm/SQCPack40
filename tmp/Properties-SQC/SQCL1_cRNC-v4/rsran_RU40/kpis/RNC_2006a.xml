@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <kpi name="RNC_2006a">
+    <formula>100*decode(
+			((SERVLEV.rab_stp_att_ps_strea + 
+			SERVLEV.rab_stp_att_ps_inter + 
+			SERVLEV.rab_stp_att_ps_backg)),0,null, 
+
+			((SERVLEV.rab_stp_fail_ps_strea_bts))
+			 / 
+			((SERVLEV.rab_stp_att_ps_strea + 
+			SERVLEV.rab_stp_att_ps_inter + 
+			SERVLEV.rab_stp_att_ps_backg)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup FR for PS calls due to BTS]]></title>
+      <use><![CDATA[RAB setup failure rate for PS streaming calls caused by the BTS.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                          sum (rab_stp_fail_ps_strea_bts)
+&lt;br&gt;100 * ------------------------------------------------------------------------
+&lt;br&gt;      sum (rab_stp_att_ps_strea + rab_stp_att_ps_inter + rab_stp_att_ps_backg)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RAB stp FR PS, BTS]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

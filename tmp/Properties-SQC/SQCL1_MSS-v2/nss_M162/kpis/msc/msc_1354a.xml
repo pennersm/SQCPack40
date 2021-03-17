@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TBSCTC_ext.xml" />
+  <kpi name="msc_1354a">
+    <formula>
+		decode(tbsctc_ext.count_distinct_period_start,0,null,
+		
+		( ( tbsctc_ext.bscrnc_tottraf_x_100_tcid_1) 
+		/ 100 / tbsctc_ext.count_distinct_period_start))
+
+	</formula>
+    <kpi_info>
+      <title><![CDATA[2G Originating total traffic per BSC]]></title>
+      <use><![CDATA[Indicates the total traffic of calls originated in the measured BSC.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_IDs:
+<br>1 => ORIG
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 22-01-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC-BSCM;TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC-BSCM;TCAT
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic Measurement per BSC/RNC (M399)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>For OBJECT level: 
+<br>sum(BSCRNC_TOTTRAF_X_100); where Tcat_ID=1
+<br>------------------------------------------------
+<br>       100
+<br>
+<br>For TIME level: 
+<br>avg(BSCRNC_TOTTRAF_X_100); where Tcat_ID=1
+<br>------------------------------------------------
+<br>       100
+<br>
+<br>Use AGGREGATED view(s)/table(s)
+<br>
+<br>Use view(s):
+<br>RNS_P_TBSCTC_&lt;Object&gt;_&lt;Time&gt;
+<br>
+<br>          ==========   XXXXXXXXXX  ==========
+<br>
+<br>** SQL test formula - proof of concept
+<br>** Applicable to any object level for both TIME + OBJ domains
+<br>** Formula based on RAW data table
+<br>
+<br>SUM( BSCRNC_TOTTRAF_X_100 ) / 100 / COUNT(DISTINCT period_start_time)
+<br>;WHERE Tcat_ID = 1]]></formula>
+      <unit>[E]</unit>
+      <tables>XMLNSS_PS_TBSCTC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.792 +0000</date>
+          <comment><![CDATA[Source: RSMSC060.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>2G ORIG total traff</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/UMLM.xml" />
+  <kpi name="flns_3169a">
+    <formula>decode(
+            (umlm.location_service_req_succ + 
+			umlm.location_service_req_fail),0,null,
+            
+            (umlm.location_service_req_succ
+            / 
+            (umlm.location_service_req_succ + 
+            umlm.location_service_req_fail)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Location service requests success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of location services request procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(LOCATION_SERVICE_REQ_SUCC)
+&lt;br&gt;-------------------------------- *100
+&lt;br&gt;sum(LOCATION_SERVICE_REQ_SUCC + 
+&lt;br&gt;   LOCATION_SERVICE_REQ_FAIL)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_UMLM_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:43.120 +0100</date>
+          <comment><![CDATA[Source: RSMME004.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Loc serv req SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

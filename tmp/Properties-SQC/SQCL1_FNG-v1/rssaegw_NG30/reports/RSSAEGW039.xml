@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW039 - Downlink Data Notification cause code</header>
+    <csv_title>Downlink Data Notification cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v2 downlink data notification acknowledgements/failures received per cause code on S11/S4 interfaces.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the sent 'Downlink Data Notification' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/04/18 15:24:42.765 +0100</date>
+        <comment><![CDATA[Source: RSSAEGW039.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Downlink Data Notification cause code</report-description>
+    <report-title>Downlink Data Notification cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_149a ui_name="Att" group="Acks rcvd (S11/S4)" master-group="DL Data Notific" chartType="bar" yAxis="2" />
+    <flng_150a ui_name="Ratio" group="Acks rcvd (S11/S4)" master-group="DL Data Notific" />
+    <flng_151a ui_name="Att" group="Fail rcvd (S11/S4)" master-group="DL Data Notific" chartType="bar" yAxis="2" />
+    <flng_152a ui_name="Ratio" group="Fail rcvd (S11/S4)" master-group="DL Data Notific" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCV2RESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_149a">
+    <formula>(GTPCV2RESP.gtpcv2_dl_data_notif_ack_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification Acks received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 downlink data notification acknowledgements received per cause code.
+Downlink Data Notification Acknowledgement received:
+- S11/S4 interface (MME/SGSN -&gt; SGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpcv2_dl_data_notif_ack_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DDNAR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[DL Data Notific Acks rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_150a">
+    <formula>decode(
+			((GTPCV2RESP.gtpcv2_dl_data_notif_ack_r_all)),0,NULL, 
+
+			((GTPCV2RESP.gtpcv2_dl_data_notif_ack_recv))
+			 / 
+			((GTPCV2RESP.gtpcv2_dl_data_notif_ack_r_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification Acks received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 downlink data notification acknowledgements received for a specific cause code when compared to total number of GTP-C v2 downlink data notification acknowledgements messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(ddnar_id,'x',GTPCV2_DL_DATA_NOTIF_ACK_RECV,0))  ;DDNAR for cause code x
+&lt;br&gt;----------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DL_DATA_NOTIF_ACK_RECV)  ;all DDNAR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DDNAR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DL Data Not Ack rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_151a">
+    <formula>(GTPCV2RESP.gtpcv2_dl_data_notif_fail_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification Failures received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 downlink data notification failures received per cause code.
+Downlink Data Notification Failure received:
+- S11/S4 interface (MME/SGSN -&gt; SGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpcv2_dl_data_notif_fail_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DDNFR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[DL data notific fails rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_152a">
+    <formula>decode(
+			((GTPCV2RESP.gtpcv2_dl_data_notif_f_r_all)),0,NULL, 
+
+			((GTPCV2RESP.gtpcv2_dl_data_notif_fail_recv))
+			 / 
+			((GTPCV2RESP.gtpcv2_dl_data_notif_f_r_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification Failures received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 downlink data notification failures received for a specific cause code when compared to total number of GTP-C v2 downlink data notification failures messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(ddnfr_id,'x',GTPCV2_DL_DATA_NOTIF_FAIL_RECV,0))  ;DDNFR for cause code x
+&lt;br&gt;------------------------------------------------------------------------------------ *100
+&lt;br&gt;sum(GTPCV2_DL_DATA_NOTIF_FAIL_RECV)  ;all DDNFR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DDNFR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DL data not fail rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

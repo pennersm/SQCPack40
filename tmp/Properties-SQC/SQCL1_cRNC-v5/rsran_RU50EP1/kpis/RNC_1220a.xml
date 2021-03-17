@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1220a">
+    <formula>decode(
+			(servlev.succ_rrc_setup_conv),0,null, 
+
+			(100*(servlev.srb_act_fail_conv)
+			 / 
+			(servlev.succ_rrc_setup_conv)))</formula>
+    <kpi_info>
+      <title><![CDATA[Standalone SRB Failure Rate - Conversational]]></title>
+      <use><![CDATA[This KPI monitors the standalone SRB failure rate for Conversational traffic class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(SRB_ACT_FAIL_CONV)
+&lt;br&gt;-------------------------------------------
+&lt;br&gt;SUM(SUCC_RRC_SETUP_CONV)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Standalone SRB FR Conv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

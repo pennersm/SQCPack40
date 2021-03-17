@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>ALARMS STAT EXT</header>
+    <csv_title>Nokia Siemens LTE ALARM measurement dump</csv_title>
+    <report-description>ALARM Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rslte/RSLTE.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="ALARMS" meas_level="PLMN/MRBTS/LNBTS/LNCEL/ALRMSEV/ALRMTYPE" type="PM" master="yes" pragma="noklte" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="NBR_CREATED_ALARMS">SUM(NBR_CREATED_ALARMS)</counter>
+      <counter alias="NBR_ACTIVE_ALARMS">SUM(NBR_ACTIVE_ALARMS)</counter>
+      <counter alias="DUR_CREATED_ALARMS">SUM(DUR_CREATED_ALARMS)</counter>
+      <counter alias="DUR_ACTIVE_ALARMS">SUM(DUR_ACTIVE_ALARMS)</counter> 
+	  
+	  <counter alias="NBR_CA_CRIT">SUM(CASE WHEN SEVERITY_ID = '1' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_MAJR">SUM(CASE WHEN SEVERITY_ID = '2' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_MINR">SUM(CASE WHEN SEVERITY_ID = '3' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_WARN">SUM(CASE WHEN SEVERITY_ID = '4' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  
+	  <counter alias="DUR_CA_CRIT">SUM(CASE WHEN SEVERITY_ID = '1' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_MAJR">SUM(CASE WHEN SEVERITY_ID = '2' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_MINR">SUM(CASE WHEN SEVERITY_ID = '3' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_WARN">SUM(CASE WHEN SEVERITY_ID = '4' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  
+	  <counter alias="NBR_AA_CRIT">SUM(CASE WHEN SEVERITY_ID = '1' THEN NBR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_AA_MAJR">SUM(CASE WHEN SEVERITY_ID = '2' THEN NBR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_AA_MINR">SUM(CASE WHEN SEVERITY_ID = '3' THEN NBR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_AA_WARN">SUM(CASE WHEN SEVERITY_ID = '4' THEN NBR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  
+      <counter alias="DUR_AA_CRIT">SUM(CASE WHEN SEVERITY_ID = '1' THEN DUR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_AA_MAJR">SUM(CASE WHEN SEVERITY_ID = '2' THEN DUR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_AA_MINR">SUM(CASE WHEN SEVERITY_ID = '3' THEN DUR_ACTIVE_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_AA_WARN">SUM(CASE WHEN SEVERITY_ID = '4' THEN DUR_ACTIVE_ALARMS ELSE 0 END)</counter>
+
+	  <counter alias="NBR_CA_COM">SUM(CASE WHEN ALARM_TYPE_ID = '1' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_ENV">SUM(CASE WHEN ALARM_TYPE_ID = '2' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_EQUI">SUM(CASE WHEN ALARM_TYPE_ID = '3' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_PROS">SUM(CASE WHEN ALARM_TYPE_ID = '4' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_CA_QOS">SUM(CASE WHEN ALARM_TYPE_ID = '5' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  
+	  <counter alias="DUR_CA_COM">SUM(CASE WHEN ALARM_TYPE_ID = '1' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_ENV">SUM(CASE WHEN ALARM_TYPE_ID = '2' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_EQUI">SUM(CASE WHEN ALARM_TYPE_ID = '3' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_PROS">SUM(CASE WHEN ALARM_TYPE_ID = '4' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="DUR_CA_QOS">SUM(CASE WHEN ALARM_TYPE_ID = '5' THEN DUR_CREATED_ALARMS ELSE 0 END)</counter>		  
+	  
+	  <counter alias="NBR_ALARMS_EXT">SUM(CASE WHEN ALARM_NUMBER BETWEEN 7400 AND 7430 THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+	  <counter alias="NBR_ALARMS_BSF">SUM(CASE WHEN ALARM_NUMBER = '7650' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_BSD">SUM(CASE WHEN ALARM_NUMBER = '7651' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_BSN">SUM(CASE WHEN ALARM_NUMBER = '7652' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_CF">SUM(CASE WHEN ALARM_NUMBER = '7653' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_CD">SUM(CASE WHEN ALARM_NUMBER = '7654' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_CN">SUM(CASE WHEN ALARM_NUMBER = '7655' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_BSCL">SUM(CASE WHEN ALARM_NUMBER = '7656' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_BSCD">SUM(CASE WHEN ALARM_NUMBER = '7657' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>	
+	  <counter alias="NBR_ALARMS_OMCF">SUM(CASE WHEN ALARM_NUMBER = '71058' THEN NBR_CREATED_ALARMS ELSE 0 END)</counter>
+    </counters>
+    <table_name>REPALS_P_ALARMS_RAW</table_name>
+    <alias_name>ALARMS_EXT</alias_name>
+  </temp_table>
+</conf_file>
+

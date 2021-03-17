@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml"/>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <kpi name="flng_397a">
+    <formula>decode(
+			((GTPCV2.gtpcv2_bytes_in_sent_msgs + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_2g + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_3g + 
+			GTPU.gtpu_gpdu_bytes_sent_lte + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_unkn)),0,NULL, 
+
+			((GTPCV2.gtpcv2_bytes_in_sent_msgs))
+			 / 
+			((GTPCV2.gtpcv2_bytes_in_sent_msgs + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_2g + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_3g + 
+			GTPU.gtpu_gpdu_bytes_sent_lte + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_unkn)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[GTP-C v2 signaling to data sent ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 data signaling sent when compared to all sent GTPv2 data (sign+user).
+If the ratio of signaling to data bandwidth usage is too high, some abnormal events are possible happened in the analyzed interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtpcv2_bytes_in_sent_msgs)
+&lt;br&gt;------------------------------------ * 100
+&lt;br&gt;sum (gtpcv2_bytes_in_sent_msgs + 
+&lt;br&gt;   gtpu_gpdu_bytes_sent_rat_2g + 
+&lt;br&gt;   gtpu_gpdu_bytes_sent_rat_3g + 
+&lt;br&gt;   gtpu_gpdu_bytes_sent_lte + 
+&lt;br&gt;   gtpu_gpdu_bytes_sent_rat_unkn)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[GTPCv2 sig-data sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LNCELHO.xml"/>
+  <kpi name="LTE_13a">
+    <formula>decode(
+			((lncelho.inter_ho_att_nb)),0,null, 
+
+			(100*(lncelho.inter_ho_succ_nb))
+			 / 
+			((lncelho.inter_ho_att_nb)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter eNB Neighbour Handover Success ratio]]></title>
+      <use><![CDATA[Ratio between successfully executed Inter eNB Handover procedures and the number of all Intra eNB Handover attempts per Neighbour.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum( INI_CONT_STP_FAIL_OTHER )                                 
+&lt;br&gt;100      *      -------------------------------- 
+&lt;br&gt;                   sum(INI_CONT_STP_REQ)                      
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LNCELHO_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Adj Inter eNB HO SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

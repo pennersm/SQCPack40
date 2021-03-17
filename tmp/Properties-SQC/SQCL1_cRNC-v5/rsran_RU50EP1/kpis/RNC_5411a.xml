@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/R99HW.xml" />
+  <temp_table_ref src="rsran/counters/WBTSMON.xml" />
+  <kpi name="RNC_5411a">
+    <formula>100*decode(
+			r99hw.avg_avail_r99_ce,0,null, 
+
+			wbtsmon.avg_used_ce_r99_dl
+			 / 
+			r99hw.avg_avail_r99_ce)</formula>
+    <kpi_info>
+      <title><![CDATA[Average R99 CE Utilization ratio in DL per BTS for Flexi Rel2]]></title>
+      <use><![CDATA[This KPI calculates the average R99 CE Utilization ratio in DL per BTS for Flexi Rel2. The average used R99 CE in DL direction are divided by the total number of available R99 CEs.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(AVG_USED_CE_R99_DL)
+&lt;br&gt;/
+&lt;br&gt;sum(AVG_AVAIL_R99_CE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_R99HW_{obj_agg}_{time_agg},nokrww_ps_WBTSMON_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/28 11:27:22.785 +0100</date>
+          <comment><![CDATA[Source: RSRAN131.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg CE Util rat DL Flx2</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

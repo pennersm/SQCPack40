@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2767a">
+    <formula>decode(
+				traffic.period_duration,0,null, 
+
+				(traffic.allo_dur_edch_int + 
+				 traffic.allo_dur_edch_bgr)
+				/ 
+				(100 * traffic.period_duration * 60)
+					)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Allocation]]></title>
+      <use><![CDATA[E-DCH allocation NRT connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(ALLO_DUR_EDCH_INT+
+&lt;br&gt;ALLO_DUR_EDCH_BGR)
+&lt;br&gt;/
+&lt;br&gt;sum(100 * period_duration * 60)</formula>
+      <unit>[E]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:35.824 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Traffic HSUPA Alloc wSHO</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

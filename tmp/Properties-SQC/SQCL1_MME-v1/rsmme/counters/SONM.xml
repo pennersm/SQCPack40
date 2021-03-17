@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.2;NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M56 SONM measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.2;NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M56 SONM measurement dump</csv_title>
+    <report-description>Self Organizing Network Measurement (SONM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SON_ENB_CONF_WITH_REQ />
+    <SON_ENB_CONF_WITH_REPL />
+    <SON_MME_CONF_WITH_REQ />
+    <SON_MME_CONF_WITH_REPL />
+    <SON_CONF_TUNNEL_SENT_WITH_REQ />
+    <SON_CONF_TUNNEL_SENT_WITH_REPL />
+    <SON_CONF_TUNNEL_REC_WITH_REQ />
+    <SON_CONF_TUNNEL_REC_WITH_REPL />
+  </column_order>
+  <temp_table name="SONM" meas_level="PLMN/FLEXINS" type="PM" master="yes" pragma="pcofns" create="yes">
+    <koala_meas_id_list>SONM</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="SON_ENB_CONF_WITH_REQ">SUM(SON_ENB_CONF_WITH_REQ)</counter>
+      <counter alias="SON_ENB_CONF_WITH_REPL">SUM(SON_ENB_CONF_WITH_REPL)</counter>
+      <counter alias="SON_MME_CONF_WITH_REQ">SUM(SON_MME_CONF_WITH_REQ)</counter>
+      <counter alias="SON_MME_CONF_WITH_REPL">SUM(SON_MME_CONF_WITH_REPL)</counter>
+      <counter alias="SON_CONF_TUNNEL_SENT_WITH_REQ">SUM(SON_CONF_TUNNEL_SENT_WITH_REQ)</counter>
+      <counter alias="SON_CONF_TUNNEL_SENT_WITH_REPL">SUM(SON_CONF_TUNNEL_SENT_WITH_REPL)</counter>
+      <counter alias="SON_CONF_TUNNEL_REC_WITH_REQ">SUM(SON_CONF_TUNNEL_REC_WITH_REQ)</counter>
+      <counter alias="SON_CONF_TUNNEL_REC_WITH_REPL">SUM(SON_CONF_TUNNEL_REC_WITH_REPL)</counter>
+    </counters>
+    <table_name>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SONM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SONM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_ENB_CONF_WITH_REQ">
+    <formula>SONM.SON_ENB_CONF_WITH_REQ</formula>
+    <kpi_info>
+      <title>SON_ENB_CONF_WITH_REQ</title>
+      <use>Number of eNB configuration transfer to MME with SON information request.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_ENB_CONF_WITH_REQ)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_ENB_CONF_WITH_REQ (M56C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_ENB_CONF_WITH_REPL">
+    <formula>SONM.SON_ENB_CONF_WITH_REPL</formula>
+    <kpi_info>
+      <title>SON_ENB_CONF_WITH_REPL</title>
+      <use>Number of eNB configuration transfer to MME with SON information reply.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_ENB_CONF_WITH_REPL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_ENB_CONF_WITH_REPL (M56C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_MME_CONF_WITH_REQ">
+    <formula>SONM.SON_MME_CONF_WITH_REQ</formula>
+    <kpi_info>
+      <title>SON_MME_CONF_WITH_REQ</title>
+      <use>Number of MME configuration sent to eNB with SON information request.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_MME_CONF_WITH_REQ)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_MME_CONF_WITH_REQ (M56C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_MME_CONF_WITH_REPL">
+    <formula>SONM.SON_MME_CONF_WITH_REPL</formula>
+    <kpi_info>
+      <title>SON_MME_CONF_WITH_REPL</title>
+      <use>Number of MME configuration sent to eNB With SON information reply.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_MME_CONF_WITH_REPL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_MME_CONF_WITH_REPL (M56C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_CONF_TUNNEL_SENT_WITH_REQ">
+    <formula>SONM.SON_CONF_TUNNEL_SENT_WITH_REQ</formula>
+    <kpi_info>
+      <title>SON_CONF_TUNNEL_SENT_WITH_REQ</title>
+      <use>Number of configuration transfer tunnel sent to other MME with SON information request.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_CONF_TUNNEL_SENT_WITH_REQ)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_CONF_TUNNEL_SENT_WITH_REQ (M56C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_CONF_TUNNEL_SENT_WITH_REPL">
+    <formula>SONM.SON_CONF_TUNNEL_SENT_WITH_REPL</formula>
+    <kpi_info>
+      <title>SON_CONF_TUNNEL_SENT_WITH_REPL</title>
+      <use>Number of configuration transfer tunnel sent to other MME with SON information reply.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_CONF_TUNNEL_SENT_WITH_REPL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_CONF_TUNNEL_SENT_WITH_REPL (M56C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_CONF_TUNNEL_REC_WITH_REQ">
+    <formula>SONM.SON_CONF_TUNNEL_REC_WITH_REQ</formula>
+    <kpi_info>
+      <title>SON_CONF_TUNNEL_REC_WITH_REQ</title>
+      <use>Number of configuration transfer tunnel received from other MME with SON information request.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_CONF_TUNNEL_REC_WITH_REQ)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_CONF_TUNNEL_REC_WITH_REQ (M56C006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SON_CONF_TUNNEL_REC_WITH_REPL">
+    <formula>SONM.SON_CONF_TUNNEL_REC_WITH_REPL</formula>
+    <kpi_info>
+      <title>SON_CONF_TUNNEL_REC_WITH_REPL</title>
+      <use>Number of configuration transfer tunnel received from other MME with SON information reply.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SON_CONF_TUNNEL_REC_WITH_REPL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_sonm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SON_CONF_TUNNEL_REC_WITH_REPL (M56C007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

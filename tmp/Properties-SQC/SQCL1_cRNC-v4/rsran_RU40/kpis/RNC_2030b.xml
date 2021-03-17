@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_2030b">
+    <formula>100*decode(
+			33600,0,null, 
+
+			((decode(
+			cellres.fach_user_tot_tput_denom_1,0,null, 
+
+			cellres.ave_fach_user_tot_tput
+			 / 
+			cellres.fach_user_tot_tput_denom_1)) - 
+			(decode(
+			cellres.fach_u_data_tput_denom_1,0,null, 
+
+			cellres.ave_fach_udata_tp_sccpch
+			 / 
+			cellres.fach_u_data_tput_denom_1)))
+			 / 
+			33600)</formula>
+    <kpi_info>
+      <title><![CDATA[FACH-c Load Ratio]]></title>
+      <use><![CDATA[FACH-c Load Ratio provides information about the FACH transport channel Control Plane data load, by dividing the FACH channel control data throughput by the corresponding transport channel max bit rate to get the load ratio.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(sum(AVE_FACH_USER_TOT_TPUT/FACH_USER_TOT_TPUT_DENOM_1)-
+&lt;br&gt;sum(AVE_FACH_UDATA_TP_SCCPCH/FACH_U_DATA_TPUT_DENOM_1))
+&lt;br&gt;/
+&lt;br&gt;33600</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_CELLRES_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.312 +0100</date>
+          <comment><![CDATA[Source: RSRAN067.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>FACH-c Load Ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

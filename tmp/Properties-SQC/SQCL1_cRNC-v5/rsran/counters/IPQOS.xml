@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>IPQOS (IP QOS)</header>
+    <csv_title>IPQOS (IP QOS)</csv_title>
+    <report-description>IP QOS</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <INGRESS_RECEIVED_PACKETS/>
+    <INGRESS_RECEIVED_BYTES/>
+    <EGRESS_SENT_PACKETS/>
+    <EGRESS_SENT_BYTES/>
+    <DISCARDED_PACKETS/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="IPQOS" omes_name="IP_QoS" meas_level="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID/RSRAN-IPIF/RSRAN-PHB" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>IPQOS</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="INGRESS_RECEIVED_PACKETS" symmetrical="true">SUM(INGRESS_RECEIVED_PACKETS)</counter>
+          <counter alias="INGRESS_RECEIVED_BYTES" symmetrical="true">SUM(INGRESS_RECEIVED_BYTES)</counter>
+          <counter alias="EGRESS_SENT_PACKETS" symmetrical="true">SUM(EGRESS_SENT_PACKETS)</counter>
+          <counter alias="EGRESS_SENT_BYTES" symmetrical="true">SUM(EGRESS_SENT_BYTES)</counter>
+          <counter alias="DISCARDED_PACKETS" symmetrical="true">SUM(DISCARDED_PACKETS)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPQOS</alias_name>
+    <ui_name>IP QOS</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPQOS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INGRESS_RECEIVED_PACKETS">
+    <formula>IPQOS.INGRESS_RECEIVED_PACKETS</formula>
+    <kpi_info>
+      <title>INGRESS_RECEIVED_PACKETS (M567C0)</title>
+      <use>The number of IP packets received. UPDATED: When an IP packet is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INGRESS_RECEIVED_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INGRESS_RECEIVED_PACKETS (M567C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INGRESS_RECEIVED_BYTES">
+    <formula>IPQOS.INGRESS_RECEIVED_BYTES</formula>
+    <kpi_info>
+      <title>INGRESS_RECEIVED_BYTES (M567C1)</title>
+      <use>The amount of data received in IP packets. UPDATED:When an IP packet is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INGRESS_RECEIVED_BYTES)</formula>
+      <unit>100 bytes</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INGRESS_RECEIVED_BYTES (M567C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="EGRESS_SENT_PACKETS">
+    <formula>IPQOS.EGRESS_SENT_PACKETS</formula>
+    <kpi_info>
+      <title>EGRESS_SENT_PACKETS (M567C2)</title>
+      <use>The number of IP packets sent out from the IP interface. Additionally the counter includes packets that were dropped in the IP packet scheduler. UPDATED: When an IP packet is sent out from the IP interface or dropped in the packet scheduler.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(EGRESS_SENT_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EGRESS_SENT_PACKETS (M567C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="EGRESS_SENT_BYTES">
+    <formula>IPQOS.EGRESS_SENT_BYTES</formula>
+    <kpi_info>
+      <title>EGRESS_SENT_BYTES (M567C3)</title>
+      <use>The amount of data attempted to send out in IP packets. Includes also data that was dropped in the IP packet scheduler. UPDATED: When an IP packet is sent to the IP packet scheduler.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(EGRESS_SENT_BYTES)</formula>
+      <unit>100 bytes</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EGRESS_SENT_BYTES (M567C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DISCARDED_PACKETS">
+    <formula>IPQOS.DISCARDED_PACKETS</formula>
+    <kpi_info>
+      <title>DISCARDED_PACKETS (M567C4)</title>
+      <use>The number of received IP packets that were discarded and therefore not sent out from the IP interface. UPDATED: When an IP packet is discarded.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DISCARDED_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DISCARDED_PACKETS (M567C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>IPQOS.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ipqos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

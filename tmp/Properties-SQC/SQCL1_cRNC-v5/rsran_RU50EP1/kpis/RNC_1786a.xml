@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran/counters/AALCAC.xml"/>
+  <kpi name="RNC_1786a">
+    <formula>decode(
+			(aalcac.aal2_rm_succeeded + 
+			aalcac.aal2_cac_rejected + 
+			aalcac.aal2_hw_rejected),0,null, 
+
+			(100*(aalcac.aal2_cac_rejected)
+			 / 
+			(aalcac.aal2_rm_succeeded + 
+			aalcac.aal2_cac_rejected + 
+			aalcac.aal2_hw_rejected)))</formula>
+    <kpi_info>
+      <title><![CDATA[AAL2 resource reservation rejection ratio due to CAC for non-HSPA connections]]></title>
+      <use><![CDATA[This KPI provides information about the AAL2 resource reservation rejection ratio due to CAC for non HSPA connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(AAL2_CAC_REJECTED)
+&lt;br&gt;--------------------
+&lt;br&gt;SUM(AAL2_RM_SUCCEEDED
+&lt;br&gt;+ AAL2_CAC_REJECTED
+&lt;br&gt;+ AAL2_HW_REJECTED)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>AAL2 RR FR non-HSPA</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

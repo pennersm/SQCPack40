@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5587b">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			lepsb.pre_empt_gbr_bearer + 
+			lepsb.pre_empt_non_gbr_bearer),0,null, 
+
+			(lepsb.pre_empt_gbr_bearer + 
+			lepsb.pre_empt_non_gbr_bearer)
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			lepsb.pre_empt_gbr_bearer + 
+			lepsb.pre_empt_non_gbr_bearer))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB Release ratio due to Radio resources not available]]></title>
+      <use><![CDATA[This KPI shows the ratio of the released E-RABs due to Radio resources not available to all E-RAB releases.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(PRE_EMPT_GBR_BEARER+
+&lt;br&gt;PRE_EMPT_NON_GBR_BEARER) / sum(EPC_EPS_BEARER_REL_REQ_NORM+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_DETACH+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_RNL+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_OTH +
+&lt;br&gt;ENB_EPSBEAR_REL_REQ_RNL_REDIR+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_NORM +
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_RNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_TNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_OTH+ PRE_EMPT_GBR_BEARER+
+&lt;br&gt;PRE_EMPT_NON_GBR_BEARER)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/08/30 14:41:54.954 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN E-RAB Rel noRadio resources</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

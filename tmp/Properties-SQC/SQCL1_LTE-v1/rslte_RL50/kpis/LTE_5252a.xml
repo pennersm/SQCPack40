@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LISHO.xml" />
+  <kpi name="LTE_5252a">
+    <formula>100*decode(
+			(lisho.isys_ho_att + 
+			lisho.isys_ho_utran_srvcc_att + 
+			nvl(lisho.isys_ho_geran_srvcc_att,0)),0,null, 
+
+			(lisho.isys_ho_fail + 
+			lisho.isys_ho_utran_srvcc_fail + 
+			nvl(lisho.isys_ho_geran_srvcc_fail,0))
+			 / 
+			(lisho.isys_ho_att + 
+			lisho.isys_ho_utran_srvcc_att + 
+			nvl(lisho.isys_ho_geran_srvcc_att,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Inter RAT HO Failure Ratio]]></title>
+      <use><![CDATA[This KPI describes the ratio of failed inter RAT handovers related to all attempted inter RAT handovers. This KPI represents the case of a failed Handover when all UE resources are still allocated for the UE.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(ISYS_HO_FAIL+ISYS_HO_UTRAN_SRVCC_FAIL+ISYS_HO_GERAN_SRVCC_FAIL) / sum(ISYS_HO_ATT+ISYS_HO_UTRAN_SRVCC_ATT+ISYS_HO_GERAN_SRVCC_ATT)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LISHO_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/10/02 15:01:58.530 +0100</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN InterRAT HO FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

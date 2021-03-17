@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LS1AP.xml" />
+  <kpi name="LTE_5263b">
+    <formula>100*decode(
+			ls1ap.s1ap_kill_req,0,null, 
+
+			(ls1ap.s1ap_kill_resp - 
+			ls1ap.s1ap_kill_fail)
+			 / 
+			ls1ap.s1ap_kill_req)</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN S1 KILL-REQUEST Success ratio]]></title>
+      <use><![CDATA[1. The KPI shows the KILL-REQUEST procedure success ratio defined as ratio of the number of KILL-REQUEST to KILL-RESPONSE messages .]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(S1AP_KILL_RESP - S1AP_KILL_FAIL) / sum(S1AP_KILL_REQ)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LS1AP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/10/29 14:06:56.931 +0000</date>
+          <comment><![CDATA[Source: RSLTE053.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S1 KILL req SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

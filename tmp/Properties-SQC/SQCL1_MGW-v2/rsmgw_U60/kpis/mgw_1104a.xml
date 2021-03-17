@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPCACIP.xml" />
+  <kpi name="mgw_1104a">
+    <formula>decode(
+			(ipcacip.ipbr_ip_attempts),0,null, 
+
+			(100*(ipcacip.ipbr_ip_atts_rej_other)
+			 / 
+			(ipcacip.ipbr_ip_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP termination reservation failure ratio for IP based Route]]></title>
+      <use><![CDATA[Indicates failure ratio of all IP reservation attempts in IP based Route. This includes MGW internal and external IP failure reasons. Does not include cases where termination is rejected due to CAC function.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(IPBR_IP_ATTS_REJ_OTHER)
+&lt;br&gt;100 * ---------------------------- 
+&lt;br&gt;        SUM(IPBR_IP_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ipcacip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP termination rsv FR IP Route</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

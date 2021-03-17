@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/GBSD.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUSD.xml"/>
+  <kpi name="sgsn_2045a">
+    <formula>decode(
+			((GBSD.period_duration*60*1048576)),0,NULL, 
+
+			((8*(GBSD.avg_gtp_bytes_sent_ul_sum + 
+			4294967296*GBSD.avg_gtp_bytes_sent_ul_sum_of)))
+			 / 
+			((GBSD.period_duration*60*1048576))) - 
+			decode(
+			((60*IUSD.period_duration*1048576)),0,NULL, 
+
+			((8*(IUSD.iu_avg_gtp_bytes_ul_sum + 
+			4294967296*IUSD.iu_avg_gtp_bytes_ul_sum_ofl)))
+			 / 
+			((60*IUSD.period_duration*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb UL GTP average throughput, SGSN]]></title>
+      <use><![CDATA[This KPI shows the uplink average GTP data throughput on SGSN level for Gb interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (8 * (avg_gtp_bytes_sent_ul_sum + 4294967296 * avg_gtp_bytes_sent_ul_sum_of))
+&lt;br&gt;--------------------------------------------------------------------------------- - sgsn_910a
+&lt;br&gt;                      sum (period_duration * 60 * 1048576)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>RSG_PS_GBSD_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUSD_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gb UL GTP avg thp, SGSN]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

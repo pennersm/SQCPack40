@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/L3IUB.xml" />
+  <kpi name="RNC_1230a">
+    <formula>decode(
+			(l3iub.att_macd_setup_for_hsdpa),0,null, 
+
+			(100*(l3iub.fail_macd_setup_hsdpa_misc)
+			 / 
+			(l3iub.att_macd_setup_for_hsdpa)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH Mac-d Setup Failures Rate due to NBAP Miscellaneous cause]]></title>
+      <use><![CDATA[This KPI provides information about the Radio Link Setup/Reconfiguration Failure Ratio for HSDPA MAC-d flows, due to the reception of a NBAP message indicating an error cause in Miscellaneous category.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(FAIL_MACD_SETUP_HSDPA_MISC)
+&lt;br&gt;-----------------------------------------------
+&lt;br&gt;SUM(ATT_MACD_SETUP_FOR_HSDPA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_l3iub_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HS-DSCH MAC-d stp FR misc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

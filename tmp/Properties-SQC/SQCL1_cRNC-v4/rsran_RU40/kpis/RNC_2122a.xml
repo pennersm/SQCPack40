@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml"/>
+  <kpi name="RNC_2122a">
+    <formula>100*decode(
+			((TRAFFIC.allo_success_edch_amr_5_9 + 
+			TRAFFIC.allo_success_edch_amr_12_2 + 
+			TRAFFIC.allo_success_edch_amr_12_65 + 
+			TRAFFIC.setup_fail_bts_edch_amr + 
+			TRAFFIC.setup_fail_trans_edch_amr + 
+			TRAFFIC.setup_fail_ue_edch_amr + 
+			TRAFFIC.setup_fail_other_edch_amr)),0,null, 
+
+			((TRAFFIC.allo_success_edch_amr_5_9 + 
+			TRAFFIC.allo_success_edch_amr_12_2 + 
+			TRAFFIC.allo_success_edch_amr_12_65))
+			 / 
+			((TRAFFIC.allo_success_edch_amr_5_9 + 
+			TRAFFIC.allo_success_edch_amr_12_2 + 
+			TRAFFIC.allo_success_edch_amr_12_65 + 
+			TRAFFIC.setup_fail_bts_edch_amr + 
+			TRAFFIC.setup_fail_trans_edch_amr + 
+			TRAFFIC.setup_fail_ue_edch_amr + 
+			TRAFFIC.setup_fail_other_edch_amr)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA CS Voice Resource Allocation SR]]></title>
+      <use><![CDATA[HSUPA CS Voice Resource Allocation SR allows monitoring the basic information for accessibility of the CS Voice call (AMR) over HSDPA.
+
+The success counter trigger point occurs every time an UE acknowledges that E-DCH is successfully established. This can happen either in initial allocation (RAB setup), serving cell change or channel type switch.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                                                           sum (allo_success_edch_amr_5_9 + allo_success_edch_amr_12_2 + allo_success_edch_amr_12_65)
+&lt;br&gt;100 * -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (allo_success_edch_amr_5_9 + allo_success_edch_amr_12_2 + allo_success_edch_amr_12_65 + setup_fail_bts_edch_amr + setup_fail_trans_edch_amr + setup_fail_ue_edch_amr + setup_fail_other_edch_amr)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HSUPA CSVoice ResAlloc,SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

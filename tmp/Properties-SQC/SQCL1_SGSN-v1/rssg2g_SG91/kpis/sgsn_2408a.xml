@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/RAPA.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2408a">
+    <formula>3600*decode(
+			((RAPA.period_duration*60)),0,NULL,
+            (RAPA.GB_PS_PAGING_PROCS / RAPA.period_duration*60))
+            /
+            decode((paus.avg_attach_gb_users_den * paus.avg_attach_gb_users_sum),0,NULL,
+            ( paus.avg_attach_gb_users_sum / paus.avg_attach_gb_users_den))</formula>
+    <kpi_info>
+      <title><![CDATA[2G pagings per subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of started 2G Routing Area level paging procedures per subscriber per hour.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>3600*sgsn_2283a
+&lt;br&gt;--------------------
+&lt;br&gt;  sgsn_691a
+
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_RAPA_{OBJ_AGG}_{TIME_AGG},RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G pagings /subs /h]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

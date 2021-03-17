@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_230b">
+    <formula>100*decode(
+			(
+			 /*lte_5219a*/ 
+			((luest.epc_init_to_idle_ue_norm_rel + 
+			luest.epc_init_to_idle_detach + 
+			luest.epc_init_to_idle_rnl + 
+			luest.epc_init_to_idle_other + 
+			luest.enb_init_to_idle_norm_rel + 
+			luest.enb_init_to_idle_rnl + 
+			luest.enb_init_to_idle_other))),0,null, 
+
+			luest.epc_init_to_idle_other
+			 / 
+			(
+			 /*lte_5219a*/ 
+			((luest.epc_init_to_idle_ue_norm_rel + 
+			luest.epc_init_to_idle_detach + 
+			luest.epc_init_to_idle_rnl + 
+			luest.epc_init_to_idle_other + 
+			luest.enb_init_to_idle_norm_rel + 
+			luest.enb_init_to_idle_rnl + 
+			luest.enb_init_to_idle_other))))</formula>
+    <kpi_info>
+      <title><![CDATA[% EPC Initiated, ECM from Connected to Idle due Other]]></title>
+      <use><![CDATA[Percentage of transitions from  ECM connected to Idle  initiated by EPS due non identified cause.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*                      sum( EPC_INIT_TO_IDLE_OTHER)
+&lt;br&gt;                  ----------------------------------------------
+&lt;br&gt;                                       LTE_5219a</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LUEST_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/04/05 11:23:39.563 +0100</date>
+          <comment><![CDATA[Source: RSLTE038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPC Initiated, ECM from Cnct to Idle, Other</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

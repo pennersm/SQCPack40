@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/RABRS_ext.xml" />
+  <kpi name="flng_140a">
+    <formula>decode( ((GTPCV2.gtpcv2_rel_acc_bear_req_recv)),0,NULL, ((RABRS_ext.gtpcv2_rel_acc_bear_resp_s_16)) / ((GTPCV2.gtpcv2_rel_acc_bear_req_recv)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Release Access Bearer received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 release access bearer requests received, i.e., the number of release access bearer response messages sent with cause code 'Request Accepted' when compared to the number of release access bearer request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(rabrs_id,('16' or 'cs_1_16'),b.GTPCV2_REL_ACC_BEAR_RESP_SENT,0)) ;Request accepted 
+<br>---------------------------------------------------------------------------------------------- *100 
+<br>sum(a.GTPCV2_REL_ACC_BEAR_REQ_RECV) 
+<br> 
+<br>counters from measurement(s): 
+<br>a = GTP-C v2 
+<br>b = GTP-C v2 Release Access Bearer Response sent
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_RABRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Rel Acc Bearer rcv SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

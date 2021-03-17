@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/MTPNMSC.xml"/>
+  <kpi name="tra_msc299b">
+    <formula>100*(decode(
+			(mtpnmsc.period_duration*60*mtpnmsc.bitrate*1000),0,null, 
+
+			((mtpnmsc.msus_received*6 + 
+			mtpnmsc.sif_and_sio_octets_received)*8)
+			 / 
+			(mtpnmsc.period_duration*60*mtpnmsc.bitrate*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[MTP utilisation in receive]]></title>
+      <use><![CDATA[Indicates utilisation of MTP in receiving (kbit/s).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      sum(MSUS_RECEIVED * 6 + SIF_AND_SIO_OCTETS_RECEIVED) * 8
+&lt;br&gt;100* ---------------------------------------------------- 
+&lt;br&gt;      (PERIOD DURATION(min) * 60 * BITRATE(kbit/s) * 1000)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_MTPMSC_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_MTPHLR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_MTPSRR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_MTPNMSC_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_MTPNHLR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_MTPNSRR_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_mtpnmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[MTP utilisation in receive]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

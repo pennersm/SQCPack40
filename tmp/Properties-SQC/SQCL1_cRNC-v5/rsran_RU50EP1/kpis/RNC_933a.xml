@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/IUPS.xml" />
+	<kpi name="RNC_933a">
+		<formula>
+			decode(((iups.period_duration*60)*1000),0,null,(iups.input_traf_bytes_tc_stream*10*8)/((iups.period_duration*60)*1000))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Iu-PS incoming streaming user data throughput in RNC]]>
+			</title>
+			<use>
+				<![CDATA[Incoming user data throughput in Iu-PS interface for streaming class connections. Does not include the IP, UDP or GTP headers.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+sum ( INPUT_TRAF_BYTES_TC_STREAM * 10 * 8 )
+-----------------------------------------
+sum ( PERIOD_DURATION * 60 ) * 1000
+				</pre>]]>
+			</formula>
+			<unit>[kbit/s]</unit>
+			<tables>nokrww_ps_IUPS_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Iu-PS incoming streaming user data throughput in RNC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

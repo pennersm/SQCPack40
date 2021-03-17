@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="mob_vlr54d">
+    <formula>decode(
+			(VLRNMSC.SIM_AVG_REG_TOTAL + 
+			VLRNMSC.USIM_AVG_REG_TOTAL + 
+			VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null, 
+
+			(VLR1MSC.INTRAVLRINTRAPLMNHSGSMATTEMPT + 
+			VLR1MSC.INTRAVLRINTRAPLMNHSUMTSATTEMPT + 
+			VLR1MSC.INTRAVLRINTERPLMNHSGSMATTEMPT + 
+			VLR1MSC.INTRAVLRINTERPLMNHSUMTSATTEMPT + 
+			VLR1MSC.INTRAVLRINTRAPLMNRSGSMATTEMPT + 
+			VLR1MSC.INTRAVLRINTRAPLMNRSUMTSATTEMPT + 
+			VLR1MSC.INTRAVLRINTERPLMNRSGSMATTEMPT + 
+			VLR1MSC.INTRAVLRINTERPLMNRSUMTSATTEMPT)
+			 / 
+			(VLRNMSC.SIM_AVG_REG_TOTAL + 
+			VLRNMSC.USIM_AVG_REG_TOTAL + 
+			VLRNMSC.UNKNOWN_AVG_REG_TOTAL))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra-VLR LU attempts per subscriber (GSM + UMTS). SIM_USIM Opt.]]></title>
+      <use><![CDATA[Indicates amount of Intra-VLR location update attempts per subscriber (GSM + UMTS). This KPI is only applicable if SIM_USIM_MEAS_PER_LAI FIFILE parameter is active.]]></use>
+  
+<use_experience><![CDATA[ 
+<br>This KPI includes optional features.
+<br>Normal subscribers are counted.
+<br>Starting from M14.6, the UMTS LU attempts also count the I-HSPA related events (LU attempts via I-HSPA).
+<br>This KPI is only applicable if SIM_USIM_MEAS_PER_LAI FIFILE parameter is active.
+<br>
+<br>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive please use mob_vlr54c KPI.
+<br>
+<br>If SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active please use mob_vlr54e KPI.
+<br>
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 01-09-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>+
+<br>VLR measurement, part n (M80)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>       SUM(
+&lt;br&gt;              a.IntraVLRIntraPLMNHSGSMAttempt
+&lt;br&gt;            + a.IntraVLRIntraPLMNHSUMTSAttempt
+&lt;br&gt;            + a.IntraVLRInterPLMNHSGSMAttempt
+&lt;br&gt;            + a.IntraVLRInterPLMNHSUMTSAttempt
+&lt;br&gt;            + a.IntraVLRIntraPLMNRSGSMAttempt
+&lt;br&gt;            + a.IntraVLRIntraPLMNRSUMTSAttempt
+&lt;br&gt;            + a.IntraVLRInterPLMNRSGSMAttempt
+&lt;br&gt;            + a.IntraVLRInterPLMNRSUMTSAttempt )
+&lt;br&gt;--------------------------------------------------------------
+&lt;br&gt;              msc_2047a
+&lt;br&gt;
+&lt;br&gt;Counters from table(s)/view(s):
+&lt;br&gt;a = RNS_PS_VLR1MSC_MSC_&lt;Time&gt;, RNS_PS_VR1MCBH_MSC_&lt;Time&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}, RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IntrVLRLUAttSubsGSM+UMTS On]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

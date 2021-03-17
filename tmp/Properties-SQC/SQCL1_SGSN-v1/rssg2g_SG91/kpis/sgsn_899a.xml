@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSD.xml"/>
+  <kpi name="sgsn_899a">
+    <formula>decode(
+			((60*IUSD.period_duration*1048576)),0,NULL, 
+
+			((8*(IUSD.iu_avg_gtp_byte_sum + 
+			4294967296*IUSD.iu_avg_gtp_byte_sum_overflow)))
+			 / 
+			((60*IUSD.period_duration*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu GTP average throughput, SGSN]]></title>
+      <use><![CDATA[This KPI shows the average GTP throughput on SGSN level for Iu traffic]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (8 * (iu_avg_gtp_byte_sum + 4294967296 * iu_avg_gtp_byte_sum_overflow))
+&lt;br&gt;---------------------------------------------------------------------------
+&lt;br&gt;                   sum (60 * period_duration * 1048576)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>RSG_PS_IUSD_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Iu GTP avg thp, SGSN]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/IACIMSN.xml" />
+  <temp_table_ref src="nss/counters/IACOMSN.xml" />
+  <kpi name="msc_4064a">
+    <formula>decode(
+		( iacimsn.inap_iac_sum_started + iacomsn.inap_oac_sum_started),0,null, 
+		(100*( iacimsn.inap_iac_sum_failed + iacomsn.inap_oac_sum_failed )/
+       ( iacimsn.inap_iac_sum_started + iacomsn.inap_oac_sum_started )))</formula>
+    <kpi_info>
+      <title><![CDATA[IN request Failure Ratio]]></title>
+      <use><![CDATA[indicates the failure ratio of request to the Intelligent Network.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This Measurement supports only max 10 destination addresses.
+<br>
+<br>KPI BH is found when: MAX of SUM( INAP_IAC_SUM_FAILED + INAP_OAC_SUM_FAILED ) is found.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 31-07-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): INAP Application Contexts-Incoming report (196/C4H)
+<br>+
+<br>INAP Application Contexts-Outgoing report (197/C5H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;IN request Failure Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( INAP_IAC_SUM_FAILED + INAP_OAC_SUM_FAILED )
+&lt;br&gt;100 * ------------------------------------------------------
+&lt;br&gt;       SUM( INAP_IAC_SUM_STARTED + INAP_OAC_SUM_STARTED )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_iacimsn_{obj_agg}_{time_agg},rns_ps_iacomsn_{obj_agg}_{time_agg},rns_ps_iacihsn_{obj_agg}_{time_agg},rns_ps_iacohsn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IN requests FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

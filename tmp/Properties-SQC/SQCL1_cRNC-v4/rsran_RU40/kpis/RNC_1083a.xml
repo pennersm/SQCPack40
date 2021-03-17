@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/PKTCALL.xml">
+		<counters>
+			<counter alias="rnc_930a">
+				sum(ps_att_hsdsch_edch_int+ps_att_hsdsch_edch_bgr+ps_att_hsdsch_dch_int+ps_att_hsdsch_dch_bgr+ps_att_dch_dch_int+ps_att_dch_dch_bgr)
+			</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_1083a">
+		<formula>
+			decode((pktcall.rnc_930a),0,null,(100*(pktcall.ps_setup_fail_other_bgr+pktcall.ps_setup_fail_other_int)/(pktcall.rnc_930a)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[PS Setup FR for I&B due to Others]]>
+			</title>
+			<use>
+				<![CDATA[Packet call setup failure rate due to other reasons for interactive and background traffic class.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 *
+sum ( PS_SETUP_FAIL_OTHER_BGR + PS_SETUP_FAIL_OTHER_INT )
+-----------------
+RNC_930a
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[PS Setup FR for I&B due to Others]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

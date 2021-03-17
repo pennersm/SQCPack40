@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml" />
+  <kpi name="msc_601c">
+    <formula>
+decode(CCMEA_ext.CCMEAS_SPEECH,0,null,
+	100*(CCMEA_ext.CCMEAS_SPEECH_INT + CCMEA_ext.CCMEAS_SPEECH_EXT)/CCMEA_ext.CCMEAS_SPEECH
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Dropped calls ratio]]></title>
+      <use><![CDATA[If the call is answered and it is not successful]]></use>
+
+<use_experience><![CDATA[ 
+<br>
+<br>Dropped calls are considered when clear codes reveal a internal or external congestion, i.e. when clear codes groups are part of:
+<br>
+<br>0400H - 07FFH => Internal congestion
+<br>0800H - 0BFFH => External congestion
+<br>
+<br>It is possible that the used clear codes may have to be agreed/checked next to the customer (what does the customer considers as drop call?). Example: if a call is cleared like subcriber busy, should that count as dropped call?
+<br>
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 18-12-2009
+<br>
+<br>THEORETICAL SUMMARY LEVELS: PLMN - MSC - CC
+<br>RECOMMENDED SUMMARY LEVELS: PLMN - MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Clear code measurement (M131)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        sum (CCMEAS_SPEECH) ;where clearcode_id = (0400H - 07FFH) + (0800H - 0BFFH)
+&lt;br&gt;100 * ----------------------------------------------------- 
+&lt;br&gt;        sum(CCMEAS_SPEECH) ;where clearcode_id = all
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;Use NetAct aggregated tables</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_CCMEA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Drop calls ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

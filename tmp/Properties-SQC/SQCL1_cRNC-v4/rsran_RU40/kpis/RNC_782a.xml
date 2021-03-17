@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_782a">
+    <formula>decode(
+			(intsysho.if_hho_w_cm_lb_prx_tot_rt + 
+			intsysho.if_hho_w_cm_lb_ptx_tot_rt + 
+			intsysho.if_hho_w_cm_lb_rsvr_sc_rt + 
+			intsysho.if_hho_w_cm_lb_res_lim_rt + 
+			intsysho.if_hho_wo_cm_lb_prx_tot_rt + 
+			intsysho.if_hho_wo_cm_lb_ptx_tot_rt + 
+			intsysho.if_hho_wo_cm_lb_rsvr_sc_rt + 
+			intsysho.if_hho_wo_cm_lb_res_lim_rt),0,null, 
+
+			100 - 
+			100*(intsysho.if_hho_nocell_lb_prx_tot_rt + 
+			intsysho.if_hho_nocell_lb_ptx_tot_rt + 
+			intsysho.if_hho_nocell_lb_rsvr_sc_rt + 
+			intsysho.if_hho_nocell_lb_res_lim_rt)
+			 / 
+			(intsysho.if_hho_w_cm_lb_prx_tot_rt + 
+			intsysho.if_hho_w_cm_lb_ptx_tot_rt + 
+			intsysho.if_hho_w_cm_lb_rsvr_sc_rt + 
+			intsysho.if_hho_w_cm_lb_res_lim_rt + 
+			intsysho.if_hho_wo_cm_lb_prx_tot_rt + 
+			intsysho.if_hho_wo_cm_lb_ptx_tot_rt + 
+			intsysho.if_hho_wo_cm_lb_rsvr_sc_rt + 
+			intsysho.if_hho_wo_cm_lb_res_lim_rt))</formula>
+    <kpi_info>
+      <title><![CDATA[Cell found ratio for LB IFHO RT]]></title>
+      <use><![CDATA[The ratio of finding a good enough cell for LB IFHO RT after the measurement phase. (LB = Load Based)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;1 - 100 *
+&lt;br&gt;sum( IF_HHO_NOCELL_LB_PRX_TOT_RT
+&lt;br&gt;   + IF_HHO_NOCELL_LB_PTX_TOT_RT
+&lt;br&gt;   + IF_HHO_NOCELL_LB_RSVR_SC_RT
+&lt;br&gt;   + IF_HHO_NOCELL_LB_RES_LIM_RT )
+&lt;br&gt; -----------------------------------------------------
+&lt;br&gt;sum( IF_HHO_W_CM_LB_PRX_TOT_RT
+&lt;br&gt;   + IF_HHO_W_CM_LB_PTX_TOT_RT
+&lt;br&gt;   + IF_HHO_W_CM_LB_RSVR_SC_RT
+&lt;br&gt;   + IF_HHO_W_CM_LB_RES_LIM_RT
+&lt;br&gt;   + IF_HHO_WO_CM_LB_PRX_TOT_RT
+&lt;br&gt;   + IF_HHO_WO_CM_LB_PTX_TOT_RT 
+&lt;br&gt;   + IF_HHO_WO_CM_LB_RSVR_SC_RT
+&lt;br&gt;   + IF_HHO_WO_CM_LB_RES_LIM_RT )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cell found ratio for LB IFHO RT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

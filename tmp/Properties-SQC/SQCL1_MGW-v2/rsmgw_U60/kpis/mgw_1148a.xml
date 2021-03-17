@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/NRIR.xml" />
+  <kpi name="mgw_1148a">
+    <formula>decode(
+			((nrir.all_nnsf_routings)),0,null, 
+
+			(100*(nrir.nnsf_without_nri)
+			 / 
+			(nrir.all_nnsf_routings)))</formula>
+    <kpi_info>
+      <title><![CDATA[NNSF routing without NRI usage ratio]]></title>
+      <use><![CDATA[Indicates RAN Node specific usage ratio of NNSF (NAS Node Selection Functionality) routings without valid NRI (Network Resource Identifier) compared to all NNSF routings.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(NNSF_WITHOUT_NRI)
+&lt;br&gt;100 * ---------------------
+&lt;br&gt;      SUM(ALL_NNSF_ROUTINGS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_nrir_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NNSF routing no NRI usage</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 Overload_WAC OLWAC measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 Overload_WAC OLWAC measurement dump</csv_title>
+    <report-description>WAC Overload Control</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <WAC_GATE_REQ_TOTAL />
+    <WAC_GATE_REQ_TOTAL_REJ />
+  </column_order>
+  <temp_table name="OLWAC" meas_level="PLMN/RNC/UTYPE/UNITID/WAC" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="WAC_GATE_REQ_TOTAL">SUM(WAC_GATE_REQ_TOTAL)</counter>
+      <counter alias="WAC_GATE_REQ_TOTAL_REJ">SUM(WAC_GATE_REQ_TOTAL_REJ)</counter>
+    </counters>
+    <table_name>nokrww_ps_olwac_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>OLWAC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>OLWAC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_olwac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="WAC_GATE_REQ_TOTAL">
+    <formula>OLWAC.WAC_GATE_REQ_TOTAL</formula>
+    <kpi_info>
+      <title>WAC_GATE_REQ_TOTAL</title>
+      <use>The total number of WAC (Windows Access Control) Gate requests that has been released and rejected. When an entity wants to establish some kind of a signalling connection, such as an AAL2 signalling connection, it should firstly ask permission from WAC Gate. If the maximum number of accesses is reached, the request is rejected or put into a queue, waiting for resources to be released by other. With WAC in place, it is possible to protect system resources and prevent overload situations. UPDATED:When a resource request is released or rejected in WAC Gate, this counter will be updated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(WAC_GATE_REQ_TOTAL)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_olwac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WAC_GATE_REQ_TOTAL (M594C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="WAC_GATE_REQ_TOTAL_REJ">
+    <formula>OLWAC.WAC_GATE_REQ_TOTAL_REJ</formula>
+    <kpi_info>
+      <title>WAC_GATE_REQ_TOTAL_REJ</title>
+      <use>The total number of rejected WAC (Windows Access Control) Gate requests. When an entity wants to establish some kind of a signalling connection, such as an AAL2 signalling connection, it should first ask permission from WAC Gate. If the maximum number of accesses is reached, the request will be rejected or put into a queue, waiting for resources to be released. With WAC in place, it is possible to protect system resources and prevent overload situations. UPDATED:When a resource request is rejected in WAC Gate.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(WAC_GATE_REQ_TOTAL_REJ)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_olwac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WAC_GATE_REQ_TOTAL_REJ (M594C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

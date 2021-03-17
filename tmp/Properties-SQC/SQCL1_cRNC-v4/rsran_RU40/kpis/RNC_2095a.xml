@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_2095a">
+    <formula>decode(
+			((HSDPAW.mac_hs_pdu_retr_dist_cl_0 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_1 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_2 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_3 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_4 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_5)),0,null, 
+
+			((hsdpaw.orig_trans_mac_ehs_pdu_mimo_1 + 
+			hsdpaw.retrans_mac_ehs_pdu_mimo_d_1))
+			 / 
+			((HSDPAW.mac_hs_pdu_retr_dist_cl_0 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_1 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_2 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_3 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_4 + 
+			HSDPAW.mac_hs_pdu_retr_dist_cl_5)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[MIMO usage ratio]]></title>
+      <use><![CDATA[The number of original MAC-ehs PDUs transmitted with MIMO dual stream compared to the total number of original MAC-hs PDUs being transmitted.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (orig_trans_mac_ehs_pdu_mimo_d + retrans_mac_ehs_pdu_mimo_d)
+&lt;br&gt;--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- * 100
+&lt;br&gt;sum (mac_hs_pdu_retr_dist_cl_0 + mac_hs_pdu_retr_dist_cl_1 + mac_hs_pdu_retr_dist_cl_2 + mac_hs_pdu_retr_dist_cl_3 + mac_hs_pdu_retr_dist_cl_4 + mac_hs_pdu_retr_dist_cl_5)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[MIMO usage ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/HSDPAW_ext.xml" />
+</conf_file>
+

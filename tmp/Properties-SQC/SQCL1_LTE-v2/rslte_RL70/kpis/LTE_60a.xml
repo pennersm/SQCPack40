@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIANBHO.xml"/>
+  <temp_table_ref src="rslte/counters/LIENBHO.xml"/>
+  <kpi name="LTE_60a">
+    <formula>decode(
+			((lienbho.att_inter_enb_ho)),0,null, 
+
+			(100*(lianbho.enb_ho_drop_rlfail))
+			 / 
+			((lienbho.att_inter_enb_ho)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter eNB HO DR  due to RL fail]]></title>
+      <use><![CDATA[Ratio between  the number of Inter eNB Handover drops due to Radio Link Failure  and the number of all Inter eNB Handover Requests.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100 * sum( ENB_HO_DROP_RLFAIL )
+&lt;br&gt;      -------------------------
+&lt;br&gt;      sum(ATT_INTER_ENB_HO)                    
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LIANBHO_{OBJ_AGG}_{TIME_AGG}, NOKLTE_PS_LIENBHO_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Inter eNB HO DR  due to RL fail]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

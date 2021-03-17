@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 CpuUsage CPU measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 CpuUsage CPU measurement dump</csv_title>
+    <report-description>Flexi platform cpu usage statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SumCntCPUUsage />
+    <SumCPUElapsedTime />
+    <SumCPUIdleTime />
+    <MIN_CPU_USAGE />
+    <MAX_CPU_USAGE />
+    <AVG_CPU_USAGE />
+  </column_order>
+  <temp_table name="CPU" meas_level="PLMN/FING/FNODE/CPU" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="SumCntCPUUsage" time-alias="SumCntCPUUsage" timeagg="AVG(SumCntCPUUsage)">AVG(SumCntCPUUsage)</counter>
+      <counter alias="SumCPUElapsedTime" time-alias="SumCPUElapsedTime" timeagg="AVG(SumCPUElapsedTime)">AVG(SumCPUElapsedTime)</counter>
+      <counter alias="SumCPUIdleTime" time-alias="SumCPUIdleTime" timeagg="AVG(SumCPUIdleTime)">AVG(SumCPUIdleTime)</counter>
+      <counter alias="MIN_CPU_USAGE" time-alias="MIN_CPU_USAGE" timeagg="MIN(MIN_CPU_USAGE)">MIN(MIN_CPU_USAGE)</counter>
+      <counter alias="MAX_CPU_USAGE" time-alias="MAX_CPU_USAGE" timeagg="MAX(MAX_CPU_USAGE)">MAX(MAX_CPU_USAGE)</counter>
+      <counter alias="AVG_CPU_USAGE" time-alias="AVG_CPU_USAGE" timeagg="AVG(AVG_CPU_USAGE)">AVG(AVG_CPU_USAGE)</counter>
+    </counters>
+    <table_name>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CPU</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CPU.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SumCntCPUUsage">
+    <formula>CPU.SumCntCPUUsage</formula>
+    <kpi_info>
+      <title>SumCntCPUUsage</title>
+      <use>This PI is a gauge that contains cumulative CPU usage (%), summed over sample points. UPDATED: Sample is taken from the node's CPU usage (%) at the frequency specified in the measurement type specification.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(SumCntCPUUsage)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SumCntCPUUsage (local_m02002c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SumCPUElapsedTime">
+    <formula>CPU.SumCPUElapsedTime</formula>
+    <kpi_info>
+      <title>SumCPUElapsedTime</title>
+      <use>This PI is a gauge that contains cumulative CPU usage (%), summed over sample points. UPDATED: Sample is taken from the node's CPU usage (%) at the frequency specified in the measurement type specification.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(SumCPUElapsedTime)</formula>
+      <unit>sec</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SumCPUElapsedTime (local_m02002c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SumCPUIdleTime">
+    <formula>CPU.SumCPUIdleTime</formula>
+    <kpi_info>
+      <title>SumCPUIdleTime</title>
+      <use>This PI contains idle time  summed over all sample points. UPDATED: Updated at each sample point</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(SumCPUIdleTime)</formula>
+      <unit>sec</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SumCPUIdleTime (local_m02002c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_CPU_USAGE">
+    <formula>CPU.MIN_CPU_USAGE</formula>
+    <kpi_info>
+      <title>MIN_CPU_USAGE</title>
+      <use>The minimum CPU usage in percent (within 0 and 100 with values rounded to the next integer). The minimum is calculated by taking the average of CPU usage over 30 seconds samples and taking the smallest of those during the reporting period. The measured period of the samples is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: The CPU usage is sampled in 30 second intervals.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_CPU_USAGE (m2002c0003)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_CPU_USAGE">
+    <formula>CPU.MAX_CPU_USAGE</formula>
+    <kpi_info>
+      <title>MAX_CPU_USAGE</title>
+      <use>The maximum CPU usage in percent (within 0 and 100 with values rounded to the next integer). The maximum is calculated by taking the average of CPU usage over 30 seconds samples and taking the biggest of those during the reporting period. The measured period of the samples is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: The CPU usage is sampled in 30 second intervals.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_CPU_USAGE (m2002c0004)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE">
+    <formula>CPU.AVG_CPU_USAGE</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE</title>
+      <use>The average CPU usage in percent (between 0 and 100 with values rounded to the next integer) during the reporting period between time T1 (beginning of the reporting period) and T2 (end of the reporting period). This is calculated using the formula: 100 - 100 * delta(cumulative number of CPU idle seconds)/delta(cumulative elapsed time), where delta(X) = X(T2) - X(T1).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVG_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_cpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE (m2002c0005)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LISHOG (LTE Inter System Handover to GSM per Neighbour Cell)</header>
+    <csv_title>LISHOG (LTE Inter System Handover to GSM per Neighbour Cell)</csv_title>
+    <report-description>LTE Inter System Handover to GSM per Neighbour Cell measurement (M8019) measures the inter RAT handover related procedures per neighbor cell relation. The counters are updated for the cell pair "source cell - target GSM cell". The target identifier "{location area code (LAC)} + {target cell ID (TCID)}" is derived from the call processing protocols. It is not equal to the managed object identifiers known only in network management system.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <NACC_TO_GSM_ATT_NB />
+    <NACC_TO_GSM_SUCC_NB />
+    <NACC_TO_GSM_FAIL_NB />
+    <ISYS_HO_GERAN_SRVCC_ATT_NB />
+    <ISYS_HO_GERAN_SRVCC_SUCC_NB />
+    <ISYS_HO_GERAN_SRVCC_FAIL_NB />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LISHOG" meas_level="PLMN/MRBTS/LNBTS/LNCEL/LAC/TCID1" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LISHOG</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="NACC_TO_GSM_ATT_NB" symmetrical="true">SUM(NACC_TO_GSM_ATT_NB)</counter>
+	  <counter alias="NACC_TO_GSM_SUCC_NB" symmetrical="true">SUM(NACC_TO_GSM_SUCC_NB)</counter>
+	  <counter alias="NACC_TO_GSM_FAIL_NB" symmetrical="true">SUM(NACC_TO_GSM_FAIL_NB)</counter>
+	  <counter alias="ISYS_HO_GERAN_SRVCC_ATT_NB" symmetrical="true">SUM(ISYS_HO_GERAN_SRVCC_ATT_NB)</counter>
+	  <counter alias="ISYS_HO_GERAN_SRVCC_SUCC_NB" symmetrical="true">SUM(ISYS_HO_GERAN_SRVCC_SUCC_NB)</counter>
+	  <counter alias="ISYS_HO_GERAN_SRVCC_FAIL_NB" symmetrical="true">SUM(ISYS_HO_GERAN_SRVCC_FAIL_NB)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LISHOG</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LISHOG.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NACC_TO_GSM_ATT_NB">
+    <formula>LISHOG.NACC_TO_GSM_ATT_NB</formula>
+    <kpi_info>
+      <title>NACC_TO_GSM_ATT_NB</title>
+      <use>This measurement provides the number of NACC from LTE to GSM attempts per neighbor cell relationship. UPDATED: Transmission of the RRC:MobilityFromEUTRANCommand message (with cell change order to GSM; 3GPP TS 36.331) from the serving eNB to the UE indicates the attempt of a Network Assisted Cell Change (NACC) from LTE to GSM.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NACC_TO_GSM_ATT_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NACC_TO_GSM_ATT_NB (M8019C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NACC_TO_GSM_SUCC_NB">
+    <formula>LISHOG.NACC_TO_GSM_SUCC_NB</formula>
+    <kpi_info>
+      <title>NACC_TO_GSM_SUCC_NB</title>
+      <use>This measurement provides the number of successful NACC from LTE to GSM completions per neighbor cell relationship. UPDATED: Reception of the S1AP: UE Context Release Command message (received by the eNB from the MME; 3GPP TS 36.413) with cause value Radio Network Layer (Successful Handover) in a response to the RRC: MobilityFromEUTRANCommand message (with cell change order to GSM; message was sent before by the eNB to the UE) indicates that the NACC from LTE to GSM was successfully completed.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NACC_TO_GSM_SUCC_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NACC_TO_GSM_SUCC_NB (M8019C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NACC_TO_GSM_FAIL_NB">
+    <formula>LISHOG.NACC_TO_GSM_FAIL_NB</formula>
+    <kpi_info>
+      <title>NACC_TO_GSM_FAIL_NB</title>
+      <use>This measurement provides the number of failed NACC from LTE to GSM per neighbor cell relationship. UPDATED: Expiry of the guarding timer T_eNACCoverall.
+
+Explanation: After sending the RRC: MobilityFromEUTRANCommand message (with cell change order to GSM) the eNB starts the timer T_eNACCoverall which guards against failure to complete the overall NACC from LTE to GSM procedure at the eNB.
+The timer is stopped when the S1AP: UE Context Release Command message is received (by the eNB from the MME).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NACC_TO_GSM_FAIL_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NACC_TO_GSM_FAIL_NB (M8019C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ISYS_HO_GERAN_SRVCC_ATT_NB">
+    <formula>LISHOG.ISYS_HO_GERAN_SRVCC_ATT_NB</formula>
+    <kpi_info>
+      <title>ISYS_HO_GERAN_SRVCC_ATT_NB</title>
+      <use>This measurement provides the number of Inter System Handover attempts to GERAN with SRVCC (Single Radio Voice Call Continuity, 3GPP TS 23.216) per neighbor cell relationship. UPDATED: Reception of an S1AP:HANDOVER COMMAND message (source eNB &lt;- MME; 3GPP TS 36.413) in case this message is received in response to the preparation of an Inter System Handover to GERAN with SRVCC (Single Radio Voice Call Continuity, 3GPP TS 23.216).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ISYS_HO_GERAN_SRVCC_ATT_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_GERAN_SRVCC_ATT_NB (M8019C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ISYS_HO_GERAN_SRVCC_SUCC_NB">
+    <formula>LISHOG.ISYS_HO_GERAN_SRVCC_SUCC_NB</formula>
+    <kpi_info>
+      <title>ISYS_HO_GERAN_SRVCC_SUCC_NB</title>
+      <use>This measurement provides the number of successful Inter System Handover completions to GERAN with SRVCC (Single Radio Voice Call Continuity, 3GPP TS 23.216) per neighbor cell relationship. UPDATED: Reception of an S1AP:UE CONTEXT RELEASE COMMAND message (source eNB &lt;- MME; 3GPP TS 36.413) with Cause value &quot;Radio Network Layer (Successful Handover)&quot; in case this message is received for an Inter System Handover to GERAN with SRVCC (Single Radio Voice Call Continuity, 3GPP TS 23.216).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ISYS_HO_GERAN_SRVCC_SUCC_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_GERAN_SRVCC_SUCC_NB (M8019C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ISYS_HO_GERAN_SRVCC_FAIL_NB">
+    <formula>LISHOG.ISYS_HO_GERAN_SRVCC_FAIL_NB</formula>
+    <kpi_info>
+      <title>ISYS_HO_GERAN_SRVCC_FAIL_NB</title>
+      <use>This measurement provides the number of failed Inter System Handover attempts to GERAN with SRVCC (Single Radio Voice Call Continuity, 3GPP TS 23.216) per neighbor cell relationship. UPDATED: Expiration of the guarding timer TS1RELOCoverall (3GPP TS 36.413) in case this timer was started because of an Inter System Handover to GERAN with SRVCC (Single Radio Voice Call Continuity, 3GPP TS 23.216).
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ISYS_HO_GERAN_SRVCC_FAIL_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ISYS_HO_GERAN_SRVCC_FAIL_NB (M8019C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LISHOG.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lishog_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIENBHO.xml" />
+  <kpi name="LTE_5079b">
+    <formula>100*decode(
+			(lienbho.inter_enb_s1_ho_prep - 
+			lienbho.inter_s1_ho_prep_fail_other),0,null, 
+
+			lienbho.inter_s1_ho_prep_fail_time
+			 / 
+			(lienbho.inter_enb_s1_ho_prep - 
+			lienbho.inter_s1_ho_prep_fail_other))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN HO Preparation Failure Ratio per Cause "timer TS1RELOCprep" failure (TIME), inter eNB S1 based]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific inter eNB S1based handover preparation failure cause related to total number of inter eNB S1 based HO preparations. The source eNB fails to prepare resources for the handover to a neighboring cell in a target eNB.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(INTER_S1_HO_PREP_FAIL_TIME) / sum(INTER_ENB_S1_HO_PREP - INTER_S1_HO_PREP_FAIL_OTHER)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LIENBHO_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/10/02 15:01:58.466 +0100</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN HO prep FR, timer TS1RELOCprep</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

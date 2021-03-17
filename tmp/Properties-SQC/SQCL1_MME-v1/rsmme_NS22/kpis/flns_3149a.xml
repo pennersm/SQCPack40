@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SMMT.xml" />
+  <kpi name="flns_3149a">
+    <formula>decode(
+            (smmt.pdn_connectivity_failed_ue + 
+            smmt.pdn_connectivity_failed_enb),0,null,
+    
+            smmt.pdn_connectivity_failed_ue
+            / 
+            (smmt.pdn_connectivity_failed_ue + 
+            smmt.pdn_connectivity_failed_enb))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PDN connection activation success ratio, UE initiated]]></title>
+      <use><![CDATA[This KPI shows the success ratio of UE initiated PDN connection activation procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(PDN_CONNECTIVITY_FAILED_UE)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(PDN_CONNECTIVITY_FAILED_UE + 
+&lt;br&gt;   PDN_CONNECTIVITY_FAILED_ENB)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_SMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:42.529 +0100</date>
+          <comment><![CDATA[Source: RSMME000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PDN act SR, UE init</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

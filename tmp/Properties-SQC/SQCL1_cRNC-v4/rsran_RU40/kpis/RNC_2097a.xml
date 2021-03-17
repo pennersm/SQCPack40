@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CSHSPAU.xml"/>
+  <kpi name="RNC_2097a">
+    <formula>100*decode(
+			((CSHSPAU.total_ul_frames_cs_v_hspa)),0,null, 
+
+			((CSHSPAU.late_ul_frames_cs_v_hspa))
+			 / 
+			((CSHSPAU.total_ul_frames_cs_v_hspa)))</formula>
+    <kpi_info>
+      <title><![CDATA[CS Voice over HSPA E-DCH Frame Discard ratio due to jitter quality]]></title>
+      <use><![CDATA[CS Voice over HSPA E-DCH Frame Discard ratio due to jitter quality provides information about the ratio between the number of E-DCH uplink frames received too late and therefore discarded and the total number of received E-DCH uplink frames for CS Voice HSPA.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (late_ul_frames_cs_v_hspa)
+&lt;br&gt;100 * -------------------------------
+&lt;br&gt;      sum (total_ul_frames_cs_v_hspa)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_CSHSPAU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CSVoiceHSPA EDCH DiscRate]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_637b">
+    <formula>decode(
+			(tc_ext.tcat_call_amount_30),0,null, 
+
+			(100*tc_ext.tcat_ring_amount_12
+			 / 
+			tc_ext.tcat_call_amount_30))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Incoming calls ringing ratio]]></title>
+      <use><![CDATA[RING RATIO, shows how may percentage of the incoming calls reach the ALERTING phase]]></use>
+
+<use_experience><![CDATA[ 
+<br>Traffic categories:
+<br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+<br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+<br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+<br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+<br>74 = SIP ORIG = SIP originating traffic
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.0
+<br>LAST UPDATE: 05-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC; TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature. Counters are generic from M14 release onwards.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      sum (tcat_ring_amount)
+&lt;br&gt;100 *  ------------------------------------------------------------------------
+&lt;br&gt;      sum (tcat_call_amount)
+&lt;br&gt;
+&lt;br&gt;;where traffic_category_id in (32, 34, 45, 15, 16, 74)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Incoming calls ringing ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/DSPRESU2.xml" />
+  <kpi name="MGW_974a">
+    <formula>decode(
+			(dspresu2.succ_res_alloc_on_ne +
+			dspresu2.fail_alloc_ppc_on_ne +
+			dspresu2.fail_alloc_dsp_on_ne),0,0,
+
+			(100*(dspresu2.fail_alloc_ppc_on_ne)
+			 /
+			(dspresu2.succ_res_alloc_on_ne +
+			dspresu2.fail_alloc_ppc_on_ne +
+			dspresu2.fail_alloc_dsp_on_ne)))</formula>
+    <kpi_info>
+      <title><![CDATA[Resources allocation failure ratios due shared TPG resources]]></title>
+      <use><![CDATA[The ratio of  resource allocation failed due to lack of shared TPG resources.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(FAIL_ALLOC_PPC_ON_NE) / sum(SUCC_RES_ALLOC_ON_NE
+&lt;br&gt;+FAIL_ALLOC_PPC_ON_NE+FAIL_ALLOC_DSP_ON_NE)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_dspresu2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Res Allo FR Shared TPG Res]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

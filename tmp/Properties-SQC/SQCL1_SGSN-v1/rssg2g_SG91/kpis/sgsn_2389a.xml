@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <temp_table_ref src="rssg2g/counters/IURA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_2389a">
+    <formula>3600*decode(SIGN(
+			decode(
+			((IUSM.period_duration*60)),0,NULL,((IUSM.IU_SUCC_PDP_CON_MOD + 
+			IUSM.IU_FAIL_PDP_CON_MOD - 
+			(PAUS.DIRECT_TUN_CHANGES_2T_TO_1T + 
+			((IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))) + 
+			(IUMM2.IU_SUCC_INTER_PAPU_RE + 
+			IUMM2.IU_SUCC_INTER_SGSN_RE) + 
+			(IUMM2.IU_SUCC_INTRA_PAPU_RE*decode(
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE),0,NULL,(PAUS.DIRECT_TUN_PDP_CONT_PEAK)
+			 / 
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE))) + 
+			((IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))))))
+			 / 
+			((IUSM.period_duration*60))) ),-1,0,decode(
+			((IUSM.period_duration*60)),0,NULL,((IUSM.IU_SUCC_PDP_CON_MOD + 
+			IUSM.IU_FAIL_PDP_CON_MOD - 
+			(PAUS.DIRECT_TUN_CHANGES_2T_TO_1T + 
+			((IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))) + 
+			(IUMM2.IU_SUCC_INTER_PAPU_RE + 
+			IUMM2.IU_SUCC_INTER_SGSN_RE) + 
+			(IUMM2.IU_SUCC_INTRA_PAPU_RE*decode(
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE),0,NULL,(PAUS.DIRECT_TUN_PDP_CONT_PEAK)
+			 / 
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE))) + 
+			((IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))))))
+			 / 
+			((IUSM.period_duration*60))) )
+            /
+            decode(
+			(paus.avg_attach_iu_users_sum * paus.avg_attach_iu_users_den),0,NULL,(paus.avg_attach_iu_users_sum / paus.avg_attach_iu_users_den))
+            
+            </formula>
+    <kpi_info>
+      <title><![CDATA[3G PDP context modification requests per subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of 3G PDP context modification request procedures per subscriber per hour.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>3600 * sgsn_2137a
+&lt;br&gt;--------------------
+&lt;br&gt;sgsn_693a
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUSM_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IURA_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[3G PDP ctx mod req /subs /h]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

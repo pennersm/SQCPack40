@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml" />
+  <kpi name="sgsn_106a">
+    <formula>decode(
+			(paus.succ_ihspa_inter_sgsn_rau + 
+			paus.fail_ihspa_inter_sgsn_rau),0,NULL, 
+
+			(100*(paus.succ_ihspa_inter_sgsn_rau)
+			 / 
+			(paus.succ_ihspa_inter_sgsn_rau + 
+			paus.fail_ihspa_inter_sgsn_rau)))</formula>
+    <kpi_info>
+      <title><![CDATA[I-HSPA inter SGSN RAU success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of I-HSPA inter SGSN RA updates.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_IHSPA_INTER_SGSN_RAU)
+&lt;br&gt;--------------------------------- *100
+&lt;br&gt;sum(SUCC_IHSPA_INTER_SGSN_RAU +
+&lt;br&gt;   FAIL_IHSPA_INTER_SGSN_RAU)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_papu_user</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_paus_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IHSPA inter SGSN RAU SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

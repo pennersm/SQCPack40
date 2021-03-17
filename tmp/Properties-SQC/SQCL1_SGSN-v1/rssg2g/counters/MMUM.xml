@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file >
+  <info >
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows >100</maxrows>
+    <header >MMUM</header>
+    <csv_title >MMUM</csv_title>
+    <report-description >GPRS MMDU user measurement(MMUM)</report-description>
+    <obj_number >20</obj_number>
+    <csv_rule >reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header >off</wrap_header>
+    <help_file >about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order >
+    <period_duration />
+    <AVE_ATTACH_USERS_PER_MMDU_SUM />
+    <AVE_ATTACH_USERS_PER_MMDU_DEN />
+    <PEAK_ATTACH_USERS_PER_MMDU />
+    <DET_UNPURGED_USERS_MMDU_SUM />
+    <DET_UNPURGED_USERS_MMDU_DEN />
+    <PEAK_DET_UNPURGED_USERS_MMDU />
+  </column_order>
+  <temp_table name="MMUM" meas_level="PLMN/SGSN/RSSG2G-MMDU" type="PM" master="yes" pragma="rssg2g" create="yes" >
+    <koala_meas_id_list >MMUM</koala_meas_id_list>
+    <counters >
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+          <counter alias="AVE_ATTACH_USERS_PER_MMDU_SUM" symmetrical="true"  >SUM(AVE_ATTACH_USERS_PER_MMDU_SUM)</counter>
+          <counter alias="AVE_ATTACH_USERS_PER_MMDU_DEN" time-alias="AVE_ATTACH_USERS_PER_MMDU_DEN" time-formula="sum(AVE_ATTACH_USERS_PER_MMDU_DEN)" object-formula="avg(AVE_ATTACH_USERS_PER_MMDU_DEN)"  >AVG(AVE_ATTACH_USERS_PER_MMDU_DEN)*count(distinct period_start_time)</counter>
+          <counter alias="PEAK_ATTACH_USERS_PER_MMDU" symmetrical="true"  >MAX(PEAK_ATTACH_USERS_PER_MMDU)</counter>
+          <counter alias="DET_UNPURGED_USERS_MMDU_SUM" symmetrical="true"  >SUM(DET_UNPURGED_USERS_MMDU_SUM)</counter>
+          <counter alias="DET_UNPURGED_USERS_MMDU_DEN" time-alias="DET_UNPURGED_USERS_MMDU_DEN" time-formula="sum(DET_UNPURGED_USERS_MMDU_DEN)" object-formula="avg(DET_UNPURGED_USERS_MMDU_DEN)"  >AVG(DET_UNPURGED_USERS_MMDU_DEN)*count(distinct period_start_time)</counter>
+          <counter alias="PEAK_DET_UNPURGED_USERS_MMDU" symmetrical="true"  >MAX(PEAK_DET_UNPURGED_USERS_MMDU)</counter>
+    </counters>
+    <table_name >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name >MMUM</alias_name>
+  </temp_table>
+  <kpi name="period_duration"  >
+    <formula >MMUM.period_duration</formula>
+    <kpi_info >
+      <title >period_duration</title>
+      <use >Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit >min</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >period_duration</kpi_alias>
+    <kpi_format >float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVE_ATTACH_USERS_PER_MMDU_SUM"  >
+    <formula >MMUM.AVE_ATTACH_USERS_PER_MMDU_SUM</formula>
+    <kpi_info >
+      <title >AVE_ATTACH_USERS_PER_MMDU_SUM</title>
+      <use >Sum of sample values indicating the number of attached subscribers per physical MMDU. Used as a numerator when calculating the average number of attached subscribers per physical MMDU.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(AVE_ATTACH_USERS_PER_MMDU_SUM)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >AVE_ATTACH_USERS_PER_MMDU_SUM</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVE_ATTACH_USERS_PER_MMDU_DEN"  >
+    <formula >MMUM.AVE_ATTACH_USERS_PER_MMDU_DEN</formula>
+    <kpi_info >
+      <title >AVE_ATTACH_USERS_PER_MMDU_DEN</title>
+      <use >Number of samples taken of the number of attached subscribers per physical MMDU. Used as a denominator when calculating the average number of attached subscribers per physical MMDU.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="sum(AVE_ATTACH_USERS_PER_MMDU_DEN)">AVG(AVE_ATTACH_USERS_PER_MMDU_DEN)*count(distinct period_start_time)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >AVE_ATTACH_USERS_PER_MMDU_DEN</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PEAK_ATTACH_USERS_PER_MMDU"  >
+    <formula >MMUM.PEAK_ATTACH_USERS_PER_MMDU</formula>
+    <kpi_info >
+      <title >PEAK_ATTACH_USERS_PER_MMDU</title>
+      <use >Peak number of attached users per physical MMDU.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >MAX(PEAK_ATTACH_USERS_PER_MMDU)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >PEAK_ATTACH_USERS_PER_MMDU</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DET_UNPURGED_USERS_MMDU_SUM"  >
+    <formula >MMUM.DET_UNPURGED_USERS_MMDU_SUM</formula>
+    <kpi_info >
+      <title >DET_UNPURGED_USERS_MMDU_SUM</title>
+      <use >Sum of sample values indicating the number of detached but unpurged subscribers per physical MMDU. Used as a numerator when calculating the average number of detached unpurged subscribers per physical MMDU.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(DET_UNPURGED_USERS_MMDU_SUM)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >DET_UNPURGED_USERS_MMDU_SUM</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DET_UNPURGED_USERS_MMDU_DEN"  >
+    <formula >MMUM.DET_UNPURGED_USERS_MMDU_DEN</formula>
+    <kpi_info >
+      <title >DET_UNPURGED_USERS_MMDU_DEN</title>
+      <use >Number of samples taken of the number of detached but unpurged subscribers per physical MMDU. Used as a denominator when calculating the average number of detached unpurged subscribers per physical MMDU.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="sum(DET_UNPURGED_USERS_MMDU_DEN)">AVG(DET_UNPURGED_USERS_MMDU_DEN)*count(distinct period_start_time)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >DET_UNPURGED_USERS_MMDU_DEN</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PEAK_DET_UNPURGED_USERS_MMDU"  >
+    <formula >MMUM.PEAK_DET_UNPURGED_USERS_MMDU</formula>
+    <kpi_info >
+      <title >PEAK_DET_UNPURGED_USERS_MMDU</title>
+      <use >Peak number of detached unpurged users in MMDU.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >MAX(PEAK_DET_UNPURGED_USERS_MMDU)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_mmum_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >PEAK_DET_UNPURGED_USERS_MMDU</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

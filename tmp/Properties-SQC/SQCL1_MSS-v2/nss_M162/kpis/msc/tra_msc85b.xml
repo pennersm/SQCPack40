@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml"/>
+  <kpi name="tra_msc85b">
+    <formula>decode(
+			cgr.cgrcgroup_call_amount_out + 
+			cgr.cgrcgroup_call_cong_x_100,0,null, 
+
+			(100*cgr.cgrcgroup_call_cong_x_100)
+			 / 
+			(cgr.cgrcgroup_call_amount_out + 
+			cgr.cgrcgroup_call_cong_x_100))</formula>
+    <kpi_info>
+      <title><![CDATA[CGR call blocking ratio]]></title>
+      <use><![CDATA[Call Blocking Rate for Circuit Groups]]></use>
+
+<use_experience><![CDATA[ 
+<br>If call is succeeded via an alternative route then no erlang is lost from network level point of view. However, some erlang is lost in that CGR, but the call is not lost. In case of BSC CGRs when MSC reserves the circuit congestion info is available for both MO and MT calls, but congestion is presented always in the outgoing direction, so from measurement it is seen as congestion would happen only for MT call.In case of a BSC CGR calls are counted in IN and OUT direction as wel depending whether the call is orig or term, but congestion is counted only in OUT direction and an orig call can also be congested as MSC reserves the CRCT normally, so in this case also the IN call attempt should be added to the denominator, BUT in a IN direction CGR the IN call amount should NOT be added.  KPI does not work with SIP CGRs.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 23-11-2005
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CDS; CGRNAME/CGR; CGRDIR;
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CDS; CGRDIR
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;                  sum(CGRCGROUP_CALL_CONG_x_100)
+&lt;br&gt;100 * ---------------------------------------------------------- 
+&lt;br&gt;      sum(CGRCGROUP_CALL_AMOUNT_OUT + CGRCGROUP_CALL_CONG_x_100)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from views):
+&lt;br&gt;RNS_PS_CGR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_CGRC_CDS_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CGR call blocking ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

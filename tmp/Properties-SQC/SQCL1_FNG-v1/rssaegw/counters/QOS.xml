@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 QoS_dl_drop QOS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 QoS_dl_drop QOS measurement dump</csv_title>
+    <report-description>QoS downlink drop statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <QOS_DL_DROP_CONV_CLASS />
+    <QOS_DL_DROP_STREAM_CLASS />
+    <QOS_DL_DROP_INTACT_CLASS_THP1 />
+    <QOS_DL_DROP_INTACT_CLASS_THP2 />
+    <QOS_DL_DROP_INTACT_CLASS_THP3 />
+    <QOS_DL_DROP_BGROUND_CLASS />
+  </column_order>
+  <temp_table name="QOS" meas_level="PLMN/FING/FNODE/QOS" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="QOS_DL_DROP_CONV_CLASS" time-alias="QOS_DL_DROP_CONV_CLASS" timeagg="SUM(QOS_DL_DROP_CONV_CLASS)">SUM(QOS_DL_DROP_CONV_CLASS)</counter>
+      <counter alias="QOS_DL_DROP_STREAM_CLASS" time-alias="QOS_DL_DROP_STREAM_CLASS" timeagg="SUM(QOS_DL_DROP_STREAM_CLASS)">SUM(QOS_DL_DROP_STREAM_CLASS)</counter>
+      <counter alias="QOS_DL_DROP_INTACT_CLASS_THP1" time-alias="QOS_DL_DROP_INTACT_CLASS_THP1" timeagg="SUM(QOS_DL_DROP_INTACT_CLASS_THP1)">SUM(QOS_DL_DROP_INTACT_CLASS_THP1)</counter>
+      <counter alias="QOS_DL_DROP_INTACT_CLASS_THP2" time-alias="QOS_DL_DROP_INTACT_CLASS_THP2" timeagg="SUM(QOS_DL_DROP_INTACT_CLASS_THP2)">SUM(QOS_DL_DROP_INTACT_CLASS_THP2)</counter>
+      <counter alias="QOS_DL_DROP_INTACT_CLASS_THP3" time-alias="QOS_DL_DROP_INTACT_CLASS_THP3" timeagg="SUM(QOS_DL_DROP_INTACT_CLASS_THP3)">SUM(QOS_DL_DROP_INTACT_CLASS_THP3)</counter>
+      <counter alias="QOS_DL_DROP_BGROUND_CLASS" time-alias="QOS_DL_DROP_BGROUND_CLASS" timeagg="SUM(QOS_DL_DROP_BGROUND_CLASS)">SUM(QOS_DL_DROP_BGROUND_CLASS)</counter>
+    </counters>
+    <table_name>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>QOS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>QOS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_CONV_CLASS">
+    <formula>QOS.QOS_DL_DROP_CONV_CLASS</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_CONV_CLASS</title>
+      <use>This counter contains the number of conversational traffic class packets dropped by the QoS policy. UPDATED: Updated when a conversational traffic class packet is dropped by the QoS policy.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_CONV_CLASS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_CONV_CLASS (m3019c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_STREAM_CLASS">
+    <formula>QOS.QOS_DL_DROP_STREAM_CLASS</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_STREAM_CLASS</title>
+      <use>This counter contains the number of dropped packets in PDP contexts that belong to the streaming traffic class. UPDATED: Updated when streaming class packet is dropped by QOS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_STREAM_CLASS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_STREAM_CLASS (m3019c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_INTACT_CLASS_THP1">
+    <formula>QOS.QOS_DL_DROP_INTACT_CLASS_THP1</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_INTACT_CLASS_THP1</title>
+      <use>This counter contains the number of dropped packets in PDP contexts that belong to the interactive traffic class with the traffic handling priority 1 (THP1). UPDATED: Updated when interactive class (THP1) packet is dropped by QoS</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_INTACT_CLASS_THP1)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_INTACT_CLASS_THP1 (m3019c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_INTACT_CLASS_THP2">
+    <formula>QOS.QOS_DL_DROP_INTACT_CLASS_THP2</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_INTACT_CLASS_THP2</title>
+      <use>This counter contains the number of dropped packets in PDP contexts that belong to the interactive traffic class with the traffic handling priority 2 (THP2). UPDATED: Updated when interactive class (THP2) packet is dropped by QoS</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_INTACT_CLASS_THP2)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_INTACT_CLASS_THP2 (m3019c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_INTACT_CLASS_THP3">
+    <formula>QOS.QOS_DL_DROP_INTACT_CLASS_THP3</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_INTACT_CLASS_THP3</title>
+      <use>This counter contains the number of dropped packets in PDP contexts that belong to the interactive traffic class with the traffic handling priority 3. UPDATED: Updated when an interactive class (THP3) packet is dropped by QOS.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_INTACT_CLASS_THP3)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_INTACT_CLASS_THP3 (m3019c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_BGROUND_CLASS">
+    <formula>QOS.QOS_DL_DROP_BGROUND_CLASS</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_BGROUND_CLASS</title>
+      <use>This counter contains the number of dropped packets with QoS class Background. UPDATED: Updated when a packet with QoS class Background is dropped</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_BGROUND_CLASS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qos_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_BGROUND_CLASS (m3019c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

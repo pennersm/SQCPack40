@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPCACIP.xml" />
+  <kpi name="mgw_1103a">
+    <formula>decode(
+			(ipcacip.ipbr_ip_attempts),0,null, 
+
+			(100*(ipcacip.ipbr_ip_atts_rej_ext_ip_cac)
+			 / 
+			(ipcacip.ipbr_ip_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[External IP CAC rejection ratio for IP based Route]]></title>
+      <use><![CDATA[Indicates rejection ratio of all IP reservation attempts, where rejection has been made by external IP CAC functionality in IP based Route]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(IPBR_IP_ATTS_REJ_EXT_IP_CAC)
+&lt;br&gt;100 * --------------------------------
+&lt;br&gt;          SUM(IPBR_IP_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ipcacip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Ext IP CAC rej ratio IP Route</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

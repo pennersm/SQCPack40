@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LTOPF (LTE TOP FreqSync Statistics)</header>
+    <csv_title>LTOPF (LTE TOP FreqSync Statistics)</csv_title>
+    <report-description>LTE TOP FreqSync Statistics measurement (M51137) contains PM counters to measure Timing over Packet (TOP) FreqSync statistics.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <topRxFreqSyncMsg/>
+    <topMinFreqSyncError/>
+    <topAvgFreqSyncError/>
+    <topMaxFreqSyncError/>
+    <topFreqSyncSLS/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LTOPF" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPF" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LTOPF</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="topRxFreqSyncMsg" symmetrical="true">SUM(topRxFreqSyncMsg)</counter>
+          <counter alias="topMinFreqSyncError" symmetrical="true">MIN(topMinFreqSyncError)</counter>
+          <counter alias="topAvgFreqSyncError" symmetrical="true">AVG(topAvgFreqSyncError)</counter>
+          <counter alias="topMaxFreqSyncError" symmetrical="true">MAX(topMaxFreqSyncError)</counter>
+          <counter alias="topFreqSyncSLS" symmetrical="true">SUM(topFreqSyncSLS)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LTOPF</alias_name>
+    <ui_name>LTE TOP FreqSync Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LTOPF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topRxFreqSyncMsg">
+    <formula>LTOPF.topRxFreqSyncMsg</formula>
+    <kpi_info>
+      <title>topRxFreqSyncMsg (M51137C0)</title>
+      <use>The number of received ToP frequency synchronisation event messages. Event messages are time stamped and used for clock recovery. UPDATED: The counter is incremented every second by the number of received frequency synchronisation messages.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topRxFreqSyncMsg)</formula>
+      <unit>packets</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topRxFreqSyncMsg (M51137C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topMinFreqSyncError">
+    <formula>LTOPF.topMinFreqSyncError</formula>
+    <kpi_info>
+      <title>topMinFreqSyncError (M51137C1)</title>
+      <use>The minimum value of the timing over packet service estimated freq sync error in ppb during the interval. The unit applicable to FTLB/FTIB HW's is ppb and for FSMF/FTIF HW is ppb/1000. UPDATED: "The value is updated every minute using the following formula: minValue = min (minValue, actualValue)"
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(topMinFreqSyncError)</formula>
+      <unit>ppb</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMinFreqSyncError (M51137C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topAvgFreqSyncError">
+    <formula>LTOPF.topAvgFreqSyncError</formula>
+    <kpi_info>
+      <title>topAvgFreqSyncError (M51137C2)</title>
+      <use>The average value of the timing over packet service freq sync error in ppb during the interval. The unit applicable to FTLB/FTIB HW is ppb and for FSMF/FTIF HW is ppb/1000. UPDATED: "The value is updated every minute using the following formula: aveValueNew = (aveValueOld * (actualIntervalLength - 1) + actualValue) / actualIntervalLength"
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(topAvgFreqSyncError)</formula>
+      <unit>ppb</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topAvgFreqSyncError (M51137C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topMaxFreqSyncError">
+    <formula>LTOPF.topMaxFreqSyncError</formula>
+    <kpi_info>
+      <title>topMaxFreqSyncError (M51137C3)</title>
+      <use>The maximum value of the timing over packet service freq sync error in ppb during the interval. The unit applicable to FTLB/FTIB HW is ppb and for FSMF/FTIF HW is ppb/1000. UPDATED: "The value is updated every minute using the following formula: maxValue = max (maxValue, actualValue)"
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(topMaxFreqSyncError)</formula>
+      <unit>ppb</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topMaxFreqSyncError (M51137C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="topFreqSyncSLS">
+    <formula>LTOPF.topFreqSyncSLS</formula>
+    <kpi_info>
+      <title>topFreqSyncSLS (M51137C4)</title>
+      <use>The number of seconds during this interval while the timing over packet frequency synchronisation service was in locked state. UPDATED: The number of seconds during this interval while the timing over packet frequency synchronisation service was in locked state.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(topFreqSyncSLS)</formula>
+      <unit>Seconds</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>topFreqSyncSLS (M51137C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LTOPF.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltopf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

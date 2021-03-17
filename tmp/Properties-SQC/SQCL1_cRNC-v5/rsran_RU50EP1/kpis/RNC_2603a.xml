@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  
+  <temp_table_ref src="rsran_RU50EP1/counters/ATMVCC_ext.xml" />
+  <kpi name="RNC_2603a">
+    <formula>100*decode(
+			(atmvcc.vc_in_bw_uti_class_1_1 + 
+			atmvcc.vc_in_bw_uti_class_2_1 + 
+			atmvcc.vc_in_bw_uti_class_3_1 + 
+			atmvcc.vc_in_bw_uti_class_4_1 + 
+			atmvcc.vc_in_bw_uti_class_5_1),0,null, 
+
+			(atmvcc.vc_in_bw_uti_class_5_1)
+			 / 
+			(atmvcc.vc_in_bw_uti_class_1_1 + 
+			atmvcc.vc_in_bw_uti_class_2_1 + 
+			atmvcc.vc_in_bw_uti_class_3_1 + 
+			atmvcc.vc_in_bw_uti_class_4_1 + 
+			atmvcc.vc_in_bw_uti_class_5_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Perc time where ATM VC ingress throughput is 88% of PCR or more]]></title>
+      <use><![CDATA[Percentage of time where the ATM VC ingress throughput was 88% or more of the configured bandwidth (Peak Cell Rate).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(VC_IN_BW_UTI_CLASS_5)
+&lt;br&gt;-------------------------------
+&lt;br&gt;SUM(VC_IN_BW_UTI_CLASS_1 +
+&lt;br&gt;VC_IN_BW_UTI_CLASS_2 +
+&lt;br&gt;VC_IN_BW_UTI_CLASS_3 +
+&lt;br&gt;VC_IN_BW_UTI_CLASS_4 +
+&lt;br&gt;VC_IN_BW_UTI_CLASS_5)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ATMVC_{obj_agg}_{time_agg},nokrww_ps_ATMVCC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:48.137 +0100</date>
+          <comment><![CDATA[Source: RSRAN083.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>ATM VC in thp&gt;=88%PCR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

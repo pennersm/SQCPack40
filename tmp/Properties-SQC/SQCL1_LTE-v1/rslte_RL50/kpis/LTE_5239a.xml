@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELAV.xml" />
+  <kpi name="LTE_5239a">
+    <formula>100*decode(
+			(lcelav.denom_cell_avail - 
+			lcelav.samples_cell_plan_unavail),0,null, 
+
+			(lcelav.samples_cell_avail)
+			 / 
+			(lcelav.denom_cell_avail - 
+			lcelav.samples_cell_plan_unavail))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Cell Availability, excluding blocked by user state (BLU)]]></title>
+      <use><![CDATA[This KPI shows Cell Availability, excluding blocked by user
+state (BLU)" that gives the percent of available time over time
+that should be available.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(SAMPLES_CELL_AVAIL)/sum(DENOM_CELL_AVAIL-SAMPLES_CELL_PLAN_UNAVAIL)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELAV_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.144 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Cell Avail excl BLU</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

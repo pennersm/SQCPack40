@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTERSHO.xml" />
+  <kpi name="RNC_799a">
+    <formula>decode(
+			(intersho.is_hho_att_lb_prx_tot_nrt + 
+			intersho.is_hho_att_lb_ptx_tot_nrt + 
+			intersho.is_hho_att_lb_rsvr_sc_nrt + 
+			intersho.is_hho_att_lb_res_lim_nrt + 
+			intersho.is_hho_att_lb_capa_ul_nrt + 
+			intersho.is_hho_att_lb_capa_dl_nrt),0,null, 
+
+			100*(intersho.condr_is_hho_lb_prx_tot_nrt + 
+			intersho.condr_is_hho_lb_ptx_tot_nrt + 
+			intersho.condr_is_hho_lb_rsvr_sc_nrt + 
+			intersho.condr_is_hho_lb_res_lim_nrt + 
+			intersho.condr_is_hho_lb_capa_ul_nrt + 
+			intersho.condr_is_hho_lb_capa_dl_nrt)
+			 / 
+			(intersho.is_hho_att_lb_prx_tot_nrt + 
+			intersho.is_hho_att_lb_ptx_tot_nrt + 
+			intersho.is_hho_att_lb_rsvr_sc_nrt + 
+			intersho.is_hho_att_lb_res_lim_nrt + 
+			intersho.is_hho_att_lb_capa_ul_nrt + 
+			intersho.is_hho_att_lb_capa_dl_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[LB ISHO Drop Rate, NRT]]></title>
+      <use><![CDATA[Load Based ISHO NRT drop rate. Contains only the actual connection drops, not all the failures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum( CONDR_IS_HHO_LB_PRX_TOT_NRT
+&lt;br&gt;   + CONDR_IS_HHO_LB_PTX_TOT_NRT
+&lt;br&gt;   + CONDR_IS_HHO_LB_RSVR_SC_NRT
+&lt;br&gt;   + CONDR_IS_HHO_LB_RES_LIM_NRT
+&lt;br&gt;   + CONDR_IS_HHO_LB_CAPA_UL_NRT
+&lt;br&gt;   + CONDR_IS_HHO_LB_CAPA_dL_NRT )
+&lt;br&gt;   ------------------------------
+&lt;br&gt;sum( IS_HHO_ATT_LB_PRX_TOT_NRT
+&lt;br&gt;   + IS_HHO_ATT_LB_PTX_TOT_NRT
+&lt;br&gt;   + IS_HHO_ATT_LB_RSVR_SC_NRT
+&lt;br&gt;   + IS_HHO_ATT_LB_RES_LIM_NRT
+&lt;br&gt;   + IS_HHO_ATT_LB_CAPA_UL_NRT
+&lt;br&gt;   + IS_HHO_ATT_LB_CAPA_DL_NRT )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intersho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[LB ISHO Drop Rate, NRT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

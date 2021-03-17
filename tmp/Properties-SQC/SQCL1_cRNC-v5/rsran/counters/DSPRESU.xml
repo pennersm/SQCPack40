@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>DSPRESU (DSP Resource Utilisation)</header>
+    <csv_title>DSPRESU (DSP Resource Utilisation)</csv_title>
+    <report-description>DSP Resource Utilisation</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <AVAILABLE_CAP_ON_NE/>
+    <LOWEST_CAP_ON_NE/>
+    <CURR_RES_ALLOC_ON_NE/>
+    <PEAK_RES_ALLOC_ON_NE/>
+    <SUCC_RES_ALLOC_ON_NE/>
+    <FAIL_ALLOC_DSP_ON_NE/>
+    <FAIL_ALLOC_PPC_ON_NE/>
+    <FAIL_MODIFY_ON_NE/>
+    <SER_POOL_OVERFLOW_ON_NE/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="DSPRESU" omes_name="DSP_res_util_v2" meas_level="PLMN/RSRAN-RNC/RSRAN-DSPP" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>DSPRESU</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="AVAILABLE_CAP_ON_NE" symmetrical="true">AVG(AVAILABLE_CAP_ON_NE)</counter>
+          <counter alias="LOWEST_CAP_ON_NE" symmetrical="true">MIN(LOWEST_CAP_ON_NE)</counter>
+          <counter alias="CURR_RES_ALLOC_ON_NE" symmetrical="true">AVG(CURR_RES_ALLOC_ON_NE)</counter>
+          <counter alias="PEAK_RES_ALLOC_ON_NE" symmetrical="true">MAX(PEAK_RES_ALLOC_ON_NE)</counter>
+          <counter alias="SUCC_RES_ALLOC_ON_NE" symmetrical="true">SUM(SUCC_RES_ALLOC_ON_NE)</counter>
+          <counter alias="FAIL_ALLOC_DSP_ON_NE" symmetrical="true">SUM(FAIL_ALLOC_DSP_ON_NE)</counter>
+          <counter alias="FAIL_ALLOC_PPC_ON_NE" symmetrical="true">SUM(FAIL_ALLOC_PPC_ON_NE)</counter>
+          <counter alias="FAIL_MODIFY_ON_NE" symmetrical="true">SUM(FAIL_MODIFY_ON_NE)</counter>
+          <counter alias="SER_POOL_OVERFLOW_ON_NE" symmetrical="true">SUM(SER_POOL_OVERFLOW_ON_NE)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DSPRESU</alias_name>
+    <ui_name>DSP Resource Utilisation</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DSPRESU.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVAILABLE_CAP_ON_NE">
+    <formula>DSPRESU.AVAILABLE_CAP_ON_NE</formula>
+    <kpi_info>
+      <title>AVAILABLE_CAP_ON_NE (M615C0)</title>
+      <use>The percentage of resources available in a service pool (or the total percentage of available shared TPG resources in the MGW). UPDATED:When the value of available capacity changes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(AVAILABLE_CAP_ON_NE)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVAILABLE_CAP_ON_NE (M615C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LOWEST_CAP_ON_NE">
+    <formula>DSPRESU.LOWEST_CAP_ON_NE</formula>
+    <kpi_info>
+      <title>LOWEST_CAP_ON_NE (M615C1)</title>
+      <use>The lowest measured percentage of resources available in a service pool (or the lowest measured percentage of total shared TPG resources in the MGW). UPDATED: The resource status is checked every time when a new service request arrives or a service is released.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(LOWEST_CAP_ON_NE)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOWEST_CAP_ON_NE (M615C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CURR_RES_ALLOC_ON_NE">
+    <formula>DSPRESU.CURR_RES_ALLOC_ON_NE</formula>
+    <kpi_info>
+      <title>CURR_RES_ALLOC_ON_NE (M615C2)</title>
+      <use>The current number of resources allocated from a service pool at the moment of measurement data collection. UPDATED:When a service is allocated or a service is released.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CURR_RES_ALLOC_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CURR_RES_ALLOC_ON_NE (M615C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PEAK_RES_ALLOC_ON_NE">
+    <formula>DSPRESU.PEAK_RES_ALLOC_ON_NE</formula>
+    <kpi_info>
+      <title>PEAK_RES_ALLOC_ON_NE (M615C3)</title>
+      <use>The peak number of resources allocated from a service pool. UPDATED:When a service is allocated and current number of services exceeds peak value.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(PEAK_RES_ALLOC_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_RES_ALLOC_ON_NE (M615C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_RES_ALLOC_ON_NE">
+    <formula>DSPRESU.SUCC_RES_ALLOC_ON_NE</formula>
+    <kpi_info>
+      <title>SUCC_RES_ALLOC_ON_NE (M615C4)</title>
+      <use>The total cumulative number of the resources allocated from a service pool. UPDATED:When a service is allocated.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_RES_ALLOC_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_RES_ALLOC_ON_NE (M615C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_ALLOC_DSP_ON_NE">
+    <formula>DSPRESU.FAIL_ALLOC_DSP_ON_NE</formula>
+    <kpi_info>
+      <title>FAIL_ALLOC_DSP_ON_NE (M615C5)</title>
+      <use>The number of times resource allocation failed due to lack of DSP resources in a service pool. UPDATED:When a request fails because the DSP is busy.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_ALLOC_DSP_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ALLOC_DSP_ON_NE (M615C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_ALLOC_PPC_ON_NE">
+    <formula>DSPRESU.FAIL_ALLOC_PPC_ON_NE</formula>
+    <kpi_info>
+      <title>FAIL_ALLOC_PPC_ON_NE (M615C6)</title>
+      <use>The number of times resource allocation failed due to lack of shared TPG resources. UPDATED:When a request fails because the PPC is busy.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_ALLOC_PPC_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_ALLOC_PPC_ON_NE (M615C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_MODIFY_ON_NE">
+    <formula>DSPRESU.FAIL_MODIFY_ON_NE</formula>
+    <kpi_info>
+      <title>FAIL_MODIFY_ON_NE (M615C7)</title>
+      <use>The number of times modification of a resource failed due to lack of DSP/TPG resources. UPDATED:When a Modify request fails.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_MODIFY_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_MODIFY_ON_NE (M615C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SER_POOL_OVERFLOW_ON_NE">
+    <formula>DSPRESU.SER_POOL_OVERFLOW_ON_NE</formula>
+    <kpi_info>
+      <title>SER_POOL_OVERFLOW_ON_NE (M615C8)</title>
+      <use>The number of times a resource was allocated from a secondary pool instead of the primary pool. This can mean either that the primary pool was full or that it was more optimal from the resource consumption point-of-view to allocate the resource from another pool. UPDATED:When a service pool overflows
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SER_POOL_OVERFLOW_ON_NE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SER_POOL_OVERFLOW_ON_NE (M615C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>DSPRESU.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_dspresu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

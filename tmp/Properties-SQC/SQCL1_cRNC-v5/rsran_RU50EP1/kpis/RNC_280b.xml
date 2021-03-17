@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_280b">
+    <formula>decode(
+			(servlev.period_duration),0,null, 
+
+			((servlev.avg_rab_hld_tm_cs_voice + 
+			servlev.rab_hold_time_cs_conv_64*64
+			 / 
+			12.2 + 
+			servlev.rab_hold_time_cs_stream_14_4*14.4
+			 / 
+			12.2 + 
+			servlev.rab_hold_time_cs_stream_57_6*57.6
+			 / 
+			12.2)
+			 / 
+			(100*60* case when servlev.period_duration &lt; 60 then servlev.period_duration else 60 end)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average CS Erlang]]></title>
+      <use><![CDATA[CS Erlang meaning the CS RAB holding time.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(AVG_RAB_HLD_TM_CS_VOICE + 
+&lt;br&gt;RAB_HOLD_TIME_CS_CONV_64 * 64/12.2 +
+&lt;br&gt;RAB_HOLD_TIME_CS_STREAM_14_4 * 14.4/12.2 +
+&lt;br&gt;RAB_HOLD_TIME_CS_STREAM_57_6 * 57.6/12.2) 
+&lt;br&gt;/
+&lt;br&gt;sum(PERIOD_DURATION)*100*60</formula>
+      <unit>[Erl]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average CS Erlang]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

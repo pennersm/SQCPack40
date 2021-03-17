@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_4021b">
+    <formula>
+decode((VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null,
+	100 * ( TC_ext.tcat_call_amount_38 / (VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL) )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MOC per Subscriber for PSTN or other PLMN]]></title>
+      <use>
+      	<![CDATA[The number of MOC call attempts coming from the A-Interface or Iu-Cs and ending at a subscriber outside the own PLMN in relation to the number of subscribers in the VLR.
+SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated.
+
+FORMULA NOTES:
+Tcat_IDs:
+123 = 2G OUT OTH
+125 = 3G OUT OTH
+
+M20 + M80 have the same BH criteria = max of avg(TCAT_TRAFF_X100). This is the BH criteria applicable to this KPI.
+
+Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+
+Starting from M14.6, this KPI is to be used if the SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated in the MSC/VLR. If not activated please use msc_4021a KPI.
+		]]>
+	  </use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_IDs:
+<br>   123 = 2G OUT OTH
+<br>   125 = 3G OUT OTH
+<br>
+<br>M20 + M80 have the same BH criteria = max of avg(TCAT_TRAFF_X100). This is the BH criteria applicable to this KPI.
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>
+<br>Starting from M14.6, this KPI is to be used if the SIM_USIM_MEAS_PER_LAI FIFILE parameter is activated in the MSC/VLR. If not activated please use msc_4021a KPI.
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 15-07-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->TCAT
+<br>PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>+
+<br>VLR measurement part n (80/50H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MOC per Subscriber for PSTN or other PLMN&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;   For OBJECT:
+&lt;br&gt;
+&lt;br&gt;   SUM( a.tcat_call_amount ) 
+&lt;br&gt;   ;WHERE Tcat_ID = 123, 125 
+&lt;br&gt;------------------------------- 
+&lt;br&gt;   msc_2047a 
+&lt;br&gt; 
+&lt;br&gt;   For TIME: 
+&lt;br&gt; 
+&lt;br&gt;   SUM( a.tcat_call_amount ) 
+&lt;br&gt;   ;WHERE Tcat_ID = 123, 125 
+&lt;br&gt;-------------------------------- 
+&lt;br&gt;   msc_2047a 
+&lt;br&gt; 
+&lt;br&gt;Use AGGREGATED view(s)/table(s) 
+&lt;br&gt;
+&lt;br&gt;a = M20 = Traffic category measurement (M20/14H) 
+	  </formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG},rns_ps_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MOC per subs PSTN or othr PLMN</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

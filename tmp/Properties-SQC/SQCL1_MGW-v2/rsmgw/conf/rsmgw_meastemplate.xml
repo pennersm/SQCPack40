@@ -1,0 +1,2180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <meas-template priority="60" pragma="RSMGW" itk_id="b8b3674ce196a6460cf45d623e4a3550fea85b9bac6dd0d710399d12d95cf461">
+    <!-- This meas-template is based in the topology: PLMN/MGW -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSMGW-MGW" filter-level="RSMGW-MGW" grouping-subquery-alias="g" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" itk_id="whole_period"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" itk_id="month"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="week"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="day"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" itk_id="hour"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" itk_id="raw"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh2"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh2"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh2"/>
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid" itk_id="PLMN">"plmn".co_gid</pivot>
+      <pivot level="RSMGW-MGW" id="mgw_gid" itk_id="RSMGW-MGW">"mgw".co_gid</pivot>
+      <pivot level="RSMGW-ASSNAME" id="assname_id" itk_id="RSMGW-ASSNAME">p.assname_id</pivot>
+      <pivot level="RSMGW-ASSIND" id="assind_id" itk_id="RSMGW-ASSIND">p.assind_id</pivot>
+      <pivot level="RSMGW-CGNU" id="cgnu_id" itk_id="RSMGW-CGNU">p.cgnu_id</pivot>
+      <pivot level="RSMGW-CGNA" id="cgna_id" itk_id="RSMGW-CGNA">p.cgna_id</pivot>
+      <pivot level="RSMGW-DSPP" id="dspp_id" itk_id="RSMGW-DSPP">p.dspp_id</pivot>
+      <pivot level="RSMGW-GRP" id="grp_id" itk_id="RSMGW-GRP">p.grp_id</pivot>
+      <pivot level="RSMGW-IF" id="if_id" itk_id="RSMGW-IF">p.if_id</pivot>
+      <pivot level="RSMGW-VPI" id="vpi_id" itk_id="RSMGW-VPI">p.vpi_id</pivot>
+      <pivot level="RSMGW-VCI" id="vci_id" itk_id="RSMGW-VCI">p.vci_id</pivot>
+      <pivot level="RSMGW-IMA" id="ima_group_id" itk_id="RSMGW-IMA">p.ima_group_id</pivot>
+      <pivot level="RSMGW-IPROU" id="iprou_id" itk_id="RSMGW-IPROU">p.iprou_id</pivot>
+      <pivot level="RSMGW-MRNC" id="mrnc_id" itk_id="RSMGW-MRNC">p.mrnc_id</pivot>
+      <pivot level="RSMGW-NETC" id="netc_id" itk_id="RSMGW-NETC">p.netc_id</pivot>
+      <pivot level="RSMGW-SPC" id="spc_id" itk_id="RSMGW-SPC">p.spc_id</pivot>
+      <pivot level="RSMGW-PHYTTP" id="phyttp_id" itk_id="RSMGW-PHYTTP">p.phyttp_id</pivot>
+      <pivot level="RSMGW-ROUTE" id="route_id" itk_id="RSMGW-ROUTE">p.route_id</pivot>
+      <pivot level="RSMGW-SERVT" id="serv_type_id" itk_id="RSMGW-SERVT">p.serv_type_id</pivot>
+      <pivot level="RSMGW-SLN" id="sln_id" itk_id="RSMGW-SLN">p.sln_id</pivot>
+      <pivot level="RSMGW-SL_TYPE" id="sl_type_id" itk_id="RSMGW-SL_TYPE">p.sl_type_id</pivot>
+      <pivot level="RSMGW-SNET" id="snet_id" itk_id="RSMGW-SNET">p.snet_id</pivot>
+      <pivot level="RSMGW-SPCD" id="spcd_id" itk_id="RSMGW-SPCD">p.spcd_id</pivot>
+      <pivot level="RSMGW-SLSN" id="slsn_id" itk_id="RSMGW-SLSN">p.slsn_id</pivot>
+      <pivot level="RSMGW-SNET-1" id="snet_id" itk_id="RSMGW-SNET-1">p.snet_id</pivot>
+      <pivot level="RSMGW-SIO" id="sio_id" itk_id="RSMGW-SIO">p.sio_id</pivot>
+      <pivot level="RSMGW-OPC" id="opc_id" itk_id="RSMGW-OPC">p.opc_id</pivot>
+      <pivot level="RSMGW-DSPC" id="dspc_id" itk_id="RSMGW-DSPC">p.dspc_id</pivot>
+      <pivot level="RSMGW-SPCD-1" id="spcd_id" itk_id="RSMGW-SPCD-1">p.spcd_id</pivot>
+      <pivot level="RSMGW-SLSN-1" id="slsn_id" itk_id="RSMGW-SLSN-1">p.slsn_id</pivot>
+      <pivot level="RSMGW-SSN" id="ssn_id" itk_id="RSMGW-SSN">p.ssn_id</pivot>
+      <pivot level="RSMGW-SS" id="ss_id" itk_id="RSMGW-SS">p.ss_id</pivot>
+      <pivot level="RSMGW-SP" id="sp_code_id" itk_id="RSMGW-SP">p.sp_code_id</pivot>
+      <pivot level="RSMGW-NET" id="net_code_id" itk_id="RSMGW-NET">p.net_code_id</pivot>
+      <pivot level="RSMGW-TCU" id="tcu_id" itk_id="RSMGW-TCU">p.tcu_id</pivot>
+      <pivot level="RSMGW-TPG" id="tpg_id" itk_id="RSMGW-TPG">p.tpg_id</pivot>
+      <pivot level="RSMGW-UTYPE" id="unit_type_id" itk_id="RSMGW-UTYPE">p.unit_type_id</pivot>
+      <pivot level="RSMGW-UNIT" id="unit_index_id" itk_id="RSMGW-UNIT">p.unit_index_id</pivot>
+      <pivot level="RSMGW-ETHIF" id="ethif_id" itk_id="RSMGW-ETHIF">p.ethif_id</pivot>
+      <pivot level="RSMGW-IPIF" id="ipif_if" itk_id="RSMGW-IPIF">p.ipif_if</pivot>
+      <pivot level="RSMGW-PHB" id="pdb_id" itk_id="RSMGW-PHB">p.pdb_id</pivot>
+      <pivot level="RSMGW-WAC" id="wac_id" itk_id="RSMGW-WAC">p.wac_id</pivot>
+      <pivot level="RSMGW-VMGW" id="vmgw_id" itk_id="RSMGW-VMGW">p.vmgw_id</pivot>
+      <pivot level="MR_RSMGW-MGW" id="mr_gid">"mgw".co_mr_gid</pivot>
+      <pivot level="WS_RSMGW-MGW" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mgw",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mgw".co_gid = p.mgw_id
+          and "mgw".co_parent_gid = "plmn".co_gid
+          and "mgw".co_oc_id = 757
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSMGW-MGW_A1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW_A1">
+      <!-- Measures used to build this base-level: AEC, BICCIP, BID, BSSAP, CLU, DATACALL, DSPMGW, DSPRESU, EC, IPCAC, MPCALL, NSUPPR, PTCAPAL, SCCPSM, SIGNTRC, TT, TRFOTFO, TPR, UPINIT -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:mgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:mgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND" object-keys="RSMGW-MGW,RSMGW-ASSNAME,RSMGW-ASSIND" itk_id="PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND">
+      <!-- Measures used to build this base-level: M3UA -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,ASSNAME,ASSIND -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.ASSNAME.ASSIND -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-ASSNAME" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-ASSNAME">PLMN/RSMGW-MGW/RSMGW-ASSNAME</level>
+          <level keys="RSMGW-MGW,RSMGW-ASSNAME,RSMGW-ASSIND" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-ASSNAME,RSMGW-ASSIND">PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:assind,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:assind,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:assind,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:assind,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:assind,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:assind,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:assind,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:assind,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA" object-keys="RSMGW-MGW,RSMGW-CGNU,RSMGW-CGNA" itk_id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA">
+      <!-- Measures used to build this base-level: CGR -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,CGNU,CGNA -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.CGNU.CGNA -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-CGNU" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-CGNU">PLMN/RSMGW-MGW/RSMGW-CGNU</level>
+          <level keys="RSMGW-MGW,RSMGW-CGNU,RSMGW-CGNA" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-CGNU,RSMGW-CGNA">PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:cgna,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:cgna,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:cgna,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:cgna,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:cgna,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:cgna,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:cgna,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:cgna,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-DSPP" object-keys="RSMGW-MGW,RSMGW-DSPP" itk_id="PLMN/RSMGW-MGW/RSMGW-DSPP">
+      <!-- Measures used to build this base-level: DSPRESU2 -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,DSPP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.DSPP -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-DSPP" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-DSPP">PLMN/RSMGW-MGW/RSMGW-DSPP</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:dspp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:dspp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:dspp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:dspp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:dspp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:dspp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:dspp,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:dspp,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-GRP" object-keys="RSMGW-MGW,RSMGW-GRP" itk_id="PLMN/RSMGW-MGW/RSMGW-GRP">
+      <!-- Measures used to build this base-level: SONSDH -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: GRP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.GRP -->
+      <!--    Last Object Level: PLMN.MGW.GRP -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-GRP" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-GRP">PLMN/RSMGW-MGW/RSMGW-GRP</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:grp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:grp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:grp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:grp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:grp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:grp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:grp,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:grp,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IF" object-keys="RSMGW-MGW,RSMGW-IF" itk_id="PLMN/RSMGW-MGW/RSMGW-IF">
+      <!-- Measures used to build this base-level: ATMIF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IF -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IF -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IF" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-IF">PLMN/RSMGW-MGW/RSMGW-IF</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:if,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:if,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:if,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:if,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:if,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:if,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:if,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:if,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI" object-keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI" itk_id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI">
+      <!-- Measures used to build this base-level: ATMVP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: VPI -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IF.VPI -->
+      <!--    Last Object Level: PLMN.MGW.IF.VPI -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IF" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IF">PLMN/RSMGW-MGW/RSMGW-IF</level>
+          <level keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-IF,RSMGW-VPI">PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:vpi,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:vpi,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:vpi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:vpi,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:vpi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:vpi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:vpi,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:vpi,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI" object-keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI,RSMGW-VCI" itk_id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI">
+      <!-- Measures used to build this base-level: AAL2CAC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: VCI -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IF.VPI.VCI -->
+      <!--    Last Object Level: PLMN.MGW.IF.VPI.VCI -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IF" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IF">PLMN/RSMGW-MGW/RSMGW-IF</level>
+          <level keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IF,RSMGW-VPI">PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI</level>
+          <level keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI,RSMGW-VCI" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IF,RSMGW-VPI,RSMGW-VCI">PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:vci,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:vci,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:vci,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:vci,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI_A1" object-keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI,RSMGW-VCI" itk_id="PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI_A1">
+      <!-- Measures used to build this base-level: ATMVC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: VCI -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IF.VPI.VCI -->
+      <!--    Last Object Level: PLMN.MGW.IF.VPI.VCI -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IF" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IF">PLMN/RSMGW-MGW/RSMGW-IF</level>
+          <level keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IF,RSMGW-VPI">PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI</level>
+          <level keys="RSMGW-MGW,RSMGW-IF,RSMGW-VPI,RSMGW-VCI" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-IF,RSMGW-VPI,RSMGW-VCI">PLMN/RSMGW-MGW/RSMGW-IF/RSMGW-VPI/RSMGW-VCI</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:vci,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:vci,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:vci,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:vci,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:vci,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:vci,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:vci,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IMA" object-keys="RSMGW-MGW,RSMGW-IMA" itk_id="PLMN/RSMGW-MGW/RSMGW-IMA">
+      <!-- Measures used to build this base-level: IMALIF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IMA -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IMA -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IMA" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IMA">PLMN/RSMGW-MGW/RSMGW-IMA</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ima2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ima2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:ima2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:ima2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:ima2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ima2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IPROU" object-keys="RSMGW-MGW,RSMGW-IPROU" itk_id="PLMN/RSMGW-MGW/RSMGW-IPROU">
+      <!-- Measures used to build this base-level: IPROUT -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IPROU -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IPROU -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IPROU" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-IPROU">PLMN/RSMGW-MGW/RSMGW-IPROU</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:iprou,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:iprou,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:iprou,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:iprou,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:iprou,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:iprou,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IPROU_A1" object-keys="RSMGW-MGW,RSMGW-IPROU" itk_id="PLMN/RSMGW-MGW/RSMGW-IPROU_A1">
+      <!-- Measures used to build this base-level: IPCACIP, JIPRB, RTPRTIP, T38FAX -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IPROU -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IPROU -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-IPROU" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-IPROU">PLMN/RSMGW-MGW/RSMGW-IPROU</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:iprou,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:iprou,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:iprou,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:iprou,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:iprou,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:iprou,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:iprou,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:iprou,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-MRNC" object-keys="RSMGW-MGW,RSMGW-MRNC" itk_id="PLMN/RSMGW-MGW/RSMGW-MRNC">
+      <!-- Measures used to build this base-level: RANAP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,MRNC -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.MRNC -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-MRNC" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-MRNC">PLMN/RSMGW-MGW/RSMGW-MRNC</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-NETC/RSMGW-SPC" object-keys="RSMGW-MGW,RSMGW-NETC,RSMGW-SPC" itk_id="PLMN/RSMGW-MGW/RSMGW-NETC/RSMGW-SPC">
+      <!-- Measures used to build this base-level: AL2NNI -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: SPC -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.NETC.SPC -->
+      <!--    Last Object Level: PLMN.MGW.NETC.SPC -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-NETC" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-NETC">PLMN/RSMGW-MGW/RSMGW-NETC</level>
+          <level keys="RSMGW-MGW,RSMGW-NETC,RSMGW-SPC" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-NETC,RSMGW-SPC">PLMN/RSMGW-MGW/RSMGW-NETC/RSMGW-SPC</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:spc,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:spc,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:spc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:spc,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:spc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:spc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:spc,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:spc,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-PHYTTP" object-keys="RSMGW-MGW,RSMGW-PHYTTP" itk_id="PLMN/RSMGW-MGW/RSMGW-PHYTTP">
+      <!-- Measures used to build this base-level: INTFTC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,PHYTTP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.PHYTTP -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-PHYTTP" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-PHYTTP">PLMN/RSMGW-MGW/RSMGW-PHYTTP</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-ROUTE" object-keys="RSMGW-MGW,RSMGW-ROUTE" itk_id="PLMN/RSMGW-MGW/RSMGW-ROUTE">
+      <!-- Measures used to build this base-level: ATMRL -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,ROUTE -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.ROUTE -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-ROUTE" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-ROUTE">PLMN/RSMGW-MGW/RSMGW-ROUTE</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:route,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:route,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:route,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:route,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:route,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:route,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:route,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:route,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SERVT" object-keys="RSMGW-MGW,RSMGW-SERVT" itk_id="PLMN/RSMGW-MGW/RSMGW-SERVT">
+      <!-- Measures used to build this base-level: DSPSRV -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SERVT -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SERVT -->
+      <!--    Last Object Level: PLMN -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SERVT" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SERVT">PLMN/RSMGW-MGW/RSMGW-SERVT</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:servt,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:servt,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:servt,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:servt,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:servt,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="bh" subst="{OBJ_AGG}:servt,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:servt,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:servt,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN" object-keys="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET,RSMGW-SPCD,RSMGW-SLSN" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN">
+      <!-- Measures used to build this base-level: MTPSLA, MTPSLP, MTPSLU -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SLSN -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SLN.SL_TYPE.SNET.SPCD.SLSN -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SLN" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SLN">PLMN/RSMGW-MGW/RSMGW-SLN</level>
+          <level keys="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE">PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET">PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET</level>
+          <level keys="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET,RSMGW-SPCD" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET,RSMGW-SPCD">PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD</level>
+          <level keys="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET,RSMGW-SPCD,RSMGW-SLSN" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SLN,RSMGW-SL_TYPE,RSMGW-SNET,RSMGW-SPCD,RSMGW-SLSN">PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1" object-keys="RSMGW-MGW,RSMGW-SNET-1" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1">
+      <!-- Measures used to build this base-level: SCCPSA -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO" object-keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO">
+      <!-- Measures used to build this base-level: MTPTUP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SIO -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SIO -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:sio1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:sio1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:sio1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:sio1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:sio1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:sio1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:sio1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:sio1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC" object-keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO,RSMGW-OPC,RSMGW-DSPC" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC">
+      <!-- Measures used to build this base-level: MTPMST -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,DSPC -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SIO.OPC.DSPC -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO,RSMGW-OPC" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO,RSMGW-OPC">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO,RSMGW-OPC,RSMGW-DSPC" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SIO,RSMGW-OPC,RSMGW-DSPC">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1" object-keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1">
+      <!-- Measures used to build this base-level: MTPSPS, MTPTSP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SNET,SPCD -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1_A1" object-keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1_A1">
+      <!-- Measures used to build this base-level: SCCPSP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1" object-keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1,RSMGW-SLSN-1" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1">
+      <!-- Measures used to build this base-level: MTPSLRA -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SLSN -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD.SLSN -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1,RSMGW-SLSN-1" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SPCD-1,RSMGW-SLSN-1">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS" object-keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SSN,RSMGW-SS" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS">
+      <!-- Measures used to build this base-level: SCCPSS -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SSN.SS -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SSN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SSN">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SSN,RSMGW-SS" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1,RSMGW-SSN,RSMGW-SS">PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SP" object-keys="RSMGW-MGW,RSMGW-SP" itk_id="PLMN/RSMGW-MGW/RSMGW-SP">
+      <!-- Measures used to build this base-level: NRIR, SCCPCE -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SP -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SP" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SP">PLMN/RSMGW-MGW/RSMGW-SP</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:sp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:sp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:sp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:sp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:sp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:sp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:sp,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:sp,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET" object-keys="RSMGW-MGW,RSMGW-SP,RSMGW-NET" itk_id="PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET">
+      <!-- Measures used to build this base-level: AAL2NNI -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SP,NET -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SP.NET -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SP" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SP">PLMN/RSMGW-MGW/RSMGW-SP</level>
+          <level keys="RSMGW-MGW,RSMGW-SP,RSMGW-NET" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SP,RSMGW-NET">PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:net4,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:net4,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:net4,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:net4,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:net4,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:net4,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:net4,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:net4,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG" object-keys="RSMGW-MGW,RSMGW-TCU,RSMGW-TPG" itk_id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG">
+      <!-- Measures used to build this base-level: RTPRTCM -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,TCU,TPG -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.TCU.TPG -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-TCU" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-TCU">PLMN/RSMGW-MGW/RSMGW-TCU</level>
+          <level keys="RSMGW-MGW,RSMGW-TCU,RSMGW-TPG" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-TCU,RSMGW-TPG">PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:tpg,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:tpg,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:tpg,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:tpg,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:tpg,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:tpg,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:tpg,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:tpg,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" object-keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT">
+      <!-- Measures used to build this base-level: AAL5CHR, AAL5DMX, ANNMEAS, ATMPERF, CONN, DSPLOAD, DSPST, RTPRTCP, TCPIP, ULOAD -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE">PLMN/RSMGW-MGW/RSMGW-UTYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:unit3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:unit3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:unit3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:unit3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:unit3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:unit3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:unit3,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:unit3,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT_A1" object-keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT_A1">
+      <!-- Measures used to build this base-level: AVAIL, PDH, STM1 -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE">PLMN/RSMGW-MGW/RSMGW-UTYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:unit3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:unit3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:unit3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:unit3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:unit3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:unit3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF" object-keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-ETHIF" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF">
+      <!-- Measures used to build this base-level: ETHM, ETHPRF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT,ETHIF -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.ETHIF -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE">PLMN/RSMGW-MGW/RSMGW-UTYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-ETHIF" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-ETHIF">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF" object-keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF">
+      <!-- Measures used to build this base-level: IPIP, UDPIP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT,IPIF -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.IPIF -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE">PLMN/RSMGW-MGW/RSMGW-UTYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ipif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ipif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:ipif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:ipif,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:ipif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ipif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:ipif,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:ipif,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB" object-keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF,RSMGW-PHB" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB">
+      <!-- Measures used to build this base-level: IPQOS -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT,IPIF,PHB -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.IPIF.PHB -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE">PLMN/RSMGW-MGW/RSMGW-UTYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF,RSMGW-PHB" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-IPIF,RSMGW-PHB">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:phb,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:phb,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:phb,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:phb,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:phb,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:phb,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:phb,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:phb,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-WAC" object-keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-WAC" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-WAC">
+      <!-- Measures used to build this base-level: OLWAC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: WAC -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.WAC -->
+      <!--    Last Object Level: PLMN.MGW.UTYPE.UNIT.WAC -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE">PLMN/RSMGW-MGW/RSMGW-UTYPE</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT</level>
+          <level keys="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-WAC" time-agg-levels="raw,hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-UTYPE,RSMGW-UNIT,RSMGW-WAC">PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-WAC</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:wac,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="raw"/>
+          <time-level name="hour" subst="{OBJ_AGG}:wac,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:wac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:wac,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:wac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:wac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:wac,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:wac,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-VMGW" object-keys="RSMGW-MGW,RSMGW-VMGW" itk_id="PLMN/RSMGW-MGW/RSMGW-VMGW">
+    	<!-- used for measurements H248GR1/H248GR2 -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-VMGW" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSMGW-MGW/RSMGW-VMGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSMGW-MGW</level>
+      </levels>           
+      <subst>
+      	  <time-level name="raw" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+      	  <time-level name="hour" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+          <time-level name="day" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+          <time-level name="week" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+          <time-level name="month" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+          <time-level name="whole_period" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />   
+      </subst>
+    </base-level>
+    
+  </meas-template>
+  <meas-template priority="50" pragma="RSMGW" itk_id="b8b3674ce196a6460cf45d623e4a3550fea85b9bac6dd0d710399d12d95cf461">
+    <!-- This meas-template is based in the topology: PLMN/MGW -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSMGW-MGW" filter-level="RSMGW-MGW" grouping-subquery-alias="g" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" itk_id="whole_period"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" itk_id="month"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="week"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="day"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" itk_id="hour"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" itk_id="raw"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh2"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh2"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh2"/>
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid" itk_id="PLMN">"plmn".co_gid</pivot>
+      <pivot level="RSMGW-MGW" id="mgw_gid" itk_id="RSMGW-MGW">"mgw".co_gid</pivot>
+      <pivot level="RSMGW-CGNU" id="cgnu_id" itk_id="RSMGW-CGNU">p.cgnu_id</pivot>
+      <pivot level="RSMGW-SNET-1" id="snet_id" itk_id="RSMGW-SNET-1">p.snet_id</pivot>
+      <pivot level="RSMGW-TCU" id="tcu_id" itk_id="RSMGW-TCU">p.tcu_id</pivot>
+      <pivot level="MR_RSMGW-MGW" id="mr_gid">"mgw".co_mr_gid</pivot>
+      <pivot level="WS_RSMGW-MGW" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mgw",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mgw".co_gid = p.mgw_id
+          and "mgw".co_parent_gid = "plmn".co_gid
+          and "mgw".co_oc_id = 757
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-VMGW" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-VMGW">
+    	<!-- used for measurements H248GR1/H248GR2 -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+      	  <time-level name="hour" subst="{OBJ_AGG}:vmgw,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />          
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-ASSNAME/RSMGW-ASSIND">
+      <!-- Measures used to build this base-level: M3UA -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,ASSNAME,ASSIND -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.ASSNAME.ASSIND -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:assind,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA" object-keys="RSMGW-MGW,RSMGW-CGNU" itk_id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA">
+      <!-- Measures used to build this base-level: CGR -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,CGNU,CGNA -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.CGNU.CGNA -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-CGNU" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-CGNU">PLMN/RSMGW-MGW/RSMGW-CGNU</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:cgna,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:cgnu,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:cgnu,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:cgnu,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:cgnu,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:cgnu,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:cgnu,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-DSPP" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-DSPP">
+      <!-- Measures used to build this base-level: DSPRESU2 -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,DSPP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.DSPP -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:dspp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IF" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-IF">
+      <!-- Measures used to build this base-level: ATMIF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IF -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IF -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:if,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IMA" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-IMA">
+      <!-- Measures used to build this base-level: IMALIF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IMA -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IMA -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:ima2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IPROU" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-IPROU">
+      <!-- Measures used to build this base-level: IPROUT -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IPROU -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IPROU -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:iprou,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-IPROU_A1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-IPROU_A1">
+      <!-- Measures used to build this base-level: IPCACIP, JIPRB, RTPRTIP, T38FAX -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,IPROU -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.IPROU -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:iprou,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-MRNC" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-MRNC">
+      <!-- Measures used to build this base-level: RANAP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,MRNC -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.MRNC -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:mrnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-PHYTTP" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-PHYTTP">
+      <!-- Measures used to build this base-level: INTFTC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,PHYTTP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.PHYTTP -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:phyttp2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-ROUTE" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-ROUTE">
+      <!-- Measures used to build this base-level: ATMRL -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,ROUTE -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.ROUTE -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:route,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SERVT" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SERVT">
+      <!-- Measures used to build this base-level: DSPSRV -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SERVT -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SERVT -->
+      <!--    Last Object Level: PLMN -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:servt,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1">
+      <!-- Measures used to build this base-level: SCCPSA -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:snet1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1" object-keys="RSMGW-MGW,RSMGW-SNET-1" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1">
+      <!-- Measures used to build this base-level: MTPSPS, MTPTSP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SNET,SPCD -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-SNET-1" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-SNET-1">PLMN/RSMGW-MGW/RSMGW-SNET-1</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:snet1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:snet1,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:snet1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:snet1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:snet1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:snet1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SP" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SP">
+      <!-- Measures used to build this base-level: NRIR, SCCPCE -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SP -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SP -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:sp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SP/RSMGW-NET">
+      <!-- Measures used to build this base-level: AAL2NNI -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SP,NET -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SP.NET -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:net4,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG" object-keys="RSMGW-MGW,RSMGW-TCU" itk_id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG">
+      <!-- Measures used to build this base-level: RTPRTCM -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,TCU,TPG -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.TCU.TPG -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="RSMGW-MGW,RSMGW-TCU" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW,RSMGW-TCU">PLMN/RSMGW-MGW/RSMGW-TCU</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:tpg,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:tcu,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:tcu,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:tcu,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:tcu,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:tcu,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:tcu,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT">
+      <!-- Measures used to build this base-level: AAL5CHR, AAL5DMX, ANNMEAS, ATMPERF, CONN, DSPLOAD, DSPST, RTPRTCP, TCPIP, ULOAD -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:unit3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT_A1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT_A1">
+      <!-- Measures used to build this base-level: AVAIL, PDH, STM1 -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:unit3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-ETHIF">
+      <!-- Measures used to build this base-level: ETHM, ETHPRF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT,ETHIF -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.ETHIF -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:ethif3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF">
+      <!-- Measures used to build this base-level: IPIP, UDPIP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT,IPIF -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.IPIF -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:ipif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT/RSMGW-IPIF/RSMGW-PHB">
+      <!-- Measures used to build this base-level: IPQOS -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,UTYPE,UNIT,IPIF,PHB -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.UTYPE.UNIT.IPIF.PHB -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:phb,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="40" pragma="RSMGW" itk_id="b8b3674ce196a6460cf45d623e4a3550fea85b9bac6dd0d710399d12d95cf461">
+    <!-- This meas-template is based in the topology: PLMN/MGW -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSMGW-MGW" filter-level="RSMGW-MGW" grouping-subquery-alias="g" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" itk_id="whole_period"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" itk_id="month"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="week"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="day"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" itk_id="hour"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" itk_id="raw"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh2"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh2"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh2"/>
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid" itk_id="PLMN">"plmn".co_gid</pivot>
+      <pivot level="RSMGW-MGW" id="mgw_gid" itk_id="RSMGW-MGW">"mgw".co_gid</pivot>
+      <pivot level="MR_RSMGW-MGW" id="mr_gid">"mgw".co_mr_gid</pivot>
+      <pivot level="WS_RSMGW-MGW" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mgw",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mgw".co_gid = p.mgw_id
+          and "mgw".co_parent_gid = "plmn".co_gid
+          and "mgw".co_oc_id = 757
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-CGNU/RSMGW-CGNA">
+      <!-- Measures used to build this base-level: CGR -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,CGNU,CGNA -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.CGNU.CGNA -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:cgna,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO">
+      <!-- Measures used to build this base-level: MTPTUP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SIO -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SIO -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:sio1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1">
+      <!-- Measures used to build this base-level: MTPSPS, MTPTSP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SNET,SPCD -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1_A1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1_A1">
+      <!-- Measures used to build this base-level: SCCPSP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:spcd1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-TCU/RSMGW-TPG">
+      <!-- Measures used to build this base-level: RTPRTCM -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,TCU,TPG -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.TCU.TPG -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:tpg,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="30" pragma="RSMGW" itk_id="b8b3674ce196a6460cf45d623e4a3550fea85b9bac6dd0d710399d12d95cf461">
+    <!-- This meas-template is based in the topology: PLMN/MGW -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSMGW-MGW" filter-level="RSMGW-MGW" grouping-subquery-alias="g" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" itk_id="whole_period"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" itk_id="month"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="week"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="day"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" itk_id="hour"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" itk_id="raw"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh2"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh2"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh2"/>
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid" itk_id="PLMN">"plmn".co_gid</pivot>
+      <pivot level="RSMGW-MGW" id="mgw_gid" itk_id="RSMGW-MGW">"mgw".co_gid</pivot>
+      <pivot level="MR_RSMGW-MGW" id="mr_gid">"mgw".co_mr_gid</pivot>
+      <pivot level="WS_RSMGW-MGW" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mgw",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mgw".co_gid = p.mgw_id
+          and "mgw".co_parent_gid = "plmn".co_gid
+          and "mgw".co_oc_id = 757
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SPCD-1/RSMGW-SLSN-1">
+      <!-- Measures used to build this base-level: MTPSLRA -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SLSN -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SPCD.SLSN -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:slsn2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SSN/RSMGW-SS">
+      <!-- Measures used to build this base-level: SCCPSS -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SSN.SS -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:ss1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="20" pragma="RSMGW" itk_id="b8b3674ce196a6460cf45d623e4a3550fea85b9bac6dd0d710399d12d95cf461">
+    <!-- This meas-template is based in the topology: PLMN/MGW -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSMGW-MGW" filter-level="RSMGW-MGW" grouping-subquery-alias="g" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" itk_id="whole_period"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" itk_id="month"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="week"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="day"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" itk_id="hour"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" itk_id="raw"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh2"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh2"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh2"/>
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid" itk_id="PLMN">"plmn".co_gid</pivot>
+      <pivot level="RSMGW-MGW" id="mgw_gid" itk_id="RSMGW-MGW">"mgw".co_gid</pivot>
+      <pivot level="MR_RSMGW-MGW" id="mr_gid">"mgw".co_mr_gid</pivot>
+      <pivot level="WS_RSMGW-MGW" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mgw",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mgw".co_gid = p.mgw_id
+          and "mgw".co_parent_gid = "plmn".co_gid
+          and "mgw".co_oc_id = 757
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SNET-1/RSMGW-SIO/RSMGW-OPC/RSMGW-DSPC">
+      <!-- Measures used to build this base-level: MTPMST -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,DSPC -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SNET.SIO.OPC.DSPC -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:dspc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="10" pragma="RSMGW" itk_id="b8b3674ce196a6460cf45d623e4a3550fea85b9bac6dd0d710399d12d95cf461">
+    <!-- This meas-template is based in the topology: PLMN/MGW -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSMGW-MGW" filter-level="RSMGW-MGW" grouping-subquery-alias="g" itk_id="PLMN/WS_RSMGW-MGW"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" itk_id="whole_period"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" itk_id="month"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="week"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="day"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" itk_id="hour"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" itk_id="raw"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" itk_id="monthbh2"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )" itk_id="weekbh2"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" itk_id="bh2"/>
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid" itk_id="PLMN">"plmn".co_gid</pivot>
+      <pivot level="RSMGW-MGW" id="mgw_gid" itk_id="RSMGW-MGW">"mgw".co_gid</pivot>
+      <pivot level="MR_RSMGW-MGW" id="mr_gid">"mgw".co_mr_gid</pivot>
+      <pivot level="WS_RSMGW-MGW" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mgw",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mgw".co_gid = p.mgw_id
+          and "mgw".co_parent_gid = "plmn".co_gid
+          and "mgw".co_oc_id = 757
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN" object-keys="RSMGW-MGW" itk_id="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN">
+      <!-- Measures used to build this base-level: MTPSLA, MTPSLP, MTPSLU -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: MGW,SLSN -->
+      <!--    First Time Level: day -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MGW.SLN.SL_TYPE.SNET.SPCD.SLSN -->
+      <!--    Last Object Level: PLMN.MGW -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period" itk_id="PLMN">PLMN</level>
+          <level keys="RSMGW-MGW" time-agg-levels="hour,day,week,month,bh,weekbh,whole_period" itk_id="RSMGW-MGW">PLMN/RSMGW-MGW</level>
+          <level keys="MR_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSMGW-MGW" itk_id="MR_RSMGW-MGW">PLMN/MR_RSMGW-MGW</level>
+          <level keys="WS_RSMGW-MGW" time-agg-levels="hour,day,week,month,whole_period" itk_id="WS_RSMGW-MGW">PLMN/WS_RSMGW-MGW</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:slsn1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" itk_id="hour"/>
+          <time-level name="day" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="day"/>
+          <time-level name="week" subst="{OBJ_AGG}:mgw,{TIME_AGG}:week" can-use-raw="no" is-raw="no" itk_id="week"/>
+          <time-level name="month" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="month"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mgw,{TIME_AGG}:day" can-use-raw="no" is-raw="no" itk_id="whole_period"/>
+          <time-level name="bh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" itk_id="bh"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:mgw,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" itk_id="weekbh"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+</object-conf>

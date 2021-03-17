@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_444a">
+    <formula>100*decode(
+			vlr1msc.tmsiallocationattempt,0,null, 
+
+			vlr1msc.tmsiallocationsucc
+			 / 
+			vlr1msc.tmsiallocationattempt)</formula>
+    <kpi_info>
+      <title><![CDATA[TMSI allocation success ratio]]></title>
+      <use><![CDATA[Successful TMSI allocation percentage out of all TMSI allocation attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      sum(TMSIAllocationSucc)
+&lt;br&gt;100* ---------------------------
+&lt;br&gt;     sum(TMSIAllocationAttempt)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[TMSI allocation success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

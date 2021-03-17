@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>AUTLTE (AutoDef LTE)</header>
+    <csv_title>AUTLTE (AutoDef LTE)</csv_title>
+    <report-description>AutoDef LTE measurement (M1019) measures inter system hard handover success rate from 3G to LTE per source and target cell pair.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <LTE_ISHO_ATTEMPTS/>
+    <LTE_ISHO_SUCCESSFUL/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="AUTLTE" omes_name="AutoDef_LTE" meas_level="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-ENB/RSRAN-ECEL/RSRAN-MCC-10/RSRAN-MNC-10" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>AUTLTE</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="LTE_ISHO_ATTEMPTS" symmetrical="true">SUM(LTE_ISHO_ATTEMPTS)</counter>
+          <counter alias="LTE_ISHO_SUCCESSFUL" symmetrical="true">SUM(LTE_ISHO_SUCCESSFUL)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_autlte_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AUTLTE</alias_name>
+    <ui_name>AutoDef LTE</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AUTLTE.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_autlte_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_ISHO_ATTEMPTS">
+    <formula>AUTLTE.LTE_ISHO_ATTEMPTS</formula>
+    <kpi_info>
+      <title>LTE_ISHO_ATTEMPTS (M1019C0)</title>
+      <use>The number of outgoing inter-system hard handover attempts to LTE. This counter is updated for a measurement object in which source and target cells are defined. If cells A and B are in the active set and inter-system hard handover to LTE cell C is attempted, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED: When the SRNC starts an inter-system handover by sending RANAP: RELOCATION REQUIRED to the core network. This counter is not updated if the inter-system handover is prevented by an ongoing layer-3 procedure.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_ISHO_ATTEMPTS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_autlte_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_ISHO_ATTEMPTS (M1019C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LTE_ISHO_SUCCESSFUL">
+    <formula>AUTLTE.LTE_ISHO_SUCCESSFUL</formula>
+    <kpi_info>
+      <title>LTE_ISHO_SUCCESSFUL (M1019C1)</title>
+      <use>The number of completed outgoing inter-system hard handovers to LTE. This counter is updated for a measurement object in which source and target cells are defined. If cells A and B are in the active set and inter-system hard handover to LTE cell C is successful, this counter is updated by 1 for objects (A,C) and (B,C).UPDATED:When the SRNC receives RANAP:IU RELEASE COMMAND from the core network after a successful inter-system HHO to LTE.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LTE_ISHO_SUCCESSFUL)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_autlte_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LTE_ISHO_SUCCESSFUL (M1019C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>AUTLTE.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_autlte_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

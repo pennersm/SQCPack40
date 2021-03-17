@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1557a">
+    <formula>decode(
+			(pktcall.init_dch_req_64_dl + 
+			pktcall.dch_upgr_req_64_dl + 
+			pktcall.init_dch_req_128_dl + 
+			pktcall.dch_upgr_req_128_dl + 
+			pktcall.init_dch_req_256_dl + 
+			pktcall.dch_upgr_req_256_dl + 
+			pktcall.init_dch_req_384_dl + 
+			pktcall.dch_upgr_req_384_dl),0,null, 
+
+			(100*(pktcall.succ_upg_nrt_dch_128_dl + 
+			pktcall.succ_init_allo_req_128_dl + 
+			pktcall.succ_upg_nrt_dch_req_128_dl)
+			 / 
+			(pktcall.init_dch_req_64_dl + 
+			pktcall.dch_upgr_req_64_dl + 
+			pktcall.init_dch_req_128_dl + 
+			pktcall.dch_upgr_req_128_dl + 
+			pktcall.init_dch_req_256_dl + 
+			pktcall.dch_upgr_req_256_dl + 
+			pktcall.init_dch_req_384_dl + 
+			pktcall.dch_upgr_req_384_dl)))</formula>
+    <kpi_info>
+      <title><![CDATA[Packet Call Capacity Reservations Ratio - DL 128]]></title>
+      <use><![CDATA[This KPI provides information about the NRT DCH DL allocation success ratio with bitrate equal to 128kbps. Compares the successful allocations for 128kbps against total number of allocation requests for all bitrates.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(SUCC_UPG_NRT_DCH_128_DL
+&lt;br&gt;      + SUCC_INIT_ALLO_REQ_128_DL
+&lt;br&gt;      + SUCC_UPG_NRT_DCH_REQ_128_DL)
+&lt;br&gt;------------------------------
+&lt;br&gt;SUM(INIT_DCH_REQ_64_DL
+&lt;br&gt;       +DCH_UPGR_REQ_64_DL
+&lt;br&gt;       +INIT_DCH_REQ_128_DL
+&lt;br&gt;       +DCH_UPGR_REQ_128_DL
+&lt;br&gt;       +INIT_DCH_REQ_256_DL
+&lt;br&gt;       +DCH_UPGR_REQ_256_DL
+&lt;br&gt;       +INIT_DCH_REQ_384_DL
+&lt;br&gt;       +DCH_UPGR_REQ_384_DL)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS Cap Resv Rate DL 128</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LTRLD (LTE Transport Load)</header>
+    <csv_title>LTRLD (LTE Transport Load)</csv_title>
+    <report-description>Transport Load measurement (M8004) measuresGTP-U protocol procedures.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <VOLUME_X2_IN_SIG_DATA />
+    <VOLUME_X2_OUT_SIG_DATA />
+    <X2_DATA_VOL_IN_UPLANE />
+    <X2_DATA_VOL_OUT_UPLANE />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LTRLD" meas_level="PLMN/MRBTS/LNBTS" type="PM" master="yes" pragma="noklte" create="yes">
+     <koala_meas_id_list>LTRLD</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="VOLUME_X2_IN_SIG_DATA" symmetrical="true">SUM(VOLUME_X2_IN_SIG_DATA)</counter>
+	  <counter alias="VOLUME_X2_OUT_SIG_DATA" symmetrical="true">SUM(VOLUME_X2_OUT_SIG_DATA)</counter>
+	  <counter alias="X2_DATA_VOL_IN_UPLANE" symmetrical="true">SUM(X2_DATA_VOL_IN_UPLANE)</counter>
+	  <counter alias="X2_DATA_VOL_OUT_UPLANE" symmetrical="true">SUM(X2_DATA_VOL_OUT_UPLANE)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LTRLD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LTRLD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="VOLUME_X2_IN_SIG_DATA">
+    <formula>LTRLD.VOLUME_X2_IN_SIG_DATA</formula>
+    <kpi_info>
+      <title>VOLUME_X2_IN_SIG_DATA</title>
+      <use>The measurement gives an indication of the X2 interface signaling load per eNB by reporting the sum of received signaling volume. UPDATED: This counter is updated when an X2AP message has been received from any source eNB.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(VOLUME_X2_IN_SIG_DATA)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VOLUME_X2_IN_SIG_DATA (M8004C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="VOLUME_X2_OUT_SIG_DATA">
+    <formula>LTRLD.VOLUME_X2_OUT_SIG_DATA</formula>
+    <kpi_info>
+      <title>VOLUME_X2_OUT_SIG_DATA</title>
+      <use>The measurement gives an indication of the X2 interface signaling load per eNB by reporting the sum of transmitted signaling volume. UPDATED: This counter is updated when an X2AP message is transmitted towards any target eNB.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(VOLUME_X2_OUT_SIG_DATA)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VOLUME_X2_OUT_SIG_DATA (M8004C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="X2_DATA_VOL_IN_UPLANE">
+    <formula>LTRLD.X2_DATA_VOL_IN_UPLANE</formula>
+    <kpi_info>
+      <title>X2_DATA_VOL_IN_UPLANE</title>
+      <use>The measurement gives an indication of the X2 interface traffic load per eNB by reporting the sum of received u-plane traffic volume. UPDATED: This counter is updated on the reception of an DL Data Forwarding GTP-U: G-PDU from any source eNB
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(X2_DATA_VOL_IN_UPLANE)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>X2_DATA_VOL_IN_UPLANE (M8004C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="X2_DATA_VOL_OUT_UPLANE">
+    <formula>LTRLD.X2_DATA_VOL_OUT_UPLANE</formula>
+    <kpi_info>
+      <title>X2_DATA_VOL_OUT_UPLANE</title>
+      <use>The measurement gives an indication of the X2 interface traffic load per eNB by reporting the sum of transmitted u-plane traffic volume. UPDATED: This counter is updated on the transmission of DL Data Forwarding GTP-U: G-PDU towards any target eNB
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(X2_DATA_VOL_OUT_UPLANE)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>X2_DATA_VOL_OUT_UPLANE (M8004C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LTRLD.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_ltrld_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

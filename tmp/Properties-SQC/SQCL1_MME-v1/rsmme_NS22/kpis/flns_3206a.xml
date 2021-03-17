@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SONM.xml" />
+  <kpi name="flns_3206a">
+    <formula>decode(
+            (sonm.son_enb_conf_with_req),0,null,
+            
+            (sonm.son_mme_conf_with_repl
+            / 
+            sonm.son_enb_conf_with_req))*100</formula>
+    <kpi_info>
+      <title><![CDATA[eNB<->MME Configuration Reply/Request ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of MME Configuration Transfer reply messages sent when compared to the eNB Configuration Transfer request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SON_MME_CONF_WITH_REPL)
+&lt;br&gt;----------------------------- *100
+&lt;br&gt;sum(SON_ENB_CONF_WITH_REQ)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_SONM_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.769 +0100</date>
+          <comment><![CDATA[Source: RSMME019.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>eNB&lt;-&gt;MME Config Reply/Req ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

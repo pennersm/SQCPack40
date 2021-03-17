@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SGPA.xml" />
+  <kpi name="sgsn_832a">
+    <formula>100*decode(
+			(sgpa.sgsn_level_ps_pagings),0,NULL, 
+
+			(sgpa.sgsn_level_ps_pagings - 
+			sgpa.sgsn_level_unsucc_ps_pag)
+			 / 
+			(sgpa.sgsn_level_ps_pagings))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb Paging success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of paging procedures to Gb interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SGSN_LEVEL_PS_PAGINGS -
+&lt;br&gt;       SGSN_LEVEL_UNSUCC_PS_PAG)
+&lt;br&gt;----------------------------------------------------------------- * 100
+&lt;br&gt;sum(SGSN_LEVEL_PS_PAGINGS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_gb_sgsn_paging</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_sgpa_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb Paging success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

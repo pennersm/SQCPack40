@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IPDA.xml"/>
+  <kpi name="sgsn_2383a">
+    <formula>decode(
+			((IPDA.IPPU_GTP_BYTES_SENT_DL_PR1 + IPDA.IPPU_GTP_BYTES_SENT_DL_PR2 +
+   IPDA.IPPU_GTP_BYTES_SENT_DL_PR3 + IPDA.IPPU_GTP_BYTES_SENT_DL_PR4 +
+   IPDA.IPPU_GTP_BYTES_SENT_DL_PR_STR + IPDA.IPPU_GTP_BYTES_SENT_DL_PR_CONV +
+   IPDA.IPPU_GTP_BYTES_SENT_UL_PR1 + IPDA.IPPU_GTP_BYTES_SENT_UL_PR2 +
+   IPDA.IPPU_GTP_BYTES_SENT_UL_PR3 + IPDA.IPPU_GTP_BYTES_SENT_UL_PR4 +
+   IPDA.IPPU_GTP_BYTES_UL_PR_STR + IPDA.IPPU_GTP_BYTES_UL_PR_CONV +
+   4294967296 * 
+   (IPDA.IPPU_GTP_BYTES_SENT_DL_PR1_OFL + IPDA.IPPU_GTP_BYTES_SENT_DL_PR2_OFL +
+   IPDA.IPPU_GTP_BYTES_SENT_DL_PR3_OFL + IPDA.IPPU_GTP_BYTES_SENT_DL_PR4_OFL +
+   IPDA.IPPU_GTP_BYTES_DL_PR_STR_OFL + IPDA.IPPU_GTP_BYTES_DL_PR_CONV_OFL +
+   IPDA.IPPU_GTP_BYTES_SENT_UL_PR1_OFL + IPDA.IPPU_GTP_BYTES_SENT_UL_PR2_OFL +
+   IPDA.IPPU_GTP_BYTES_SENT_UL_PR3_OFL + IPDA.IPPU_GTP_BYTES_SENT_UL_PR4_OFL +
+   IPDA.IPPU_GTP_BYTES_UL_PR_STR_OFL + IPDA.IPPU_GTP_BYTES_UL_PR_CONV_OFL))),0,NULL, 
+
+			(((IPDA.IPPU_GTP_BYTES_SENT_DL_PR_CONV +  
+            IPDA.IPPU_GTP_BYTES_UL_PR_CONV +
+            4294967296 * 
+            (IPDA.IPPU_GTP_BYTES_DL_PR_CONV_OFL + 
+            IPDA.IPPU_GTP_BYTES_UL_PR_CONV_OFL)))
+			 / 
+			((IPDA.IPPU_GTP_BYTES_SENT_DL_PR1 + 
+            IPDA.IPPU_GTP_BYTES_SENT_DL_PR2 +
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR3 + 
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR4 +
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR_STR + 
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR_CONV +
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR1 + 
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR2 +
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR3 + 
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR4 +
+           IPDA.IPPU_GTP_BYTES_UL_PR_STR + 
+           IPDA.IPPU_GTP_BYTES_UL_PR_CONV +
+           4294967296 * 
+           (IPDA.IPPU_GTP_BYTES_SENT_DL_PR1_OFL + 
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR2_OFL +
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR3_OFL + 
+           IPDA.IPPU_GTP_BYTES_SENT_DL_PR4_OFL +
+           IPDA.IPPU_GTP_BYTES_DL_PR_STR_OFL + 
+           IPDA.IPPU_GTP_BYTES_DL_PR_CONV_OFL +
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR1_OFL + 
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR2_OFL +
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR3_OFL + 
+           IPDA.IPPU_GTP_BYTES_SENT_UL_PR4_OFL +
+           IPDA.IPPU_GTP_BYTES_UL_PR_STR_OFL + 
+           IPDA.IPPU_GTP_BYTES_UL_PR_CONV_OFL)))))*100</formula>
+    <kpi_info>
+      <title><![CDATA[IPPU Iu priority streaming GTP data share]]></title>
+      <use><![CDATA[This KPI shows the priority class streaming GTP data volume share on Iu/Gn interface when compared to all Iu GTP data volume. This KPI is relevant only with ATCA hardware.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(IPPU_GTP_BYTES_SENT_DL_PR_STR +  IPPU_GTP_BYTES_UL_PR_STR +
+&lt;br&gt;   4294967296 * (IPPU_GTP_BYTES_DL_PR_STR_OFL + IPPU_GTP_BYTES_UL_PR_STR_OFL))
+&lt;br&gt;------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(IPPU_GTP_BYTES_SENT_DL_PR1 + IPPU_GTP_BYTES_SENT_DL_PR2 +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_DL_PR3 + IPPU_GTP_BYTES_SENT_DL_PR4 +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_DL_PR_STR + IPPU_GTP_BYTES_SENT_DL_PR_CONV +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_UL_PR1 + IPPU_GTP_BYTES_SENT_UL_PR2 +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_UL_PR3 + IPPU_GTP_BYTES_SENT_UL_PR4 +
+&lt;br&gt;   IPPU_GTP_BYTES_UL_PR_STR + IPPU_GTP_BYTES_UL_PR_CONV +
+&lt;br&gt;   4294967296 * 
+&lt;br&gt;   (IPPU_GTP_BYTES_SENT_DL_PR1_OFL + IPPU_GTP_BYTES_SENT_DL_PR2_OFL +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_DL_PR3_OFL + IPPU_GTP_BYTES_SENT_DL_PR4_OFL +
+&lt;br&gt;   IPPU_GTP_BYTES_DL_PR_STR_OFL + IPPU_GTP_BYTES_DL_PR_CONV_OFL +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_UL_PR1_OFL + IPPU_GTP_BYTES_SENT_UL_PR2_OFL +
+&lt;br&gt;   IPPU_GTP_BYTES_SENT_UL_PR3_OFL + IPPU_GTP_BYTES_SENT_UL_PR4_OFL +
+&lt;br&gt;   IPPU_GTP_BYTES_UL_PR_STR_OFL + IPPU_GTP_BYTES_UL_PR_CONV_OFL))
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IPDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IPPU prio strm GTP data share]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

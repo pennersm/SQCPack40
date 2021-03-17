@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_152c">
+    <formula>decode(
+			(servlev.rab_act_rel_ps_backg_srnc + 
+			servlev.rab_act_fail_ps_backg_ue + 
+			servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_comp_ps_backg),0,null, 
+
+			(100*(servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_fail_ps_backg_ue)
+			 / 
+			(servlev.rab_act_rel_ps_backg_srnc + 
+			servlev.rab_act_fail_ps_backg_ue + 
+			servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_comp_ps_backg)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Drop Ratio, NRT services Background class]]></title>
+      <use><![CDATA[This is sub-KPI of RAB drop ratio, NRT services]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;   100*sum( RAB_ACT_FAIL_PS_BACKG_IU 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_RADIO 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_BTS 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_IUR 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_RNC
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_UE )
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;       sum( RAB_ACT_REL_PS_BACKG_SRNC 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_UE
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_IU 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_RADIO 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_BTS 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_IUR 
+&lt;br&gt;          + RAB_ACT_FAIL_PS_BACKG_RNC 
+&lt;br&gt;          + RAB_ACT_COMP_PS_BACKG )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Drop Ratio, NRT services Background class]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

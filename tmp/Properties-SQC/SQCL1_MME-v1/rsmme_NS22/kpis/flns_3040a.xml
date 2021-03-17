@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SMLM.xml"/>
+  <kpi name="flns_3040a">
+    <formula>decode(
+			((SMLM.eps_identity_request_succ + 
+			SMLM.eps_identity_request_fail)),0,NULL, 
+
+			((SMLM.eps_identity_request_fail))
+			 / 
+			((SMLM.eps_identity_request_succ + 
+			SMLM.eps_identity_request_fail)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Identity Request failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of EPS identity request procedures.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>              sum (eps_identity_request_fail)
+&lt;br&gt;----------------------------------------------------------- * 100
+&lt;br&gt;sum (eps_identity_request_succ + eps_identity_request_fail)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_SMLM_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[EPS Identity Req FR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_2048a">
+    <formula>100*decode(
+			((HSDPAW.mace_pdus_2ms_tti + 
+			HSDPAW.mace_pdus_10ms_tti)),0,null, 
+
+			((HSDPAW.mace_pdus_2ms_tti))
+			 / 
+			((HSDPAW.mace_pdus_2ms_tti + 
+			HSDPAW.mace_pdus_10ms_tti)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA 2 ms TTI Transmission Usage Ratio]]></title>
+      <use><![CDATA[HSUPA 2 ms TTI Transmission Usage Ratio, provides the percentage of received 2 ms TTI MAC-e PDUs when compared with the total number of received PDUs transmitted using 2 ms TTIs or 10 ms TTIs.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum (mace_pdus_2ms_tti)
+&lt;br&gt;100 * --------------------------------------------
+&lt;br&gt;      sum (mace_pdus_2ms_tti + mace_pdus_10ms_tti)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HSUPA 2ms TTI UsgRatio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

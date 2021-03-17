@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <temp_table_ref src="rssg2g/counters/OVERLOAD.xml" />
+  <kpi name="sgsn_2150b">
+    <formula>decode(
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_wrong_password + 
+			sesmgmnt.fail_mo_pdp_act_inv_pdp_actmsg + 
+			sesmgmnt.fail_mo_pdp_act_insuf_res + 
+			sesmgmnt.fail_mo_pdp_act_mis_unk_apn + 
+			sesmgmnt.fail_mo_pdp_act_unk_addr_type + 
+			sesmgmnt.fail_mo_pdp_act_rej_unspec + 
+			sesmgmnt.fail_mo_pdp_act_serv_opt_ns + 
+			sesmgmnt.fail_mo_pdp_act_req_se_op_ns + 
+			sesmgmnt.fail_mo_pdp_act_nsapi_used + 
+			sesmgmnt.fail_mo_pdp_act_act_re_ggsn + 
+			sesmgmnt.mo_pdp_act_fail_so_out_of_ord + 
+			sesmgmnt.general_undef_act_failure + 
+			nvl(sesmgmnt.fail_mo_pdp_ctx_act_rej_sgw,0) + 
+			nvl(overload.rej_pdp_cont_act_attempts,0)),0,NULL,
+	
+			100*(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_wrong_password + 
+			sesmgmnt.fail_mo_pdp_act_mis_unk_apn + 
+			sesmgmnt.fail_mo_pdp_act_unk_addr_type + 
+			sesmgmnt.fail_mo_pdp_act_serv_opt_ns + 
+			sesmgmnt.fail_mo_pdp_act_req_se_op_ns)
+			/ 
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_wrong_password + 
+			sesmgmnt.fail_mo_pdp_act_inv_pdp_actmsg + 
+			sesmgmnt.fail_mo_pdp_act_insuf_res + 
+			sesmgmnt.fail_mo_pdp_act_mis_unk_apn + 
+			sesmgmnt.fail_mo_pdp_act_unk_addr_type + 
+			sesmgmnt.fail_mo_pdp_act_rej_unspec + 
+			sesmgmnt.fail_mo_pdp_act_serv_opt_ns + 
+			sesmgmnt.fail_mo_pdp_act_req_se_op_ns + 
+			sesmgmnt.fail_mo_pdp_act_nsapi_used + 
+			sesmgmnt.fail_mo_pdp_act_act_re_ggsn + 
+			sesmgmnt.mo_pdp_act_fail_so_out_of_ord + 
+			sesmgmnt.general_undef_act_failure + 
+			nvl(sesmgmnt.fail_mo_pdp_ctx_act_rej_sgw,0) + 
+			nvl(overload.rej_pdp_cont_act_attempts,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb PDP context activation "technical" success ratio]]></title>
+      <use><![CDATA[This KPI measures the PDP context activation performance on Gb interface from &quot;technical&quot; perspective.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum( a.SUCC_MO_PDP_CONTEXT_ACT + 
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_WRONG_PASSWORD + a.FAIL_MO_PDP_ACT_MIS_UNK_APN +
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_UNK_ADDR_TYPE + a.FAIL_MO_PDP_ACT_SERV_OPT_NS +
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_REQ_SE_OP_NS ) 
+&lt;br&gt;-------------------------------------------------------------------------- *100 
+&lt;br&gt;sum( a.SUCC_MO_PDP_CONTEXT_ACT + a.FAIL_MO_PDP_CONTEXT_ACT + 
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_WRONG_PASSWORD + a.FAIL_MO_PDP_ACT_INV_PDP_ACTMSG + 
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_INSUF_RES + a.FAIL_MO_PDP_ACT_MIS_UNK_APN + 
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_UNK_ADDR_TYPE + a.FAIL_MO_PDP_ACT_REJ_UNSPEC + 
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_SERV_OPT_NS + a.FAIL_MO_PDP_ACT_REQ_SE_OP_NS + 
+&lt;br&gt;   a.FAIL_MO_PDP_ACT_NSAPI_USED + a.FAIL_MO_PDP_ACT_ACT_RE_GGSN + 
+&lt;br&gt;   a.MO_PDP_ACT_FAIL_SO_OUT_OF_ORD + a.GENERAL_UNDEF_ACT_FAILURE + 
+&lt;br&gt;   a.FAIL_MO_PDP_CTX_ACT_REJ_SGW + b.REJ_PDP_CONT_ACT_ATTEMPTS )
+&lt;br&gt;
+&lt;br&gt;counters from table(s):
+&lt;br&gt;a = p_sgsn_session_management
+&lt;br&gt;b = p_sgsn_overload</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_SESMGMNT_{OBJ_AGG}_{TIME_AGG},RSG_PS_OVERLOAD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/02/18 20:06:08.196 +0000</date>
+          <comment><![CDATA[Source: rssg2g044.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gb PDP act &amp;quot;tech&amp;quot; SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

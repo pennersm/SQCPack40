@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <kpi name="RNC_5382a">
+    <formula>decode(
+			(decode(
+			2,0,null, 
+
+			hsdpaw.capable_dc_hsdpa_users_sum
+			 / 
+			2)),0,null, 
+
+			((celtpw.mc_hsdpa_orig_data_pri + 
+			celtpw.mc_hsdpa_orig_data_sec)*8*10)
+			 / 
+			(decode(
+			2,0,null, 
+
+			hsdpaw.capable_dc_hsdpa_users_sum
+			 / 
+			2)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average HSDPA Dual Cell end user throughput per BTS]]></title>
+      <use><![CDATA[Average end-user experience throughput of active HSDPA Dual Cell users per BTS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum((MC_HSDPA_ORIG_DATA_PRI+MC_HSDPA_ORIG_DATA_SEC)*8*10)
+&lt;br&gt;/
+&lt;br&gt;sum(CAPABLE_DC_HSDPA_USERS_SUM/2)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg},nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/29 05:32:41.553 +0000</date>
+          <comment><![CDATA[Source: RSRAN144.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSDPA DC e u thr se</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

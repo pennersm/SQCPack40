@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1049b">
+    <formula>100*decode(
+			((SERVLEV.rrc_conn_acc_comp)),0,null, 
+
+			((SERVLEV.ue_supp_edch_category_1 + 
+			SERVLEV.ue_supp_edch_category_2 + 
+			SERVLEV.ue_supp_edch_category_3 + 
+			SERVLEV.ue_supp_edch_category_4 + 
+			SERVLEV.ue_supp_edch_category_5 + 
+			SERVLEV.ue_supp_edch_category_6 + 
+			servlev.ue_supp_edch_category_7_1))
+			 / 
+			((SERVLEV.rrc_conn_acc_comp)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Capable UE Utilization]]></title>
+      <use><![CDATA[Utilized Capability i.e. how big percentage of HSUPA capable UE's got RRC-connection from all RRC-connections.
+This indicator helps operator to understand how much the HSUPA is really utilized by the HSUPA capable UE's.  This gives an idea how wide spread HSUPA UE's are in the network.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (ue_supp_edch_category_1 + ue_supp_edch_category_2 + ue_supp_edch_category_3 + ue_supp_edch_category_4 + ue_supp_edch_category_5 + ue_supp_edch_category_6 + ue_supp_edch_category_7)
+&lt;br&gt;100 * -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;                                                                                       sum (rrc_conn_acc_comp)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSUPA Capable UE util]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

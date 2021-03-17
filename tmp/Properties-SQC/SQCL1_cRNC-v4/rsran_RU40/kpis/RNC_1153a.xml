@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/FPSN_ext.xml" />
+  <kpi name="RNC_1153a">
+    <formula>decode(
+			(fpsn.pwtpktrecv_15_1),0,null, 
+
+			(100*(fpsn.pwtunknownpwhdr_15_1)
+			 / 
+			(fpsn.pwtpktrecv_15_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ingress PW packet error ratio]]></title>
+      <use><![CDATA[Packets dropped due to invalid pseudowire header (MPLS shim).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum ( PwtUnknownPWHdr_15 ) 
+&lt;br&gt;--------------------
+&lt;br&gt;sum ( PwtPktRecv_15 )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_fpsn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ingress PW packet error ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

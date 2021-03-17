@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1053b">
+    <formula>100*decode(
+			((SERVLEV.ue_supp_edch_category_1 + 
+			SERVLEV.ue_supp_edch_category_2 + 
+			SERVLEV.ue_supp_edch_category_3 + 
+			SERVLEV.ue_supp_edch_category_4 + 
+			SERVLEV.ue_supp_edch_category_5 + 
+			SERVLEV.ue_supp_edch_category_6 + 
+			servlev.ue_supp_edch_category_7)),0,null, 
+
+			((SERVLEV.ue_supp_edch_category_4))
+			 / 
+			((SERVLEV.ue_supp_edch_category_1 + 
+			SERVLEV.ue_supp_edch_category_2 + 
+			SERVLEV.ue_supp_edch_category_3 + 
+			SERVLEV.ue_supp_edch_category_4 + 
+			SERVLEV.ue_supp_edch_category_5 + 
+			SERVLEV.ue_supp_edch_category_6 + 
+			servlev.ue_supp_edch_category_7)))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of Category 4 UE's]]></title>
+      <use><![CDATA[Percentage of category 4 UE's from all HSUPA capable UE's.
+Different types of User Equipments are used in the network and the UE capability gives operator information which kinds of UE's are used in the network.  Different UE's behave differently in network and can utilize the available features in different way.  All the different capabilities are indirectly effecting the throughput (average and peak) seen by the network, so even network does have capabilities to higher bitrates, the UE might not be able to utilize it (and vice versa).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (ue_supp_edch_category_4)
+&lt;br&gt;100 * -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (ue_supp_edch_category_1 + ue_supp_edch_category_2 + ue_supp_edch_category_3 + ue_supp_edch_category_4 + ue_supp_edch_category_5 + ue_supp_edch_category_6 + ue_supp_edch_category_7)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Perc of Category 4 UEs]]></kpi_alias>
+    <area_level />
+  </kpi>
+  </conf_file>
+

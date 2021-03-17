@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_151d">
+    <formula>decode(
+			(servlev.rab_act_comp_ps_inter + 
+			servlev.rab_act_rel_ps_inter_srnc + 
+			servlev.rab_act_rel_ps_inter_hho_1 + 
+			servlev.rab_act_rel_ps_inter_isho_1 + 
+			servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_inter_ue + 
+			servlev.rab_act_fail_ps_inter_trans_1),0,null, 
+
+			(100*(servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_inter_ue + 
+			servlev.rab_act_fail_ps_inter_trans_1)
+			 / 
+			(servlev.rab_act_comp_ps_inter + 
+			servlev.rab_act_rel_ps_inter_srnc + 
+			servlev.rab_act_rel_ps_inter_hho_1 + 
+			servlev.rab_act_rel_ps_inter_isho_1 + 
+			servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_inter_ue + 
+			servlev.rab_act_fail_ps_inter_trans_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Drop Ratio, NRT services Interactive class]]></title>
+      <use><![CDATA[RAB drop ratio, Interactive service class]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                                                           sum (rab_act_fail_ps_inter_iu + rab_act_fail_ps_inter_radio + rab_act_fail_ps_inter_bts + rab_act_fail_ps_inter_iur + rab_act_fail_ps_inter_rnc + rab_act_fail_ps_inter_ue + rab_act_fail_ps_inter_trans)
+&lt;br&gt;100 * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (rab_act_comp_ps_inter + rab_act_rel_ps_inter_srnc + rab_act_rel_ps_inter_hho + rab_act_rel_ps_inter_isho + rab_act_fail_ps_inter_iu + rab_act_fail_ps_inter_radio + rab_act_fail_ps_inter_bts + rab_act_fail_ps_inter_iur + rab_act_fail_ps_inter_rnc + rab_act_fail_ps_inter_ue + rab_act_fail_ps_inter_trans)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/12 10:59:21.951 +0100</date>
+          <comment><![CDATA[Source: RSRAN003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB DR PS Interactive</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>FSEPS (FTM Security Policy Statistics)</header>
+    <csv_title>FSEPS (FTM Security Policy Statistics)</csv_title>
+    <report-description>FTM Security Policy Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <receivedESPpackets />
+    <antiReplayErrors />
+    <espCryptographicErrors />
+    <trafficSelectorMismatch />
+    <sentESPPackets />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FSEPS" meas_level="PLMN/RNC/WBTS/FTM/IPSECC/SPPM" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="receivedESPpackets">SUM(receivedESPpackets)</counter>
+      <counter alias="antiReplayErrors">SUM(antiReplayErrors)</counter>
+      <counter alias="espCryptographicErrors">SUM(espCryptographicErrors)</counter>
+      <counter alias="trafficSelectorMismatch">SUM(trafficSelectorMismatch)</counter>
+      <counter alias="sentESPPackets">SUM(sentESPPackets)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FSEPS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FSEPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="receivedESPpackets">
+    <formula>FSEPS.receivedESPpackets</formula>
+    <kpi_info>
+      <title>receivedESPpackets</title>
+      <use>All received ESP packets addressed to a local tunnel endpoint which are received with a SPI of an existing IPsec SA are counted.Note: this counter includes both successfully and unsuccessfully received packets as long as the SPI exists  Updated: The counter is updated in case an ESP packet addressed to a local tunnel endpoint with a SPI  of an existing IPsec SA, is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(receivedESPpackets)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>receivedESPpackets (M5140C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="antiReplayErrors">
+    <formula>FSEPS.antiReplayErrors</formula>
+    <kpi_info>
+      <title>antiReplayErrors</title>
+      <use>All received ESP packets addressed to a local tunnel endpoint which are received with a SPI of an existing IPsec SA but the packets are discarded because the sequence number of the packets are outside the anti replay window are counted.   Updated: The counter is updated in case an ESP packet addressed to a local tunnel endpoint with a SPI of an existing IPsec SA is received but the packet is discarded because the sequence number of the packet is outside the anti replay window.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(antiReplayErrors)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>antiReplayErrors (M5140C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="espCryptographicErrors">
+    <formula>FSEPS.espCryptographicErrors</formula>
+    <kpi_info>
+      <title>espCryptographicErrors</title>
+      <use>All received ESP packets addressed to a local tunnel endpoint which are received with a SPI of an existing IPsec SA, the packets fit into the anti replay window but the packets could not be decrypted or authenticated correctly, shall be counted.  Updated: The counter is updated in case an ESP packet addressed to a local tunnel endpoint with a SPI of an existing IPsec SA and fits into the anti replay window is received  but  could not be decrypted or authenticated correctly.Note: packets with other errors than decryption or authentication are not counted here.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(espCryptographicErrors)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>espCryptographicErrors (M5140C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="trafficSelectorMismatch">
+    <formula>FSEPS.trafficSelectorMismatch</formula>
+    <kpi_info>
+      <title>trafficSelectorMismatch</title>
+      <use>All received ESP packets addressed to a local tunnel endpoint with a SPI of an existing IPsec SA, the packets fit into the anti replay window, the packets could be decrypted and authenticated but the packets do not match the traffic selectors configured for the associated policy are counted.  Updated: The counter is updated in case an ESP packet addressed to a local tunnel endpoint with a SPI of an existing IPsec SA, fitting into the anti replay window and can be decrypted and authenticated, is received but does not match the traffic selectors configured for the associated policy.Note: IPsec protect policies can be referenced by the policy order number</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(trafficSelectorMismatch)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>trafficSelectorMismatch (M5140C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="sentESPPackets">
+    <formula>FSEPS.sentESPPackets</formula>
+    <kpi_info>
+      <title>sentESPPackets</title>
+      <use>All sent ESP packets are counted.  Updated: The counter is updated in case an ESP packet  is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(sentESPPackets)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sentESPPackets (M5140C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FSEPS.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fseps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

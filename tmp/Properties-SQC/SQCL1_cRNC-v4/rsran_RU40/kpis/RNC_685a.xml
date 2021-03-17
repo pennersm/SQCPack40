@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_685a">
+    <formula>decode(
+			(hsdpaw.hs_scch_pwr_dist_class_0 + 
+			hsdpaw.hs_scch_pwr_dist_class_1 + 
+			hsdpaw.hs_scch_pwr_dist_class_2 + 
+			hsdpaw.hs_scch_pwr_dist_class_3 + 
+			hsdpaw.hs_scch_pwr_dist_class_4 + 
+			hsdpaw.hs_scch_pwr_dist_class_5 + 
+			hsdpaw.tti_not_sched_data_in_buff),0,null, 
+
+			(100*(hsdpaw.hs_scch_pwr_dist_class_0 + 
+			hsdpaw.hs_scch_pwr_dist_class_1 + 
+			hsdpaw.hs_scch_pwr_dist_class_2 + 
+			hsdpaw.hs_scch_pwr_dist_class_3 + 
+			hsdpaw.hs_scch_pwr_dist_class_4 + 
+			hsdpaw.hs_scch_pwr_dist_class_5)
+			 / 
+			(hsdpaw.hs_scch_pwr_dist_class_0 + 
+			hsdpaw.hs_scch_pwr_dist_class_1 + 
+			hsdpaw.hs_scch_pwr_dist_class_2 + 
+			hsdpaw.hs_scch_pwr_dist_class_3 + 
+			hsdpaw.hs_scch_pwr_dist_class_4 + 
+			hsdpaw.hs_scch_pwr_dist_class_5 + 
+			hsdpaw.tti_not_sched_data_in_buff)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH utilization]]></title>
+      <use><![CDATA[The percentage of active TTIs from the total number of TTIs during the HS-DSCH uptime. Note: there can be several MAC-d flows in one cell, but in RAS05 each TTI can only serve one of those at a time.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; 100 * sum(HS_SCCH_PWR_DIST_CLASS_0
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_1
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_2
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_3
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_4
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_5)
+&lt;br&gt;-------------------------------------------------------------
+&lt;br&gt; sum(HS_SCCH_PWR_DIST_CLASS_0
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_1
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_2
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_3
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_4
+&lt;br&gt;     + HS_SCCH_PWR_DIST_CLASS_5
+&lt;br&gt;     + TTI_NOT_SCHED_DATA_IN_BUFF)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HS-DSCH utilization</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

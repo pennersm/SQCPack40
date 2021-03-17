@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <kpi name="sgsn_683a">
+    <formula>100*decode(
+			(sesmgmnt.succ_pdp_act_roaming + 
+			sesmgmnt.fail_pdp_act_roaming),0,NULL, 
+
+			(sesmgmnt.succ_pdp_act_roaming)
+			 / 
+			(sesmgmnt.succ_pdp_act_roaming + 
+			sesmgmnt.fail_pdp_act_roaming))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb roaming PDP context activation success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of the PDP context activation procedures for roaming subscribers]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SUCC_PDP_ACT_ROAMING)
+&lt;br&gt;------------------------------------------------------- * 100
+&lt;br&gt;sum(SUCC_PDP_ACT_ROAMING +
+&lt;br&gt;       FAIL_PDP_ACT_ROAMING)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_session_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_sesmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb roaming PDP context activation success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

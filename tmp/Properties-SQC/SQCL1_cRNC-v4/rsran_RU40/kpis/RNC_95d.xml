@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_95d">
+    <formula>decode(
+			(servlev.rrc_conn_act_comp + 
+			servlev.rrc_conn_act_rel_srnc + 
+			servlev.rrc_conn_act_rel_ganho_1 + 
+			servlev.rrc_conn_act_rel_hho_1 + 
+			servlev.rrc_conn_act_rel_intra_hho_1 + 
+			servlev.rrc_conn_act_rel_isho_1 + 
+			servlev.rrc_conn_act_rel_p_emp + 
+			servlev.rrc_conn_act_fail_iu + 
+			servlev.rrc_conn_act_fail_radio + 
+			servlev.rrc_conn_act_fail_bts + 
+			servlev.rrc_conn_act_fail_iur + 
+			servlev.rrc_conn_act_fail_rnc + 
+			servlev.rrc_conn_act_fail_ue),0,null, 
+
+			(100 - 
+			100*(servlev.rrc_conn_act_fail_iu + 
+			servlev.rrc_conn_act_fail_radio + 
+			servlev.rrc_conn_act_fail_bts + 
+			servlev.rrc_conn_act_fail_iur + 
+			servlev.rrc_conn_act_fail_rnc)
+			 / 
+			(servlev.rrc_conn_act_comp + 
+			servlev.rrc_conn_act_rel_srnc + 
+			servlev.rrc_conn_act_rel_ganho_1 + 
+			servlev.rrc_conn_act_rel_hho_1 + 
+			servlev.rrc_conn_act_rel_intra_hho_1 + 
+			servlev.rrc_conn_act_rel_isho_1 + 
+			servlev.rrc_conn_act_rel_p_emp + 
+			servlev.rrc_conn_act_fail_iu + 
+			servlev.rrc_conn_act_fail_radio + 
+			servlev.rrc_conn_act_fail_bts + 
+			servlev.rrc_conn_act_fail_iur + 
+			servlev.rrc_conn_act_fail_rnc + 
+			servlev.rrc_conn_act_fail_ue)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Success Ratio from network perspective]]></title>
+      <use><![CDATA[RRC Success Ratio [%] over the reporting period. Covers RRC Active Phase of a call.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100-100* 
+&lt;br&gt;sum(RRC_CONN_ACT_FAIL_IU + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_RADIO + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_BTS + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_IUR + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_RNC)
+&lt;br&gt;/
+&lt;br&gt;sum(RRC_CONN_ACT_COMP + 
+&lt;br&gt;RRC_CONN_ACT_REL_SRNC + 
+&lt;br&gt;RRC_CONN_ACT_REL_GANHO + 
+&lt;br&gt;RRC_CONN_ACT_REL_HHO + 
+&lt;br&gt;RRC_CONN_ACT_REL_INTRA_HHO + 
+&lt;br&gt;RRC_CONN_ACT_REL_ISHO + 
+&lt;br&gt;RRC_CONN_ACT_REL_P_EMP + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_IU + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_RADIO + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_BTS + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_IUR + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_RNC + 
+&lt;br&gt;RRC_CONN_ACT_FAIL_UE)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RRC Success Ratio from network perspective]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

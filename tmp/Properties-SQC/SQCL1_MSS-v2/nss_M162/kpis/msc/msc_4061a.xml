@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <kpi name="msc_4061a">
+    <formula>
+decode(SERVI_ext.MSCSSM_USAGE_40 ,0,null,
+	100 * ( SERVI_ext.MSCSSM_USAGE_39 / SERVI_ext.MSCSSM_USAGE_40 )
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[SMS-MO Failure Ratio (UMTS)]]></title>
+      <use><![CDATA[Indicates the ratio of unsuccessful outgoing UMTS SMS messages in relation to the number of attempted outgoing SMS messages.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Service ID:
+<br>   114H = UNSUCCESSFUL MO SMS 3G
+<br>   110H = SUCCESSFUL MO SMS 3G
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 31-07-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Service measurement (M128/80H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;SMS-MO Failure Ratio&quot; (UMTS) KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( MSCSSM_USAGE ) ;WHERE Service_ID = 114H
+&lt;br&gt;100 * ---------------------------------
+&lt;br&gt;       SUM( MSCSSM_USAGE ) ;WHERE Service_ID = 114H, 110H
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SMS-MO FR (UMTS)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

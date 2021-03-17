@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_2754a">
+    <formula>(100 - 
+			100*decode(
+			(servlev.rab_act_comp_cs_voice + 
+			servlev.rab_act_rel_cs_voice_srnc + 
+			servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_rel_cs_voice_hho_1 + 
+			servlev.rab_act_rel_cs_voice_isho_1 + 
+			servlev.rab_act_rel_cs_voice_ganho_1 + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_fail_cs_voice_trans_1),0,null, 
+
+			(servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_fail_cs_voice_trans_1)
+			 / 
+			(servlev.rab_act_comp_cs_voice + 
+			servlev.rab_act_rel_cs_voice_srnc + 
+			servlev.rab_act_rel_cs_voice_p_emp + 
+			servlev.rab_act_rel_cs_voice_hho_1 + 
+			servlev.rab_act_rel_cs_voice_isho_1 + 
+			servlev.rab_act_rel_cs_voice_ganho_1 + 
+			servlev.rab_act_fail_cs_voice_iu + 
+			servlev.rab_act_fail_cs_voice_radio + 
+			servlev.rab_act_fail_cs_voice_bts + 
+			servlev.rab_act_fail_cs_voice_iur + 
+			servlev.rab_act_fail_cs_voice_rnc + 
+			servlev.rab_act_fail_cs_voice_ue + 
+			servlev.rab_act_fail_cs_voice_trans_1))) *
+			
+			
+			decode(
+			(servlev.rab_stp_att_cs_voice*
+			(servlev.moc_conv_call_atts + 
+			servlev.mtc_conv_call_atts + 
+			servlev.emergency_call_atts - 
+			servlev.rrc_att_rep_mo_conv - 
+			servlev.rrc_att_rep_mt_conv - 
+			servlev.rrc_att_rep_emergency - 
+			servlev.rrc_acc_rel_emergency - 
+			servlev.rrc_acc_rel_mo_conv - 
+			servlev.rrc_acc_rel_mt_conv - 
+			servlev.rrc_conn_stp_rej_emerg_call)),0,null, 
+
+			(100*((servlev.moc_conv_call_atts - 
+			servlev.moc_conv_call_fails + 
+			servlev.mtc_conv_call_atts - 
+			servlev.mtc_conv_call_fails + 
+			servlev.emergency_call_atts - 
+			servlev.emergency_call_fails - 
+			servlev.rrc_acc_rel_emergency - 
+			servlev.rrc_acc_rel_mo_conv - 
+			servlev.rrc_acc_rel_mt_conv)
+			 / 
+			(servlev.moc_conv_call_atts + 
+			servlev.mtc_conv_call_atts + 
+			servlev.emergency_call_atts - 
+			servlev.rrc_att_rep_mo_conv - 
+			servlev.rrc_att_rep_mt_conv - 
+			servlev.rrc_att_rep_emergency - 
+			servlev.rrc_acc_rel_emergency - 
+			servlev.rrc_acc_rel_mo_conv - 
+			servlev.rrc_acc_rel_mt_conv - 
+			servlev.rrc_conn_stp_rej_emerg_call))
+			*
+			((servlev.rab_acc_comp_cs_voice)
+			 / 
+			(servlev.rab_stp_att_cs_voice))))
+    
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Voice performance]]></title>
+      <use><![CDATA[3G voice performance is the multiplication of RNC_565f and RNC_231d (Voice call set up success rate and RAB Success Rate for Voice) .]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(1-  
+&lt;br&gt;sum(PS_REL_RL_FAIL_HS_E_INT +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_E_BGR +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_D_INT +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_D_BGR +   
+&lt;br&gt;PS_REL_RL_FAIL_D_D_INT +   
+&lt;br&gt;PS_REL_RL_FAIL_D_D_BGR +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_E_INT +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_E_BGR +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_D_INT +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_D_BGR +   
+&lt;br&gt;PS_REL_OTH_FAIL_D_D_INT +   
+&lt;br&gt;PS_REL_OTH_FAIL_D_D_BGR +  
+&lt;br&gt;PS_REL_RL_FAIL_HS_E_STRE +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_D_STRE +   
+&lt;br&gt;PS_REL_RL_FAIL_D_D_STRE +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_E_STRE +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_D_STRE +   
+&lt;br&gt;PS_REL_OTH_FAIL_D_D_STRE)  
+&lt;br&gt;/  
+&lt;br&gt;sum(PS_REL_RL_FAIL_HS_E_INT +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_E_BGR +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_D_INT +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_D_BGR +   
+&lt;br&gt;PS_REL_RL_FAIL_D_D_INT +   
+&lt;br&gt;PS_REL_RL_FAIL_D_D_BGR +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_E_INT +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_E_BGR +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_D_INT +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_D_BGR +   
+&lt;br&gt;PS_REL_OTH_FAIL_D_D_INT +   
+&lt;br&gt;PS_REL_OTH_FAIL_D_D_BGR +   
+&lt;br&gt;PS_REL_NORM_HS_E_INT +   
+&lt;br&gt;PS_REL_NORM_HS_E_BGR +   
+&lt;br&gt;PS_REL_NORM_HS_D_INT +   
+&lt;br&gt;PS_REL_NORM_HS_D_BGR +   
+&lt;br&gt;PS_REL_NORM_D_D_INT +   
+&lt;br&gt;PS_REL_NORM_D_D_BGR +  
+&lt;br&gt;PS_REL_RL_FAIL_HS_E_STRE +   
+&lt;br&gt;PS_REL_RL_FAIL_HS_D_STRE +   
+&lt;br&gt;PS_REL_RL_FAIL_D_D_STRE +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_E_STRE +   
+&lt;br&gt;PS_REL_OTH_FAIL_HS_D_STRE +   
+&lt;br&gt;PS_REL_OTH_FAIL_D_D_STRE +   
+&lt;br&gt;PS_REL_NORM_HS_E_STRE +   
+&lt;br&gt;PS_REL_NORM_HS_D_STRE +   
+&lt;br&gt;PS_REL_NORM_D_D_STRE) ) *  
+&lt;br&gt;(1-   
+&lt;br&gt;sum(RAB_ACT_REL_CS_VOICE_P_EMP +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IU +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RADIO +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_BTS +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IUR +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RNC +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_UE +  
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_TRANS)  
+&lt;br&gt;/  
+&lt;br&gt;sum(RAB_ACT_COMP_CS_VOICE +   
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_SRNC +   
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_P_EMP +  
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_HHO +  
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_ISHO +  
+&lt;br&gt;RAB_ACT_REL_CS_VOICE_GANHO +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IU +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RADIO +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_BTS +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_IUR +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_RNC +   
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_UE +  
+&lt;br&gt;RAB_ACT_FAIL_CS_VOICE_TRANS))
+</formula>
+      <unit>[%]</unit>
+    <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Voice perform]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

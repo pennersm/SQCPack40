@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+	<kpi name="RNC_970a">
+		<formula>
+			decode((traffic.dch_req_link_srnc),0,null,(100*(traffic.dch_req_link_rej_ul_srnc)/(traffic.dch_req_link_srnc)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[SRB Reject Rate UL]]>
+			</title>
+			<use>
+				<![CDATA[SRB Reject Rate in Uplink]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100* sum ( DCH_REQ_LINK_REJ_UL_SRNC )
+--------------------------------------
+sum ( DCH_REQ_LINK_SRNC )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[SRB Reject Rate UL]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

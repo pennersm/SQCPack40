@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/CBRR_ext.xml" />
+  <kpi name="flng_479a">
+    <formula>decode( ((GTPCV2.gtpcv2_cre_bearer_req_sent)),0,NULL, ((CBRR_ext.gtpcv2_cr_bearer_resp_recv_16)) / ((GTPCV2.gtpcv2_cre_bearer_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Bearer sent success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 create bearer requests sent, i.e., the number of create bearer response messages received with cause code 'Request Accepted' when compared to the number of create bearer request messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(cbrr_id,'16',b.GTPCV2_CREATE_BEARER_RESP_RECV,0)) ;Request accepted 
+<br>-------------------------------------------------------------------------------- *100 
+<br>sum(a.GTPCV2_CRE_BEARER_REQ_SENT) 
+<br> 
+<br>counters from measurement(s): 
+<br>a = GTP-C v2 
+<br>b = GTP-C v2 Create Bearer Response received]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_CBRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Bearer sent SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="MGW_313b">
+    <formula>decode(
+			(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas +
+			conn.all_cas_erroneous_resource_req),0,null, 
+			(100*(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas +
+			conn.all_cas_erroneous_resource_req - 
+			(conn.all_atm_cas_unsuccess + 
+			conn.all_ip_cas_unsuccess + 
+			conn.all_tdm_cas_unsuccess + 
+			conn.all_cas_erroneous_resource_req))
+			 / 
+			(conn.all_atm_cas + 
+			conn.all_ip_cas + 
+			conn.all_tdm_cas +
+			conn.all_cas_erroneous_resource_req)))</formula>
+    <kpi_info>
+      <title><![CDATA[Connection success rate]]></title>
+      <use><![CDATA[Indicates the successful ratio of connection reservation attempts]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; 
+&lt;br&gt; 100 - mgw_348a =
+&lt;br&gt;
+&lt;br&gt;SUM[ (ALL_ATM_CAS)
+&lt;br&gt;+ (ALL_IP_CAS)
+&lt;br&gt;+ (ALL_TDM_CAS)
+&lt;br&gt;+ (ALL_CAS_ERRONEOUS_RESOURCE_REQ)
+&lt;br&gt;- ( (ALL_ATM_CAS_UNSUCCESS)
+&lt;br&gt;+ (ALL_IP_CAS_UNSUCCESS) 
+&lt;br&gt;+ (ALL_TDM_CAS_UNSUCCESS)
+&lt;br&gt;+ (ALL_CAS_ERRONEOUS_RESOURCE_REQ) ) ] 
+&lt;br&gt; ------------------------------------------------------------------------------------- x 100
+&lt;br&gt;SUM[ (ALL_ATM_CAS)
+&lt;br&gt;+ (ALL_IP_CAS)
+&lt;br&gt;+ (ALL_TDM_CAS)
+&lt;br&gt;+ (ALL_CAS_ERRONEOUS_RESOURCE_REQ) ]
+&lt;br&gt; </formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Conn SR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

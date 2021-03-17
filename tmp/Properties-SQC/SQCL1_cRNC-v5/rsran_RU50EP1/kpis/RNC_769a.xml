@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/AALRR.xml" />
+  <kpi name="RNC_769a">
+    <formula>decode(
+			(aalrr.active_time_cumulative + 
+			aalrr.waiting_time_cumulative),0,null, 
+
+			100*(aalrr.active_time_cumulative)
+			 / 
+			(aalrr.active_time_cumulative + 
+			aalrr.waiting_time_cumulative))</formula>
+    <kpi_info>
+      <title><![CDATA[Shared HSDPA AAL2 allocation utilization]]></title>
+      <use><![CDATA[The ratio of time when there have been at least one user utilizing the shared HSDPA AAL2 allocation. The parameter ReleaseTimerForSharedHSDPAallocation can be used to affect on the utilization ratio.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(ACTIVE_TIME_CUMULATIVE)
+&lt;br&gt;     ----------------------
+&lt;br&gt;    sum(ACTIVE_TIME_CUMULATIVE+
+&lt;br&gt;     WAITING_TIME_CUMULATIVE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalrr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Shared HSDPA AAL2 allocation utilization]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

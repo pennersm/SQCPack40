@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2034a">
+    <formula>100*decode(
+			((TRAFFIC.allo_dur_hs_dsch_flow_int + 
+			TRAFFIC.allo_dur_hs_dsch_flow_bgr)),0,null, 
+
+			((traffic.allo_dur_hs_dsch_inactiv_int + 
+			traffic.allo_dur_hs_dsch_inactiv_bgr))
+			 / 
+			((TRAFFIC.allo_dur_hs_dsch_flow_int + 
+			TRAFFIC.allo_dur_hs_dsch_flow_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[NRT HS-DSCH inactivity Ratio]]></title>
+      <use><![CDATA[NRT HS-DSCH inactivity Ratio provides the percentage of time that the HS-DSCH channel was allocated, for NRT traffic flow, in inactive state.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (allo_dur_hs_dsch_inactiv_int + allo_dur_hs_dsch_inactiv_bgr)
+&lt;br&gt;100 * -----------------------------------------------------------------
+&lt;br&gt;         sum (allo_dur_hs_dsch_flow_int + allo_dur_hs_dsch_flow_bgr)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[NRT HS-DSCH inact Ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

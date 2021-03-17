@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_2108a">
+    <formula>100*decode(
+			((HSDPAW.denom_cpc_users)),0,null, 
+
+			((((HSDPAW.active_dc_hsdpa_users_2c_sum)
+			 / 
+			(2))))
+			 / 
+			((HSDPAW.denom_cpc_users)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average number of Active DC HSDPA capable UE using 2C, WBTS view]]></title>
+      <use><![CDATA[Average number of Active DC HSDPA capable UE using 2 Carriers, from WBTS perspective]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>            / active_dc_hsdpa_users_2c_sum \
+&lt;br&gt;       sum |  ----------------------------  |
+&lt;br&gt;            \              2               /
+&lt;br&gt;100 * ----------------------------------------
+&lt;br&gt;               sum (denom_cpc_users)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[AvgAct DCHSDPA UE,2C WBTS]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

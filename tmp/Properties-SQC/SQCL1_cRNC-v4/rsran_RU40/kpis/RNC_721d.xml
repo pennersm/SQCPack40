@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <temp_table_ref src="rsran_RU40/counters/CELTPW_ext.xml" />
+  <kpi name="RNC_721d">
+    <formula>decode(
+			(traffic.allo_dur_hs_dsch_flow_int + 
+			traffic.allo_dur_hs_dsch_flow_bgr + 
+			traffic.allo_dur_hs_dsch_flow_str_1)
+			,0,null, 
+
+			(hsdpaw.received_hs_macd_bits + 
+			(celtpw.mc_hsdpa_orig_data_pri_1 + 
+			celtpw.mc_hsdpa_orig_data_sec_1)*8 - 
+			hsdpaw.discarded_hs_macd_bits)
+			 / 
+			((traffic.allo_dur_hs_dsch_flow_int + 
+			traffic.allo_dur_hs_dsch_flow_bgr + 
+			traffic.allo_dur_hs_dsch_flow_str_1)
+			 / 
+			100))</formula>
+    <kpi_info>
+      <title><![CDATA[Average MAC-d flow throughput]]></title>
+      <use><![CDATA[The average MAC-d flow throughput calculated as the total HSDPA MAC-d throughput at the BTS divided by the total HSDPA MAC-d allocations. This includes the whole MAC-d allocation time including any inactive periods.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (RECEIVED_HS_MACD_BITS
+&lt;br&gt; + sum(MC_HSDPA_ORIG_DATA_PRI+MC_HSDPA_ORIG_DATA_SEC)*8
+&lt;br&gt; - DISCARDED_HS_MACD_BITS)
+&lt;br&gt;/
+&lt;br&gt;(sum(ALLO_DUR_HS_DSCH_FLOW_INT 
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_FLOW_BGR
+&lt;br&gt;+ ALLO_DUR_HS_DSCH_FLOW_STR)/100)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg},nokrww_ps_HSDPAW_{obj_agg}_{time_agg},nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/27 17:49:02.285 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg MAC-d flow thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/MTPSLU.xml" />
+  <temp_table_ref src="rsmgw/counters/M3UA.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/MTPSLU_ext.xml" />
+  <kpi name="mgw_5009b">
+    <formula>greatest( 
+decode(
+			(mtpslu_ext.mtp_corr_multi_recv_num*mtpslu.period_duration),0,0, 
+
+			(mtpslu.msus_received*(mtpslu_ext.sum_min_5_peakload_traffic_in
+			 / 
+			((mtpslu_ext.mtp_corr_multi_recv_num)*8
+			 / 
+			(mtpslu.period_duration*60)))
+			 / 
+			(mtpslu.period_duration*60)))+
+
+decode(
+			(mtpslu_ext.mtp_corr_multi_recv_num*mtpslu.period_duration*m3ua.period_duration),0,0, 
+
+			(m3ua.m3ua_messages_received*
+			(mtpslu_ext.sum_min_5_peakload_traffic_in
+			 / 
+			((mtpslu_ext.mtp_corr_multi_recv_num)*8
+			 / 
+			(mtpslu.period_duration*60)))
+			 / 
+			(m3ua.period_duration*60)))
+,
+
+decode(
+			(mtpslu_ext.mtp_corr_multi_trans_num*mtpslu.period_duration),0,0, 
+
+			(mtpslu.msus_transmitted*(mtpslu_ext.sum_min_5_peakload_traffic_out
+			 / 
+			(((mtpslu_ext.mtp_corr_multi_trans_num)*8)
+			 / 
+			 (mtpslu.period_duration*60)))
+			 / 
+			(mtpslu.period_duration*60)))+
+
+decode(
+			(mtpslu_ext.mtp_corr_multi_trans_num*mtpslu.period_duration*m3ua.period_duration),0,0, 
+
+			(m3ua.m3ua_messages_sent*(mtpslu_ext.sum_min_5_peakload_traffic_out
+			 / 
+			(((mtpslu_ext.mtp_corr_multi_trans_num)*8)
+			 / 
+			 (mtpslu.period_duration*60)))
+			 / 
+			(m3ua.period_duration*60)))
+)</formula>
+    <kpi_info>
+      <title><![CDATA[Signalling (msg/s/direction)]]></title>
+      <use><![CDATA[Maximum value of signalling message per second per direction. Include MTP + M3UA signalling.]]></use>
+
+<use_experience><![CDATA[
+<br> Selects the biggest from transmitted and received MTP and M3UA messages.
+<br>Use hourly measure activation period.
+<br>
+<br>BH criteria:
+<br>M661 =&amp;gt; BH = max of sum(M3UA_OCTETS_RECEIVED + M3UA_OCTETS_SENT)
+<br>M210 =&amp;gt; BH = max of sum(MSUS_RECEIVED + MSUS_TRANSMITTED)
+<br>
+<br>BH criteria for this KPI = Max( MAX_of_Sum( M3UA_OCTETS_RECEIVED + M3UA_OCTETS_SENT ) ; MAX_of_Sum( MSUS_RECEIVED + MSUS_TRANSMITTED ) )
+<br>
+<br>Theoretical KPI summary levels: PLMN - MGW
+<br>LAST UPDATE: 30-10-2009
+<br>RECOMMENDED SUMMARY LEVELS: MGW
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MTP signalling link utilization (210/D2H), M3UA Association Set, MTP signalling link utilization (210/D2H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;MAX( ( mgw_5007b + mgw_5003b ), ( mgw_5008b + mgw_5004b ) ) 
+&lt;br&gt;= 
+&lt;br&gt;MAX(  
+&lt;br&gt;( SUMoverSLSN( MSUS_RECEIVED * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_IN * (
+&lt;br&gt;Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_RECEIVED + 6 *
+&lt;br&gt;SUMoverSL MSUS_RECEIVED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) ) 
+&lt;br&gt;
+&lt;br&gt; + 
+&lt;br&gt;( SUMoverASS_index( M3UA_MESSAGES_RECEIVED * ( hourlyMax( ( SUMoverSL(
+&lt;br&gt;MIN_5_PEAKLOAD_TRAFFIC_IN * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL
+&lt;br&gt;SIF_AND_SIO_OCTETS_RECEIVED + 6 * SUMoverSL MSUS_RECEIVED ) * 8 ) ) ) ) / (
+&lt;br&gt;Period_Duration * 60 ) ) ) 
+&lt;br&gt;
+&lt;br&gt;, 
+&lt;br&gt;( SUMoverSLSN( MSUS_TRANSMITTED * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_OUT *
+&lt;br&gt;( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_TRANSMITTED +
+&lt;br&gt;6 * SUMoverSL MSUS_TRANSMITTED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) ) 
+&lt;br&gt;
+&lt;br&gt; + 
+&lt;br&gt;( SUMoverASS_index( M3UA_MESSAGES_SENT * ( hourlyMax( ( SUMoverSL(
+&lt;br&gt;MIN_5_PEAKLOAD_TRAFFIC_OUT * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL
+&lt;br&gt;SIF_AND_SIO_OCTETS_TRANSMITTED + 6 * SUMoverSL MSUS_TRANSMITTED ) * 8 ) ) ) ) / (
+&lt;br&gt;Period_Duration * 60 ) ) ) 
+&lt;br&gt;
+&lt;br&gt;) 
+&lt;br&gt; 
+&lt;br&gt;Counters from RAW + AGGREGATED tables(s)/view(s) </formula>
+      <unit>[msg/s]</unit>
+      <tables>nokmww_ps_mtpslu_{obj_agg}_{time_agg},nokmww_ps_m3ua_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>sign_msg_s_direction</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

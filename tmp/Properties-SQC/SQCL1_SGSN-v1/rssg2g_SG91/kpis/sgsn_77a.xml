@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/USER.xml" />
+  <kpi name="sgsn_77a">
+    <formula>decode(
+			(jflx_user.ggsn_pdp_act_total),0,NULL, 
+
+			(100*(jflx_user.ggsn_pdp_act_apn_access_denied)
+			 / 
+			(jflx_user.ggsn_pdp_act_total)))</formula>
+    <kpi_info>
+      <title><![CDATA[Failure ratio of GGSN PDP context creation due to "APN access denied - no subscription"]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of GGSN PDP context creation operations due to &quot;APN access denied - no subscription&quot;.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GGSN_PDP_ACT_APN_ACCESS_DENIED)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(GGSN_PDP_ACT_TOTAL)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_user</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_user_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>GGSN PDP act APN acc den FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_IPSec FIPSEC measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_IPSec FIPSEC measurement dump</csv_title>
+    <report-description>FTM IPSec</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <Protected_ESPFramesTx />
+    <Protected_ESPFramesRx />
+    <Discarded_ESPFramesTx />
+    <Discarded_ESPFramesRx />
+    <Bypassed_FramesTx />
+    <Bypassed_FramesRx />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FIPSEC" meas_level="PLMN/RNC/WBTS/FTM/IPSECC" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="Protected_ESPFramesTx">SUM(Protected_ESPFramesTx)</counter>
+      <counter alias="Protected_ESPFramesRx">SUM(Protected_ESPFramesRx)</counter>
+      <counter alias="Discarded_ESPFramesTx">SUM(Discarded_ESPFramesTx)</counter>
+      <counter alias="Discarded_ESPFramesRx">SUM(Discarded_ESPFramesRx)</counter>
+      <counter alias="Bypassed_FramesTx">SUM(Bypassed_FramesTx)</counter>
+      <counter alias="Bypassed_FramesRx">SUM(Bypassed_FramesRx)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FIPSEC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FIPSEC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Protected_ESPFramesTx">
+    <formula>FIPSEC.Protected_ESPFramesTx</formula>
+    <kpi_info>
+      <title>Protected_ESPFramesTx</title>
+      <use>The number of successfully encrypted ESP packets in egress direction. UPDATED: The counter is updated when an outbound packet has been encrypted successfully.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Protected_ESPFramesTx)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Protected_ESPFramesTx (M5122C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Protected_ESPFramesRx">
+    <formula>FIPSEC.Protected_ESPFramesRx</formula>
+    <kpi_info>
+      <title>Protected_ESPFramesRx</title>
+      <use>The number of successfully decrypted ESP packets in ingress direction. UPDATED: The counter is updated when an inbound packet has been decrypted successfully.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Protected_ESPFramesRx)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Protected_ESPFramesRx (M5122C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Discarded_ESPFramesTx">
+    <formula>FIPSEC.Discarded_ESPFramesTx</formula>
+    <kpi_info>
+      <title>Discarded_ESPFramesTx</title>
+      <use>The number of dropped ESP packets in egress direction because of failed encryption. UPDATED: The counter is updated when an outbound packet was dropped after it could not be decrypted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Discarded_ESPFramesTx)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Discarded_ESPFramesTx (M5122C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Discarded_ESPFramesRx">
+    <formula>FIPSEC.Discarded_ESPFramesRx</formula>
+    <kpi_info>
+      <title>Discarded_ESPFramesRx</title>
+      <use>The number of dropped ESP packets in ingress direction because of failed encryption. UPDATED: The counter is updated when an inbound packet was dropped after it could not be decrypted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Discarded_ESPFramesRx)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Discarded_ESPFramesRx (M5122C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Bypassed_FramesTx">
+    <formula>FIPSEC.Bypassed_FramesTx</formula>
+    <kpi_info>
+      <title>Bypassed_FramesTx</title>
+      <use>The number of bypassed ESP packets in egress direction. UPDATED: The counter is updated for every packet that is bypassed in egress direction.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Bypassed_FramesTx)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Bypassed_FramesTx (M5122C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Bypassed_FramesRx">
+    <formula>FIPSEC.Bypassed_FramesRx</formula>
+    <kpi_info>
+      <title>Bypassed_FramesRx</title>
+      <use>The number of bypassed ESP packets in ingress direction. UPDATED: The counter is updated for every packet that is bypassed in ingress direction</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Bypassed_FramesRx)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Bypassed_FramesRx (M5122C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FIPSEC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fipsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

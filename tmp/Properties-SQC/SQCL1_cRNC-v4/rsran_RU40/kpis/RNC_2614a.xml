@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/NWLOG.xml" />
+  <kpi name="RNC_2614a">
+    <formula>100*decode(
+			(nwlog.recv_packets + 
+			nwlog.recv_drops + 
+			nwlog.recv_errors),0,null, 
+
+			nwlog.recv_errors
+			 / 
+			(nwlog.recv_packets + 
+			nwlog.recv_drops + 
+			nwlog.recv_errors))</formula>
+    <kpi_info>
+      <title><![CDATA[Received Ethernet packets Error  Ratio]]></title>
+      <use><![CDATA[Error Ratio of packets received at logical interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt; sum(RECV_ERRORS)
+&lt;br&gt; -----------------
+&lt;br&gt; sum(RECV_PACKETS+
+&lt;br&gt; RECV_DROPS+
+&lt;br&gt; RECV_ERRORS)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_NWLOG_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:54.413 +0100</date>
+          <comment><![CDATA[Source: RSRAN113.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>FPIFC rcvd pkt ER</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

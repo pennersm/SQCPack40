@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/R99HW.xml" />
+  <kpi name="RNC_2257a">
+    <formula>100*decode(
+			(r99hw.bts_r99_ce_util_ul_class_1 + 
+			r99hw.bts_r99_ce_util_ul_class_2 + 
+			r99hw.bts_r99_ce_util_ul_class_3 + 
+			r99hw.bts_r99_ce_util_ul_class_4 + 
+			r99hw.bts_r99_ce_util_ul_class_5 + 
+			r99hw.bts_r99_ce_util_ul_class_6),0,null, 
+
+			r99hw.bts_r99_ce_util_ul_class_5
+			 / 
+			(r99hw.bts_r99_ce_util_ul_class_1 + 
+			r99hw.bts_r99_ce_util_ul_class_2 + 
+			r99hw.bts_r99_ce_util_ul_class_3 + 
+			r99hw.bts_r99_ce_util_ul_class_4 + 
+			r99hw.bts_r99_ce_util_ul_class_5 + 
+			r99hw.bts_r99_ce_util_ul_class_6))</formula>
+    <kpi_info>
+      <title><![CDATA[UL CE R99 Utilization Distribution Rate - (90 - <100)%]]></title>
+      <use><![CDATA[UL CE R99 Utilization Distribution Rate - (90 - <100)%, provides information about the percentage of measured events, for Uplink traffic, which indicate that Channel Elements Usage Ratio was between 90 and 100% of existing resources.KPI valid for Flexi Rel2.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum (bts_r99_ce_util_ul_class_5)
+&lt;br&gt;----------------------------------
+&lt;br&gt;sum (bts_r99_ce_util_ul_class_1 +
+&lt;br&gt;bts_r99_ce_util_ul_class_2 +
+&lt;br&gt;bts_r99_ce_util_ul_class_3 +
+&lt;br&gt;bts_r99_ce_util_ul_class_4 +
+&lt;br&gt;bts_r99_ce_util_ul_class_5 +
+&lt;br&gt;bts_r99_ce_util_ul_class_6)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_R99HW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:54.117 +0100</date>
+          <comment><![CDATA[Source: RSRAN112.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>UL CE R99 UsgRatio 90-100%, FlexiR2</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

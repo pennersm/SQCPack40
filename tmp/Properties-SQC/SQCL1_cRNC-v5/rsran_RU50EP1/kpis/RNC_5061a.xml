@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_5061a">
+    <formula>100*(decode(
+			(servlev.mtc_inter_call_atts + 
+			servlev.mtc_backg_call_atts + 
+			servlev.mtc_high_prior_sign_atts + 
+			servlev.moc_inter_call_atts + 
+			servlev.moc_backg_call_atts + 
+			servlev.moc_high_prior_sign_atts),0,null, 
+
+			(servlev.mtc_inter_call_atts + 
+			servlev.mtc_backg_call_atts + 
+			servlev.mtc_high_prior_sign_atts)
+			 / 
+			(servlev.mtc_inter_call_atts + 
+			servlev.mtc_backg_call_atts + 
+			servlev.mtc_high_prior_sign_atts + 
+			servlev.moc_inter_call_atts + 
+			servlev.moc_backg_call_atts + 
+			servlev.moc_high_prior_sign_atts)))</formula>
+    <kpi_info>
+      <title><![CDATA[MTC share of requested PS services]]></title>
+      <use><![CDATA[MTC share of requested PS calls.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* (sum (MTC_INTER_CALL_ATTS + MTC_BACKG_CALL_ATTS + MTC_HIGH_PRIOR_SIGN_ATTS ) /
+&lt;br&gt;sum (MTC_INTER_CALL_ATTS + MTC_BACKG_CALL_ATTS + MTC_HIGH_PRIOR_SIGN_ATTS + MOC_INTER_CALL_ATTS + MOC_BACKG_CALL_ATTS + MOC_HIGH_PRIOR_SIGN_ATTS ))
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/01/19 16:22:00.399 +0000</date>
+          <comment><![CDATA[Source: RSRAN088.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTC share of req PS serv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

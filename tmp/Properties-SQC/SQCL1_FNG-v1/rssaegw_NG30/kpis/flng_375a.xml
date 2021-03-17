@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPC.xml"/>
+  <kpi name="flng_375a">
+    <formula>decode(
+			((GTPC.gtpc_echo_req_sent)),0,NULL, 
+
+			((GTPC.gtpc_echo_resp_recv))
+			 / 
+			((GTPC.gtpc_echo_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[GTP-C v1 Echo Response/Request ratio, Flexi-NG initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 Echo Responses received as response to Flexi-NG initiated GTP-C v1 Echo Requests messages.
+GTP path management messaging is used between network elements to check if a peer element is alive and the indication of a potential problem is the mismatch between Echo Request/Response massages.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtpc_echo_resp_recv)
+&lt;br&gt;------------------------- * 100
+&lt;br&gt;sum (gtpc_echo_req_sent)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[GTPCv1 Echo Resp rat,FlNG]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml" />
+  <temp_table_ref src="rssg2g/counters/IUDA.xml">
+    <counters>
+      <!-- sgsn_820a  -->
+      <counter alias="sgsn_820a">sum(iu_gtp_data_bytes_sent_ul_pr1 + iu_gtp_data_bytes_sent_ul_pr2 +
+				iu_gtp_data_bytes_sent_ul_pr3 + iu_gtp_data_bytes_sent_ul_pr4 +
+				iu_gtp_data_bytes_ul_pr_str + iu_gtp_data_bytes_ul_pr_conv +
+				4294967296 *
+				(iu_gtp_dat_byt_sent_ul_pr1_ofl + iu_gtp_dat_byt_sent_ul_pr2_ofl +
+				iu_gtp_dat_byt_sent_ul_pr3_ofl + iu_gtp_dat_byt_sent_ul_pr4_ofl +
+				iu_gtp_dat_byt_ul_pr_str_ofl + iu_gtp_dat_byt_ul_pr_conv_ofl ))/1048576</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="tra_sgsn19e">
+    <formula>((data.gtp_data_in_bytes_sent_in_ul +
+			4294967296 * data.gtp_data_bytes_sent_in_ul_ofl)/1048576) - nvl(iuda.sgsn_820a,0)</formula>
+    <kpi_info>
+      <title><![CDATA[GTP data in sent in UL, Gb]]></title>
+      <use><![CDATA[This KPI shows the amount of GTP data sent to uplink direction on Gb/Gn interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTP_DATA_IN_BYTES_SENT_IN_UL +
+&lt;br&gt;       4294967296 * GTP_DATA_BYTES_SENT_IN_UL_OFL)
+&lt;br&gt;--------------------------------------------------------- - sgsn_820a
+&lt;br&gt;                         1048576
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_data and p_sgsn_iu_data</formula>
+      <unit>[MB]</unit>
+      <tables>rsg_ps_data_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[GTP data in sent in UL, Gb]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

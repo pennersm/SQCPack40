@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LPHB.xml"/>
+  <kpi name="LTE_95a">
+    <formula>decode(
+			((lphb.ifdroppedpackets_be + 
+			lphb.ifpackets_be)),0,null, 
+
+			(100*(lphb.ifdroppedpackets_be))
+			 / 
+			((lphb.ifdroppedpackets_be + 
+			lphb.ifpackets_be)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP PHB_class_BE PKTS to send  DR due CG]]></title>
+      <use><![CDATA[ratio between the number of dropped IP Best Effort Packets  in the IP scheduler due to congestion    and total number of  IP Packets to transmitte .
+The counter is available for both the Ethernet-based IP interface and for each VLAN interface of the BTS.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100 *                sum(ifDroppedPackets_BE)
+&lt;br&gt;          ----------------------------------------------
+&lt;br&gt;                 sum( ifDroppedPackets_BE+ ifPackets_BE)                    
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LPHB_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IP PHB_class_BE PKTS to send  DR due CG]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

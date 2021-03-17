@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsmgw/counters/H248GR1.xml" />
+  <kpi name="MGW_730a">
+    <formula>decode(
+			(h248gr1.handled_notify_cmds_rpl),0,null, 
+
+			(100*(h248gr1.handled_notify_cmds_rpl - 
+			h248gr1.error_notify_cmds_rpl)
+			 / 
+			(h248gr1.handled_notify_cmds_rpl)))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful Notify-commands]]></title>
+      <use><![CDATA[Share of successfully handled Notify-commands that has been sent from MGW and MSS has sent success reply.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(HANDLED_NOTIFY_CMDS_RPL - ERROR_NOTIFY_CMDS_RPL) / sum(HANDLED_NOTIFY_CMDS_RPL)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_h248gr1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of successful Notify-commands]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

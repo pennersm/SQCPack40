@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/EC.xml" />
+  <kpi name="mgw_1081a">
+    <formula>decode(
+			(ec.ec_reservation + 
+			ec.ec_reservation_failure + 
+			ec.ec_reject_no_capa),0,null, 
+
+			(100*(ec.ec_reject_no_capa)
+			 / 
+			(ec.ec_reservation + 
+			ec.ec_reservation_failure + 
+			ec.ec_reject_no_capa)))</formula>
+    <kpi_info>
+      <title><![CDATA[EC capacity license error ratio]]></title>
+      <use><![CDATA[Indicates error ratio of Echo Cancellation capacity resource reservations in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                      SUM(EC_REJECT_NO_CAPA)
+&lt;br&gt;100 * ---------------------------------------------------------------
+&lt;br&gt;      SUM(EC_RESERVATION + EC_RESERVATION_FAILURE + EC_REJECT_NO_CAPA)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ec_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EC cap lic error</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

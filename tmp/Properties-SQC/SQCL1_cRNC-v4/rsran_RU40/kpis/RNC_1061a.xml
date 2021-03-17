@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMVP.xml" />
+	<kpi name="RNC_1061a">
+		<formula>
+			decode((atmvp.eg_cap_vp),0,null,decode((atmvp.period_duration_sum*60),0,null,(100*(atmvp.eg_tot_cells_vp)/(atmvp.period_duration_sum*60)/(atmvp.eg_cap_vp))))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average ATM VPC egress utilization]]>
+			</title>
+			<use>
+				<![CDATA[The ratio between utilized average egress bandwidth and configured egress bandwidth for the virtual path connection during measurement period.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum ( EG_TOT_CELLS_VP )
+----------- 
+sum (PERIOD_DURATION_SUM * 60) 
+---------------
+sum ( EG_CAP_VP )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_atmvp_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average ATM VPC egress utilization]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

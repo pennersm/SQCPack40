@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_1162a">
+    <formula>decode(
+			(intsysho.inter_rnc_hho_att_hspa_scc),0,null, 
+
+			(100*(intsysho.inter_rnc_hho_succ_hspa_scc)
+			 / 
+			(intsysho.inter_rnc_hho_att_hspa_scc)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA Inter-RNC SCC Success Rate]]></title>
+      <use><![CDATA[HSPA Inter-RNC Serving Cell Change Success Rate for the &quot;old&quot; cell. Ending message is received in source RNC RANAP: IU RELEASE COMMAND with cause &quot;Successful Relocation&quot;.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          sum (INTER_RNC_HHO_SUCC_HSPA_SCC )
+&lt;br&gt;100* ---------------------------------------------------------
+&lt;br&gt;          sum(INTER_RNC_HHO_ATT_HSPA_SCC)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSPA Inter-RNC SCC Success Rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

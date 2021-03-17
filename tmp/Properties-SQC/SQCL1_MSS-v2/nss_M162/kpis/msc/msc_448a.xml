@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/ROU.xml" />
+  <kpi name="msc_448a">
+    <formula>100*decode(
+			rou.route_accep + 
+			rou.route_ifail + 
+			rou.route_sfail + 
+			rou.route_efail,0,null, 
+
+			rou.route_erlangs_x100
+			 / 
+			(rou.route_accep + 
+			rou.route_ifail + 
+			rou.route_sfail + 
+			rou.route_efail))</formula>
+    <kpi_info>
+      <title><![CDATA[Average traffic on routes]]></title>
+      <use><![CDATA[KPI tells the average amount of traffic on routes.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;     sum(ROUTE_ERLANGS_x100) 
+&lt;br&gt;100* -----------------------------------------------------------
+&lt;br&gt;     sum(
+&lt;br&gt;         ROUTE_ACCEP
+&lt;br&gt;       + ROUTE_IFAIL
+&lt;br&gt;       + ROUTE_SFAIL
+&lt;br&gt;       + ROUTE_EFAIL)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_ROU_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_rou_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average traffic on routes]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

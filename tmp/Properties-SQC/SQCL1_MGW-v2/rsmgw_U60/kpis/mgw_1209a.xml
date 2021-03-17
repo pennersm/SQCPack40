@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/RTPRTIP.xml" />
+  <kpi name="mgw_1209a">
+    <formula>
+	decode(
+	rtprtip.ipbr_rtp_terminations,0,null,
+	100*(rtprtip.ipbr_rtp_hc_terminations)
+	/
+	(rtprtip.ipbr_rtp_terminations))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP terminations Header Compression ratio]]></title>
+      <use><![CDATA[Indicates the header compression ratio of RTP terminations in the IP based route.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                   SUM(IPBR_RTP_HC_TERMINATIONS) 
+&lt;br&gt;100 *  -----------------------------------------
+&lt;br&gt;                   SUM(IPBR_RTP_TERMINATIONS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_RTPRTIP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.562 +0100</date>
+          <comment><![CDATA[Source: RSMGW033b.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RTP term HC rto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

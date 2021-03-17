@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>ULOAD (Unit Load)</header>
+    <csv_title>ULOAD (Unit Load)</csv_title>
+    <report-description>592/250H Unit Load Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <AVERAGE_LOAD />
+    <PEAK_LOAD />
+  </column_order>
+  <temp_table name="ULOAD" meas_level="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>ULOAD</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="AVERAGE_LOAD"  symmetrical="true"  itk_id="AVERAGE_LOAD">AVG(AVERAGE_LOAD)</counter>
+          <counter alias="PEAK_LOAD"  symmetrical="true"  itk_id="PEAK_LOAD">MAX(PEAK_LOAD)</counter>
+    </counters>
+    <table_name>nokmww_ps_uload_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ULOAD</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>ULOAD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVERAGE_LOAD" itk_id="AVERAGE_LOAD">
+    <formula>ULOAD.AVERAGE_LOAD</formula>
+    <kpi_info>
+      <title>AVERAGE_LOAD (M592C0)</title>
+      <use>The Average Load for monitored computer unit. The value is the arithmetical average of samples taken from the processor load. The length of the sampling interval is 4 seconds.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVERAGE_LOAD)</formula>
+      <unit>%</unit>
+      <tables>nokmww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVERAGE_LOAD (M592C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PEAK_LOAD" itk_id="PEAK_LOAD">
+    <formula>ULOAD.PEAK_LOAD</formula>
+    <kpi_info>
+      <title>PEAK_LOAD (M592C1)</title>
+      <use>The Peak Load of monitored computer unit. This is the highest recorded value of the processor load during a measurement period. The value is the average of the sampling interval. The length of the sampling interval is 4 seconds.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(PEAK_LOAD)</formula>
+      <unit>%</unit>
+      <tables>nokmww_ps_uload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEAK_LOAD (M592C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

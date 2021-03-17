@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4019a">
+    <formula>
+decode((TC_ext.tcat_call_amount_36 - TC_ext.tcat_group7_1 ),0,null,
+	100 * ( SERVI_ext.MSCSSM_USAGE_12 / (TC_ext.tcat_call_amount_36 - TC_ext.tcat_group7_1 ) )
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[MOC Setup Success Ratio]]></title>
+      <use><![CDATA[Indicates the setup success ratio of mobile originated calls.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The filtering &quot;;WHERE tcat_ID = 86, 88, 101, 103&quot; is only applicable to (tcat_call_amount) counter related part.
+<br>
+<br>Service_ID:
+<br>   105 = BSM ASSIGNMENT COMPLETE MOC
+<br>   109 = RAB ASSIGNMENT RESPONSE MOC
+<br>
+<br>Tcat_IDs:
+<br>   86 = 2G originating voice call
+<br>   88 = 3G originating voice call
+<br>   101 = 2G originating CS data call
+<br>   103 = 3G originating CS data call
+<br>
+<br>GROUP7 Clear codes:
+<br>   718 = Digit analysis in central memory resulted in congestion
+<br>   0300 = Subscriber A barred due to restriction in the outgoing direction
+<br>   0301 = OUTGOING CALLS OF CALLING SUBSCRIBER BARRED BY OPERATOR
+<br>   0304 = B-LINE OUT OF SERVICE
+<br>   0306 = B-CALLS RESTRICTED
+<br>   0307 = B-NUMBER UNUSED
+<br>   031D = OUTGOING CALLS BARRED WITHIN THE CUG
+<br>
+<br>BH KPI crietria: MAX of SUM( MSCSSM_USAGE ) ;WHERE Service_ID = 105H, 109H
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>+
+<br>Service measurement  (M128/80H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MOC Setup Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( a.MSCSSM_USAGE ) ;WHERE Service_ID = 105H, 109H
+&lt;br&gt;100 * ------------------------------------
+&lt;br&gt;      SUM( b.tcat_call_amount ) - SUM( tcat_group7 ) ;WHERE tcat_ID = 86, 88, 101, 103
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED table(s)
+&lt;br&gt;
+&lt;br&gt;a = M128 = Service measurement (M128/80H)
+&lt;br&gt;b = M20 = Traffic category measurement (M20/14H)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG},rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MOC setup SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

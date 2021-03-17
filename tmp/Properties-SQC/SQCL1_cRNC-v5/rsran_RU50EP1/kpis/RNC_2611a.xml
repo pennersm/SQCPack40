@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/STM1.xml" />
+  <kpi name="RNC_2611a">
+    <formula>100*decode(
+			(stm1.period_duration*60),0,null, 
+
+			stm1.fe_mux_uas
+			 / 
+			(stm1.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[STM-1 Far End Multiplexer unavailable time ratio]]></title>
+      <use><![CDATA[Percentage of time in which the multiplex section unavailable at the Far End. A period of unavailable time begins at the start of ten consecutive severely errored second (SES) events. These ten seconds are considered to be part of the unavailable time. A new period of available time begins at the start of ten consecutive non-SES events. These ten seconds are considered to be part of the available time.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(FE_MUX_UAS)
+&lt;br&gt;-----------------------
+&lt;br&gt;sum(period_duration *60)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_STM1_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:39.137 +0100</date>
+          <comment><![CDATA[Source: RSRAN030.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>STM-1 FE MUX UAS R</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

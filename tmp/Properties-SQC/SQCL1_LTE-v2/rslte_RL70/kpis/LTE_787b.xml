@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LVLAN.xml" />
+  <kpi name="LTE_787b">
+    <formula>8*decode(
+			lvlan.period_duration,0,null, 
+
+			lvlan.txethernetoctets
+			 / 
+			(lvlan.period_duration*60*1000))</formula>
+    <kpi_info>
+      <title><![CDATA[Transmited ethernet throughput, vlan]]></title>
+      <use><![CDATA[Transmitted ethernet throughput provides information about the transmitted throughput at Ethernet level for VLAN interfaces.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8* sum(txEthernetOctets) 
+&lt;br&gt;-----------------------------------  
+&lt;br&gt;sum( period_duration) *60 * 1000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>noklte_ps_LVLAN_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/05/11 19:47:37.960 +0100</date>
+          <comment><![CDATA[Source: RSLTE040.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Transm eth thp, vlan</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 RAPA measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 RAPA measurement dump</csv_title>
+    <report-description>RA paging measurement(RAPA)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <RA_LEVEL_PS_PAGINGS />
+    <GB_PS_PAGING_PROCS />
+    <UNSUCC_GB_PS_PAGING_PROCS />
+  </column_order>
+  <temp_table name="RAPA" meas_level="PLMN/SGSN/PAPU/LAC/RAC/RAMCC/RA" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="RA_LEVEL_PS_PAGINGS" symmetrical="true">SUM(RA_LEVEL_PS_PAGINGS)</counter>
+      <counter alias="GB_PS_PAGING_PROCS" symmetrical="true">SUM(GB_PS_PAGING_PROCS)</counter>
+      <counter alias="UNSUCC_GB_PS_PAGING_PROCS" symmetrical="true">SUM(UNSUCC_GB_PS_PAGING_PROCS)</counter>
+    </counters>
+    <table_name>rsg_ps_rapa_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RAPA</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RAPA.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_rapa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RA_LEVEL_PS_PAGINGS">
+    <formula>RAPA.RA_LEVEL_PS_PAGINGS</formula>
+    <kpi_info>
+      <title>RA_LEVEL_PS_PAGINGS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RA_LEVEL_PS_PAGINGS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_rapa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RA_LEVEL_PS_PAGINGS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GB_PS_PAGING_PROCS">
+    <formula>RAPA.GB_PS_PAGING_PROCS</formula>
+    <kpi_info>
+      <title>GB_PS_PAGING_PROCS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GB_PS_PAGING_PROCS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_rapa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GB_PS_PAGING_PROCS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UNSUCC_GB_PS_PAGING_PROCS">
+    <formula>RAPA.UNSUCC_GB_PS_PAGING_PROCS</formula>
+    <kpi_info>
+      <title>UNSUCC_GB_PS_PAGING_PROCS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UNSUCC_GB_PS_PAGING_PROCS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_rapa_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUCC_GB_PS_PAGING_PROCS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

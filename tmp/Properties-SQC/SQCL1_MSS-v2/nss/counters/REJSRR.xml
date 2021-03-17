@@ -1,0 +1,222 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M114 REJSRR measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M114 REJSRR measurement dump</csv_title>
+    <report-description>Rejected calls observation measurement(REJSRR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <REJ_EXCHG_INC/>
+    <REJ_EXCHG_INC_PERCENTX10/>
+    <REJ_EXCHG_OUTGOING/>
+    <REJ_REPORT_INQUIRY_FAIL/>
+    <REJ_NO_RESP_FROM_LRMPRO/>
+    <REJ_NO_RESP_FROM_SIGNPRB/>
+    <REJ_OBSERV_RESTARTED/>
+    <REJ_ERROR_FOUND/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/SRR" name="REJSRR" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="REJ_EXCHG_INC" symmetrical="true">SUM(REJ_EXCHG_INC)</counter>
+      <counter alias="REJ_EXCHG_INC_PERCENTX10" symmetrical="true">AVG(REJ_EXCHG_INC_PERCENTX10)</counter>
+      <counter alias="REJ_EXCHG_OUTGOING" symmetrical="true">SUM(REJ_EXCHG_OUTGOING)</counter>
+      <counter alias="REJ_REPORT_INQUIRY_FAIL" symmetrical="true">MAX(REJ_REPORT_INQUIRY_FAIL)</counter>
+      <counter alias="REJ_NO_RESP_FROM_LRMPRO" symmetrical="true">MAX(REJ_NO_RESP_FROM_LRMPRO)</counter>
+      <counter alias="REJ_NO_RESP_FROM_SIGNPRB" symmetrical="true">MAX(REJ_NO_RESP_FROM_SIGNPRB)</counter>
+      <counter alias="REJ_OBSERV_RESTARTED" symmetrical="true">MAX(REJ_OBSERV_RESTARTED)</counter>
+      <counter alias="REJ_ERROR_FOUND" symmetrical="true">MAX(REJ_ERROR_FOUND)</counter>
+    </counters>
+    <table_name>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>REJSRR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>REJSRR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_EXCHG_INC">
+    <formula>REJSRR.REJ_EXCHG_INC</formula>
+    <kpi_info>
+      <title>REJ_EXCHG_INC</title>
+      <use>The total sum of rejected incoming service requests (0...999999999) at the ticket service of all the signalling
+units of the exchange regardless of the computer units that have
+been under observation.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REJ_EXCHG_INC)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_EXCHG_INC (M114B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_EXCHG_INC_PERCENTX10">
+    <formula>REJSRR.REJ_EXCHG_INC_PERCENTX10</formula>
+    <kpi_info>
+      <title>REJ_EXCHG_INC_PERCENTX10</title>
+      <use>The ticket service rejection percentage (0.0...100.0) of all the signalling units of the exchange regardless of the computer
+units that have been under observation.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(REJ_EXCHG_INC_PERCENTX10)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_EXCHG_INC_PERCENTX10 (M114B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_EXCHG_OUTGOING">
+    <formula>REJSRR.REJ_EXCHG_OUTGOING</formula>
+    <kpi_info>
+      <title>REJ_EXCHG_OUTGOING</title>
+      <use>The number of rejected service requests (0...999999999) that have exceeded the higher rejection limit of the message buffer
+on the outgoing side. The number of rejected service
+requests that have exceeded the higher rejection limit of the CPU
+load on the incoming side.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REJ_EXCHG_OUTGOING)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_EXCHG_OUTGOING (M114B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_REPORT_INQUIRY_FAIL">
+    <formula>REJSRR.REJ_REPORT_INQUIRY_FAIL</formula>
+    <kpi_info>
+      <title>REJ_REPORT_INQUIRY_FAIL</title>
+      <use>Tag appears at the end of the given countergroup with field value 241 if only part of the required information
+is received from the signalling process family that provides the
+counters of the measured object.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(REJ_REPORT_INQUIRY_FAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_REPORT_INQUIRY_FAIL (M114B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_NO_RESP_FROM_LRMPRO">
+    <formula>REJSRR.REJ_NO_RESP_FROM_LRMPRO</formula>
+    <kpi_info>
+      <title>REJ_NO_RESP_FROM_LRMPRO</title>
+      <use>Tag appears at the end of the given countergroup with field value 242 if the signalling unit has not sent the
+required information for the following exchange-related counters:REJ_EXCHG_INC,REJ_EXCHG_INC_PERCENT*10,REJ_EXCHG_OUTGOING.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(REJ_NO_RESP_FROM_LRMPRO)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_NO_RESP_FROM_LRMPRO (M114B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_NO_RESP_FROM_SIGNPRB">
+    <formula>REJSRR.REJ_NO_RESP_FROM_SIGNPRB</formula>
+    <kpi_info>
+      <title>REJ_NO_RESP_FROM_SIGNPRB</title>
+      <use>Tag appears at the end of the given countergroup with field value 243 if the required information has not been received
+from the signalling process family that provides counters of the measured
+object.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(REJ_NO_RESP_FROM_SIGNPRB)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_NO_RESP_FROM_SIGNPRB (M114B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_OBSERV_RESTARTED">
+    <formula>REJSRR.REJ_OBSERV_RESTARTED</formula>
+    <kpi_info>
+      <title>REJ_OBSERV_RESTARTED</title>
+      <use>Tag appears at the end of the given countergroup with field value 16 if the signalling unit has not responded
+during the previous results accumulation period. Therefore, the
+observation has been restarted during the current results accumulation
+period. The counters is printed out during the following period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(REJ_OBSERV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_OBSERV_RESTARTED (M114B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REJ_ERROR_FOUND">
+    <formula>REJSRR.REJ_ERROR_FOUND</formula>
+    <kpi_info>
+      <title>REJ_ERROR_FOUND</title>
+      <use>Tag appears at the end of the given countergroup with field value 1 if an unexpected error situation has occurred.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(REJ_ERROR_FOUND)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rejsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REJ_ERROR_FOUND (M114B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

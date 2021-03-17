@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <temp_table_ref src="rssg2g/counters/OVERLOAD.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <kpi name="sgsn_156c">
+    <formula>decode(
+			((mobmgmnt.succ_intra_papu_ra_updat + 
+			mobmgmnt.FAIL_INTRA_PAPU_RAU_GEN + 
+			mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.FAIL_INTER_PAPU_RAU_GEN + 
+			mobmgmnt.succ_inter_sgsn_ra_updat + 
+			mobmgmnt.FAIL_INTER_SGSN_RAU_GEN + 
+			mobmgmnt.succ_periodical_ra_updat + 
+			mobmgmnt.FAIL_PERIODIC_RAU_GEN + 
+			MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTER_PAPU_3G_2G_SHO + 
+			nvl(MOBMGMN2.SUCC_IN_RAU_MME_TO_2GSGSN,0) + 
+			nvl(MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN,0) + 
+			overload.rej_ra_upd_in_early_phase + 
+			overload.rejected_ra_updates)),0,NULL,((overload.rej_ra_upd_in_early_phase + 
+			overload.rejected_ra_updates))
+			 / 
+			((mobmgmnt.succ_intra_papu_ra_updat + 
+			mobmgmnt.FAIL_INTRA_PAPU_RAU_GEN + 
+			mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.FAIL_INTER_PAPU_RAU_GEN + 
+			mobmgmnt.succ_inter_sgsn_ra_la_updat + 
+			mobmgmnt.FAIL_INTER_SGSN_RAU_GEN + 
+			mobmgmnt.succ_periodical_ra_updat + 
+			mobmgmnt.FAIL_PERIODIC_RAU_GEN + 
+			MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTER_PAPU_3G_2G_SHO + 
+			nvl(MOBMGMN2.SUCC_IN_RAU_MME_TO_2GSGSN,0) + 
+			nvl(MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN,0) + 
+			overload.rej_ra_upd_in_early_phase + 
+			overload.rejected_ra_updates)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Gb RAU attempts not processed due to processor overload ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Gb RA update attempts not processed due to processor overload when compared to all Gb RA update attempts.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(a.REJ_RA_UPD_IN_EARLY_PHASE + a.REJECTED_RA_UPDATES)
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(b.SUCC_INTRA_PAPU_RA_UPDAT + b.FAIL_INTRA_PAPU_RAU_GEN + 
+&lt;br&gt;   b.SUCC_INTER_PAPU_RA_UPDAT + b.FAIL_INTER_PAPU_RAU_GEN + 
+&lt;br&gt;   b.SUCC_INTER_SGSN_RA_UPDAT + b.FAIL_INTER_SGSN_RAU_GEN + 
+&lt;br&gt;   b.SUCC_PERIODICAL_RA_UPDAT + b.FAIL_PERIODIC_RAU_GEN + 
+&lt;br&gt;   b.IU_SUCC_INTRA_PAPU_3G_2G_SHO + b.IU_FAIL_INTRA_PAPU_3G_2G_SHO + 
+&lt;br&gt;   b.IU_SUCC_INTER_PAPU_3G_2G_SHO + b.IU_FAIL_INTER_PAPU_3G_2G_SHO +
+&lt;br&gt;   b.SUCC_IN_RAU_MME_TO_2GSGSN + b.FAIL_IN_RAU_MME_TO_2GSGSN +
+&lt;br&gt;   a.REJ_RA_UPD_IN_EARLY_PHASE + a.REJECTED_RA_UPDATES)
+&lt;br&gt;
+&lt;br&gt;Counters from table(s):
+&lt;br&gt;a = p_sgsn_overload
+&lt;br&gt;b = p_sgsn_mobility_management
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_overload_{OBJ_AGG}_{TIME_AGG}, RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gb RAU att no proc ovld]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

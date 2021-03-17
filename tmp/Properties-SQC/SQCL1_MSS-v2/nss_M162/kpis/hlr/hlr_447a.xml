@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/hlr/HLRMSE_ext.xml"/>
+  <kpi name="hlr_447a">
+    <formula>HLRMSE_ext.S13_PROC_ATTEMPT_1</formula>
+    <kpi_info>
+      <title><![CDATA[S13 incoming ME identity check procedures attempts]]></title>
+      <use><![CDATA[S13 incoming interface ME identity check procedures attempts.]]></use>
+<use_experience><![CDATA[ 
+<br>KPI runs at "MN" object level. ("MN" represents the MME Name) 
+<br>The object hierarchy of measurement "S6a and S13 Interface measurement" is HLR -> MN -> SM -> EVE 
+<br>
+<br>This KPI makes sense only for object instance where: 
+<br>SM = S13_I_PROC 
+<br>and 
+<br>EVE = ME_Identity_Check_Request  
+<br>
+<br>"SM" represents Sub-Measurement and possible values are: 
+<br>- GEN_PROT_ERR (General Diameter Base Protocol Error Codes) 
+<br>- S6A_I_PROC (Incoming S6a Interface procedures) 
+<br>- S6A_I_ERR (Incoming S6a Error Codes) 
+<br>- S6A_O_PROC (Outgoing S6a Interface procedures) 
+<br>- S6A_O_ERR (Outgoing S6a Error Codes) 
+<br>- S13_I_PROC (Incoming S13 Interface procedures) 
+<br>- S13_I_ERR (Incoming S13 Error Codes) 
+<br>
+<br>"EVE" represents the Event which is either the name of the procedure or the name of the error code. 
+<br>
+<br>Depending on the type of Sub-measurement the Event has different list of possible values. 
+<br>
+<br>When (SM = S13_I_PROC) "EVE" possible values are: 
+<br>- ME_Identity_Check_Request 
+<br>
+<br>When (SM = S13_I_ERR) "EVE" possible values are: 
+<br>- DiameterAVPUnsupported 
+<br>- DiameterInvalidAVPValue 
+<br>- DiameterMissingAVP 
+<br>- DiameterUnableToComply 
+<br>- DiameterInvalidAVPLenght 
+<br>- DiameterInvalidMessageLenght 
+<br>- EquipmentUnknown 
+<br>- ConnectionError 
+<br>LAST UPDATE: 10-03-2011 
+<br>
+<br>THEORETICAL SUMMARY LEVELS: HLR -> MN 
+<br>
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MN 
+<br>
+<br>
+<br>KPI CLASS: Resource 
+<br>
+<br>MEASUREMENT(S): S6a and S13 Interface measurement (M404/194H) 
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+&lt;br&gt;         SUM(S13_PROC_ATTEMPT ) 
+&lt;br&gt; 
+&lt;br&gt;;WHERE ( SM = S13_I_PROC ) and ( EVE = ME_Identity_Check_Request )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_DBSDXI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[S13 IncMEIdChck ProcAtt ]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

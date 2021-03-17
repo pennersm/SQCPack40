@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/DGY.xml" />
+  <kpi name="flng_830a">
+    <formula>decode(
+				dgy.dia_gy_rar_ocs_recv,0,null,
+				100 * dgy.dia_gy_raa_ocs_sent
+				/ 
+				dgy.dia_gy_rar_ocs_recv
+					)</formula>
+    <kpi_info>
+      <title><![CDATA[Gy Re Authorization Answer / Request ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Re-Authorization-Answers (RAA) sent as response to Re-Authorization-Requests (RAR) received, on Gy interface.
+      The indication of a potential problem is the mismatch between request/answer messages (no or unrecognized answer).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_GY_RAA_OCS_SENT)
+&lt;br&gt;------------------------ *100
+&lt;br&gt;sum(DIA_GY_RAR_OCS_RECV)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DGY_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:30.173 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW074.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Gy RAA/RAR ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

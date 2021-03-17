@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUOV.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml" />
+  <kpi name="sgsn_163a">
+    <formula>decode(
+			(iumm2.iu_succ_intra_papu_re + 
+			iumm2.iu_fail_intra_papu_re_sgsn + 
+			iumm2.iu_fail_intra_papu_re_rnc + 
+			iumm2.iu_fail_intra_papu_reloc_coll + 
+			iumm2.iu_succ_inter_papu_re + 
+			iumm2.iu_fail_inter_papu_re_sgsn + 
+			iumm2.iu_fail_inter_papu_re_rnc + 
+			iumm2.iu_fail_inter_papu_reloc_coll + 
+			iumm2.iu_succ_inter_sgsn_re + 
+			iumm2.iu_fail_inter_sgsn_re_new_sgsn + 
+			iumm2.iu_fail_inter_sgsn_re_old_sgsn + 
+			iumm2.iu_fail_inter_sgsn_re_rnc + 
+			iumm2.iu_fail_inter_sgsn_reloc_coll),0,NULL, 
+
+			(100*(iuov.rej_relocation_attempts_ep + 
+			iuov.rej_relocation_attempts)
+			 / 
+			(iumm2.iu_succ_intra_papu_re + 
+			iumm2.iu_fail_intra_papu_re_sgsn + 
+			iumm2.iu_fail_intra_papu_re_rnc + 
+			iumm2.iu_fail_intra_papu_reloc_coll + 
+			iumm2.iu_succ_inter_papu_re + 
+			iumm2.iu_fail_inter_papu_re_sgsn + 
+			iumm2.iu_fail_inter_papu_re_rnc + 
+			iumm2.iu_fail_inter_papu_reloc_coll + 
+			iumm2.iu_succ_inter_sgsn_re + 
+			iumm2.iu_fail_inter_sgsn_re_new_sgsn + 
+			iumm2.iu_fail_inter_sgsn_re_old_sgsn + 
+			iumm2.iu_fail_inter_sgsn_re_rnc + 
+			iumm2.iu_fail_inter_sgsn_reloc_coll)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu relocation requests not processed due to processor overload]]></title>
+      <use><![CDATA[This KPI shows the ratio of Iu relocation requests not processed due to processor overload when compared to all Iu relocation attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(a.REJ_RELOCATION_ATTEMPTS_EP + a.REJ_RELOCATION_ATTEMPTS)
+&lt;br&gt;-------------------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(b.sum(IU_SUCC_INTRA_PAPU_RE + b.IU_FAIL_INTRA_PAPU_RE_SGSN + 
+&lt;br&gt;      b.IU_FAIL_INTRA_PAPU_RE_RNC + b.IU_FAIL_INTRA_PAPU_RELOC_COLL +
+&lt;br&gt;      b.IU_SUCC_INTER_PAPU_RE + b.IU_FAIL_INTER_PAPU_RE_SGSN + 
+&lt;br&gt;      b.IU_FAIL_INTER_PAPU_RE_RNC + b.IU_FAIL_INTER_PAPU_RELOC_COLL +
+&lt;br&gt;      b.IU_SUCC_INTER_SGSN_RE + b.IU_FAIL_INTER_SGSN_RE_NEW_SGSN + 
+&lt;br&gt;      b.IU_FAIL_INTER_SGSN_RE_OLD_SGSN + b.IU_FAIL_INTER_SGSN_RE_RNC + 
+&lt;br&gt;      b.IU_FAIL_INTER_SGSN_RELOC_COLL) 
+&lt;br&gt;
+&lt;br&gt;counters from table(s):
+&lt;br&gt;a = p_sgsn_iu_overload
+&lt;br&gt;b = p_sgsn_iu_mobility_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iuov_{obj_agg}_{time_agg}, rsg_ps_iumm2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu relocation requests not processed due to processor overload]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

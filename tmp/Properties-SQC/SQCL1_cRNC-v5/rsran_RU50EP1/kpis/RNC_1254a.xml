@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1254a">
+    <formula>decode(
+			(pktcall.missed_edch_frames + 
+			pktcall.delayed_edch_frames + 
+			pktcall.succ_rec_edch_frames),0,null, 
+
+			(100*(pktcall.iub_delay_cc_delay_ind + 
+			pktcall.hw_overl_cc_delay_ind + 
+			pktcall.iub_loss_cc_frame_loss_ind + 
+			pktcall.iub_delay_cc_frame_loss_ind + 
+			pktcall.hw_overl_cc_frame_loss_ind)
+			 / 
+			(pktcall.missed_edch_frames + 
+			pktcall.delayed_edch_frames + 
+			pktcall.succ_rec_edch_frames)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA congestion rate in Iub]]></title>
+      <use><![CDATA[This KPI provides the ratio between the congestion indications events to the number of received E-DCH Frames]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(IUB_DELAY_CC_DELAY_IND
+&lt;br&gt;              +HW_OVERL_CC_DELAY_IND
+&lt;br&gt;              +IUB_LOSS_CC_FRAME_LOSS_IND
+&lt;br&gt;              +IUB_DELAY_CC_FRAME_LOSS_IND
+&lt;br&gt;              +HW_OVERL_CC_FRAME_LOSS_IND)
+&lt;br&gt;-------------------------------
+&lt;br&gt;SUM(MISSED_EDCH_FRAMES
+&lt;br&gt;+DELAYED_EDCH_FRAMES
+&lt;br&gt;+SUCC_REC_EDCH_FRAMES)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSUPA CongestionRatio Iub</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

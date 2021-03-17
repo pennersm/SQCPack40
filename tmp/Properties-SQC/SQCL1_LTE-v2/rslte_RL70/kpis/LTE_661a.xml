@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LVLIP.xml"/>
+  <kpi name="LTE_661a">
+    <formula>decode(
+			((lvlip.ifinpackets15 + 
+			lvlip.ifinerrors15)),0,null, 
+
+			(100*(lvlip.ifinpackets15))
+			 / 
+			((lvlip.ifinpackets15 + 
+			lvlip.ifinerrors15)))</formula>
+    <kpi_info>
+      <title><![CDATA[Rcv VLAN Intf PKTS SR]]></title>
+      <use><![CDATA[This KPI provides the packet receive success ratio for received packets not containing errors  that were delivered to higher-layer protocols. It refers Ethernet-based IP interface and for each VLAN interface of the BTS.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100*     sum(  ifInPackets15 )
+&lt;br&gt;         ----------------------------------
+&lt;br&gt;         sum( ifInPackets15 + ifInErrors15  )
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LVLIP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Rcv VLAN Intf PKTS SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

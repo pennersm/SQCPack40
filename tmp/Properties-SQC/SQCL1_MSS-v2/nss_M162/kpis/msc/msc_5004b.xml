@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_5004b">
+    <formula>decode(
+			(vlrnmsc.totalaverage),0,null, 
+
+			((vlr1msc.imsidetachgsmattempt + 
+				vlr1msc.imsidetachumtsattempt + 
+				vlr1msc.imsi_detach_sip_attempt +
+				vlr1msc.EXPLICIT_DETACH_EPS_ATT)
+				 / 
+				vlrnmsc.totalaverage
+			)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI detach attempts per VLR subscriber for BHCA - LTE (EPS) detachment included. Param Not Actv.]]></title>
+      <use><![CDATA[IMSI detach attempts per VLR subscribers for busy hour call attempts (BHCA). Starting from M14.6, also the LTE detachments are included.]]></use>
+
+<use_experience><![CDATA[
+<br> BH is found for both M80 + M82 measures when MAX of AVG ( c.tcat_traffx100 ) WHERE c = M20 = &quot;Traffic category measurement&quot; is achieved.
+<br>
+<br>SIP IMSI Detach should be counted only in NVS.
+<br>
+<br>Starting from M14.6, also the LTE/EPS detachments are included.
+<br>
+<br>Starting from M14.6, this KPI is only applicable if the SIM_USIM_MEAS_PER_LAI FIFILE is not activated in the MSC/VLR. If activated please use msc_5004c KPI
+<br>LAST UPDATE: 21-05-2010
+<br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part n (80/50H), VLR measurement, part 1 (82/52H), VLR measurement, part 1 (82/52H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM( 
+&lt;br&gt;    a.IMSIDetachGSMAttempt
+&lt;br&gt;    + a.IMSIDetachUMTSAttempt
+&lt;br&gt;    + a.IMSI_Detach_SIP_Attempt 
+&lt;br&gt;    + a.EXPLICIT_DETACH_EPS_ATT) 
+&lt;br&gt;-----------------------------------------
+&lt;br&gt;AVG (
+&lt;br&gt;    b.TotalAverage ) 
+&lt;br&gt;
+&lt;br&gt;;For the BH 
+&lt;br&gt;
+&lt;br&gt;Counter from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;Counters from measures:
+&lt;br&gt;a = M82 = VLR measurement, part one
+&lt;br&gt;b = M80 = VLR measurement, part n
+&lt;br&gt; 
+&lt;br&gt;b =&amp;amp;gt; TOTALAVERAGE counter aggregation: AVG for time and SUM for network</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg},rns_ps_vlrnmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IMSI Detc Att LTE VLR SubsBHCA</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/MTPSLU.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/MTPSLU_ext.xml" />
+  <kpi name="mgw_5008b">
+    <formula>decode(
+			(mtpslu_ext.mtp_corr_multi_trans_num*mtpslu.period_duration),0,0, 
+
+			(mtpslu.msus_transmitted*(mtpslu_ext.sum_min_5_peakload_traffic_out
+			 / 
+			(((mtpslu_ext.mtp_corr_multi_trans_num)*8)
+			 / 
+			 (mtpslu.period_duration*60)))
+			 / 
+			(mtpslu.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Transmitted MTP messages/s]]></title>
+      <use><![CDATA[Average of transmitted MTP messages per second]]></use>
+
+<use_experience><![CDATA[
+<br> Average of MTP messages transmitted per second. Use hourly measure activation period.
+<br>
+<br>Theoretical KPI summary levels: PLMN - MGW - SLN - SL_TYPE - SNET - SPCD - SLSN
+<br>LAST UPDATE: 14-04-2010
+<br>RECOMMENDED SUMMARY LEVELS: MGW
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MTP signalling link utilization (210/D2H), MTP signalling link utilization (210/D2H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;SUMoverSLSN( MSUS_TRANSMITTED * ( hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_OUT * (
+&lt;br&gt;Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_TRANSMITTED + 6
+&lt;br&gt;* SUMoverSL MSUS_TRANSMITTED ) * 8 ) ) ) ) / ( Period_Duration * 60 ) 
+&lt;br&gt;
+&lt;br&gt;Counters from RAW + AGGREGATED tables(s)/view(s) </formula>
+      <unit>[msg/s]</unit>
+      <tables>nokmww_ps_mtpslu_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>mtp_msg_trans</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

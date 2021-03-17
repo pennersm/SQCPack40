@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+
+	<report id="RSMGW092 - Alarm Details">
+		<level>PLMN/RSMGW-MGW</level>
+		<report-level key="RSMGW-MGW">PLMN/MGW</report-level>
+		<time-agg>raw</time-agg>
+		<title>RSMGW092 - Alarm Details</title>
+		<help-text>
+			<![CDATA[<pre>
+
+All alarms with a given id that are started within the given period
+are arranged with alarm start time shown in descending order.
+
+			</pre>]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">"plmn".co_gid</pivot>
+			<pivot level="RSMGW-MGW">"mgw".co_gid</pivot>	
+			<pivot level="MR_RSMGW-MGW">"mgw".co_mr_gid</pivot>
+			<pivot level="WS_RSMGW-MGW" group="RSMGW-MGW">g.ws</pivot>
+
+		</pivots>
+		<columns>
+		<column col-id="alm_id" columnType="KEY">
+				<alias>Alarm ID</alias>
+			</column>
+			<column col-id="tot_num">
+				<alias>Total alarm count</alias>
+				<kpi_format>float:0</kpi_format>
+			</column>
+			<column col-id="alarm_number" threshold="true" columnType="KEY">
+				<alias>Alarm ID</alias>
+			</column>
+			<column col-id="text">
+				<alias>Alarm description</alias>
+			</column>
+			<column col-id="severity"  columnType="KEY">
+				<alias>severity</alias>
+			</column>
+			<column col-id="alarm_type"  columnType="KEY">
+				<alias>Alarm Type</alias>
+			</column>
+			<column col-id="text"  columnType="KEY">
+				<alias>Alarm Text</alias>
+			</column>
+			<column col-id="supplementary_info"  columnType="KEY">
+				<alias>Supplementary Info</alias>
+			</column>
+			<column col-id="plmn_co_name"  columnType="KEY">
+				<alias>PLMN name</alias>
+			</column>
+			<column col-id="mgw_co_name"  columnType="KEY">
+				<alias>MGW name</alias>
+			</column>
+			<column col-id="mgw_dn" columnType="KEY">
+				<alias>MGW DN</alias>
+			</column>
+			<column col-id="alarm_date">
+				<alias>Start Date</alias>
+			</column>
+			<column col-id="alarm_time">
+				<alias>Start Time</alias>
+			</column>
+			<column col-id="end_date">
+				<alias>End Date</alias>
+			</column>
+			<column col-id="end_time">
+				<alias>End Time</alias>
+			</column>
+			<column col-id="zse">
+				<alias>Alarm hold time (sec)</alias>
+				<kpi_format>float:0</kpi_format>
+			</column>
+
+		</columns>
+
+		<sql type="create" table="celldoc1_023">
+			<![CDATA[
+				select
+				 	alarm_number
+				 	,rpad(text,60) text
+				 	,count(*) tot_num
+				 	,f.ne_gid ne_gid
+				from
+					#grouping_sql#
+                    fx_alarm f,
+					utp_common_objects "plmn"
+					,utp_common_objects "mgw"
+				where
+					 f.ne_gid = "mgw".co_gid
+					and f.alarm_time >= to_date(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					and f.alarm_time <= to_date(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+					and "plmn".co_oc_id = 16 
+					and "mgw".co_oc_id=757				
+					and "mgw".co_parent_gid = "plmn".co_gid
+					and
+				    #object_selection#
+				group by
+				        alarm_number
+				        ,rpad(text,60)
+				        ,f.ne_gid
+        	 		]]>
+		</sql>
+
+		<literal>
+			<![CDATA[
+				<br><span class = "sql_h3">Available alarms in database for the selected MGW objects and time</span><br>
+		 		]]>
+		</literal>
+
+		<sql>
+		<!-- In NSN PM, this overrides the "literal" tag when a valid text is present -->
+		<title>Available alarms</title>
+		<!-- Help text in HTML format for NSN PM -->
+		<help><![CDATA[<br><span class = "sql_h4">By default all available alarms are displayed. You can select which alarm you want to view in the threshold definitions (Advanced options)]]></help>
+			<![CDATA[
+			SELECT
+			    SUM(tot_num) tot_num
+			 	,SUBSTR(text,1,60) text
+			 	,TO_CHAR(alarm_number,'99999') alm_id
+			FROM
+			 	#celldoc1_023#
+			GROUP BY
+				  SUBSTR(text,1,60)
+				  ,TO_CHAR(alarm_number,'99999')
+			ORDER BY
+			        tot_num DESC, alm_id ASC
+	]]>
+		</sql>
+	
+		<literal>
+			<![CDATA[
+				<br><span class = "sql_h4">By default all available alarms are displayed. You can select which alarm you want to view in the threshold definitions (Advanced options)</span><br>
+		 		]]>
+		</literal>
+
+		<sql>
+		<!-- In NSN PM, this overrides the "literal" tag when a valid text is present -->
+		<title>Available alarms in database for the selected MGW objects and time</title>
+		<!-- Help text in HTML format for NSN PM -->
+		<help><![CDATA[<br><span class = "sql_h4">By default all available alarms are displayed. You can select which alarm you want to view in the threshold definitions (Advanced options)]]></help>
+			<![CDATA[
+		select
+			a.alarm_number alarm_number
+			,decode(a.severity,1,'CRITICAL',2,'MAJOR',3,'MINOR',4,'WARNING',a.severity) severity
+			,decode(a.alarm_type,1,'COMMUNICATION',2,'ENVIRONMENTAL',3,'EQUIPMENT',4,'PROCESSING',5,'QUALITY OF SERVICE',a.alarm_type) alarm_type
+			,a.text text
+			,a.supplementary_info
+			,nvl("plmn".co_name, 'NN('||"plmn".co_dn||')') plmn_co_name
+			,nvl("mgw".co_name, 'NN('||"mgw".co_dn||')') mgw_co_name
+			,"mgw".co_dn mgw_dn
+			,to_char(a.alarm_time,'yyyy-MON-dd') alarm_date
+			,to_char(a.alarm_time,'hh24:mi:ss') alarm_time
+		    ,decode(TO_CHAR(CANCEL_TIME,'yyyy-MON-dd'),'','hold',to_char(cancel_time,'yyyy-MON-dd')) end_date
+			,decode(to_char(CANCEL_TIME,'dd-mm-yy'),'','hold',TO_CHAR(CANCEL_TIME,'hh24:mi:ss')) end_time
+			,round(((cancel_time-alarm_time)*24*60*60),0) zse
+		from
+			fx_alarm a,
+			utp_common_objects "plmn"
+			,utp_common_objects "mgw"
+		where
+			    a.ne_gid = "mgw".co_gid 
+			AND a.alarm_time >= TO_DATE(  '#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+			AND a.alarm_time <= TO_DATE(  '#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+			AND (a.ne_gid)  IN
+	        	(SELECT ne_gid FROM #celldoc1_023#)
+	        and "plmn".co_oc_id = 16 
+			and "mgw".co_oc_id=757				
+			and "mgw".co_parent_gid = "plmn".co_gid
+	        #add_on_criteria#
+		ORDER BY
+			a.alarm_number ASC
+			,a.alarm_time DESC
+
+	]]>
+		</sql>
+
+	</report>
+</reports>
+

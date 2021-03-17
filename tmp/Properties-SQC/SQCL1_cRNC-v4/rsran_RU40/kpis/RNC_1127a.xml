@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMIF.xml" />
+	<kpi name="RNC_1127a">
+		<formula>
+			decode((atmif.in_cap),0,null,decode((atmif.period_duration*60),0,null,(100*(atmif.in_tot_tr_cell)/(atmif.period_duration*60)/(atmif.in_cap))))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average ATM interface ingress utilization]]>
+			</title>
+			<use>
+				<![CDATA[Average ATM interface ingress utilization]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum (IN_TOT_TR_CELL)
+----------------------
+sum(PERIOD_DURATION_SUM * 60)
+--------------
+sum (IN_CAP)
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_atmif_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average ATM interface ingress utilization]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

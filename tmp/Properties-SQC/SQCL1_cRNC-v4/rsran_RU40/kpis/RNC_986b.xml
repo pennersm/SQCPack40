@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ATMVCC.xml"/>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml"/>
+  <kpi name="RNC_986b">
+    <formula>decode(
+			((atmvcc.period_duration_sum*60*1000*1000)),0,null, 
+
+			((atmvcc.eg_tot_cells_vc*44*8))
+			 / 
+			((atmvcc.period_duration_sum*60*1000*1000))) - 
+			decode(
+			((traffic.period_duration_sum*100*60*1000)),0,null, 
+
+			(((traffic.dur_for_amr_12_2_dl_in_srnc + 
+			traffic.dura_for_amr_12_2_dl_in_drnc)*16.4*0.65 - 
+			(traffic.allo_dur_cs_conv_64_in_srnc*66.1)))
+			 / 
+			((traffic.period_duration_sum*100*60*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[PS Data in DL]]></title>
+      <use><![CDATA[Packet Switched traffic in DL over the Iu-interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>       sum (eg_tot_cells_vc * 44 * 8)          (sum (dur_for_amr_12_2_dl_in_srnc + dura_for_amr_12_2_dl_in_drnc) * 16.4 * 0.65 - sum (allo_dur_cs_conv_64_in_srnc * 66.1))
+&lt;br&gt;-------------------------------------------- - ---------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;sum (period_duration_sum * 60 * 1000 * 1000)                                           sum (period_duration_sum * 100 * 60 * 1000)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>NOKRWW_PS_ATMVCC_{OBJ_AGG}_{TIME_AGG}, NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PS Data in DL]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

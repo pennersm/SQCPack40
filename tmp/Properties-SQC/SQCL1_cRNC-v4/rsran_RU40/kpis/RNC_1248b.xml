@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RTPRTCP.xml" />
+  <kpi name="RNC_1248b">
+    <formula>decode(
+			(rtprtcp.rec_rtp_packets*10 + rtprtcp.lost_rtp_packets),0,null, 
+
+			(100*(rtprtcp.lost_rtp_packets)
+			 / 
+			(rtprtcp.rec_rtp_packets*10 + rtprtcp.lost_rtp_packets)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-CS RTP layer loss ratio - ingress]]></title>
+      <use><![CDATA[This KPI provides the ingress RTP packet loss ratio in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(LOST_RTP_PACKETS)
+&lt;br&gt;------------------------
+&lt;br&gt;SUM(REC_RTP_PACKETS*10 + LOST_RTP_PACKETS)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rtprtcp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-CS RTP loss ratio ingr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

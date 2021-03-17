@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPP1.xml" />
+  <kpi name="flng_783a">
+    <formula>decode((gtpp1.gtpp_echo_request_sent + gtpp1.gtpp_echo_request_retry_sent),0,NULL,100*gtpp1.gtpp_echo_response_received / (gtpp1.gtpp_echo_request_sent + gtpp1.gtpp_echo_request_retry_sent))</formula>
+    <kpi_info>
+      <title><![CDATA[GTP-Prime Echo Response/Request ratio, Flexi-NG initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-Prime Echo Responses received as response to Flexi-NG initiated GTP-Prime Echo Requests messages (including retries).
+      The Echo messaging functionality is used to verify that a connection between network elements is working and the indication of a potential problem is the mismatch between Echo Request/Response messages.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPP_ECHO_RESPONSE_RECEIVED)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(GTPP_ECHO_REQUEST_SENT + 
+&lt;br&gt;   GTPP_ECHO_REQUEST_RETRY_SENT)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPP1_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/24 14:41:22.660 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW083.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>GTPP Echo Resp rat, FlNG</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

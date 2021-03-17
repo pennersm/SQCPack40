@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPC.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/URS_ext.xml" />
+  <kpi name="flng_105a">
+    <formula>decode( ((GTPC.gtpc_update_req_recv)),0,NULL, ((URS_ext.gtpc_update_resp_sent_128)) / ((GTPC.gtpc_update_req_recv)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context success ratio, SGSN initiated]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v1 update PDP context requests received (SGSN (or access network) initiated), i.e., the number of update PDP context response messages sent with cause code 'Request Accepted' when compared to the number of update PDP context request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(urs_id,'128',b.GTPC_UPDATE_RESP_SENT,0))) ;Request accepted
+<br>-------------------------------------------------------------------- *100
+<br>sum(a.GTPC_UPDATE_REQ_RECV)
+<br>
+<br>counters from measurement(s): 
+<br>a = GTP-C v1 
+<br>b = GTP-C v1 Update Response sent 
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPC_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_URS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Upd PDP ctx SR, SGSN]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

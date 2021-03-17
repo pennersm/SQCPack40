@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW038 - Modify Bearer cause code</header>
+    <csv_title>Modify Bearer cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v2 modify bearer response messages sent/received per cause code on S11/S4 and S5/S8 interfaces.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Modify Bearer Request' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/04/18 15:24:42.718 +0100</date>
+        <comment><![CDATA[Source: RSSAEGW038.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Modify Bearer cause code</report-description>
+    <report-title>Modify Bearer cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_129a ui_name="Att" group="sent (S11/S4 and S5/S8)" master-group="Modify Bearer resp" chartType="bar" yAxis="2" />
+    <flng_130a ui_name="Ratio" group="sent (S11/S4 and S5/S8)" master-group="Modify Bearer resp" />
+    <flng_464a ui_name="Att" group="rcvd (S5/S8)" master-group="Modify Bearer resp" chartType="bar" yAxis="2" />
+    <flng_465a ui_name="Ratio" group="rcvd (S5/S8)" master-group="Modify Bearer resp" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCV2RESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_129a">
+    <formula>(GTPCV2RESP.gtpcv2_mod_bear_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 modify bearer responses sent per cause code.
+Modify Bearer Response sent: 
+- S11/S4 interface (MME/SGSN &lt;- SGW)
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpcv2_mod_bear_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_MBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Modify Bearer resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_130a">
+    <formula>decode(
+			((GTPCV2RESP.gtpcv2_mod_bear_resp_sent_all)),0,NULL, 
+
+			((GTPCV2RESP.gtpcv2_mod_bear_resp_sent))
+			 / 
+			((GTPCV2RESP.gtpcv2_mod_bear_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 modify bearer responses sent for a specific cause code when compared to total number of GTP-C v2 modify bearer response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(mbrs_id,'x',GTPCV2_MOD_BEAR_RESP_SENT,0))  ;MBRS for cause code x
+&lt;br&gt;----------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_MOD_BEAR_RESP_SENT)  ;all MBRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_MBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Mod Bearer resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_464a">
+    <formula>(GTPCV2RESP.GTPCV2_MODIFY_BEARER_RESP_RECV)</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 modify bearer responses received per cause code.
+Modify Bearer Response received: 
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTPCV2_MODIFY_BEARER_RESP_RECV)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_MBRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Modify Bearer resp rcv]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_465a">
+    <formula>decode( ((GTPCV2RESP.gtpcv2_mod_bear_resp_recv_all)),0,NULL, ((GTPCV2RESP.gtpcv2_modify_bearer_resp_recv)) / ((GTPCV2RESP.gtpcv2_mod_bear_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 modify bearer responses received for a specific cause code when compared to total number of GTP-C v2 modify bearer response messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(mbrr_id,'x',GTPCV2_MODIFY_BEARER_RESP_RECV,0))  ;MBRR for cause code x 
+	  <br>---------------------------------------------------------------------------------------- *100 
+
+	  <br>sum(GTPCV2_MODIFY_BEARER_RESP_RECV)  ;all MBRR's 
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_MBRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Mod Bearer resp rcv ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4017a">
+    <formula>
+((TC_ext.tcat_answ_tr_1/100) / TC_ext.PERIOD_START_TIME_1 * TC_ext.PERIOD_DURATION_1 * TC_ext.PERIOD_START_TIME_1 * 60)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Total Call Duration (answer)]]></title>
+      <use><![CDATA[Indicates the sum of the duration of all calls from answer.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_Ids:
+<br>   86 = VOICE ORIG 2G
+<br>   88 = VOICE ORIG 3G
+<br>   101 = DATA ORIG 2G
+<br>   103 = DATA ORIG 3G
+<br>   90 = VOICE INCOMING
+<br>   105 = DATA INCOMING
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is partially compliant with ex-S &quot;Total Call Duration (answer)&quot; KPI.
+<br>In this KPI, all calls are considered, not only the IuCS related ones.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#149; For OBJECT level:
+&lt;br&gt;
+&lt;br&gt;(SUM( tcat_answ_tr ) / 100) * AVG( DURATION ) * 60
+&lt;br&gt;;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED views(s)
+&lt;br&gt;
+&lt;br&gt;&amp;#149; For TIME level:
+&lt;br&gt;
+&lt;br&gt;(AVG( tcat_answ_tr ) / 100) * SUM( DURATION ) * 60
+&lt;br&gt;;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;(SUM( tcat_answ_tr ) / 100) / COUNT( DISTINCT period_start_time ) * AVG( DURATION ) * COUNT( DISTINCT period_start_time )  * 60
+&lt;br&gt;;WHERE Tcat_ID = 86, 88, 101, 103, 90, 105</formula>
+      <unit>[Seconds]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Total call dur (answer)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

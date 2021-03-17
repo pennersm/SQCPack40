@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTERSHO.xml" />
+  <kpi name="RNC_843b">
+    <formula>decode(
+			(intersho.is_hho_w_cm_sb_nrt + 
+			intersho.is_hho_wo_cm_sb_nrt),0,null, 
+
+			(100 * 
+			intersho.is_hho_nocell_sb_nrt)
+			 / 
+			(intersho.is_hho_w_cm_sb_nrt + 
+			intersho.is_hho_wo_cm_sb_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[SB ISHO Cell Found ratio NRT]]></title>
+      <use><![CDATA[The ratio that an inter-system HHO measurement due to Service Based ends without making an inter-system HHO attempt, because no cell is good enough for inter-system HHO - for UEs with NRT connection.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum( IS_HHO_NOCELL_SB_NRT )
+&lt;br&gt;      --------------------------
+&lt;br&gt;      sum( IS_HHO_W_CM_SB_NRT
+&lt;br&gt;         + IS_HHO_WO_CM_SB_NRT
+&lt;br&gt;      )
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intersho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[SB ISHO Cell Found ratio NRT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M26 ANN measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M26 ANN measurement dump</csv_title>
+    <report-description>Internal announcement measurement(ANN)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <VANID_CALLS/>
+    <VANID_CONGESTED_CALLS/>
+    <VANID_LISTENING_TIME/>
+    <VANID_INVALID_RECORD/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/ANN" name="ANN" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="VANID_CALLS" symmetrical="true">SUM(VANID_CALLS)</counter>
+      <counter alias="VANID_CONGESTED_CALLS" symmetrical="true">SUM(VANID_CONGESTED_CALLS)</counter>
+      <counter alias="VANID_LISTENING_TIME" symmetrical="true">SUM(VANID_LISTENING_TIME)</counter>
+      <counter alias="VANID_INVALID_RECORD" symmetrical="true">AVG(VANID_INVALID_RECORD)</counter>
+    </counters>
+    <table_name>rns_ps_ann_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ANN</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ANN.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_ann_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="VANID_CALLS">
+    <formula>ANN.VANID_CALLS</formula>
+    <kpi_info>
+      <title>VANID_CALLS</title>
+      <use>Number of announcement attempts (0...65535)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(VANID_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ann_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VANID_CALLS (M26B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="VANID_CONGESTED_CALLS">
+    <formula>ANN.VANID_CONGESTED_CALLS</formula>
+    <kpi_info>
+      <title>VANID_CONGESTED_CALLS</title>
+      <use>Number of failed attempts (0...65535)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(VANID_CONGESTED_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ann_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VANID_CONGESTED_CALLS (M26B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="VANID_LISTENING_TIME">
+    <formula>ANN.VANID_LISTENING_TIME</formula>
+    <kpi_info>
+      <title>VANID_LISTENING_TIME</title>
+      <use>Total duration of finished announcements in seconds (0...65535)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(VANID_LISTENING_TIME)</formula>
+      <unit>time</unit>
+      <tables>rns_ps_ann_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VANID_LISTENING_TIME (M26B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="VANID_INVALID_RECORD">
+    <formula>ANN.VANID_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>VANID_INVALID_RECORD</title>
+      <use>The tag appears at the end of the given countergroup with field value 1 when the actual record is invalid.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(VANID_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_ann_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VANID_INVALID_RECORD (M26B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

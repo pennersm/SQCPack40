@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 User_Plane URPL measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 User_Plane URPL measurement dump</csv_title>
+    <report-description>NG10 user plane statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <UP_PKTS_DROPPED />
+    <UPLINK_DROP_FORGED_UE_SRC_ADDR />
+    <UP_DROP_PKTS_BLOCKING_FLAG_SET />
+    <UP_AVG_FASTPATH_CPU_LOAD />
+    <PKTS_DROPPED_MAX_FLOW_REACHED />
+  </column_order>
+  <temp_table name="URPL" meas_level="PLMN/FING/FNODE/USRPLANE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="UP_PKTS_DROPPED" time-alias="UP_PKTS_DROPPED" timeagg="SUM(UP_PKTS_DROPPED)">SUM(UP_PKTS_DROPPED)</counter>
+      <counter alias="UPLINK_DROP_FORGED_UE_SRC_ADDR" time-alias="UPLINK_DROP_FORGED_UE_SRC_ADDR" timeagg="SUM(UPLINK_DROP_FORGED_UE_SRC_ADDR)">SUM(UPLINK_DROP_FORGED_UE_SRC_ADDR)</counter>
+      <counter alias="UP_DROP_PKTS_BLOCKING_FLAG_SET" time-alias="UP_DROP_PKTS_BLOCKING_FLAG_SET" timeagg="SUM(UP_DROP_PKTS_BLOCKING_FLAG_SET)">SUM(UP_DROP_PKTS_BLOCKING_FLAG_SET)</counter>
+      <counter alias="UP_AVG_FASTPATH_CPU_LOAD" time-alias="UP_AVG_FASTPATH_CPU_LOAD" timeagg="AVG(UP_AVG_FASTPATH_CPU_LOAD)">AVG(UP_AVG_FASTPATH_CPU_LOAD)</counter>
+      <counter alias="PKTS_DROPPED_MAX_FLOW_REACHED" time-alias="PKTS_DROPPED_MAX_FLOW_REACHED" timeagg="SUM(PKTS_DROPPED_MAX_FLOW_REACHED)">SUM(PKTS_DROPPED_MAX_FLOW_REACHED)</counter>
+    </counters>
+    <table_name>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>URPL</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>URPL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UP_PKTS_DROPPED">
+    <formula>URPL.UP_PKTS_DROPPED</formula>
+    <kpi_info>
+      <title>UP_PKTS_DROPPED</title>
+      <use>This counter contains the number of packets dropped. UPDATED: Updated when a packet is dropped and the reason for dropping the packet does not match any other counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UP_PKTS_DROPPED)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_PKTS_DROPPED (m3017c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UPLINK_DROP_FORGED_UE_SRC_ADDR">
+    <formula>URPL.UPLINK_DROP_FORGED_UE_SRC_ADDR</formula>
+    <kpi_info>
+      <title>UPLINK_DROP_FORGED_UE_SRC_ADDR</title>
+      <use>This counter contains the number of packets dropped due to the UE having a forged source address in the uplink. UPDATED: Updated when a packet is dropped due to the UE having a forged source address in the uplink.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UPLINK_DROP_FORGED_UE_SRC_ADDR)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPLINK_DROP_FORGED_UE_SRC_ADDR (m3017c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UP_DROP_PKTS_BLOCKING_FLAG_SET">
+    <formula>URPL.UP_DROP_PKTS_BLOCKING_FLAG_SET</formula>
+    <kpi_info>
+      <title>UP_DROP_PKTS_BLOCKING_FLAG_SET</title>
+      <use>This counter contains the number of packets dropped due to the blocking flag set in user plane. UPDATED: Thsi counter is updated when a packet is dropped because of node level blocking flag or bearer specific blocking flag is set.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UP_DROP_PKTS_BLOCKING_FLAG_SET)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_DROP_PKTS_BLOCKING_FLAG_SET (m3017c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UP_AVG_FASTPATH_CPU_LOAD">
+    <formula>URPL.UP_AVG_FASTPATH_CPU_LOAD</formula>
+    <kpi_info>
+      <title>UP_AVG_FASTPATH_CPU_LOAD</title>
+      <use>This gauge contains the average fastpath CPU load of the active nodes. UPDATED: Updated periodically by adding the CPU load of each core in active nodes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(UP_AVG_FASTPATH_CPU_LOAD)">AVG(UP_AVG_FASTPATH_CPU_LOAD)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_AVG_FASTPATH_CPU_LOAD (m3017c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PKTS_DROPPED_MAX_FLOW_REACHED">
+    <formula>URPL.PKTS_DROPPED_MAX_FLOW_REACHED</formula>
+    <kpi_info>
+      <title>PKTS_DROPPED_MAX_FLOW_REACHED</title>
+      <use>This counter contains the number of packets dropped when the maximum flow limit per node is reached. The global maximum number of flows per node is set through the node-max-flows parameter in the general service awareness configuration. UPDATED: Updated each time a packet is dropped due to the  maximum flow limit per node being reached.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PKTS_DROPPED_MAX_FLOW_REACHED)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PKTS_DROPPED_MAX_FLOW_REACHED (m3017c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

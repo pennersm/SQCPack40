@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml" />
+  <kpi name="msc_4071a">
+    <formula>
+decode(ccmea_ext.ccmeas_speech,0,null,
+	100 * ( ccmea_ext.ccmeas_speech_9 / ccmea_ext.ccmeas_speech )
+) 
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Dropped calls after answer due to radio]]></title>
+      <use><![CDATA[Number of dropped calls after answer due to radio related reasons.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( CCMEAS_SPEECH ) ;WHERE clearcode_id = 0205 + 0208 + 0B13 + 0B1E
+&lt;br&gt;100 * -------------------------------------
+&lt;br&gt;      SUM( CCMEAS_SPEECH ) ;WHERE clearcode_id = all
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_CCMEA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Drop calls afte answ radio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

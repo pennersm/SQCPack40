@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GREtun.xml"/>
+  <kpi name="flng_621a">
+    <formula>100*decode((GREtun.GRE_TUN_PMIP_IPV4_PACKETS_RX + 
+GREtun.GRE_TUN_PMIP_IPV6_PACKETS_RX + 
+GREtun.GRE_TUN_PMIP_RX_PKTS_NO_SESSN),0,null,	
+	
+(GREtun.GRE_TUN_PMIP_RX_PKTS_NO_SESSN
+ / 
+(GREtun.GRE_TUN_PMIP_IPV4_PACKETS_RX + 
+GREtun.GRE_TUN_PMIP_IPV6_PACKETS_RX + 
+GREtun.GRE_TUN_PMIP_RX_PKTS_NO_SESSN)))</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 GRE tunneled packets drop ratio, user plane session not found]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped GRE tunneled packets received from the S5/S2 interface because a user plane session was not found.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GRE_TUN_PMIP_RX_PKTS_NO_SESSN)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(GRE_TUN_PMIP_IPV4_PACKETS_RX +
+&lt;br&gt;   GRE_TUN_PMIP_IPV6_PACKETS_RX +
+&lt;br&gt;   GRE_TUN_PMIP_RX_PKTS_NO_SESSN)</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.913 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW075.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 GRE pkt DR, no sess</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

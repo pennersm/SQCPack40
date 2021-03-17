@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3072a">
+    <formula>decode(
+			(mmmt.eps_s1ho_succ + 
+			mmmt.intramme_s1ho_sgw_chg_succ + 
+			mmmt.eps_s1ho_fail + 
+			mmmt.intramme_s1ho_sgw_chg_fail),0,null,
+	
+			(mmmt.EPS_S1HO_ENB_ERROR_FAIL
+			/ 
+			(mmmt.eps_s1ho_succ + 
+			mmmt.intramme_s1ho_sgw_chg_succ + 
+			mmmt.eps_s1ho_fail + 
+			mmmt.intramme_s1ho_sgw_chg_fail)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[EPS S1 based HO eNB error failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of the EPS S1 based handover due to eNodeB error.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(EPS_S1HO_ENB_ERROR_FAIL)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(EPS_S1HO_SUCC +
+&lt;br&gt;   INTRAMME_S1HO_SGW_CHG_SUCC
+&lt;br&gt;   EPS_S1HO_FAIL +
+&lt;br&gt;   INTRAMME_S1HO_SGW_CHG_FAIL)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:36:01.819 +0100</date>
+          <comment><![CDATA[Source: RSMME014.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS S1HO eNB err FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

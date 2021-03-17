@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_2329a">
+    <formula>100*decode(
+			(intsysho.intra_intra_hho_att_rt + 
+			intsysho.intra_inter_hho_att_rt + 
+			intsysho.inter_hho_att_rt + 
+			intsysho.hho_att_caused_sho_incap_rt + 
+			intsysho.immed_hho_csd_sho_incap_rt),0,null, 
+
+			(intsysho.succ_intra_intra_hho_att_rt + 
+			intsysho.succ_intra_inter_hho_att_rt + 
+			intsysho.succ_inter_hho_att_rt + 
+			intsysho.succ_hho_caused_sho_incap_rt)
+			 / 
+			(intsysho.intra_intra_hho_att_rt + 
+			intsysho.intra_inter_hho_att_rt + 
+			intsysho.inter_hho_att_rt + 
+			intsysho.hho_att_caused_sho_incap_rt + 
+			intsysho.immed_hho_csd_sho_incap_rt))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra System Hard HO success ratio for RT]]></title>
+      <use><![CDATA[Intra System Hard Handover success ratio for real time connections]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(succ_intra_intra_hho_att_rt +
+&lt;br&gt;succ_intra_inter_hho_att_rt + 
+&lt;br&gt;succ_inter_hho_att_rt +
+&lt;br&gt;succ_hho_caused_sho_incap_rt)
+&lt;br&gt;----------------------------------------
+&lt;br&gt;SUM(intra_intra_hho_att_rt +
+&lt;br&gt;intra_inter_hho_att_rt +
+&lt;br&gt;inter_hho_att_rt +
+&lt;br&gt;hho_att_caused_sho_incap_rt +
+&lt;br&gt;immed_hho_csd_sho_incap_rt)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_INTSYSHO_{obj_agg}_{time_agg},nokrww_ps_INTSHORN_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:55.293 +0100</date>
+          <comment><![CDATA[Source: RSRAN121.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra-Sys HHO SR RT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

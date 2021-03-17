@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 Subscriber_roaming_status SRS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 Subscriber_roaming_status SRS measurement dump</csv_title>
+    <report-description>SUBSCRIBER ROAMING STATUS</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <NUMBER_OF_HOME_PDP_CTXT />
+    <NUMBER_OF_ROAMING_PDP_CTXT />
+    <NUMBER_OF_VISITED_PDP_CTXT />
+  </column_order>
+  <temp_table name="SRS" meas_level="PLMN/FING/FNODE/SRS" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="NUMBER_OF_HOME_PDP_CTXT" time-alias="NUMBER_OF_HOME_PDP_CTXT" timeagg="AVG(NUMBER_OF_HOME_PDP_CTXT)">SUM(NUMBER_OF_HOME_PDP_CTXT)</counter>
+      <counter alias="NUMBER_OF_ROAMING_PDP_CTXT" time-alias="NUMBER_OF_ROAMING_PDP_CTXT" timeagg="AVG(NUMBER_OF_ROAMING_PDP_CTXT)">SUM(NUMBER_OF_ROAMING_PDP_CTXT)</counter>
+      <counter alias="NUMBER_OF_VISITED_PDP_CTXT" time-alias="NUMBER_OF_VISITED_PDP_CTXT" timeagg="AVG(NUMBER_OF_VISITED_PDP_CTXT)">SUM(NUMBER_OF_VISITED_PDP_CTXT)</counter>
+    </counters>
+    <table_name>pcofng_ps_srs_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SRS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SRS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_srs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NUMBER_OF_HOME_PDP_CTXT">
+    <formula>SRS.NUMBER_OF_HOME_PDP_CTXT</formula>
+    <kpi_info>
+      <title>NUMBER_OF_HOME_PDP_CTXT</title>
+      <use>This gauge contains the number of home subscribers. UPDATED: Updated when roaming awareness is enabled and home subscriber is added to or removed from the home PLMN.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(NUMBER_OF_HOME_PDP_CTXT)">SUM(NUMBER_OF_HOME_PDP_CTXT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_srs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBER_OF_HOME_PDP_CTXT (m3057c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NUMBER_OF_ROAMING_PDP_CTXT">
+    <formula>SRS.NUMBER_OF_ROAMING_PDP_CTXT</formula>
+    <kpi_info>
+      <title>NUMBER_OF_ROAMING_PDP_CTXT</title>
+      <use>This gauge contains the number of roaming subscribers. UPDATED: Updated when roaming awareness is enabled and roaming subscriber is added to or removed from the roaming PLMN.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(NUMBER_OF_ROAMING_PDP_CTXT)">SUM(NUMBER_OF_ROAMING_PDP_CTXT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_srs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBER_OF_ROAMING_PDP_CTXT (m3057c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NUMBER_OF_VISITED_PDP_CTXT">
+    <formula>SRS.NUMBER_OF_VISITED_PDP_CTXT</formula>
+    <kpi_info>
+      <title>NUMBER_OF_VISITED_PDP_CTXT</title>
+      <use>This gauge contains the number of visitor subscribers. UPDATED: Updated when roaming awareness is enabled and visitor subscriber is added to or removed from the visitor PLMN.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(NUMBER_OF_VISITED_PDP_CTXT)">SUM(NUMBER_OF_VISITED_PDP_CTXT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_srs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBER_OF_VISITED_PDP_CTXT (m3057c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

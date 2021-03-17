@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_5321c">
+    <formula>100*decode(
+			(decode(
+			lcelld.denom_rrc_conn_ue,0,null, 
+
+			lcelld.sum_rrc_conn_ue
+			 / 
+			lcelld.denom_rrc_conn_ue)),0,null, 
+
+			((decode(
+			100,0,null, 
+
+			lcelld.ca_dl_cap_ue_avg
+			 / 
+			100)))
+			 / 
+			(decode(
+			lcelld.denom_rrc_conn_ue,0,null, 
+
+			lcelld.sum_rrc_conn_ue
+			 / 
+			lcelld.denom_rrc_conn_ue)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Penetration of the CA Capable UEs for 2CCs into the Network]]></title>
+      <use><![CDATA[This KPI shows the ratio of the averaged number of the CA capable UEs for 2 CCs and average number of UEs in RRC_CONNECTED state.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(avg(CA_DL_CAP_UE_AVG/100))/ (sum(SUM_RRC_CONN_UE)/sum(DENOM_RRC_CONN_UE))</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/10/29 14:04:26.898 +0000</date>
+          <comment><![CDATA[Source: RSLTE017.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Penetr CA capab UEs in Nw</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

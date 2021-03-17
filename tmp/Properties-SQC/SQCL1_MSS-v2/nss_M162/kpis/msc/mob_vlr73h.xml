@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="mob_vlr73h">
+    <formula>decode(
+			(VLRNMSC.REG_AVG_TOTAL),0,null, 
+
+			(VLR1MSC.IMSIATTACHGSMATTEMPT + 
+			VLR1MSC.IMSIATTACHUMTSATTEMPT + 
+			VLR1MSC.EPS_IMSI_ATTACH_ATT)
+			 / 
+			(VLRNMSC.REG_AVG_TOTAL))</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI attach attempts per subscriber (w/EPS). ENH_VLR Opt.]]></title>
+      <use><![CDATA[Indicates number of normal subscriber IMSI attach attempts per normal subscriber (GSM + UMTS + EPS). It now includes EPS related part. This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.]]></use>
+  
+<use_experience><![CDATA[ 
+<br>Normal subscribers are counted.
+<br>This KPI includes optional features.
+<br>KPI includes EPS (LTE CoreNetwork attach attempts).
+<br>This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.
+<br>
+<br>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive please use mob_vlr73e KPI.
+<br>
+<br>If SIM_USIM_MEAS_PER_LAI is active please use mob_vlr73f KPI.
+<br>
+<br>PUBLISHED: M16.0
+<br>LAST UPDATE: 28-10-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>  SUM( NVL( a.IMSIAttachGSMAttempt , 0 ) + NVL( a.IMSIAttachUMTSAttempt , 0 ) + NVL( a.EPS_IMSI_ATTACH_ATT , 0 ) )
+&lt;br&gt;-------------------------------------------------------------------------------------
+&lt;br&gt;  msc_2047b
+&lt;br&gt;
+&lt;br&gt;Counters from table(s)/view(s):
+&lt;br&gt;a = RNS_PS_VLR1MSC_MSC_&lt;Time&gt;, RNS_PS_VR1MCBH_MSC_&lt;Time&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}, RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IMSIAttAttwEPSperSubs OffOn]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

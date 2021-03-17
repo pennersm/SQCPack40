@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 NodeLevelCpuLoad NLCS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 NodeLevelCpuLoad NLCS measurement dump</csv_title>
+    <report-description>This measurement type calculates the CPU load for each node.This measurement type calculates the CPU usage for each node on a per-node level. The CPU usage of switch blades are not measured using this measurement type. In hardware configurations that include octeon simple executives (SE), the CPU usage is measured only if the software, running as SE, supports it. Data collected is not affected with the license of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <MIN_CPU_LOAD />
+    <MAX_CPU_LOAD />
+    <AVG_CPU_LOAD />
+  </column_order>
+  <temp_table name="NLCS" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>NLCS</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="MIN_CPU_LOAD">MIN(MIN_CPU_LOAD)</counter>
+      <counter alias="MAX_CPU_LOAD">MAX(MAX_CPU_LOAD)</counter>
+      <counter alias="AVG_CPU_LOAD">AVG(AVG_CPU_LOAD)</counter>
+    </counters>
+    <table_name>pcofng_ps_nlcs_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NLCS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NLCS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_nlcs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_CPU_LOAD">
+    <formula>NLCS.MIN_CPU_LOAD</formula>
+    <kpi_info>
+      <title>MIN_CPU_LOAD</title>
+      <use>The minimum CPU usage at node level in percent (within 0 and 100 with values rounded to the next integer). The minimum is calculated by taking the average of CPU usage over 30 seconds samples and taking the smallest of those during the reporting period. The measured period of the samples is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: The updated when the CPU-usage is increased or decreased. The data is updated on a per-RU level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_CPU_LOAD)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_nlcs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_CPU_LOAD (m2007c0003)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_CPU_LOAD">
+    <formula>NLCS.MAX_CPU_LOAD</formula>
+    <kpi_info>
+      <title>MAX_CPU_LOAD</title>
+      <use>The maximum CPU usage at node level in percent (within 0 and 100 with values rounded to the next integer). The maximum is calculated by taking the average of CPU usage over 30 seconds samples and taking the largest of those during the reporting period. The measured period of the samples is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: This counter is updated when the CPU-usage is increased or decreased. The data is updated on a per-RU level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_CPU_LOAD)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_nlcs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_CPU_LOAD (m2007c0004)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_LOAD">
+    <formula>NLCS.AVG_CPU_LOAD</formula>
+    <kpi_info>
+      <title>AVG_CPU_LOAD</title>
+      <use>The average CPU usage at node level in percent (within 0 and 100 with values rounded to the next integer) during the reporting period between time T1 (beginning of the reporting period) and T2 (end of the reporting period). This is calculated using the formula: 100 - 100 * delta(cumulative number of CPU idle seconds)/delta(cumulative elapsed time), where delta(X) = X(T2) - X(T1). UPDATED: This counter is updated when the CPU-usage is increased or decreased. The data is updated on a per-RU level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVG_CPU_LOAD)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_nlcs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_LOAD (m2007c0005)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

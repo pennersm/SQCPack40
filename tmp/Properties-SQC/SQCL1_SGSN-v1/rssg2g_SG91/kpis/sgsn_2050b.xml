@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_2050b">
+    <formula>decode(
+			((IUMM2.IU_SUCC_INTER_SGSN_RE + 
+
+			nvl(IUMM1.IU_FAIL_INTER_SGSN_RE_SGSN, 0) +
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_NEW_SGSN, 0) + 
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_OLD_SGSN, 0) +
+
+			IUMM2.IU_FAIL_INTER_SGSN_RE_RNC + 
+			IUMM2.IU_FAIL_INTER_SGSN_RELOC_COLL)),0,NULL, 
+
+			((nvl(IUMM1.IU_FAIL_INTER_SGSN_RE_SGSN, 0) +
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_NEW_SGSN, 0) + 
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_OLD_SGSN, 0) +
+			
+			IUMM2.IU_FAIL_INTER_SGSN_RE_RNC + 
+			IUMM2.IU_FAIL_INTER_SGSN_RELOC_COLL))
+			 / 
+			((IUMM2.IU_SUCC_INTER_SGSN_RE + 
+			
+			nvl(IUMM1.IU_FAIL_INTER_SGSN_RE_SGSN, 0) + 
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_NEW_SGSN, 0) + 
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_OLD_SGSN, 0) +
+			
+			IUMM2.IU_FAIL_INTER_SGSN_RE_RNC + 
+			IUMM2.IU_FAIL_INTER_SGSN_RELOC_COLL)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Inter SGSN relocation failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of incoming inter SGSN relocation procedures]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula> sum( IU_FAIL_INTER_SGSN_RE_SGSN +         
+&lt;br&gt;      IU_FAIL_INTER_SGSN_RE_RNC +         
+&lt;br&gt;      IU_FAIL_INTER_SGSN_RELOC_COLL )       
+&lt;br&gt;---------------------------------------- *100
+&lt;br&gt; sum( IU_SUCC_INTER_SGSN_RE +   
+&lt;br&gt;      IU_FAIL_INTER_SGSN_RE_SGSN +         
+&lt;br&gt;      IU_FAIL_INTER_SGSN_RE_RNC +         
+&lt;br&gt;      IU_FAIL_INTER_SGSN_RELOC_COLL )       
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Inter SGSN relocation FR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

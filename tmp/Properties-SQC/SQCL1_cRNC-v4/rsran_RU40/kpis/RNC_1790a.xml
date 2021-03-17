@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran/counters/AALCAC.xml"/>
+  <kpi name="RNC_1790a">
+    <formula>decode(
+			(aalcac.aal2_path_guar_cell_rate),0,null, 
+
+			(100*(aalcac.sum_reserved_cell_rate)
+			 / 
+			(aalcac.aal2_path_guar_cell_rate)))</formula>
+    <kpi_info>
+      <title><![CDATA[Allocated capacity of ATM VCC]]></title>
+      <use><![CDATA[This KPI provides information about the AAL2 resource capacity reservation ratio for ATM VCC. It compares the available capacity value against the configured cell rate, providing this way information about the CAC Load.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(SUM_RESERVED_CELL_RATE)
+&lt;br&gt;----------------------------
+&lt;br&gt; sum(AAL2_PATH_GUAR_CELL_RATE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Alloc Cap ATM VCC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

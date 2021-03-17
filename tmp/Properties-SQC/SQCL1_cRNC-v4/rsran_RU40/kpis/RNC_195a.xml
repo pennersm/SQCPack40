@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_195a">
+    <formula>decode(
+			(softho.cell_add_req_on_sho_for_rt + 
+			softho.cell_repl_req_on_sho_for_rt + 
+			softho.cell_del_req_on_sho_for_rt + 
+			softho.cell_add_req_on_sho_for_nrt + 
+			softho.cell_repl_req_on_sho_for_nrt + 
+			softho.cell_del_req_on_sho_for_nrt),0,null, 
+
+			100*(softho.succ_updates_on_sho_for_rt + 
+			softho.succ_updates_on_sho_for_nrt)
+			 / 
+			(softho.cell_add_req_on_sho_for_rt + 
+			softho.cell_repl_req_on_sho_for_rt + 
+			softho.cell_del_req_on_sho_for_rt + 
+			softho.cell_add_req_on_sho_for_nrt + 
+			softho.cell_repl_req_on_sho_for_nrt + 
+			softho.cell_del_req_on_sho_for_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[Soft HO Success Rate]]></title>
+      <use><![CDATA[Soft Handover Success Ratio. There is compared how many successful Active set updates we will have compared to initial Addition/Replacement/Deletion requests. This formula is excluding periodical reports, which might occur if for example RNC is busy and cannot process immediately initial request.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      100 * (
+&lt;br&gt;           (SUCC_UPDATES_ON_SHO_FOR_RT 
+&lt;br&gt;          + SUCC_UPDATES_ON_SHO_FOR_NRT ) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;           (CELL_ADD_REQ_ON_SHO_FOR_RT 
+&lt;br&gt;          + CELL_REPL_REQ_ON_SHO_FOR_RT 
+&lt;br&gt;          + CELL_DEL_REQ_ON_SHO_FOR_RT 
+&lt;br&gt;          + CELL_ADD_REQ_ON_SHO_FOR_NRT 
+&lt;br&gt;          + CELL_REPL_REQ_ON_SHO_FOR_NRT 
+&lt;br&gt;          + CELL_DEL_REQ_ON_SHO_FOR_NRT ) )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_softho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Soft HO Success Rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

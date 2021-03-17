@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml"/>
+  <kpi name="RNC_2130a">
+    <formula>100*decode(
+			((RRC.att_rb_setup_dchsdpa)),0,null, 
+
+			((RRC.succ_rb_setup_dchsdpa))
+			 / 
+			((RRC.att_rb_setup_dchsdpa)))</formula>
+    <kpi_info>
+      <title><![CDATA[DC-HSDPA RB Setup Success Rate]]></title>
+      <use><![CDATA[Radio Bearer Setup Success Ratio for DC-HSDPA.
+Includes initial DC-HSDPA allocations, reconfigurations from SC-HSDPA to DC-HSDPA, handovers and serving cell changes.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (succ_rb_setup_dchsdpa)
+&lt;br&gt;100 * ---------------------------
+&lt;br&gt;      sum (att_rb_setup_dchsdpa)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_RRC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DC-HSDPA RB Setup SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

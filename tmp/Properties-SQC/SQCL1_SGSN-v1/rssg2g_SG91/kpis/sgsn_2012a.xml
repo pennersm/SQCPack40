@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUDA.xml"/>
+  <kpi name="sgsn_2012a">
+    <formula>decode(
+			((DATA.gtp_packets_sent_in_ul - 
+			(nvl(IUDA.iu_gtp_packets_sent_in_ul + 
+			4294967296*IUDA.iu_gtp_packets_sent_in_ul_ofl,0)))),0,NULL, 
+
+			((DATA.gtp_data_in_bytes_sent_in_ul + 
+			4294967296*DATA.gtp_data_bytes_sent_in_ul_ofl - 
+			(nvl(IUDA.iu_gtp_bytes_sent_in_ul + 
+			4294967296*IUDA.iu_gtp_bytes_sent_in_ul_ofl,0))))
+			 / 
+			((DATA.gtp_packets_sent_in_ul - 
+			(nvl(IUDA.iu_gtp_packets_sent_in_ul + 
+			4294967296*IUDA.iu_gtp_packets_sent_in_ul_ofl,0)))))</formula>
+    <kpi_info>
+      <title><![CDATA[Average 2G UL packet size]]></title>
+      <use><![CDATA[This KPI shows the average size of 2G UL packets passing through the SGSN.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtp_data_in_bytes_sent_in_ul + 4294967296 * gtp_data_bytes_sent_in_ul_ofl - 
+&lt;br&gt;   (iu_gtp_bytes_sent_in_ul + 4294967296 * iu_gtp_bytes_sent_in_ul_ofl))
+&lt;br&gt;--------------------------------------------------------------------------
+&lt;br&gt;sum (gtp_packets_sent_in_ul - 
+&lt;br&gt;   (iu_gtp_packets_sent_in_ul + 4294967296 * iu_gtp_packets_sent_in_ul_ofl))
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[B]</unit>
+      <tables>RSG_PS_DATA_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg 2G UL pkt size]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

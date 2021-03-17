@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/RAUS.xml"/>
+  <kpi name="sgsn_2006a">
+    <formula>decode(
+			((RAUS.RA_USER_SIM_DEN)),0,NULL, 
+
+			((RAUS.RA_USER_SIM_SUM))
+			 / 
+			((RAUS.RA_USER_SIM_DEN))) + 
+			decode(
+			((RAUS.RA_USER_USIM_DEN)),0,NULL, 
+
+			((RAUS.RA_USER_USIM_SUM))
+			 / 
+			((RAUS.RA_USER_USIM_DEN)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average amount of attached users per RA]]></title>
+      <use><![CDATA[This KPI measures the average amount of attached users (2G+3G) per Routing Area.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (RA_USER_SIM_SUM)   sum (RA_USER_USIM_SUM)
+&lt;br&gt;--------------------- + ----------------------
+&lt;br&gt;sum (RA_USER_SIM_DEN)   sum (RA_USER_USIM_DEN)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>RSG_PS_RAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg attchd users, RA]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

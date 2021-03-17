@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml" />
+  <kpi name="sgsn_976a">
+    <formula>decode(
+			(iumm2.iu_succ_intra_papu_re + 
+			iumm2.iu_fail_intra_papu_re_sgsn + 
+			iumm2.iu_fail_intra_papu_re_rnc + 
+			iumm2.iu_fail_intra_papu_reloc_coll),0,NULL, 
+
+			(100*(iumm1.iu_fail_intra_p_re_sgsn_al_exp)
+			 / 
+			(iumm2.iu_succ_intra_papu_re + 
+			iumm2.iu_fail_intra_papu_re_sgsn + 
+			iumm2.iu_fail_intra_papu_re_rnc + 
+			iumm2.iu_fail_intra_papu_reloc_coll)))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra PAPU relocation TRELOCalloc Expiry in SGSN failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of intra PAPU relocation procedures in SGSN due to TRELOCalloc Expiry.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(IU_FAIL_INTRA_P_RE_SGSN_AL_EXP)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(IU_SUCC_INTRA_PAPU_RE +
+&lt;br&gt;   IU_FAIL_INTRA_PAPU_RE_SGSN +
+&lt;br&gt;   IU_FAIL_INTRA_PAPU_RE_RNC +
+&lt;br&gt;   IU_FAIL_INTRA_PAPU_RELOC_COLL)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_iu_mobility_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iumm1_{obj_agg}_{time_agg},rsg_ps_iumm2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra PAPU rel SGSN al exp FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

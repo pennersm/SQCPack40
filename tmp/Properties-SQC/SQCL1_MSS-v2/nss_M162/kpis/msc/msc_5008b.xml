@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_5008b">
+    <formula>
+decode(TC_ext.TCAT_CALL_AMOUNT_32,0,null,
+    (ho1.INTRAMSCINTRAGSMOK
+    + ho1.INTRAMSCGSMTOUMTSOK
+    + ho1.INTRAMSCUMTSTOGSMOK
+    + ho1.INTRAMSCINTRAUMTSOK
+    + ho1.INTRAMSCINTRAGSMNOK
+    + ho1.INTRAMSCGSMTOUMTSNOK
+    + ho1.INTRAMSCUMTSTOGSMNOK
+    + ho1.INTRAMSCINTRAUMTSNOK
+    + ho1.INTERPLMNINTRAMSCINTRAGSMOK
+    + ho1.INTERPLMNINTRAMSCINTRAGSMNOK
+    + ho1.INTERPLMNINTRAMSCGSMTOUMTSOK
+    + ho1.INTERPLMNINTRAMSCGSMTOUMTSNOK
+    + ho1.INTERPLMNINTRAMSCUMTSTOGSMOK
+    + ho1.INTERPLMNINTRAMSCUMTSTOGSMNOK
+    + ho1.INTERPLMNINTRAMSCINTRAUMTSOK
+    + ho1.INTERPLMNINTRAMSCINTRAUMTSNOK)/
+	(TC_ext.TCAT_CALL_AMOUNT_32)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Inter BSC / RNC  handovers per call]]></title>
+      <use><![CDATA[Inter BSC/RNC handovers per call.]]></use>
+
+<use_experience><![CDATA[
+<br> BH is found for both M81 + M20 measures when MAX of AVG (c.tcat_traffx100) WHERE c = M20 = &quot;Traffic category measurement&quot; is achieved
+<br>
+<br>32=3G ORIG=Orig traff from a 3G radio network when the call is started
+<br>33=3G TERM=Term traff to a 3G radio network when the call is started
+<br>34=2G ORIG=Orig traff from GSM radio network when the call is started
+<br>35=2G TERM=Term traff to GSM radio network when the call is started
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>LAST UPDATE: 05-03-2010
+<br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Traffic category measurement (20/14H), Handover measurement (81/51H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(
+&lt;br&gt;    + a.intraMscIntraGsmOk
+&lt;br&gt;    + a.intraMscGsmToUmtsOk
+&lt;br&gt;    + a.intraMscUmtsToGsmOk
+&lt;br&gt;    + a.intraMscIntraUmtsOk
+&lt;br&gt;    + a.intraMscIntraGsmNok
+&lt;br&gt;    + a.intraMscGsmToUmtsNok
+&lt;br&gt;    + a.intraMscUmtsToGsmNok
+&lt;br&gt;    + a.intraMscIntraUmtsNok
+&lt;br&gt;    + a.InterPlmnIntraMscIntraGsmOk
+&lt;br&gt;    + a.InterPlmnIntraMscIntraGsmNok
+&lt;br&gt;    + a.InterPlmnIntraMscGsmToUmtsOk
+&lt;br&gt;    + a.InterPlmnIntraMscGsmToUmtsNok
+&lt;br&gt;    + a.InterPlmnIntraMscUmtsToGsmOk
+&lt;br&gt;    + a.InterPlmnIntraMscUmtsToGsmNok
+&lt;br&gt;    + a.InterPlmnIntraMscIntraUmtsOk
+&lt;br&gt;    + a.InterPlmnIntraMscIntraUmtsNok)
+&lt;br&gt;-------------------------------------------------------
+&lt;br&gt;SUM(
+&lt;br&gt;    b.TCAT_CALL_AMOUNT) 
+&lt;br&gt;
+&lt;br&gt;;WHERE TRAFFIC_CATEGORY_ID IN (32, 33, 34, 35)
+&lt;br&gt;;For BH
+&lt;br&gt;
+&lt;br&gt;Counter from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;Counters from measures:
+&lt;br&gt;a = M81 = Handover measurement, part 1
+&lt;br&gt;b = M20 = Traffic category measurement</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_HO1_{OBJ_AGG}_{TIME_AGG},rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inter BSC RNC HO per call</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

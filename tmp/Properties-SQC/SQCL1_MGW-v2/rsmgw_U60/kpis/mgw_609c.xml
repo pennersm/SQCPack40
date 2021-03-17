@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/DATACALL.xml" />
+  <kpi name="mgw_609c">
+    <formula>decode((datacall.data_call_use + datacall.data_call_error + datacall.iwf_not_used + datacall.iwf_not_used_error),0,NULL,100*(datacall.fax_modem_mgc_req_use + 
+datacall.fax_modem_use) /(datacall.data_call_use + datacall.data_call_error + datacall.iwf_not_used + datacall.iwf_not_used_error))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of fax/modem Data Calls of all Data Calls in MGW]]></title>
+      <use><![CDATA[Indicates the share of fax/modem data calls all data calls in measured MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; SUM(FAX_MODEM_MGC_REQ_USE + FAX_MODEM_USE)
+&lt;br&gt;------------------------------------------------------------------------- * 100
+&lt;br&gt; SUM(DATA_CALL_USE + DATA_CALL_ERROR + IWF_NOT_USED + IWF_NOT_USED_ERROR)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_DATACALL_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/08/28 17:39:30.108 +0100</date>
+          <comment><![CDATA[Source: RSMGW020.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shr FxModm DtCal all DtCal MGW</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

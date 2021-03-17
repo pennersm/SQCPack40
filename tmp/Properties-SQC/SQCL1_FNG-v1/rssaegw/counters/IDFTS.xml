@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 Indirect_data_forwarding_sessions IDFTS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 Indirect_data_forwarding_sessions IDFTS measurement dump</csv_title>
+    <report-description>Indirect Data Forwarding Tunnel Session Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IDFT_SM_NBR_INDIR_FWD_TUN />
+  </column_order>
+  <temp_table name="IDFTS" meas_level="PLMN/FING/FNODE/IDFTS" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="IDFT_SM_NBR_INDIR_FWD_TUN" time-alias="IDFT_SM_NBR_INDIR_FWD_TUN" timeagg="AVG(IDFT_SM_NBR_INDIR_FWD_TUN)">SUM(IDFT_SM_NBR_INDIR_FWD_TUN)</counter>
+    </counters>
+    <table_name>pcofng_ps_idfts_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IDFTS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IDFTS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_idfts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IDFT_SM_NBR_INDIR_FWD_TUN">
+    <formula>IDFTS.IDFT_SM_NBR_INDIR_FWD_TUN</formula>
+    <kpi_info>
+      <title>IDFT_SM_NBR_INDIR_FWD_TUN</title>
+      <use>This gauge contains a number of Indirect Forwarding Tunnels. UPDATED: Updated when a Indirect Forwarding Tunnel is created or deleted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(IDFT_SM_NBR_INDIR_FWD_TUN)">SUM(IDFT_SM_NBR_INDIR_FWD_TUN)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_idfts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IDFT_SM_NBR_INDIR_FWD_TUN (m3044c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

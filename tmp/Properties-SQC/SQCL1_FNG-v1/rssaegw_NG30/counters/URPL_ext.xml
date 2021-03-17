@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG User_Plane URPL measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG User_Plane URPL measurement dump</csv_title>
+    <report-description>NG10 user plane statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="URPL_ext" meas_level="PLMN/FING/FNODE/USRPLANE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="UP_AVG_FASTPATH_CPU_LOAD" time-alias="UP_AVG_FASTPATH_CPU_LOAD" timeagg="AVG(UP_AVG_FASTPATH_CPU_LOAD)">AVG(UP_AVG_FASTPATH_CPU_LOAD)</counter>
+      <!-- Auxiliary Counters -->
+      <counter alias="UP_AVG_FASTPATH_CPU_LOAD_SB">AVG(CASE WHEN FNODE_ID LIKE 'AS%_%' THEN UP_AVG_FASTPATH_CPU_LOAD ELSE NULL END)</counter>
+      <counter alias="UP_AVG_FASTPATH_CPU_LOAD_SAB">AVG(CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN UP_AVG_FASTPATH_CPU_LOAD ELSE NULL END)</counter>
+      <counter alias="UP_AVG_FASTPATH_CPU_LOAD_IB">AVG(CASE WHEN FNODE_ID LIKE 'IB%_%' THEN UP_AVG_FASTPATH_CPU_LOAD ELSE NULL END)</counter>
+    </counters>
+    <table_name>pcofng_ps_urpl_usrplane_{TIME_AGG}</table_name>
+    <alias_name>URPL_ext</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>URPL_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UP_AVG_FASTPATH_CPU_LOAD">
+    <formula>URPL_ext.UP_AVG_FASTPATH_CPU_LOAD</formula>
+    <kpi_info>
+      <title>UP_AVG_FASTPATH_CPU_LOAD</title>
+      <use>This gauge contains the average fastpath CPU load of the active nodes. UPDATED: Updated periodically by adding the CPU load of each core in active nodes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(UP_AVG_FASTPATH_CPU_LOAD)">AVG(UP_AVG_FASTPATH_CPU_LOAD)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_AVG_FASTPATH_CPU_LOAD (m3017c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!-- Auxiliary Counters -->
+  <kpi name="UP_AVG_FASTPATH_CPU_LOAD_SB">
+    <formula>URPL_ext.UP_AVG_FASTPATH_CPU_LOAD_SB</formula>
+    <kpi_info>
+      <title>UP_AVG_FASTPATH_CPU_LOAD_SB</title>
+      <use>This gauge contains the average fastpath CPU load of the SB active nodes. UPDATED: Updated periodically by adding the CPU load of each core in active nodes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'AS%_%' THEN UP_AVG_FASTPATH_CPU_LOAD ELSE NULL END)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_AVG_FASTPATH_CPU_LOAD_SB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UP_AVG_FASTPATH_CPU_LOAD_SAB">
+    <formula>URPL_ext.UP_AVG_FASTPATH_CPU_LOAD_SAB</formula>
+    <kpi_info>
+      <title>UP_AVG_FASTPATH_CPU_LOAD_SAB</title>
+      <use>This gauge contains the average fastpath CPU load of the SAB active nodes. UPDATED: Updated periodically by adding the CPU load of each core in active nodes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN UP_AVG_FASTPATH_CPU_LOAD ELSE NULL END)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_AVG_FASTPATH_CPU_LOAD_SAB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UP_AVG_FASTPATH_CPU_LOAD_IB">
+    <formula>URPL_ext.UP_AVG_FASTPATH_CPU_LOAD_IB</formula>
+    <kpi_info>
+      <title>UP_AVG_FASTPATH_CPU_LOAD_IB</title>
+      <use>This gauge contains the average fastpath CPU load of the IB active nodes. UPDATED: Updated periodically by adding the CPU load of each core in active nodes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CASE WHEN FNODE_ID LIKE 'IB%_%' THEN UP_AVG_FASTPATH_CPU_LOAD ELSE NULL END)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_urpl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UP_AVG_FASTPATH_CPU_LOAD_IB</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

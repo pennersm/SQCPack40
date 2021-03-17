@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4011a">
+    <formula>
+decode(TC_ext.tcat_call_amount_34,0,null,
+	100 * ( TC_ext.tcat_group4_1 / TC_ext.tcat_call_amount_34 )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[CS Network Congestion Ratio]]></title>
+      <use><![CDATA[Ratio of calls lost because of internal errors or local congestion. The indicator is expressed as the number of calls released because of internal problems or of congestion in relation to the total number of outgoing calls.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_Ids:
+<br>   33 = 3G TERM
+<br>   35 = 2G TERM
+<br>   46 = OUTNOHO = Outgoing traffic without HO
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC - TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;CS Network Congestion Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             TCAT_GROUP4   ;WHERE Tcat_ID = 33, 35, 46
+&lt;br&gt;KPI = 100 * --------------------
+&lt;br&gt;             TCAT_CALL_AMOUNT   ;WHERE Tcat_ID = 33, 35, 46
+&lt;br&gt;
+&lt;br&gt;GROUP4 clear codes:
+&lt;br&gt;
+&lt;br&gt;   0205 = Radio interface congestion
+&lt;br&gt;   0208 = Subscriber out of radio cover, re-establishment failed
+&lt;br&gt;   0B13 = Radio Interface Failure
+&lt;br&gt;   0B1E = Radio Resource Failure
+&lt;br&gt;   400-7FF = Internal congestion clear codes</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG},rns_ps_CDRT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CS Netwrk Cong Ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

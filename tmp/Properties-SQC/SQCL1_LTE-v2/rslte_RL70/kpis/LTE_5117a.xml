@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LRDB.xml" />
+  <kpi name="LTE_5117a">
+    <formula>100-(100*decode(
+			(lrdb.rb_rel_req_norm_rel + 
+			lrdb.rb_rel_req_detach_proc + 
+			lrdb.rb_rel_req_rnl + 
+			lrdb.rb_rel_req_rnl_redir + 
+			lrdb.rb_rel_req_other),0,null, 
+
+			(lrdb.rb_rel_req_rnl + 
+			lrdb.rb_rel_req_other)
+			 / 
+			(lrdb.rb_rel_req_norm_rel + 
+			lrdb.rb_rel_req_detach_proc + 
+			lrdb.rb_rel_req_rnl + 
+			lrdb.rb_rel_req_rnl_redir + 
+			lrdb.rb_rel_req_other)))</formula>
+    <kpi_info>
+      <title>E-UTRAN Radio Bearer SR</title>
+      <use>The KPI shows the Radio Bearer Success Ratio given as 100 - Radio Bearer Drop Ratio.</use>
+      <formula>100 - (100*(RB_REL_REQ_RNL+  RB_REL_REQ_OTHER) /   (RB_REL_REQ_NORM_REL+  RB_REL_REQ_DETACH_PROC+  RB_REL_REQ_RNL+  RB_REL_REQ_RNL_REDIR+  RB_REL_REQ_OTHER))</formula>
+      
+      <unit>[%]</unit>
+      <tables>noklte_ps_lrdb_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[omc]]></author>
+          <date>2010/10/21 11:10:41.548 +0100</date>
+          <comment />
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_alias>E-UTRAN Radio Bearer SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_1821a">
+    <formula>decode(
+			(traffic.allo_hs_dsch_flow_int + 
+			traffic.allo_hs_dsch_flow_bgr + 
+			traffic.allo_hs_dsch_flow_str + 
+			traffic.dch_sel_max_hsdpa_users_int + 
+			traffic.dch_sel_max_hsdpa_users_bgr + 
+			traffic.dch_sel_max_hsdpa_users_str + 
+			traffic.rej_hs_dsch_ret_int + 
+			traffic.rej_hs_dsch_ret_bgr + 
+			traffic.rej_hs_dsch_ret_str + 
+			traffic.setup_fail_rnc_hs_dsch_int + 
+			traffic.setup_fail_ue_hs_dsch_int + 
+			traffic.setup_fail_bts_hs_dsch_int + 
+			traffic.setup_fail_iub_hs_total_int + 
+			traffic.setup_fail_rnc_hs_dsch_bgr + 
+			traffic.setup_fail_ue_hs_dsch_bgr + 
+			traffic.setup_fail_bts_hs_dsch_bgr + 
+			traffic.setup_fail_iub_hs_total_bgr + 
+			traffic.setup_fail_rnc_hs_dsch_str + 
+			traffic.setup_fail_iub_hs_total_str + 
+			traffic.setup_fail_ue_hs_dsch_str + 
+			traffic.setup_fail_bts_hs_dsch_str + 
+			traffic.dl_dch_sel_hsdpa_power_str + 
+			traffic.dl_dch_sel_hsdpa_power_int + 
+			traffic.dl_dch_sel_hsdpa_power_bgr),0,null, 
+
+			(100*(traffic.rej_hs_dsch_ret_str)
+			 / 
+			(traffic.allo_hs_dsch_flow_int + 
+			traffic.allo_hs_dsch_flow_bgr + 
+			traffic.allo_hs_dsch_flow_str + 
+			traffic.dch_sel_max_hsdpa_users_int + 
+			traffic.dch_sel_max_hsdpa_users_bgr + 
+			traffic.dch_sel_max_hsdpa_users_str + 
+			traffic.rej_hs_dsch_ret_int + 
+			traffic.rej_hs_dsch_ret_bgr + 
+			traffic.rej_hs_dsch_ret_str + 
+			traffic.setup_fail_rnc_hs_dsch_int + 
+			traffic.setup_fail_ue_hs_dsch_int + 
+			traffic.setup_fail_bts_hs_dsch_int + 
+			traffic.setup_fail_iub_hs_total_int + 
+			traffic.setup_fail_rnc_hs_dsch_bgr + 
+			traffic.setup_fail_ue_hs_dsch_bgr + 
+			traffic.setup_fail_bts_hs_dsch_bgr + 
+			traffic.setup_fail_iub_hs_total_bgr + 
+			traffic.setup_fail_rnc_hs_dsch_str + 
+			traffic.setup_fail_iub_hs_total_str + 
+			traffic.setup_fail_ue_hs_dsch_str + 
+			traffic.setup_fail_bts_hs_dsch_str + 
+			traffic.dl_dch_sel_hsdpa_power_str + 
+			traffic.dl_dch_sel_hsdpa_power_int + 
+			traffic.dl_dch_sel_hsdpa_power_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[RT HSDPA Access FR due to UL DCH]]></title>
+      <use><![CDATA[This KPI provide info about the HSDPA Access Failure Ratio for Streaming class connections due to lack of radio resources to allocate the associated UL DCH channel.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum ( REJ_HS_DSCH_RET_STR ) /RNC_614c</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RT HSDPA acc FR UL DCH</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

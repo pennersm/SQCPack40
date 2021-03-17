@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_967b">
+    <formula>100*decode(
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr + 
+			pktcall.ps_att_hsdsch_edch_stre + 
+			pktcall.ps_att_hsdsch_dch_stre + 
+			pktcall.ps_att_dch_dch_stre),0,null, 
+
+			((pktcall.ps_setup_fail_ac_int + 
+			pktcall.ps_setup_fail_ac_bgr + 
+			pktcall.ps_setup_fail_ac_stre)
+			 / 
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr + 
+			pktcall.ps_att_hsdsch_edch_stre + 
+			pktcall.ps_att_hsdsch_dch_stre + 
+			pktcall.ps_att_dch_dch_stre)))</formula>
+    <kpi_info>
+      <title><![CDATA[PS Call Setup FR due to AC]]></title>
+      <use><![CDATA[PS Call setup failure rate caused by Admission Control.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; sum ( PS_SETUP_FAIL_AC_INT
+&lt;br&gt;+ PS_SETUP_FAIL_AC_BGR
+&lt;br&gt;+ PS_SETUP_FAIL_AC_STRE )
+&lt;br&gt;------------------------ * 100
+&lt;br&gt;RNC_930b</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS Call stp FR due to AC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+</conf_file>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>MTP_SL_Util</header>
+    <csv_title>NSN MGW U5.0EP1;U5.0;U4.2EP;U4.2;U4.1;U4.0;U3C MTP_SL_Util MTPSLU measurement dump</csv_title>
+    <report-description>MTP signalling link utilization measurement (210)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsmgw/RSMGW.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="MTPSLU_ext" meas_level="PLMN/RSMGW-MGW/RSMGW-SLN/RSMGW-SL_TYPE/RSMGW-SNET/RSMGW-SPCD/RSMGW-SLSN" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <counters>
+      <counter alias="SUM_MIN_5_PEAKLOAD_TRAFFIC_IN">MAX(MIN_5_PEAKLOAD_TRAFFIC_IN)</counter>
+      <counter alias="SUM_MIN_5_PEAKLOAD_TRAFFIC_OUT">MAX(MIN_5_PEAKLOAD_TRAFFIC_OUT)</counter>
+      <counter alias="MTP_CORR_MULTI_RECV_NUM">SUM(MTP_CORR_MULTI_RECV_NUM)</counter>
+      <counter alias="MTP_CORR_MULTI_TRANS_NUM">SUM(MTP_CORR_MULTI_TRANS_NUM)</counter>
+    </counters>
+    <table_name><![CDATA[
+    			(select
+				trunc( p.period_start_time, 'mi' ) period_start_time,
+				"mgw".co_gid mgw_id,
+				SUM(MIN_5_PEAKLOAD_TRAFFIC_IN* BIT_RATE) MIN_5_PEAKLOAD_TRAFFIC_IN,
+				SUM(MIN_5_PEAKLOAD_TRAFFIC_OUT* BIT_RATE) MIN_5_PEAKLOAD_TRAFFIC_OUT,
+				SUM(DECODE(MIN_5_PEAKLOAD_TRAFFIC_IN,0,0,SIF_AND_SIO_OCTETS_RECEIVED + 6*MSUS_RECEIVED)) MTP_CORR_MULTI_RECV_NUM,
+				SUM(DECODE(MIN_5_PEAKLOAD_TRAFFIC_OUT,0,0,SIF_AND_SIO_OCTETS_TRANSMITTED + 6*MSUS_TRANSMITTED)) MTP_CORR_MULTI_TRANS_NUM
+			from
+				#grouping_sql#
+				utp_common_objects "plmn",
+				utp_common_objects "mgw",
+				nokmww_ps_mtpslu_slsn1_raw p
+			where
+				#add_on_clause# and
+				period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+				period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				"mgw".co_gid = p.mgw_id and
+				"mgw".co_parent_gid = "plmn".co_gid and
+				"plmn".co_oc_id=16 and
+				"mgw".co_oc_id=757
+			group by
+				trunc( p.period_start_time, 'mi' ),
+				"mgw".co_gid  )]]></table_name>
+    <alias_name>mtpslu_ext</alias_name>
+  </temp_table>
+</conf_file>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_1056a">
+    <formula>100*decode(
+			(lcelld.rach_stp_att_small_msg + 
+			lcelld.rach_stp_att_large_msg + 
+			lcelld.rach_stp_att_dedicated),0,null, 
+
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg)
+			 / 
+			(lcelld.rach_stp_att_small_msg + 
+			lcelld.rach_stp_att_large_msg + 
+			lcelld.rach_stp_att_dedicated))</formula>
+    <kpi_info>
+      <title><![CDATA[Complete RACH Setup Success Rate]]></title>
+      <use><![CDATA[Complete RACH Setup Success Rate]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(SIGN_CONN_ESTAB_ATT_MO_S
+&lt;br&gt;         + SIGN_CONN_ESTAB_ATT_MT
+&lt;br&gt;         + SIGN_CONN_ESTAB_ATT_MO_D
+&lt;br&gt;         + SIGN_CONN_ESTAB_ATT_OTHERS
+&lt;br&gt;         + SIGN_CONN_ESTAB_ATT_EMG)
+&lt;br&gt;--------------------------------------
+&lt;br&gt;SUM(RACH_STP_ATT_SMALL_MSG
+&lt;br&gt;   + RACH_STP_ATT_LARGE_MSG
+&lt;br&gt;   + RACH_STP_ATT_DEDICATED)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LUEST_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/07/31 12:01:53.613 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Compl RACH stp SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

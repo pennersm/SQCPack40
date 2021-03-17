@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GTPUv1_ext.xml"/>
+  <kpi name="flng_212a">
+	<formula>decode(
+			((GTPUv1_ext.gtpu_qci_bytes_rcvd_all)),0,NULL, 
+
+			((GTPUv1_ext.gtpu_qci_bytes_rcvd))
+			 / 
+			((GTPUv1_ext.gtpu_qci_bytes_rcvd_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[GTPU data volume received per QCI ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-U data volume received for a specific QoS Class Identifier (QCI) when compared to total amount of GTP-U data volume received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtpu_qci_bytes_rcvd)  ;for specific QCI
+&lt;br&gt;-------------------------------------------- *100
+&lt;br&gt;sum (gtpu_qci_bytes_rcvd)  ;for all QCI's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPUv1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[GTPU data vol rcv rat,QCI]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

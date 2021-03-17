@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CPU_OBJCOUNT_ext.xml"/>
+  <kpi name="flng_748a">
+    <formula>CPU_OBJCOUNT.IB_COUNT</formula>
+    <kpi_info>
+      <title><![CDATA[Number of Interface Blade (SAB) nodes]]></title>
+      <use><![CDATA[This KPI shows the number of Interface Blade (SB) nodes (both active and standby are included).
+	  The SBs that have no records for CPU Usage (m2002) measurement within a given period are not counted by this KPI.
+	  This KPI is just meaningful on PLMN and NE levels.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>COUNT(DISTINCT CASE WHEN FNODE_ID || FING_ID LIKE 'IB%_%' THEN FNODE_ID||FING_ID ELSE NULL END)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNS_PS_CPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Nr of IB nodes]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

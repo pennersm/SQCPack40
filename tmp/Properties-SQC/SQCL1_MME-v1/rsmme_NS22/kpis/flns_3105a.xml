@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3105a">
+    <formula>decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_to_3g_gn_isho_succ + 
+			mmmt.eps_to_3g_gn_isho_fail + 
+			mmmt.eps_to_3g_gn_isho_trgt_reje + 
+			mmmt.eps_to_3g_gn_isho_enb_cncl)
+			 / 
+			(mmmt.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Inter system handover per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS inter system handover procedures per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(EPS_TO_3G_GN_ISHO_SUCC +
+&lt;br&gt;   EPS_TO_3G_GN_ISHO_FAIL +
+&lt;br&gt;   EPS_TO_3G_GN_ISHO_TRGT_REJE +
+&lt;br&gt;   EPS_TO_3G_GN_ISHO_ENB_CNCL)
+&lt;br&gt;---------------------------------- 
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:36:02.85 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Inter sys HO pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

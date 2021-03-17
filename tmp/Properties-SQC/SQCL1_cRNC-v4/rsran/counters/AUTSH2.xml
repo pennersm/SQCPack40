@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AUTSH2 measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AUTSH2 measurement dump</csv_title>
+    <report-description>Autodef Soft Handover (RN4.0-&gt;)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SHO_ADJ_INTRA_FREQ_SHO_ATT />
+    <SHO_ADJ_INTRA_FREQ_SHO_COMPL />
+    <CPICH_ECNO_SHO_DIFF_SUM />
+    <CPICH_ECNO_SHO_DIFF_DENOM />
+    <CPICH_ECNO_SHO_SUM />
+    <CPICH_ECNO_SHO_DENOM />
+    <CPICH_RSCP_SHO_SUM />
+    <CPICH_RSCP_SHO_DENOM />
+    <SHO_CEL_INTRA_FREQ_SHO_ATT/>
+  </column_order>
+  <temp_table name="AUTSH2" meas_level="PLMN/SourceRNC/SourceWBTS/SourceWCEL/DMNC1CELLPAIR" type="PM" master="yes" pragma="sho_oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">sum(period_duration)</counter>
+      <counter alias="SHO_ADJ_INTRA_FREQ_SHO_ATT">SUM(SHO_ADJ_INTRA_FREQ_SHO_ATT)</counter>
+      <counter alias="SHO_ADJ_INTRA_FREQ_SHO_COMPL">SUM(SHO_ADJ_INTRA_FREQ_SHO_COMPL)</counter>
+      <counter alias="CPICH_ECNO_SHO_DIFF_SUM">SUM(CPICH_ECNO_SHO_DIFF_SUM)</counter>
+      <counter alias="CPICH_ECNO_SHO_DIFF_DENOM">SUM(CPICH_ECNO_SHO_DIFF_DENOM)</counter>
+      <counter alias="CPICH_ECNO_SHO_SUM">SUM(CPICH_ECNO_SHO_SUM)</counter>
+      <counter alias="CPICH_ECNO_SHO_DENOM">SUM(CPICH_ECNO_SHO_DENOM)</counter>
+      <counter alias="CPICH_RSCP_SHO_SUM">SUM(CPICH_RSCP_SHO_SUM)</counter>
+      <counter alias="CPICH_RSCP_SHO_DENOM">SUM(CPICH_RSCP_SHO_DENOM)</counter>
+      <counter alias="SHO_CEL_INTRA_FREQ_SHO_ATT">SUM(SHO_CEL_INTRA_FREQ_SHO_ATT)</counter>
+    </counters>
+    <table_name>nokrww_ps_autsh2_dmnc3_raw</table_name>
+    <alias_name>AUTSH2</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AUTSH2.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SHO_ADJ_INTRA_FREQ_SHO_ATT">
+    <formula>AUTSH2.SHO_ADJ_INTRA_FREQ_SHO_ATT</formula>
+    <kpi_info>
+      <title>SHO_ADJ_INTRA_FREQ_SHO_ATT</title>
+      <use>The number of intra-frequency soft handover attempts. This counter is updated for a measurement object in which source and target cells are defined. Inter-RNC handovers are counted as well. Branch addition: If cells A and B are in the active set and branch addition for cell C is attempted, this counter is updated by 1 for objects (A,C) and (B,C). Branch replacement: If cells A and B are in the active set and cell B is attempted to be replaced with cell C, this counter is updated by 1 for object (A,C) Branch deletion: This counter is not updated in branch deletion. UPDATED:When the SRNC starts resource allocation for a Branch Addition or Branch Replacement procedure. This counter is not updated if the soft handover is prevented by an ongoing layer-3 procedure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SHO_ADJ_INTRA_FREQ_SHO_ATT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SHO_ADJ_INTRA_FREQ_SHO_ATT (M1013C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SHO_ADJ_INTRA_FREQ_SHO_COMPL">
+    <formula>AUTSH2.SHO_ADJ_INTRA_FREQ_SHO_COMPL</formula>
+    <kpi_info>
+      <title>SHO_ADJ_INTRA_FREQ_SHO_COMPL</title>
+      <use>The number of completed intra-frequency soft handovers. This counter is updated for a measurement object in which source and target cells are defined. Inter-RNC handovers are counted as well. Branch addition: If cells A and B are in the active set and branch addition for cell C is successful, this counter is updated by 1 for objects (A,C) and (B,C). Branch replacement: If cells A and B are in the active set and cell C is successfully added to active set with in branch replacement operation with cell B (B branch removed), this counter is updated by 1 for object (A,C) Branch deletion: This counter is not updated in branch deletion. UPDATED:When SRNC successfully ends the Branch Addition or Branch Replacement procedure</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SHO_ADJ_INTRA_FREQ_SHO_COMPL)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SHO_ADJ_INTRA_FREQ_SHO_COMPL (M1013C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_ECNO_SHO_DIFF_SUM">
+    <formula>AUTSH2.CPICH_ECNO_SHO_DIFF_SUM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_SHO_DIFF_SUM</title>
+      <use>The sum of CPICH Ec/No difference values between source and target-cells of the handover. This counter, along with the denominator M1013C3, is used to calculate the filtered average Ec/No difference between a cell pair (source and target cells in the adjacency list) as measured by the UEs.
+
+To convert the calculated average value into real dB difference, the following formula can be used:
+CPICH_Ec/No_dB = Reported_average*0.5-24.
+
+If the UE is in soft handover when the measurement report is received, the counter is updated separately for each cell in the active set, i.e. they are all considered as source-cells. UPDATED: When the RNC receives a 1A, 1B or 1C report from the UE and the Ec/No difference between the source-cell and target-cell is higher than the threshold defined by parameter ecnoDifferenceThreshold.
+Both event triggered and periodic 1A/1B/1C reports update this counter.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_ECNO_SHO_DIFF_SUM)</formula>
+      <unit>Ec/No class</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_SHO_DIFF_SUM (M1013C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_ECNO_SHO_DIFF_DENOM">
+    <formula>AUTSH2.CPICH_ECNO_SHO_DIFF_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_SHO_DIFF_DENOM</title>
+      <use>This counter provides the number of samples taken for counter M1013C3. The information is needed in average calculation. UPDATED: Updated by one every time the CPICH Ec/No difference summation M1013C2 is updated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_ECNO_SHO_DIFF_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_SHO_DIFF_DENOM (M1013C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_ECNO_SHO_SUM">
+    <formula>AUTSH2.CPICH_ECNO_SHO_SUM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_SHO_SUM</title>
+      <use>Sum of CPICH Ec/No values of the neighbour cells reported by the UE. This counter, divided by the denominator M1013C5, provides the average CPICH Ec/No in range 0...49 defined in 3GPP TS 25.133.
+After average calculation, the value can be converted to the dB unit using formula ((reporting_value/2)-24,5). UPDATED: When the RNC receives a 1A, 1B or 1C report from the UE. Both event triggered and possible periodic reports following after them update this counter.
+
+Note: This counter is updated only if RAN1191 feature is licensed.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_ECNO_SHO_SUM)</formula>
+      <unit>Ec/No class</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_SHO_SUM (M1013C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_ECNO_SHO_DENOM">
+    <formula>AUTSH2.CPICH_ECNO_SHO_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_ECNO_SHO_DENOM</title>
+      <use>The number of 1A/1C reports updated to counter M1013C4, used as a denominator for average calculation. UPDATED: When the RNC receives a 1A or 1C report from the UE, this counter is updated by value 1.
+
+Note: This counter is updated only if RAN1191 feature is licensed.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_ECNO_SHO_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_ECNO_SHO_DENOM (M1013C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_RSCP_SHO_SUM">
+    <formula>AUTSH2.CPICH_RSCP_SHO_SUM</formula>
+    <kpi_info>
+      <title>CPICH_RSCP_SHO_SUM</title>
+      <use>Sum of CPICH RSCP values of the neighbour cells reported by the UE. This counter, divided by the denominator M1013C5, provides the average CPICH RSCP in dBm. UPDATED: When the RNC receives a 1A, 1B or 1C report from the UE. Both event triggered and possible periodic reports following after them update this counter.
+
+Note: This counter is updated only if RAN1191 feature is licensed.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_RSCP_SHO_SUM)</formula>
+      <unit>dBm</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_RSCP_SHO_SUM (M1013C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPICH_RSCP_SHO_DENOM">
+    <formula>AUTSH2.CPICH_RSCP_SHO_DENOM</formula>
+    <kpi_info>
+      <title>CPICH_RSCP_SHO_DENOM</title>
+      <use>The number of 1A/1C reports updated to counter M1013C6, used as a denominator for average calculation. UPDATED: When the RNC receives a 1A or 1C report from the UE, this counter is updated by value 1.
+
+Note: This counter is updated only if RAN1191 feature is licensed.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CPICH_RSCP_SHO_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autsh2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPICH_RSCP_SHO_DENOM (M1013C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+    <kpi name="SHO_CEL_INTRA_FREQ_SHO_ATT">
+    <formula>AUTSH2.SHO_CEL_INTRA_FREQ_SHO_ATT</formula>
+    <kpi_info>
+      <title>SHO_CEL_INTRA_FREQ_SHO_ATT</title>
+      <use/>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SHO_CEL_INTRA_FREQ_SHO_ATT)</formula>
+      <unit>No.</unit>
+      <tables>NOKRWW_PS_AUTOSHO_DMNC1_RAW</tables>
+    </kpi_info>
+    <kpi_alias>SHO_CEL_INTRA_FREQ_SHO_ATT</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

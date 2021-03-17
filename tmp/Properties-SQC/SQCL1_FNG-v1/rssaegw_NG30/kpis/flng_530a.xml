@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/GV211_ext.xml" />
+  <kpi name="flng_530a">
+    <formula>100*decode(GTPCV2.GTPCV2_CRE_SESS_REQ_RECV_S11,0,null,
+	(
+	 GV211_ext.CRE_SESS_RESP_SENT_S11_16
+	 /
+	 GTPCV2.GTPCV2_CRE_SESS_REQ_RECV_S11))</formula>
+    <kpi_info>
+      <title><![CDATA[S11 Create Session received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 create session requests received on S11 interface, i.e., the number of create session response messages sent on S11 interface with cause code 'Request Accepted' when compared to the number of create session request messages received on S11 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv211_id,(&amp;#039;16&amp;#039; or &amp;#039;cs_1_16&amp;#039;),b.GTPCV2_CRE_SESS_RESP_SENT_S11,0)) ;Request accepted
+&lt;br&gt;---------------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(a.GTPCV2_CRE_SESS_REQ_RECV_S11)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v2
+&lt;br&gt;b = GTP-C v2 Create Session Response sent on S11 interface</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:18.194 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S11 Create Sess rcv SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

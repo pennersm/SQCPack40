@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_2271a">
+    <formula>decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.SUCC_IN_RAU_MME_TO_3GSGSN + 
+			IUMM1.FAIL_IN_RAU_MME_TO_3GSGSN))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))</formula>
+    <kpi_info>
+      <title><![CDATA[4G to 3G incoming MME-SGSN RAU (with contexts) requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of incoming 4G to 3G MME to SGSN routing area update request procedures with PDP contexts per second.
+This KPI can be used to measure the signaling transaction load/capacity.
+]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( SUCC_IN_RAU_MME_TO_3GSGSN +
+&lt;br&gt;   FAIL_IN_RAU_MME_TO_3GSGSN )
+&lt;br&gt;---------------------------------- *
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;max( PEAK_IU_PDP_CONT ) 
+&lt;br&gt;----------------------------
+&lt;br&gt;max( PEAK_ATTACH_IU_USERS )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[43 in MME-SGS RA wctx /s]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

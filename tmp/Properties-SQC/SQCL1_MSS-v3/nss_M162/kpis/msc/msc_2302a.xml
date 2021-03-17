@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="msc_2302a">
+    
+	<formula>
+	decode(
+	(tc_ext.tcat_call_amount_53),0,null, 
+	(100*
+	(tc_ext.tcat_ring_amount_24)
+	/
+	(tc_ext.tcat_call_amount_53)) ) 
+	</formula>
+
+	<kpi_info>
+      <title><![CDATA[ISC CS TERM Calls SR]]></title>
+      <use><![CDATA[Indicates the success ratio of calls delivered by T-ADS function of SCC-AS to CS domain.
+Call is successful if reached ringing phase that corresponds to the reception of SIP message "180 Ringing" from MGCF (after MGCF received the ACM message from CS domain).]]></use>
+
+<use_experience><![CDATA[
+<br>FORMULA NOTES:
+<br>Tcat_IDs:
+<br>141 => ISC CS TERM
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (20/14H)
+<br>
+<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt;            
+		&lt;br&gt;SUM(TCAT_RING_AMOUNT) ;WHERE Tcat_ID=141 
+		&lt;br&gt;----------------------------------------- * 100 
+		&lt;br&gt;SUM(TCAT_CALL_AMOUNT) ;WHERE Tcat_ID=141 
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_tc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[ISC CS TERM Calls SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1606a">
+    <formula>decode(
+			(pktcall.denom_dur_hsupa_user_conn),0,null, 
+
+			((pktcall.sum_dur_hsupa_user_conn)
+			 / 
+			(pktcall.denom_dur_hsupa_user_conn)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average duration of HSUPA user connections]]></title>
+      <use><![CDATA[This KPI monitors average duration of HSUPA user connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(SUM_DUR_HSUPA_USER_CONN)
+&lt;br&gt;-----------
+&lt;br&gt;SUM(DENOM_DUR_HSUPA_USER_CONN)</formula>
+      <unit>[Seconds]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg Dur HSUPA Conn</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

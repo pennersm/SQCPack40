@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2395b">
+    <formula>3600*decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_power_off_detach + 
+			mobmgmnt.succ_mo_gprs_detach + 
+			mobmgmnt.succ_mo_combined_detach + 
+			mobmgmnt.succ_mo_imsi_detach + 
+			mobmgmnt.succ_impl_gprs_detach + 
+			mobmgmnt.succ_impl_combined_detach + 
+			mobmgmnt.general_undef_detach_failures + 
+			mobmgmnt.gprs_detached_inactive_subscri + 
+			mobmgmnt.nwr_gprs_detach_imsi_unk_hlr + 
+			mobmgmnt.nwr_gprs_detach_illegal_ms + 
+			mobmgmnt.nwr_gprs_detach_illegal_me + 
+			mobmgmnt.nwr_gprs_detach_gprs_ser_na + 
+			mobmgmnt.nwr_gprs_detach_ngprs_ser_na + 
+			mobmgmnt.nwr_gprs_detach_plmn_na + 
+			mobmgmnt.nwr_gprs_detach_la_na + 
+			mobmgmnt.nwr_gprs_detach_roaming_na + 
+			mobmgmnt.nwr_gprs_detach_gprs_na_plmn + 
+			mobmgmnt.nwr_gprs_detach_no_s_cel_in_la + 
+			mobmgmnt.FAIL_NWR_GPRS_DETACH_GEN + 
+			nvl(MOBMGMN2.HLR_INITIATED_DETACH,0)))
+			 / 
+			((mobmgmnt.period_duration*60)))
+            /
+            decode((paus.avg_attach_gb_users_den * paus.avg_attach_gb_users_sum),0,NULL,
+            ( paus.avg_attach_gb_users_sum / paus.avg_attach_gb_users_den))</formula>
+    <kpi_info>
+      <title><![CDATA[2G detach requests per subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of 2G detach request procedures per subscriber per hour. 
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>3600 * sgsn_2241b
+&lt;br&gt;--------------------
+&lt;br&gt;sgsn_691a
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G detach req /subs /h]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

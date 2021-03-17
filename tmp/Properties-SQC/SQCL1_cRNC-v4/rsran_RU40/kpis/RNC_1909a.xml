@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPROUT.xml" />
+  <kpi name="RNC_1909a">
+    <formula>decode(
+			(iprout.committed_bit_rate_ip_route),0,null, 
+
+			(100*(iprout.max_reserved_rate_ip_route)
+			 / 
+			(iprout.committed_bit_rate_ip_route)))</formula>
+    <kpi_info>
+      <title><![CDATA[Max Reserved IP based route bandwidth]]></title>
+      <use><![CDATA[This KPI provides information about the maximum value of IP bandwidth usage rate, comparing the maximum value of reserved IP layer bit rate against the available bandwidth.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*MAX(MAX_RESERVED_RATE_IP_ROUTE)
+&lt;br&gt;------------------------------------
+&lt;br&gt;AVG(COMMITTED_BIT_RATE_IP_ROUTE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Max Rsv IP BW</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

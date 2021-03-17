@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="mob_vlr55e">
+    <formula>decode(
+			(VLRNMSC.REG_AVG_TOTAL),0,null, 
+
+			(VLR1MSC.INTERVLRHSGSMATTEMPT + 
+			VLR1MSC.INTERVLRHSUMTSATTEMPT + 
+			VLR1MSC.INTERVLRRSGSMATTEMPT + 
+			VLR1MSC.INTERVLRRSUMTSATTEMPT)
+			 / 
+			(VLRNMSC.REG_AVG_TOTAL))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter-VLR LU attempts per subscriber (GSM and UMTS). ENH_VLR Opt.]]></title>
+      <use><![CDATA[ Indicates amount of Inter-VLR location updates per subscriber in location area.(GSM and UMTS). This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.]]></use>
+  
+<use_experience><![CDATA[ 
+<br>This KPI includes optional features.
+<br>Normal subscribers are counted.
+<br>Starting from M14.6, the UMTS LU attempts also count the I-HSPA related events (LU attempts via I-HSPA).
+<br>This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.
+<br>
+<br>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive please use mob_vlr55c KPI.
+<br>
+<br>If SIM_USIM_MEAS_PER_LAI is active please use mob_vlr55d KPI.
+<br>
+<br>PUBLISHED: M16.0
+<br>LAST UPDATE: 28-10-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>+
+<br>VLR measurement, part n (M80)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>    SUM(
+&lt;br&gt;     a.InterVLRHSGSMAttempt
+&lt;br&gt;   + a.InterVLRHSUMTSAttempt
+&lt;br&gt;   + a.InterVLRRSGSMAttempt
+&lt;br&gt;   + a.InterVLRRSUMTSAttempt )
+&lt;br&gt;----------------------------
+&lt;br&gt;    msc_2047b
+&lt;br&gt;
+&lt;br&gt;Counters from table(s)/view(s):
+&lt;br&gt;a = RNS_PS_VLR1MSC_MSC_&lt;Time&gt;, or RNS_PS_VR1MCBH_MSC_&lt;Time&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}, RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IrVLRLUAttPerSubsGSMUMTS OffOn]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

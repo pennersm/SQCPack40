@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml" />
+  <kpi name="msc_2265a">
+    <formula>
+decode((CCMEA_ext.CCMEAS_SIGNALLING+CCMEA_ext.CCMEAS_RING+CCMEA_ext.CCMEAS_SPEECH),0,null,
+	100*(CCMEA_ext.CCMEAS_SIGN_NORM + CCMEA_ext.CCMEAS_SIGN_EXT + CCMEA_ext.CCMEAS_SIGN_SUBS+
+	 	 CCMEA_ext.CCMEAS_RING_NORM + CCMEA_ext.CCMEAS_RING_EXT + CCMEA_ext.CCMEAS_RING_SUBS+
+		 CCMEA_ext.CCMEAS_SPEECH_NORM + CCMEA_ext.CCMEAS_SPEECH_EXT + CCMEA_ext.CCMEAS_SPEECH_SUBS)/
+		 (CCMEA_ext.CCMEAS_SIGNALLING+CCMEA_ext.CCMEAS_RING+CCMEA_ext.CCMEAS_SPEECH)
+)	</formula>
+    <kpi_info>
+      <title><![CDATA[Technically successful calls ratio]]></title>
+      <use><![CDATA[Success ratio of technically successful call attemps (all clearcodes except the 0400H-07FFH INTERNAL congestion range) compared to all call attempts(all clearcodes).]]></use>
+
+<use_experience><![CDATA[ 
+<br>
+<br>0000H - 03FFH => Normal clearing clear code group
+<br>0400H - 07FFH => Internal Congestion clear code group
+<br>0800H - 0BFFH => External Congestion clear code group
+<br>0C00H - 0FFFH => Subscriber erros clear code group 
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Clear code measurement (M131)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;
+&lt;br&gt;SUM( CCMEAS_SIGNALLING ) 
+&lt;br&gt;+ SUM( CCMEAS_RING )   
+&lt;br&gt;+ SUM( CCMEAS_SPEECH );WHERE clearcode_id= [000H - 3FFH]+[800H - BFFH]+[C00H - FFFH] 
+&lt;br&gt;100 * ----------------------------------------------------- 
+&lt;br&gt;SUM( CCMEAS_SIGNALLING ) 
+&lt;br&gt;+ SUM( CCMEAS_RING )   
+&lt;br&gt;+ SUM( CCMEAS_SPEECH ) ;where clearcode_id = all
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_CCMEA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Tech succ calls rto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

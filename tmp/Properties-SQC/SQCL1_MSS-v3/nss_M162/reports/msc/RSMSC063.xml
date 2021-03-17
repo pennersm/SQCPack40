@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSMSC M162 Report Set</report_version>
+    <release number="8.1.2-64"/>
+    <valid-report-levels>PLMN/MSC</valid-report-levels>
+    <valid-time-levels>bh,weekbh</valid-time-levels>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSMSC063 - Traffic in traffic categories - BHCA and Traffic</header>
+    <csv_title>Traffic in traffic categories - BHCA and Traffic</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+
+    <help_text><![CDATA[
+    <br>This report shows some statistics of the traffic handled by the MSC during the BH for each of the listed traffic types.
+    <br>
+    <br>The following traffic categories are necessary to be active in order for the report to provide reliable output data:
+    <br>
+	<br>13 = IMSC HO INC
+	<br>15 = DEVICE ORIG
+	<br>16 = SCP ORIG
+	<br>32 = 2G ORIG
+	<br>34 = 3G ORIG
+	<br>45 = INCNOHO
+	<br>74 = SIP ORIG
+	<br>
+	<br>
+	<br>Object levels:
+	<br>PLMN->MSC
+	<br>
+    <br>Measurements:
+    <br>M20: Traffic category measurement
+    <br>  
+    ]]></help_text>
+
+    <report-description>Traffic in traffic categories - BHCA and Traffic</report-description>
+    <report-title>Traffic in traffic categories - BHCA and Traffic</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <msc_570a ui_name="Call Attempts" chartType="bar" group="Without Handovers" yAxis="2"/>
+    <msc_571a ui_name="Total Traffic" group="Without Handovers" />
+
+    <msc_572a ui_name="Call Attempts" chartType="bar" group="With Handovers" yAxis="2"/>
+    <msc_573a ui_name="Total Traffic" group="With Handovers" />
+    
+    <msc_2155a ui_name="Call Attempts" chartType="bar" master-group="With SIP" group="Without Handoversns" yAxis="2"/>
+    <msc_2156a ui_name="Total Traffic" master-group="With SIP" group="Without Handoversns" />
+    
+    <msc_2157a ui_name="Call Attempts" chartType="bar" master-group="With SIP" group="With Handoversns" yAxis="2"/>
+    <msc_2158a ui_name="Total Traffic" master-group="With SIP" group="With Handoversns" />
+  </column_order>
+    <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table name="TCBH" meas_level="PLMN/MSC/TCAT" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+      			<counter alias="TC_PERIOD_DURATION">SUM(TC_PERIOD_DURATION_1)</counter>
+				<counter alias="TCAT_TRAFFX100_2">MAX(TCAT_TRAFFX100_2)</counter>
+				<counter alias="TCAT_TRAFFX100_4">MAX(TCAT_TRAFFX100_4)</counter>
+				<counter alias="TCAT_TRAFFX100_13">MAX(TCAT_TRAFFX100_13)</counter>
+				<counter alias="TCAT_TRAFFX100_14">MAX(TCAT_TRAFFX100_14)</counter>
+				<counter alias="TCAT_CALL_AMOUNT_2">MAX(TCAT_CALL_AMOUNT_2)</counter>
+				<counter alias="TCAT_CALL_AMOUNT_3">MAX(TCAT_CALL_AMOUNT_3)</counter>
+				<counter alias="TCAT_CALL_AMOUNT_30">MAX(TCAT_CALL_AMOUNT_30)</counter>
+				<counter alias="TCAT_CALL_AMOUNT_31">MAX(TCAT_CALL_AMOUNT_31)</counter>
+    </counters>
+    <table_name>
+    	<![CDATA[
+(SELECT 
+	   mscbh.period_start_time period_start_time,
+	   mscbh.msc_id,
+	   mscbh.busy_hour,
+	   TC_PERIOD_DURATION_1,
+	   TCAT_TRAFFX100_2,
+	   TCAT_TRAFFX100_4,
+	   TCAT_TRAFFX100_13,
+	   TCAT_TRAFFX100_14,
+	   TCAT_CALL_AMOUNT_2,
+	   TCAT_CALL_AMOUNT_3,
+	   TCAT_CALL_AMOUNT_30,
+	   TCAT_CALL_AMOUNT_31
+	   FROM
+	   (
+	    SELECT
+	    	 (period_start_time+ busy_hour/24) period_start_time,
+	    	 period_start_time period_start_time_msc,
+	    	 msc_id,
+	    	 busy_hour
+	    FROM
+	   		RNS_PS_TC_MSC_{TIME_AGG}) mscbh,
+	   (SELECT
+				TRUNC( p.period_start_time, 'hh24' ) period_start_time,
+				msc.co_gid msc_gid,
+				AVG(period_duration) TC_PERIOD_DURATION_1,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16') THEN Tcat_traffx100 ELSE 0 END) Tcat_traffx100_2,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16','13') THEN tcat_traffx100 ELSE 0 END) Tcat_traffx100_4,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16','74') THEN Tcat_traffx100 ELSE 0 END) Tcat_traffx100_13,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16','13','74') THEN Tcat_traffx100 ELSE 0 END) Tcat_traffx100_14,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16') THEN tcat_call_amount ELSE 0 END) tcat_call_amount_2,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16','13') THEN tcat_call_amount ELSE 0 END) tcat_call_amount_3,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16','74') THEN tcat_call_amount ELSE 0 END) tcat_call_amount_30,
+				SUM(CASE WHEN TRAFFIC_CATEGORY_ID IN ('32','34','45','15','16','13','74') THEN tcat_call_amount ELSE 0 END) tcat_call_amount_31
+			FROM
+				
+				utp_common_objects plmn,
+				utp_common_objects msc,
+				rns_ps_tc_tcat1_hour p
+			WHERE
+				#add_on_clause# AND
+				period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  AND
+				period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND
+				msc.co_gid = p.msc_id AND
+				msc.co_parent_gid = plmn.co_gid AND
+				msc.co_oc_id=107 AND
+				plmn.co_oc_id=16
+			GROUP BY
+				TRUNC( p.period_start_time, 'hh24' ),
+				msc.co_gid) p
+			WHERE
+				mscbh.msc_id = p.msc_gid (+) AND
+				mscbh.period_start_time = p.period_start_time (+)
+				)
+			]]>
+		</table_name>
+    <alias_name>tc_ext</alias_name>
+  </temp_table>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->  
+
+   <kpi name="msc_570a">
+    <formula>tc_ext.tcat_call_amount_2</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA, without HO cases]]></title>
+      <use><![CDATA[Indicates total amount of calls during busy hour. Shows whether the MSC/MSS is performing within capacity provisions. In this formula, there are no handover cases included.]]></use>
+	  <use_experience><![CDATA[
+	  <br> This BHCA does not include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+	  <br>
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>
+	  <br>Traffic categories:
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc. 
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(s): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;SUM( tcat_call_amount ) ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16 )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[BHCA, without HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_2155a">
+    <formula>tc_ext.TCAT_CALL_AMOUNT_30</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA with SIP calls but without HO cases]]></title>
+      <use><![CDATA[Indicates total amount of calls during busy hour. Shows whether the MSC/MSS is performing within capacity provisions. In this formula SIP calls are included, but no handover cases.]]></use>
+      <use_experience><![CDATA[
+	  <br>This BHCA does not include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>74 = SIP ORIG = SIP originating traffic
+	  <br>
+	  <br>
+	  <br>Same KPI as the msc_570c. New KPI ID starting from M15.1.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM( tcat_call_amount ) ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16, 74 )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BHCA with SIP calls but without HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_571a">
+    <formula>tc_ext.tcat_traffx100_2*tc_ext.tc_period_duration / (60*100)</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA (erl), without HO cases]]></title>
+      <use><![CDATA[Indicates total traffic amount during busy hour. Shows whether the MSC/MSS is performing within capacity provisions. In this formula, there are no handover cases included.]]></use>
+      <use_experience><![CDATA[
+	  <br>This BHCA does not include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;AVG( tcat_traffx100 )
+&lt;br&gt;---------------------------- 
+&lt;br&gt;          100 
+&lt;br&gt;
+&lt;br&gt; ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16 )
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[BHCA (erl), without HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_2156a">
+    <formula>(tc_ext.tcat_traffx100_13)/100 </formula>
+    <kpi_info>
+      <title><![CDATA[BHCA (erl) with SIP calls, but without HO cases]]></title>
+      <use><![CDATA[Indicates total traffic amount during busy hour. Shows whether the MSC/MSS is performing within capacity provisions.  In this formula SIP calls are included, but no handover cases.]]></use>
+      <use_experience><![CDATA[
+	  <br>This BHCA does not include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>74 = SIP ORIG = SIP originating traffic
+	  <br>
+	  <br>Same KPI as the msc_571c. New KPI ID starting from M15.1. 
+	  <br>
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;AVG( tcat_traffx100 ) 
+	  &lt;br&gt;----------------------------------- 
+	  &lt;br&gt;               100 
+	  &lt;br&gt;
+	  &lt;br&gt;;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16, 74 )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BHCA (erl) with SIP calls, but without HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_572a">
+    <formula>tc_ext.tcat_call_amount_3</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA, with HO cases]]></title>
+      <use><![CDATA[Indicates total amount of calls during busy hour. Shows whether the MSC/MSS is performing within capacity provisions. Handover cases are included.]]></use>
+	  <use_experience><![CDATA[
+	  <br>This BHCA does include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:
+	  <br>13 = IMSC HO INC = Incoming inter-MSC handovers
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;SUM( tcat_call_amount ) ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16, 13 )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[BHCA, with HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_2157a">
+    <formula>(tc_ext.tcat_call_amount_31)</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA with SIP calls and HO cases]]></title>
+      <use><![CDATA[Indicates total amount of calls during busy hour. Shows whether the MSC/MSS is performing within capacity provisions. In this formula SIP and HO calls are included.]]></use>
+	  <use_experience><![CDATA[
+	  <br>This BHCA does include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:
+	  <br>13 = IMSC HO INC = Incoming inter-MSC handovers
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>74 = SIP ORIG = SIP originating traffic
+	  <br>
+	  <br>Same KPI as the msc_572c. New KPI ID starting from M15.1.
+	  <br> 
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM( tcat_call_amount ) ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16, 13, 74 )
+      &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BHCA with SIP calls and HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_573a">
+    <formula>tc_ext.tcat_traffx100_4*tc_ext.tc_period_duration / (60*100 )</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA (erl), with HO cases]]></title>
+      <use><![CDATA[Indicates total traffic amount during busy hour. Shows whether the MSC/MSS is performing within capacity provisions. Handover cases are included.]]></use>
+	  <use_experience><![CDATA[
+	  <br>This BHCA does include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:	  
+	  <br>13 = IMSC HO INC = Incoming inter-MSC handovers
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br> 
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;AVG( tcat_traffx100 )
+	  &lt;br&gt;-------------------------------
+	  &lt;br&gt;         100 
+	  &lt;br&gt;
+	  &lt;br&gt; ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16, 13 )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}
+	  &lt;br&gt;</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[BHCA (erl), with HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+  <kpi name="msc_2158a">
+    <formula>(tc_ext.tcat_traffx100_14)/100</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA (erl) SIP calls and HO cases]]></title>
+      <use><![CDATA[Indicates total traffic amount during busy hour. Shows whether the MSC/MSS is performing within capacity provisions.  In this formula SIP and HO calls are included.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>This BHCA does include HO cases. Use only with busy hour criteria, not with weekly or monthly aggregation.
+	  <br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+	  <br>
+	  <br>Traffic categories:
+	  <br>13 = IMSC HO INC = Incoming inter-MSC handovers
+	  <br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc.
+	  <br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA)
+	  <br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages)
+	  <br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages)
+	  <br>74 = SIP ORIG = SIP originating traffic
+	  <br>
+	  <br>Same KPI as the msc_573c. New KPI ID starting from M15.1.
+	  <br> 
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): Traffic category measurement (20/14H)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;AVG( tcat_traffx100 )
+	  &lt;br&gt;----------------------------- 
+	  &lt;br&gt;          100 
+	  &lt;br&gt;
+	  &lt;br&gt; ;WHERE traffic_category_id IN ( 32, 34, 45, 15, 16, 13, 74 )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BHCA (erl) SIP calls and HO cases]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+</conf_file>
+

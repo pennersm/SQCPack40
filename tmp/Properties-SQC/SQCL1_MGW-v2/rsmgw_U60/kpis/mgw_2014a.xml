@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPQOS.xml" />
+  <kpi name="mgw_2014a">
+    <formula>
+decode(
+	(ipqos.ingress_received_packets + ipqos.egress_sent_packets)
+	,0,null,
+	100*ipqos.discarded_packets	/
+	(ipqos.ingress_received_packets + ipqos.egress_sent_packets)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Rate of IP discarded packets PHB.]]></title>
+      <use><![CDATA[Rate of IP discarded packets per hop behavior (PHB). In this KPI, the counters that are dropped in the IP packet scheduler are not taken into consideration.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The &quot;EGRESS_SENT_PACKETS&quot; counter does not count the packets that were dropped in the IP packet scheduler.
+<br>Possible reasons for the discard can be for example unknown protocol, version number mismatch, other format errors, time-to-live exceeded or errors discovered in processing IP options.
+<br>
+<br>This KPI shall only run @ PHB level.
+<br>LAST UPDATE: 02-06-2010
+<br>THEORETICAL SUMMARY LEVELS: (PLMN) - (MGW) - (unit_type) - (unit_index) - (ip_if) &#150; (PHB)
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: (PLMN) - (MGW) - (unit_type) - (unit_index) - (ip_if) &#150; (PHB)
+<br>
+<br>RECOMMENDED TIME SUMMARY LEVELS: hour; day; dailyBH; week; weeklyBH
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): IP Qos Measurement
+<br>M567
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( DISCARDED_PACKETS )
+&lt;br&gt;100 * --------------------------
+&lt;br&gt;      SUM( INGRESS_RECEIVED_PACKETS + EGRESS_SENT_PACKETS )
+&lt;br&gt;   
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_IPQOS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/05/20 16:01:29.489 +0100</date>
+          <comment><![CDATA[Source: RSMGW056.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Disc Pkts PHB Rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

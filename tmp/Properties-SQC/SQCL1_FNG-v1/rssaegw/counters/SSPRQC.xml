@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 Session_profile_qci SSPRQC measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 Session_profile_qci SSPRQC measurement dump</csv_title>
+    <report-description>Session profile qci</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SM_NBR_ACT_SESS_QCI />
+    <SM_NBR_ACT_BEAR_QCI />
+  </column_order>
+  <temp_table name="SSPRQC" meas_level="PLMN/FING/FNODE/SSPROF/QCI_1" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="SM_NBR_ACT_SESS_QCI" time-alias="SM_NBR_ACT_SESS_QCI" timeagg="SUM(SM_NBR_ACT_SESS_QCI)">SUM(SM_NBR_ACT_SESS_QCI)</counter>
+      <counter alias="SM_NBR_ACT_BEAR_QCI" time-alias="SM_NBR_ACT_BEAR_QCI" timeagg="AVG(SM_NBR_ACT_BEAR_QCI)">SUM(SM_NBR_ACT_BEAR_QCI)</counter>
+    </counters>
+    <table_name>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SSPRQC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SSPRQC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SM_NBR_ACT_SESS_QCI">
+    <formula>SSPRQC.SM_NBR_ACT_SESS_QCI</formula>
+    <kpi_info>
+      <title>SM_NBR_ACT_SESS_QCI</title>
+      <use>This gauge contains the number of active sessions grouped according to the QoS class identifier (QCI). UPDATED: Updated when a session is activated or deactivated; additionally when the session QCI value is modified.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SM_NBR_ACT_SESS_QCI)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SM_NBR_ACT_SESS_QCI (dummy_m3033c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SM_NBR_ACT_BEAR_QCI">
+    <formula>SSPRQC.SM_NBR_ACT_BEAR_QCI</formula>
+    <kpi_info>
+      <title>SM_NBR_ACT_BEAR_QCI</title>
+      <use>This gauge contains the number of active bearers grouped according to the QoS class identifier (QCI). UPDATED: Updated when a bearer is activated or deactivated; additionally when the bearer QCI value is modified.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(SM_NBR_ACT_BEAR_QCI)">SUM(SM_NBR_ACT_BEAR_QCI)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_ssprqc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SM_NBR_ACT_BEAR_QCI (m3033c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

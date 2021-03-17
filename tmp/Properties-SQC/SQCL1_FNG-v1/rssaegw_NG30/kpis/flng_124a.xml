@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/CSRS_ext.xml" />
+  <kpi name="flng_124a">
+    <formula>decode( ((GTPCV2.gtpcv2_cre_sess_req_recv)),0,NULL, ((CSRS_ext.gtpcv2_cre_sess_resp_sent_16)) / ((GTPCV2.gtpcv2_cre_sess_req_recv)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 create session requests received, i.e., the number of create session response messages sent with cause code 'Request Accepted' when compared to the number of create session request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(csrs_id,('16' or 'cs_1_16'),b.GTPCV2_CRE_SESS_RESP_SENT,0)) ;Request accepted 
+<br>---------------------------------------------------------------------------------------- *100 
+<br>sum(a.GTPCV2_CRE_SESS_REQ_RECV) 
+<br> 
+<br>counters from measurement(s): 
+<br>a = GTP-C v2 
+<br>b = GTP-C v2 Create Session Response sent]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_CSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Session rcv SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

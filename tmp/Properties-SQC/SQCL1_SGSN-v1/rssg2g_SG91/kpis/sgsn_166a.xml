@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/GBSE.xml" />
+  <kpi name="sgsn_166a">
+    <formula>decode(
+			(gbse.gsm_auth_attempts),0,NULL, 
+
+			(100*(gbse.gsm_succ_mm_auth + 
+			gbse.gsm_succ_sm_auth)
+			 / 
+			(gbse.gsm_auth_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb authentication procedures success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of authentication procedures attempts from Gb interface. Includes the MM and SM Gb authentication procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GSM_SUCC_MM_AUTH + GSM_SUCC_SM_AUTH)
+&lt;br&gt;----------------------------------------- *100
+&lt;br&gt;sum(GSM_AUTH_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_gb_security</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_gbse_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb authentication procedures success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

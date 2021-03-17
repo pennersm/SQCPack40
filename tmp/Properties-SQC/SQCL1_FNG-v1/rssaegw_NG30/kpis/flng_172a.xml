@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <kpi name="flng_172a">
+    <formula>decode(
+			((GTPU.gtpu_gpdu_bytes_recv_qos_bgrd + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_conv + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_iact1 + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_iact2 + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_iact3 + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_strm)),0,NULL, 
+
+			((GTPU.gtpu_gpdu_bytes_recv_qos_bgrd))
+			 / 
+			((GTPU.gtpu_gpdu_bytes_recv_qos_bgrd + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_conv + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_iact1 + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_iact2 + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_iact3 + 
+			GTPU.gtpu_gpdu_bytes_recv_qos_strm)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Background GTPU data received ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-U data received with QoS class Background when compared to total GTP-U data received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtpu_gpdu_bytes_recv_qos_bgrd)
+&lt;br&gt;-------------------------------------- * 100
+&lt;br&gt;sum (gtpu_gpdu_bytes_recv_qos_bgrd + 
+&lt;br&gt;   gtpu_gpdu_bytes_recv_qos_conv + 
+&lt;br&gt;   gtpu_gpdu_bytes_recv_qos_iact1 + 
+&lt;br&gt;   gtpu_gpdu_bytes_recv_qos_iact2 + 
+&lt;br&gt;   gtpu_gpdu_bytes_recv_qos_iact3 + 
+&lt;br&gt;   gtpu_gpdu_bytes_recv_qos_strm)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Bg GTPU data rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

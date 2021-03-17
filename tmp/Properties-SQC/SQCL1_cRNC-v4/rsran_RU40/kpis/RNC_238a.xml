@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/STM1.xml" />
+  <kpi name="RNC_238a">
+    <formula>decode(
+			(stm1.period_duration*60),0,null, 
+
+			100*(stm1.ne_mux_ses)
+			 / 
+			(stm1.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[NE_MUX_SES_RATIO]]></title>
+      <use><![CDATA[The Ratio of Multiplex section severely errored second at the Near End to total seconds in available time. The number of one second periods which contain >= threshold errored blocks or at least one defect. The threshold can be handled by Exchange terminal configuration handling MML . At the end of each one second interval the contents of the counters may be obtained by the relevant managed objects. The object is Multiplex section (B2) errors. In this case the block means STM-1 frame. The STM-1 payload cell rate is 149760 kbit/s. The multiplex section is one of the SDH layers (regeneration, multiplex and path) (ITU-T G.707). NE_MUX_SES (M513C13) is a subset of NE_MUX_ES (M513C12).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(NE_MUX_SES) / (PERIOD_DURATION * 60 ))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_stm1_unitid_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[NE_MUX_SES_RATIO]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

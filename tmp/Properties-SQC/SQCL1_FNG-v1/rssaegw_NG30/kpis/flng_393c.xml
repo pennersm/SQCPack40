@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GREtun.xml"/>
+  <kpi name="flng_393c">
+    <formula>decode(
+			(GREtun.GRE_TUN_PMIP_IPV4_BYTES_SENT + 
+			GREtun.GRE_TUN_PMIP_IPV6_BYTES_SENT + 
+			GREtun.GRE_TUN_PMIP_IPV4_BYTES_RX + 
+			GREtun.GRE_TUN_PMIP_IPV6_BYTES_RX),0,NULL, 
+
+			(GREtun.GRE_TUN_PMIP_IPV4_BYTES_RX + 
+			GREtun.GRE_TUN_PMIP_IPV6_BYTES_RX)
+			 / 
+			(GREtun.GRE_TUN_PMIP_IPV4_BYTES_SENT + 
+			GREtun.GRE_TUN_PMIP_IPV6_BYTES_SENT + 
+			GREtun.GRE_TUN_PMIP_IPV4_BYTES_RX + 
+			GREtun.GRE_TUN_PMIP_IPV6_BYTES_RX))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 GRE tunneled traffic received ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GRE tunneled traffic received from S5/S2 interface when compared to total (received+sent) GRE tunneled traffic on S5/S2 interface.
+      This KPI can be used to check GRE tunneled traffic balancing in S5/S2 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GRE_TUN_PMIP_IPV4_BYTES_RX +
+&lt;br&gt;   GRE_TUN_PMIP_IPV6_BYTES_RX)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(GRE_TUN_PMIP_IPV4_BYTES_SENT +
+&lt;br&gt;   GRE_TUN_PMIP_IPV6_BYTES_SENT +
+&lt;br&gt;   GRE_TUN_PMIP_IPV4_BYTES_RX +
+&lt;br&gt;   GRE_TUN_PMIP_IPV6_BYTES_RX)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GREtun_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 GRE traf rcv ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml" />
+  <kpi name="sgsn_254b">
+    <formula>decode(
+			(mobmgmnt.succ_inter_sgsn_ra_updat + 
+			mobmgmnt.inter_sgsn_rau_f_ill_ms + 
+			mobmgmnt.inter_sgsn_rau_f_ill_me + 
+			mobmgmnt.inter_sgsn_rau_f_gprs_na + 
+			mobmgmnt.inter_sgsn_rau_f_ms_ident + 
+			mobmgmnt.inter_sgsn_rau_f_imp_detach + 
+			mobmgmnt.inter_sgsn_rau_f_plmn_na + 
+			mobmgmnt.inter_sgsn_rau_f_la_na + 
+			mobmgmnt.inter_sgsn_rau_f_roaming_na + 
+			mobmgmnt.inter_sgsn_rau_f_gprs_na_pl + 
+			mobmgmnt.inter_sgsn_rau_f_no_s_cell + 
+			mobmgmnt.inter_sgsn_rau_f_prot_err + 
+			mobmgmnt.fail_inter_sgsn_ra_updat + 
+			mobmgmnt.fail_inter_sgsn_rau_22),0,NULL, 
+
+			(100*(mobmgmnt.fail_inter_sgsn_rau_gen)
+			 / 
+			(mobmgmnt.succ_inter_sgsn_ra_updat + 
+			mobmgmnt.inter_sgsn_rau_f_ill_ms + 
+			mobmgmnt.inter_sgsn_rau_f_ill_me + 
+			mobmgmnt.inter_sgsn_rau_f_gprs_na + 
+			mobmgmnt.inter_sgsn_rau_f_ms_ident + 
+			mobmgmnt.inter_sgsn_rau_f_imp_detach + 
+			mobmgmnt.inter_sgsn_rau_f_plmn_na + 
+			mobmgmnt.inter_sgsn_rau_f_la_na + 
+			mobmgmnt.inter_sgsn_rau_f_roaming_na + 
+			mobmgmnt.inter_sgsn_rau_f_gprs_na_pl + 
+			mobmgmnt.inter_sgsn_rau_f_no_s_cell + 
+			mobmgmnt.inter_sgsn_rau_f_prot_err + 
+			mobmgmnt.fail_inter_sgsn_ra_updat + 
+			mobmgmnt.fail_inter_sgsn_rau_22)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb inter SGSN RAU failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of inter SGSN RA update attempts coming from Gb interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(FAIL_INTER_SGSN_RAU_GEN)
+&lt;br&gt;---------------------------------------------- * 100 
+&lt;br&gt;sum(SUCC_INTER_SGSN_RA_UPDAT + 
+&lt;br&gt;       INTER_SGSN_RAU_F_ILL_MS + 
+&lt;br&gt;       INTER_SGSN_RAU_F_ILL_ME + 
+&lt;br&gt;       INTER_SGSN_RAU_F_GPRS_NA +  
+&lt;br&gt;       INTER_SGSN_RAU_F_MS_IDENT + 
+&lt;br&gt;       INTER_SGSN_RAU_F_IMP_DETACH + 
+&lt;br&gt;       INTER_SGSN_RAU_F_PLMN_NA + 
+&lt;br&gt;       INTER_SGSN_RAU_F_LA_NA +  
+&lt;br&gt;       INTER_SGSN_RAU_F_ROAMING_NA + 
+&lt;br&gt;       INTER_SGSN_RAU_F_GPRS_NA_PL + 
+&lt;br&gt;       INTER_SGSN_RAU_F_NO_S_CELL + 
+&lt;br&gt;       INTER_SGSN_RAU_F_PROT_ERR +  
+&lt;br&gt;       FAIL_INTER_SGSN_RA_UPDAT + 
+&lt;br&gt;       FAIL_INTER_SGSN_RAU_22)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_ sgsn_ mobility_ management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_mobmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gb inter SGSN RAU failure ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

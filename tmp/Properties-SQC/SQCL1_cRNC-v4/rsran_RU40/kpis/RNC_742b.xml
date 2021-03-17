@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <kpi name="RNC_742b">
+    <formula>100*decode(
+			SERVLEV.rab_act_comp_amr_psnrt + 
+			SERVLEV.rab_act_fail_amr_psnrt,0,null, 
+
+			SERVLEV.rab_act_comp_amr_psnrt
+			 / 
+			(SERVLEV.rab_act_comp_amr_psnrt + 
+			SERVLEV.rab_act_fail_amr_psnrt))</formula>
+    <kpi_info>
+      <title><![CDATA[CS AMR + PS Multi RAB Success Ratio]]></title>
+      <use><![CDATA[Multi RAB success rate. The KPI describes retainability of multi-RAB
+combination "CS AMR + PS NRT"  and covers RAB Active Phase of
+a call.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                  sum (rab_act_comp_amr_psnrt)
+&lt;br&gt;100 * -----------------------------------------------------
+&lt;br&gt;      sum (rab_act_comp_amr_psnrt + rab_act_fail_amr_psnrt)
+&lt;br&gt;
+&lt;br&gt;100 * sum ([RAB_ACT_COMP_AMR_PSNRT])
+&lt;br&gt;/
+&lt;br&gt;sum ([RAB_ACT_COMP_AMR_PSNRT] + 
+&lt;br&gt;     [RAB_ACT_FAIL_AMR_PSNRT] )</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[CS AMR + PS Multi RAB SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SMMT.xml" />
+  <kpi name="flns_3194a">
+    <formula>decode(
+            (smmt.pdn_connect_failed_collision + 
+            smmt.pdn_connect_failed_unspecified + 
+            smmt.pdn_connectivity_failed_mme + 
+            smmt.pdn_connectivity_failed_sgw + 
+            smmt.pdn_connectivity_successful + 
+            smmt.pdn_connectivity_failed),0,null,
+    
+            (smmt.pdn_connect_failed_collision + 
+            smmt.pdn_connectivity_failed_mme + 
+            smmt.pdn_connectivity_successful)
+            / 
+            (smmt.pdn_connect_failed_collision + 
+            smmt.pdn_connect_failed_unspecified + 
+            smmt.pdn_connectivity_failed_mme + 
+            smmt.pdn_connectivity_failed_sgw + 
+            smmt.pdn_connectivity_successful + 
+            smmt.pdn_connectivity_failed))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PDN connection deactivation success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of PDN connection deactivation procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(PDN_CONNECT_FAILED_COLLISION +
+&lt;br&gt;   PDN_CONNECTIVITY_FAILED_MME +
+&lt;br&gt;   PDN_CONNECTIVITY_SUCCESSFUL)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(PDN_CONNECT_FAILED_COLLISION + 
+&lt;br&gt;   PDN_CONNECT_FAILED_UNSPECIFIED +
+&lt;br&gt;   PDN_CONNECTIVITY_FAILED_MME + 
+&lt;br&gt;   PDN_CONNECTIVITY_FAILED_SGW +
+&lt;br&gt;   PDN_CONNECTIVITY_SUCCESSFUL + 
+&lt;br&gt;   PDN_CONNECTIVITY_FAILED)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_SMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:42.978 +0100</date>
+          <comment><![CDATA[Source: RSMME002.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PDN deact SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

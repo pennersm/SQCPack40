@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="msc_2019a">
+    <formula>
+decode(
+	tc_ext.tcat_call_amount_41,0,null,
+	100*tc_ext.tcat_call_amount_49
+	/
+	tc_ext.tcat_call_amount_41
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Terminating I-HSPA calls ratio]]></title>
+      <use><![CDATA[Ratio of terminating I-HSPA calls ]]></use>
+
+<use_experience><![CDATA[ 
+<br>Traffic categories:
+<br>129 = I-HSPA TERM = I-HSPA Terminating call
+<br>33 = 3G TERM = Terminating traffic to a 3G radio network when the call is started
+<br>35 = 2G TERM = Terminating traffic to GSM radio network when the call is started
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 17-10-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+&lt;br&gt;  SUM( tcat_call_amount ) 
+&lt;br&gt;  ;WHERE traffic_category_id =129 
+&lt;br&gt; 100 * ---------------------------------- 
+&lt;br&gt;  SUM( tcat_call_amount )   
+&lt;br&gt;  ;WHERE traffic_category_id in (33, 35) 
+&lt;br&gt;
+&lt;br&gt;Use Aggregated tables</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IHSPA term calls ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

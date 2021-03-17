@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <temp_table_ref src="rssaegw/counters/QOS.xml"/>
+  <kpi name="flng_337a">
+    <formula>decode(
+			((GTPU.gtpu_gpdu_pkts_sent_qos_conv + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_strm + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_iact1 + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_iact2 + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_iact3 + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_bgrd + 
+			QOS.qos_dl_drop_conv_class + 
+			QOS.qos_dl_drop_stream_class + 
+			QOS.qos_dl_drop_intact_class_thp1 + 
+			QOS.qos_dl_drop_intact_class_thp2 + 
+			QOS.qos_dl_drop_intact_class_thp3 + 
+			QOS.qos_dl_drop_bground_class)),0,NULL, 
+
+			((QOS.qos_dl_drop_conv_class + 
+			QOS.qos_dl_drop_stream_class + 
+			QOS.qos_dl_drop_intact_class_thp1 + 
+			QOS.qos_dl_drop_intact_class_thp2 + 
+			QOS.qos_dl_drop_intact_class_thp3 + 
+			QOS.qos_dl_drop_bground_class))
+			 / 
+			((GTPU.gtpu_gpdu_pkts_sent_qos_conv + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_strm + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_iact1 + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_iact2 + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_iact3 + 
+			GTPU.gtpu_gpdu_pkts_sent_qos_bgrd + 
+			QOS.qos_dl_drop_conv_class + 
+			QOS.qos_dl_drop_stream_class + 
+			QOS.qos_dl_drop_intact_class_thp1 + 
+			QOS.qos_dl_drop_intact_class_thp2 + 
+			QOS.qos_dl_drop_intact_class_thp3 + 
+			QOS.qos_dl_drop_bground_class)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[DL packets drop ratio due to QoS policy]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped downlink packets due to QoS policy when compared to all donwlink packets.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (qos_dl_drop_conv_class + 
+&lt;br&gt;   qos_dl_drop_stream_class + 
+&lt;br&gt;   qos_dl_drop_intact_class_thp1 + 
+&lt;br&gt;   qos_dl_drop_intact_class_thp2 + 
+&lt;br&gt;   qos_dl_drop_intact_class_thp3 + 
+&lt;br&gt;   qos_dl_drop_bground_class)
+&lt;br&gt;-------------------------------------- * 100
+&lt;br&gt;sum (gtpu_gpdu_pkts_sent_qos_conv + 
+&lt;br&gt;   gtpu_gpdu_pkts_sent_qos_strm + 
+&lt;br&gt;   gtpu_gpdu_pkts_sent_qos_iact1 + 
+&lt;br&gt;   gtpu_gpdu_pkts_sent_qos_iact2 + 
+&lt;br&gt;   gtpu_gpdu_pkts_sent_qos_iact3 + 
+&lt;br&gt;   gtpu_gpdu_pkts_sent_qos_bgrd + 
+&lt;br&gt;   qos_dl_drop_conv_class + 
+&lt;br&gt;   qos_dl_drop_stream_class + 
+&lt;br&gt;   qos_dl_drop_intact_class_thp1 + 
+&lt;br&gt;   qos_dl_drop_intact_class_thp2 + 
+&lt;br&gt;   qos_dl_drop_intact_class_thp3 + 
+&lt;br&gt;   qos_dl_drop_bground_class)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_QOS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DL pkt DR, QoS pol]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

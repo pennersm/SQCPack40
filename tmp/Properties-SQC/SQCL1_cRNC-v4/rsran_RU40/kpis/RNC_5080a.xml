@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran_RU40/counters/CELTPW_ext.xml" />
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_5080a">
+    <formula>decode(
+			(servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_fail_ps_inter_ue + 
+			servlev.rab_act_fail_ps_backg_ue + 
+			servlev.rab_act_fail_ps_backg_trans_1 + 
+			servlev.rab_act_fail_ps_inter_trans_1),0,null, 
+
+			((hsdpaw.received_hs_macd_bits + 
+			(celtpw.mc_hsdpa_orig_data_pri_1 + 
+			celtpw.mc_hsdpa_orig_data_sec_1)*8)
+			 / 
+			1000
+			 / 
+			(servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_fail_ps_inter_ue + 
+			servlev.rab_act_fail_ps_backg_ue + 
+			servlev.rab_act_fail_ps_backg_trans_1 + 
+			servlev.rab_act_fail_ps_inter_trans_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA received data per drop including PCH]]></title>
+      <use><![CDATA[Amount of data received in NodeB from the RNC in MAC-d PDUs plus amount of Multi-Carrier HSDPA original data sent on MAC-ehs PDUs in the primary cell plus amount of Multi-Carrier HSDPA original data sent on MAC-ehs PDUs in the secondary cell per one drop (including drops in Cell_PCH state). ]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;SUM([RECEIVED_HS_MACD_BITS]+([MC_HSDPA_ORIG_DATA_PRI]+[MC_HSDPA_ORIG_DATA_SEC])*8)/1000
+&lt;br&gt;/ 
+&lt;br&gt;SUM([RAB_ACT_FAIL_PS_INTER_IU] +[RAB_ACT_FAIL_PS_INTER_RADIO] +[RAB_ACT_FAIL_PS_INTER_BTS] +
+&lt;br&gt;[RAB_ACT_FAIL_PS_INTER_IUR] +[RAB_ACT_FAIL_PS_INTER_RNC] +[RAB_ACT_FAIL_PS_BACKG_IU] +
+&lt;br&gt;[RAB_ACT_FAIL_PS_BACKG_RADIO] +[RAB_ACT_FAIL_PS_BACKG_BTS] +[RAB_ACT_FAIL_PS_BACKG_IUR] +
+&lt;br&gt;[RAB_ACT_FAIL_PS_BACKG_RNC] +[RAB_ACT_FAIL_PS_INTER_UE] +[RAB_ACT_FAIL_PS_BACKG_UE] +
+&lt;br&gt;[RAB_ACT_FAIL_PS_BACKG_TRANS] +[RAB_ACT_FAIL_PS_INTER_TRANS])</formula>
+      <unit>[Mbit/ Dropped RAB]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG},NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG},NOKRWW_PS_CELTPW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HSDPA rcvd D/drop inc PCH]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

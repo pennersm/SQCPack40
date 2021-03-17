@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_5229a">
+    <formula>100*decode(
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others),0,null, 
+
+			(luest.sign_est_f_rrccompl_missing)
+			 / 
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others))</formula>
+    <kpi_info>
+      <title>E-UTRAN RRC Connection Setup Failure Ratio, RRC timer expiry</title>
+      <use>This KPI describes the ratio of a specific RRC connection setup failure cause related to all RRC connection requests.</use>
+      <formula><![CDATA[100*(SIGN_EST_F_RRCCOMPL_MISSING) / sum(SIGN_CONN_ESTAB_ATT_MO_S+  SIGN_CONN_ESTAB_ATT_MT+  SIGN_CONN_ESTAB_ATT_MO_D+  SIGN_CONN_ESTAB_ATT_OTHERS)]]></formula>
+      
+      <unit>[%]</unit>
+      <tables>noklte_ps_luest_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[omc]]></author>
+          <date>2010/10/21 11:21:20.739 +0100</date>
+          <comment />
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_alias>E-UTRAN RRC Connection Setup Failure Ratio, RRC timer expiry</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

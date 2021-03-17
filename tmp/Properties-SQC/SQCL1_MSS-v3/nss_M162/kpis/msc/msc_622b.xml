@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_622b">
+    <formula>
+decode(tc_ext.tcat_traffx100_13,0,null,
+	100 * tc_ext.Tcat_traffx100_16 / ((tc_ext.tcat_traffx100_13)/100)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Video (multimedia) related calls - Traff relation]]></title>
+      <use><![CDATA[Ratio of all Video (Multimedia)  related calls in Erlangs]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>The call is treated video call if the PLMN BC-IE received from the UE (in SETUP or Call Confirmed message) or the ISDN BC, HLC and LLC parameters received or sent in the ISUP/BICC IAM or ACM messages indicate multimedia call.
+		<br>
+		<br>47 = ORIG VIDEO = Originating video call
+		<br>49 = INC VIDEO = Incoming video call
+		<br>
+		<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+		<br>
+		<br>Starting from M15.1 NE version, in the denominator related part, the KPI ID reference to be used is the msc_2156a and no longer the msc_571c.
+		<br>This change does not produce any impact into the KPI formula content/algorithm. This is just a KPI ID adjustment.
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+		<br>
+		<br>]]></use_experience>
+		
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+      	&lt;br&gt;
+      	&lt;br&gt; AVG( tcat_traff_x100 / 100 ) ;WHERE traffic_category_id IN (47, 49)
+		&lt;br&gt;--------------------------------------------------------------------- * 100
+		&lt;br&gt;      msc_2156a
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_TC_{OBJ_AGG}_{TIME_AGG}
+		</formula>
+		
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Video Multi Rel Calls traf Rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

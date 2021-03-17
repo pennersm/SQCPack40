@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/TRFO.xml"/>
+  <kpi name="msc_544a">
+    <formula>100*(decode(
+			(trfo.trfo_internal_part_time + 
+			trfo.trfo_internal_candidate_failed + 
+			trfo.trfo_internal_non_candidate),0,null, 
+
+			(trfo.trfo_internal_part_time + 
+			trfo.trfo_internal_candidate_failed)
+			 / 
+			(trfo.trfo_internal_part_time + 
+			trfo.trfo_internal_candidate_failed + 
+			trfo.trfo_internal_non_candidate)))</formula>
+    <kpi_info>
+      <title><![CDATA[Internal TrFO ratio]]></title>
+      <use><![CDATA[Ratio of the calls originating and terminating in the measured MSS, that may be TrFO. This KPI is valid with MSS and GCS network elements, not with MSC.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This is only valid for MSS and GCS network elements (not for MSC).
+<br>PUBLISHED: M13.1
+<br>LAST UPDATE: 19-12-2005
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): TrFO measurement report  (M388)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;    Sum (
+&lt;br&gt;          TRFO_INTERNAL_PART_TIME 
+&lt;br&gt;        + TRFO_INTERNAL_CANDIDATE_FAILED)  
+&lt;br&gt;100 * ------------------------------------------------------ 
+&lt;br&gt;    sum (
+&lt;br&gt;          TRFO_INTERNAL_PART_TIME 
+&lt;br&gt;        + TRFO_INTERNAL_CANDIDATE_FAILED
+&lt;br&gt;        + TRFO_INTERNAL_NON_CANDIDATE)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_TRFO_MSC_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_trfo_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Internal TrFO ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

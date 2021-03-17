@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CSRR_ext.xml" />
+  <kpi name="flng_461a">
+    <formula>decode( ((CSRR_ext.gtpcv2_cr_sess_resp_recv_all)),0,NULL, ((CSRR_ext.gtpcv2_create_sess_resp_recv)) / ((CSRR_ext.gtpcv2_cr_sess_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses received for a specific cause code when compared to total number of GTP-C v2 create session response messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(csrr_id,'x',GTPCV2_CREATE_SESS_RESP_RECV,0))  ;CSRR for cause code x 
+<br>---------------------------------------------------------------------------------------- *100 
+<br>sum(GTPCV2_CREATE_SESS_RESP_RECV)  ;all CSRR's 
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CSRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Sess resp rcv ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

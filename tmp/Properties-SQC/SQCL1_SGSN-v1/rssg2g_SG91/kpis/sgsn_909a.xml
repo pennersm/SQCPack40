@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSD.xml" />
+  <kpi name="sgsn_909a">
+    <formula>decode(
+			(iusd.iu_avg_gtp_bytes_dl_den),0,NULL, 
+
+			(decode(
+			((60*iusd.period_duration
+			 / 
+			iusd.iu_avg_gtp_bytes_dl_den)),0,NULL, 
+
+			((8*iusd.iu_gtp_bytes_dl_peak
+			 / 
+			1048576)
+			 / 
+			(60*iusd.period_duration
+			 / 
+			iusd.iu_avg_gtp_bytes_dl_den)))))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu DL GTP peak throughput, SGSN]]></title>
+      <use><![CDATA[This KPI shows the downlink peak GTP data throughput on SGSN level for Iu interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;max(8 * IU_GTP_BYTES_DL_PEAK / 1048576)
+&lt;br&gt;------------------------------------------------------------------------------
+&lt;br&gt;avg(60* period_duration / IU_AVG_GTP_BYTES_DL_DEN)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_iu_sgsn_data</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>rsg_ps_iusd_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu DL GTP peak throughput, SGSN]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

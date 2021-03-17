@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CSTS.xml"/>
+  <kpi name="msc_406b">
+    <formula>decode(
+			(csts.csts_norm_rl_all_unsucc_setups + 
+			csts.csts_intfail_all_unsucc_setup + 
+			csts.csts_extfail_all_unsucc_setup + 
+			csts.csts_subsfail_all_unsucc_setup),0,null, 
+
+			((csts.csts_norm_rl_unsucc_setup_ave*csts.csts_norm_rl_all_unsucc_setups) + 
+			(csts.csts_int_fail_unsucc_setup_ave*csts.csts_intfail_all_unsucc_setup) + 
+			(csts.csts_ext_fail_unsucc_setup_ave*csts.csts_extfail_all_unsucc_setup) + 
+			(csts.csts_subsfail_unsucc_setup_ave*csts.csts_subsfail_all_unsucc_setup))
+			 / 
+			(csts.csts_norm_rl_all_unsucc_setups + 
+			csts.csts_intfail_all_unsucc_setup + 
+			csts.csts_extfail_all_unsucc_setup + 
+			csts.csts_subsfail_all_unsucc_setup))</formula>
+    <kpi_info>
+      <title><![CDATA[Average unsuccessful setup time]]></title>
+      <use><![CDATA[This KPI tells the average unsuccessful setup time]]></use>
+
+<use_experience><![CDATA[ 
+<br>The unit of the average call setup time in ASCII report is seconds, in XML reports, it is 10 milliseconds. The KPI formula/unit is valid for ASCII reports.
+<br>PUBLISHED:  M13
+<br>LAST UPDATE: 16-07-2008
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CGRDIR; CGRNAME;UPD
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN; MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Call setup time and success measurement  (386/182H)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      ( avg ( CSTS_NORM_RL_UNSUCC_SETUP_AVE ) * sum ( CSTS_NORM_RL_ALL_UNSUCC_SETUPS ) ) + 
+&lt;br&gt;            ( avg ( CSTS_INT_FAIL_UNSUCC_SETUP_AVE ) * sum ( CSTS_INTFAIL_ALL_UNSUCC_SETUP ) ) + 
+&lt;br&gt;            ( avg ( CSTS_EXT_FAIL_UNSUCC_SETUP_AVE ) * sum ( CSTS_EXTFAIL_ALL_UNSUCC_SETUP ) ) + 
+&lt;br&gt;            ( avg ( CSTS_SUBSFAIL_UNSUCC_SETUP_AVE ) * sum ( CSTS_SUBSFAIL_ALL_UNSUCC_SETUP ) )  
+&lt;br&gt;        -------------------------------------------------------------------------------------------- 
+&lt;br&gt;          sum ( 
+&lt;br&gt;              CSTS_NORM_RL_ALL_UNSUCC_SETUPS + 
+&lt;br&gt;              CSTS_INTFAIL_ALL_UNSUCC_SETUP + 
+&lt;br&gt;              CSTS_EXTFAIL_ALL_UNSUCC_SETUP + 
+&lt;br&gt;              CSTS_SUBSFAIL_ALL_UNSUCC_SETUP 
+ &lt;br&gt;             ) 
+&lt;br&gt;counters from view(s): 
+&lt;br&gt;RNS_PS_CSTS_MSC_{time_agg}</formula>
+      <unit>[Seconds]</unit>
+      <tables>rns_ps_csts_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Average unsuccessful setup time]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

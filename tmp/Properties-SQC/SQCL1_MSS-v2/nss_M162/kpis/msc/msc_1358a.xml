@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TBSCTC_ext.xml" />
+  <kpi name="msc_1358a">
+    <formula>
+		decode(tbsctc_ext.bscrnc_calls_tcid_9,0,null,
+		
+		100* (tbsctc_ext.bscrnc_ring_tcid_9)
+		/
+		(tbsctc_ext.bscrnc_calls_tcid_9))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[2G Originating successful voice calls ratio per BSC]]></title>
+      <use><![CDATA[Percentage of voice calls originated in the measured BSC that reached the &quot;ringing&quot; phase.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_IDs:
+<br>9 => VOICE ORIG
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 17-11-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC-BSCM;TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC-BSCM;TCAT
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic Measurement per BSC/RNC (M399)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>          sum(BSCRNC_RING); where Tcat_ID=9
+<br>100 * ----------------------------------
+<br>          sum(BSCRNC_CALLS); where Tcat_ID=9
+<br>
+<br>Use AGGREGATED view(s)/table(s)
+<br>
+<br>Use view(s):
+<br>RNS_P_TBSCTC_&lt;Object&gt;_&lt;Time&gt;]]></formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_TBSCTC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.807 +0000</date>
+          <comment><![CDATA[Source: RSMSC060.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>2G VOICE ORIG call SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

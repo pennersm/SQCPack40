@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_911a">
+    <formula>decode(
+			(softho.cell_add_req_on_sho_hsdpa + 
+			softho.cell_del_req_on_sho_hsdpa + 
+			softho.cell_repl_req_on_sho_hsdpa),0,null, 
+
+			100*(softho.succ_updates_on_sho_hsdpa)
+			 / 
+			(softho.cell_add_req_on_sho_hsdpa + 
+			softho.cell_del_req_on_sho_hsdpa + 
+			softho.cell_repl_req_on_sho_hsdpa))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA associated UL SHO success rate]]></title>
+      <use><![CDATA[HSDPA associated UL SHO success rate]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum( SUCC_UPDATES_ON_SHO_HSDPA )
+&lt;br&gt;--------------------------------------
+&lt;br&gt;sum( CELL_ADD_REQ_ON_SHO_HSDPA
+&lt;br&gt;   + CELL_DEL_REQ_ON_SHO_HSDPA
+&lt;br&gt;   + CELL_REPL_REQ_ON_SHO_HSDPA )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_softho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSDPA associated UL SHO success rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

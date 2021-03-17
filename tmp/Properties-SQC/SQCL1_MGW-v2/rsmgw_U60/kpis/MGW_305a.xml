@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="MGW_305a">
+    <formula>100*decode(
+			(conn.all_atm_cas - 
+			conn.all_atm_cas_unsuccess + 
+			conn.all_ip_cas - 
+			conn.all_ip_cas_unsuccess + 
+			conn.all_tdm_cas - 
+			conn.all_tdm_cas_unsuccess),0,null, 
+
+			(conn.all_ip_cas - 
+			conn.all_ip_cas_unsuccess)
+			 / 
+			(conn.all_atm_cas - 
+			conn.all_atm_cas_unsuccess + 
+			conn.all_ip_cas - 
+			conn.all_ip_cas_unsuccess + 
+			conn.all_tdm_cas - 
+			conn.all_tdm_cas_unsuccess))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful IP termination reservation attempts]]></title>
+      <use><![CDATA[Indicates the share of successful IP termination reservation attempts of all successful ATM, IP and TDM termination reservation attempts in measured ISU]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(ALL_IP_CAS - ALL_IP_CAS_UNSUCCESS) /sum((ALL_ATM_CAS - ALL_ATM_CAS_UNSUCCESS) 
+&lt;br&gt;+ (ALL_IP_CAS - ALL_IP_CAS_UNSUCCESS) + (ALL_TDM_CAS - ALL_TDM_CAS_UNSUCCESS))</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of successful IP termination reservation attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

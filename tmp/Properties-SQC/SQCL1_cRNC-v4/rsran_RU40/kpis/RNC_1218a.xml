@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1218a">
+    <formula>decode(
+			(servlev.succ_rrc_setup_conv + 
+			servlev.succ_rrc_setup_strea + 
+			servlev.succ_rrc_setup_intera + 
+			servlev.succ_rrc_setup_backg + 
+			servlev.succ_rrc_setup_other),0,null, 
+
+			(100*(1 - 
+			((servlev.srb_act_fail_conv + 
+			servlev.srb_act_fail_strea + 
+			servlev.srb_act_fail_intera + 
+			servlev.srb_act_fail_backg + 
+			servlev.srb_act_fail_other)
+			 / 
+			(servlev.succ_rrc_setup_conv + 
+			servlev.succ_rrc_setup_strea + 
+			servlev.succ_rrc_setup_intera + 
+			servlev.succ_rrc_setup_backg + 
+			servlev.succ_rrc_setup_other)))))</formula>
+    <kpi_info>
+      <title><![CDATA[Standalone SRB Success Rate]]></title>
+      <use><![CDATA[This KPI provides the standalone SRB success rate.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(1- (SUM(SRB_ACT_FAIL_CONV
+&lt;br&gt;                  + SRB_ACT_FAIL_STREA
+&lt;br&gt;                  + SRB_ACT_FAIL_INTERA
+&lt;br&gt;                  + SRB_ACT_FAIL_BACKG
+&lt;br&gt;                  + SRB_ACT_FAIL_OTHER)
+&lt;br&gt;-----------------------------------------------
+&lt;br&gt;SUM(SUCC_RRC_SETUP_CONV 
+&lt;br&gt;                  + SUCC_RRC_SETUP_STREA
+&lt;br&gt;                  + SUCC_RRC_SETUP_INTERA
+&lt;br&gt;                  + SUCC_RRC_SETUP_BACKG
+&lt;br&gt;                  + SUCC_RRC_SETUP_OTHER)))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Standalone SRB SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FPHB.xml" />
+  <kpi name="RNC_1641a">
+    <formula>decode(
+			(fphb.ifoctets_ef + 
+			fphb.ifoctets_af4 + 
+			fphb.ifoctets_af3 + 
+			fphb.ifoctets_af2 + 
+			fphb.ifoctets_af1 + 
+			fphb.ifoctets_be),0,null, 
+
+			(100*(fphb.ifdroppedoctets_ef + 
+			fphb.ifdroppedoctets_af4 + 
+			fphb.ifdroppedoctets_af3 + 
+			fphb.ifdroppedoctets_af2 + 
+			fphb.ifdroppedoctets_af1 + 
+			fphb.ifdroppedoctets_be)
+			 / 
+			(fphb.ifoctets_ef + 
+			fphb.ifoctets_af4 + 
+			fphb.ifoctets_af3 + 
+			fphb.ifoctets_af2 + 
+			fphb.ifoctets_af1 + 
+			fphb.ifoctets_be)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iub octets dropped rate (BTS pov) - UL]]></title>
+      <use><![CDATA[This KPI provides information about the IP layer octets dropped rate in BTS for PHB specific volume calculation in uplink direction]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(ifDroppedOctets_EF
+&lt;br&gt; + ifDroppedOctets_AF4
+&lt;br&gt; + ifDroppedOctets_AF3
+&lt;br&gt; + ifDroppedOctets_AF2
+&lt;br&gt; + ifDroppedOctets_AF1
+&lt;br&gt; + ifDroppedOctets_BE)
+&lt;br&gt;------------
+&lt;br&gt;SUM(ifOctets_EF
+&lt;br&gt;+ifOctets_AF4
+&lt;br&gt;+ifOctets_AF3
+&lt;br&gt;+ifOctets_AF2
+&lt;br&gt;+ifOctets_AF1
+&lt;br&gt;+ifOctets_BE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_fphb_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP oct Drop thp BTS, UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

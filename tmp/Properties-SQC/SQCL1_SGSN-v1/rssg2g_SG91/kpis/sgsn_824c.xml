@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IURA.xml"/>
+  <kpi name="sgsn_824c">
+    <formula>decode(
+			((IURA.RAB_MODIFICATION_ATTEMPTS)),0,NULL, 
+
+			((IURA.RAB_MODIFICATION_ATTEMPTS - 
+			(IURA.RAB_MODIFICATION_FAILED + 
+			IURA.RAB_MOD_REQ_TRAF_CLASS_NA + 
+			IURA.RAB_MOD_INV_PARAM_VALUES + 
+			IURA.RAB_MOD_REQ_MAX_BIT_RATE_NA + 
+			IURA.RAB_MOD_REQ_MAX_DL_BIT_R_NA + 
+			IURA.RAB_MOD_REQ_MAX_UL_BIT_R_NA + 
+			IURA.RAB_MOD_REQ_GUA_BIT_RATE_NA + 
+			IURA.RAB_MOD_REQ_GUA_DL_BIT_R_NA + 
+			IURA.RAB_MOD_REQ_GUA_UL_BIT_R_NA + 
+			IURA.RAB_MOD_REQ_TRANSF_DELAY_NA + 
+			IURA.RAB_MOD_INV_PARAM_COMBINAT + 
+			IURA.RAB_MOD_COND_VIOL_SDU_PARAM + 
+			IURA.RAB_MOD_COND_VIOL_THP + 
+			IURA.RAB_MOD_COND_VIOL_GBR + 
+			IURA.RAB_MOD_USER_PLANE_NOT_SUPP + 
+			IURA.RAB_MOD_IU_UP_FAILURE + 
+			IURA.RAB_MOD_IU_TRANSP_CONN_FAIL)))
+			 / 
+			((IURA.RAB_MODIFICATION_ATTEMPTS)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[RAB modification success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of radio access bearer modification attempts]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(RAB_MODIFICATION_ATTEMPTS - 
+&lt;br&gt;   (RAB_MODIFICATION_FAILED +
+&lt;br&gt;   RAB_MOD_REQ_TRAF_CLASS_NA +
+&lt;br&gt;   RAB_MOD_INV_PARAM_VALUES +
+&lt;br&gt;   RAB_MOD_REQ_MAX_BIT_RATE_NA +
+&lt;br&gt;   RAB_MOD_REQ_MAX_DL_BIT_R_NA +
+&lt;br&gt;   RAB_MOD_REQ_MAX_UL_BIT_R_NA +
+&lt;br&gt;   RAB_MOD_REQ_GUA_BIT_RATE_NA +
+&lt;br&gt;   RAB_MOD_REQ_GUA_DL_BIT_R_NA +
+&lt;br&gt;   RAB_MOD_REQ_GUA_UL_BIT_R_NA +
+&lt;br&gt;   RAB_MOD_REQ_TRANSF_DELAY_NA +
+&lt;br&gt;   RAB_MOD_INV_PARAM_COMBINAT +
+&lt;br&gt;   RAB_MOD_COND_VIOL_SDU_PARAM +
+&lt;br&gt;   RAB_MOD_COND_VIOL_THP +
+&lt;br&gt;   RAB_MOD_COND_VIOL_GBR +
+&lt;br&gt;   RAB_MOD_USER_PLANE_NOT_SUPP +
+&lt;br&gt;   RAB_MOD_IU_UP_FAILURE +
+&lt;br&gt;   RAB_MOD_IU_TRANSP_CONN_FAIL))
+&lt;br&gt;----------------------------------- *100
+&lt;br&gt;sum(RAB_MODIFICATION_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IURA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RAB modification SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSG2G Combi-SGSN SG91</report_version>
+    <release number="5.9.2-64" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSG2G012 - SGSN Paging</header>
+    <csv_title>SGSN Paging</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[<br>Report gives information about SGSN level paging procedures.
+<br>This are purely related to PS pagings.
+<br>Note, to see the full content of this report the optional feature code 3477 must be purchased and activated in the SGSN.
+<br>Use case specific instructions:
+<br>- For information about Routing Area level pagings, run reports '2G RA Paging' and '3G RA PAging'.
+<br>- Even if Gs interface is used (NMO I) and CS pagings are sent through the SGSN, the counters used in the formulas above are only counting PS pagings. 
+<br>- In order to calculate success ratios for CS-pagings-via-SGSN, it is necessary to go to the MSC to find the relevant counters.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/02/09 11:28:45.467 +0000</date>
+        <comment><![CDATA[Source: rssg2g012.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>SGSN Paging</report-description>
+    <report-title>SGSN Paging</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <sgsn_833a ui_name="Att" group="Gb Paging" chartType="bar" yAxis="2" />
+    <sgsn_832a ui_name="Succ" group="Gb Paging" report_drill="RSSG2G_2G_RA_Paging" />
+    <sgsn_2197a ui_name="Att" group="Gb Paging trig S-GW" chartType="bar" yAxis="2" />
+    <sgsn_2198a ui_name="Succ" group="Gb Paging trig S-GW" />
+    <sgsn_831a ui_name="Att" group="Iu Paging" chartType="bar" yAxis="2" />
+    <sgsn_830a ui_name="Succ" group="Iu Paging" report_drill="RSSG2G_3G_RA_Paging" />
+  </column_order>
+  <report_drill id="RSSG2G_2G_RA_Paging" >
+	<drill uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_2G_Mobility_and_Session_management_uiConf.xml"/>
+		</param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G077.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to 2G RA Paging report"/>
+		</param>
+	</drill>
+  </report_drill>
+  <report_drill id="RSSG2G_3G_RA_Paging" >
+	<drill uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_3G_Mobility_and_Session_Management_uiConf.xml"/>
+		</param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G078.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to 3G RA Paging report"/>
+		</param>
+	</drill>
+  </report_drill>
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_833a.xml#sgsn_833a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_832a.xml#sgsn_832a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2197a.xml#sgsn_2197a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2198a.xml#sgsn_2198a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_831a.xml#sgsn_831a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_830a.xml#sgsn_830a" />
+</conf_file>
+

@@ -1,0 +1,4330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf>
+  <level name="MSC" rank="25">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MSC" column="co_gid" />
+      </id-components>
+      <filter-attribute>msc.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select        
+		msc.co_gid, nvl(msc.co_name, nvl(msc.co_object_instance, 'NN('||msc.co_gid||')')) name
+      from
+        utp_common_objects plmn,
+        utp_common_objects msc
+      where
+        msc.co_parent_gid = plmn.co_gid and
+        msc.co_oc_id=107 and
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="HLR" rank="35">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="HLR" column="co_gid" />
+      </id-components>
+      <filter-attribute>plmn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select        
+		hlr.co_gid, nvl(hlr.co_name, nvl(hlr.co_object_instance, 'NN('||hlr.co_gid||')')) name
+      from
+          utp_common_objects plmn,
+        utp_common_objects hlr
+      where
+        hlr.co_parent_gid = plmn.co_gid and
+        hlr.co_oc_id=108 and
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="SRR" rank="45">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="SRR" column="co_gid" />
+      </id-components>
+      <filter-attribute>plmn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select
+        srr.co_gid, nvl(srr.co_name, 'NN('||srr.co_gid||')') name
+      from
+        utp_common_objects plmn,
+        utp_common_objects srr
+      where
+        srr.co_parent_gid = plmn.co_gid and
+        srr.co_oc_id=581 and
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="CDS" rank="55">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="CDS" column="co_gid" />
+      </id-components>
+      <filter-attribute>plmn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select        
+		cds.co_gid, nvl(cds.co_name, nvl(cds.co_object_instance, 'NN('||cds.co_gid||')')) name
+      from
+          utp_common_objects plmn,
+        utp_common_objects cds
+      where
+        cds.co_parent_gid = plmn.co_gid and
+        cds.co_oc_id=1226 and
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="BSCM" rank="65">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MSC" column="msc_gid" />
+        <id level="BSCM" column="bscm_id" />
+      </id-components>
+      <filter-attribute>msc.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        msc.co_gid msc_gid,
+        p1.bscm_id bscm_id,
+        nvl(msc.co_name, nvl(msc.co_object_instance, 'NN('||msc.co_gid||')'))||'/'||p1.bscm_id name
+      from
+        utp_common_objects msc,
+        RNS_PD_BSCM_OBJECTS p1
+      where
+
+        msc.co_gid = p1.msc_gid and
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="RNCMNBSC" rank="75">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MSC" column="msc_gid" />
+        <id level="RNCMNBSC" column="rncmnbsc_id" />
+      </id-components>
+      <filter-attribute>msc.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        msc.co_gid msc_gid,
+        p1.rncmnbsc_id rncmnbsc_id,
+        nvl(msc.co_name, nvl(msc.co_object_instance, 'NN('||msc.co_gid||')'))||'/'||p1.rncmnbsc_id name
+      from
+        utp_common_objects msc,
+        RNS_PD_RNCMNBSC_OBJECTS p1
+      where
+
+        msc.co_gid = p1.msc_gid and
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+   <level name="ACCESS" rank="640">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ACCESS" column="access_id" />
+      </id-components>
+      <filter-attribute>p1.access_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.access_id access_id,
+        p1.access_id name
+      from
+        RNS_PD_ACCESS_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+
+   <level name="AIUR" rank="85">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="AIUR" column="aiur_id" />
+      </id-components>
+      <filter-attribute>p1.aiur_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.aiur_id aiur_id,
+        p1.aiur_id name
+      from
+        RNS_PD_AIUR_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="ALT" rank="580">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ALT" column="ALT_id" />
+      </id-components>
+      <filter-attribute>p1.alt_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.alt_id alt_id,
+        'NN('||p1.alt_id||')'||'/'||p1.alt_id name
+      from
+        RNS_PD_ALT_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="ALT1" rank="580">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+	    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ALT" column="ALT_id" />
+      </id-components>
+      <filter-attribute>p1.alt_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.alt_id alt_id,
+        'NN('||p1.alt_id||')'||'/'||p1.alt_id name
+      from
+        RNS_PD_ALT_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="ANN" rank="95">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ANN" column="ann_id" />
+      </id-components>
+      <filter-attribute>p1.ann_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ann_id ann_id,
+        'NN('||p1.ann_id||')'||'/'||p1.ann_id name
+      from
+        RNS_PD_ANN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+    <level name="ASSOIND1" rank="260">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ASSOIND" column="assoind_id" />
+      </id-components>
+      <filter-attribute>p1.assoind_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.assoind_id assoind_id,
+        p1.assoind_id name
+      from
+        RNS_PD_ASSOIND_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="ASSOIND" rank="260">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ASSOSET" column="assoset_id" />
+        <id level="ASSOIND" column="assoind_id" />
+      </id-components>
+      <filter-attribute>p1.assoind_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+            p1.assoset_id assoset_id,
+        p1.assoind_id assoind_id,
+         p1.assoset_id || '/' || p1.assoind_id name
+      from
+        RNS_PD_ASSOIND_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+      <level name="ASSOSET" rank="245">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ASSOSET" column="assoset_id" />
+      </id-components>
+      <filter-attribute>p1.assoset_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.assoset_id assoset_id,
+        p1.assoset_id name
+      from
+        RNS_PD_ASSOSET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+
+  <level name="ATTRNAME" rank="585">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ALT" column="alt_id" />
+        <id level="ATTRNAME" column="attrname_id" />
+      </id-components>
+      <filter-attribute>p1.attrname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.alt_id alt_id,
+        p1.attrname_id attrname_id,
+        p1.alt_id || '/' ||p1.attrname_id name
+      from
+        RNS_PD_ATTRNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="ATTRNAME1" rank="585">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+  	<time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ALT" column="alt_id" />
+        <id level="ATTRNAME" column="attrname_id" />
+      </id-components>
+      <filter-attribute>p1.attrname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.alt_id alt_id,
+        p1.attrname_id attrname_id,
+        p1.alt_id || '/' ||p1.attrname_id name
+      from
+        RNS_PD_ATTRNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+  <level name="BSERVICE" rank="395">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="BSERVICE" column="bservice_id" />
+      </id-components>
+      <filter-attribute>p1.bservice_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.bservice_id bservice_id,
+        p1.bservice_id name
+      from
+        RNS_PD_BSERVICE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="CALLTYPE" rank="205">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CALLTYPE" column="calltype_id" />
+      </id-components>
+      <filter-attribute>p1.calltype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.calltype_id calltype_id,
+        p1.calltype_id name
+      from
+        RNS_PD_CALLTYPE_OBJECTS   p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+ <level name="CALLTYPE1" rank="205">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CALLTYPE" column="calltype_id" />
+      </id-components>
+      <filter-attribute>p1.calltype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.calltype_id calltype_id,
+        p1.calltype_id name
+      from
+        RNS_PD_CALLTYPE_OBJECTS   p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="CC_NSS" rank="435">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CC_NSS" column="cc_id" />
+      </id-components>
+      <filter-attribute>p1.cc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cc_id cc_id,
+        p1.cc_id name
+      from
+        RNS_PD_CC_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+ <level name="CC1_NSS" rank="435">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CC_NSS" column="cc_id" />
+      </id-components>
+      <filter-attribute>p1.cc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cc_id cc_id,
+        p1.cc_id name
+      from
+        RNS_PD_CC_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="CDRTYPE" rank="500">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CDRTYPE" column="cdrtype_id" />
+      </id-components>
+      <filter-attribute>p1.cdrtype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cdrtype_id cdrtype_id,
+        p1.cdrtype_id name
+      from
+        RNS_PD_CDRTYPE_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="CGR" rank="150">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CGR" column="cgr_id" />
+      </id-components>
+      <filter-attribute>p1.cgr_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cgr_id cgr_id,
+        p1.cgr_id name
+      from
+        RNS_PD_CGR_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="CGR1" rank="150">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CGR" column="cgr_id" />
+      </id-components>
+      <filter-attribute>p1.cgr_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cgr_id cgr_id,
+        p1.cgr_id name
+      from
+        RNS_PD_CGR_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="CGRDIR" rank="280">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CGRDIR" column="cgrdir_id" />
+      </id-components>
+      <filter-attribute>p1.cgrdir_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cgrdir_id cgrdir_id,
+        decode(cgrdir_id,
+		'1', '1 - outgoing', 
+		'2', '2 - incoming', 
+		'3', '3 - bidirectional',
+		'---'
+        ) name
+      from
+        RNS_PD_CGRDIR_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="CGRDIR1" rank="280">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CGRDIR" column="cgrdir_id" />
+      </id-components>
+      <filter-attribute>p1.cgrdir_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cgrdir_id cgrdir_id,
+        decode(cgrdir_id,
+		'1', '1 - outgoing', 
+		'2', '2 - incoming', 
+		'3', '3 - bidirectional',
+		'---'
+        ) name
+      from
+        RNS_PD_CGRDIR_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+
+
+   <level name="CGRNAME" rank="185">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CGR" column="cgr_id" />
+        <id level="CGRNAME" column="cgrname_id" />
+      </id-components>
+      <filter-attribute>p1.cgrname_id</filter-attribute>  Falta uma coisa
+
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cgr_id cgr_id,
+        p1.cgrname_id cgrname_id,
+        p1.cgr_id || '/' || p1.cgrname_id name
+      from
+        RNS_PD_CGRNAME_OBJECTS p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+   <level name="CGRNAME1" rank="185">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CGR" column="cgr_id" />
+        <id level="CGRNAME" column="cgrname_id" />
+      </id-components>
+      <filter-attribute>p1.cgrname_id</filter-attribute>  Falta uma coisa
+
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cgr_id cgr_id,
+        p1.cgrname_id cgrname_id,
+        p1.cgr_id || '/' || p1.cgrname_id name
+      from
+        RNS_PD_CGRNAME_OBJECTS p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="CI_NSS" rank="270">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CI_NSS" column="ci_id" />
+      </id-components>
+      <filter-attribute>p1.ci_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ci_id ci_id,
+        p1.ci_id name
+      from
+        RNS_PD_CI_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="CI_NSS1" rank="270">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CI_NSS" column="ci_id" />
+      </id-components>
+      <filter-attribute>p1.ci_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ci_id ci_id,
+        p1.ci_id name
+      from
+        RNS_PD_CI_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="CODEC" rank="255">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CODEC" column="codec_id" />
+      </id-components>
+      <filter-attribute>p1.codec_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.codec_id codec_id,
+        p1.codec_id name
+      from
+        RNS_PD_CODEC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+	<!-- NSS M16 -->
+	<level name="NSS-DB" rank="470">
+
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+
+      <id-components>
+
+        <id level="NSS-DB" column="db_id" />
+
+      </id-components>
+
+      <name column="name" />
+
+      <sql><![CDATA[select distinct
+				p1.db_id db_id,
+				p1.db_id name
+			from
+				RNS_PD_DB_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+
+    </processor>
+
+  </level>
+
+	<!-- end NSS M16 -->
+
+	<!-- NSS M15 -->
+	<level name="MN" rank="471">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MN" column="mn_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.mn_id mn_id,
+				p1.mn_id name
+			from
+				RNS_PD_MN_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+	<level name="SM" rank="472">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SM" column="sm_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.sm_id sm_id,
+				p1.sm_id name
+			from
+				RNS_PD_SM_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+	<level name="EVE" rank="473">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="EVE" column="eve_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.eve_id eve_id,
+				p1.eve_id name
+			from
+				RNS_PD_EVE_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>  
+	<level name="MME_ID" rank="474">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MME_ID" column="mmeid_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.mmeid_id mmeid_id,
+				p1.mmeid_id name
+			from
+				RNS_PD_MMEID_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>  
+
+	<!-- end NSS M15 -->
+
+ <level name="DCH" rank="385">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DCH" column="dch_id" />
+      </id-components>
+      <filter-attribute>p1.dch_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dch_id dch_id,
+        p1.dch_id name
+      from
+        RNS_PD_DCH_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+ <level name="DCH1" rank="385">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DCH" column="dch_id" />
+      </id-components>
+      <filter-attribute>p1.dch_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dch_id dch_id,
+        p1.dch_id name
+      from
+        RNS_PD_DCH_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="DESTDIR" rank="525">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DESTDIR" column="destdir_id" />
+      </id-components>
+      <filter-attribute>p1.destdir_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.destdir_id destdir_id,
+        decode(destdir_id,
+		'1', '1 - incoming', 
+		'2', '2 - outgoing', 
+		'3', '3 - bidirectional',
+		'---'
+        ) name		
+      from
+        RNS_PD_DESTDIR1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="DEST" rank="425">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DEST" column="dest_id" />
+      </id-components>
+      <filter-attribute>p1.dest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dest_id dest_id,
+        p1.dest_id name
+      from
+        RNS_PD_DEST_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="DEST1" rank="425">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <id-components>
+        <id level="DEST" column="dest_id" />
+      </id-components>
+      <filter-attribute>p1.dest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dest_id dest_id,
+        p1.dest_id name
+      from
+        RNS_PD_DEST_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="DESTTYPE" rank="275">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DESTTYPE" column="desttype_id" />
+      </id-components>
+      <filter-attribute>p1.desttype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.desttype_id desttype_id,
+        decode(desttype_id,
+		'10', '10 - national', 
+		'11', '11 - international', 
+		'12', '12 - subscriber', 
+		'255', '255 - not in use',
+		'---'
+        ) name
+      from
+        RNS_PD_DESTTYPE1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="DESTTYPE1" rank="275">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DESTTYPE" column="desttype_id" />
+      </id-components>
+      <filter-attribute>p1.desttype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.desttype_id desttype_id,
+        decode(desttype_id,
+		'10', '10 - national', 
+		'11', '11 - international', 
+		'12', '12 - subscriber', 
+		'255', '255 - not in use',
+		'---'
+        ) name
+      from
+        RNS_PD_DESTTYPE1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+    <level name="DID" rank="595">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DTYPE" column="dtype_id" />
+        <id level="DID" column="did_id" />
+      </id-components>
+      <filter-attribute>p1.did_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+           p1.dtype_id dtype_id,
+        p1.did_id did_id,
+        p1.dtype_id || '/' ||p1.did_id name
+      from
+        RNS_PD_DID_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+   <level name="DID1" rank="595">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+  	<time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DTYPE" column="dtype_id" />
+        <id level="DID" column="did_id" />
+      </id-components>
+      <filter-attribute>p1.did_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+           p1.dtype_id dtype_id,
+        p1.did_id did_id,
+        p1.dtype_id || '/' ||p1.did_id name
+      from
+        RNS_PD_DID_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+    <level name="DIRE" rank="630">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DIRE" column="dire_id" />
+      </id-components>
+      <filter-attribute>p1.dire_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dire_id dire_id,
+        p1.dire_id name
+      from
+        RNS_PD_DIRE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="DMODE" rank="600">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DTYPE" column="dtype_id" />
+        <id level="DID" column="did_id" />
+        <id level="DMODE" column="dmode_id" />
+      </id-components>
+      <filter-attribute>p1.dmode_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+               p1.dtype_id dtype_id,
+        p1.did_id did_id,
+        p1.dmode_id dmode_id,
+        p1.dtype_id || '/' || p1.did_id || '/' || p1.dmode_id name
+      from
+        RNS_PD_DMODE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="DMODE1" rank="600">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+ 	<time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DTYPE" column="dtype_id" />
+        <id level="DID" column="did_id" />
+        <id level="DMODE" column="dmode_id" />
+      </id-components>
+      <filter-attribute>p1.dmode_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+               p1.dtype_id dtype_id,
+        p1.did_id did_id,
+        p1.dmode_id dmode_id,
+        p1.dtype_id || '/' || p1.did_id || '/' || p1.dmode_id name
+      from
+        RNS_PD_DMODE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+ <level name="DNI" rank="415">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DNI" column="dni_id" />
+      </id-components>
+      <filter-attribute>p1.dni_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dni_id dni_id,
+        p1.dni_id name
+      from
+        RNS_PD_DNI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+
+ <level name="DNINAME" rank="620">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DNI" column="dni_id" />
+        <id level="DNINAME" column="dniname_id" />
+      </id-components>
+      <filter-attribute>p1.dniname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dni_id dni_id,
+        p1.dniname_id dniname_id,
+        p1.dni_id || '/' || p1.dniname_id name
+      from
+        RNS_PD_DNINAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+ <level name="DSPC" rank="520">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DSPC" column="dspc_id" />
+      </id-components>
+      <filter-attribute>p1.dspc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dspc_id dspc_id,
+        p1.dspc_id name
+      from
+        RNS_PD_DSPC_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="DTYPE" rank="590">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DTYPE" column="dtype_id" />
+      </id-components>
+      <filter-attribute>p1.dtype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dtype_id dtype_id,
+        p1.dtype_id name
+      from
+        RNS_PD_DTYPE_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="DTYPE1" rank="590">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+  	<time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DTYPE" column="dtype_id" />
+      </id-components>
+      <filter-attribute>p1.dtype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dtype_id dtype_id,
+        p1.dtype_id name
+      from
+        RNS_PD_DTYPE_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+   <level name="EIRLIST" rank="405">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="EIRLIST" column="eirlist_id" />
+      </id-components>
+      <filter-attribute>p1.dtype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.eirlist_id eirlist_id,
+        p1.eirlist_id name
+      from
+        RNS_PD_EIRLIST_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="EIRLIST1" rank="405">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="EIRLIST" column="eirlist_id" />
+      </id-components>
+      <filter-attribute>p1.dtype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.eirlist_id eirlist_id,
+        p1.eirlist_id name
+      from
+        RNS_PD_EIRLIST_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="EVENT" rank="310">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="EVENT" column="event_id" />
+      </id-components>
+      <filter-attribute>p1.event_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.event_id event_id,
+        p1.event_id name
+      from
+        RNS_PD_EVENT_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="FNUR" rank="225">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FNUR" column="fnur_id" />
+      </id-components>
+      <filter-attribute>p1.fnur_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.fnur_id fnur_id,
+        p1.fnur_id name
+      from
+        RNS_PD_FNUR_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="FQDN" rank="430">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FQDN" column="fqdn_id" />
+      </id-components>
+      <filter-attribute>p1.fnur_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.fqdn_id fqdn_id,
+        p1.fqdn_id name
+      from
+        RNS_PD_FQDN_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="IMEI" rank="615">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="IMEI" column="eirlist_id" />
+        <id level="IMEI" column="imei_id" />
+      </id-components>
+      <filter-attribute>p1.imei_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+            p1.eirlist_id eirlist_id,
+        p1.imei_id imei_id,
+        p1.eirlist_id || '/' || p1.imei_id name
+      from
+        RNS_PD_IMEI_OBJECTS p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="IMEI1" rank="615">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <id-components>
+        <id level="IMEI" column="eirlist_id" />
+        <id level="IMEI" column="imei_id" />
+      </id-components>
+      <filter-attribute>p1.imei_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+            p1.eirlist_id eirlist_id,
+        p1.imei_id imei_id,
+        p1.eirlist_id || '/' || p1.imei_id name
+      from
+        RNS_PD_IMEI_OBJECTS p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="INDEST" rank="140">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INDEST" column="indest_id" />
+      </id-components>
+      <filter-attribute>p1.indest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.indest_id indest_id,
+        p1.indest_id name
+      from
+        RNS_PD_INDEST_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="INDEST1" rank="140">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INDEST" column="indest_id" />
+      </id-components>
+      <filter-attribute>p1.indest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.indest_id indest_id,
+        p1.indest_id name
+      from
+        RNS_PD_INDEST_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="INDESTTYPE" rank="135">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INDESTTYPE" column="indesttype_id" />
+      </id-components>
+      <filter-attribute>p1.indesttype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.indesttype_id indesttype_id,
+        p1.indesttype_id name
+      from
+        RNS_PD_INDESTTYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="INDESTTYPE1" rank="135">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INDESTTYPE" column="indesttype_id" />
+      </id-components>
+      <filter-attribute>p1.indesttype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.indesttype_id indesttype_id,
+        p1.indesttype_id name
+      from
+        RNS_PD_INDESTTYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="INSERVICE" rank="720">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INSERVICE" column="inservice_id" />
+      </id-components>
+      <filter-attribute>p1.inservice_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.inservice_id inservice_id,
+        p1.inservice_id name
+      from
+        RNS_PD_INSERVICE1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="INSERVICE1" rank="720">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INSERVICE" column="inservice_id" />
+      </id-components>
+      <filter-attribute>p1.inservice_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.inservice_id inservice_id,
+        p1.inservice_id name
+      from
+        RNS_PD_INSERVICE1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="LAC_NSS" rank="220">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LAC_NSS" column="lac_id" />
+      </id-components>
+      <filter-attribute>p1.lac_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.lac_id lac_id,
+        p1.lac_id name
+      from
+        RNS_PD_LAC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="LAC_NSS1" rank="220">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LAC_NSS" column="lac_id" />
+      </id-components>
+      <filter-attribute>p1.lac_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.lac_id lac_id,
+        p1.lac_id name
+      from
+        RNS_PD_LAC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="MCCM" rank="195">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MCCM" column="mccm_id" />
+      </id-components>
+      <filter-attribute>p1.mccm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mccm_id mccm_id,
+        p1.mccm_id name
+      from
+        RNS_PD_MCCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="MCCM1" rank="195">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MCCM" column="mccm_id" />
+      </id-components>
+      <filter-attribute>p1.mccm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mccm_id mccm_id,
+        p1.mccm_id name
+      from
+        RNS_PD_MCCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="MGWM" rank="190">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MGWM" column="mgwm_id" />
+      </id-components>
+      <filter-attribute>p1.mgwm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mgwm_id mgwm_id,
+        p1.mgwm_id name
+      from
+        RNS_PD_MGWM1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="MGWM1" rank="190">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MGWM" column="mgwm_id" />
+      </id-components>
+      <filter-attribute>p1.mgwm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mgwm_id mgwm_id,
+        p1.mgwm_id name
+      from
+        RNS_PD_MGWM1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="MGWMNAME" rank="215">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MGWMNAME" column="mgwmname_id" />
+      </id-components>
+      <filter-attribute>p1.mgwmname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mgwmname_id mgwmname_id,
+        p1.mgwmname_id name
+      from
+        RNS_PD_MGWMNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="MGWMNAME1" rank="215">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MGWMNAME" column="mgwmname_id" />
+      </id-components>
+      <filter-attribute>p1.mgwmname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mgwmname_id mgwmname_id,
+        p1.mgwmname_id name
+      from
+        RNS_PD_MGWMNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+	 <level name="MGWID" rank="223">
+	    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+	    <time-levels>day,hour,raw,whole_period,week,bh,weekbh</time-levels>
+	      <!-- The required number of levels will be generated starting with the next non-transient level -->
+	      <id-components>
+	        <id level="MGWID" column="mgwid_id" />
+	      </id-components>
+	      <filter-attribute>p1.mgwid_id</filter-attribute>
+	      <name column="name" />
+	      <sql><![CDATA[select distinct
+	        p1.mgwid_id mgwid_id,
+	        p1.mgwid_id name
+	      from
+	        RNS_PD_MGWID_OBJECTS  p1
+	      where
+	        #object_filter#
+	      order by 2]]></sql>
+	    </processor>
+	 </level>
+
+  <level name="MNCM" rank="200">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MCCM" column="mccm_id" />
+        <id level="MNCM" column="mncm_id" />
+      </id-components>
+      <filter-attribute>p1.mncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+            p1.mccm_id mccm_id,
+        p1.mncm_id mncm_id,
+        p1.mccm_id ||'/'|| p1.mncm_id name
+      from
+        RNS_PD_MNCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="MNCM1" rank="200">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MCCM" column="mccm_id" />
+        <id level="MNCM" column="mncm_id" />
+      </id-components>
+      <filter-attribute>p1.mncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+            p1.mccm_id mccm_id,
+        p1.mncm_id mncm_id,
+        p1.mccm_id ||'/'|| p1.mncm_id name
+      from
+        RNS_PD_MNCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+  <level name="MT" rank="625">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MT" column="mt_id" />
+      </id-components>
+      <filter-attribute>p1.mt_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mt_id mt_id,
+        p1.mt_id name
+      from
+        RNS_PD_MT_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="NBSCM" rank="445">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NBSCM" column="nbscm_id" />
+      </id-components>
+      <filter-attribute>p1.nbscm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nbscm_id nbscm_id,
+        p1.nbscm_id name
+      from
+        RNS_PD_NBSCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="NCI" rank="570">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NLAC" column="nlac_id" />
+        <id level="NCI" column="nci_id" />
+      </id-components>
+      <filter-attribute>p1.nci_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nlac_id nlac_id,
+        p1.nci_id nci_id,
+        p1.nlac_id ||'/'|| p1.nci_id name
+      from
+        RNS_PD_NCI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+ <level name="NCI1" rank="570">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NLAC" column="nlac_id" />
+        <id level="NCI" column="nci_id" />
+      </id-components>
+      <filter-attribute>p1.nci_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nlac_id nlac_id,
+        p1.nci_id nci_id,
+        p1.nlac_id ||'/'|| p1.nci_id name
+      from
+        RNS_PD_NCI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+  <level name="NLAC" rank="565">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NLAC" column="nlac_id" />
+      </id-components>
+      <filter-attribute>p1.nlac_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nlac_id nlac_id,
+        p1.nlac_id name
+      from
+        RNS_PD_NLAC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="NLAC1" rank="565">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NLAC" column="nlac_id" />
+      </id-components>
+      <filter-attribute>p1.nlac_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nlac_id nlac_id,
+        p1.nlac_id name
+      from
+        RNS_PD_NLAC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="NMCCM" rank="475">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NMCCM" column="nmccm_id" />
+      </id-components>
+      <filter-attribute>p1.nmccm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nmccm_id nmccm_id,
+        p1.nmccm_id name
+      from
+        RNS_PD_NMCCM1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="NMGWM" rank="650">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NMGWM" column="nmgwm_id" />
+      </id-components>
+      <filter-attribute>p1.nmgwm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nmgwm_id nmgwm_id,
+        p1.nmgwm_id name
+      from
+        RNS_PD_NMGWM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="NMGWM1" rank="650">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NMGWM" column="nmgwm_id" />
+      </id-components>
+      <filter-attribute>p1.nmgwm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nmgwm_id nmgwm_id,
+        p1.nmgwm_id name
+      from
+        RNS_PD_NMGWM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="NMGWNAME" rank="290">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NMGWNAME" column="nmgwname_id" />
+      </id-components>
+      <filter-attribute>p1.nmgwname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nmgwname_id nmgwname_id,
+        p1.nmgwname_id name
+      from
+        RNS_PD_NMGWNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="NMNCM" rank="485">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NMCCM" column="nmccm_id" />
+        <id level="NMNCM" column="nmncm_id" />
+      </id-components>
+      <filter-attribute>p1.nmgwname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nmccm_id nmccm_id,
+        p1.nmncm_id nmncm_id,
+        p1.nmccm_id ||'/'||p1.nmncm_id name
+      from
+        RNS_PD_NMNCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+  <level name="NRNCM" rank="495">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NRNCM" column="nrncm_id" />
+      </id-components>
+      <filter-attribute>p1.nrncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nrncm_id nrncm_id,
+        p1.nrncm_id name
+      from
+        RNS_PD_NRNCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="OPC" rank="515">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OPC" column="opc_id" />
+      </id-components>
+      <filter-attribute>p1.opc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.opc_id opc_id,
+        p1.opc_id name
+      from
+        RNS_PD_OPC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="OUTDEST" rank="455">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OUTDEST" column="outdest_id" />
+      </id-components>
+      <filter-attribute>p1.outdest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.outdest_id outdest_id,
+        p1.outdest_id name
+      from
+        RNS_PD_OUTDEST_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+ <level name="OUTDEST1" rank="455">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OUTDEST" column="outdest_id" />
+      </id-components>
+      <filter-attribute>p1.outdest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.outdest_id outdest_id,
+        p1.outdest_id name
+      from
+        RNS_PD_OUTDEST_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="OUTDESTTYPE" rank="450">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OUTDESTTYPE" column="outdesttype_id" />
+      </id-components>
+      <filter-attribute>p1.outdesttype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.outdesttype_id outdesttype_id,
+        p1.outdesttype_id name
+      from
+        RNS_PD_OUTDESTTYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="OUTDESTTYPE1" rank="450">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OUTDESTTYPE" column="outdesttype_id" />
+      </id-components>
+      <filter-attribute>p1.outdesttype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.outdesttype_id outdesttype_id,
+        p1.outdesttype_id name
+      from
+        RNS_PD_OUTDESTTYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="PCM_NSS" rank="345">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PCM_NSS" column="pcm_id" />
+      </id-components>
+      <filter-attribute>p1.pcm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.pcm_id pcm_id,
+        p1.pcm_id name
+      from
+        RNS_PD_PCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="PLMNNAME" rank="100">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PLMNNAME" column="plmnname_id" />
+      </id-components>
+      <filter-attribute>p1.plmnname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.plmnname_id plmnname_id,
+        p1.plmnname_id name
+      from
+        RNS_PD_PLMNNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="PROTOCOL" rank="145">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PROTOCOL" column="protocol_id" />
+      </id-components>
+      <filter-attribute>p1.protocol_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.protocol_id protocol_id,
+        p1.protocol_id name
+      from
+        RNS_PD_PROTOCOL_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+ <level name="PROTOCOL1" rank="145">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PROTOCOL" column="protocol_id" />
+      </id-components>
+      <filter-attribute>p1.protocol_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.protocol_id protocol_id,
+        p1.protocol_id name
+      from
+        RNS_PD_PROTOCOL_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="CC1" rank="190">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CC1" column="cc_id" />
+      </id-components>
+      <filter-attribute>p1.cc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cc_id cc_id,
+        p1.cc_id name
+      from
+        RNS_PD_CC_OBJECTS  p1
+      where
+        #object_filter#
+       order by 2
+      ]]></sql>
+    </processor>
+  </level>
+
+  <level name="RNCM" rank="210">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="RNCM" column="rncm_id" />
+      </id-components>
+      <filter-attribute>p1.rncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.rncm_id rncm_id,
+        p1.rncm_id name
+      from
+        RNS_PD_RNCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+<level name="RNCM1" rank="190">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="RNCM1" column="rncm_id" />
+      </id-components>
+      <filter-attribute>p1.rncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.rncm_id rncm_id,
+        p1.rncm_id name
+      from
+        RNS_PD_RNCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="ROUTE_NSS" rank="545">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ROUTE_NSS" column="route_id" />
+      </id-components>
+      <filter-attribute>p1.rncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.route_id route_id,
+        p1.route_id name
+      from
+        RNS_PD_ROUTE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="SECEVNT" rank="305">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SECEVNT" column="secevnt_id" />
+      </id-components>
+      <filter-attribute>p1.rncm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.secevnt_id secevnt_id,
+        p1.secevnt_id name
+      from
+        RNS_PD_SECEVNT_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="SERVICE" rank="230">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SERVICE" column="service_id" />
+      </id-components>
+      <filter-attribute>p1.service_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.service_id service_id,
+        p1.service_id name
+      from
+        RNS_PD_SERVICE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="SIO" rank="505">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SIO" column="sio_id" />
+      </id-components>
+      <filter-attribute>p1.sio_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.sio_id sio_id,
+        p1.sio_id name
+      from
+        RNS_PD_SIO1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SLN" rank="130">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SLN" column="sln_id" />
+      </id-components>
+      <filter-attribute>p1.sln_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.sln_id sln_id,
+        p1.sln_id name
+      from
+        RNS_PD_SLN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SLSN" rank="465">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SLSN" column="slsn_id" />
+      </id-components>
+      <filter-attribute>p1.slsn_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.slsn_id slsn_id,
+        p1.slsn_id name
+      from
+        RNS_PD_SLSN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+   <level name="SMSCM" rank="295">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SMSCM" column="smscm_id" />
+      </id-components>
+      <filter-attribute>p1.smscm_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.smscm_id smscm_id,
+        p1.smscm_id name
+      from
+        RNS_PD_SMSCM_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SNET" rank="155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SNET" column="snet_id" />
+      </id-components>
+      <filter-attribute>p1.snet_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.snet_id snet_id,
+        p1.snet_id name
+      from
+        RNS_PD_SNET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+     <level name="SNET1" rank="155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SNET" column="snet_id" />
+      </id-components>
+      <filter-attribute>p1.snet_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.snet_id snet_id,
+        p1.snet_id name
+      from
+        RNS_PD_SNET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="SPC_NSS" rank="160">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SNET" column="snet_id" />
+        <id level="SPC_NSS" column="spc_id" />
+      </id-components>
+      <filter-attribute>p1.spc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.snet_id snet_id,
+        p1.spc_id spc_id,
+        p1.snet_id ||'/'|| p1.spc_id name
+      from
+        RNS_PD_SPC1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="SPC2" rank="160">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SNET" column="snet_id" />
+        <id level="SPC_NSS" column="spc_id" />
+      </id-components>
+      <filter-attribute>p1.spc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.snet_id snet_id,
+        p1.spc_id spc_id,
+        p1.snet_id ||'/'|| p1.spc_id name
+      from
+        RNS_PD_SPC1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+   <level name="SPC_NSS1" rank="165">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SPC_NSS1" column="spc_id" />
+      </id-components>
+      <filter-attribute>p1.spc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.spc_id spc_id,
+        p1.spc_id name
+      from
+        RNS_PD_SPC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="SPC_NSS2" rank="165">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SPC_NSS2" column="spc_id" />
+      </id-components>
+      <filter-attribute>p1.spc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.spc_id spc_id,
+        p1.spc_id name
+      from
+        RNS_PD_SPC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+     <level name="SPC3" rank="610">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+     <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SPC_NSS" column="spc_id" />
+      </id-components>
+      <filter-attribute>p1.spc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.spc_id spc_id,
+        p1.spc_id name
+      from
+        RNS_PD_SPC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SS" rank="670">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SS" column="ss_id" />
+      </id-components>
+      <filter-attribute>p1.ss_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ss_id ss_id,
+        p1.ss_id name
+      from
+        RNS_PD_SS_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="SS1" rank="670">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SS" column="ss_id" />
+      </id-components>
+      <filter-attribute>p1.ss_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ss_id ss_id,
+        p1.ss_id name
+      from
+        RNS_PD_SS_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SSERVICE" rank="660">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SSERVICE" column="sservice_id" />
+      </id-components>
+      <filter-attribute>p1.sservice_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.sservice_id sservice_id,
+        p1.sservice_id name
+      from
+        RNS_PD_SSERVICE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SSN" rank="575">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SSN" column="ssn_id" />
+      </id-components>
+      <filter-attribute>p1.ssn_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ssn_id ssn_id,
+        p1.ssn_id name
+      from
+        RNS_PD_SSN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+     <level name="SSN1" rank="575">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SSN" column="ssn_id" />
+      </id-components>
+      <filter-attribute>p1.ssn_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ssn_id ssn_id,
+        p1.ssn_id name
+      from
+        RNS_PD_SSN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="STP" rank="460">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="STP" column="stp_id" />
+      </id-components>
+      <filter-attribute>p1.stp_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.stp_id stp_id,
+        p1.stp_id name
+      from
+        RNS_PD_STP1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SUBDEST" rank="535">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SUBDEST" column="subdest_id" />
+      </id-components>
+      <filter-attribute>p1.subdest_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.subdest_id subdest_id,
+        p1.subdest_id name
+      from
+        RNS_PD_SUBDEST_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="TCAT" rank="315">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="TCAT" column="tcat_id" />
+      </id-components>
+      <filter-attribute>p1.tcat_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.tcat_id tcat_id,
+        p1.tcat_id name
+      from
+        RNS_PD_TCAT_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="TERM" rank="560">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MGWMNAME" column="mgwmname_id" />
+        <id level="TERM" column="term_id" />
+      </id-components>
+      <filter-attribute>p1.term_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mgwmname_id mgwmname_id,
+        p1.term_id term_id,
+        p1.mgwmname_id ||'/'|| p1.term_id name
+      from
+        RNS_PD_TERM1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+   <level name="TERM1" rank="560">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MGWMNAME" column="mgwmname_id" />
+        <id level="TERM" column="term_id" />
+      </id-components>
+      <filter-attribute>p1.term_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mgwmname_id mgwmname_id,
+        p1.term_id term_id,
+        p1.mgwmname_id ||'/'|| p1.term_id name
+      from
+        RNS_PD_TERM1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+
+
+   <level name="TICKETSERV" rank="250">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="TICKETSERV" column="ticketserv_id" />
+      </id-components>
+      <filter-attribute>p1.ticketserv_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ticketserv_id ticketserv_id,
+        p1.ticketserv_id name
+      from
+        RNS_PD_TICKETSERV_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="TICKETSERV1" rank="250">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="TICKETSERV" column="ticketserv_id" />
+      </id-components>
+      <filter-attribute>p1.ticketserv_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ticketserv_id ticketserv_id,
+        p1.ticketserv_id name
+      from
+        RNS_PD_TICKETSERV_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="TSL_NSS" rank="555">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PCM_NSS" column="pcm_id" />
+        <id level="TSL_NSS" column="tsl_id" />
+      </id-components>
+      <filter-attribute>p1.tsl_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.pcm_id pcm_id,
+        p1.tsl_id tsl_id,
+        p1.pcm_id ||'/'|| p1.tsl_id name
+      from
+        RNS_PD_TSL_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+   <level name="TYPE" rank="410">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="TYPE" column="type_id" />
+      </id-components>
+      <filter-attribute>p1.type_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.type_id type_id,
+        p1.type_id name
+      from
+        RNS_PD_TYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="UMTSAIUR" rank="325">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UMTSAIUR" column="umtsaiur_id" />
+      </id-components>
+      <filter-attribute>p1.umtsaiur_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.umtsaiur_id umtsaiur_id,
+        p1.umtsaiur_id name
+      from
+        RNS_PD_UMTSAIUR_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="UMTSFNUR" rank="335">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UMTSFNUR" column="umtsfnur_id" />
+      </id-components>
+      <filter-attribute>p1.umtsfnur_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.umtsfnur_id umtsfnur_id,
+        p1.umtsfnur_id name
+      from
+        RNS_PD_UMTSFNUR_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="UNIT" rank="165">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UNIT" column="unit_id" />
+      </id-components>
+      <filter-attribute>p1.unit_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.unit_id unit_id,
+        p1.unit_id name
+      from
+        RNS_PD_UNIT1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+     <level name="UNIT1" rank="165">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UNIT" column="unit_id" />
+      </id-components>
+      <filter-attribute>p1.unit_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.unit_id unit_id,
+        p1.unit_id name
+      from
+        RNS_PD_UNIT1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+<!-- M15.1 M406 - Capacity License Utilization Measurement - MSC + HLR FEATURE CODE -->
+	<level name="FEAC" rank="247">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="FEAC" column="feac_id" />
+      </id-components>
+      <filter-attribute>p1.feac_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.feac_id feac_id,
+        p1.feac_id name
+      from
+        RNS_PD_FEAC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+ <level name="UNITTYPE" rank="170">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UNITTYPE" column="unittype_id" />
+      </id-components>
+      <filter-attribute>p1.unittype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.unittype_id unittype_id,
+        p1.unittype_id name
+      from
+        RNS_PD_UNITTYPE1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+   <level name="UNITTYPE1" rank="170">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UNITTYPE" column="unittype_id" />
+      </id-components>
+      <filter-attribute>p1.unittype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.unittype_id unittype_id,
+        p1.unittype_id name
+      from
+        RNS_PD_UNITTYPE1_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="UPD" rank="240">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UPD" column="upd_id" />
+      </id-components>
+      <filter-attribute>p1.upd_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.upd_id upd_id,
+        p1.upd_id name
+      from
+        RNS_PD_UPD_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="UPD1" rank="240">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+    <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UPD" column="upd_id" />
+      </id-components>
+      <filter-attribute>p1.upd_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.upd_id upd_id,
+        p1.upd_id name
+      from
+        RNS_PD_UPD_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+	<level name="MME" rank="243">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MME" column="mme_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.mme_id mme_id,
+				p1.mme_id name
+			from
+				RNS_PD_MME_OBJECTS p1
+			where
+				1=1 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>  
+
+  <level name="VMSC" rank="355">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="VMSC" column="vmsc_id" />
+      </id-components>
+      <filter-attribute>p1.vmsc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.vmsc_id vmsc_id,
+        p1.vmsc_id name
+      from
+        RNS_PD_VMSC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="PIU" rank="675">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PIU" column="piu_id" />
+      </id-components>
+      <filter-attribute>p1.piu_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.piu_id piu_id,
+        p1.piu_id name
+      from
+        RNS_PD_PIU_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="LIF" rank="680">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LIF" column="lif_id" />
+      </id-components>
+      <filter-attribute>p1.lif_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.lif_id lif_id,
+        p1.lif_id name
+      from
+        RNS_PD_LIF_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="DI" rank="700">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DI" column="di_id" />
+      </id-components>
+      <filter-attribute>p1.di_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.di_id di_id,
+        p1.di_id name
+      from
+        RNS_PD_DI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="RC" rank="710">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="RC" column="rc_id" />
+      </id-components>
+      <filter-attribute>p1.rc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.rc_id rc_id,
+        p1.rc_id name
+      from
+        RNS_PD_RC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SUB" rank="690">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SUB" column="sub_id" />
+      </id-components>
+      <filter-attribute>p1.sub_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.sub_id sub_id,
+        p1.sub_id name
+      from
+        RNS_PD_SUB_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="AC" rank="715">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="AC" column="ac_id" />
+      </id-components>
+      <filter-attribute>p1.ac_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ac_id ac_id,
+        p1.ac_id name
+      from
+        RNS_PD_AC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+   <level name="DP" rank="695">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DP" column="dp_id" />
+      </id-components>
+      <filter-attribute>p1.dp_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.dp_id dp_id,
+        p1.dp_id name
+      from
+        RNS_PD_DP_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="OC" rank="725">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OC" column="oc_id" />
+      </id-components>
+      <filter-attribute>p1.oc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.oc_id oc_id,
+        p1.oc_id name
+      from
+        RNS_PD_OC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="EC" rank="730">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="EC" column="ec_id" />
+      </id-components>
+      <filter-attribute>p1.ec_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ec_id ec_id,
+        p1.ec_id name
+      from
+        RNS_PD_EC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="VER" rank="750">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="VER" column="ver_id" />
+      </id-components>
+      <filter-attribute>p1.ver_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ver_id ver_id,
+        p1.ver_id name
+      from
+        RNS_PD_VER_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="MIF" rank="105">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="MIF" column="mif_id" />
+      </id-components>
+      <filter-attribute>p1.mif_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.mif_id mif_id,
+        p1.mif_id name
+      from
+        RNS_PD_MIF_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="UA" rank="745">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UA" column="ua_id" />
+      </id-components>
+      <filter-attribute>p1.ua_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ua_id ua_id,
+        p1.ua_id name
+      from
+        RNS_PD_UA_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+   <level name="NIMSI" rank="605">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NIMSI" column="nimsi_id" />
+      </id-components>
+      <filter-attribute>p1.nimsi_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.nimsi_id nimsi_id,
+        p1.nimsi_id name
+      from
+        RNS_PD_NIMSI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="SPCN" rank="635">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SPCN" column="spcn_id" />
+      </id-components>
+      <filter-attribute>p1.nimsi_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.spcn_id spcn_id,
+        p1.spcn_id name
+      from
+        RNS_PD_SPCN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="PGI_NSS" rank="110">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PGI_NSS" column="pgi_id" />
+      </id-components>
+      <filter-attribute>p1.pgi_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.pgi_id pgi_id,
+        p1.pgi_id name
+      from
+        RNS_PD_PGI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="PMGW" rank="285">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PMGW" column="pmgw_id" />
+      </id-components>
+      <filter-attribute>p1.pmgw_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.pmgw_id pmgw_id,
+        p1.pmgw_id name
+      from
+        RNS_PD_PMGW_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="VMGW" rank="300">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="VMGW" column="vmgw_id" />
+      </id-components>
+      <filter-attribute>p1.vmgw_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.vmgw_id vmgw_id,
+        p1.vmgw_id name
+      from
+        RNS_PD_VMGW_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="ATYPE" rank="760">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ATYPE" column="atype_id" />
+      </id-components>
+      <filter-attribute>p1.atype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.atype_id atype_id,
+        p1.atype_id name
+      from
+        RNS_PD_ATYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="CTYPE" rank="765">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CTYPE" column="ctype_id" />
+      </id-components>
+      <filter-attribute>p1.ctype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ctype_id ctype_id,
+        p1.ctype_id name
+      from
+        RNS_PD_CTYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="METH" rank="775">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="METH" column="meth_id" />
+      </id-components>
+      <filter-attribute>p1.meth_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.meth_id meth_id,
+        p1.meth_id name
+      from
+        RNS_PD_METH_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="TRA" rank="750">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="TRA" column="tra_id" />
+      </id-components>
+      <filter-attribute>p1.tra_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.tra_id tra_id,
+        p1.tra_id name
+      from
+        RNS_PD_TRA_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="SET_NSS" rank="120">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SET_NSS" column="set_id" />
+      </id-components>
+      <filter-attribute>p1.set_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.set_id set_id,
+        p1.set_id name
+      from
+        RNS_PD_SET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="PA" rank="740">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PA" column="pa_id" />
+      </id-components>
+      <filter-attribute>p1.pa_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.pa_id pa_id,
+        p1.pa_id name
+      from
+        RNS_PD_PA_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="RESP" rank="785">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="RESP" column="resp_id" />
+      </id-components>
+      <filter-attribute>p1.resp_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.resp_id resp_id,
+        p1.resp_id name
+      from
+        RNS_PD_RESP_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+    <level name="VIEWID" rank="790">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="VIEWID" column="viewid_id" />
+      </id-components>
+      <filter-attribute>p1.viewid_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.viewid_id viewid_id,
+        p1.viewid_id name
+      from
+        RNS_PD_VIEWID_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  
+<!--  M15.1 => MSC-FQDN-CSSNM = (MSC)-(FQDN)-(COMB_SLA_SNAME) -->
+	<level name="COMBSSNAME" rank="795">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="COMBSSNAME" column="cssnm_id" />
+      </id-components>
+      <filter-attribute>p1.cssnm_id</filter-attribute>
+      <time-levels>day,week</time-levels>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.cssnm_id cssnm_id,
+        p1.cssnm_id name
+      from
+        RNS_PD_CSSNM_OBJECTS p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="INSSNAME" rank="800">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INSSNAME" column="inssname_id" />
+      </id-components>
+      <filter-attribute>p1.inssname_id</filter-attribute>
+      <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.inssname_id inssname_id,
+        p1.inssname_id name
+      from
+        RNS_PD_INSSNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="OSSNAME" rank="810">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="OSSNAME" column="ossname_id" />
+      </id-components>
+      <filter-attribute>p1.ossname_id</filter-attribute>
+      <time-levels>day,hour,raw,whole_period,week</time-levels>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.ossname_id ossname_id,
+        p1.ossname_id name
+      from
+        RNS_PD_OSSNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="UTYPE_NSS" rank="820">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UTYPE_NSS" column="utype_id" />
+      </id-components>
+      <filter-attribute>p1.utype_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.utype_id utype_id,
+        p1.utype_id name
+      from
+          RNS_PD_UTYPE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="UINDEX_NSS" rank="830">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="UINDEX_NSS" column="uindex_id" />
+      </id-components>
+      <filter-attribute>p1.uindex_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.uindex_id uindex_id,
+        p1.uindex_id name
+      from
+         RNS_PD_UINDEX_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="DESTNAME" rank="840">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DESTNAME" column="destname_id" />
+      </id-components>
+      <filter-attribute>p1.destname_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.destname_id destname_id,
+        p1.destname_id name
+      from
+         RNS_PD_DESTNAME_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="DESTI_NSS" rank="850">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DESTI_NSS" column="desti_id" />
+      </id-components>
+      <filter-attribute>p1.desti_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.desti_id desti_id,
+        p1.desti_id name
+      from
+         RNS_PD_DESTI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="CONNI_NSS" rank="860">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="CONNI_NSS" column="conni_id" />
+      </id-components>
+      <filter-attribute>p1.conni_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.conni_id conni_id,
+        p1.conni_id name
+      from
+         RNS_PD_CONNI_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  
+  <level name="RNGP" rank="870">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="RNGP" column="rngp_id" />
+      </id-components>
+      <filter-attribute>p1.rngp_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.rngp_id rngp_id,
+        p1.rngp_id name
+      from
+         RNS_PD_RNGP_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  
+  <level name="LEVEL" rank="125">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="LEVEL" column="level_id" />
+      </id-components>
+      <filter-attribute>p1.level_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.level_id level_id,
+        p1.level_id name
+      from
+         RNS_PD_LEVEL_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <!-- ws definition -->
+    <level name="WS_MSC">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+          <id-components>
+              <id level="WS_MSC" column="ws"/>
+          </id-components>
+          <name column="ws"/>
+          <sql><![CDATA[
+        select
+          distinct w.setname ws
+        from
+          w_manual_sets w,
+          utp_legacy mscl
+        where
+          w.int_id = mscl.la_int_id
+          and mscl.la_object_class = 107
+          order by 1
+      ]]></sql>
+      </processor>
+  </level>
+      <level name="WS_HLR">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+          <id-components>
+              <id level="WS_HLR" column="ws"/>
+          </id-components>
+          <name column="ws"/>
+          <sql><![CDATA[
+        select
+          distinct w.setname ws
+        from
+          w_manual_sets w,
+          utp_legacy hlrl
+        where
+          w.int_id = hlrl.la_int_id
+          and hlrl.la_object_class = 108
+          order by 1
+      ]]></sql>
+      </processor>
+  </level>
+    <level name="WS_CDS">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+          <id-components>
+              <id level="WS_CDS" column="ws"/>
+          </id-components>
+          <name column="ws"/>
+          <sql><![CDATA[
+        select
+          distinct w.setname ws
+        from
+          w_manual_sets w,
+          utp_legacy cdsl
+        where
+          w.int_id = cdsl.la_int_id
+          and cdsl.la_object_class = 1226
+          order by 1
+      ]]></sql>
+      </processor>
+  </level>
+  <level name="WS_SRR">
+      <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+          <id-components>
+              <id level="WS_SRR" column="ws"/>
+          </id-components>
+          <name column="ws"/>
+          <sql><![CDATA[
+        select
+          distinct w.setname ws
+        from
+          w_manual_sets w,
+          utp_legacy srrl
+        where
+          w.int_id = srrl.la_int_id
+          and srrl.la_object_class = 581
+        order by 1
+      ]]></sql>
+      </processor>
+  </level>
+
+  <!-- MR definitions -->
+  <level name="MR_MSC">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_MSC" column="co_gid"/>
+      </id-components>
+      <name column="name"/>
+      <sql>
+		<![CDATA[
+select distinct mr.co_gid,
+    decode(nvl(mr.co_name,'NN ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) name
+from
+    utp_common_objects mr,
+    utp_common_objects o
+where
+    o.co_oc_id=107 and
+    o.co_mr_gid=mr.co_gid and
+    mr.co_oc_id=109 and
+    mr.co_gid<>0 and
+    mr.co_gid is not null
+order by 2
+		]]>
+      </sql>
+    </processor>
+  </level>
+  <level name="MR_HLR">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_HLR" column="co_gid"/>
+      </id-components>
+      <name column="name"/>
+      <sql>
+		<![CDATA[
+select distinct mr.co_gid,
+    decode(nvl(mr.co_name,'NN ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) name
+from
+    utp_common_objects mr,
+    utp_common_objects o
+where
+    o.co_oc_id=108 and
+    o.co_mr_gid=mr.co_gid and
+    mr.co_oc_id=109 and
+    mr.co_gid<>0 and
+    mr.co_gid is not null
+order by 2
+		]]>
+      </sql>
+    </processor>
+  </level>
+  <level name="MR_CDS">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_CDS" column="co_gid"/>
+      </id-components>
+      <name column="name"/>
+      <sql>
+		<![CDATA[
+select distinct mr.co_gid,
+    decode(nvl(mr.co_name,'NN ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) name
+from
+    utp_common_objects mr,
+    utp_common_objects o
+where
+    o.co_oc_id=1226 and
+    o.co_mr_gid=mr.co_gid and
+    mr.co_oc_id=109 and
+    mr.co_gid<>0 and
+    mr.co_gid is not null
+order by 2
+		]]>
+      </sql>
+    </processor>
+  </level>
+  <level name="MR_SRR">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_SRR" column="co_gid"/>
+      </id-components>
+      <name column="name"/>
+      <sql>
+		<![CDATA[
+select distinct mr.co_gid,
+    decode(nvl(mr.co_name,'NN ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) name
+from
+    utp_common_objects mr,
+    utp_common_objects o
+where
+    o.co_oc_id=581 and
+    o.co_mr_gid=mr.co_gid and
+    mr.co_oc_id=109 and
+    mr.co_gid<>0 and
+    mr.co_gid is not null
+order by 2
+		]]>
+      </sql>
+    </processor>
+  </level>
+   <level name="DXA" rank="160">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="DXA" column="co_gid" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select
+				dxa.co_gid, nvl(dxa.co_name, 'NN('||dxa.co_gid||')') name
+			from
+				utp_common_objects dxa
+			where
+
+				dxa.co_oc_id=2809 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="DXAAS" rank="170">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAAS" column="dxaas_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.dxaas_id dxaas_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.dxaas_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_DXAAS_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="FRONTEND" rank="180">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="FRONTEND" column="frontend_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.frontend_id frontend_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.frontend_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_FRONTEND_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="DSNODE" rank="190">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DSNODE" column="dsnode_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.dsnode_id dsnode_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.dsnode_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_DSNODE_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="SUBSMAN" rank="200">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="SUBSMAN" column="subsman_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.subsman_id subsman_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.subsman_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_SUBSMAN_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="DXAOM" rank="210">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAOM" column="dxaom_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.dxaom_id dxaom_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.dxaom_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_DXAOM_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="DSA" rank="220">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DSA" column="dsa_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.dsa_id dsa_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.dsa_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_DSA_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="DXAIPD" rank="230">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAIPD" column="dxaipd_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p1.dxaipd_id dxaipd_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p1.dxaipd_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_DXAIPD_OBJECTS p1
+			where
+
+				dxa.co_gid = p1.dxa_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="ASIF" rank="240">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAAS" column="dxaas_id" />
+        <id level="ASIF" column="asif_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaas_id dxaas_id,
+				p2.asif_id asif_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaas_id||'/'||p2.asif_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_ASIF_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="GIZMSG" rank="250">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="FRONTEND" column="frontend_id" />
+        <id level="GIZMSG" column="gizmsg_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.frontend_id frontend_id,
+				p2.gizmsg_id gizmsg_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.frontend_id||'/'||p2.gizmsg_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_GIZMSG_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="OMMSG" rank="260">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="FRONTEND" column="frontend_id" />
+        <id level="OMMSG" column="ommsg_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.frontend_id frontend_id,
+				p2.ommsg_id ommsg_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.frontend_id||'/'||p2.ommsg_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_OMMSG_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="SZMSG" rank="270">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="FRONTEND" column="frontend_id" />
+        <id level="SZMSG" column="szmsg_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.frontend_id frontend_id,
+				p2.szmsg_id szmsg_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.frontend_id||'/'||p2.szmsg_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_SZMSG_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LDAPMSG" rank="280">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DSNODE" column="dsnode_id" />
+        <id level="LDAPMSG" column="ldapmsg_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dsnode_id dsnode_id,
+				p2.ldapmsg_id ldapmsg_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dsnode_id||'/'||p2.ldapmsg_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_LDAPMSG_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="MMLCMD" rank="290">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="SUBSMAN" column="subsman_id" />
+        <id level="MMLCMD" column="mmlcmd_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.subsman_id subsman_id,
+				p2.mmlcmd_id mmlcmd_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.subsman_id||'/'||p2.mmlcmd_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_MMLCMD_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="OMFS" rank="300">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAOM" column="dxaom_id" />
+        <id level="OMFS" column="omfs_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaom_id dxaom_id,
+				p2.omfs_id omfs_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaom_id||'/'||p2.omfs_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_OMFS_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="OMIF" rank="310">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAOM" column="dxaom_id" />
+        <id level="OMIF" column="omif_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaom_id dxaom_id,
+				p2.omif_id omif_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaom_id||'/'||p2.omif_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_OMIF_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="ASCPU" rank="320">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAAS" column="dxaas_id" />
+        <id level="ASCPU" column="ascpu_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaas_id dxaas_id,
+				p2.ascpu_id ascpu_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaas_id||'/'||p2.ascpu_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_ASCPU_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="HLRSUBS" rank="330">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DSA" column="dsa_id" />
+        <id level="HLRSUBS" column="hlrsubs_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dsa_id dsa_id,
+				p2.hlrsubs_id hlrsubs_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dsa_id||'/'||p2.hlrsubs_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_HLRSUBS_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="IPDIF" rank="340">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAIPD" column="dxaipd_id" />
+        <id level="IPDIF" column="ipdif_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaipd_id dxaipd_id,
+				p2.ipdif_id ipdif_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaipd_id||'/'||p2.ipdif_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_IPDIF_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="OMCPU" rank="350">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAOM" column="dxaom_id" />
+        <id level="OMCPU" column="omcpu_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaom_id dxaom_id,
+				p2.omcpu_id omcpu_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaom_id||'/'||p2.omcpu_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_OMCPU_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="HLREIR" rank="360">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DSA" column="dsa_id" />
+        <id level="HLREIR" column="hlreir_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dsa_id dsa_id,
+				p2.hlreir_id hlreir_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dsa_id||'/'||p2.hlreir_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_HLREIR_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="IPDCPU" rank="370">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DXAIPD" column="dxaipd_id" />
+        <id level="IPDCPU" column="ipdcpu_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p2.dxaipd_id dxaipd_id,
+				p2.ipdcpu_id ipdcpu_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p2.dxaipd_id||'/'||p2.ipdcpu_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_IPDCPU_OBJECTS p2
+			where
+
+				dxa.co_gid = p2.dxa_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="LDAPVIEW" rank="380">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="DSNODE" column="dsnode_id" />
+        <id level="LDAPMSG" column="ldapmsg_id" />
+        <id level="LDAPVIEW" column="ldapview_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p3.dsnode_id dsnode_id,
+				p3.ldapmsg_id ldapmsg_id,
+				p3.ldapview_id ldapview_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p3.dsnode_id||'/'||p3.ldapmsg_id||'/'||p3.ldapview_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_LDAPVIEW_OBJECTS p3
+			where
+
+				dxa.co_gid = p3.dxa_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="OMVIEW" rank="390">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="FRONTEND" column="frontend_id" />
+        <id level="OMMSG" column="ommsg_id" />
+        <id level="OMVIEW" column="omview_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p3.frontend_id frontend_id,
+				p3.ommsg_id ommsg_id,
+				p3.omview_id omview_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p3.frontend_id||'/'||p3.ommsg_id||'/'||p3.omview_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_OMVIEW_OBJECTS p3
+			where
+
+				dxa.co_gid = p3.dxa_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="SZVIEW" rank="400">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="DXA" column="dxa_gid" />
+        <id level="FRONTEND" column="frontend_id" />
+        <id level="SZMSG" column="szmsg_id" />
+        <id level="SZVIEW" column="szview_id" />
+      </id-components>
+      <filter-attribute>dxa.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				dxa.co_gid dxa_gid,
+				p3.frontend_id frontend_id,
+				p3.szmsg_id szmsg_id,
+				p3.szview_id szview_id,
+				nvl(dxa.co_name, 'NN('||dxa.co_gid||')')||'/'||p3.frontend_id||'/'||p3.szmsg_id||'/'||p3.szview_id name
+			from
+				utp_common_objects dxa,
+				nokdxa_PD_SZVIEW_OBJECTS p3
+			where
+
+				dxa.co_gid = p3.dxa_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="NSS-DIR" rank="445">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NSS-DIR" column="dir_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.dir_id dir_id,
+				p1.dir_id name
+			from
+				RNS_PD_DIR_OBJECTS p1
+			where
+				1=1 and
+				
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="NSS-SIPRSP" rank="1155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="NSS-SIPRSP" column="siprsp_id" />
+      </id-components>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				p1.siprsp_id siprsp_id,
+				p1.siprsp_id name
+			from
+				RNS_PD_SIPRSP_OBJECTS p1
+			where
+				1=1 and
+				
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="WS_DXA" rank="5034">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="WS_DXA" column="ws" />
+      </id-components>
+      <name column="ws" />
+      <sql><![CDATA[select
+	    		distinct w.setname ws
+	    	from
+	    		w_manual_sets w,
+	    		utp_legacy leg
+	    	where
+	    		w.int_id = leg.la_int_id and
+			    leg.la_object_class=2809
+			order by 1]]></sql>
+    </processor>
+  </level>
+  <level name="MR_DXA" rank="4020">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="MR_DXA" column="co_gid" />
+      </id-components>
+      <name column="name" />
+      <sql>
+      	<![CDATA[
+      	select distinct mr.co_gid,
+                    decode(nvl(mr.co_name,'NN ('||mr.co_gid||')'),' ','NN ('||mr.co_gid||')',nvl(mr.co_name,'NN ('||mr.co_gid||')')) name
+                from
+                    utp_common_objects mr,
+                    utp_common_objects o
+                where
+                    o.co_oc_id=2809 and
+                    o.co_mr_gid=mr.co_gid and
+                    mr.co_oc_id=109 and
+                    mr.co_gid<>0 and
+                    mr.co_gid is not null
+                order by 2
+        ]]>
+      </sql>
+    </processor>
+  </level>
+</object-conf>
+

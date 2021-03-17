@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 ETH_Link ETHL measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 ETH_Link ETHL measurement dump</csv_title>
+    <report-description>AXC Ethernet link measurement (M5210)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <inOct15 />
+    <outOct15 />
+    <inPkt15 />
+    <outPkt15 />
+    <inPktErr15 />
+    <inUnknownProtocol15 />
+    <outDiscShaping15 />
+    <inUnknownVlan15 />
+    <unknownPsnHdr15 />
+    <sevErrSec15 />
+    <unavSec15 />
+  </column_order>
+  <temp_table name="ETHL" meas_level="PLMN/RNC/WBTS/AXC/ETHLK" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="inOct15" timeagg="SUM(inOct15)">SUM(inOct15)</counter>
+      <counter alias="outOct15" timeagg="SUM(outOct15)">SUM(outOct15)</counter>
+      <counter alias="inPkt15" timeagg="SUM(inPkt15)">SUM(inPkt15)</counter>
+      <counter alias="outPkt15" timeagg="SUM(outPkt15)">SUM(outPkt15)</counter>
+      <counter alias="inPktErr15" timeagg="SUM(inPktErr15)">SUM(inPktErr15)</counter>
+      <counter alias="inUnknownProtocol15" timeagg="SUM(inUnknownProtocol15)">SUM(inUnknownProtocol15)</counter>
+      <counter alias="outDiscShaping15" timeagg="SUM(outDiscShaping15)">SUM(outDiscShaping15)</counter>
+      <counter alias="inUnknownVlan15" timeagg="SUM(inUnknownVlan15)">SUM(inUnknownVlan15)</counter>
+      <counter alias="unknownPsnHdr15" timeagg="SUM(unknownPsnHdr15)">SUM(unknownPsnHdr15)</counter>
+      <counter alias="sevErrSec15" timeagg="SUM(sevErrSec15)">SUM(sevErrSec15)</counter>
+      <counter alias="unavSec15" timeagg="SUM(unavSec15)">SUM(unavSec15)</counter>
+    </counters>
+    <table_name>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ETHL</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ETHL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="inOct15">
+    <formula>ETHL.inOct15</formula>
+    <kpi_info>
+      <title>inOct15</title>
+      <use>Number of octets in valid frames received on the interface. UPDATED: The counter is incremented every second by the amount of octets received in valid ethernet frames by the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(inOct15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>inOct15 (M5210C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="outOct15">
+    <formula>ETHL.outOct15</formula>
+    <kpi_info>
+      <title>outOct15</title>
+      <use>Number of octets in valid frames transmitted on the interface. UPDATED:The counter is incremented every second by the amount of octets transmitted in valid ethernet frames by the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(outOct15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>outOct15 (M5210C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="inPkt15">
+    <formula>ETHL.inPkt15</formula>
+    <kpi_info>
+      <title>inPkt15</title>
+      <use>Number of received Ethernet packets on the interface (errored and non-errored). UPDATED:The counter is incremented every second by the amount of ethernet frames received by the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(inPkt15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>inPkt15 (M5210C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="outPkt15">
+    <formula>ETHL.outPkt15</formula>
+    <kpi_info>
+      <title>outPkt15</title>
+      <use>Number of transmitted Ethernet packets on the interface. UPDATED:The counter is incremented every second by the amount of ethernet frames transmitted by the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(outPkt15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>outPkt15 (M5210C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="inPktErr15">
+    <formula>ETHL.inPktErr15</formula>
+    <kpi_info>
+      <title>inPktErr15</title>
+      <use>Number of received Ethernet packets with FCS errors. UPDATED:The counter is incremented every second by the amount of errored ethernet frames received by the interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(inPktErr15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>inPktErr15 (M5210C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="inUnknownProtocol15">
+    <formula>ETHL.inUnknownProtocol15</formula>
+    <kpi_info>
+      <title>inUnknownProtocol15</title>
+      <use>The number of packets received via the interface which were discarded because of an unknown or unsupported protocol. UPDATED:The counter is incremented every second by the amount of ethernet frames received by the interface, which were discarded as they belong to an unknown or unsupported protocol.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(inUnknownProtocol15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>inUnknownProtocol15 (M5210C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="outDiscShaping15">
+    <formula>ETHL.outDiscShaping15</formula>
+    <kpi_info>
+      <title>outDiscShaping15</title>
+      <use>Number of Ethernet TX packets that are discarded due to rate shaping. UPDATED:The counter is incremented every second by the amount of ethernet packets to be transmitted that were discarded due to rate shaping.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(outDiscShaping15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>outDiscShaping15 (M5210C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="inUnknownVlan15">
+    <formula>ETHL.inUnknownVlan15</formula>
+    <kpi_info>
+      <title>inUnknownVlan15</title>
+      <use>Number of received Ethernet packets with unknown VLAN ID. UPDATED:The counter is incremented every second by the amount of ethernet frames received by the interface, which were discarded as they contain an unknown VLAN ID.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(inUnknownVlan15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>inUnknownVlan15 (M5210C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="unknownPsnHdr15">
+    <formula>ETHL.unknownPsnHdr15</formula>
+    <kpi_info>
+      <title>unknownPsnHdr15</title>
+      <use>The Number of Ethernet frames received, which PSN header is not configured or has a reserved value. UPDATED:the counter is incremented every second by the amount of ethernet frames received by the interface, which were discarded as they contain an invalid pseudowire tunnel header (IP address).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(unknownPsnHdr15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>unknownPsnHdr15 (M5210C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="sevErrSec15">
+    <formula>ETHL.sevErrSec15</formula>
+    <kpi_info>
+      <title>sevErrSec15</title>
+      <use>Severely Errored Seconds (SES): Counts the number of seconds which contain a defect.  Defect: LOS on Ethernet interface. SES are not incremented during Unavailable Seconds (UAS). UPDATED : The counter is incremented when a second contains a defect. The counter is not incremented during periods of unavailable time (UAS). The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(sevErrSec15)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sevErrSec15 (M5210C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="unavSec15">
+    <formula>ETHL.unavSec15</formula>
+    <kpi_info>
+      <title>unavSec15</title>
+      <use>Unavailable Seconds (UAS):Counts the number of seconds for which the interface is unavailable. The interface is defined unavailable from either the beginning of 10 contiguous SES and/or a defect. An interface is available again after a 10-second absence of all defects and SES. While the interface is unavailable, the only count that is incremented is UAS. Defect: LOS on Ethernet interface only. UPDATED : The counter is incremented for every second when the interface is in a period of unavailable time. Unavailable time starts when either a defect is active or at the beginning of 10 contiguous severely errored seconds (SES). Unavailable time ends at the beginning of 10 contiguous not severely errored seconds and the absence of all defects. The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(unavSec15)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_ethl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>unavSec15 (M5210C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

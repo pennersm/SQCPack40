@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 RGCpuMemLoad RGLCL measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 RGCpuMemLoad RGLCL measurement dump</csv_title>
+    <report-description>Calculates the CPU load for each RG.The measurement type calculates the CPU usage every 30 seconds. The data is measured on per-Recovery Group level. Statistics will not be collected for TDM nodes because it will impact the performance of the system due to high CPU usage. The data collected is not affected by licensing of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CUR_RG_CPU_LOAD />
+    <MIN_RG_CPU_LOAD />
+    <MAX_RG_CPU_LOAD />
+    <RG_ELAPSED_USER_TIME />
+    <RG_ELAPSED_SYSTEM_TIME />
+  </column_order>
+  <temp_table name="RGLCL" meas_level="PLMN/FING/FPRGST/FNODE1" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>RGLCL</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CUR_RG_CPU_LOAD">AVG(CUR_RG_CPU_LOAD)</counter>
+      <counter alias="MIN_RG_CPU_LOAD">MIN(MIN_RG_CPU_LOAD)</counter>
+      <counter alias="MAX_RG_CPU_LOAD">MAX(MAX_RG_CPU_LOAD)</counter>
+      <counter alias="RG_ELAPSED_USER_TIME">SUM(RG_ELAPSED_USER_TIME)</counter>
+      <counter alias="RG_ELAPSED_SYSTEM_TIME">SUM(RG_ELAPSED_SYSTEM_TIME)</counter>
+    </counters>
+    <table_name>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RGLCL</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RGLCL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CUR_RG_CPU_LOAD">
+    <formula>RGLCL.CUR_RG_CPU_LOAD</formula>
+    <kpi_info>
+      <title>CUR_RG_CPU_LOAD</title>
+      <use>The current CPU usage at recovery group (RG) level in percent (within 0 and 100 with values rounded to the next integer) during the 30 seconds period before the sample was taken. The measured period is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: This counter is updated when the CPU-load is increased or decreased. The data is updated on a per-Recovery Group level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CUR_RG_CPU_LOAD)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CUR_RG_CPU_LOAD (m2099c0001)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_RG_CPU_LOAD">
+    <formula>RGLCL.MIN_RG_CPU_LOAD</formula>
+    <kpi_info>
+      <title>MIN_RG_CPU_LOAD</title>
+      <use>The minimum CPU usage at recovery group (RG) level in percent (within 0 and 100 with values rounded to the next integer). The minimum is calculated by taking the average of CPU usage over 30 seconds samples and taking the smallest of those during the reporting period. The measured period of the samples is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: This counter is updated when the CPU-load is increased or decreased. The data is updated on a per-Recovery Group level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_RG_CPU_LOAD)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_RG_CPU_LOAD (m2099c0002)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_RG_CPU_LOAD">
+    <formula>RGLCL.MAX_RG_CPU_LOAD</formula>
+    <kpi_info>
+      <title>MAX_RG_CPU_LOAD</title>
+      <use>The maximum CPU usage at recovery group (RG) level in percent (within 0 and 100 with values rounded to the next integer). The maximum is calculated by taking the average of CPU usage over 30 seconds samples and taking the biggest of those during the reporting period. The measured period of the samples is less than 30 seconds if operators requested a counter snapshot using NE-local interfaces within the time frame. UPDATED: This counter is updated when the CPU-load is increased or decreased. The data is updated on a per-Recovery Group level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_RG_CPU_LOAD)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_RG_CPU_LOAD (m2099c0003)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RG_ELAPSED_USER_TIME">
+    <formula>RGLCL.RG_ELAPSED_USER_TIME</formula>
+    <kpi_info>
+      <title>RG_ELAPSED_USER_TIME</title>
+      <use>The CPU time in milliseconds (ms) consumed at recovery group (RG) level in user mode (Linux processes of the recovery group (RG) running in user mode). UPDATED: This counter is updated when the CPU-load is increased or decreased. The data is updated on a per-Recovery Group level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RG_ELAPSED_USER_TIME)</formula>
+      <unit>milleseconds</unit>
+      <tables>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RG_ELAPSED_USER_TIME (m2099c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RG_ELAPSED_SYSTEM_TIME">
+    <formula>RGLCL.RG_ELAPSED_SYSTEM_TIME</formula>
+    <kpi_info>
+      <title>RG_ELAPSED_SYSTEM_TIME</title>
+      <use>The CPU time in milliseconds (ms) consumed at recovery group (RG) level in system mode (Linux processes of the recovery group (RG) running in the system mode). UPDATED: This counter is updated when the CPU-load is increased or decreased. The data is updated on a per-Recovery Group level.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RG_ELAPSED_SYSTEM_TIME)</formula>
+      <unit>milleseconds</unit>
+      <tables>pcofng_ps_rglcl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RG_ELAPSED_SYSTEM_TIME (m2099c0005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

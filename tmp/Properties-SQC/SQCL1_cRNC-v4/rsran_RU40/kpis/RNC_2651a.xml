@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSPEXT.xml" />
+  <kpi name="RNC_2651a">
+    <formula>100*decode(
+			(hspext.dc_hsupa_ue_sum),0,null, 
+
+			(hspext.active_dchsupa_users_2c_sum + 
+			hspext.active_dchsupa_users_1c_sum)
+			 / 
+			(hspext.dc_hsupa_ue_sum))</formula>
+    <kpi_info>
+      <title><![CDATA[DC HSUPA Usage Ratio, per Cell]]></title>
+      <use><![CDATA[DC HSUPA Usage Ratio provides information about the ratio between active DC HSUPA users and the total number of DC HUSPA users connected to each cell.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(ACTIVE_DCHSUPA_USERS_2C_SUM +
+&lt;br&gt;ACTIVE_DCHSUPA_USERS_1C_SUM)
+&lt;br&gt;----------------------------------------
+&lt;br&gt;SUM(DC_HSUPA_UE_SUM)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_HSPEXT_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:52.459 +0100</date>
+          <comment><![CDATA[Source: RSRAN092.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DC HSUPA act usr R, cell</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

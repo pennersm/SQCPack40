@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml" />
+  <temp_table_ref src="rssaegw/counters/SGWP.xml" />
+  <kpi name="flng_797d">
+    <formula>decode(ssprof.period_duration,0,null, 
+			(ssprof.sm_succ_sess_act_sae_gw + ssprof.sm_fail_sess_act_sae_gw + 
+			sgwp.sm_succ_sgw_sess_act + sgwp.sm_fail_sgw_sess_act + 
+			ssprof.sm_succ_sess_act_p_gw + ssprof.sm_fail_sess_act_p_gw + 
+			ssprof.sm_succ_sess_act_ggsn + ssprof.sm_fail_sess_act_ggsn + 
+			ssprof.sm_succ_dedic_bear_act +	ssprof.sm_fail_dedic_bear_act + 
+			sgwp.sm_succ_sgw_dedic_bear_act + sgwp.sm_fail_sgw_dedic_bear_act + 
+			ssprof.sm_succ_bear_mod + ssprof.sm_fail_bear_mod + 
+			ssprof.sm_succ_bear_mod_ng_init + ssprof.sm_fail_bear_mod_ng_init + 
+			sgwp.sm_succ_sgw_bear_mod + sgwp.sm_fail_sgw_bear_mod + 
+			ssprof.sm_succ_bear_deact_ng_init + ssprof.sm_fail_bear_deact_ng_init + 
+			ssprof.sm_succ_bear_deact_ggsn_term + ssprof.sm_fail_bear_deact_ggsn_term)
+			 / 
+			(ssprof.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[Signaling transactions per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of signaling transactions (based on session profile and S-GW profile counters).
+      This KPI can be used to measure the signalling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SM_SUCC_SESS_ACT_SAE_GW +
+&lt;br&gt;   SM_FAIL_SESS_ACT_SAE_GW +
+&lt;br&gt;   SM_SUCC_SGW_SESS_ACT +
+&lt;br&gt;   SM_FAIL_SGW_SESS_ACT + 
+&lt;br&gt;   SM_SUCC_SESS_ACT_P_GW +
+&lt;br&gt;   SM_FAIL_SESS_ACT_P_GW +
+&lt;br&gt;   SM_SUCC_SESS_ACT_GGSN +
+&lt;br&gt;   SM_FAIL_SESS_ACT_GGSN +
+&lt;br&gt;   SM_SUCC_DEDIC_BEAR_ACT +
+&lt;br&gt;   SM_FAIL_DEDIC_BEAR_ACT +
+&lt;br&gt;   SM_SUCC_SGW_DEDIC_BEAR_ACT + 
+&lt;br&gt;   SM_FAIL_SGW_DEDIC_BEAR_ACT +
+&lt;br&gt;   SM_SUCC_BEAR_MOD +
+&lt;br&gt;   SM_FAIL_BEAR_MOD +
+&lt;br&gt;   SM_SUCC_BEAR_MOD_NG_INIT +
+&lt;br&gt;   SM_FAIL_BEAR_MOD_NG_INIT +
+&lt;br&gt;   SM_SUCC_SGW_BEAR_MOD +
+&lt;br&gt;   SM_FAIL_SGW_BEAR_MOD +
+&lt;br&gt;   SM_SUCC_BEAR_DEACT_NG_INIT +
+&lt;br&gt;   SM_FAIL_BEAR_DEACT_NG_INIT +
+&lt;br&gt;   SM_SUCC_BEAR_DEACT_GGSN_TERM +
+&lt;br&gt;   SM_FAIL_BEAR_DEACT_GGSN_TERM)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;sum(period_duration * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG},PCOFNG_PS_SGWP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/25 16:16:08.22 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Sig trans pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

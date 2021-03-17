@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GV25_ext.xml" />
+  <kpi name="flng_540a">
+    <formula>100*decode(GV25_ext.CRE_SESS_RESP_RECV_S5_ALL,0,null,
+	(
+	 GV25_ext.GTPCV2_CRE_SESS_RESP_RECV_S5
+	 /
+	 GV25_ext.CRE_SESS_RESP_RECV_S5_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S5 Create Session responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses received on S5 interface for a specific cause code when compared to total number of GTP-C v2 create session response messages received on S5 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv25_id,&amp;#039;x&amp;#039;,GTPCV2_CRE_SESS_RESP_RECV_S5,0))  ;GV25 for cause code x
+&lt;br&gt;--------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_RECV_S5)  ;all GV25&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.303 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW065.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5 Cre Sess resp rcv rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

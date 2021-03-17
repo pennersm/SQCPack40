@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_4038b">
+    <formula>
+    decode(
+		( vlr1msc.MTC_PAGING_ON_AIF_ATT + vlr1msc.MTC_PAGING_ON_IUIF_ATT )
+		,0,null, 
+		(100*(1 - (( vlr1msc.MTC_PAGING_ON_AIF_SUCC + vlr1msc.MTC_PAGING_ON_IUIF_SUCC )/
+               ( vlr1msc.MTC_PAGING_ON_AIF_ATT + vlr1msc.MTC_PAGING_ON_IUIF_ATT ))
+             )
+        )
+    )
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Paging failure ratio for MTC]]></title>
+      <use><![CDATA[Indicates the failure ratio of MTC paging procedures.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>For this KPI to be active, the PDC6332 must be active.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 14-05-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;Paging Procedure Failure Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;                           SUM( MTC_PAGING_ON_AIF_SUCC + MTC_PAGING_ON_IUIF_SUCC ) 
+&lt;br&gt;              100 * (1 - --------------------------------------------------------- ) 
+&lt;br&gt;                            SUM( MTC_PAGING_ON_AIF_ATT + MTC_PAGING_ON_IUIF_ATT ) 
+
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTC pag failure ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

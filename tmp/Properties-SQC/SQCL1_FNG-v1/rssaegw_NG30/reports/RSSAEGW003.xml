@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW003 - Update PDP Context cause code</header>
+    <csv_title>Update PDP Context cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v1 update PDP context response messages sent/received per cause code on Gn/Gp (GGSN &lt;-&gt; SGSN) interface.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Update PDP Context' procedures;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2010/11/23 14:57:19.597 +0000</date>
+        <comment><![CDATA[Source: RSSAEGW003.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Update PDP Context cause code</report-description>
+    <report-title>Update PDP Context cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_106a ui_name="Att" group="sent" master-group="Upd PDP ctx resp" chartType="bar" yAxis="2" />
+    <flng_107a ui_name="Ratio" group="sent" master-group="Upd PDP ctx resp" />
+    <flng_110a ui_name="Att" group="rcvd" master-group="Upd PDP ctx resp" chartType="bar" yAxis="2" />
+    <flng_111a ui_name="Ratio" group="rcvd" master-group="Upd PDP ctx resp" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCRESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_106a">
+    <formula>(GTPCRESP.gtpc_update_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v1 update PDP context responses sent per cause code.
+Update PDP context Response sent:
+- Gn/Gp interface (SGSN &lt;- GGSN/Combined S-GW and P-GW with Gn interface)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpc_update_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_URS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Upd PDP resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_107a">
+    <formula>decode(
+			((GTPCRESP.gtpc_update_resp_sent_all)),0,NULL, 
+
+			((GTPCRESP.gtpc_update_resp_sent))
+			 / 
+			((GTPCRESP.gtpc_update_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 update PDP context responses sent for a specific cause code when compared to total number of GTP-C v1 update PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(urs_id,'x',GTPC_UPDATE_RESP_SENT,0))  ;URS for cause code x
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_UPDATE_RESP_SENT)  ;all URS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_URS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Upd PDP resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_110a">
+    <formula>(GTPCRESP.gtpc_update_pdp_resp_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v1 update PDP context responses received per cause code.
+Update PDP context Response received:
+- Gn/Gp interface (SGSN -&gt; GGSN/Combined S-GW and P-GW with Gn interface)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpc_update_pdp_resp_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_UPRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Upd PDP resp rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_111a">
+    <formula>decode(
+			((GTPCRESP.gtpc_update_pdp_resp_recv_all)),0,NULL, 
+
+			((GTPCRESP.gtpc_update_pdp_resp_recv))
+			 / 
+			((GTPCRESP.gtpc_update_pdp_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 update PDP context responses received for a specific cause code when compared to total number of GTP-C v1 update PDP context response messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(uprr_id,'x',GTPC_UPDATE_PDP_RESP_RECV,0))  ;UPRR for cause code x
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_UPDATE_PDP_RESP_RECV)  ;all UPRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_UPRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Upd PDP resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

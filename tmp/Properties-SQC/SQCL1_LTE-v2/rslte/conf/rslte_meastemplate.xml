@@ -1,0 +1,1505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <meas-template priority="40" pragma="RSLTE">
+    <!-- This meas-template is based in the topology: PLMN/MRBTS/LNBTS -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSLTE-MRBTS" filter-level="RSLTE-MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNBTS" filter-level="RSLTE-LNBTS" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      
+      
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">"plmn".co_gid</pivot>
+      <pivot level="RSLTE-MRBTS" id="mrbts_gid">"mrbts".co_gid</pivot>
+      <pivot level="RSLTE-LNBTS" id="lnbts_gid">"lnbts".co_gid</pivot>
+      <pivot level="RSLTE-FTM" id="ftm_id">p.ftm_id</pivot>
+      <pivot level="RSLTE-ETHLK" id="ethlk_id">p.ethlk_id</pivot>
+      <pivot level="RSLTE-IPNO" id="ipno_id">p.ipno_id</pivot>
+      <pivot level="RSLTE-IEIF" id="ieif_id">p.ieif_id</pivot>
+      <pivot level="RSLTE-IPPM" id="ippm_id">p.ippm_id</pivot>
+      <pivot level="RSLTE-IVIF" id="ivif_id">p.ivif_id</pivot>
+      <pivot level="RSLTE-IPPM-1" id="ippm_id">p.ippm_id</pivot>
+      <pivot level="RSLTE-PHBPM-1" id="phbpm_id">p.phbpm_id</pivot>
+      <pivot level="RSLTE-PHBPM" id="phbpm_id">p.phbpm_id</pivot>
+      <pivot level="RSLTE-IPRM" id="iprm_id">p.iprm_id</pivot>
+      <pivot level="RSLTE-TOPIK" id="topik_id">p.topik_id</pivot>
+      <pivot level="RSLTE-TWAMP" id="twamp_id">p.twamp_id</pivot>
+      <pivot level="RSLTE-IPSECC" id="ipsecc_id">p.ipsecc_id</pivot>
+      <pivot level="RSLTE-L2SWI" id="l2swi_id">p.l2swi_id</pivot>
+      <pivot level="RSLTE-TAC" id="tac_id">p.tac_id</pivot>
+      <pivot level="RSLTE-LTAC" id="ltac_id">p.ltac_id</pivot>
+      <pivot level="RSLTE-TOPB" id="topb_id">p.topb_id</pivot>
+      <pivot level="RSLTE-TOPF" id="topf_id">p.topf_id</pivot>
+      <pivot level="RSLTE-TOPP" id="topp_id">p.topp_id</pivot>
+      <pivot level="RSLTE-WIFICNF" id="wificnf_id">p.wificnf_id</pivot>
+      <pivot level="MR_RSLTE-MRBTS" id="mr_gid">"mrbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNBTS" id="mr_gid">"lnbts".co_mr_gid</pivot>
+      <pivot level="WS_RSLTE-MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNBTS" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mrbts",
+            utp_common_objects "lnbts",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mrbts".co_gid = p.mrbts_id
+          and "mrbts".co_parent_gid = "plmn".co_gid
+          and "mrbts".co_oc_id = 3128
+          and "lnbts".co_gid = p.lnbts_id
+          and "lnbts".co_parent_gid = "mrbts".co_gid
+          and "lnbts".co_oc_id = 3129
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS" object-keys="RSLTE-MRBTS,RSLTE-LNBTS">
+      <!-- Measures used to build this base-level: LENBLD, LX2AP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS_A1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS">
+      <!-- Measures used to build this base-level: LS1AP, LTRLD -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,bh,weekbh,monthbh,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="bh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:bh" can-use-raw="no" is-raw="no"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no"/>
+          <time-level name="monthbh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:monbh" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-ETHLK" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-ETHLK">
+      <!-- Measures used to build this base-level: LETHL -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: ETHLK -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.ETHLK -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.ETHLK -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-ETHLK" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-ETHLK</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ethlk,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF">
+      <!-- Measures used to build this base-level: LETHIF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: IEIF -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ieif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ieif,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ieif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ieif,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ieif,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ieif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IPPM" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IPPM">
+      <!-- Measures used to build this base-level: LIP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: IPPM -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IPPM -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IPPM -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IPPM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IPPM</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ippm,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ippm,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ippm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ippm,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ippm,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ippm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF">
+      <!-- Measures used to build this base-level: LVLAN -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: IVIF -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IVIF -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IVIF -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ivif,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ivif,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ivif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ivif,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ivif,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ivif,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF/RSLTE-IPPM-1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF,RSLTE-IPPM-1">
+      <!-- Measures used to build this base-level: LVLIP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: IPPM -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IVIF.IPPM -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IVIF.IPPM -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF,RSLTE-IPPM-1" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF/RSLTE-IPPM-1</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ippm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF/RSLTE-PHBPM-1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF,RSLTE-PHBPM-1">
+      <!-- Measures used to build this base-level: LVLPHB -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: PHBPM -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IVIF.PHBPM -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.IVIF.PHBPM -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-IVIF,RSLTE-PHBPM-1" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-IVIF/RSLTE-PHBPM-1</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:phbpm1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-PHBPM" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-PHBPM">
+      <!-- Measures used to build this base-level: LPHB -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: PHBPM -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.PHBPM -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IEIF.PHBPM -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IEIF,RSLTE-PHBPM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IEIF/RSLTE-PHBPM</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:phbpm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IPRM" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IPRM">
+      <!-- Measures used to build this base-level: LIPF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: IPRM -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IPRM -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.IPRM -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-IPRM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-IPRM</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:iprm,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:iprm,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:iprm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:iprm,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:iprm,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:iprm,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-TOPIK" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-TOPIK">
+      <!-- Measures used to build this base-level: LTOP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: TOPIK -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.TOPIK -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.TOPIK -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-TOPIK" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-TOPIK</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:topik,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:topik,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:topik,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:topik,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:topik,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:topik,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-TWAMP" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-TWAMP">
+      <!-- Measures used to build this base-level: LTWAM -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: TWAMP -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.TWAMP -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPNO.TWAMP -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPNO,RSLTE-TWAMP" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPNO/RSLTE-TWAMP</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:twamp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:twamp,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:twamp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:twamp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:twamp,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:twamp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPSECC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPSECC">
+      <!-- Measures used to build this base-level: LIPSEC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: IPSECC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.IPSECC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.IPSECC -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-IPSECC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-IPSECC</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ipsecc,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-L2SWI" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-L2SWI">
+      <!-- Measures used to build this base-level: LL2SWI -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: L2SWI -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.L2SWI -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.L2SWI -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-L2SWI" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-L2SWI</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:l2swi,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TAC/RSLTE-LTAC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-TAC,RSLTE-LTAC">
+      <!-- Measures used to build this base-level: LTAC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LTAC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.TAC.LTAC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.TAC.LTAC -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-TAC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TAC</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-TAC,RSLTE-LTAC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TAC/RSLTE-LTAC</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:ltac,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:ltac,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:ltac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:ltac,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:ltac,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:ltac,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPF" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-TOPB,RSLTE-TOPF">
+      <!-- Measures used to build this base-level: LTOPF -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: TOPF -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.TOPB.TOPF -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.TOPB.TOPF -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-TOPB" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-TOPB,RSLTE-TOPF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPF</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:topf,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:topf,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:topf,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:topf,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:topf,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:topf,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPP" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-TOPB,RSLTE-TOPP">
+      <!-- Measures used to build this base-level: LTOPP -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: TOPP -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.TOPB.TOPP -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.TOPB.TOPP -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-TOPB" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-TOPB,RSLTE-TOPP" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-TOPB/RSLTE-TOPP</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:topp,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:topp,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:topp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:topp,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:topp,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:topp,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-WIFICNF" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-FTM,RSLTE-WIFICNF">
+      <!-- Measures used to build this base-level: WIFIS -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: WIFICNF -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.FTM.WIFICNF -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.FTM.WIFICNF -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM</level>
+          <level keys="RSLTE-LNBTS,RSLTE-FTM,RSLTE-WIFICNF" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-FTM/RSLTE-WIFICNF</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:wificnf,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:wificnf,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:wificnf,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:wificnf,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:wificnf,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:wificnf,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="40" pragma="RSLTE">
+    <!-- This meas-template is based in the topology: PLMN/MRBTS/LNBTS/LNCEL -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSLTE-MRBTS" filter-level="RSLTE-MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNBTS" filter-level="RSLTE-LNBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNCEL" filter-level="RSLTE-LNCEL" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      
+      
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">"plmn".co_gid</pivot>
+      <pivot level="RSLTE-MRBTS" id="mrbts_gid">"mrbts".co_gid</pivot>
+      <pivot level="RSLTE-LNBTS" id="lnbts_gid">"lnbts".co_gid</pivot>
+      <pivot level="RSLTE-LNCEL" id="lncel_gid">"lncel".co_gid</pivot>
+      <pivot level="RSLTE-MCC" id="mcc_id">p.mcc_id</pivot>
+      <pivot level="RSLTE-MNC" id="mnc_id">p.mnc_id</pivot>
+      <pivot level="RSLTE-ECI" id="eci_id">p.eci_id</pivot>
+      <pivot level="RSLTE-DMCC" id="dmcc_id">p.dmcc_id</pivot>
+      <pivot level="RSLTE-DMNC" id="dmnc_id">p.dmnc_id</pivot>
+      <pivot level="RSLTE-HBC" id="hbc_id">p.hbc_id</pivot>
+      <pivot level="RSLTE-HOT" id="hot_id">p.hot_id</pivot>
+      <pivot level="RSLTE-TCID-1" id="tcid_id">p.tcid_id</pivot>
+      <pivot level="RSLTE-DMCC-1" id="dmcc_id">p.dmcc_id</pivot>
+      <pivot level="RSLTE-DMNC-1" id="dmnc_id">p.dmnc_id</pivot>
+      <pivot level="RSLTE-LAC" id="lac_id">p.lac_id</pivot>
+      <pivot level="RSLTE-TCID" id="tcid_id">p.tcid_id</pivot>
+      <pivot level="RSLTE-DMCC-2" id="dmcc_id">p.dmcc_id</pivot>
+      <pivot level="RSLTE-DMNC-2" id="dmnc_id">p.dmnc_id</pivot>
+      <pivot level="MR_RSLTE-MRBTS" id="mr_gid">"mrbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNBTS" id="mr_gid">"lnbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNCEL" id="mr_gid">"lncel".co_mr_gid</pivot>
+      <pivot level="WS_RSLTE-MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNCEL" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mrbts",
+            utp_common_objects "lnbts",
+            utp_common_objects "lncel",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mrbts".co_gid = p.mrbts_id
+          and "mrbts".co_parent_gid = "plmn".co_gid
+          and "mrbts".co_oc_id = 3128
+          and "lnbts".co_gid = p.lnbts_id
+          and "lnbts".co_parent_gid = "mrbts".co_gid
+          and "lnbts".co_oc_id = 3129
+          and "lncel".co_gid = p.lncel_id
+          and "lncel".co_parent_gid = "lnbts".co_gid
+          and "lncel".co_oc_id = 3130
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC">
+      <!-- Measures used to build this base-level: LCELAV, LCELLR, LCELLT, LEPSB, LHO, LHORLF, LIENBHO, LISHO, LIANBHO, LMAC, LNETSH, LPQDL, LPQUL, LQOS, LRRC, LSINR, LUESD, LUEST -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="day" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="week" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="month" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC_A1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC">
+      <!-- Measures used to build this base-level: LCELLD, LRDB -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="day" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="week" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="month" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:mnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI/RSLTE-DMCC/RSLTE-DMNC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-ECI,RSLTE-DMCC,RSLTE-DMNC">
+      <!-- Measures used to build this base-level: LNCELHO -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.ECI.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.LNCEL -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-ECI" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-ECI,RSLTE-DMCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI/RSLTE-DMCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-ECI,RSLTE-DMCC,RSLTE-DMNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI/RSLTE-DMCC/RSLTE-DMNC</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:dmnc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HBC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HBC">
+      <!-- Measures used to build this base-level: LHOBC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNCEL,HBC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.HBC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.LNCEL -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HBC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HBC</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:hbc1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:hbc1,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:hbc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:hbc1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:hbc1,{TIME_AGG}:mon" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:hbc1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1/RSLTE-DMNC-1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HOT,RSLTE-TCID-1,RSLTE-DMCC-1,RSLTE-DMNC-1">
+      <!-- Measures used to build this base-level: LISHOU -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.HOT.TCID.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HOT" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HOT,RSLTE-TCID-1" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HOT,RSLTE-TCID-1,RSLTE-DMCC-1" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-HOT,RSLTE-TCID-1,RSLTE-DMCC-1,RSLTE-DMNC-1" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1/RSLTE-DMNC-1</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:dmnc2,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2/RSLTE-DMNC-2" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-LAC,RSLTE-TCID,RSLTE-DMCC-2,RSLTE-DMNC-2">
+      <!-- Measures used to build this base-level: LISHOG -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.LAC.TCID.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-LAC" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-LAC,RSLTE-TCID" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-LAC,RSLTE-TCID,RSLTE-DMCC-2" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2</level>
+          <level keys="RSLTE-LNCEL,RSLTE-MCC,RSLTE-MNC,RSLTE-LAC,RSLTE-TCID,RSLTE-DMCC-2,RSLTE-DMNC-2" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2/RSLTE-DMNC-2</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="raw,hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="raw" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes"/>
+          <time-level name="hour" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:hour" can-use-raw="yes" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:week" can-use-raw="yes" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:dmnc3,{TIME_AGG}:day" can-use-raw="yes" is-raw="no"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="30" pragma="RSLTE">
+    <!-- This meas-template is based in the topology: PLMN/MRBTS/LNBTS/LNCEL -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSLTE-MRBTS" filter-level="RSLTE-MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNBTS" filter-level="RSLTE-LNBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNCEL" filter-level="RSLTE-LNCEL" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      
+      
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">"plmn".co_gid</pivot>
+      <pivot level="RSLTE-MRBTS" id="mrbts_gid">"mrbts".co_gid</pivot>
+      <pivot level="RSLTE-LNBTS" id="lnbts_gid">"lnbts".co_gid</pivot>
+      <pivot level="RSLTE-LNCEL" id="lncel_gid">"lncel".co_gid</pivot>
+      <pivot level="MR_RSLTE-MRBTS" id="mr_gid">"mrbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNBTS" id="mr_gid">"lnbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNCEL" id="mr_gid">"lncel".co_mr_gid</pivot>
+      <pivot level="WS_RSLTE-MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNCEL" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mrbts",
+            utp_common_objects "lnbts",
+            utp_common_objects "lncel",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mrbts".co_gid = p.mrbts_id
+          and "mrbts".co_parent_gid = "plmn".co_gid
+          and "mrbts".co_oc_id = 3128
+          and "lnbts".co_gid = p.lnbts_id
+          and "lnbts".co_parent_gid = "mrbts".co_gid
+          and "lnbts".co_oc_id = 3129
+          and "lncel".co_gid = p.lncel_id
+          and "lncel".co_parent_gid = "lnbts".co_gid
+          and "lncel".co_oc_id = 3130
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL">
+      <!-- Measures used to build this base-level: LCELAV, LCELLR, LCELLT, LEPSB, LHO, LHORLF, LIENBHO, LISHO, LIANBHO, LMAC, LNETSH, LPQDL, LPQUL, LQOS, LRRC, LSINR, LUESD, LUEST -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lncel,{TIME_AGG}:mon" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC_A1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL">
+      <!-- Measures used to build this base-level: LCELLD, LRDB -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,bh,weekbh,monthbh,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="hour,day,week,month,bh,weekbh,monthbh,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lncel,{TIME_AGG}:mon" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="bh" subst="{OBJ_AGG}:lncel,{TIME_AGG}:bh" can-use-raw="no" is-raw="no"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:lncel,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no"/>
+          <time-level name="monthbh" subst="{OBJ_AGG}:lncel,{TIME_AGG}:monbh" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HBC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL">
+      <!-- Measures used to build this base-level: LHOBC -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNCEL,HBC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.HBC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.LNCEL -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lncel,{TIME_AGG}:mon" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="20" pragma="RSLTE">
+    <!-- This meas-template is based in the topology: PLMN/MRBTS/LNBTS -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSLTE-MRBTS" filter-level="RSLTE-MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNBTS" filter-level="RSLTE-LNBTS" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      
+      
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">"plmn".co_gid</pivot>
+      <pivot level="RSLTE-MRBTS" id="mrbts_gid">"mrbts".co_gid</pivot>
+      <pivot level="RSLTE-LNBTS" id="lnbts_gid">"lnbts".co_gid</pivot>
+      <pivot level="MR_RSLTE-MRBTS" id="mr_gid">"mrbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNBTS" id="mr_gid">"lnbts".co_mr_gid</pivot>
+      <pivot level="WS_RSLTE-MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNBTS" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mrbts",
+            utp_common_objects "lnbts",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mrbts".co_gid = p.mrbts_id
+          and "mrbts".co_parent_gid = "plmn".co_gid
+          and "mrbts".co_oc_id = 3128
+          and "lnbts".co_gid = p.lnbts_id
+          and "lnbts".co_parent_gid = "mrbts".co_gid
+          and "lnbts".co_oc_id = 3129
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS">
+      <!-- Measures used to build this base-level: LCELAV, LCELLR, LCELLT, LEPSB, LHO, LHORLF, LIENBHO, LISHO, LIANBHO, LMAC, LNETSH, LPQDL, LPQUL, LQOS, LRRC, LSINR, LUESD, LUEST -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:mon" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC_A1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS">
+      <!-- Measures used to build this base-level: LCELLD, LRDB -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: month -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: true -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,bh,weekbh,monthbh,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:mon" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="bh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:bh" can-use-raw="no" is-raw="no"/>
+          <time-level name="weekbh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no"/>
+          <time-level name="monthbh" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:monbh" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="20" pragma="RSLTE">
+    <!-- This meas-template is based in the topology: PLMN/MRBTS/LNBTS/LNCEL -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSLTE-MRBTS" filter-level="RSLTE-MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNBTS" filter-level="RSLTE-LNBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNCEL" filter-level="RSLTE-LNCEL" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      
+      
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">"plmn".co_gid</pivot>
+      <pivot level="RSLTE-MRBTS" id="mrbts_gid">"mrbts".co_gid</pivot>
+      <pivot level="RSLTE-LNBTS" id="lnbts_gid">"lnbts".co_gid</pivot>
+      <pivot level="RSLTE-LNCEL" id="lncel_gid">"lncel".co_gid</pivot>
+      <pivot level="MR_RSLTE-MRBTS" id="mr_gid">"mrbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNBTS" id="mr_gid">"lnbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNCEL" id="mr_gid">"lncel".co_mr_gid</pivot>
+      <pivot level="WS_RSLTE-MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNCEL" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mrbts",
+            utp_common_objects "lnbts",
+            utp_common_objects "lncel",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mrbts".co_gid = p.mrbts_id
+          and "mrbts".co_parent_gid = "plmn".co_gid
+          and "mrbts".co_oc_id = 3128
+          and "lnbts".co_gid = p.lnbts_id
+          and "lnbts".co_parent_gid = "mrbts".co_gid
+          and "lnbts".co_oc_id = 3129
+          and "lncel".co_gid = p.lncel_id
+          and "lncel".co_parent_gid = "lnbts".co_gid
+          and "lncel".co_oc_id = 3130
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-ECI/RSLTE-DMCC/RSLTE-DMNC" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL">
+      <!-- Measures used to build this base-level: LNCELHO -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.ECI.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS.LNCEL -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1/RSLTE-DMNC-1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL">
+      <!-- Measures used to build this base-level: LISHOU -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.HOT.TCID.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2/RSLTE-DMNC-2" object-keys="RSLTE-MRBTS,RSLTE-LNBTS,RSLTE-LNCEL">
+      <!-- Measures used to build this base-level: LISHOG -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.LAC.TCID.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNCEL">PLMN/MR_RSLTE-LNCEL</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-LNCEL" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNCEL</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lncel,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lncel,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lncel,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+  <meas-template priority="10" pragma="RSLTE">
+    <!-- This meas-template is based in the topology: PLMN/MRBTS/LNBTS -->
+    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+    <grouping level="PLMN/WS_RSLTE-MRBTS" filter-level="RSLTE-MRBTS" grouping-subquery-alias="g"/>
+    <grouping level="PLMN/WS_RSLTE-LNBTS" filter-level="RSLTE-LNBTS" grouping-subquery-alias="g"/>
+    <time-truncation>
+      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')"/>
+      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )"/>
+      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )"/>
+      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )"/>
+      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW' )"/>
+      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )"/>
+      
+      
+    </time-truncation>
+    <pivots>
+      <pivot level="PLMN" id="plmn_gid">"plmn".co_gid</pivot>
+      <pivot level="RSLTE-MRBTS" id="mrbts_gid">"mrbts".co_gid</pivot>
+      <pivot level="RSLTE-LNBTS" id="lnbts_gid">"lnbts".co_gid</pivot>
+      <pivot level="MR_RSLTE-MRBTS" id="mr_gid">"mrbts".co_mr_gid</pivot>
+      <pivot level="MR_RSLTE-LNBTS" id="mr_gid">"lnbts".co_mr_gid</pivot>
+      <pivot level="WS_RSLTE-MRBTS" id="ws">g.ws</pivot>
+      <pivot level="WS_RSLTE-LNBTS" id="ws">g.ws</pivot>
+    </pivots>
+    <sql-template>
+    <![CDATA[
+      select
+          #pivots#,
+          #pi_aggregations#
+        from
+          #grouping_sql#
+            utp_common_objects "plmn",
+            utp_common_objects "mrbts",
+            utp_common_objects "lnbts",
+          #meas_table# p
+        where
+          #add_on_clause#
+          and period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+          and "plmn".co_oc_id = 16
+          and "mrbts".co_gid = p.mrbts_id
+          and "mrbts".co_parent_gid = "plmn".co_gid
+          and "mrbts".co_oc_id = 3128
+          and "lnbts".co_gid = p.lnbts_id
+          and "lnbts".co_parent_gid = "mrbts".co_gid
+          and "lnbts".co_oc_id = 3129
+        group by
+          #group_by#
+    ]]>
+    </sql-template>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-HOT/RSLTE-TCID-1/RSLTE-DMCC-1/RSLTE-DMNC-1" object-keys="RSLTE-MRBTS,RSLTE-LNBTS">
+      <!-- Measures used to build this base-level: LISHOU -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.HOT.TCID.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+    <base-level id="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC/RSLTE-LAC/RSLTE-TCID/RSLTE-DMCC-2/RSLTE-DMNC-2" object-keys="RSLTE-MRBTS,RSLTE-LNBTS">
+      <!-- Measures used to build this base-level: LISHOG -->
+      <!-- The following characteristics are common to this measure set: -->
+      <!--    Level Aggregations: LNBTS,LNCEL,DMNC -->
+      <!--    First Time Level: hour -->
+      <!--    Last Time Level: week -->
+      <!--    First Object Level: PLMN.MRBTS.LNBTS.LNCEL.MCC.MNC.LAC.TCID.DMCC.DMNC -->
+      <!--    Last Object Level: PLMN.MRBTS.LNBTS -->
+      <!--    Aggregation: All -->
+      <!--    Has BH formula: false -->
+      <!--    Has 2ndBH: false -->
+      <levels>
+          <level keys="PLMN" time-agg-levels="hour,day,week,month,whole_period">PLMN</level>
+          <level keys="RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS</level>
+          <level keys="RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/RSLTE-MRBTS/RSLTE-LNBTS</level>
+          <level keys="MR_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-MRBTS">PLMN/MR_RSLTE-MRBTS</level>
+          <level keys="MR_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period" da-additional-keys="MR_RSLTE-LNBTS">PLMN/MR_RSLTE-LNBTS</level>
+          <level keys="WS_RSLTE-MRBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-MRBTS</level>
+          <level keys="WS_RSLTE-LNBTS" time-agg-levels="hour,day,week,month,whole_period">PLMN/WS_RSLTE-LNBTS</level>
+      </levels>
+      <subst>
+          <time-level name="hour" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:hour" can-use-raw="no" is-raw="no"/>
+          <time-level name="day" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="week" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:week" can-use-raw="no" is-raw="no"/>
+          <time-level name="month" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+          <time-level name="whole_period" subst="{OBJ_AGG}:lnbts,{TIME_AGG}:day" can-use-raw="no" is-raw="no"/>
+      </subst>
+    </base-level>
+
+  </meas-template>
+</object-conf>

@@ -1,0 +1,244 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M385 NUPD measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M385 NUPD measurement dump</csv_title>
+    <report-description>UPD to number destination measurement(NUPD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <NUPD_NUM_OF_CALL_ATT/>
+    <NUPD_SUCCESSFUL_CALLS/>
+    <NUPD_ANSWERED_CALLS/>
+    <NUPD_SUBSC_ERROR/>
+    <NUPD_INT_ERROR/>
+    <NUPD_EXT_ERROR/>
+    <NUPD_ERLANGS_x100/>
+    <NUPD_OVERLOAD_CTRL_ACT/>
+    <NUPD_DATA_PROV_RESTARTED/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/UPD/DEST" name="NUPD" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="NUPD_NUM_OF_CALL_ATT" symmetrical="true">SUM(NUPD_NUM_OF_CALL_ATT)</counter>
+      <counter alias="NUPD_SUCCESSFUL_CALLS" symmetrical="true">SUM(NUPD_SUCCESSFUL_CALLS)</counter>
+      <counter alias="NUPD_ANSWERED_CALLS" symmetrical="true">SUM(NUPD_ANSWERED_CALLS)</counter>
+      <counter alias="NUPD_SUBSC_ERROR" symmetrical="true">SUM(NUPD_SUBSC_ERROR)</counter>
+      <counter alias="NUPD_INT_ERROR" symmetrical="true">SUM(NUPD_INT_ERROR)</counter>
+      <counter alias="NUPD_EXT_ERROR" symmetrical="true">SUM(NUPD_EXT_ERROR)</counter>
+      <counter alias="NUPD_ERLANGS_x100" object-formula="SUM(NUPD_ERLANGS_x100)" time-alias="NUPD_ERLANGS_x100" time-formula="AVG(NUPD_ERLANGS_x100)">SUM(NUPD_ERLANGS_x100)</counter>
+      <counter alias="NUPD_OVERLOAD_CTRL_ACT" symmetrical="true">AVG(NUPD_OVERLOAD_CTRL_ACT)</counter>
+      <counter alias="NUPD_DATA_PROV_RESTARTED" symmetrical="true">AVG(NUPD_DATA_PROV_RESTARTED)</counter>
+    </counters>
+    <table_name>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NUPD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NUPD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_NUM_OF_CALL_ATT">
+    <formula>NUPD.NUPD_NUM_OF_CALL_ATT</formula>
+    <kpi_info>
+      <title>NUPD_NUM_OF_CALL_ATT</title>
+      <use>Number of call attempts (0...999999). Thefield is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUPD_NUM_OF_CALL_ATT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_NUM_OF_CALL_ATT (M385B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_SUCCESSFUL_CALLS">
+    <formula>NUPD.NUPD_SUCCESSFUL_CALLS</formula>
+    <kpi_info>
+      <title>NUPD_SUCCESSFUL_CALLS</title>
+      <use>Number of successful call attempts (0...999999), clear codes 0...3FF. The field is updated when the first released circuit
+is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUPD_SUCCESSFUL_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_SUCCESSFUL_CALLS (M385B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_ANSWERED_CALLS">
+    <formula>NUPD.NUPD_ANSWERED_CALLS</formula>
+    <kpi_info>
+      <title>NUPD_ANSWERED_CALLS</title>
+      <use>The number of calls (0...999999) that havereached the conversation state. The field is updated when the first released
+circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUPD_ANSWERED_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_ANSWERED_CALLS (M385B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_SUBSC_ERROR">
+    <formula>NUPD.NUPD_SUBSC_ERROR</formula>
+    <kpi_info>
+      <title>NUPD_SUBSC_ERROR</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in a subscriber error, clear codes C00...FFF. The
+field is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUPD_SUBSC_ERROR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_SUBSC_ERROR (M385B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_INT_ERROR">
+    <formula>NUPD.NUPD_INT_ERROR</formula>
+    <kpi_info>
+      <title>NUPD_INT_ERROR</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in an error in the home exchange, clear codes 400...7FF.
+The field is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUPD_INT_ERROR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_INT_ERROR (M385B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_EXT_ERROR">
+    <formula>NUPD.NUPD_EXT_ERROR</formula>
+    <kpi_info>
+      <title>NUPD_EXT_ERROR</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in an error in the trunk circuit, clear codes 800...BFF.
+The field is updated when the first released circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUPD_EXT_ERROR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_EXT_ERROR (M385B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_ERLANGS_x100">
+    <formula>NUPD.NUPD_ERLANGS_x100</formula>
+    <kpi_info>
+      <title>NUPD_ERLANGS_x100</title>
+      <use>The amount of traffic from a circuit groupto a number destination in Erlangs (0.0...9999.9). That means the
+total reservation time of the measured object in relation to the
+results accumulation period. The erlang calculation starts when
+both circuits are seized. The end point of erlang calculation is
+determined by the circuit that is released first. All of the circuit
+reservation time is updated in the results accumulation period in
+which the first released circuit is released. For this reason remarkably
+large values in the ERLANGS field are possible if there are many
+calls that have started before the results accumulation period but
+that end in the results accumulation period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(NUPD_ERLANGS_x100)">SUM(NUPD_ERLANGS_x100)</formula>
+      <unit>Erl</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_ERLANGS_x100 (M385B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_OVERLOAD_CTRL_ACT">
+    <formula>NUPD.NUPD_OVERLOAD_CTRL_ACT</formula>
+    <kpi_info>
+      <title>NUPD_OVERLOAD_CTRL_ACT</title>
+      <use>The tag appears at the end of the given countergroup with field value 10 when the Automatic Overload Control of Statistics
+feature has been activated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(NUPD_OVERLOAD_CTRL_ACT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_OVERLOAD_CTRL_ACT (M385B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUPD_DATA_PROV_RESTARTED">
+    <formula>NUPD.NUPD_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>NUPD_DATA_PROV_RESTARTED</title>
+      <use>Tag appears with value 1 when the data providerin the signalling unit or the signalling unit(s) is restarted during
+the period and data might not be reliable.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(NUPD_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_nupd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUPD_DATA_PROV_RESTARTED (M385B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

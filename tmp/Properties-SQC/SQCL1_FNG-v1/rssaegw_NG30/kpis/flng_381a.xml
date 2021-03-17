@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <kpi name="flng_381a">
+    <formula>decode(
+			((GTPU.gtpu_echo_request_received)),0,NULL, 
+
+			((GTPU.gtpu_echo_response_sent))
+			 / 
+			((GTPU.gtpu_echo_request_received)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[GTPU Echo Response/Request ratio, SGSN/eNodeB initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-U Echo Responses sent as response to SGSN/eNodeB initiated GTP-U Echo Requests messages.
+GTP path management messaging is used between network elements to check if a peer element is alive and the indication of a potential problem is the mismatch between Echo Request/Response massages.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula> sum (gtpu_echo_response_sent)
+&lt;br&gt;-------------------------------- * 100
+&lt;br&gt;sum (gtpu_echo_request_received)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[GTPU Echo Resp r,SGSN/eNB]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

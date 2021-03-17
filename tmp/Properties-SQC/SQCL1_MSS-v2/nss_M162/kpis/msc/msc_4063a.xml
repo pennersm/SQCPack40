@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/TC.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4063a">
+    <formula>decode(
+		(tc_ext.tcat_call_amount_9),0,null, 
+		(100*tc.tcat_group1/
+        tc_ext.tcat_call_amount_9))</formula>
+    <kpi_info>
+      <title><![CDATA[IN/CAMEL Dialog Failure Ratio]]></title>
+      <use><![CDATA[Ratio of released call due to the IN/CAMEL problems]]></use>
+
+<use_experience><![CDATA[ 
+<br>TCAT_GROUP1 CC is:
+<br>
+<br>027 = HUNTING SERVICE RELEASE
+<br>104 = ECT PREVENTED DUE TO CPH CONFIGURATION
+<br>105 = MPTY PREVENTED DUE TO CPH CONFIGURATION
+<br>213 = NETWORK, USER NOT IN CUG
+<br>317 = OVERALL TIME LIMIT OF IN-BASED SUBSCRIBER SERVICE HAS BEEN REACHED
+<br>B2C = IN APPLICATION PROTOCOL ERROR
+<br>B2D = INTELLIGENT NETWORK APPLICATION RESPONSE TIME-OUT
+<br>B2E = MAXIMUM NUMBER OF TRIGGERING EVENTS IN A CALL HAS BEEN REACHED
+<br>B32 = CALL RELEASE ORDERED INTELLIGENT NETWORK APPLICATION
+<br>B38 = IN SERVICE FALLBACK CODE ONE
+<br>B39 = IN SERVICE FALLBACK CODE TWO
+<br>B3A = IN SERVICE FALLBACK CODE THREE
+<br>B3C = IN SERVICE FALLBACK CODE FOUR
+<br>
+<br>TCAT_ID:
+<br>51 = ORIG CAMEL -> Originating Camel call
+<br>53 = INC CAMEL -> Incoming Camel call
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 25-11-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is partially compliant with ex-S &quot;IN/CAMEL Dialog Failure Ratio&quot; KPI.
+<br>This KPI only provides the CAMEL Dialog Failure Ratio.
+<br>The IN/CAMEL failure conditions that are being considered in this KPI are different from ex-S approach. Despite of so, we can still talk about a mapping KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        TCAT_GROUP1
+&lt;br&gt;100 * -----------------------------------
+&lt;br&gt;        TCAT_CALL_AMOUNT; WHERE Tcat_ID = 51, 53 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>INCAMEL Diag FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

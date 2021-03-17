@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/NSUPPR.xml" />
+  <kpi name="mgw_1093a">
+    <formula>decode(
+			(nsuppr.mb_ns_success + 
+			nsuppr.mb_ns_reservation_failure),0,null, 
+
+			(100*(nsuppr.mb_ns_failure)
+			 / 
+			(nsuppr.mb_ns_success + 
+			nsuppr.mb_ns_reservation_failure)))</formula>
+    <kpi_info>
+      <title><![CDATA[Noise Suppression in Mb interface unsuccessful usage ratio]]></title>
+      <use><![CDATA[Indicates unsuccessful usage ratio of Noise Suppression in Mb interface, which is caused by lack of DSP resources for NS in measured MGW. This is only subset of unsuccessful resource reservation attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                SUM(MB_NS_FAILURE)
+&lt;br&gt;100 * ---------------------------------------------
+&lt;br&gt;      SUM(MB_NS_SUCCESS + MB_NS_RESERVATION_FAILURE)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_nsuppr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NS Mb unsucc usage ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

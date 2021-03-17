@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_2020a">
+    <formula>decode(
+			(signtrc.mgw_1005c),0,null, 
+
+			(100*(signtrc.speech_to_clearmode_aoip)
+			 / 
+			signtrc.mgw_1005c))</formula>
+    <kpi_info>
+      <title><![CDATA[Successful ratio of call type modifications from any speech codec to clearmode codec.]]></title>
+      <use><![CDATA[Indicates successful call type modifications from any speech codec to clearmode codec in the measured MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( SPEECH_TO_CLEARMODE_AOIP )
+&lt;br&gt;--------------------------------------------------------------------------- x 100
+&lt;br&gt;                                     mgw_1005c
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CTMod SpeechCod ClearmodCod SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

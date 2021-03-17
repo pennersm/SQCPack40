@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/ATMIF.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/ATMIF_ext.xml" />
+  <kpi name="MGW_948b">
+    <formula>decode(
+			(atmif.period_duration * 60 * atmif_ext.in_cap),0,null, 
+			
+			(100*(atmif.in_tot_rec_cell)
+			 / 
+			(atmif.period_duration * 60 * atmif_ext.in_cap)))</formula>
+    <kpi_info>
+      <title><![CDATA[ATM Interface Ingress utilization]]></title>
+      <use><![CDATA[The utilization percent of ATM Interface ingress cells]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt; For Time:
+&lt;br&gt;
+&lt;br&gt;  SUM( IN_TOT_REC_CELL ) 
+&lt;br&gt;---------------------------------------------------------------- x 100 
+&lt;br&gt;  SUM(period_duration) * 60 * AVG( IN_CAP ) 
+&lt;br&gt;
+&lt;br&gt;For Object: 
+&lt;br&gt;
+&lt;br&gt;  SUM( IN_TOT_REC_CELL ) 
+&lt;br&gt;---------------------------------------------------------------- x 100
+&lt;br&gt;  AVG(period_duration) * 60 * SUM( IN_CAP ) 
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s) 
+&lt;br&gt;
+	  </formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_atmif_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[ATM If Ingress util]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

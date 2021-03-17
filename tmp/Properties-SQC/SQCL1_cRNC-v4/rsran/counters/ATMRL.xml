@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 ATM_route_load ATMRL measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 ATM_route_load ATMRL measurement dump</csv_title>
+    <report-description>ATM Route Load</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <GRT_CELL_RATE />
+    <HSDPA_CELL_RATE_MAX />
+    <HSDPA_CELL_RATE_MIN />
+    <HSDPA_CELL_RATE_AVG />
+    <RES_CELL_RATE_MAX />
+    <RES_CELL_RATE_MIN />
+    <RES_CELL_RATE_AVG />
+    <ACTIVE_AAL2_CONN_MAX />
+    <ACTIVE_AAL2_CONN_MIN />
+    <ACTIVE_AAL2_CONN_AVG />
+    <SUCC_AAL2_CONN />
+    <AAL2_REJECT_BY_CAC />
+    <AAL2_REJECT_BY_HW />
+    <ACTIVE_HSDPA_CONN_MAX />
+    <ACTIVE_HSDPA_CONN_MIN />
+    <ACTIVE_HSDPA_CONN_AVG />
+    <SUCC_HSDPA_CONN />
+    <HSDPA_REJECT_BY_CAC />
+    <HSDPA_REJECT_BY_HW />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="ATMRL" meas_level="PLMN/RNC/ROUTE" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="GRT_CELL_RATE">SUM(GRT_CELL_RATE)</counter>
+      <counter alias="HSDPA_CELL_RATE_MAX">MAX(HSDPA_CELL_RATE_MAX)</counter>
+      <counter alias="HSDPA_CELL_RATE_MIN">MIN(HSDPA_CELL_RATE_MIN)</counter>
+      <counter alias="HSDPA_CELL_RATE_AVG">AVG(HSDPA_CELL_RATE_AVG)</counter>
+      <counter alias="RES_CELL_RATE_MAX">MAX(RES_CELL_RATE_MAX)</counter>
+      <counter alias="RES_CELL_RATE_MIN">MIN(RES_CELL_RATE_MIN)</counter>
+      <counter alias="RES_CELL_RATE_AVG">AVG(RES_CELL_RATE_AVG)</counter>
+      <counter alias="ACTIVE_AAL2_CONN_MAX">MAX(ACTIVE_AAL2_CONN_MAX)</counter>
+      <counter alias="ACTIVE_AAL2_CONN_MIN">MIN(ACTIVE_AAL2_CONN_MIN)</counter>
+      <counter alias="ACTIVE_AAL2_CONN_AVG">AVG(ACTIVE_AAL2_CONN_AVG)</counter>
+      <counter alias="SUCC_AAL2_CONN">SUM(SUCC_AAL2_CONN)</counter>
+      <counter alias="AAL2_REJECT_BY_CAC">SUM(AAL2_REJECT_BY_CAC)</counter>
+      <counter alias="AAL2_REJECT_BY_HW">SUM(AAL2_REJECT_BY_HW)</counter>
+      <counter alias="ACTIVE_HSDPA_CONN_MAX">MAX(ACTIVE_HSDPA_CONN_MAX)</counter>
+      <counter alias="ACTIVE_HSDPA_CONN_MIN">MIN(ACTIVE_HSDPA_CONN_MIN)</counter>
+      <counter alias="ACTIVE_HSDPA_CONN_AVG">AVG(ACTIVE_HSDPA_CONN_AVG)</counter>
+      <counter alias="SUCC_HSDPA_CONN">SUM(SUCC_HSDPA_CONN)</counter>
+      <counter alias="HSDPA_REJECT_BY_CAC">SUM(HSDPA_REJECT_BY_CAC)</counter>
+      <counter alias="HSDPA_REJECT_BY_HW">SUM(HSDPA_REJECT_BY_HW)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ATMRL</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ATMRL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GRT_CELL_RATE">
+    <formula>ATMRL.GRT_CELL_RATE</formula>
+    <kpi_info>
+      <title>GRT_CELL_RATE</title>
+      <use>The total configured bandwidth of the ATM route. This is the same as the sum of M550C0 AAL2_PATH_GUAR_CELL_RATE calculated over each VCC of which the route consists. When UBR+ VCCs are used in a bundle, this counter can show higher value than the physical capacity of the AAL2 path because M550C0 shows bundle peak cell rate for bundled UBR+ VCCs. UPDATED:Stays constant throughout the ATM route lifecycle.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GRT_CELL_RATE)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GRT_CELL_RATE (M531C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HSDPA_CELL_RATE_MAX">
+    <formula>ATMRL.HSDPA_CELL_RATE_MAX</formula>
+    <kpi_info>
+      <title>HSDPA_CELL_RATE_MAX</title>
+      <use>The maximum HSDPA shared AAL2 allocation reserved cell rate during the measurement period. When the HSDPA shared AAL2 allocation reserved cell rate is at maximum during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(HSDPA_CELL_RATE_MAX)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSDPA_CELL_RATE_MAX (M531C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HSDPA_CELL_RATE_MIN">
+    <formula>ATMRL.HSDPA_CELL_RATE_MIN</formula>
+    <kpi_info>
+      <title>HSDPA_CELL_RATE_MIN</title>
+      <use>The minimum HSDPA shared AAL2 allocation reserved cell rate during the measurement period. When the HSDPA shared AAL2 allocation reserved cell rate is at minimum during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(HSDPA_CELL_RATE_MIN)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSDPA_CELL_RATE_MIN (M531C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HSDPA_CELL_RATE_AVG">
+    <formula>ATMRL.HSDPA_CELL_RATE_AVG</formula>
+    <kpi_info>
+      <title>HSDPA_CELL_RATE_AVG</title>
+      <use>The average HSDPA shared AAL2 allocation reserved cell rate. The average value is sampled constantly during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(HSDPA_CELL_RATE_AVG)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSDPA_CELL_RATE_AVG (M531C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_CELL_RATE_MAX">
+    <formula>ATMRL.RES_CELL_RATE_MAX</formula>
+    <kpi_info>
+      <title>RES_CELL_RATE_MAX</title>
+      <use>The maximum reserved cell rate for AAL2 connections during the measurement period. This is the same as the sum of M550C3 MAX_RESERVED_CELL_RATE calculated over each VCC of which the route consists. If the UBR+ VC connection is part of a VC bundle, it is counted based on the maximum available capacity value of the whole bundle capacity for the NRT or HSDPA, depending on the VC type. UPDATED:When the reserved cell rate is highest during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(RES_CELL_RATE_MAX)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_CELL_RATE_MAX (M531C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_CELL_RATE_MIN">
+    <formula>ATMRL.RES_CELL_RATE_MIN</formula>
+    <kpi_info>
+      <title>RES_CELL_RATE_MIN</title>
+      <use>The minimum reserved cell rate for AAL2 connections during the measurement period. This is the same as the sum of M550C2 MIN_RESERVED_CELL_RATE calculated over each VCC of which the route consists. If the UBR+ VC connection is part of a VC bundle, it is counted based on the maximum available capacity value of the whole bundle capacity for the NRT or HSDPA, depending on the VC type. UPDATED:When the reserved cell rate is at minimum during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(RES_CELL_RATE_MIN)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_CELL_RATE_MIN (M531C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RES_CELL_RATE_AVG">
+    <formula>ATMRL.RES_CELL_RATE_AVG</formula>
+    <kpi_info>
+      <title>RES_CELL_RATE_AVG</title>
+      <use>The average reserved cell rate for AAL2 connections during the measurement period. This is the same as the sum of average value (M550C1 MIN_RESERVED_CELL_RATE / M550C7 NBR_SAMPLES) calculated over each VCC of which the route consists. If the UBR+ VC connection is part of a VC bundle, it is counted based on the maximum available capacity value of the whole bundle capacity for the NRT or HSDPA, depending on the VC type.UPDATED:The average value is sampled constantly during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(RES_CELL_RATE_AVG)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RES_CELL_RATE_AVG (M531C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_AAL2_CONN_MAX">
+    <formula>ATMRL.ACTIVE_AAL2_CONN_MAX</formula>
+    <kpi_info>
+      <title>ACTIVE_AAL2_CONN_MAX</title>
+      <use>The maximum number of active AAL2 cross-connections including HSDPA connections during the measurement period. When the number of active AAL2 cross-connections including HSDPA connections is highest during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(ACTIVE_AAL2_CONN_MAX)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_AAL2_CONN_MAX (M531C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_AAL2_CONN_MIN">
+    <formula>ATMRL.ACTIVE_AAL2_CONN_MIN</formula>
+    <kpi_info>
+      <title>ACTIVE_AAL2_CONN_MIN</title>
+      <use>The minimum number of active AAL2 cross-connections including HSDPA connections during the measurement period. When the number of active AAL2 cross-connections including HSDPA connections is at minimum during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(ACTIVE_AAL2_CONN_MIN)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_AAL2_CONN_MIN (M531C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_AAL2_CONN_AVG">
+    <formula>ATMRL.ACTIVE_AAL2_CONN_AVG</formula>
+    <kpi_info>
+      <title>ACTIVE_AAL2_CONN_AVG</title>
+      <use>The average number of active AAL2 cross-connections including HSDPA connections. The average value is sampled constantly during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(ACTIVE_AAL2_CONN_AVG)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_AAL2_CONN_AVG (M531C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SUCC_AAL2_CONN">
+    <formula>ATMRL.SUCC_AAL2_CONN</formula>
+    <kpi_info>
+      <title>SUCC_AAL2_CONN</title>
+      <use>The number of successful AAL2 cross-connections including HSDPA connections. When an AAL2 cross-connection is successfully created.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SUCC_AAL2_CONN)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_AAL2_CONN (M531C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_REJECT_BY_CAC">
+    <formula>ATMRL.AAL2_REJECT_BY_CAC</formula>
+    <kpi_info>
+      <title>AAL2_REJECT_BY_CAC</title>
+      <use>The number of AAL2 cross-connections rejected by CAC, including HSDPA connections. When an AAL2 cross-connection is rejected by CAC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_REJECT_BY_CAC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_REJECT_BY_CAC (M531C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_REJECT_BY_HW">
+    <formula>ATMRL.AAL2_REJECT_BY_HW</formula>
+    <kpi_info>
+      <title>AAL2_REJECT_BY_HW</title>
+      <use>The number of AAL2 cross-connections rejected by hardware, including HSDPA connections. When an AAL2 cross-connection is rejected by hardware.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_REJECT_BY_HW)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_REJECT_BY_HW (M531C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_HSDPA_CONN_MAX">
+    <formula>ATMRL.ACTIVE_HSDPA_CONN_MAX</formula>
+    <kpi_info>
+      <title>ACTIVE_HSDPA_CONN_MAX</title>
+      <use>The maximum number of active HSDPA connections during the measurement period. When the number of active HSDPA connections is highest during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(ACTIVE_HSDPA_CONN_MAX)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_HSDPA_CONN_MAX (M531C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_HSDPA_CONN_MIN">
+    <formula>ATMRL.ACTIVE_HSDPA_CONN_MIN</formula>
+    <kpi_info>
+      <title>ACTIVE_HSDPA_CONN_MIN</title>
+      <use>The minimum number of active HSDPA connections during the measurement period. When the number of active HSDPA connections is at minimum during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(ACTIVE_HSDPA_CONN_MIN)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_HSDPA_CONN_MIN (M531C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ACTIVE_HSDPA_CONN_AVG">
+    <formula>ATMRL.ACTIVE_HSDPA_CONN_AVG</formula>
+    <kpi_info>
+      <title>ACTIVE_HSDPA_CONN_AVG</title>
+      <use>The average number of active HSDPA connections. The average value is sampled constantly during the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(ACTIVE_HSDPA_CONN_AVG)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_HSDPA_CONN_AVG (M531C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SUCC_HSDPA_CONN">
+    <formula>ATMRL.SUCC_HSDPA_CONN</formula>
+    <kpi_info>
+      <title>SUCC_HSDPA_CONN</title>
+      <use>The number of successful HSDPA connections. When an HSDPA connection is successfully created.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SUCC_HSDPA_CONN)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_HSDPA_CONN (M531C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HSDPA_REJECT_BY_CAC">
+    <formula>ATMRL.HSDPA_REJECT_BY_CAC</formula>
+    <kpi_info>
+      <title>HSDPA_REJECT_BY_CAC</title>
+      <use>The number of HSDPA connections rejected by CAC. When an HSDPA connection is rejected by CAC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HSDPA_REJECT_BY_CAC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSDPA_REJECT_BY_CAC (M531C17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HSDPA_REJECT_BY_HW">
+    <formula>ATMRL.HSDPA_REJECT_BY_HW</formula>
+    <kpi_info>
+      <title>HSDPA_REJECT_BY_HW</title>
+      <use>The number of HSDPA connections rejected by hardware. When an HSDPA connection is rejected by hardware.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HSDPA_REJECT_BY_HW)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSDPA_REJECT_BY_HW (M531C18)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>ATMRL.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_atmrl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

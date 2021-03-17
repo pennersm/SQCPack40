@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte_RL70/counters/LCELAVR_ext.xml"/>
+  <kpi name="LTE_1413a">
+    <formula>100*DECODE(LCELAVR_ext.EPS_BEARER_SETUP_COMPLETIONS,0,null,
+    
+    LCELAVR_ext.SUM_WEIGHTED_CELL_AVAIL/LCELAVR_ext.EPS_BEARER_SETUP_COMPLETIONS)</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Area Availability Ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of services in PLMN being available for end-users.<br>
+
+The availability ratio is calculated as a weight average of the availability ratios of all the cells within the observed PLMN.<br>
+The time interval the weight coefficients shall be obtained is recommended about one month despite the KPIs is reported for smaller measurement period. This is need to obtained stable weight coefficients. 
+]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>((SUM(i=1,^N)(1-(sum(SAMPLES_CELL_UNPLAN_UNAVAIL)_i/sum(DENOM_CELL_AVAIL)_i ))) 
+&lt;br&gt;*  
+&lt;br&gt;sum(EPS_BEARER_SETUP_COMPLETIONS)_i  
+&lt;br&gt;/ 
+&lt;br&gt;(SUM(i=1,^N)(sum(EPS_BEARER_SETUP_COMPLETIONS)_i ))*100% 
+&lt;br&gt;
+</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Area avail R]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

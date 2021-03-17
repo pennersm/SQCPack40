@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/PPLAC.xml"/>
+  <kpi name="msc_513a">
+    <formula>100*decode(
+			(pplac.pagingattemptwithtmsisucc + 
+			pplac.pagingattemptwithtmsifail),0,null, 
+
+			pplac.pagingattemptwithtmsisucc
+			 / 
+			(pplac.pagingattemptwithtmsisucc + 
+			pplac.pagingattemptwithtmsifail))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging messages in TMSI page success ratio]]></title>
+      <use><![CDATA[Success rate of paging messages to A and Iu interface in case of TMSI page.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      sum (PagingAttemptWithTMSISucc)
+&lt;br&gt; 100 * -------------------------------------------------------------
+&lt;br&gt;      sum (PagingAttemptWithTMSISucc
+&lt;br&gt;         + PagingAttemptWithTMSIFail)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_MSCPPL_MSC_{time_agg} 
+&lt;br&gt;RNS_PS_PPLAC_MSC_{time_agg}
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_pplac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Paging messages in TMSI page success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

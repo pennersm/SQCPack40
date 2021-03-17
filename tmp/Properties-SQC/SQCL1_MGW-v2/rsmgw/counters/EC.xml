@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>EC (Echo Cancellation)</header>
+    <csv_title>EC (Echo Cancellation)</csv_title>
+    <report-description>663/297H Echo Cancellation Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <EC_RESERVATION />
+    <EC_RESERVATION_FAILURE />
+    <EC_SUCCESS />
+    <EC_CURRENT />
+    <EC_AVERAGE />
+    <EC_PEAK />
+    <EC_FAILURE />
+    <EC_REJECT_NO_CAPA />
+  </column_order>
+  <temp_table name="EC" meas_level="PLMN/RSMGW-MGW_A1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>EC</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="EC_RESERVATION"  symmetrical="true"  itk_id="EC_RESERVATION">SUM(EC_RESERVATION)</counter>
+          <counter alias="EC_RESERVATION_FAILURE"  symmetrical="true"  itk_id="EC_RESERVATION_FAILURE">SUM(EC_RESERVATION_FAILURE)</counter>
+          <counter alias="EC_SUCCESS"  symmetrical="true"  itk_id="EC_SUCCESS">SUM(EC_SUCCESS)</counter>
+          <counter alias="EC_CURRENT"  symmetrical="true"  itk_id="EC_CURRENT">AVG(EC_CURRENT)</counter>
+          <counter alias="EC_AVERAGE"  symmetrical="true"  itk_id="EC_AVERAGE">AVG(EC_AVERAGE)</counter>
+          <counter alias="EC_PEAK"  symmetrical="true"  itk_id="EC_PEAK">MAX(EC_PEAK)</counter>
+          <counter alias="EC_FAILURE"  symmetrical="true"  itk_id="EC_FAILURE">SUM(EC_FAILURE)</counter>
+          <counter alias="EC_REJECT_NO_CAPA"  symmetrical="true"  itk_id="EC_REJECT_NO_CAPA">SUM(EC_REJECT_NO_CAPA)</counter>
+    </counters>
+    <table_name>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>EC</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>EC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_RESERVATION" itk_id="EC_RESERVATION">
+    <formula>EC.EC_RESERVATION</formula>
+    <kpi_info>
+      <title>EC_RESERVATION (M663C0)</title>
+      <use>The number of EC resource reservations. When resources are reserved for the EC service.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EC_RESERVATION)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_RESERVATION (M663C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_RESERVATION_FAILURE" itk_id="EC_RESERVATION_FAILURE">
+    <formula>EC.EC_RESERVATION_FAILURE</formula>
+    <kpi_info>
+      <title>EC_RESERVATION_FAILURE (M663C1)</title>
+      <use>The number of failed EC resource reservations. When resources are reserved for the EC service but reservation fails.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EC_RESERVATION_FAILURE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_RESERVATION_FAILURE (M663C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_SUCCESS" itk_id="EC_SUCCESS">
+    <formula>EC.EC_SUCCESS</formula>
+    <kpi_info>
+      <title>EC_SUCCESS (M663C2)</title>
+      <use>Number of successful EC usage. When EC is used after resources has been reserved.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EC_SUCCESS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_SUCCESS (M663C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_CURRENT" itk_id="EC_CURRENT">
+    <formula>EC.EC_CURRENT</formula>
+    <kpi_info>
+      <title>EC_CURRENT (M663C3)</title>
+      <use>Current value of simultaneously active ECs in the end of Result Accumulation Period. Incremented when resource reservation for an EC call is successful and decremented when an EC call is released.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(EC_CURRENT)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_CURRENT (M663C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_AVERAGE" itk_id="EC_AVERAGE">
+    <formula>EC.EC_AVERAGE</formula>
+    <kpi_info>
+      <title>EC_AVERAGE (M663C4)</title>
+      <use>Average value of simultaneously active ECs in one Result Accumulation Period. Samples are taken in every 20 seconds from corresponding current-counter and average value is calculated at the end of each Result Accumulation Period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(EC_AVERAGE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_AVERAGE (M663C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_PEAK" itk_id="EC_PEAK">
+    <formula>EC.EC_PEAK</formula>
+    <kpi_info>
+      <title>EC_PEAK (M663C5)</title>
+      <use>The highest value of simultaneously active ECs in one Result Accumulation Period. When EC_CURRENT value reaches a new high value.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EC_PEAK)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_PEAK (M663C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_FAILURE" itk_id="EC_FAILURE">
+    <formula>EC.EC_FAILURE</formula>
+    <kpi_info>
+      <title>EC_FAILURE (M663C6)</title>
+      <use>The number of failed EC usages. When EC use fails after reserving resources.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EC_FAILURE)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_FAILURE (M663C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EC_REJECT_NO_CAPA" itk_id="EC_REJECT_NO_CAPA">
+    <formula>EC.EC_REJECT_NO_CAPA</formula>
+    <kpi_info>
+      <title>EC_REJECT_NO_CAPA (M663C7)</title>
+      <use>The number of unsuccessful EC resource reservations that have been rejected because the capacity limit of the licence has been reached in MGW. UPDATED: When the resource reservation for EC is rejected due to capacity limit.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EC_REJECT_NO_CAPA)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EC_REJECT_NO_CAPA (M663C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

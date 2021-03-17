@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran_RU40/counters/HSDPAW_ext.xml" />
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <temp_table_ref src="rsran_RU40/counters/CELTPW_ext.xml" />
+  <kpi name="RNC_1879d">
+    <formula>decode(
+			hsdpaw.hsdpa_buff_with_data_per_tti,0,null, 
+
+			((hsdpaw.received_hs_macd_bits - 
+			hsdpaw.discarded_hs_macd_bits + 
+			(celtpw.mc_hsdpa_orig_data_pri_1 + 
+			celtpw.mc_hsdpa_orig_data_sec_1)*8)*500)
+			 / 
+			hsdpaw.hsdpa_buff_with_data_per_tti)</formula>
+    <kpi_info>
+      <title><![CDATA[Active HS-DSCH end user throughput]]></title>
+      <use><![CDATA[The average active HS-DSCH MAC-d throughput from end user perspective, calculated]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sum(RECEIVED_HS_MACD_BITS-DISCARDED_HS_MACD_BITS 
+&lt;br&gt;+ (MC_HSDPA_ORIG_DATA_PRI+MC_HSDPA_ORIG_DATA_SEC)*8 )* 500) 
+&lt;br&gt;/  
+&lt;br&gt;sum(HSDPA_BUFF_WITH_DATA_PER_TTI)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg},nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:36.220 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Act HS-DSCH  end usr thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/MBRS_ext.xml"/>
+  <kpi name="flng_762a">
+    <formula>decode(
+			((MBRS_ext.gtpcv2_mod_bear_resp_sent)),0,NULL, 
+
+			(MBRS_ext.gtpcv2_mod_bear_resp_sent -
+			( MBRS_ext.gtpcv2_mod_bear_resp_sent_16 +
+			  MBRS_ext.gtpcv2_mod_bear_resp_sent_64 ))
+			 / 
+			(MBRS_ext.gtpcv2_mod_bear_resp_sent))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Modify Bearer responses sent "others" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 modify bearer responses sent with all other cause code (16 and 64 are excluded) when compared to total number of GTP-C v2 modify bearer response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTPCV2_MOD_BEAR_RESP_SENT) -
+&lt;br&gt;( sum(decode(mbrs_id,('16' or 'cs_1_16'),GTPCV2_MOD_BEAR_RESP_SENT,0)) + 
+&lt;br&gt;  sum(decode(mbrs_id,('64' or 'cs_1_64'),GTPCV2_MOD_BEAR_RESP_SENT,0)) ) 	  
+&lt;br&gt;-------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_MOD_BEAR_RESP_SENT)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_MBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Mod Bear resp sent oth rat]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

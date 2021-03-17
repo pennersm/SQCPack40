@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/H248GR2.xml" />
+  <kpi name="mgw_1205a">
+    <formula>decode(
+			h248gr2.period_duration,0,null, 
+
+			( 100 * ( 1 - ( 
+			(h248gr2.unavail_dur_h248_sctp/100)
+			 / 
+			(h248gr2.period_duration*60)
+			))))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Mc link availability ratio]]></title>
+      <use><![CDATA[Indicates the availability ratio of H.248 SCTP signalling links.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                    SUM(UNAVAIL_DUR_H248_SCTP) / 100 
+&lt;br&gt;100 * (1 - ---------------------------------------)  
+&lt;br&gt;                                 SUM( DURATION ) * 60
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_H248GR2_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.498 +0100</date>
+          <comment><![CDATA[Source: RSMGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mc link avail</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

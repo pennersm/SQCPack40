@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml"/>
+  <kpi name="flns_3045a">
+    <formula>decode(
+			((MMMT.EPS_PAGING_SUCC + 
+			MMMT.EPS_PAGING_FAIL)),0,NULL, 
+
+			((MMMT.EPS_PAGING_ATTEMPTS))
+			 / 
+			((MMMT.EPS_PAGING_SUCC + 
+			MMMT.EPS_PAGING_FAIL)))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS PS Paging attempts per paging procedure]]></title>
+      <use><![CDATA[This KPI shows the average number of EPS PS paging attempts per EPS PS paging procedure.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (EPS_PAGING_ATTEMPTS)
+&lt;br&gt;--------------------------
+&lt;br&gt;sum (EPS_PAGING_SUCC + 
+&lt;br&gt;   EPS_PAGING_FAIL)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Paging att pr paging proc]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

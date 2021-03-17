@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml" />
+	<kpi name="RNC_965a">
+		<formula>
+			decode((servlev.rab_stp_att_cs_voice+servlev.rab_stp_att_cs_conv+servlev.rab_stp_att_cs_strea+servlev.rab_stp_att_ps_strea),0,null,(100*(servlev.rab_stp_fail_cs_voice_ac+servlev.rab_stp_fail_cs_conv_ac+servlev.rab_stp_fail_cs_strea_ac+servlev.rab_stp_fail_ps_strea_ac)/(servlev.rab_stp_att_cs_voice+servlev.rab_stp_att_cs_conv+servlev.rab_stp_att_cs_strea+servlev.rab_stp_att_ps_strea)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RT RAB Setup FR due to AC]]>
+			</title>
+			<use>
+				<![CDATA[RT RAB Setup failure rate caused by Admission Control.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum ( RAB_STP_FAIL_CS_VOICE_AC
++ RAB_STP_FAIL_CS_CONV_AC 
++RAB_STP_FAIL_CS_STREA_AC 
++RAB_STP_FAIL_PS_STREA_AC )
+------------------------- 
+sum(RAB_STP_ATT_CS_VOICE 
++ RAB_STP_ATT_CS_CONV
++ RAB_STP_ATT_CS_STREA 
++RAB_STP_ATT_PS_STREA )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RT RAB Setup FR due to AC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

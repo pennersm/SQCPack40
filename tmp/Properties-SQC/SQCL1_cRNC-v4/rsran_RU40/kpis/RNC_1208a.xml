@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1208a">
+    <formula>decode(
+			(pktcall.ps_att_hsdsch_dch_stre_1 + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr),0,null, 
+
+			(100*(pktcall.hs_d_req_d_d_allo_stre_1 + 
+			pktcall.hs_d_req_d_d_allo_int + 
+			pktcall.hs_d_req_d_d_allo_bgr)
+			 / 
+			(pktcall.ps_att_hsdsch_dch_stre_1 + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH/DCH Packet Call Redirection Ratio - DCH/DCH]]></title>
+      <use><![CDATA[This KPI provides information about the ratio of DCH/DCH allocations after an HS-DCSH/DCH being requested.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(HS_D_REQ_D_D_ALLO_STRE+HS_D_REQ_D_D_ALLO_INT+HS_D_REQ_D_D_ALLO_BGR)
+&lt;br&gt;--------------------------------------
+&lt;br&gt;SUM(PS_ATT_HSDSCH_DCH_STRE+PS_ATT_HSDSCH_DCH_INT+PS_ATT_HSDSCH_DCH_BGR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSDPA calls redir DCH/DCH</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/PKTCALL_ext.xml" />
+</conf_file>
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CSSM.xml"/>
+  <kpi name="msc_407a">
+    <formula>100*(decode(
+			(cssm.cssmt_succ_bids + 
+			cssm.cssmt_failed_bids),0,null, 
+
+			(cssm.cssmt_succ_bids)
+			 / 
+			(cssm.cssmt_succ_bids + 
+			cssm.cssmt_failed_bids)))</formula>
+    <kpi_info>
+      <title><![CDATA[Call setup ratio]]></title>
+      <use><![CDATA[This KPI tells the ratio of the successful setups and all setup attempts at MSC/MSS level for calls initiated by BSCs and RNCs. Only access side attempts are counted. Setup is considered successful if traffica channel / RAB assignment happens on A/Iu interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;              SUM(CSSMT_SUCC_BIDS)
+&lt;br&gt;100* ----------------------------------------
+&lt;br&gt;     SUM(CSSMT_SUCC_BIDS + CSSMT_FAILED_BIDS)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s) :
+&lt;br&gt;RNS_PS_CSSM_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_cssm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Call setup ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_2110a">
+    <formula>
+decode(tc_ext.TCAT_CALL_AMOUNT_30,0,null,
+	100 * (tc_ext.TCAT_CALL_AMOUNT_50 / tc_ext.TCAT_CALL_AMOUNT_30)
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IP PBX calls ratio]]></title>
+      <use><![CDATA[IP PBX calls attempt compared against the NE total number of calls (with SIP calls without HO cases).]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>Traffic category:
+		<br>130 = IP PBX ORIG = IP PBX ORIGINATING CALLS (IPO)
+		<br>131 = IP PBX TERM = IP PBX TERMINATING CALLS (IPT)
+		<br>
+		<br>Starting from M15.1 NE version, in the denominator related part, the KPI ID reference to be used is the msc_2155a and no longer the msc_570c.
+		<br>This change does not produce any impact into the KPI formula content/algorithm. This is just a KPI ID adjustment. 
+		<br>
+		<br>These traffic categories are only available starting from M15.0 NE version.
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Traffic category measurement (M20/14H) 
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+		&lt;br&gt;
+		&lt;br&gt;           SUM( tcat_call_amount )  ;WHERE traffic_category_id in( 130, 131 )
+		&lt;br&gt;100 * ( ------------------------------------------ )
+		&lt;br&gt;                 msc_2155a
+		&lt;br&gt;
+		&lt;br&gt;Counters from AGGREGATED view(s)
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[IP PBX calls Rt]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

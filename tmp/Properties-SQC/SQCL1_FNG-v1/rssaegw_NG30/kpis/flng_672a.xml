@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DBFIRS_ext.xml" />
+  <kpi name="flng_672a">
+	<formula>decode( 
+    		((DBFIRS_ext.gtpcv2_del_bear_f_ind_recv_all)),0,NULL, 
+    		
+    		((DBFIRS_ext.gtpcv2_del_bear_fail_ind_recv)) 
+    		/ 
+    		((DBFIRS_ext.gtpcv2_del_bear_f_ind_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer Failure Indications received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete bearer failure indications received for a specific cause code when compared to total number of GTP-C v2 delete bearer failure indication messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(dbfirs_id,&amp;#039;x&amp;#039;,GTPCV2_DEL_BEAR_FAIL_IND_RECV,0))  ;DBFIRS for cause code x
+&lt;br&gt;------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DEL_BEAR_FAIL_IND_RECV)  ;all DBFIRS&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DBFIRS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:30.985 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW051.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Del Bearer Fail rcv ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/DDNAR_ext.xml" />
+  <kpi name="flng_148a">
+    <formula>decode( ((GTPCV2.gtpcv2_dl_data_notif_sent)),0,NULL, ((DDNAR_ext.gtpcv2_dl_data_notif_ack_r_16)) / ((GTPCV2.gtpcv2_dl_data_notif_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification sent success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 downlink data notifications sent, i.e., the number of downlink data notification acknowledgement messages received with cause code 'Request Accepted' when compared to the number of downlink data notification messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(ddnar_id,'16',b.GTPCV2_DL_DATA_NOTIF_ACK_RECV,0))) ;Request accepted
+<br>----------------------------------------------------------------------------- *100
+<br>sum(a.GTPCV2_DL_DATA_NOTIF_SENT)
+<br>
+<br>counters from measurement(s): 
+<br>a = GTP-C v2 
+<br>b = GTP-C v2 Downlink Data Notification Acks received  
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_DDNAR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[DL Data Notific sent SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

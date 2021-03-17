@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNLAC.xml"/>
+  <kpi name="msc_2060c">
+    <formula>100*nvl(decode(
+	                       (VLRNLAC.SIM_AVG_REG + 
+						   VLRNLAC.USIM_AVG_REG + 
+						   VLRNLAC.UNKNOWN_AVG_REG),0,null,
+						   (VLRNLAC.REG_SIM_AVG_INT + 
+						   VLRNLAC.REG_USIM_AVG_INT + 
+						   VLRNLAC.REG_UNKNOWN_AVG_INT)
+						   / 
+						   (VLRNLAC.SIM_AVG_REG + 
+						   VLRNLAC.USIM_AVG_REG + 
+						   VLRNLAC.UNKNOWN_AVG_REG)
+						   ),
+					decode(
+						  (VLRNLAC.REG_AVG),0,null, 
+						  (VLRNLAC.REG_AVG_INT)
+						  / 
+						  (VLRNLAC.REG_AVG)
+						  )
+					)
+	</formula>	
+	<kpi_info>
+      <title><![CDATA[Ratio of International roamer subscribers in LAC. Parameter superset.]]></title>
+      <use><![CDATA[The ratio of the international roamer registered normal subscribers related to the number of normal registered subscribers in LAC during the reporting time.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>This KPI is applicable if the FIFILE parameter (ENH_VLR_MEAS_PER_LAC) is activated but (SIM_USIM_MEAS_PER_LAI) is not activated and if both (ENH_VLR_MEAS_PER_LAC) and (SIM_USIM_MEAS_PER_LAI) are activated.
+		<br>
+		<br>This 2 to 1 KPI approach is achieved by taking advantage of the NVL function: NVL( msc_2060a , msc_2060b ) 
+		<br>The implemented formula covers two different KPI specifications: 
+		<br>
+		<br>=> If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are activated, the KPI formula is specified by "msc_2060a" 
+		<br>=> If ENH_VLR_MEAS_PER_LAC is activated but SIM_USIM_MEAS_PER_LAI is not activated, the KPI formula is specified by "msc_2060b"
+		<br>=> If ENH_VLR_MEAS_PER_LAC is not activated it's not possible to calculate this KPI.
+		<br>
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: LAC
+		<br>KPI CLASS: Subscriber
+		<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+		<br>
+		<br>NOTES: This KPI includes optional features.
+		<br>
+		<br>The ENH_VLR_MEAS_PER_LAC FIFILE functionality must be provided and active in order to have ATTACHED + REGISTERED + NATIONAL ROAMING + INTERNATIONAL ROAMING counter details to be available.
+		<br>]]>
+		</use_experience>
+		
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      	<formula>
+		&lt;br&gt; 
+		&lt;br&gt;              ( REG_SIM_AVG_INT + REG_USIM_AVG_INT + REG_UNKNOWN_AVG_INT)
+		&lt;br&gt;msc_2060a = ------------------------------------------------------------------- * 100
+		&lt;br&gt;              ( SIM_AVG_REG + USIM_AVG_REG + UNKNOWN_AVG_REG ) 
+		&lt;br&gt;
+		&lt;br&gt;
+		&lt;br&gt;              REG_AVG_INT 
+		&lt;br&gt;msc_2060b = ---------------- * 100
+		&lt;br&gt;              REG_AVG 
+		&lt;br&gt;
+		&lt;br&gt;KPI formula:
+		&lt;br&gt;		
+		&lt;br&gt; nvl( decode( 
+		&lt;br&gt;          ( VLRNLAC.SIM_AVG_REG +  
+		&lt;br&gt;            VLRNLAC.USIM_AVG_REG +  
+		&lt;br&gt;            VLRNLAC.UNKNOWN_AVG_REG ), 0, null, 
+		&lt;br&gt;      100 *  
+		&lt;br&gt;          ( VLRNLAC.REG_SIM_AVG_INT +  
+		&lt;br&gt;            VLRNLAC.REG_USIM_AVG_INT +  
+		&lt;br&gt;            VLRNLAC.REG_UNKNOWN_AVG_INT ) 
+		&lt;br&gt;          /  
+		&lt;br&gt;          ( VLRNLAC.SIM_AVG_REG +  
+		&lt;br&gt;            VLRNLAC.USIM_AVG_REG +  
+		&lt;br&gt;            VLRNLAC.UNKNOWN_AVG_REG ) 
+		&lt;br&gt;          ), 
+		&lt;br&gt;      decode( 
+		&lt;br&gt;         ( VLRNLAC.REG_AVG ), 0, null,  
+		&lt;br&gt;      100 *  
+		&lt;br&gt;         ( VLRNLAC.REG_AVG_INT ) 
+		&lt;br&gt;         /  
+		&lt;br&gt;         ( VLRNLAC.REG_AVG ) 
+		&lt;br&gt;         ) )	
+		&lt;br&gt;
+		</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLRNLAC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[INT Roam Subs Rt LAC Param SuperSet]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/IUPS.xml" />
+	<kpi name="RNC_912a">
+		<formula>
+			decode((iups.period_duration*60)*1000,0,null,(iups.input_bytes_total_udp*10*8)/((iups.period_duration*60)*1000))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Iu-PS GTP input traffic rate in RNC]]>
+			</title>
+			<use>
+				<![CDATA[The total GTP input traffic rate to RNC in Iu-PS interface, ie., total incoming user data throughput in Iu-PS interface. The traffic includes user and GTP control plane traffic. This KPI is based on Iu PS Performance measurement [16]. The counter INPUT_BYTES_TOTAL_UDP is input traffic to single GTPU in RNC. For the KPI it is needed to aggregate all the GTPU related counters up to RNC level. Note: This KPI can be used to see the total throughput volume in Iu-PS and compare the average value to defined performance value.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+sum ( INPUT_BYTES_TOTAL_UDP * 10 * 8 )
+-----------------------------------------
+sum ( PERIOD_DURATION * 60 ) * 1000
+</pre>]]>
+			</formula>
+			<unit>[kbit/s]</unit>
+			<tables>nokrww_ps_IUPS_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Iu-PS GTP input traffic rate in RNC]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

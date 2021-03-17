@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml" />
+  <temp_table_ref src="rssaegw/counters/PRR.xml" />
+  <kpi name="flng_708a">
+    <formula>decode(
+			PMIP.pmip_sent_pbu_requests,0,null,
+	
+			(PRR.pmip_pba_resp_recv
+			/ 
+			PMIP.pmip_sent_pbu_requests))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Ack response received / request sent ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 proxy binding acknowledgement (PBA) response messages received by the S-GW node as response to the proxy binding update (PBU) request messages sent (including retransmissions).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.PMIP_PBA_RESP_RECV)
+&lt;br&gt;------------------------------- *100
+&lt;br&gt;sum(a.PMIP_SENT_PBU_REQUESTS)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = PMIP
+&lt;br&gt;b = PMIP Proxy Binding Ack received</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PRR_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:29.906 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW030.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PMIP PBA rsp rcv/req sent</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

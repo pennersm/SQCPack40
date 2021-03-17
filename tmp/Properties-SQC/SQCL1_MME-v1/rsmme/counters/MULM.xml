@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.0;NS1.0 CD4;NS1.0 CD2 M58 MULM measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.0;NS1.0 CD4;NS1.0 CD2 M58 MULM measurement dump</csv_title>
+    <report-description>MMDU User Level Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <EPS_MMDU_EMM_REG_MIN />
+    <EPS_MMDU_EMM_REG_MAX />
+    <EPS_MMDU_EMM_REG_SUM />
+    <EPS_MMDU_EMM_REG_DENOM />
+    <EPS_MMDU_EMM_DEREG_MIN />
+    <EPS_MMDU_EMM_DEREG_MAX />
+    <EPS_MMDU_EMM_DEREG_SUM />
+    <MMDU_EMM_DEREG_DENOM />
+  </column_order>
+  <temp_table name="MULM" meas_level="PLMN/FLEXINS/MME-MMDU" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_MMDU_EMM_REG_MIN" time-alias="EPS_MMDU_EMM_REG_MIN" timeagg="MIN(EPS_MMDU_EMM_REG_MIN)">MIN(EPS_MMDU_EMM_REG_MIN)</counter>
+      <counter alias="EPS_MMDU_EMM_REG_MAX" time-alias="EPS_MMDU_EMM_REG_MAX" timeagg="MAX(EPS_MMDU_EMM_REG_MAX)">MAX(EPS_MMDU_EMM_REG_MAX)</counter>
+      <counter alias="EPS_MMDU_EMM_REG_SUM" time-alias="EPS_MMDU_EMM_REG_SUM" timeagg="SUM(EPS_MMDU_EMM_REG_SUM)">SUM(EPS_MMDU_EMM_REG_SUM)</counter>
+      <counter alias="EPS_MMDU_EMM_REG_DENOM" time-alias="EPS_MMDU_EMM_REG_DENOM">AVG(EPS_MMDU_EMM_REG_DENOM)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_MMDU_EMM_DEREG_MIN" time-alias="EPS_MMDU_EMM_DEREG_MIN" timeagg="MIN(EPS_MMDU_EMM_DEREG_MIN)">MIN(EPS_MMDU_EMM_DEREG_MIN)</counter>
+      <counter alias="EPS_MMDU_EMM_DEREG_MAX" time-alias="EPS_MMDU_EMM_DEREG_MAX" timeagg="MAX(EPS_MMDU_EMM_DEREG_MAX)">MAX(EPS_MMDU_EMM_DEREG_MAX)</counter>
+      <counter alias="EPS_MMDU_EMM_DEREG_SUM" time-alias="EPS_MMDU_EMM_DEREG_SUM" timeagg="SUM(EPS_MMDU_EMM_DEREG_SUM)">SUM(EPS_MMDU_EMM_DEREG_SUM)</counter>
+      <counter alias="MMDU_EMM_DEREG_DENOM" time-alias="MMDU_EMM_DEREG_DENOM">AVG(MMDU_EMM_DEREG_DENOM)*COUNT(DISTINCT period_start_time)</counter>
+    </counters>
+    <table_name>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MULM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MULM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_REG_MIN">
+    <formula>MULM.EPS_MMDU_EMM_REG_MIN</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_REG_MIN</title>
+      <use>The minimum number of users in EMM state EMM-REGISTERED per MMDU..</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_MMDU_EMM_REG_MIN)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_REG_MIN (M58C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_REG_MAX">
+    <formula>MULM.EPS_MMDU_EMM_REG_MAX</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_REG_MAX</title>
+      <use>The maximum number of users in EMM state EMM-REGISTERED per MMDU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_MMDU_EMM_REG_MAX)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_REG_MAX (M58C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_REG_SUM">
+    <formula>MULM.EPS_MMDU_EMM_REG_SUM</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_REG_SUM</title>
+      <use>The sum of sampled values for measuring the number of users in EMM-REGISTERED state per MMDU. This counter, divided by the denominator M58C003, provides the average number of users in EMM-REGISTERED state per MMDU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_MMDU_EMM_REG_SUM)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_REG_SUM (M58C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_REG_DENOM">
+    <formula>MULM.EPS_MMDU_EMM_REG_DENOM</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_REG_DENOM</title>
+      <use>The number of samples taken for the counter M58C002, used as a denominator for average calculation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(EPS_MMDU_EMM_REG_DENOM)*COUNT(DISTINCT period_start_time)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_REG_DENOM (M58C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_DEREG_MIN">
+    <formula>MULM.EPS_MMDU_EMM_DEREG_MIN</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_DEREG_MIN</title>
+      <use>The minimum number of users in EMM state EMM-DEREGISTERED per MMDU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_MMDU_EMM_DEREG_MIN)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_DEREG_MIN (M58C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_DEREG_MAX">
+    <formula>MULM.EPS_MMDU_EMM_DEREG_MAX</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_DEREG_MAX</title>
+      <use>The maximum number of users in EMM state EMM-DEREGISTERED per MMDU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_MMDU_EMM_DEREG_MAX)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_DEREG_MAX (M58C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_MMDU_EMM_DEREG_SUM">
+    <formula>MULM.EPS_MMDU_EMM_DEREG_SUM</formula>
+    <kpi_info>
+      <title>EPS_MMDU_EMM_DEREG_SUM</title>
+      <use>The sum of sampled values for measuring the number of users in EMM-DEREGISTERED state per MMDU. This counter, divided by the denominator M58C007, provides the average number of users in EMM-DEREGISTERED state per MMDU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_MMDU_EMM_DEREG_SUM)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_MMDU_EMM_DEREG_SUM (M58C006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MMDU_EMM_DEREG_DENOM">
+    <formula>MULM.MMDU_EMM_DEREG_DENOM</formula>
+    <kpi_info>
+      <title>MMDU_EMM_DEREG_DENOM</title>
+      <use>The number of samples taken for the counter M58C006, used as a denominator for average calculation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(MMDU_EMM_DEREG_DENOM)*COUNT(DISTINCT period_start_time)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_mulm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MMDU_EMM_DEREG_DENOM (M58C007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

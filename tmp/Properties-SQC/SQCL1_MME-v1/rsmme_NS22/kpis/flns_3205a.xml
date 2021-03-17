@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/S6A.xml" />
+  <kpi name="flns_3205a">
+    <formula>decode(
+            (s6a.dia_device_watchdog_req_rcv),0,null,
+            
+            (s6a.dia_device_watchdog_ans_sent
+            / 
+            s6a.dia_device_watchdog_req_rcv))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Device Watchdog Answer/Request ratio, HSS initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of Device Watchdog Answers (DWA) sent as response to HSS initiated Device Watchdog Requests (DWR).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_DEVICE_WATCHDOG_ANS_SENT)
+&lt;br&gt;-------------------------------- *100
+&lt;br&gt;sum(DIA_DEVICE_WATCHDOG_REQ_RCV)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_S6A_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.749 +0100</date>
+          <comment><![CDATA[Source: RSMME018.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DWA/DWR ratio, HSS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

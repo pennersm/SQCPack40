@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/ANNMEAS.xml" />
+  <kpi name="MGW_439a">
+    <formula>decode(
+			(annmeas.ann_requests),0,null, 
+
+			(100*(annmeas.illegal_syntax + 
+			annmeas.unknown_segment_id + 
+			annmeas.variable_type_not_supported + 
+			annmeas.unspecified_error)
+			 / 
+			(annmeas.ann_requests)))</formula>
+    <kpi_info>
+      <title><![CDATA[Unsuccessful ratio of Announcement requests]]></title>
+      <use><![CDATA[The unsuccessful ratio of Announcements requests in VANU]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum( ILLEGAL_SYNTAX + UNKNOWN_SEGMENT_ID + VARIABLE_TYPE_NOT_SUPPORTED + UNSPECIFIED_ERROR) /sum( ANN_REQUESTS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_annmeas_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Unsuccessful ratio of Announcement requests]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

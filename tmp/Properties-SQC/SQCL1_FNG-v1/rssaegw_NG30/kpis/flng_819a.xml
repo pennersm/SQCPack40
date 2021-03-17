@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/RADIUS.xml" />
+  <kpi name="flng_819a">
+    <formula>decode(
+				radius.period_duration,0,null, 
+				(radius.radius_acct_req_start_sent + radius.radius_acct_req_stop_sent + 
+				radius.accounting_on + radius.radius_acct_req_off_sent + radius.radius_acct_req_interim_sent)
+				/ 
+				(radius.period_duration*60)
+					)</formula>
+    <kpi_info>
+      <title><![CDATA[RADIUS Accounting transactions per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of RADIUS Accounting request messages per second.
+      This KPI can be used to measure the signalling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(RADIUS_ACCT_REQ_START_SENT + 
+&lt;br&gt;   RADIUS_ACCT_REQ_STOP_SENT + 
+&lt;br&gt;   ACCOUNTING_ON +
+&lt;br&gt;   RADIUS_ACCT_REQ_OFF_SENT +
+&lt;br&gt;   RADIUS_ACCT_REQ_INTERIM_SENT)
+&lt;br&gt;------------------------------------
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNG_PS_RADIUS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:30.500 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW081.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RADIUS Acc transactions pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

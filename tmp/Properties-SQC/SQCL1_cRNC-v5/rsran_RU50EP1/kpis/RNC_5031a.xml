@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPCAC.xml" />
+  <kpi name="RNC_5031a">
+    <formula>100*decode(
+			(ipcac.succ_bts_ip_res + 
+			ipcac.fail_bts_ip_res_ext_trans + 
+			ipcac.fail_bts_ip_res_other_trans),0,null, 
+
+			ipcac.succ_bts_ip_res
+			 / 
+			(ipcac.succ_bts_ip_res + 
+			ipcac.fail_bts_ip_res_ext_trans + 
+			ipcac.fail_bts_ip_res_other_trans))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Route Accessibility for incoming iub traffic]]></title>
+      <use><![CDATA[The transport resource request success ratio [%]. This KPI describes the average success rate of the transport resource reservation attempts for IP Route based connections every/selected interface where IP is used.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(SUCC_BTS_IP_RES)
+&lt;br&gt;/
+&lt;br&gt;sum(SUCC_BTS_IP_RES + 
+&lt;br&gt;FAIL_BTS_IP_RES_EXT_TRANS + 
+&lt;br&gt;FAIL_BTS_IP_RES_OTHER_TRANS)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_IPCAC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:48.655 +0100</date>
+          <comment><![CDATA[Source: RSRAN087.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Route Acc Iub In</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

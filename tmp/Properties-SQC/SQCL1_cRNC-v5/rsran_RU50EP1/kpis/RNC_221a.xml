@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FPDH.xml" />
+  <kpi name="RNC_221a">
+    <formula>decode(
+			(fpdh.period_duration*60),0,null, 
+
+			100*(fpdh.uas_15)
+			 / 
+			(fpdh.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[PDH Interface unavailable]]></title>
+      <use><![CDATA[Percentage of time that the PDH errors could not be measured because of the system being unavailable due to, for example, loss of the signal or some other major event.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * ( SUM (uas_15) 
+&lt;br&gt;------------------
+&lt;br&gt;sum (PERIOD_DURATION * 60) ) )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_fpdh_pptt1_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PDH Interface unavailable]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

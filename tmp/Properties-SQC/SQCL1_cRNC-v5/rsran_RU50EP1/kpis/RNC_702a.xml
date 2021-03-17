@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_702a">
+    <formula>100*decode(
+			(rrc.sig_conn_rel + 
+			rrc.rrc_conn_rel),0,null, 
+
+			rrc.sig_conn_rel_ind
+			 / 
+			(rrc.sig_conn_rel + 
+			rrc.rrc_conn_rel))</formula>
+    <kpi_info>
+      <title><![CDATA[Signalling Connection Release Indication Ratio]]></title>
+      <use><![CDATA[The ratio of received Signalling Connection Release Indication messages to the total number of signalling connection releasing (by releasing only one Signalling Connection or the whole RRC Connection). Upon reception of a SIGNALLING CONNECTION RELEASE INDICATION message, the UTRAN requests the release of the signalling connection from upper layers. Upper layers may then initiate the release of the signalling connection.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(SIG_CONN_REL_IND)/ sum(SIG_CONN_REL + RRC_CONN_REL)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Signalling Connection Release Indication Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

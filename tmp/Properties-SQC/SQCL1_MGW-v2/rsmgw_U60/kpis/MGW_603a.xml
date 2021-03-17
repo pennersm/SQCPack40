@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/DATACALL.xml" />
+  <kpi name="MGW_603a">
+    <formula>100*decode(
+			(datacall.data_call_use + 
+			datacall.data_call_error + 
+			datacall.iwf_not_used + 
+			datacall.iwf_not_used_error),0,null, 
+
+			(datacall.data_call_use + 
+			datacall.data_call_error)
+			 / 
+			(datacall.data_call_use + 
+			datacall.data_call_error + 
+			datacall.iwf_not_used + 
+			datacall.iwf_not_used_error))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of Data Call connection attempts with IWF service of all Data Call connection attempts in MGW]]></title>
+      <use><![CDATA[Share of Data Call connection attempts with IWF service of all Data Call connection attempts in MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum (DATA_CALL_USE + DATA_CALL_ERROR) / 
+&lt;br&gt;sum(DATA_CALL_USE + DATA_CALL_ERROR + IWF_NOT_USED + IWF_NOT_USED_ERROR)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_datacall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of Data Call connection attempts with IWF service of all Data Call connection attempts in MGW]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

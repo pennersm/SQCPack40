@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 RCPM_RLC_RNC RCRLCR measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 RCPM_RLC_RNC RCRLCR measurement dump</csv_title>
+    <report-description>RCPM RLC RNC</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <RLC_AM_PDU_DL_AVG_BUF_OCC_R />
+    <RLC_AM_PDCP_DL_AVG_BUF_OCC_R />
+    <RLC_AM_PDU_DL_SUM_SQ_BUF_O_R />
+    <RLC_AM_PDCP_SUM_SQ_BUF_OCC_R />
+    <RLC_AM_DL_BUFFER_REPORTS_R />
+    <RLC_AM_PDU_DL_ERR_RATIO_R />
+    <RLC_AM_PDU_DL_TOTAL_TRANS_R />
+    <RLC_AM_PDU_DL_SQ_SUM_ERR_R />
+    <RLC_AM_PDU_DL_ERR_REPORTS_R />
+    <RLC_AM_PDU_DL_BAD_CONN_R />
+    <RLC_AM_PDU_DL_TOO_GOOD_CON_R />
+    <RLC_AM_PDU_DL_IDEAL_CONN_R />
+    <RLC_AM_PDU_DL_GR_TP_R />
+    <RLC_AM_PDU_DL_GR_TP_SQ_SUM_R />
+    <RLC_AM_PDU_DL_TP_REPORTS_R />
+    <RLC_AM_PDU_DL_NET_TP_R />
+    <RLC_AM_PDU_DL_NET_TP_SQ_S_R />
+    <RLC_AM_PDU_DL_SQ_SUM_TR_TI_R />
+    <RLC_AM_PDU_DL_AVG_TRANS_R />
+    <RLC_AM_PDU_DL_DISCARD_RAT_R />
+    <RLC_AM_PDU_DL_SQ_SUM_TRANS_R />
+    <RLC_AM_PDU_DL_FOR_TRANS_R />
+    <RLC_AM_SDU_DL_ERROR_RATIO_R />
+    <RLC_AM_SDU_DL_SQ_SUM_ERR_R_R />
+    <RLC_AM_SDU_DL_AVG_TR_DELAY_R />
+    <RLC_AM_SDU_DL_SUM_TR_DELAY_R />
+    <RLC_AM_SDU_SUM_TR_DEL_STAD_R />
+    <RLC_AM_SDU_DL_SUM_SQ_TR_D_R />
+    <RLC_AM_SDU_DL_SDUS_FOR_TRA_R />
+    <RLC_AM_DL_MEAS_TIME_R />
+    <RLC_AM_SDU_UL_PS_VOL_R />
+    <RLC_AM_SDU_DL_PS_VOL_R />
+    <RLC_AM_PDU_UL_FOR_TRANS_R />
+    <RLC_AM_UL_MEAS_TIME_R />
+    <USER_DL_THRP_DIST_CLASS_1_R />
+    <USER_DL_THRP_DIST_CLASS_2_R />
+    <USER_DL_THRP_DIST_CLASS_3_R />
+    <USER_DL_THRP_DIST_CLASS_4_R />
+    <USER_DL_THRP_DIST_CLASS_5_R />
+    <USER_DL_THRP_DIST_CLASS_6_R />
+    <USER_DL_THRP_DIST_CLASS_7_R />
+    <USER_DL_THRP_DIST_CLASS_8_R />
+    <USER_DL_THRP_DIST_CLASS_9_R />
+    <USER_DL_THRP_DIST_CLASS_10_R />
+    <RLC_RETRANS_DISTR_CLASS_0_R />
+    <RLC_RETRANS_DISTR_CLASS_1_R />
+    <RLC_RETRANS_DISTR_CLASS_2_R />
+    <RLC_RETRANS_DISTR_CLASS_3_R />
+    <RLC_RETRANS_DISTR_CLASS_4_R />
+    <RLC_RETRANS_DISTR_CLASS_5_R />
+    <USER_DL_THRP_DIST_CLASS_11_R />
+    <USER_DL_THRP_DIST_CLASS_12_R />
+    <USER_DL_THRP_DIST_CLASS_13_R />
+    <USER_UL_THRP_DIST_CLASS_1_R />
+    <USER_UL_THRP_DIST_CLASS_2_R />
+    <USER_UL_THRP_DIST_CLASS_3_R />
+    <USER_UL_THRP_DIST_CLASS_4_R />
+    <USER_UL_THRP_DIST_CLASS_5_R />
+  </column_order>
+  <temp_table name="RCRLCR" meas_level="PLMN/RNC/TR/TRSUB/THP/RABDL/RABUL/RBDL/RBUL" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="RLC_AM_PDU_DL_AVG_BUF_OCC_R">DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDU_DL_AVG_BUF_OCC_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</counter>
+      <counter alias="RLC_AM_PDCP_DL_AVG_BUF_OCC_R">DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDCP_DL_AVG_BUF_OCC_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</counter>
+      <counter alias="RLC_AM_PDU_DL_SUM_SQ_BUF_O_R">SUM(RLC_AM_PDU_DL_SUM_SQ_BUF_O_R)</counter>
+      <counter alias="RLC_AM_PDCP_SUM_SQ_BUF_OCC_R">SUM(RLC_AM_PDCP_SUM_SQ_BUF_OCC_R)</counter>
+      <counter alias="RLC_AM_DL_BUFFER_REPORTS_R">SUM(RLC_AM_DL_BUFFER_REPORTS_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_ERR_RATIO_R">DECODE(SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R),0,0,SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R),SUM(RLC_AM_PDU_DL_ERR_RATIO_R * RLC_AM_PDU_DL_TOTAL_TRANS_R) / SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R))</counter>
+      <counter alias="RLC_AM_PDU_DL_TOTAL_TRANS_R">SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_SQ_SUM_ERR_R">SUM(RLC_AM_PDU_DL_SQ_SUM_ERR_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_ERR_REPORTS_R">SUM(RLC_AM_PDU_DL_ERR_REPORTS_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_BAD_CONN_R">SUM(RLC_AM_PDU_DL_BAD_CONN_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_TOO_GOOD_CON_R">SUM(RLC_AM_PDU_DL_TOO_GOOD_CON_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_IDEAL_CONN_R">SUM(RLC_AM_PDU_DL_IDEAL_CONN_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_GR_TP_R">DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDU_DL_GR_TP_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</counter>
+      <counter alias="RLC_AM_PDU_DL_GR_TP_SQ_SUM_R">SUM(RLC_AM_PDU_DL_GR_TP_SQ_SUM_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_TP_REPORTS_R">SUM(RLC_AM_PDU_DL_TP_REPORTS_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_NET_TP_R">DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDU_DL_NET_TP_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</counter>
+      <counter alias="RLC_AM_PDU_DL_NET_TP_SQ_S_R">SUM(RLC_AM_PDU_DL_NET_TP_SQ_S_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_SQ_SUM_TR_TI_R">SUM(RLC_AM_PDU_DL_SQ_SUM_TR_TI_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_AVG_TRANS_R">DECODE(SUM(RLC_AM_PDU_DL_FOR_TRANS_R),0,0,SUM(RLC_AM_PDU_DL_FOR_TRANS_R),SUM(RLC_AM_PDU_DL_AVG_TRANS_R * RLC_AM_PDU_DL_FOR_TRANS_R) / SUM(RLC_AM_PDU_DL_FOR_TRANS_R))</counter>
+      <counter alias="RLC_AM_PDU_DL_DISCARD_RAT_R">DECODE(SUM(RLC_AM_PDU_DL_FOR_TRANS_R),0,0,SUM(RLC_AM_PDU_DL_FOR_TRANS_R),SUM(RLC_AM_PDU_DL_DISCARD_RAT_R * RLC_AM_PDU_DL_FOR_TRANS_R) / SUM(RLC_AM_PDU_DL_FOR_TRANS_R))</counter>
+      <counter alias="RLC_AM_PDU_DL_SQ_SUM_TRANS_R">SUM(RLC_AM_PDU_DL_SQ_SUM_TRANS_R)</counter>
+      <counter alias="RLC_AM_PDU_DL_FOR_TRANS_R">SUM(RLC_AM_PDU_DL_FOR_TRANS_R)</counter>
+      <counter alias="RLC_AM_SDU_DL_ERROR_RATIO_R">DECODE(SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),0,0,SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),SUM(RLC_AM_SDU_DL_ERROR_RATIO_R * RLC_AM_SDU_DL_SDUS_FOR_TRA_R) / SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R))</counter>
+      <counter alias="RLC_AM_SDU_DL_SQ_SUM_ERR_R_R">SUM(RLC_AM_SDU_DL_SQ_SUM_ERR_R_R)</counter>
+      <counter alias="RLC_AM_SDU_DL_AVG_TR_DELAY_R">DECODE(SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),0,0,SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),SUM(RLC_AM_SDU_DL_AVG_TR_DELAY_R * RLC_AM_SDU_DL_SDUS_FOR_TRA_R) / SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R))</counter>
+      <counter alias="RLC_AM_SDU_DL_SUM_TR_DELAY_R">SUM(RLC_AM_SDU_DL_SUM_TR_DELAY_R)</counter>
+      <counter alias="RLC_AM_SDU_SUM_TR_DEL_STAD_R">SUM(RLC_AM_SDU_SUM_TR_DEL_STAD_R)</counter>
+      <counter alias="RLC_AM_SDU_DL_SUM_SQ_TR_D_R">SUM(RLC_AM_SDU_DL_SUM_SQ_TR_D_R)</counter>
+      <counter alias="RLC_AM_SDU_DL_SDUS_FOR_TRA_R">SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R)</counter>
+      <counter alias="RLC_AM_DL_MEAS_TIME_R">SUM(RLC_AM_DL_MEAS_TIME_R)</counter>
+      <counter alias="RLC_AM_SDU_UL_PS_VOL_R">SUM(RLC_AM_SDU_UL_PS_VOL_R)</counter>
+      <counter alias="RLC_AM_SDU_DL_PS_VOL_R">SUM(RLC_AM_SDU_DL_PS_VOL_R)</counter>
+      <counter alias="RLC_AM_PDU_UL_FOR_TRANS_R">SUM(RLC_AM_PDU_UL_FOR_TRANS_R)</counter>
+      <counter alias="RLC_AM_UL_MEAS_TIME_R">SUM(RLC_AM_UL_MEAS_TIME_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_1_R">SUM(USER_DL_THRP_DIST_CLASS_1_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_2_R">SUM(USER_DL_THRP_DIST_CLASS_2_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_3_R">SUM(USER_DL_THRP_DIST_CLASS_3_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_4_R">SUM(USER_DL_THRP_DIST_CLASS_4_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_5_R">SUM(USER_DL_THRP_DIST_CLASS_5_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_6_R">SUM(USER_DL_THRP_DIST_CLASS_6_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_7_R">SUM(USER_DL_THRP_DIST_CLASS_7_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_8_R">SUM(USER_DL_THRP_DIST_CLASS_8_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_9_R">SUM(USER_DL_THRP_DIST_CLASS_9_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_10_R">SUM(USER_DL_THRP_DIST_CLASS_10_R)</counter>
+      <counter alias="RLC_RETRANS_DISTR_CLASS_0_R">SUM(RLC_RETRANS_DISTR_CLASS_0_R)</counter>
+      <counter alias="RLC_RETRANS_DISTR_CLASS_1_R">SUM(RLC_RETRANS_DISTR_CLASS_1_R)</counter>
+      <counter alias="RLC_RETRANS_DISTR_CLASS_2_R">SUM(RLC_RETRANS_DISTR_CLASS_2_R)</counter>
+      <counter alias="RLC_RETRANS_DISTR_CLASS_3_R">SUM(RLC_RETRANS_DISTR_CLASS_3_R)</counter>
+      <counter alias="RLC_RETRANS_DISTR_CLASS_4_R">SUM(RLC_RETRANS_DISTR_CLASS_4_R)</counter>
+      <counter alias="RLC_RETRANS_DISTR_CLASS_5_R">SUM(RLC_RETRANS_DISTR_CLASS_5_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_11_R">SUM(USER_DL_THRP_DIST_CLASS_11_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_12_R">SUM(USER_DL_THRP_DIST_CLASS_12_R)</counter>
+      <counter alias="USER_DL_THRP_DIST_CLASS_13_R">SUM(USER_DL_THRP_DIST_CLASS_13_R)</counter>
+      <counter alias="USER_UL_THRP_DIST_CLASS_1_R">SUM(USER_UL_THRP_DIST_CLASS_1_R)</counter>
+      <counter alias="USER_UL_THRP_DIST_CLASS_2_R">SUM(USER_UL_THRP_DIST_CLASS_2_R)</counter>
+      <counter alias="USER_UL_THRP_DIST_CLASS_3_R">SUM(USER_UL_THRP_DIST_CLASS_3_R)</counter>
+      <counter alias="USER_UL_THRP_DIST_CLASS_4_R">SUM(USER_UL_THRP_DIST_CLASS_4_R)</counter>
+      <counter alias="USER_UL_THRP_DIST_CLASS_5_R">SUM(USER_UL_THRP_DIST_CLASS_5_R)</counter>
+    </counters>
+    <table_name>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RCRLCR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RCRLCR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_AVG_BUF_OCC_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_AVG_BUF_OCC_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_AVG_BUF_OCC_R</title>
+      <use>The average RLC AM DL PDU transmission buffer occupancy. Includes both first-time transmission and retransmission buffers. Does not include periods when the DL transmission buffers in the RLC entity are empty. UPDATED: When the RLC AM connection is modified or released. Based on sampling, which is done every TTI (transmission time interval) when there is data in the DL transmission buffers of the RLC entity.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDU_DL_AVG_BUF_OCC_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_AVG_BUF_OCC_R (M1027C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDCP_DL_AVG_BUF_OCC_R">
+    <formula>RCRLCR.RLC_AM_PDCP_DL_AVG_BUF_OCC_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDCP_DL_AVG_BUF_OCC_R</title>
+      <use>The average PDCP buffer occupancy in RLC AM DL. Does not include periods when the DL transmission buffers in the RLC entity are empty. UPDATED: When the RLC AM connection is modified or released. Based on sampling, which is done every TTI (transmission time interval) when there is data in the DL transmission buffers of the RLC entity.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDCP_DL_AVG_BUF_OCC_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDCP_DL_AVG_BUF_OCC_R (M1027C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_SUM_SQ_BUF_O_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_SUM_SQ_BUF_O_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_SUM_SQ_BUF_O_R</title>
+      <use>The sum of squared RLC AM DL PDU transmission buffer occupancy values. Does not include periods when the DL transmission buffers in the RLC entity are empty. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_SUM_SQ_BUF_O_R)</formula>
+      <unit>kbyte^2</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_SUM_SQ_BUF_O_R (M1027C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDCP_SUM_SQ_BUF_OCC_R">
+    <formula>RCRLCR.RLC_AM_PDCP_SUM_SQ_BUF_OCC_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDCP_SUM_SQ_BUF_OCC_R</title>
+      <use>The sum of squared PDCP buffer occupancy values in RLC AM DL. Does not include periods when the DL transmission buffers in the RLC entity are empty. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDCP_SUM_SQ_BUF_OCC_R)</formula>
+      <unit>kbyte^2</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDCP_SUM_SQ_BUF_OCC_R (M1027C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_DL_BUFFER_REPORTS_R">
+    <formula>RCRLCR.RLC_AM_DL_BUFFER_REPORTS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_DL_BUFFER_REPORTS_R</title>
+      <use>The number of RLC AM reports for the RLC AM DL transmission buffer and the PDCP buffer occupancy measurement. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_DL_BUFFER_REPORTS_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_DL_BUFFER_REPORTS_R (M1027C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_ERR_RATIO_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_ERR_RATIO_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_ERR_RATIO_R</title>
+      <use>The ratio between unsuccessfully transmitted RLC AM DL PDUs and all transmitted RLC AM DL PDUs (including retransmissions). UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R),0,0,SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R),SUM(RLC_AM_PDU_DL_ERR_RATIO_R * RLC_AM_PDU_DL_TOTAL_TRANS_R) / SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R))</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_ERR_RATIO_R (M1027C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_TOTAL_TRANS_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_TOTAL_TRANS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_TOTAL_TRANS_R</title>
+      <use>The number of transmitted RLC AM DL PDUs. Includes also retransmitted DL PDUs and control PDUs. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_TOTAL_TRANS_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_TOTAL_TRANS_R (M1027C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_SQ_SUM_ERR_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_SQ_SUM_ERR_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_SQ_SUM_ERR_R</title>
+      <use>The sum of squared RLC AM DL PDU error ratio values. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_SQ_SUM_ERR_R)</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_SQ_SUM_ERR_R (M1027C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_ERR_REPORTS_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_ERR_REPORTS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_ERR_REPORTS_R</title>
+      <use>The number of RLC AM reports for the RLC AM DL PDU error ratio measurement. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_ERR_REPORTS_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_ERR_REPORTS_R (M1027C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_BAD_CONN_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_BAD_CONN_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_BAD_CONN_R</title>
+      <use>The number of bad connections for RLC AM in downlink direction. UPDATED: When the object is changed/removed (e.g. the connection is released, or the RB is reconfigured) and if the ratio between the resent RLC PDUs and the total number of sent RLC PDUs (PDUtot) &gt; x + y * sqrt( x*(1-x) / PDUtot ), where x = BLER-target and y = D</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_BAD_CONN_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_BAD_CONN_R (M1027C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_TOO_GOOD_CON_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_TOO_GOOD_CON_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_TOO_GOOD_CON_R</title>
+      <use>The number of too good connections for RLC AM in downlink direction. UPDATED: When the object is changed/removed (e.g. the connection is released, or the RB is reconfigured) and if the ratio between the resent RLC PDUs and the total number of sent RLC PDUs (PDUtot) &lt; x - y * sqrt( x*(1-x) / PDUtot ), where x = BLER-target and y = D</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_TOO_GOOD_CON_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_TOO_GOOD_CON_R (M1027C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_IDEAL_CONN_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_IDEAL_CONN_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_IDEAL_CONN_R</title>
+      <use>The number of ideal connections for RLC AM in downlink direction. UPDATED: When the object is changed/removed (e.g. the connection is released, or the RB is reconfigured) and neither of the equations presented in counters M1027C9 and M1027C10 is true.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_IDEAL_CONN_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_IDEAL_CONN_R (M1027C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_GR_TP_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_GR_TP_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_GR_TP_R</title>
+      <use>The average downlink PDU gross throughput of the RLC AM connection. Includes also retransmissions. Does not include periods when the DL transmission buffers in the RLC entity are empty. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDU_DL_GR_TP_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_GR_TP_R (M1027C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_GR_TP_SQ_SUM_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_GR_TP_SQ_SUM_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_GR_TP_SQ_SUM_R</title>
+      <use>The sum of squared RLC AM DL PDU gross throughput values. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_GR_TP_SQ_SUM_R)</formula>
+      <unit>kbit/s^2</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_GR_TP_SQ_SUM_R (M1027C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_TP_REPORTS_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_TP_REPORTS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_TP_REPORTS_R</title>
+      <use>The number of RLC AM reports for RLC AM DL gross and net throughput values. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_TP_REPORTS_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_TP_REPORTS_R (M1027C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_NET_TP_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_NET_TP_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_NET_TP_R</title>
+      <use>The average downlink net PDU throughput of RLC AM connections. Does not include retransmissions. Does not include periods when the DL transmission buffers in the RLC entity are empty. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_DL_MEAS_TIME_R),0,0,SUM(RLC_AM_DL_MEAS_TIME_R),SUM(RLC_AM_PDU_DL_NET_TP_R * RLC_AM_DL_MEAS_TIME_R) / SUM(RLC_AM_DL_MEAS_TIME_R))</formula>
+      <unit>kbit/s</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_NET_TP_R (M1027C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_NET_TP_SQ_S_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_NET_TP_SQ_S_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_NET_TP_SQ_S_R</title>
+      <use>The sum of squared RLC AM DL PDU net throughput values. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_NET_TP_SQ_S_R)</formula>
+      <unit>kbit/s^2</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_NET_TP_SQ_S_R (M1027C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_SQ_SUM_TR_TI_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_SQ_SUM_TR_TI_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_SQ_SUM_TR_TI_R</title>
+      <use>The sum of squared transmission time values for the RLC AM downlink. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_SQ_SUM_TR_TI_R)</formula>
+      <unit>s^2</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_SQ_SUM_TR_TI_R (M1027C17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_AVG_TRANS_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_AVG_TRANS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_AVG_TRANS_R</title>
+      <use>The average number of required transmissions per PDU in RLC AM DL. For a perfect connection the value of this counter is one. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_PDU_DL_FOR_TRANS_R),0,0,SUM(RLC_AM_PDU_DL_FOR_TRANS_R),SUM(RLC_AM_PDU_DL_AVG_TRANS_R * RLC_AM_PDU_DL_FOR_TRANS_R) / SUM(RLC_AM_PDU_DL_FOR_TRANS_R))</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_AVG_TRANS_R (M1027C18)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_DISCARD_RAT_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_DISCARD_RAT_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_DISCARD_RAT_R</title>
+      <use>The RLC PDU discard ratio for downlink connections using RLC AM. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_PDU_DL_FOR_TRANS_R),0,0,SUM(RLC_AM_PDU_DL_FOR_TRANS_R),SUM(RLC_AM_PDU_DL_DISCARD_RAT_R * RLC_AM_PDU_DL_FOR_TRANS_R) / SUM(RLC_AM_PDU_DL_FOR_TRANS_R))</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_DISCARD_RAT_R (M1027C19)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_SQ_SUM_TRANS_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_SQ_SUM_TRANS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_SQ_SUM_TRANS_R</title>
+      <use>The sum of squared average number of transmissions per PDU values in RLC AM DL. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_SQ_SUM_TRANS_R)</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_SQ_SUM_TRANS_R (M1027C20)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_DL_FOR_TRANS_R">
+    <formula>RCRLCR.RLC_AM_PDU_DL_FOR_TRANS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_DL_FOR_TRANS_R</title>
+      <use>The number of downlink RLC AM PDUs added to the RLC transmission buffer. This includes also PDUs retransmitted due to RLC polling procedure. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_DL_FOR_TRANS_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_DL_FOR_TRANS_R (M1027C21)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_ERROR_RATIO_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_ERROR_RATIO_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_ERROR_RATIO_R</title>
+      <use>The average SDU error ratio in RLC AM downlink. Defined as the ratio between discarded SDUs and the total number of SDUs received for transmission from the PDCP layer. Note that this counter does not include RLC SDUs that have overflowed from the PDCP buf UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),0,0,SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),SUM(RLC_AM_SDU_DL_ERROR_RATIO_R * RLC_AM_SDU_DL_SDUS_FOR_TRA_R) / SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R))</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_ERROR_RATIO_R (M1027C22)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_SQ_SUM_ERR_R_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_SQ_SUM_ERR_R_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_SQ_SUM_ERR_R_R</title>
+      <use>The sum of squared SDU error ratio values in RLC AM DL. Measured from the RLC entity. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_DL_SQ_SUM_ERR_R_R)</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_SQ_SUM_ERR_R_R (M1027C23)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_AVG_TR_DELAY_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_AVG_TR_DELAY_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_AVG_TR_DELAY_R</title>
+      <use>The average transfer delay of transferred RLC AM SDUs in downlink. Transfer delay is the time difference between when the SDU is received from the upper layer (RRC or PDCP) and when the last PDU containing data from that SDU is acknowledged by the UE as s UPDATED: Measured continuously from radio bearers and updated to a counter when the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>DECODE(SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),0,0,SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R),SUM(RLC_AM_SDU_DL_AVG_TR_DELAY_R * RLC_AM_SDU_DL_SDUS_FOR_TRA_R) / SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R))</formula>
+      <unit>ms</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_AVG_TR_DELAY_R (M1027C24)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_SUM_TR_DELAY_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_SUM_TR_DELAY_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_SUM_TR_DELAY_R</title>
+      <use>The sum of average SDU transfer delay values in RLC AM DL. UPDATED: Measured continuously from radio bearers and updated to a counter when the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_DL_SUM_TR_DELAY_R)</formula>
+      <unit>ms</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_SUM_TR_DELAY_R (M1027C25)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_SUM_TR_DEL_STAD_R">
+    <formula>RCRLCR.RLC_AM_SDU_SUM_TR_DEL_STAD_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_SUM_TR_DEL_STAD_R</title>
+      <use>The sum of standard deviations of the SDU transfer delay values in RLC AM DL. UPDATED: Measured continuously from radio bearers and updated to a counter when the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_SUM_TR_DEL_STAD_R)</formula>
+      <unit>ms</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_SUM_TR_DEL_STAD_R (M1027C26)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_SUM_SQ_TR_D_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_SUM_SQ_TR_D_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_SUM_SQ_TR_D_R</title>
+      <use>The sum of squared SDU transmission delay values in RLC AM DL. UPDATED: Measured continuously from radio bearers and updated to a counter when the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_DL_SUM_SQ_TR_D_R)</formula>
+      <unit>ms^2</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_SUM_SQ_TR_D_R (M1027C27)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_SDUS_FOR_TRA_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_SDUS_FOR_TRA_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_SDUS_FOR_TRA_R</title>
+      <use>The number of RLC AM SDUs ready for transmission in downlink. Includes also discarded SDUs. UPDATED: When the RLC AM connection is modified or released, this counter is updated by the number of handled DL SDUs.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_DL_SDUS_FOR_TRA_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_SDUS_FOR_TRA_R (M1027C28)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_DL_MEAS_TIME_R">
+    <formula>RCRLCR.RLC_AM_DL_MEAS_TIME_R</formula>
+    <kpi_info>
+      <title>RLC_AM_DL_MEAS_TIME_R</title>
+      <use>The total time period when the measurement was active in the RLC AM DL entity. The active time is the time between when the first RLC SDU arrives in the RLC buffer and when all the RLC PDUs of the packet call have been acknowledged. Periods when the DL tr UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_DL_MEAS_TIME_R)</formula>
+      <unit>ms</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_DL_MEAS_TIME_R (M1027C29)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_UL_PS_VOL_R">
+    <formula>RCRLCR.RLC_AM_SDU_UL_PS_VOL_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_UL_PS_VOL_R</title>
+      <use>The number of SDU bytes transmitted in uplink using RLC AM. The RLC SDU payload measuring is made for compressed bytes (before PDCP in UL) and includes RLC SDU headers. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_UL_PS_VOL_R)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_UL_PS_VOL_R (M1027C30)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_SDU_DL_PS_VOL_R">
+    <formula>RCRLCR.RLC_AM_SDU_DL_PS_VOL_R</formula>
+    <kpi_info>
+      <title>RLC_AM_SDU_DL_PS_VOL_R</title>
+      <use>The number of SDU bytes transmitted in downlink using RLC AM. The RLC SDU payload measuring is made for compressed bytes (after PDCP in DL) and includes RLC SDU headers. Discarded SDUs are included. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_SDU_DL_PS_VOL_R)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_SDU_DL_PS_VOL_R (M1027C31)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_PDU_UL_FOR_TRANS_R">
+    <formula>RCRLCR.RLC_AM_PDU_UL_FOR_TRANS_R</formula>
+    <kpi_info>
+      <title>RLC_AM_PDU_UL_FOR_TRANS_R</title>
+      <use>The number of received RLC AM PDUs in uplink. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_PDU_UL_FOR_TRANS_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_PDU_UL_FOR_TRANS_R (M1027C32)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_AM_UL_MEAS_TIME_R">
+    <formula>RCRLCR.RLC_AM_UL_MEAS_TIME_R</formula>
+    <kpi_info>
+      <title>RLC_AM_UL_MEAS_TIME_R</title>
+      <use>The total time period when the measurement was active in the RLC AM UL entity. The active time is the time between when the first RLC SDU arrives in the RLC buffer and when all the RLC PDUs of the packet call have been acknowledged. Periods when the trans UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_AM_UL_MEAS_TIME_R)</formula>
+      <unit>ms</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_AM_UL_MEAS_TIME_R (M1027C33)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_1_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_1_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_1_R</title>
+      <use>The number of connections with 0...4 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_1_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_1_R (M1027C34)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_2_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_2_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_2_R</title>
+      <use>The number of connections with 4...8 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_2_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_2_R (M1027C35)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_3_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_3_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_3_R</title>
+      <use>The number of connections with 8...16 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_3_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_3_R (M1027C36)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_4_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_4_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_4_R</title>
+      <use>The number of connections with 16...32 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_4_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_4_R (M1027C37)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_5_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_5_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_5_R</title>
+      <use>The number of connections with 32...64 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_5_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_5_R (M1027C38)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_6_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_6_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_6_R</title>
+      <use>The number of connections with 64...128 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_6_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_6_R (M1027C39)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_7_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_7_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_7_R</title>
+      <use>The number of connections with 128...256 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_7_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_7_R (M1027C40)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_8_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_8_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_8_R</title>
+      <use>The number of connections with 256...512 kbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_8_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_8_R (M1027C41)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_9_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_9_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_9_R</title>
+      <use>The number of connections with 512 kbit/s...1 Mbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_9_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_9_R (M1027C42)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_10_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_10_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_10_R</title>
+      <use>The number of connections with 1 Mbit/s...2 Mbit/s downlink gross RLC PDU throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_10_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_10_R (M1027C43)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_RETRANS_DISTR_CLASS_0_R">
+    <formula>RCRLCR.RLC_RETRANS_DISTR_CLASS_0_R</formula>
+    <kpi_info>
+      <title>RLC_RETRANS_DISTR_CLASS_0_R</title>
+      <use>The number of downlink RLC AM PDUs which have been successfully delivered to the UE without retransmissions. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_RETRANS_DISTR_CLASS_0_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_RETRANS_DISTR_CLASS_0_R (M1027C44)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_RETRANS_DISTR_CLASS_1_R">
+    <formula>RCRLCR.RLC_RETRANS_DISTR_CLASS_1_R</formula>
+    <kpi_info>
+      <title>RLC_RETRANS_DISTR_CLASS_1_R</title>
+      <use>The number of downlink RLC AM PDUs which have been successfully delivered to the UE with one retransmission. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_RETRANS_DISTR_CLASS_1_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_RETRANS_DISTR_CLASS_1_R (M1027C45)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_RETRANS_DISTR_CLASS_2_R">
+    <formula>RCRLCR.RLC_RETRANS_DISTR_CLASS_2_R</formula>
+    <kpi_info>
+      <title>RLC_RETRANS_DISTR_CLASS_2_R</title>
+      <use>The number of downlink RLC AM PDUs which have been successfully delivered to the UE with two retransmissions. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_RETRANS_DISTR_CLASS_2_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_RETRANS_DISTR_CLASS_2_R (M1027C46)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_RETRANS_DISTR_CLASS_3_R">
+    <formula>RCRLCR.RLC_RETRANS_DISTR_CLASS_3_R</formula>
+    <kpi_info>
+      <title>RLC_RETRANS_DISTR_CLASS_3_R</title>
+      <use>The number of downlink RLC AM PDUs which have been successfully delivered to the UE with three retransmissions. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_RETRANS_DISTR_CLASS_3_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_RETRANS_DISTR_CLASS_3_R (M1027C47)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_RETRANS_DISTR_CLASS_4_R">
+    <formula>RCRLCR.RLC_RETRANS_DISTR_CLASS_4_R</formula>
+    <kpi_info>
+      <title>RLC_RETRANS_DISTR_CLASS_4_R</title>
+      <use>The number of downlink RLC AM PDUs which have been successfully delivered to the UE with four retransmissions. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_RETRANS_DISTR_CLASS_4_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_RETRANS_DISTR_CLASS_4_R (M1027C48)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RLC_RETRANS_DISTR_CLASS_5_R">
+    <formula>RCRLCR.RLC_RETRANS_DISTR_CLASS_5_R</formula>
+    <kpi_info>
+      <title>RLC_RETRANS_DISTR_CLASS_5_R</title>
+      <use>The number of downlink RLC AM PDUs which have been successfully delivered to the UE with five or more retransmissions or the PDU is discarded. UPDATED: When the RLC AM connection is modified or released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RLC_RETRANS_DISTR_CLASS_5_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RLC_RETRANS_DISTR_CLASS_5_R (M1027C49)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_11_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_11_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_11_R</title>
+      <use>The number of connections with the 2 Mbit/s...4 Mbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_11_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_11_R (M1027C50)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_12_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_12_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_12_R</title>
+      <use>The number of connections with the 4 Mbit/s...8 Mbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_12_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_12_R (M1027C51)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_DL_THRP_DIST_CLASS_13_R">
+    <formula>RCRLCR.USER_DL_THRP_DIST_CLASS_13_R</formula>
+    <kpi_info>
+      <title>USER_DL_THRP_DIST_CLASS_13_R</title>
+      <use>The number of connections with larger than the 8 Mbit/s downlink RLC PDU gross throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_DL_THRP_DIST_CLASS_13_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_DL_THRP_DIST_CLASS_13_R (M1027C52)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_UL_THRP_DIST_CLASS_1_R">
+    <formula>RCRLCR.USER_UL_THRP_DIST_CLASS_1_R</formula>
+    <kpi_info>
+      <title>USER_UL_THRP_DIST_CLASS_1_R</title>
+      <use>The number of connections with the 0 kbit/s...250 kbit/s uplink SDU throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_UL_THRP_DIST_CLASS_1_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_UL_THRP_DIST_CLASS_1_R (M1027C53)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_UL_THRP_DIST_CLASS_2_R">
+    <formula>RCRLCR.USER_UL_THRP_DIST_CLASS_2_R</formula>
+    <kpi_info>
+      <title>USER_UL_THRP_DIST_CLASS_2_R</title>
+      <use>The number of connections with the 250 kbit/s...500 kbit/s uplink SDU throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_UL_THRP_DIST_CLASS_2_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_UL_THRP_DIST_CLASS_2_R (M1027C54)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_UL_THRP_DIST_CLASS_3_R">
+    <formula>RCRLCR.USER_UL_THRP_DIST_CLASS_3_R</formula>
+    <kpi_info>
+      <title>USER_UL_THRP_DIST_CLASS_3_R</title>
+      <use>The number of connections with the 500 kbit/s...1 Mbit/s uplink SDU throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_UL_THRP_DIST_CLASS_3_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_UL_THRP_DIST_CLASS_3_R (M1027C55)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_UL_THRP_DIST_CLASS_4_R">
+    <formula>RCRLCR.USER_UL_THRP_DIST_CLASS_4_R</formula>
+    <kpi_info>
+      <title>USER_UL_THRP_DIST_CLASS_4_R</title>
+      <use>The number of connections with the 1000 kbit/s...1500 kbit/s uplink SDU throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_UL_THRP_DIST_CLASS_4_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_UL_THRP_DIST_CLASS_4_R (M1027C56)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USER_UL_THRP_DIST_CLASS_5_R">
+    <formula>RCRLCR.USER_UL_THRP_DIST_CLASS_5_R</formula>
+    <kpi_info>
+      <title>USER_UL_THRP_DIST_CLASS_5_R</title>
+      <use>The number of connections with larger than the 1500 kbit/s uplink SDU throughput. UPDATED: When a connection is cleared, the AM RLC entity reports the throughput measurement values to the L3 entity. Then the corresponding class of the throughput distribution is incremented by one.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(USER_UL_THRP_DIST_CLASS_5_R)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcrlcr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USER_UL_THRP_DIST_CLASS_5_R (M1027C57)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

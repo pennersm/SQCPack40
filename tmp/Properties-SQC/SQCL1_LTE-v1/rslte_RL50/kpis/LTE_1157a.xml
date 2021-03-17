@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <kpi name="LTE_1157a">
+    <formula>100*decode(
+			(lcellr.agg2_used_pdcch + 
+			lcellr.agg2_blocked_pdcch),0,null, 
+
+			(lcellr.agg2_blocked_pdcch)
+			 / 
+			(lcellr.agg2_used_pdcch + 
+			lcellr.agg2_blocked_pdcch))</formula>
+    <kpi_info>
+      <title><![CDATA[AGG2 blocking and delay ratio]]></title>
+      <use><![CDATA[This KPI measures the percentage of Aggregation Group2 blocked for PDCCH scheduling.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(AGG2_BLOCKED_PDCCH)
+&lt;br&gt;/
+&lt;br&gt;SUM(AGG2_USED_PDCCH + AGG2_BLOCKED_PDCCH)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLR_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:34.342 +0000</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>AGG2 block R</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

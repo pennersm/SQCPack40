@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DNS.xml" />
+  <kpi name="sgsn_469c">
+    <formula>100*decode(
+			(dns.all_own_dn_inquiries + 
+			dns.name_inqs_fail_host_not_found + 
+			dns.name_inqs_fail_try_again + 
+			dns.name_inqs_fail_no_recovery + 
+			dns.name_inqs_fail_no_address + 
+			dns.name_inqs_fail_unspec_reason +
+			nvl(dns.name_inqs_fail_srv_format_err,0)),0,NULL, 
+
+			(dns.all_own_dn_inquiries)
+			 / 
+			(dns.all_own_dn_inquiries + 
+			dns.name_inqs_fail_host_not_found + 
+			dns.name_inqs_fail_try_again + 
+			dns.name_inqs_fail_no_recovery + 
+			dns.name_inqs_fail_no_address + 
+			dns.name_inqs_fail_unspec_reason +
+			nvl(dns.name_inqs_fail_srv_format_err,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[DNS Inquiry Success Ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of DNS inquiries]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (ALL_OWN_DN_INQUIRIES)
+&lt;br&gt;-----------------------------------------------------------  *100
+&lt;br&gt;sum(ALL_OWN_DN_INQUIRIES+NAME_INQS_FAIL_HOST_NOT_FOUND+ 
+&lt;br&gt;       NAME_INQS_FAIL_TRY_AGAIN  + NAME_INQS_FAIL_NO_RECOVERY + 
+&lt;br&gt;       NAME_INQS_FAIL_NO_ADDRESS + NAME_INQS_FAIL_UNSPEC_REASON +
+&lt;br&gt;       NAME_INQS_FAIL_SRV_FORMAT_ERR)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_dns</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_dns_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[DNS Inquiry Success Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

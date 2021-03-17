@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M131</header>
+    <csv_title>Nokia Siemens NSS M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M131 CCMEA measurement dump</csv_title>
+    <report-description>Clear code measurement(CCMEA)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CCMEA_ext" meas_level="PLMN/MSC/CC1" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CCMEAS_SIGNALLING">SUM(CCMEAS_SIGNALLING)</counter>
+      <counter alias="CCMEAS_RING">SUM(CCMEAS_RING)</counter>
+      <counter alias="CCMEAS_SPEECH">SUM(CCMEAS_SPEECH)</counter>
+      <counter alias="TCAT_CALL_AMOUNT">SUM(TCAT_CALL_AMOUNT)</counter>
+      <counter alias="TC_PERIOD_DURATION">AVG(period_duration)</counter>
+      
+      <counter alias="CCMEAS_SIGNALLING_1">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  CLEARCODE_ID= '000' 
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_RING_1">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  CLEARCODE_ID= '000' 
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_SPEECH_1">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  CLEARCODE_ID= '000' 
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_SIGNALLING_2">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('400','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('7FF','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>
+
+    	<counter alias="CCMEAS_SIGN_NORM">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('3FF','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>			
+
+    	<counter alias="CCMEAS_RING_NORM">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('3FF','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>			
+
+    	<counter alias="CCMEAS_SPEECH_NORM">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('3FF','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>			
+
+
+    	<counter alias="CCMEAS_SIGN_INT">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('400','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('7FF','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>			
+
+    	<counter alias="CCMEAS_RING_INT">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('400','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('7FF','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>			
+
+		<counter alias="CCMEAS_SPEECH_INT">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('400','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('7FF','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>			
+					
+					
+    	<counter alias="CCMEAS_SIGN_EXT">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('800','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('BFF','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>			
+
+    	<counter alias="CCMEAS_RING_EXT">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('800','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('BFF','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>			
+
+      <counter alias="CCMEAS_SPEECH_EXT">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('800','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('BFF','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>		
+	
+
+    	<counter alias="CCMEAS_SIGN_SUBS">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('C00','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('FFF','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>			
+
+    	<counter alias="CCMEAS_RING_SUBS">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('C00','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('FFF','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>			
+
+      <counter alias="CCMEAS_SPEECH_SUBS">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND 
+						(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('C00','xxxx') FROM DUAL) AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('FFF','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>		
+
+      <counter alias="CCMEAS_RING_2">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('400','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('7FF','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_SPEECH_2">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('400','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('7FF','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_SIGNALLING_3">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('800','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('CFF','xxxx') FROM DUAL)
+									
+							THEN (CASE WHEN (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL) OR 
+							(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)  AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL) 
+							THEN 0 ELSE CCMEAS_SIGNALLING END)
+								
+							ELSE 
+							0
+						END)</counter>
+      <counter alias="CCMEAS_RING_3">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('800','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('CFF','xxxx') FROM DUAL)
+					       							
+					       		THEN (CASE WHEN (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+					       		AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+					       		OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL) OR 
+					       		(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)  AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL) 
+					       		THEN 0 ELSE CCMEAS_RING END)
+					       		
+					       		ELSE 
+					       		0
+					       		END)</counter>
+      <counter alias="CCMEAS_SPEECH_3">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('800','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('CFF','xxxx') FROM DUAL)
+													
+													
+							THEN (CASE WHEN (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL) OR 
+							(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)  AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL) 
+							THEN 0 ELSE CCMEAS_SPEECH END)
+							
+							ELSE 
+							0
+							END)</counter>
+      <counter alias="CCMEAS_SIGNALLING_4">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('D00','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('D01','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D04','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('D07','xxxx') FROM DUAL)
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('D08','xxxx') FROM DUAL)
+										
+										
+							THEN CCMEAS_SIGNALLING
+										
+							ELSE 
+							0
+							END)</counter>
+      <counter alias="CCMEAS_RING_4">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('D00','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('D01','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D04','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('D07','xxxx') FROM DUAL)
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('D08','xxxx') FROM DUAL)
+														
+							THEN CCMEAS_RING
+														
+							ELSE 
+							0
+							END)</counter>
+      <counter alias="CCMEAS_SPEECH_4">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('D00','xxxx') FROM DUAL) 
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('D01','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D04','xxxx') FROM DUAL)
+							OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('D07','xxxx') FROM DUAL)
+							AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('D08','xxxx') FROM DUAL)
+														
+														
+							THEN CCMEAS_SPEECH
+														
+							ELSE 
+							0
+							END)</counter>
+      <counter alias="CCMEAS_SIGNALLING_5">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) 
+						 			AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('3FF','xxxx') FROM DUAL)
+						 			THEN (CASE WHEN (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+							 			THEN 0 ELSE CCMEAS_SIGNALLING END)
+						 			
+						 			ELSE 
+						 			0
+						 			END)</counter>
+      <counter alias="CCMEAS_RING_5">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) 
+						 			AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('3FF','xxxx') FROM DUAL)
+						 							
+							
+						 			THEN (CASE WHEN (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+						 				THEN 0 ELSE CCMEAS_RING END)
+						 			ELSE 
+						 			0
+						 			END)</counter>
+      <counter alias="CCMEAS_SPEECH_5">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) 
+						 		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('3FF','xxxx') FROM DUAL)
+						 		 							
+						 		 	THEN (CASE WHEN (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+						 		 		THEN 0 ELSE CCMEAS_SPEECH END)
+						 		 	
+						 		 	ELSE 
+						 		 	0
+						 		 	END)</counter>
+						 		 	
+	  <counter alias="CCMEAS_SIGNALLING_6">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  CLEARCODE_ID= '000' 
+							THEN 0
+						ELSE 
+							CCMEAS_SIGNALLING
+					END)</counter>
+      <counter alias="CCMEAS_RING_6">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  CLEARCODE_ID= '000' 
+							THEN 0
+						ELSE 
+							CCMEAS_RING
+					END)</counter>
+      <counter alias="CCMEAS_SPEECH_6">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  CLEARCODE_ID= '000' 
+							THEN 0
+						ELSE 
+							CCMEAS_SPEECH
+					END)</counter>
+
+      <counter alias="CCMEAS_SIGNALLING_7">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('FFF','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_RING_7">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('FFF','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_SPEECH_7">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('000','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('FFF','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>
+
+
+      <counter alias="CCMEAS_SIGNALLING_8">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('82A','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('82D','xxxx') FROM DUAL)
+							THEN CCMEAS_SIGNALLING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_RING_8">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('82A','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('82D','xxxx') FROM DUAL)
+							THEN CCMEAS_RING
+						ELSE 
+							0
+					END)</counter>
+      <counter alias="CCMEAS_SPEECH_8">sum(CASE 	
+						WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('82A','xxxx') FROM DUAL) 
+						AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('82D','xxxx') FROM DUAL)
+							THEN CCMEAS_SPEECH
+						ELSE 
+							0
+					END)</counter>
+					
+					
+      <counter alias="CCMEAS_SPEECH_9">
+      sum(CASE WHEN 
+      		(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL)
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('208','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B1E','xxxx') FROM DUAL) 
+		 	THEN
+		 		CCMEAS_SPEECH
+		 	ELSE 
+		 		0
+		 	END)
+	</counter>
+		<!-- msc_1567a -->
+		<counter alias="CCMEAS_SIGNALLING_9">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND ( (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B45','xxxx') FROM DUAL) 
+						OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B47','xxxx') FROM DUAL)
+					)
+					THEN CCMEAS_SIGNALLING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_RING_9">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND ( (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B45','xxxx') FROM DUAL) 
+						OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B47','xxxx') FROM DUAL)
+					)
+					THEN CCMEAS_RING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_SPEECH_10">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND ( (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B45','xxxx') FROM DUAL) 
+						OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B47','xxxx') FROM DUAL)
+					)
+					THEN CCMEAS_SPEECH
+				ELSE 
+					0
+				END)
+		</counter>
+		<!-- end sup for msc_1567a -->
+		<!-- msc_1568a -->
+		<counter alias="CCMEAS_SIGNALLING_10">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B45','xxxx') FROM DUAL) 
+				THEN
+					CCMEAS_SIGNALLING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_RING_10">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B45','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_RING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_SPEECH_11">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B45','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_SPEECH
+				ELSE 
+					0
+				END)
+		</counter>
+		<!-- end sup for msc_1568a -->
+		<!-- msc_1569a -->
+		<counter alias="CCMEAS_SIGNALLING_11">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B47','xxxx') FROM DUAL) 
+				THEN
+					CCMEAS_SIGNALLING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_RING_11">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B47','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_RING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_SPEECH_12">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B47','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_SPEECH
+				ELSE 
+					0
+				END)
+		</counter>
+		<!-- end sup for msc_1569a -->
+		<!-- msc_1570a -->
+		<counter alias="CCMEAS_SIGNALLING_12">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B44','xxxx') FROM DUAL) 
+				THEN
+					CCMEAS_SIGNALLING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_RING_12">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B44','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_RING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_SPEECH_13">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B44','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_SPEECH
+				ELSE 
+					0
+				END)
+		</counter>
+		<!-- end sup for msc_1570a -->
+		<!-- msc_1571a -->
+		<counter alias="CCMEAS_SIGNALLING_13">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B46','xxxx') FROM DUAL) 
+				THEN
+					CCMEAS_SIGNALLING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_RING_13">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B46','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_RING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_SPEECH_14">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B46','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_SPEECH
+				ELSE 
+					0
+				END)
+		</counter>
+		<!-- end sup for msc_1571a -->
+		<!-- msc_1572a -->
+		<counter alias="CCMEAS_SIGNALLING_14">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B48','xxxx') FROM DUAL) 
+				THEN
+					CCMEAS_SIGNALLING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_RING_14">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B48','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_RING
+				ELSE 
+					0
+				END)
+		</counter>
+		<counter alias="CCMEAS_SPEECH_15">
+			sum(CASE 	
+				WHEN 
+					LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B48','xxxx') FROM DUAL) 
+				THEN 
+					CCMEAS_SPEECH
+				ELSE 
+					0
+				END)
+		</counter>
+		<!-- end sup for msc_1572a -->
+      
+		<!-- sup for msc_4071b -->
+		<counter alias="CCMEAS_SPEECH_16">
+      sum(CASE WHEN 
+      		(SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL)
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('208','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('844','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('845','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('846','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B1B','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B1C','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B1E','xxxx') FROM DUAL) 
+		 	AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL) 
+		 	THEN
+		 		CCMEAS_SPEECH
+		 	ELSE 
+		 		0
+		 	END)
+		</counter>
+		<!-- end sup for msc_4071b -->
+		
+		<!-- sup for tra_msc129c -->
+	  	<counter alias="CCMEAS_SIGNALLING_17">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('208','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('844','xxxx') FROM DUAL)
+					AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('846','xxxx') FROM DUAL)		
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)
+					AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D00','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D01','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D04','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D07','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D08','xxxx') FROM DUAL)
+										
+					THEN CCMEAS_SIGNALLING
+										
+					ELSE 
+					0
+					END)</counter>
+
+      	<counter alias="CCMEAS_RING_17">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('208','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('844','xxxx') FROM DUAL)
+					AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('846','xxxx') FROM DUAL)		
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)
+					AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D00','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D01','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D04','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D07','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D08','xxxx') FROM DUAL)
+														
+					THEN CCMEAS_RING
+													
+					ELSE 
+					0
+					END)</counter>
+							
+      	<counter alias="CCMEAS_SPEECH_17">sum(CASE WHEN LENGTH(CLEARCODE_ID)=3 AND  (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('205','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('208','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('844','xxxx') FROM DUAL)
+					AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('846','xxxx') FROM DUAL)		
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B13','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B14','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('B16','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &gt;= (SELECT TO_NUMBER('B1A','xxxx') FROM DUAL)
+					AND (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) &lt;= (SELECT TO_NUMBER('B1F','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D00','xxxx') FROM DUAL) 
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D01','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D04','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D07','xxxx') FROM DUAL)
+					OR (SELECT TO_NUMBER(CLEARCODE_ID,'xxxx') FROM DUAL) = (SELECT TO_NUMBER('D08','xxxx') FROM DUAL)				
+														
+					THEN CCMEAS_SPEECH
+														
+					ELSE 
+					0
+					END)</counter>
+																		
+		<!-- end sup for tra_msc129c -->
+		
+    </counters>
+    <table_name>rns_ps_ccmea_cc1_{TIME_AGG}</table_name>
+    <alias_name>CCMEA_ext</alias_name>
+  </temp_table>
+</conf_file>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/M3UAMS.xml" />
+  <kpi name="msc_747b">
+    <formula>decode(
+			(m3uams.period_duration),0,null, 
+
+			100 - 
+			100*(m3uams.m3ua_asso_set_unavailable_time)
+			 / 
+			(m3uams.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[M3UA Association Set availability ratio]]></title>
+      <use><![CDATA[M3UA Association Set availability ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                sum (m3ua_asso_set_unavailable_time) 
+&lt;br&gt;100 *  (1- ( ------------------------------------------------------------------- ))
+&lt;br&gt;                            period_duration * 60
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_M3UAMS_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UAMI_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UAHS_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UAHI_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UASS_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_M3UASI_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_m3uams_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[M3UA Association Set availability ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/DSE.xml"/>
+  <kpi name="msc_610a">
+    <formula>100*(decode(
+			(dse.dsu_calls),0,null, 
+
+			(dse.dsu_answ)
+			 / 
+			(dse.dsu_calls)))</formula>
+    <kpi_info>
+      <title><![CDATA[Data call attempts ratio in DSU that have been answered]]></title>
+      <use><![CDATA[Ratio of data call attempts in DSU that have been answered]]></use>
+
+<use_experience><![CDATA[ 
+<br>Video calls will be counted in Data service unit measurement, however in Traffic Category measurement there are separate categories for measuring CS video calls? They are available from M12 ED4
+<br>PUBLISHED: M12
+<br>THEORETICAL SUMMARY LEVELS: MSC; CALLTYPE
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CALLTYPE
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Data service unit measurement (M306) 
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      sum(DSU_ANSW)
+&lt;br&gt;100 * ------------ 
+&lt;br&gt;      sum (DSU_CALLS)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_DSE_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_dse_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Data call attempts ratio in DSU that have been answered]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

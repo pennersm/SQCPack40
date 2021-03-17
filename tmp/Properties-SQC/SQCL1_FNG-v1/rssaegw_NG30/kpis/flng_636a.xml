@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPC.xml" />
+  <kpi name="flng_636a">
+    <formula>decode(
+			((GTPC.period_duration*60)),0,NULL, 
+
+			((GTPC.GTPC_DELETE_REQ_RECV +
+			GTPC.GTPC_DELETE_REQ_SENT +
+			GTPC.GTPC_DEL_REQ_RESENT_EXCEED_N3))
+			 / 
+			((GTPC.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[PDP context deactivations per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of PDP context deactivations request procedures per second.
+	  This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+	  <formula>sum (GTPC_DELETE_REQ_RECV +
+&lt;br&gt;   GTPC_DELETE_REQ_SENT +
+&lt;br&gt;   GTPC_DEL_REQ_RESENT_EXCEED_N3)
+&lt;br&gt;----------------------------------   
+&lt;br&gt;sum (period_duration * 60)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNG_PS_GTPC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PDP ctx deact pr sec]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml" />
+  <kpi name="msc_4071b">
+    <formula>
+decode(ccmea_ext.ccmeas_speech,0,null,
+	100 * ( ccmea_ext.ccmeas_speech_16 / ccmea_ext.ccmeas_speech )
+) 
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Dropped calls after answer due to radio]]></title>
+      <use><![CDATA[Number of dropped calls after answer due to radio related reasons.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Clear Codes:
+<br>205 = RADIO INTERFACE CONGESTION
+<br>208 = SUBSCRIBER OUT OF RADIO COVER, RE-ESTABLISHMENT FAILED
+<br>844 = RADIONW AS MAG FAILURE
+<br>845 = RANAP PROTOCOL ERROR
+<br>846 = RNW INIT SIGN CON FAILURE
+<br>B13 = RADIO INTERFACE FAILURE
+<br>B14 = HANDOVER FAILURE
+<br>B16 = REMOTE EQUIPMENT FAILURE
+<br>B1A = BSSMAP PROTOCOL ERROR
+<br>B1B = RADIO INTERFACE MESSAGE FAILURE
+<br>B1C = RADIO INTERFACE FAILURE REVERSION TO OLD CHANNEL
+<br>B1E = RADIO RESOURCE UNAVAILABLE
+<br>B1F = REQUESTED TERRESTRIAL RESOURCE UNAVAILABLE
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->CC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC->CC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Clear code measurement (M131)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MOC Answered Calls &#150; dropped call rate after answer&quot; KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( CCMEAS_SPEECH )  ;WHERE clearcode_id = 0205 + 0208 + 0844 + 0845 + 0846 + 0B13 + 0B14 + 0B16 + 0B1A + 0B1B + 0B1C + 0B1E + 0B1F
+&lt;br&gt;100 * -------------------------------------
+&lt;br&gt;      SUM( CCMEAS_SPEECH ) ;WHERE clearcode_id = all
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_CCMEA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Drop calls afte answ radio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

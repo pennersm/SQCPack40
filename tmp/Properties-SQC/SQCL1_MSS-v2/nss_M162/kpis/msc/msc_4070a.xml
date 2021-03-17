@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/DESVLR_ext.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/PLMNV_ext.xml" />
+  <kpi name="msc_4070a">
+    <formula>
+decode(desvlr_ext.PERIOD_START_TIME_1,0,null,
+	(desvlr_ext.AVG_NBR_HOME_SUBS_3G_1 + nvl(plmnv_ext.AVG_NBR_ROAM_SUBS_3G_1,0)) / desvlr_ext.PERIOD_START_TIME_1
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Average 3G subscribers in VLR]]></title>
+      <use><![CDATA[Indicates the average number of 3G subscribers in VLR.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI uses counters from 2 measuers: M339 + M340. M339 has the BH defined as &quot;max of sum(HSAVERAGE)&quot;. M340 has its BH defined as &quot;max of avg(TCAT_TRAFF_X100)&quot;.
+<br>This KPI BH shall be defined as &quot;max of avg(TCAT_TRAFF_X100)&quot;. 
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 31-07-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part n, subscribers per HLR (M339)
+<br> + 
+<br>VLR measurement, part n, subscribers per PLMN (M340)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;VLR Utilisation (Total subscribers in VLR)&quot; (3G) KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For OBJECT level: 
+&lt;br&gt;SUM( a.AVG_NBR_HOME_SUBS_3G_1 + b.AVG_NBR_ROAM_SUBS_3G )
+&lt;br&gt;
+&lt;br&gt;For TIME level:
+&lt;br&gt;AVG( a.AVG_NBR_HOME_SUBS_3G_1 + b.AVG_NBR_ROAM_SUBS_3G )
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;a = M339 = VLR measurement, part n, subscribers per HLR
+&lt;br&gt;b = M340 = VLR measurement, part n, subscribers per PLMN
+&lt;br&gt;
+&lt;br&gt;==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;SUM(a.AVG_NBR_HOME_SUBS_3G_1 + b.AVG_NBR_ROAM_SUBS_3G) / COUNT(DISTINCT period_start_time)</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_DESVLR_{OBJ_AGG}_{TIME_AGG},rns_ps_PLMNV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg 3G subsc in VLR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

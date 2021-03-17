@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 IUSP measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 IUSP measurement dump</csv_title>
+    <report-description>Iu SGSN paging measurement(IUSP)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SGSN_LEVEL_IU_PS_PAGINGS />
+    <SGSN_LEVEL_UNSUCC_IU_PS_PAG />
+    <SGSN_LEVEL_IU_PS_PAGING_ATT />
+  </column_order>
+  <temp_table name="IUSP" meas_level="PLMN/SGSN" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SGSN_LEVEL_IU_PS_PAGINGS" symmetrical="true">SUM(SGSN_LEVEL_IU_PS_PAGINGS)</counter>
+      <counter alias="SGSN_LEVEL_UNSUCC_IU_PS_PAG" symmetrical="true">SUM(SGSN_LEVEL_UNSUCC_IU_PS_PAG)</counter>
+      <counter alias="SGSN_LEVEL_IU_PS_PAGING_ATT" symmetrical="true">SUM(SGSN_LEVEL_IU_PS_PAGING_ATT)</counter>
+    </counters>
+    <table_name>rsg_ps_iusp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IUSP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IUSP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_iusp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSN_LEVEL_IU_PS_PAGINGS">
+    <formula>IUSP.SGSN_LEVEL_IU_PS_PAGINGS</formula>
+    <kpi_info>
+      <title>SGSN_LEVEL_IU_PS_PAGINGS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSN_LEVEL_IU_PS_PAGINGS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iusp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSN_LEVEL_IU_PS_PAGINGS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSN_LEVEL_UNSUCC_IU_PS_PAG">
+    <formula>IUSP.SGSN_LEVEL_UNSUCC_IU_PS_PAG</formula>
+    <kpi_info>
+      <title>SGSN_LEVEL_UNSUCC_IU_PS_PAG</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSN_LEVEL_UNSUCC_IU_PS_PAG)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iusp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSN_LEVEL_UNSUCC_IU_PS_PAG</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SGSN_LEVEL_IU_PS_PAGING_ATT">
+    <formula>IUSP.SGSN_LEVEL_IU_PS_PAGING_ATT</formula>
+    <kpi_info>
+      <title>SGSN_LEVEL_IU_PS_PAGING_ATT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SGSN_LEVEL_IU_PS_PAGING_ATT)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_iusp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SGSN_LEVEL_IU_PS_PAGING_ATT</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

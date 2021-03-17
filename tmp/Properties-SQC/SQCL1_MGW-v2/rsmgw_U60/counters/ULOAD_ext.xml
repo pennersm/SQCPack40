@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Unit_Load</header>
+    <csv_title>NSN MGW U5.0EP1;U5.0;U4.2EP;U4.2;U4.1;U4.0;U3C Unit_Load ULOAD measurement dump</csv_title>
+    <report-description>Unit load measurement (M592)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsmgw/RSMGW.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <AVERAGE_LOAD />
+    <PEAK_LOAD />
+    <PEAK_LOAD_DATE />
+    <PEAK_LOAD_TIME />
+  </column_order>
+  <temp_table name="ULOAD_ext" meas_level="PLMN/RSMGW-MGW/RSMGW-UTYPE/RSMGW-UNIT" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <counters>
+      <counter alias="period_duration">SUM(period_duration)</counter>
+      <counter alias="AVERAGE_LOAD">MAX(AVERAGE_LOAD)</counter>
+      <counter alias="PEAK_LOAD_DATE">SUM(PEAK_LOAD_DATE)</counter>
+      <counter alias="PEAK_LOAD_TIME">SUM(PEAK_LOAD_TIME)</counter>
+    </counters>
+    <table_name>nokmww_ps_uload_unit3_raw</table_name>
+    <alias_name>ULOAD_ext</alias_name>
+  </temp_table>
+</conf_file>
+
+

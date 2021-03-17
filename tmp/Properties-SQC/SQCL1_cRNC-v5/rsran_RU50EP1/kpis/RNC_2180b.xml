@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2180b">
+    <formula>100*decode(
+			traffic.allo_success_edch_int + 
+			traffic.allo_success_edch_bgr + 
+			traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr + 
+			traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr + 
+			traffic.setup_fail_edch_bts_bgr + 
+			traffic.setup_fail_edch_bts_int + 
+			traffic.setup_fail_edch_other_bgr + 
+			traffic.setup_fail_edch_other_int + 
+			traffic.setup_fail_edch_trans_bgr + 
+			traffic.setup_fail_edch_trans_int + 
+			traffic.setup_fail_edch_ue_bgr + 
+			traffic.setup_fail_edch_ue_int +
+			traffic.setup_rej_edch_ac_int +
+			traffic.setup_rej_edch_ac_bgr,0,null, 
+
+			(traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr)
+			 / 
+			(traffic.allo_success_edch_int + 
+			traffic.allo_success_edch_bgr + 
+			traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr + 
+			traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr + 
+			traffic.setup_fail_edch_bts_bgr + 
+			traffic.setup_fail_edch_bts_int + 
+			traffic.setup_fail_edch_other_bgr + 
+			traffic.setup_fail_edch_other_int + 
+			traffic.setup_fail_edch_trans_bgr + 
+			traffic.setup_fail_edch_trans_int + 
+			traffic.setup_fail_edch_ue_bgr + 
+			traffic.setup_fail_edch_ue_int +
+			traffic.setup_rej_edch_ac_int +
+			traffic.setup_rej_edch_ac_bgr))</formula>
+    <kpi_info>
+      <title><![CDATA[E-DCH Not Selected due the BTS HW,NRT]]></title>
+      <use><![CDATA[The percentage of times when E-DCH uplink transport channel cannot be selected in this cell for an interactive or background class connection because BTS has reported to have no capacity available for E-DCH.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum ( UL_DCH_SEL_BTS_HW_INT
+&lt;br&gt;+ UL_DCH_SEL_BTS_HW_BGR )
+&lt;br&gt;--------------------------
+&lt;br&gt;RNC_2181b</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.62 +0100</date>
+          <comment><![CDATA[Source: RSRAN066.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-DCH Not slct due BTS HW,NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

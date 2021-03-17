@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.1 1.0;NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M62 PWS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.1 1.0;NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M55 PWS measurement dump</csv_title>
+    <report-description>Public Warning System Measurement (PWS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <S1_WRITE_REPLACE_WARNING_REQ />
+    <S1_WRITE_REPLACE_WARNING_RES />
+    <SBC_WRITE_REPLACE_WARNING_REQ />
+    <SBC_WRITE_REPLACE_WARNING_CON />
+    <S1_KILL_REQUEST />
+    <S1_KILL_RESPONSE />
+    <SBC_STOP_WARNING_REQUEST />
+    <SBC_STOP_WARNING_CONFIRM />
+  </column_order>
+  <temp_table name="PWS" meas_level="PLMN/FLEXINS" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="S1_WRITE_REPLACE_WARNING_REQ" time-alias="S1_WRITE_REPLACE_WARNING_REQ" timeagg="SUM(S1_WRITE_REPLACE_WARNING_REQ)">SUM(S1_WRITE_REPLACE_WARNING_REQ)</counter>
+      <counter alias="S1_WRITE_REPLACE_WARNING_RES" time-alias="S1_WRITE_REPLACE_WARNING_RES" timeagg="SUM(S1_WRITE_REPLACE_WARNING_RES)">SUM(S1_WRITE_REPLACE_WARNING_RES)</counter>
+      <counter alias="SBC_WRITE_REPLACE_WARNING_REQ" time-alias="SBC_WRITE_REPLACE_WARNING_REQ" timeagg="SUM(SBC_WRITE_REPLACE_WARNING_REQ)">SUM(SBC_WRITE_REPLACE_WARNING_REQ)</counter>
+      <counter alias="SBC_WRITE_REPLACE_WARNING_CON" time-alias="SBC_WRITE_REPLACE_WARNING_CON" timeagg="SUM(SBC_WRITE_REPLACE_WARNING_CON)">SUM(SBC_WRITE_REPLACE_WARNING_CON)</counter>      
+      <counter alias="S1_KILL_REQUEST" time-alias="S1_KILL_REQUEST" timeagg="SUM(S1_KILL_REQUEST)">SUM(S1_KILL_REQUEST)</counter>
+      <counter alias="S1_KILL_RESPONSE" time-alias="S1_KILL_RESPONSE" timeagg="SUM(S1_KILL_RESPONSE)">SUM(S1_KILL_RESPONSE)</counter>
+      <counter alias="SBC_STOP_WARNING_REQUEST" time-alias="SBC_STOP_WARNING_REQUEST" timeagg="SUM(SBC_STOP_WARNING_REQUEST)">SUM(SBC_STOP_WARNING_REQUEST)</counter>
+      <counter alias="SBC_STOP_WARNING_CONFIRM" time-alias="SBC_STOP_WARNING_CONFIRM" timeagg="SUM(SBC_STOP_WARNING_CONFIRM)">SUM(SBC_STOP_WARNING_CONFIRM)</counter>
+    </counters>
+    <table_name>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PWS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PWS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="S1_WRITE_REPLACE_WARNING_REQ">
+    <formula>PWS.S1_WRITE_REPLACE_WARNING_REQ</formula>
+    <kpi_info>
+      <title>S1_WRITE_REPLACE_WARNING_REQ</title>
+      <use>The number of write replace warning requests sent to eNB.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S1_WRITE_REPLACE_WARNING_REQ)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S1_WRITE_REPLACE_WARNING_REQ (M62C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="S1_WRITE_REPLACE_WARNING_RES">
+    <formula>PWS.S1_WRITE_REPLACE_WARNING_RES</formula>
+    <kpi_info>
+      <title>S1_WRITE_REPLACE_WARNING_RES</title>
+      <use>The number of write replace warning responses received from eNB.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S1_WRITE_REPLACE_WARNING_RES)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S1_WRITE_REPLACE_WARNING_RES (M62C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SBC_WRITE_REPLACE_WARNING_REQ">
+    <formula>PWS.SBC_WRITE_REPLACE_WARNING_REQ</formula>
+    <kpi_info>
+      <title>SBC_WRITE_REPLACE_WARNING_REQ</title>
+      <use>The number of write replace warning requests from CBC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SBC_WRITE_REPLACE_WARNING_REQ)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SBC_WRITE_REPLACE_WARNING_REQ (M62C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SBC_WRITE_REPLACE_WARNING_CON">
+    <formula>PWS.SBC_WRITE_REPLACE_WARNING_CON</formula>
+    <kpi_info>
+      <title>SBC_WRITE_REPLACE_WARNING_CON</title>
+      <use>The number of write replace warning confirms sent to CBC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SBC_WRITE_REPLACE_WARNING_CON)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SBC_WRITE_REPLACE_WARNING_CON (M62C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="S1_KILL_REQUEST">
+    <formula>PWS.S1_KILL_REQUEST</formula>
+    <kpi_info>
+      <title>S1_KILL_REQUEST</title>
+      <use>The number of kill requests sent to eNB.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S1_KILL_REQUEST)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S1_KILL_REQUEST (M62C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="S1_KILL_RESPONSE">
+    <formula>PWS.S1_KILL_RESPONSE</formula>
+    <kpi_info>
+      <title>S1_KILL_RESPONSE</title>
+      <use>The number of kill responses received from eNB.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S1_KILL_RESPONSE)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S1_KILL_RESPONSE (M62C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="SBC_STOP_WARNING_REQUEST">
+    <formula>PWS.SBC_STOP_WARNING_REQUEST</formula>
+    <kpi_info>
+      <title>SBC_STOP_WARNING_REQUEST</title>
+      <use>The number of stop warning requests received from CBC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SBC_STOP_WARNING_REQUEST)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SBC_STOP_WARNING_REQUEST (M62C006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SBC_STOP_WARNING_CONFIRM">
+    <formula>PWS.SBC_STOP_WARNING_CONFIRM</formula>
+    <kpi_info>
+      <title>SBC_STOP_WARNING_CONFIRM</title>
+      <use>The number of stop warning confirms sent to CBC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SBC_STOP_WARNING_CONFIRM)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_pws_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SBC_STOP_WARNING_CONFIRM (M62C007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

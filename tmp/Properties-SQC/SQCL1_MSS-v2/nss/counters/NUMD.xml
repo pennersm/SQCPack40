@@ -1,0 +1,321 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M17 NUMD measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M17 NUMD measurement dump</csv_title>
+    <report-description>Number destination measurement(NUMD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <NUMDEST_NUM_OF_CALL_ATT/>
+    <NUMDEST_SUCCESSFUL_CALLS/>
+    <NUMDEST_ANSWERED_CALLS/>
+    <NUMDEST_SUBSC_ERROR/>
+    <NUMDEST_INT_ERROR/>
+    <NUMDEST_EXT_ERROR/>
+    <NUMDEST_ERLANGS_x100/>
+    <NUMDEST_INVALID_REC_FOUND/>
+    <NUMDEST_OVERLOAD_CTRL_ACT/>
+    <NUMDEST_DATA_PROV_RESTARTED/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/DESTDIR" name="NUMD" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="NUMDEST_NUM_OF_CALL_ATT" symmetrical="true">SUM(NUMDEST_NUM_OF_CALL_ATT)</counter>
+      <counter alias="NUMDEST_SUCCESSFUL_CALLS" symmetrical="true">SUM(NUMDEST_SUCCESSFUL_CALLS)</counter>
+      <counter alias="NUMDEST_ANSWERED_CALLS" symmetrical="true">SUM(NUMDEST_ANSWERED_CALLS)</counter>
+      <counter alias="NUMDEST_SUBSC_ERROR" symmetrical="true">SUM(NUMDEST_SUBSC_ERROR)</counter>
+      <counter alias="NUMDEST_INT_ERROR" symmetrical="true">SUM(NUMDEST_INT_ERROR)</counter>
+      <counter alias="NUMDEST_EXT_ERROR" symmetrical="true">SUM(NUMDEST_EXT_ERROR)</counter>
+      <counter alias="NUMDEST_ERLANGS_x100" object-formula="SUM(NUMDEST_ERLANGS_x100)" time-alias="NUMDEST_ERLANGS_x100" time-formula="AVG(NUMDEST_ERLANGS_x100)">SUM(NUMDEST_ERLANGS_x100)</counter>
+      <counter alias="NUMDEST_INVALID_REC_FOUND" symmetrical="true">AVG(NUMDEST_INVALID_REC_FOUND)</counter>
+      <counter alias="NUMDEST_OVERLOAD_CTRL_ACT" symmetrical="true">AVG(NUMDEST_OVERLOAD_CTRL_ACT)</counter>
+      <counter alias="NUMDEST_DATA_PROV_RESTARTED" symmetrical="true">AVG(NUMDEST_DATA_PROV_RESTARTED)</counter>
+    </counters>
+    <table_name>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NUMD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NUMD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_NUM_OF_CALL_ATT">
+    <formula>NUMD.NUMDEST_NUM_OF_CALL_ATT</formula>
+    <kpi_info>
+      <title>NUMDEST_NUM_OF_CALL_ATT</title>
+      <use>Number of call attempts (0...9999999).Thefield is updated when the circuit is released.This
+means the following events:BSSAP: Receiving the Release Complete
+(REL_COM) message from the BSC.RANAP: Receiving
+the Iu Release Complete message from the RNC.ISUP:
+Receiving the Release Complete (RLC) or the Release (REL) message from
+the preceding or succeeding exchange.BICC: Receiving
+the Release Complete (RLC) or the Release (REL) message from the
+preceding or succeeding exchange.SIP: Receiving Bye
+or Cancel message from the preceding or the succeeding exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMDEST_NUM_OF_CALL_ATT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_NUM_OF_CALL_ATT (M17B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_SUCCESSFUL_CALLS">
+    <formula>NUMD.NUMDEST_SUCCESSFUL_CALLS</formula>
+    <kpi_info>
+      <title>NUMDEST_SUCCESSFUL_CALLS</title>
+      <use>Number of successful call attempts (0...9999999), clear codes 0...3FF.The field is updated when the circuit
+is released.If the call has been ended by clear code 0...3FF,
+then the field is updated at the same time as the CALLS field:BSSAP:
+Receiving Release Complete (REL_COM) message from the BSC.RANAP:
+Receiving Iu Release Complete message from the RNC.ISUP:
+Receiving the Release Complete (RLC) or the Release (REL) message from
+the preceding or succeeding exchange.BICC: Receiving
+the Release Complete (RLC) or the Release (REL) message from the
+preceding or succeeding exchange.SIP: Receiving Bye
+or Cancel message from the preceding or the succeeding exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMDEST_SUCCESSFUL_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_SUCCESSFUL_CALLS (M17B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_ANSWERED_CALLS">
+    <formula>NUMD.NUMDEST_ANSWERED_CALLS</formula>
+    <kpi_info>
+      <title>NUMDEST_ANSWERED_CALLS</title>
+      <use>The number of call attempts (0...65535) that have reached the conversation state.The field is updated
+when the circuit is released.The field is updated at
+the same time as the CALLS field, if one of the following events
+has occurred:BSSAP: Connect message has been received
+from the BSC.RANAP: Connect message has been received
+from the RNC.ISUP: ANSWER message has been received
+from the exchange.BICC: ANSWER message has been received
+from the exchange.SIP: 200OK (Invite) message has been received
+from the exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMDEST_ANSWERED_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_ANSWERED_CALLS (M17B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_SUBSC_ERROR">
+    <formula>NUMD.NUMDEST_SUBSC_ERROR</formula>
+    <kpi_info>
+      <title>NUMDEST_SUBSC_ERROR</title>
+      <use>Number of failed attempts that have terminatedin a subscriber error, clear codes C00...FFF (0...65535).The
+field is updated when the circuit is released.If the
+call has been ended by clear code C00...FFF, then the field is updated
+at the same time as the CALLS field:BSSAP: Receiving
+Release Complete (REL_COM) message from the BSC.RANAP:
+Receiving Iu Release Complete message from the RNC.ISUP:
+Receiving Release Complete (RLC) or Release (REL) message from the
+preceding or succeeding exchange.BICC: Receiving Release
+Complete (RLC) or Release (REL) message from the preceding or succeeding
+exchange.SIP: Receiving Bye or Cancel message from
+the preceding or the succeeding exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMDEST_SUBSC_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_SUBSC_ERROR (M17B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_INT_ERROR">
+    <formula>NUMD.NUMDEST_INT_ERROR</formula>
+    <kpi_info>
+      <title>NUMDEST_INT_ERROR</title>
+      <use>Number of failed attempts that have terminatedin an error in the home exchange, clear codes 400...7FF (0...65535).The
+field is updated when the circuit is released.If the
+call has been ended by clear code 400...7FF, then the field is updated
+at the same time as the CALLS field:BSSAP: Receiving
+Release Complete (REL_COM) message from the BSC.RANAP:
+Receiving Iu Release Complete message from the RNC.ISUP:
+Receiving Release Complete (RLC) or Release (REL) message from the
+preceding or succeeding exchange.BICC: Receiving Release
+Complete (RLC) or Release (REL) message from the preceding or succeeding
+exchange.SIP: Receiving Bye or Cancel message from
+the preceding or the succeeding exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMDEST_INT_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_INT_ERROR (M17B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_EXT_ERROR">
+    <formula>NUMD.NUMDEST_EXT_ERROR</formula>
+    <kpi_info>
+      <title>NUMDEST_EXT_ERROR</title>
+      <use>Number of failed attempts that have terminatedin an error in the trunk circuit, clear codes 800...BFF (0...65535).The
+field is updated when the circuit is released.If the
+call has been ended by clear code 800...BFF, then the field is updated
+at the same time as the CALLS field:BSSAP: Receiving
+Release Complete (REL_COM) message from the BSC.RANAP:
+Receiving Iu Release Complete message from the RNC.ISUP:
+Receiving Release Complete (RLC) or Release (REL) message from the
+preceding or succeeding exchange.BICC: Receiving Release
+Complete (RLC) or Release (REL) message from the preceding or succeeding
+exchange.SIP: Receiving Bye or Cancel message from
+the preceding or the succeeding exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NUMDEST_EXT_ERROR)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_EXT_ERROR (M17B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_ERLANGS_x100">
+    <formula>NUMD.NUMDEST_ERLANGS_x100</formula>
+    <kpi_info>
+      <title>NUMDEST_ERLANGS_x100</title>
+      <use>The amount of traffic in the number destinationin erlangs. That means the total reservation time of the object
+being measured in relation to the results accumulation period.The
+erlangs are calculated from circuit seizure to circuit release.This
+means that the Erlang is calculatedBSSAP: From Assignment
+Request (ASS_REQ) to Release Complete (REL_COM)
+message.RANAP: From RAB Assignment Request to Iu Release
+Complete messageISUP, BICC: From the time when the Initial
+Address Message (IAM) is sent to the preceding or received from
+the preceding network element (MSC, PSTN, and so on.) till the time
+when the Release Complete (RLC) message is received from or sent
+to the same network element.SIP: From Invite to Bye
+or Cancel message.All of the circuit reservation time
+is updated in the results accumulation period in which the circuit
+is released. For this reason remarkably large values in the ERLANGS
+field are possible in a case in which there are many calls that have
+started before the results accumulation period but that ends in
+the results accumulation period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(NUMDEST_ERLANGS_x100)">SUM(NUMDEST_ERLANGS_x100)</formula>
+      <unit>Erl</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_ERLANGS_x100 (M17B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_INVALID_REC_FOUND">
+    <formula>NUMD.NUMDEST_INVALID_REC_FOUND</formula>
+    <kpi_info>
+      <title>NUMDEST_INVALID_REC_FOUND</title>
+      <use>The tag appears at the end of the given countergroup with field value 1 when the actual record is invalid.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(NUMDEST_INVALID_REC_FOUND)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_INVALID_REC_FOUND (M17B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_OVERLOAD_CTRL_ACT">
+    <formula>NUMD.NUMDEST_OVERLOAD_CTRL_ACT</formula>
+    <kpi_info>
+      <title>NUMDEST_OVERLOAD_CTRL_ACT</title>
+      <use>The tag appears at the end of the given countergroup with field value 10 when the Automatic Overload Control of Statistics
+feature has been activated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(NUMDEST_OVERLOAD_CTRL_ACT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_OVERLOAD_CTRL_ACT (M17B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NUMDEST_DATA_PROV_RESTARTED">
+    <formula>NUMD.NUMDEST_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>NUMDEST_DATA_PROV_RESTARTED</title>
+      <use>Tag appears with value 1 when data providerin signalling unit or signalling unit(s) is restarted during the
+period and data might not be reliable.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(NUMDEST_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_NUMD{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMDEST_DATA_PROV_RESTARTED (M17B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

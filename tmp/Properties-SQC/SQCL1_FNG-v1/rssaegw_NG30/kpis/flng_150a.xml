@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DDNAR_ext.xml"/>
+  <kpi name="flng_150a">
+    <formula>decode(
+			((DDNAR_ext.gtpcv2_dl_data_notif_ack_r_all)),0,NULL, 
+
+			((DDNAR_ext.gtpcv2_dl_data_notif_ack_recv))
+			 / 
+			((DDNAR_ext.gtpcv2_dl_data_notif_ack_r_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification Acks received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 downlink data notification acknowledgements received for a specific cause code when compared to total number of GTP-C v2 downlink data notification acknowledgements messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(ddnar_id,'x',GTPCV2_DL_DATA_NOTIF_ACK_RECV,0))  ;DDNAR for cause code x
+&lt;br&gt;----------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DL_DATA_NOTIF_ACK_RECV)  ;all DDNAR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DDNAR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DL Data Not Ack rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

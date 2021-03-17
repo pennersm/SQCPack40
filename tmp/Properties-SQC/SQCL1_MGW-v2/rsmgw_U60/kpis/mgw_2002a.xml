@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/ETHPRF.xml" />
+  <kpi name="mgw_2002a">
+    <formula>
+decode(
+	ethprf.ether_rx_frame
+	,0,null,
+    100*(ethprf.ether_rx_frame_aligment_err + 
+		ethprf.ether_rx_too_long_frame + 
+		ethprf.ether_rx_too_short_frame + 
+		ethprf.ether_rx_crc_err + 
+		ethprf.ether_rx_buffer_overflow)
+ 	/ 
+	ethprf.ether_rx_frame
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Ethernet interface error ratio (ingress)]]></title>
+      <use><![CDATA[Ingress ethernet interface errors.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        SUM( ETHER_RX_FRAME_ALIGMENT_ERR 
+&lt;br&gt;              + ETHER_RX_TOO_LONG_FRAME 
+&lt;br&gt;              + ETHER_RX_TOO_SHORT_FRAME 
+&lt;br&gt;              + ETHER_RX_CRC_ERR 
+&lt;br&gt;              + ETHER_RX_BUFFER_OVERFLOW )
+&lt;br&gt;100 * -------------------------------
+&lt;br&gt;        SUM( ETHER_RX_FRAME )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_ETHPRF_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/05/20 16:01:26.544 +0100</date>
+          <comment><![CDATA[Source: RSMGW012.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EthIf error ratio ingress</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

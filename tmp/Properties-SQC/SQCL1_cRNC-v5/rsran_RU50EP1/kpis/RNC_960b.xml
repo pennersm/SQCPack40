@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ATMVCC.xml"/>
+  <kpi name="RNC_960b">
+    <formula>100*decode(
+			((atmvcc.in_cap_vc*atmvcc.period_duration_sum*60)),0,null, 
+
+			((atmvcc.in_tot_cells_vc))
+			 / 
+			((atmvcc.in_cap_vc*atmvcc.period_duration_sum*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[ATM VCC specific incoming traffic load]]></title>
+      <use><![CDATA[This KPI shows the incoming ATM layer traffic load for single ATM VC connection.
+The load is measured in RNC ingress direction.
+It depends on the selected configuration, which traffic type utilises one VCC.
+The ATM VCC traffic throughput is compared to the VCC PCR (in the case of CBR connection) or MDCR (in the case of UBR+ connection) to calculate the load [%].
+If there is dedicated VC connection used for HSDPA, this KPI can be used to follow the HSDPA load over Iub and the same applies to other traffic types as well.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                sum (in_tot_cells_vc)
+&lt;br&gt;100 * ------------------------------------------
+&lt;br&gt;      sum (in_cap_vc * period_duration_sum * 60)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_ATMVCC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[ATM VCC spec inc traf ld]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

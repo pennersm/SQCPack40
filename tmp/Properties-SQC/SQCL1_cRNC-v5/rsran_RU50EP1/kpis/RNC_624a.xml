@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/HSDPAW.xml" />
+	<kpi name="RNC_624a">
+		<formula>
+			decode((hsdpaw.hs_scch_pwr_dist_class_0+hsdpaw.hs_scch_pwr_dist_class_1+hsdpaw.hs_scch_pwr_dist_class_2+hsdpaw.hs_scch_pwr_dist_class_3+hsdpaw.hs_scch_pwr_dist_class_4+hsdpaw.hs_scch_pwr_dist_class_5),0,null,hsdpaw.hs_scch_pwr_sum/(hsdpaw.hs_scch_pwr_dist_class_0+hsdpaw.hs_scch_pwr_dist_class_1+hsdpaw.hs_scch_pwr_dist_class_2+hsdpaw.hs_scch_pwr_dist_class_3+hsdpaw.hs_scch_pwr_dist_class_4+hsdpaw.hs_scch_pwr_dist_class_5))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average active HS-SCCH power]]>
+			</title>
+			<use>
+				<![CDATA[The average active HS-SCCH power. In this context active refers to the active TTIs (when sending data).]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+ sum(HS_SCCH_PWR_SUM)
+---------------------------------------------------------
+ sum(HS_SCCH_PWR_DIST_CLASS_0 
+ +HS_SCCH_PWR_DIST_CLASS_1 
+ +HS_SCCH_PWR_DIST_CLASS_2 
+ +HS_SCCH_PWR_DIST_CLASS_3 
+ +HS_SCCH_PWR_DIST_CLASS_4 
+ +HS_SCCH_PWR_DIST_CLASS_5)
+</pre>]]>
+			</formula>
+			<unit>[W]</unit>
+			<tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average active HS-SCCH power]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <kpi name="RNC_1879c">
+    <formula>decode(
+			(HSDPAW.hsdpa_buff_with_data_per_tti)*
+			(HSDPAW.hsdpa_users_0_1_in_cells + 
+			HSDPAW.hsdpa_users_1_0_in_cells + 
+			2*(HSDPAW.hsdpa_users_0_2_in_cells + 
+			HSDPAW.hsdpa_users_1_1_in_cells + 
+			HSDPAW.hsdpa_users_2_0_in_cells) + 
+			3*(HSDPAW.hsdpa_users_0_3_in_cells + 
+			HSDPAW.hsdpa_users_1_2_in_cells + 
+			HSDPAW.hsdpa_users_2_1_in_cells + 
+			HSDPAW.hsdpa_users_3_0_in_cells) + 
+			4*(hsdpaw.hsdpa_users_0_4_in_cells + 
+			hsdpaw.hsdpa_users_1_3_in_cells + 
+			hsdpaw.hsdpa_users_2_2_in_cells + 
+			hsdpaw.hsdpa_users_3_1_in_cells + 
+			hsdpaw.hsdpa_users_4_0_in_cells) + 
+			5*(hsdpaw.hsdpa_users_0_5_in_cells + 
+			hsdpaw.hsdpa_users_1_4_in_cells + 
+			hsdpaw.hsdpa_users_2_3_in_cells + 
+			hsdpaw.hsdpa_users_3_2_in_cells + 
+			hsdpaw.hsdpa_users_4_1_in_cells) + 
+			6*(hsdpaw.hsdpa_users_0_6_in_cells + 
+			hsdpaw.hsdpa_users_1_5_in_cells + 
+			hsdpaw.hsdpa_users_2_4_in_cells + 
+			hsdpaw.hsdpa_users_3_3_in_cells + 
+			hsdpaw.hsdpa_users_4_2_in_cells) + 
+			7*(hsdpaw.hsdpa_users_0_7_in_cells + 
+			hsdpaw.hsdpa_users_1_6_in_cells + 
+			hsdpaw.hsdpa_users_2_5_in_cells + 
+			hsdpaw.hsdpa_users_3_4_in_cells + 
+			hsdpaw.hsdpa_users_4_3_in_cells) + 
+			8*(hsdpaw.hsdpa_users_0_8_in_cells + 
+			hsdpaw.hsdpa_users_1_7_in_cells + 
+			hsdpaw.hsdpa_users_2_6_in_cells + 
+			hsdpaw.hsdpa_users_3_5_in_cells + 
+			hsdpaw.hsdpa_users_4_4_in_cells) + 
+			9*(hsdpaw.hsdpa_users_1_8_in_cells + 
+			hsdpaw.hsdpa_users_2_7_in_cells + 
+			hsdpaw.hsdpa_users_3_6_in_cells + 
+			hsdpaw.hsdpa_users_4_5_in_cells))
+			* 
+			(HSDPAW.hsdpa_users_0_1_in_cells + 
+			HSDPAW.hsdpa_users_1_0_in_cells + 
+			HSDPAW.hsdpa_users_0_2_in_cells + 
+			HSDPAW.hsdpa_users_1_1_in_cells + 
+			HSDPAW.hsdpa_users_2_0_in_cells + 
+			HSDPAW.hsdpa_users_0_3_in_cells + 
+			HSDPAW.hsdpa_users_1_2_in_cells + 
+			HSDPAW.hsdpa_users_2_1_in_cells + 
+			HSDPAW.hsdpa_users_3_0_in_cells + 
+			hsdpaw.hsdpa_users_0_4_in_cells + 
+			hsdpaw.hsdpa_users_1_3_in_cells + 
+			hsdpaw.hsdpa_users_2_2_in_cells + 
+			hsdpaw.hsdpa_users_3_1_in_cells + 
+			hsdpaw.hsdpa_users_4_0_in_cells + 
+			hsdpaw.hsdpa_users_0_5_in_cells + 
+			hsdpaw.hsdpa_users_1_4_in_cells + 
+			hsdpaw.hsdpa_users_2_3_in_cells + 
+			hsdpaw.hsdpa_users_3_2_in_cells + 
+			hsdpaw.hsdpa_users_4_1_in_cells + 
+			hsdpaw.hsdpa_users_0_6_in_cells + 
+			hsdpaw.hsdpa_users_1_5_in_cells + 
+			hsdpaw.hsdpa_users_2_4_in_cells + 
+			hsdpaw.hsdpa_users_3_3_in_cells + 
+			hsdpaw.hsdpa_users_4_2_in_cells + 
+			hsdpaw.hsdpa_users_0_7_in_cells + 
+			hsdpaw.hsdpa_users_1_6_in_cells + 
+			hsdpaw.hsdpa_users_2_5_in_cells + 
+			hsdpaw.hsdpa_users_3_4_in_cells + 
+			hsdpaw.hsdpa_users_4_3_in_cells + 
+			hsdpaw.hsdpa_users_0_8_in_cells + 
+			hsdpaw.hsdpa_users_1_7_in_cells + 
+			hsdpaw.hsdpa_users_2_6_in_cells + 
+			hsdpaw.hsdpa_users_3_5_in_cells + 
+			hsdpaw.hsdpa_users_4_4_in_cells + 
+			hsdpaw.hsdpa_users_1_8_in_cells + 
+			hsdpaw.hsdpa_users_2_7_in_cells + 
+			hsdpaw.hsdpa_users_3_6_in_cells + 
+			hsdpaw.hsdpa_users_4_5_in_cells),0,0, 
+
+			((HSDPAW.received_hs_macd_bits +
+			(celtpw.mc_hsdpa_orig_data_pri + 
+			celtpw.mc_hsdpa_orig_data_sec)*8 -
+			HSDPAW.discarded_hs_macd_bits)*500)
+			 / 
+			(HSDPAW.hsdpa_buff_with_data_per_tti*
+
+			(HSDPAW.hsdpa_users_0_1_in_cells + 
+			HSDPAW.hsdpa_users_1_0_in_cells + 
+			2*(HSDPAW.hsdpa_users_0_2_in_cells + 
+			HSDPAW.hsdpa_users_1_1_in_cells + 
+			HSDPAW.hsdpa_users_2_0_in_cells) + 
+			3*(HSDPAW.hsdpa_users_0_3_in_cells + 
+			HSDPAW.hsdpa_users_1_2_in_cells + 
+			HSDPAW.hsdpa_users_2_1_in_cells + 
+			HSDPAW.hsdpa_users_3_0_in_cells) + 
+			4*(hsdpaw.hsdpa_users_0_4_in_cells + 
+			hsdpaw.hsdpa_users_1_3_in_cells + 
+			hsdpaw.hsdpa_users_2_2_in_cells + 
+			hsdpaw.hsdpa_users_3_1_in_cells + 
+			hsdpaw.hsdpa_users_4_0_in_cells) + 
+			5*(hsdpaw.hsdpa_users_0_5_in_cells + 
+			hsdpaw.hsdpa_users_1_4_in_cells + 
+			hsdpaw.hsdpa_users_2_3_in_cells + 
+			hsdpaw.hsdpa_users_3_2_in_cells + 
+			hsdpaw.hsdpa_users_4_1_in_cells) + 
+			6*(hsdpaw.hsdpa_users_0_6_in_cells + 
+			hsdpaw.hsdpa_users_1_5_in_cells + 
+			hsdpaw.hsdpa_users_2_4_in_cells + 
+			hsdpaw.hsdpa_users_3_3_in_cells + 
+			hsdpaw.hsdpa_users_4_2_in_cells) + 
+			7*(hsdpaw.hsdpa_users_0_7_in_cells + 
+			hsdpaw.hsdpa_users_1_6_in_cells + 
+			hsdpaw.hsdpa_users_2_5_in_cells + 
+			hsdpaw.hsdpa_users_3_4_in_cells + 
+			hsdpaw.hsdpa_users_4_3_in_cells) + 
+			8*(hsdpaw.hsdpa_users_0_8_in_cells + 
+			hsdpaw.hsdpa_users_1_7_in_cells + 
+			hsdpaw.hsdpa_users_2_6_in_cells + 
+			hsdpaw.hsdpa_users_3_5_in_cells + 
+			hsdpaw.hsdpa_users_4_4_in_cells) + 
+			9*(hsdpaw.hsdpa_users_1_8_in_cells + 
+			hsdpaw.hsdpa_users_2_7_in_cells + 
+			hsdpaw.hsdpa_users_3_6_in_cells + 
+			hsdpaw.hsdpa_users_4_5_in_cells))
+			 / 
+			(HSDPAW.hsdpa_users_0_1_in_cells + 
+			HSDPAW.hsdpa_users_1_0_in_cells + 
+			HSDPAW.hsdpa_users_0_2_in_cells + 
+			HSDPAW.hsdpa_users_1_1_in_cells + 
+			HSDPAW.hsdpa_users_2_0_in_cells + 
+			HSDPAW.hsdpa_users_0_3_in_cells + 
+			HSDPAW.hsdpa_users_1_2_in_cells + 
+			HSDPAW.hsdpa_users_2_1_in_cells + 
+			HSDPAW.hsdpa_users_3_0_in_cells + 
+			hsdpaw.hsdpa_users_0_4_in_cells + 
+			hsdpaw.hsdpa_users_1_3_in_cells + 
+			hsdpaw.hsdpa_users_2_2_in_cells + 
+			hsdpaw.hsdpa_users_3_1_in_cells + 
+			hsdpaw.hsdpa_users_4_0_in_cells + 
+			hsdpaw.hsdpa_users_0_5_in_cells + 
+			hsdpaw.hsdpa_users_1_4_in_cells + 
+			hsdpaw.hsdpa_users_2_3_in_cells + 
+			hsdpaw.hsdpa_users_3_2_in_cells + 
+			hsdpaw.hsdpa_users_4_1_in_cells + 
+			hsdpaw.hsdpa_users_0_6_in_cells + 
+			hsdpaw.hsdpa_users_1_5_in_cells + 
+			hsdpaw.hsdpa_users_2_4_in_cells + 
+			hsdpaw.hsdpa_users_3_3_in_cells + 
+			hsdpaw.hsdpa_users_4_2_in_cells + 
+			hsdpaw.hsdpa_users_0_7_in_cells + 
+			hsdpaw.hsdpa_users_1_6_in_cells + 
+			hsdpaw.hsdpa_users_2_5_in_cells + 
+			hsdpaw.hsdpa_users_3_4_in_cells + 
+			hsdpaw.hsdpa_users_4_3_in_cells + 
+			hsdpaw.hsdpa_users_0_8_in_cells + 
+			hsdpaw.hsdpa_users_1_7_in_cells + 
+			hsdpaw.hsdpa_users_2_6_in_cells + 
+			hsdpaw.hsdpa_users_3_5_in_cells + 
+			hsdpaw.hsdpa_users_4_4_in_cells + 
+			hsdpaw.hsdpa_users_1_8_in_cells + 
+			hsdpaw.hsdpa_users_2_7_in_cells + 
+			hsdpaw.hsdpa_users_3_6_in_cells + 
+			hsdpaw.hsdpa_users_4_5_in_cells)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average HSDPA end user throughput]]></title>
+      <use><![CDATA[Average HSDPA throughput per end user based on the total cell throughput divided by the average number of HSDPA subscribers associated with actual data transmission period duration.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sum(RECEIVED_HS_MACD_BITS + sum(MC_HSDPA_ORIG_DATA_PRI + MC_HSDPA_ORIG_DATA_SEC)*8 - DISCARDED_HS_MACD_BITS)* 500)
+&lt;br&gt;/ 
+&lt;br&gt;(
+&lt;br&gt;HSDPA_BUFF_WITH_DATA_PER_TTI
+&lt;br&gt;*
+&lt;br&gt;((HSDPA_USERS_0_1_IN_CELLS+HSDPA_USERS_1_0_IN_CELLS)
+&lt;br&gt;+2*(HSDPA_USERS_0_2_IN_CELLS+HSDPA_USERS_1_1_IN_CELLS+HSDPA_USERS_2_0_IN_CELLS)
+&lt;br&gt;+3*(HSDPA_USERS_0_3_IN_CELLS+HSDPA_USERS_1_2_IN_CELLS+HSDPA_USERS_2_1_IN_CELLS+HSDPA_USERS_3_0_IN_CELLS)
+&lt;br&gt;+4*HSDPA_USERS_0_4_IN_CELLS+HSDPA_USERS_1_3_IN_CELLS+HSDPA_USERS_2_2_IN_CELLS+HSDPA_USERS_3_1_IN_CELLS+HSDPA_USERS_4_0_IN_CELLS)
+&lt;br&gt;+5*(HSDPA_USERS_0_5_IN_CELLS+HSDPA_USERS_1_4_IN_CELLS+HSDPA_USERS_2_3_IN_CELLS+HSDPA_USERS_3_2_IN_CELLS+HSDPA_USERS_4_1_IN_CELLS)
+&lt;br&gt;+6*(HSDPA_USERS_0_6_IN_CELLS+HSDPA_USERS_1_5_IN_CELLS+HSDPA_USERS_2_4_IN_CELLS+HSDPA_USERS_3_3_IN_CELLS+HSDPA_USERS_4_2_IN_CELLS)
+&lt;br&gt;+7*(HSDPA_USERS_1_6_IN_CELLS+HSDPA_USERS_2_5_IN_CELLS+HSDPA_USERS_3_4_IN_CELLS+HSDPA_USERS_0_7_IN_CELLS+HSDPA_USERS_4_3_IN_CELLS)
+&lt;br&gt;+8*(HSDPA_USERS_2_6_IN_CELLS+HSDPA_USERS_3_5_IN_CELLS+HSDPA_USERS_0_8_IN_CELLS+HSDPA_USERS_1_7_IN_CELLS+HSDPA_USERS_4_4_IN_CELLS)
+&lt;br&gt;+9*(HSDPA_USERS_3_6_IN_CELLS+HSDPA_USERS_1_8_IN_CELLS+HSDPA_USERS_2_7_IN_CELLS+HSDPA_USERS_4_5_IN_CELLS))
+&lt;br&gt;/
+&lt;br&gt;(HSDPA_USERS_0_1_IN_CELLS+HSDPA_USERS_1_0_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_0_2_IN_CELLS+HSDPA_USERS_1_1_IN_CELLS+HSDPA_USERS_2_0_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_0_3_IN_CELLS+HSDPA_USERS_1_2_IN_CELLS+HSDPA_USERS_2_1_IN_CELLS+HSDPA_USERS_3_0_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_0_4_IN_CELLS+HSDPA_USERS_1_3_IN_CELLS+HSDPA_USERS_2_2_IN_CELLS+HSDPA_USERS_3_1_IN_CELLS+HSDPA_USERS_4_0_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_0_5_IN_CELLS+HSDPA_USERS_1_4_IN_CELLS+HSDPA_USERS_2_3_IN_CELLS+HSDPA_USERS_3_2_IN_CELLS+HSDPA_USERS_4_1_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_0_6_IN_CELLS+HSDPA_USERS_1_5_IN_CELLS+HSDPA_USERS_2_4_IN_CELLS+HSDPA_USERS_3_3_IN_CELLS+HSDPA_USERS_4_2_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_1_6_IN_CELLS+HSDPA_USERS_2_5_IN_CELLS+HSDPA_USERS_3_4_IN_CELLS+HSDPA_USERS_0_7_IN_CELLS+HSDPA_USERS_4_3_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_2_6_IN_CELLS+HSDPA_USERS_3_5_IN_CELLS+HSDPA_USERS_0_8_IN_CELLS+HSDPA_USERS_1_7_IN_CELLS+HSDPA_USERS_4_4_IN_CELLS
+&lt;br&gt;+HSDPA_USERS_3_6_IN_CELLS+HSDPA_USERS_1_8_IN_CELLS+HSDPA_USERS_2_7_IN_CELLS+HSDPA_USERS_4_5_IN_CELLS)
+&lt;br&gt;)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg},nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/27 17:49:02.317 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSDPA  end usr thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

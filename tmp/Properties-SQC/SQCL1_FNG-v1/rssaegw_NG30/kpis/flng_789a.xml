@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/DDNAR_ext.xml" />
+  <kpi name="flng_789a">
+    <formula>decode((gtpcv2.gtpcv2_dl_data_notif_sent + gtpcv2.gtpcv2_dl_data_notif_exceed_n3),0,NULL,
+			100*(gtpcv2.gtpcv2_dl_data_notif_sent - ddnar_ext.GTPCV2_DL_DATA_NOTIF_ACK_R_16)
+			 / (gtpcv2.gtpcv2_dl_data_notif_sent + gtpcv2.gtpcv2_dl_data_notif_exceed_n3))</formula>
+    <kpi_info>
+      <title><![CDATA[Downlink Data Notification sent Rejected by MME failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of GTP-C v2 downlink data notifications sent due to rejection by MME, i.e., the number of downlink data notification messages sent to which the downlink data notification acknowledgement messages received with cause code 'Request Accepted' needs to be subtracted, when compared to the number of downlink data notification messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(a.GTPCV2_DL_DATA_NOTIF_SENT -
+&lt;br&gt;   decode(ddnar_id,&amp;#039;16&amp;#039;,b.GTPCV2_DL_DATA_NOTIF_ACK_RECV,0))
+&lt;br&gt;------------------------------------------------------------- *100
+&lt;br&gt;sum(a.GTPCV2_DL_DATA_NOTIF_SENT + 
+&lt;br&gt;   a.GTPCV2_DL_DATA_NOTIF_EXCEED_N3)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v2
+&lt;br&gt;b = GTP-C v2 Downlink Data Notification Acks received</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG},PCOFNG_PS_DDNAR_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/24 14:41:18.960 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DL Data Notif rej MME FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

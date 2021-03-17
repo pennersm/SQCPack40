@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_1293a">
+    <formula>decode(
+			(rrc.rrc_re_est_succ_nrt + 
+			rrc.rrc_re_est_fail_ue_nrt + 
+			rrc.rrc_re_est_fail_noreply_nrt + 
+			rrc.rrc_re_est_succ_rt + 
+			rrc.rrc_re_est_fail_ue_rt + 
+			rrc.rrc_re_est_fail_noreply_rt),0,null, 
+
+			(100*(rrc.rrc_re_est_succ_nrt + 
+			rrc.rrc_re_est_succ_rt)
+			 / 
+			(rrc.rrc_re_est_succ_nrt + 
+			rrc.rrc_re_est_fail_ue_nrt + 
+			rrc.rrc_re_est_fail_noreply_nrt + 
+			rrc.rrc_re_est_succ_rt + 
+			rrc.rrc_re_est_fail_ue_rt + 
+			rrc.rrc_re_est_fail_noreply_rt)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Re-establishment Success Ratio]]></title>
+      <use><![CDATA[This KPI monitors the RRC Re-establishments success ratio.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(RRC_RE_EST_SUCC_NRT+RRC_RE_EST_SUCC_RT)
+&lt;br&gt;-----------------------------------------------------------------------------
+&lt;br&gt;SUM(RRC_RE_EST_SUCC_NRT
+&lt;br&gt;+RRC_RE_EST_FAIL_UE_NRT
+&lt;br&gt;+RRC_RE_EST_FAIL_NOREPLY_NRT
+&lt;br&gt;+RRC_RE_EST_SUCC_RT
+&lt;br&gt;+RRC_RE_EST_FAIL_UE_RT
+&lt;br&gt;+RRC_RE_EST_FAIL_NOREPLY_RT)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RRC re-establish SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/RRC_ext.xml" />
+</conf_file>
+

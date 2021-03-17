@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FETHL.xml" />
+  <kpi name="RNC_1149a">
+    <formula>decode(
+			(fethl.EthIfInPkt_15),0,null, 
+
+			(100*(fethl.EthIfInPktErr_15 + 
+			fethl.EthIfInUnknownVLAN_15 + 
+			fethl.EthUnknownPSNHdr_15)
+			 / 
+			(fethl.EthIfInPkt_15)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ingress packet error ratio]]></title>
+      <use><![CDATA[Ingress Ethernet packet error ratio]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum ( EthIfInPktErr_15 
+&lt;br&gt;+ EthIfInUnknownVLAN_15 
+&lt;br&gt;+ EthUnknownPSNHdr_15 ) 
+&lt;br&gt;---------------------
+&lt;br&gt;sum (EthIfInPkt_15)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_fethl_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ingress packet error ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

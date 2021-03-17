@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5088a">
+    <formula>
+decode(lepsb.eps_bearer_setup_attempts,0,null,
+    100*(lepsb.eps_bearer_setup_fail_resour)
+	 / 
+	(lepsb.eps_bearer_setup_attempts)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Service Request failure ratio due Lack Resource]]></title>
+      <use><![CDATA[Ratio between the number of Unsuccessful EPS Bearer setup due to Lack of Resources and the total amount of attempts]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                sum( EPS_BEARER_SETUP_FAIL_RESOUR)                                 
+&lt;br&gt;100      *      -------------------------------- 
+&lt;br&gt;                   sum(EPS_BEARER_SETUP_ATTEMPTS)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.816 +0100</date>
+          <comment><![CDATA[Source: RSLTE004.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Service REQ FR due Lack Resource</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

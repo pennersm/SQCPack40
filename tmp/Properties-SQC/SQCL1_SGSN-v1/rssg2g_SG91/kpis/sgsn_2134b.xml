@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_2134b">
+    <formula>decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_MO_GPRS_DETACH + 
+			IUMM1.IU_SUCC_MO_COMBINED_DETACH + 
+			IUMM1.IU_SUCC_MO_IMSI_DETACH + 
+			IUMM1.IU_SUCC_POWER_OFF_DETACH + 
+			IUMM1.IU_SUCC_IMPL_GPRS_DETACH + 
+			IUMM1.IU_SUCC_IMPL_COMBINED_DETACH + 
+			IUMM1.IU_SUCC_DETACH_BY_DETACH_TIMER + 
+			IUMM1.IU_GENERAL_UNDEF_DETACH_FAIL + 
+			nvl(IUMM1.IU_HLR_INITIATED_DETACH,0)))
+			 / 
+			((IUMM1.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[3G detach requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of 3G detach request procedures per second. 
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( IU_SUCC_MO_GPRS_DETACH + IU_SUCC_MO_COMBINED_DETACH +
+&lt;br&gt;   IU_SUCC_MO_IMSI_DETACH + IU_SUCC_POWER_OFF_DETACH + 
+&lt;br&gt;   IU_SUCC_IMPL_GPRS_DETACH + IU_SUCC_IMPL_COMBINED_DETACH + 
+&lt;br&gt;   IU_SUCC_DETACH_BY_DETACH_TIMER + IU_GENERAL_UNDEF_DETACH_FAIL + 
+&lt;br&gt;   IU_HLR_INITIATED_DETACH )
+&lt;br&gt;---------------------------------------------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[3G detach req pr sec]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

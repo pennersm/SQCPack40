@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/L2TPDT.xml"/>
+  <kpi name="flng_629a">
+    <formula>100*decode((L2TPDT.L2TP_DL_PKTS + L2TPDT.L2TP_PKTS_DROPPED_INV_PACKET),0,null,
+	(	
+	 L2TPDT.L2TP_PKTS_DROPPED_INV_PACKET
+     / 
+    (L2TPDT.L2TP_DL_PKTS + L2TPDT.L2TP_PKTS_DROPPED_INV_PACKET)))</formula>
+    <kpi_info>
+      <title><![CDATA[L2TP packets drop ratio, invalid packet]]></title>
+      <use><![CDATA[This KPI shows the ratio of dropped L2TP packets due to an invalid packet.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(L2TP_PKTS_DROPPED_INV_PACKET)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(L2TP_DL_PKTS +
+&lt;br&gt;   L2TP_PKTS_DROPPED_INV_PACKET)</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:19.960 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW053.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>L2TP pkt DR, inv pkt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

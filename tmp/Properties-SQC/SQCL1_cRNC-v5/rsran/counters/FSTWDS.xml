@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>FSTWDS (Soam Two Way Delay Statistics)</header>
+    <csv_title>FSTWDS (Soam Two Way Delay Statistics)</csv_title>
+    <report-description>Soam Two way delay statistics contains two way delay measurements related to Service OAM PM per measurement.The statistics do not include lost or dropped/ignored packets</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <soamTwowayAverageDelay/>
+    <soamTwowayMaxDelay/>
+    <soamTwowayMinDelay/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="FSTWDS" omes_name="FTM_SOAM_TWOWAY_DELAY_STATS" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD/RSRAN-OAMMA/RSRAN-OAMMEP/RSRAN-OAMDM" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>FSTWDS</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="soamTwowayAverageDelay" symmetrical="true">AVG(soamTwowayAverageDelay)</counter>
+          <counter alias="soamTwowayMaxDelay" symmetrical="true">MAX(soamTwowayMaxDelay)</counter>
+          <counter alias="soamTwowayMinDelay" symmetrical="true">MIN(soamTwowayMinDelay)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fstwds_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FSTWDS</alias_name>
+    <ui_name>Soam Two Way Delay Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FSTWDS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fstwds_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamTwowayAverageDelay">
+    <formula>FSTWDS.soamTwowayAverageDelay</formula>
+    <kpi_info>
+      <title>soamTwowayAverageDelay (M5142C0)</title>
+      <use>The two-way average delay statistics for 15 minute intervals per local delay measurement. Average frame delay(two-way) = (Total frame delay(two-way) / number of samples)) UPDATED:Updated every 15 minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(soamTwowayAverageDelay)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_fstwds_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamTwowayAverageDelay (M5142C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamTwowayMaxDelay">
+    <formula>FSTWDS.soamTwowayMaxDelay</formula>
+    <kpi_info>
+      <title>soamTwowayMaxDelay (M5142C1)</title>
+      <use>The maximum two-way delay statistics for 15 minute intervals per local delay measurement. UPDATED:Updated every 15 minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(soamTwowayMaxDelay)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_fstwds_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamTwowayMaxDelay (M5142C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="soamTwowayMinDelay">
+    <formula>FSTWDS.soamTwowayMinDelay</formula>
+    <kpi_info>
+      <title>soamTwowayMinDelay (M5142C2)</title>
+      <use>The minimum two-way delay statistics for 15 minute intervals per local delay measurement. UPDATED:Updated every 15 minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(soamTwowayMinDelay)</formula>
+      <unit>blocks</unit>
+      <tables>nokrww_ps_fstwds_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>soamTwowayMinDelay (M5142C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FSTWDS.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fstwds_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

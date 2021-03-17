@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 sms measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 sms measurement dump</csv_title>
+    <report-description>SMS measurement dummy cells filtered(SMS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <failed_in_mo_sms_deliveries />
+    <failed_mo_sms_deliveries />
+    <failed_mt_sms_deliveries />
+    <in_prepaid_mo_sms_free />
+    <mo_sms_barred_due_anum />
+    <mo_sms_barred_based_on_smsc />
+    <mt_sms_barred_based_on_smsc />
+    <successfully_received_mt_sms />
+    <successfully_sent_in_mo_sms />
+    <successfully_sent_mo_sms />
+    <DURATION_OF_SUCC_MO_SMS_MIN />
+    <DURATION_OF_SUCC_MO_SMS_MAX />
+    <DURATION_OF_SUCC_MO_SMS_SUM />
+    <DURATION_OF_SUCC_MT_SMS_MIN />
+    <DURATION_OF_SUCC_MT_SMS_MAX />
+    <DURATION_OF_SUCC_MT_SMS_SUM />
+    <!-- succ_gprs_attach /-->
+    <MOBMGMNT_PERIOD_DURATION />
+  </column_order>
+  <temp_table name="sms" meas_level="PLMN/SGSN/PAPU/LAC/RAC/BTS" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="failed_in_mo_sms_deliveries" symmetrical="true">SUM(failed_in_mo_sms_deliveries)</counter>
+      <counter alias="failed_mo_sms_deliveries" symmetrical="true">SUM(failed_mo_sms_deliveries)</counter>
+      <counter alias="failed_mt_sms_deliveries" symmetrical="true">SUM(failed_mt_sms_deliveries)</counter>
+      <counter alias="in_prepaid_mo_sms_free" symmetrical="true">SUM(in_prepaid_mo_sms_free)</counter>
+      <counter alias="mo_sms_barred_due_anum" symmetrical="true">SUM(mo_sms_barred_due_anum)</counter>
+      <counter alias="mo_sms_barred_based_on_smsc" symmetrical="true">SUM(mo_sms_barred_based_on_smsc)</counter>
+      <counter alias="mt_sms_barred_based_on_smsc" symmetrical="true">SUM(mt_sms_barred_based_on_smsc)</counter>
+      <counter alias="successfully_received_mt_sms" symmetrical="true">SUM(successfully_received_mt_sms)</counter>
+      <counter alias="successfully_sent_in_mo_sms" symmetrical="true">SUM(successfully_sent_in_mo_sms)</counter>
+      <counter alias="successfully_sent_mo_sms" symmetrical="true">SUM(successfully_sent_mo_sms)</counter>
+      <counter alias="DURATION_OF_SUCC_MO_SMS_MIN" symmetrical="true">MIN(DURATION_OF_SUCC_MO_SMS_MIN)</counter>
+      <counter alias="DURATION_OF_SUCC_MO_SMS_MAX" symmetrical="true">MAX(DURATION_OF_SUCC_MO_SMS_MAX)</counter>
+      <counter alias="DURATION_OF_SUCC_MO_SMS_SUM" symmetrical="true">MIN(DURATION_OF_SUCC_MO_SMS_SUM)</counter>
+      <counter alias="DURATION_OF_SUCC_MT_SMS_MIN" symmetrical="true">MAX(DURATION_OF_SUCC_MT_SMS_MIN)</counter>
+      <counter alias="DURATION_OF_SUCC_MT_SMS_MAX" symmetrical="true">MIN(DURATION_OF_SUCC_MT_SMS_MAX)</counter>
+      <counter alias="DURATION_OF_SUCC_MT_SMS_SUM" symmetrical="true">MAX(DURATION_OF_SUCC_MT_SMS_SUM)</counter>
+<!--      <counter alias="succ_gprs_attach" symmetrical="true">SUM(succ_gprs_attach)</counter> -->
+      <counter alias="MOBMGMNT_PERIOD_DURATION" time-alias="MOBMGMNT_PERIOD_DURATION" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+    </counters>
+    <table_name>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>sms</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>sms.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="failed_in_mo_sms_deliveries">
+    <formula>sms.failed_in_mo_sms_deliveries</formula>
+    <kpi_info>
+      <title>failed_in_mo_sms_deliveries</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(failed_in_mo_sms_deliveries)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>failed_in_mo_sms_deliveries</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="failed_mo_sms_deliveries">
+    <formula>sms.failed_mo_sms_deliveries</formula>
+    <kpi_info>
+      <title>failed_mo_sms_deliveries</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(failed_mo_sms_deliveries)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>failed_mo_sms_deliveries</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="failed_mt_sms_deliveries">
+    <formula>sms.failed_mt_sms_deliveries</formula>
+    <kpi_info>
+      <title>failed_mt_sms_deliveries</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(failed_mt_sms_deliveries)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>failed_mt_sms_deliveries</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="in_prepaid_mo_sms_free">
+    <formula>sms.in_prepaid_mo_sms_free</formula>
+    <kpi_info>
+      <title>in_prepaid_mo_sms_free</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(in_prepaid_mo_sms_free)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>in_prepaid_mo_sms_free</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="mo_sms_barred_due_anum">
+    <formula>sms.mo_sms_barred_due_anum</formula>
+    <kpi_info>
+      <title>mo_sms_barred_due_anum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(mo_sms_barred_due_anum)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>mo_sms_barred_due_anum</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="mo_sms_barred_based_on_smsc">
+    <formula>sms.mo_sms_barred_based_on_smsc</formula>
+    <kpi_info>
+      <title>mo_sms_barred_based_on_smsc</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(mo_sms_barred_based_on_smsc)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>mo_sms_barred_based_on_smsc</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="mt_sms_barred_based_on_smsc">
+    <formula>sms.mt_sms_barred_based_on_smsc</formula>
+    <kpi_info>
+      <title>mt_sms_barred_based_on_smsc</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(mt_sms_barred_based_on_smsc)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>mt_sms_barred_based_on_smsc</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="successfully_received_mt_sms">
+    <formula>sms.successfully_received_mt_sms</formula>
+    <kpi_info>
+      <title>successfully_received_mt_sms</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(successfully_received_mt_sms)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>successfully_received_mt_sms</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="successfully_sent_in_mo_sms">
+    <formula>sms.successfully_sent_in_mo_sms</formula>
+    <kpi_info>
+      <title>successfully_sent_in_mo_sms</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(successfully_sent_in_mo_sms)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>successfully_sent_in_mo_sms</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="successfully_sent_mo_sms">
+    <formula>sms.successfully_sent_mo_sms</formula>
+    <kpi_info>
+      <title>successfully_sent_mo_sms</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(successfully_sent_mo_sms)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>successfully_sent_mo_sms</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURATION_OF_SUCC_MO_SMS_MIN">
+    <formula>sms.DURATION_OF_SUCC_MO_SMS_MIN</formula>
+    <kpi_info>
+      <title>DURATION_OF_SUCC_MO_SMS_MIN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(DURATION_OF_SUCC_MO_SMS_MIN)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURATION_OF_SUCC_MO_SMS_MIN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURATION_OF_SUCC_MO_SMS_MAX">
+    <formula>sms.DURATION_OF_SUCC_MO_SMS_MAX</formula>
+    <kpi_info>
+      <title>DURATION_OF_SUCC_MO_SMS_MAX</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(DURATION_OF_SUCC_MO_SMS_MAX)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURATION_OF_SUCC_MO_SMS_MAX</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURATION_OF_SUCC_MO_SMS_SUM">
+    <formula>sms.DURATION_OF_SUCC_MO_SMS_SUM</formula>
+    <kpi_info>
+      <title>DURATION_OF_SUCC_MO_SMS_SUM</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(DURATION_OF_SUCC_MO_SMS_SUM)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURATION_OF_SUCC_MO_SMS_SUM</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURATION_OF_SUCC_MT_SMS_MIN">
+    <formula>sms.DURATION_OF_SUCC_MT_SMS_MIN</formula>
+    <kpi_info>
+      <title>DURATION_OF_SUCC_MT_SMS_MIN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(DURATION_OF_SUCC_MT_SMS_MIN)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURATION_OF_SUCC_MT_SMS_MIN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURATION_OF_SUCC_MT_SMS_MAX">
+    <formula>sms.DURATION_OF_SUCC_MT_SMS_MAX</formula>
+    <kpi_info>
+      <title>DURATION_OF_SUCC_MT_SMS_MAX</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(DURATION_OF_SUCC_MT_SMS_MAX)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURATION_OF_SUCC_MT_SMS_MAX</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DURATION_OF_SUCC_MT_SMS_SUM">
+    <formula>sms.DURATION_OF_SUCC_MT_SMS_SUM</formula>
+    <kpi_info>
+      <title>DURATION_OF_SUCC_MT_SMS_SUM</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(DURATION_OF_SUCC_MT_SMS_SUM)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DURATION_OF_SUCC_MT_SMS_SUM</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!--kpi name="succ_gprs_attach">
+    <formula>sms.succ_gprs_attach</formula>
+    <kpi_info>
+      <title>succ_gprs_attach</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(succ_gprs_attach)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>succ_gprs_attach</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+  <kpi name="MOBMGMNT_PERIOD_DURATION">
+    <formula>sms.MOBMGMNT_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>MOBMGMNT_PERIOD_DURATION</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_sms_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MOBMGMNT_PERIOD_DURATION</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

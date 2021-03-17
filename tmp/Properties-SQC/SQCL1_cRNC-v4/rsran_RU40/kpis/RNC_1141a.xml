@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/FATM_ext.xml" />
+  <kpi name="RNC_1141a">
+    <formula>decode(
+			(fatm.period_duration*60),0,null, 
+
+			(100*(fatm.uas_1)
+			 / 
+			(fatm.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[ATM interface unavailable]]></title>
+      <use><![CDATA[The number of seconds for which the ATM interface is unavailable.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum ( uas ) 
+&lt;br&gt;-------------------
+&lt;br&gt;sum ( PERIOD_DURATION * 60 )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_fatm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[ATM interface unavailable]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

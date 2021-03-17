@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SMS.xml">
+    <counters>
+      <!-- sgsn_470b -->
+      <counter alias="sgsn_470b">sum(successfully_sent_in_mo_sms + failed_in_mo_sms_deliveries)</counter>
+      <!-- tra_sgsn331b -->
+      <counter alias="tra_sgsn331b">sum(successfully_received_mt_sms + failed_mt_sms_deliveries)</counter>
+      <!-- tra_sgsn318b -->
+      <counter alias="tra_sgsn318b">sum(successfully_sent_mo_sms + failed_mo_sms_deliveries)</counter>
+    </counters>
+  </temp_table_ref>
+  <temp_table_ref src="rssg2g/counters/IUSS.xml">
+    <counters>
+      <!-- sgsn_812a  -->
+      <counter alias="sgsn_812a">sum(iu_succ_mo_sms_when_camel_used + iu_fail_mo_sms_when_camel_used)</counter>
+      <!-- sgsn_810a  -->
+      <counter alias="sgsn_810a">sum(iu_succ_mt_sms + iu_fail_mt_sms)</counter>
+      <!-- sgsn_808a  -->
+      <counter alias="sgsn_808a">sum(iu_succ_mo_sms + iu_fail_mo_sms)</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="sgsn_587a">
+    <formula>decode(
+			(nvl(sms.tra_sgsn318b,0) +
+			nvl(sms.tra_sgsn331b,0) +
+			nvl(sms.sgsn_470b,0) +
+			nvl(iuss.sgsn_808a,0) +
+			nvl(iuss.sgsn_810a,0) +
+			nvl(iuss.sgsn_812a,0)),0,NULL,
+
+			(100*(iuss.sgsn_808a +
+			iuss.sgsn_810a +
+			iuss.sgsn_812a)
+			 /
+			(nvl(sms.tra_sgsn318b,0) +
+			nvl(sms.tra_sgsn331b,0) +
+			nvl(sms.sgsn_470b,0) +
+			nvl(iuss.sgsn_808a,0) +
+			nvl(iuss.sgsn_810a,0) +
+			nvl(iuss.sgsn_812a,0))))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of Iu SMS attempts]]></title>
+      <use><![CDATA[This KPI shows the share of 3G SMS&#039;s attempts when compared to all (2G+3G) SMS&#039;s attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           (sgsn_808a + sgsn_810a + sgsn_812a)
+&lt;br&gt;100 * ----------------------------------------
+&lt;br&gt;           (sgsn_585a)</formula>
+      <unit>[%]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of Iu SMS attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,269 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M240 LULAC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M240 LULAC measurement dump</csv_title>
+    <report-description>VLR measurement, part n, location update per LAC (LULAC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <INTRA_VLR_LOC_UPDATE_ATTEMPT/>
+    <INTRA_VLR_LOC_UPDATE_SUCCESS/>
+    <INTER_VLR_LOC_UPDATE_ATTEMPT/>
+    <INTER_VLR_LOC_UPDATE_SUCCESS/>
+    <PERIODIC_LOC_UPDATE_ATTEMPT/>
+    <PERIODIC_LOC_UPDATE_SUCCESS/>
+    <IMSI_ATTACH_ATTEMPT/>
+    <IMSI_ATTACH_SUCCESS/>
+    <IE_VLR_LU_REROUTE/>
+    <!--<TCAT_CALL_AMOUNT />
+    <TC_PERIOD_DURATION/>-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/MNCM/LAC/ACCESS" name="LULAC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT" symmetrical="true">SUM(INTRA_VLR_LOC_UPDATE_ATTEMPT)</counter>
+      <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS" symmetrical="true">SUM(INTRA_VLR_LOC_UPDATE_SUCCESS)</counter>
+      <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT" symmetrical="true">SUM(INTER_VLR_LOC_UPDATE_ATTEMPT)</counter>
+      <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS" symmetrical="true">SUM(INTER_VLR_LOC_UPDATE_SUCCESS)</counter>
+      <counter alias="PERIODIC_LOC_UPDATE_ATTEMPT" symmetrical="true">SUM(PERIODIC_LOC_UPDATE_ATTEMPT)</counter>
+      <counter alias="PERIODIC_LOC_UPDATE_SUCCESS" symmetrical="true">SUM(PERIODIC_LOC_UPDATE_SUCCESS)</counter>
+      <counter alias="IMSI_ATTACH_ATTEMPT" symmetrical="true">SUM(IMSI_ATTACH_ATTEMPT)</counter>
+      <counter alias="IMSI_ATTACH_SUCCESS" symmetrical="true">SUM(IMSI_ATTACH_SUCCESS)</counter>
+      <counter alias="IE_VLR_LU_REROUTE" symmetrical="true">SUM(IE_VLR_LU_REROUTE)</counter>
+      <!--<counter alias="TCAT_CALL_AMOUNT" timeagg="SUM(TCAT_CALL_AMOUNT)">SUM(TCAT_CALL_AMOUNT)</counter>
+      <counter alias="TC_PERIOD_DURATION">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LULAC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LULAC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTRA_VLR_LOC_UPDATE_ATTEMPT">
+    <formula>LULAC.INTRA_VLR_LOC_UPDATE_ATTEMPT</formula>
+    <kpi_info>
+      <title>INTRA_VLR_LOC_UPDATE_ATTEMPT</title>
+      <use>Indicates the number of Intra-VLR Location Update attempts. Note that in case of SIP access type field contains '-' as this location update type does not make sense in that case.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTRA_VLR_LOC_UPDATE_ATTEMPT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_VLR_LOC_UPDATE_ATTEMPT (M240B1C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTRA_VLR_LOC_UPDATE_SUCCESS">
+    <formula>LULAC.INTRA_VLR_LOC_UPDATE_SUCCESS</formula>
+    <kpi_info>
+      <title>INTRA_VLR_LOC_UPDATE_SUCCESS</title>
+      <use>Indicates the number of successful Intra-VLR Location Update events. Note that in case of SIP access type field contains '-' as this location update type does not make sense in that case.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTRA_VLR_LOC_UPDATE_SUCCESS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_VLR_LOC_UPDATE_SUCCESS (M240B1C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_VLR_LOC_UPDATE_ATTEMPT">
+    <formula>LULAC.INTER_VLR_LOC_UPDATE_ATTEMPT</formula>
+    <kpi_info>
+      <title>INTER_VLR_LOC_UPDATE_ATTEMPT</title>
+      <use>Indicates the number of Inter-VLR Location Update attempts. Note that in case of SIP access type field contains '-' as this location update type does not make sense in that case.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_VLR_LOC_UPDATE_ATTEMPT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_VLR_LOC_UPDATE_ATTEMPT (M240B1C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INTER_VLR_LOC_UPDATE_SUCCESS">
+    <formula>LULAC.INTER_VLR_LOC_UPDATE_SUCCESS</formula>
+    <kpi_info>
+      <title>INTER_VLR_LOC_UPDATE_SUCCESS</title>
+      <use>Indicates the number of successful Inter-VLR Location Update events. Note that in case of SIP access type field contains '-' as this location update type does not make sense in that case.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INTER_VLR_LOC_UPDATE_SUCCESS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_VLR_LOC_UPDATE_SUCCESS (M240B1C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PERIODIC_LOC_UPDATE_ATTEMPT">
+    <formula>LULAC.PERIODIC_LOC_UPDATE_ATTEMPT</formula>
+    <kpi_info>
+      <title>PERIODIC_LOC_UPDATE_ATTEMPT</title>
+      <use>Indicates the number of Periodic Location Update attempts.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PERIODIC_LOC_UPDATE_ATTEMPT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PERIODIC_LOC_UPDATE_ATTEMPT (M240B1C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PERIODIC_LOC_UPDATE_SUCCESS">
+    <formula>LULAC.PERIODIC_LOC_UPDATE_SUCCESS</formula>
+    <kpi_info>
+      <title>PERIODIC_LOC_UPDATE_SUCCESS</title>
+      <use>Indicates the number of successful Periodic Location Update events.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PERIODIC_LOC_UPDATE_SUCCESS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PERIODIC_LOC_UPDATE_SUCCESS (M240B1C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IMSI_ATTACH_ATTEMPT">
+    <formula>LULAC.IMSI_ATTACH_ATTEMPT</formula>
+    <kpi_info>
+      <title>IMSI_ATTACH_ATTEMPT</title>
+      <use>Indicates the number of IMSI Attach attempts.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(IMSI_ATTACH_ATTEMPT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IMSI_ATTACH_ATTEMPT (M240B1C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IMSI_ATTACH_SUCCESS">
+    <formula>LULAC.IMSI_ATTACH_SUCCESS</formula>
+    <kpi_info>
+      <title>IMSI_ATTACH_SUCCESS</title>
+      <use>Indicates the number of successful IMSI Attach events.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(IMSI_ATTACH_SUCCESS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IMSI_ATTACH_SUCCESS (M240B1C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="IE_VLR_LU_REROUTE">
+    <formula>LULAC.IE_VLR_LU_REROUTE</formula>
+    <kpi_info>
+      <title>IE_VLR_LU_REROUTE</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(IE_VLR_LU_REROUTE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IE_VLR_LU_REROUTE (M240B1C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+<!--  <kpi name="TCAT_CALL_AMOUNT">
+    <formula>LULAC.TCAT_CALL_AMOUNT</formula>
+    <kpi_info>
+      <title>TCAT_CALL_AMOUNT</title>
+      <use>Number of call attempts (0...9999999).Thefield is updated when the circuit is released. In combination categories
+the field is updated when the first released circuit is released.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCAT_CALL_AMOUNT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCAT_CALL_AMOUNT (M20B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TC_PERIOD_DURATION">
+    <formula>LULAC.TC_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>TC_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-agg="SUM">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lulac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TC_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+</conf_file>

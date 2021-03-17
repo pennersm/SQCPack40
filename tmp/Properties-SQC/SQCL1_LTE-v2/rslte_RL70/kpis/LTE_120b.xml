@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LETHL.xml"/>
+  <kpi name="LTE_120b">
+    <formula>decode(
+			((lethl.ethifinpkt_15 + 
+			lethl.ethifinpkterr_15)),0,null, 
+
+			(100*(lethl.ethifinpkt_15 - 
+			lethl.ethifinpkterr_15))
+			 / 
+			((lethl.ethifinpkt_15 + 
+			lethl.ethifinpkterr_15)))</formula>
+    <kpi_info>
+      <title><![CDATA[Rcv Ethr Frames SR]]></title>
+      <use><![CDATA[This KPI provides the packet receive success ratio for received Ethernet packets (non-errored).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100 * sum( EthIfInPkt_15 - EthIfInPktErr_15)
+&lt;br&gt;---------------------------------------------------
+&lt;br&gt;sum( EthIfInPkt_15 + EthIfInPktErr_15)
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LETHL_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Rcv Ethr Frames SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

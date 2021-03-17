@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LCELAV (LTE Cell Availability)</header>
+    <csv_title>LCELAV (LTE Cell Availability)</csv_title>
+    <report-description>LTE Cell Availability measurement (M8020) measures cell availability.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CHNG_TO_CELL_AVAIL />
+    <CHNG_TO_CELL_PLAN_UNAVAIL />
+    <CHNG_TO_CELL_UNPLAN_UNAVAIL />
+    <SAMPLES_CELL_AVAIL />
+    <SAMPLES_CELL_PLAN_UNAVAIL />
+    <SAMPLES_CELL_UNPLAN_UNAVAIL />
+    <DENOM_CELL_AVAIL />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LCELAV" meas_level="PLMN/MRBTS/LNBTS/LNCEL_A1" type="PM" master="yes" pragma="noklte" create="yes">
+   <koala_meas_id_list>LCELAV</koala_meas_id_list> 
+  <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="CHNG_TO_CELL_AVAIL" symmetrical="true">SUM(CHNG_TO_CELL_AVAIL)</counter>
+          <counter alias="CHNG_TO_CELL_PLAN_UNAVAIL" symmetrical="true">SUM(CHNG_TO_CELL_PLAN_UNAVAIL)</counter>
+          <counter alias="CHNG_TO_CELL_UNPLAN_UNAVAIL" symmetrical="true">SUM(CHNG_TO_CELL_UNPLAN_UNAVAIL)</counter>
+          <counter alias="SAMPLES_CELL_AVAIL" symmetrical="true">SUM(SAMPLES_CELL_AVAIL)</counter>
+          <counter alias="SAMPLES_CELL_PLAN_UNAVAIL" symmetrical="true">SUM(SAMPLES_CELL_PLAN_UNAVAIL)</counter>
+          <counter alias="SAMPLES_CELL_UNPLAN_UNAVAIL" symmetrical="true">SUM(SAMPLES_CELL_UNPLAN_UNAVAIL)</counter>
+          <counter alias="DENOM_CELL_AVAIL" symmetrical="true">SUM(DENOM_CELL_AVAIL)</counter>
+		  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LCELAV</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LCELAV.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CHNG_TO_CELL_AVAIL">
+    <formula>LCELAV.CHNG_TO_CELL_AVAIL</formula>
+    <kpi_info>
+      <title>CHNG_TO_CELL_AVAIL</title>
+      <use>Number of cell state changes to cell is available UPDATED: The counter is updated with value 1 when cell state changes to Cell Operational is enabled.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CHNG_TO_CELL_AVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CHNG_TO_CELL_AVAIL (M8020C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CHNG_TO_CELL_PLAN_UNAVAIL">
+    <formula>LCELAV.CHNG_TO_CELL_PLAN_UNAVAIL</formula>
+    <kpi_info>
+      <title>CHNG_TO_CELL_PLAN_UNAVAIL</title>
+      <use>Number of cell state changes to cell is planned unavailable UPDATED: The counter is updated with value 1 when cell state changes to Administrative State is locked.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CHNG_TO_CELL_PLAN_UNAVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CHNG_TO_CELL_PLAN_UNAVAIL (M8020C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CHNG_TO_CELL_UNPLAN_UNAVAIL">
+    <formula>LCELAV.CHNG_TO_CELL_UNPLAN_UNAVAIL</formula>
+    <kpi_info>
+      <title>CHNG_TO_CELL_UNPLAN_UNAVAIL</title>
+      <use>Number of cell state changes to cell is unplanned unavailable UPDATED: The counter is updated with value 1 when cell state changes to Operational State is disabled and Administrative State is unlocked.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CHNG_TO_CELL_UNPLAN_UNAVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CHNG_TO_CELL_UNPLAN_UNAVAIL (M8020C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SAMPLES_CELL_AVAIL">
+    <formula>LCELAV.SAMPLES_CELL_AVAIL</formula>
+    <kpi_info>
+      <title>SAMPLES_CELL_AVAIL</title>
+      <use>The number of samples when the cell is available UPDATED: The counter is updated with value 1 approximately every 10 seconds when cell Operational State is enabled.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SAMPLES_CELL_AVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SAMPLES_CELL_AVAIL (M8020C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SAMPLES_CELL_PLAN_UNAVAIL">
+    <formula>LCELAV.SAMPLES_CELL_PLAN_UNAVAIL</formula>
+    <kpi_info>
+      <title>SAMPLES_CELL_PLAN_UNAVAIL</title>
+      <use>The number of samples when the cell is planned unavailable UPDATED: The counter is updated with value 1 approximately every 10 seconds when cell Administrative State is locked.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SAMPLES_CELL_PLAN_UNAVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SAMPLES_CELL_PLAN_UNAVAIL (M8020C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SAMPLES_CELL_UNPLAN_UNAVAIL">
+    <formula>LCELAV.SAMPLES_CELL_UNPLAN_UNAVAIL</formula>
+    <kpi_info>
+      <title>SAMPLES_CELL_UNPLAN_UNAVAIL</title>
+      <use>The number of samples when the cell is unplanned unavailable UPDATED: The counter is updated with value 1 approximately every 10 seconds when cell Operational State is disabled and cell Administrative State is unlocked.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SAMPLES_CELL_UNPLAN_UNAVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SAMPLES_CELL_UNPLAN_UNAVAIL (M8020C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DENOM_CELL_AVAIL">
+    <formula>LCELAV.DENOM_CELL_AVAIL</formula>
+    <kpi_info>
+      <title>DENOM_CELL_AVAIL</title>
+      <use>The number of samples when cell availability is checked. This counter is used as a denominator for the cell availability calculation UPDATED: The counter is updated with value 1 approximately every 10 seconds.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DENOM_CELL_AVAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DENOM_CELL_AVAIL (M8020C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LCELAV.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lcelav_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

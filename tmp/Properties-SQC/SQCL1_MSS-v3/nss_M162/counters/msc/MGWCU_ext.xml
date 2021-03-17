@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M389</header>
+    <csv_title>Nokia Siemens NSS M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M389 MGWCU measurement dump</csv_title>
+    <report-description>MGW codec usage measurement(MGWCU)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="MGWC1" meas_level="PLMN/MSC/CODEC" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="MGWC_BIDS">SUM(MGWC_BIDS)</counter>
+      <counter alias="MGWC_BIDS_TOT">SUM(MGWC_BIDS_TOT)</counter>
+      <counter alias="MGWC_DATA_PROV_RESTARTED">AVG(MGWC_DATA_PROV_RESTARTED)</counter>
+      <counter alias="TCAT_TRAFFx100">SUM(TCAT_TRAFFx100)</counter>
+      <counter alias="TC_PERIOD_DURATION">AVG(period_duration)</counter>
+    </counters>
+    <table_name>
+    <![CDATA[
+    (SELECT mgwcu.*, mgwc_bids_tot
+					FROM 
+   						RNS_PS_MGWCU_CODEC1_{TIME_AGG} mgwcu,
+    					(SELECT msc_id, period_start_time, 
+						SUM(mgwc_bids) mgwc_bids_tot 
+   							FROM
+    							RNS_PS_MGWCU_CODEC1_{TIME_AGG} msc
+    						WHERE
+								period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+								period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+							GROUP BY msc_id, period_start_time) msc
+					WHERE
+    					mgwcu.msc_id = msc.msc_id AND
+    					mgwcu.period_start_time = msc.period_start_time AND 
+    					mgwcu.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+    					mgwcu.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss'))
+    ]]>
+    </table_name>
+    <alias_name>MGWC1</alias_name>
+  </temp_table>
+</conf_file>
+

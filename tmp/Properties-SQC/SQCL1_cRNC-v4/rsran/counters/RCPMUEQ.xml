@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 RCPMUEQ measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 RCPMUEQ measurement dump</csv_title>
+    <report-description>RCPM UEQ</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <UEQ_AVE_BLER />
+    <UEQ_NUMBER_OF_REPORTS />
+    <UEQ_SQ_SUM_BLER />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="RCPMUEQ" meas_level="PLMN/RNC/WBTS/WCEL/MCC/MNC/TR/TRSUB/THP/RABDL/RABUL/RBDL/RBUL/SDUBER" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="UEQ_AVE_BLER">ROUND(DECODE(NVL(SUM(UEQ_NUMBER_OF_REPORTS),0),0,0,SUM(UEQ_AVE_BLER*UEQ_NUMBER_OF_REPORTS)/SUM(UEQ_NUMBER_OF_REPORTS)),3)</counter>
+      <counter alias="UEQ_NUMBER_OF_REPORTS">SUM(UEQ_NUMBER_OF_REPORTS)</counter>
+      <counter alias="UEQ_SQ_SUM_BLER">SUM(UEQ_SQ_SUM_BLER)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_rcpmueq_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RCPMUEQ</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RCPMUEQ.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_rcpmueq_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UEQ_AVE_BLER">
+    <formula>RCPMUEQ.UEQ_AVE_BLER</formula>
+    <kpi_info>
+      <title>UEQ_AVE_BLER</title>
+      <use>The average block error rate for downlink radio connection. Measured by using the UE Quality Measurement. UPDATED: When RRC:MEASUREMENT REPORT message including UE Quality results arrives from UE to RNC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>ROUND(DECODE(NVL(SUM(UEQ_NUMBER_OF_REPORTS),0),0,0,SUM(UEQ_AVE_BLER*UEQ_NUMBER_OF_REPORTS)/SUM(UEQ_NUMBER_OF_REPORTS)),3)</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcpmueq_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UEQ_AVE_BLER (M1018C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UEQ_NUMBER_OF_REPORTS">
+    <formula>RCPMUEQ.UEQ_NUMBER_OF_REPORTS</formula>
+    <kpi_info>
+      <title>UEQ_NUMBER_OF_REPORTS</title>
+      <use>The number of received quality reports from UE. UPDATED: When RRC:MEASUREMENT REPORT message including UE Quality measurement results arrives from UE to RNC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UEQ_NUMBER_OF_REPORTS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_rcpmueq_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UEQ_NUMBER_OF_REPORTS (M1018C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UEQ_SQ_SUM_BLER">
+    <formula>RCPMUEQ.UEQ_SQ_SUM_BLER</formula>
+    <kpi_info>
+      <title>UEQ_SQ_SUM_BLER</title>
+      <use>Sum of squared BLER values. UPDATED:When RRC:MEASUREMENT REPORT message with event 5A arrives from UE to RNC.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UEQ_SQ_SUM_BLER)</formula>
+      <unit>Decimal number</unit>
+      <tables>nokrww_ps_rcpmueq_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UEQ_SQ_SUM_BLER (M1018C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>RCPMUEQ.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_rcpmueq_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_1326a">
+    <formula>decode(
+			(celltp.period_duration),0,null, 
+
+			((celltp.rt_e_dch_ul_strea_data_1*8)
+			 / 
+			(1000*celltp.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[RT PS E-DCH MAC-d throughput UL]]></title>
+      <use><![CDATA[This KPI monitors the cell throughput for PS E-DCH Streaming traffic]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum ( RT_E_DCH_UL_STREA_DATA * 8) 
+&lt;br&gt;-------------------------- 
+&lt;br&gt;sum ( 1000 * PERIOD_DURATION * 60 )</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_celltp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RT PS E-DCH MAC-d thp UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/CELLTP_ext.xml" />
+</conf_file>
+

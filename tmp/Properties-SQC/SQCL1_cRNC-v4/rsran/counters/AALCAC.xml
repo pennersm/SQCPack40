@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AAL2_CAC_resource_new AALCAC measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AAL2_CAC_resource_new AALCAC measurement dump</csv_title>
+    <report-description>AAL2 Path CAC Resource (RN3.0-&gt;).</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <AAL2_PATH_GUAR_CELL_RATE />
+    <SUM_RESERVED_CELL_RATE />
+    <MIN_RESERVED_CELL_RATE />
+    <MAX_RESERVED_CELL_RATE />
+    <SUM_AAL2_CONNECTIONS />
+    <MIN_AAL2_CONNECTIONS />
+    <MAX_AAL2_CONNECTIONS />
+    <NBR_SAMPLES />
+    <AAL2_RM_SUCCEEDED />
+    <AAL2_CAC_REJECTED />
+    <AAL2_HW_REJECTED />
+    <SUM_AAL2_CONNECTIONS_HSDPA />
+    <MIN_AAL2_CONNECTION_HSDPA />
+    <MAX_AAL2_CONNECTIONS_HSDPA />
+    <AAL2_CAC_REJECTED_HSDPA />
+    <AAL2_HW_REJECTED_HSDPA />
+    <SHARED_HSDPA_AAL2_ALLOCATION />
+    <AAL2_RM_SUCCEEDED_HSDPA />
+    <MIN_SHARED_HSDPA_AAL2_ALLOC />
+    <MAX_SHARED_HSDPA_AAL2_ALLOC />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="AALCAC" meas_level="PLMN/RNC/IF/VPI/VCI/RWB/ALU" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="AAL2_PATH_GUAR_CELL_RATE">AVG(AAL2_PATH_GUAR_CELL_RATE)</counter>
+      <counter alias="SUM_RESERVED_CELL_RATE">SUM(SUM_RESERVED_CELL_RATE)</counter>
+      <counter alias="MIN_RESERVED_CELL_RATE">MIN(MIN_RESERVED_CELL_RATE)</counter>
+      <counter alias="MAX_RESERVED_CELL_RATE">MAX(MAX_RESERVED_CELL_RATE)</counter>
+      <counter alias="SUM_AAL2_CONNECTIONS">SUM(SUM_AAL2_CONNECTIONS)</counter>
+      <counter alias="MIN_AAL2_CONNECTIONS">MIN(MIN_AAL2_CONNECTIONS)</counter>
+      <counter alias="MAX_AAL2_CONNECTIONS">MAX(MAX_AAL2_CONNECTIONS)</counter>
+      <counter alias="NBR_SAMPLES">SUM(NBR_SAMPLES)</counter>
+      <counter alias="AAL2_RM_SUCCEEDED">SUM(AAL2_RM_SUCCEEDED)</counter>
+      <counter alias="AAL2_CAC_REJECTED">SUM(AAL2_CAC_REJECTED)</counter>
+      <counter alias="AAL2_HW_REJECTED">SUM(AAL2_HW_REJECTED)</counter>
+      <counter alias="SUM_AAL2_CONNECTIONS_HSDPA">SUM(SUM_AAL2_CONNECTIONS_HSDPA)</counter>
+      <counter alias="MIN_AAL2_CONNECTION_HSDPA">MIN(MIN_AAL2_CONNECTION_HSDPA)</counter>
+      <counter alias="MAX_AAL2_CONNECTIONS_HSDPA">MAX(MAX_AAL2_CONNECTIONS_HSDPA)</counter>
+      <counter alias="AAL2_CAC_REJECTED_HSDPA">SUM(AAL2_CAC_REJECTED_HSDPA)</counter>
+      <counter alias="AAL2_HW_REJECTED_HSDPA">SUM(AAL2_HW_REJECTED_HSDPA)</counter>
+      <counter alias="SHARED_HSDPA_AAL2_ALLOCATION">AVG(SHARED_HSDPA_AAL2_ALLOCATION)</counter>
+      <counter alias="AAL2_RM_SUCCEEDED_HSDPA">SUM(AAL2_RM_SUCCEEDED_HSDPA)</counter>
+      <counter alias="MIN_SHARED_HSDPA_AAL2_ALLOC">MIN(MIN_SHARED_HSDPA_AAL2_ALLOC)</counter>
+      <counter alias="MAX_SHARED_HSDPA_AAL2_ALLOC">MAX(MAX_SHARED_HSDPA_AAL2_ALLOC)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>AALCAC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AALCAC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_PATH_GUAR_CELL_RATE">
+    <formula>AALCAC.AAL2_PATH_GUAR_CELL_RATE</formula>
+    <kpi_info>
+      <title>AAL2_PATH_GUAR_CELL_RATE</title>
+      <use>The configured cell rate for the ATM VCC. For CBR type VC connections this is the AAL2 VCC Peak Cell rate (PCR). For UBR+ VCC in a bundle, this is the PCR of the bundle. For UBR+ VCC not in a bundle, this is the Minimum Desired Cell Rate (MDCR) of the VCC. UPDATED: The counter is updated for CBR and UBR+ type VC connections. Stays constant throughout the AAL2 path lifecycle.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AAL2_PATH_GUAR_CELL_RATE)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_PATH_GUAR_CELL_RATE (M550C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SUM_RESERVED_CELL_RATE">
+    <formula>AALCAC.SUM_RESERVED_CELL_RATE</formula>
+    <kpi_info>
+      <title>SUM_RESERVED_CELL_RATE</title>
+      <use>The sum of reserved cell rate samples taken during measurement period. When divided by M550C7, it produces the average reserved cell rate. If the VC connection is part of a VC bundle, the counter is updated with the sampled available capacity value of the whole bundle capacity for NRT or HSDPA, depending on the VC type.This counter is not relevant to look at if the path type is Tolerant because there is no AAL2 CAC for such paths. UPDATED: Added to previous value when data is sampled. This value is reset when the counters are collected at the end of measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SUM_RESERVED_CELL_RATE)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_RESERVED_CELL_RATE (M550C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_RESERVED_CELL_RATE">
+    <formula>AALCAC.MIN_RESERVED_CELL_RATE</formula>
+    <kpi_info>
+      <title>MIN_RESERVED_CELL_RATE</title>
+      <use>The minimum reserved cell rate of AAL2 path during measurement interval. If the VC connection is part of a VC bundle, the counter is updated with the minimum available capacity value of the whole bundle capacity for the NRT or HSDPA, depending on the VC type.This counter is not relevant to look at if the path type is Tolerant because there is no AAL2 CAC for such paths. UPDATED:Updated when the current reserved cell rate is less than the previous value. This value is reset when the counters are collected at the end of the measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_RESERVED_CELL_RATE)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_RESERVED_CELL_RATE (M550C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_RESERVED_CELL_RATE">
+    <formula>AALCAC.MAX_RESERVED_CELL_RATE</formula>
+    <kpi_info>
+      <title>MAX_RESERVED_CELL_RATE</title>
+      <use>The maximum reserved cell rate of AAL2 path during measurement interval. If the VC connection is part of a VC bundle, the counter is updated with the maximum available capacity value of the whole bundle capacity for the NRT or HSDPA, depending on the VC type.This counter is not relevant to look at if the path type is Tolerant because there is no AAL2 CAC for such paths. UPDATED:Updated when the current reserved cell rate exceeds the previous value. This value is reset when the counters are collected at the end of measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_RESERVED_CELL_RATE)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_RESERVED_CELL_RATE (M550C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SUM_AAL2_CONNECTIONS">
+    <formula>AALCAC.SUM_AAL2_CONNECTIONS</formula>
+    <kpi_info>
+      <title>SUM_AAL2_CONNECTIONS</title>
+      <use>The sum of sampled values for the number of AAL2 connection during  the measurement period. When divided by M550C7, it produces the average number of AAL2 connections. Updated as data is sampled by data provider. This value is reset when the counters are collected at the end of measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SUM_AAL2_CONNECTIONS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_AAL2_CONNECTIONS (M550C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_AAL2_CONNECTIONS">
+    <formula>AALCAC.MIN_AAL2_CONNECTIONS</formula>
+    <kpi_info>
+      <title>MIN_AAL2_CONNECTIONS</title>
+      <use>The minimum number of simultaneously active connections in AAL2 path during measurement interval. Updated when the current number of AAL2 connections is less than the previous value. This value is reset when the counters are collected at the end of the measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_AAL2_CONNECTIONS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_AAL2_CONNECTIONS (M550C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_AAL2_CONNECTIONS">
+    <formula>AALCAC.MAX_AAL2_CONNECTIONS</formula>
+    <kpi_info>
+      <title>MAX_AAL2_CONNECTIONS</title>
+      <use>The maximum number of connections in AAL2 path during measurement period.  Updated when the current number of AAL2 connections is greater than previous value. This value is reset when the counters are collected at the end of the measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_AAL2_CONNECTIONS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_AAL2_CONNECTIONS (M550C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NBR_SAMPLES">
+    <formula>AALCAC.NBR_SAMPLES</formula>
+    <kpi_info>
+      <title>NBR_SAMPLES</title>
+      <use>The number of samples that can be used to calculate average values for AAL2 connections, HSDPA connections as well as the average allocation for HSDPA. Incremented when data is sampled.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NBR_SAMPLES)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NBR_SAMPLES (M550C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_RM_SUCCEEDED">
+    <formula>AALCAC.AAL2_RM_SUCCEEDED</formula>
+    <kpi_info>
+      <title>AAL2_RM_SUCCEEDED</title>
+      <use>The number of successful AAL2 resource reservations. The connection has successfully passed the AAL2 connection resource reservation stage, but may still fail in the DMPG/TPG resource reservation or in the signalling phase. Incremented when an AAL2 resource reservation is successful.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_RM_SUCCEEDED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_RM_SUCCEEDED (M550C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_CAC_REJECTED">
+    <formula>AALCAC.AAL2_CAC_REJECTED</formula>
+    <kpi_info>
+      <title>AAL2_CAC_REJECTED</title>
+      <use>The total number of rejected connections due to CAC.  Updated when a connection is rejected due to insufficient CAC resources.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_CAC_REJECTED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_CAC_REJECTED (M550C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_HW_REJECTED">
+    <formula>AALCAC.AAL2_HW_REJECTED</formula>
+    <kpi_info>
+      <title>AAL2_HW_REJECTED</title>
+      <use>The number of connection establishments, which are rejected due to failed HW request. This failure can occur after successful CAC resource reservation.
+Note: Currently this counter is not supported and is always updated by value 0. This counter is never updated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_HW_REJECTED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_HW_REJECTED (M550C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SUM_AAL2_CONNECTIONS_HSDPA">
+    <formula>AALCAC.SUM_AAL2_CONNECTIONS_HSDPA</formula>
+    <kpi_info>
+      <title>SUM_AAL2_CONNECTIONS_HSDPA</title>
+      <use>The sum of sampled values for the number AAL2 connections used by HSDPA, during measurement period. When divided by M550C7, it produces the average number of HSDPA connections. Shared HSDPA AAL2 allocation reservations are not included. This value stays 0 in MGW. Added to previous value when data is sampled. This value is reset when the counters are collected at the end of the measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SUM_AAL2_CONNECTIONS_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUM_AAL2_CONNECTIONS_HSDPA (M550C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_AAL2_CONNECTION_HSDPA">
+    <formula>AALCAC.MIN_AAL2_CONNECTION_HSDPA</formula>
+    <kpi_info>
+      <title>MIN_AAL2_CONNECTION_HSDPA</title>
+      <use>The minimum number of HSDPA connections during the measurement period. Shared HSDPA AAL2 allocation reservations are not included. This value stays 0 in MGW. Updated when the current number of HSDPA connections is less than the previous value. This value is reset when the counters are collected at the end of the measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_AAL2_CONNECTION_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_AAL2_CONNECTION_HSDPA (M550C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_AAL2_CONNECTIONS_HSDPA">
+    <formula>AALCAC.MAX_AAL2_CONNECTIONS_HSDPA</formula>
+    <kpi_info>
+      <title>MAX_AAL2_CONNECTIONS_HSDPA</title>
+      <use>The maximum number of simultaneous HSDPA connections during the measurement period. This represents the higest value of samples taken. The shared HSDPA AAL2 allocation reservations are not included here. This value stays 0 in MGW. Updated when the current number of HSDPA connections exceeds the previously maximum value; This value is reset when the counters are collected at the end of the measurement interval</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_AAL2_CONNECTIONS_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_AAL2_CONNECTIONS_HSDPA (M550C13)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_CAC_REJECTED_HSDPA">
+    <formula>AALCAC.AAL2_CAC_REJECTED_HSDPA</formula>
+    <kpi_info>
+      <title>AAL2_CAC_REJECTED_HSDPA</title>
+      <use>The number of times AAL2 resource reservations for HSDPA connection have been rejected by AAL2 CAC. Shared HSDPA AAL2 allocation reservations are not included. This value stays 0 in MGW. Updated when an HSDPA connection is rejected due to insufficient CAC resources.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_CAC_REJECTED_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_CAC_REJECTED_HSDPA (M550C14)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_HW_REJECTED_HSDPA">
+    <formula>AALCAC.AAL2_HW_REJECTED_HSDPA</formula>
+    <kpi_info>
+      <title>AAL2_HW_REJECTED_HSDPA</title>
+      <use>The number of times AAL2 resource reservation for HSDPA connection was rejected by HW. Shared HSDPA AAL2 allocation reservations are not included here. This value stays 0 in MGW.
+Note: Currently this counter is not supported and is always updated by value 0 also in RNC. This counter is never updated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_HW_REJECTED_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_HW_REJECTED_HSDPA (M550C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SHARED_HSDPA_AAL2_ALLOCATION">
+    <formula>AALCAC.SHARED_HSDPA_AAL2_ALLOCATION</formula>
+    <kpi_info>
+      <title>SHARED_HSDPA_AAL2_ALLOCATION</title>
+      <use>The current value for the cell rate of shared HSDPA AAL2 allocation at the time of measurement data collection. Updated: The value is sampled at the end of measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(SHARED_HSDPA_AAL2_ALLOCATION)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SHARED_HSDPA_AAL2_ALLOCATION (M550C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AAL2_RM_SUCCEEDED_HSDPA">
+    <formula>AALCAC.AAL2_RM_SUCCEEDED_HSDPA</formula>
+    <kpi_info>
+      <title>AAL2_RM_SUCCEEDED_HSDPA</title>
+      <use>The number of times downlink AAL2 resources have been successfully reserved for HSDPA MAC-D flow connections. This indicates that ATM resources were successfully reserved in RNC, but the connection may still fail in the AAL2 signalling with BTS. Shared HSDPA AAL2 allocation reservations are not included here. This value stays 0 in MGW. Updated when AAL2 resources are successfully reserved for HSDPA connections.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(AAL2_RM_SUCCEEDED_HSDPA)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AAL2_RM_SUCCEEDED_HSDPA (M550C17)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_SHARED_HSDPA_AAL2_ALLOC">
+    <formula>AALCAC.MIN_SHARED_HSDPA_AAL2_ALLOC</formula>
+    <kpi_info>
+      <title>MIN_SHARED_HSDPA_AAL2_ALLOC</title>
+      <use>The minimum size of shared HSDPA AAL2 allocation during the measurement period. Updated when the current reserved cell rate is less than the previous value. This value is reset when the counters are collected at the end of the measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_SHARED_HSDPA_AAL2_ALLOC)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_SHARED_HSDPA_AAL2_ALLOC (M550C18)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_SHARED_HSDPA_AAL2_ALLOC">
+    <formula>AALCAC.MAX_SHARED_HSDPA_AAL2_ALLOC</formula>
+    <kpi_info>
+      <title>MAX_SHARED_HSDPA_AAL2_ALLOC</title>
+      <use>The maximum size of shared HSDPA AAL2 allocation during the measurement period. Updated when the current reserved cell rate exceeds the previous value. This value is reset when the counters are collected at the end of measurement interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_SHARED_HSDPA_AAL2_ALLOC)</formula>
+      <unit>cell/s</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_SHARED_HSDPA_AAL2_ALLOC (M550C19)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>AALCAC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_aalcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

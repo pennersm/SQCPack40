@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/S6A.xml" />
+  <kpi name="flns_3198a">
+    <formula>decode(
+            (s6a.s6a_purge_ue_request_sent),0,null,
+            
+            (s6a.s6a_purge_ue_answer_rcv
+            / 
+            s6a.s6a_purge_ue_request_sent))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S6a Purge UE Answer/Request ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Purge UE Answers (PUA) received as response to Purge UE Requests (PUR) sent through S6a interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(S6A_PURGE_UE_ANSWER_RCV)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(S6A_PURGE_UE_REQUEST_SENT)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_S6A_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.689 +0100</date>
+          <comment><![CDATA[Source: RSMME018.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S6a PUA/PUR ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

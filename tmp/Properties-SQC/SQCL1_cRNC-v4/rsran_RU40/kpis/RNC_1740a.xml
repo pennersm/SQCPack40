@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_1740a">
+    <formula>decode(
+			(hsdpaw.mac_d_pdu_tot),0,null, 
+
+			(100*(hsdpaw.mac_d_pdu_drop_bts_owfl + 
+			hsdpaw.drop_mac_d_pdu_max_retx_tot_1 + 
+			hsdpaw.drop_mac_d_pdu_oth_reason_t_1)
+			 / 
+			(hsdpaw.mac_d_pdu_tot)))</formula>
+    <kpi_info>
+      <title><![CDATA[MAC-d PDU all sizes, BLER in BTS]]></title>
+      <use><![CDATA[This KPI monitors the block error ratio (BLER) in BTS for MAC-d PDUs all block sizes.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(MAC_D_PDU_DROP_BTS_OWFL
+&lt;br&gt;       +DROP_MAC_D_PDU_MAX_RETX_TOT
+&lt;br&gt;       +DROP_MAC_D_PDU_OTH_REASON_TOT)
+&lt;br&gt;-----------------------------------
+&lt;br&gt;sum(MAC_D_PDU_TOT)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MAC-d PDU BLER BTS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/HSDPAW_ext.xml" />
+</conf_file>
+

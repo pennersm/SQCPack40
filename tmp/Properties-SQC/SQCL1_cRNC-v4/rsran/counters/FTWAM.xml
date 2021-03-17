@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_TWAMP FTWAM measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_TWAMP FTWAM measurement dump</csv_title>
+    <report-description>FTM TWAMP Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <avgRTT_15Min />
+    <maxRTT_15Min />
+    <minRTT_15Min />
+    <txTwampMessages />
+    <lostTwampMessages />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FTWAM" meas_level="PLMN/RNC/WBTS/FTM/IPNO/TWAMP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="avgRTT_15Min">AVG(avgRTT_15Min)</counter>
+      <counter alias="maxRTT_15Min">MAX(maxRTT_15Min)</counter>
+      <counter alias="minRTT_15Min">MIN(minRTT_15Min)</counter>
+      <counter alias="txTwampMessages">SUM(txTwampMessages)</counter>
+      <counter alias="lostTwampMessages">SUM(lostTwampMessages)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FTWAM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FTWAM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="avgRTT_15Min">
+    <formula>FTWAM.avgRTT_15Min</formula>
+    <kpi_info>
+      <title>avgRTT_15Min</title>
+      <use>This is the calculated average Round trip time (RTT) for TWAMP messages that the BTS has sent to its remote peer during the last 15 minutes for this TWAMP session. UPDATED: The counter is updated for every reply message to a TWAMP initiator message that the BTS has sent over this TWAMP session.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(avgRTT_15Min)</formula>
+      <unit>Microseconds</unit>
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>avgRTT_15Min (M5126C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="maxRTT_15Min">
+    <formula>FTWAM.maxRTT_15Min</formula>
+    <kpi_info>
+      <title>maxRTT_15Min</title>
+      <use>This is the maximum detected Round trip time (RTT) for TWAMP messages that the BTS has sent to its remote peer during the last 15 minutes. UPDATED: The counter is updated for every reply message to a TWAMP initiator message that the BTS has sent over this TWAMP session, for which a new maximum round trip time is detected.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(maxRTT_15Min)</formula>
+      <unit>Microseconds</unit>
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>maxRTT_15Min (M5126C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="minRTT_15Min">
+    <formula>FTWAM.minRTT_15Min</formula>
+    <kpi_info>
+      <title>minRTT_15Min</title>
+      <use>This is the minimum detected Round trip time (RTT) for TWAMP messages that the BTS has sent to its remote peer during the last 15 minutes. UPDATED: The counter is updated for every reply message to a TWAMP initiator message that the BTS has sent over this TWAMP session, for which a new minimum round trip time is detected.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(minRTT_15Min)</formula>
+      <unit>Microseconds</unit>
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>minRTT_15Min (M5126C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="txTwampMessages">
+    <formula>FTWAM.txTwampMessages</formula>
+    <kpi_info>
+      <title>txTwampMessages</title>
+      <use>This is the number of transmitted TWAMP messages for the TWAMP session. UPDATED: The counter is updated for every transmitted TWAMP message for the session.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(txTwampMessages)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>txTwampMessages (M5126C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="lostTwampMessages">
+    <formula>FTWAM.lostTwampMessages</formula>
+    <kpi_info>
+      <title>lostTwampMessages</title>
+      <use>This the number of lost TWAMP messages for the TWAMP session. UPDATED: The counter is updated for every lost TWAMP message for the session.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(lostTwampMessages)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>lostTwampMessages (M5126C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FTWAM.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_ftwam_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

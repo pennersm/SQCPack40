@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte/counters/LMAC.xml" />
+  <kpi name="LTE_5670a">
+    <formula>100*decode(
+			(lcelld.rach_stp_att_small_msg + 
+			lcelld.rach_stp_att_large_msg),0,null, 
+
+			lmac.rach_msg3_contention
+			 / 
+			(lcelld.rach_stp_att_small_msg + 
+			lcelld.rach_stp_att_large_msg))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Complete Contention Based RACH Setup Success Rate]]></title>
+      <use><![CDATA[This KPI describes the ratio of Msg3 and RA preambles received from UE during contention based RA procedure.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(RACH_MSG3_CONTENTION)/sum(RACH_STP_ATT_SMALL_MSG+RACH_STP_ATT_LARGE_MSG)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg},noklte_ps_LMAC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/10/29 14:03:20.864 +0000</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Comp Cont based RACH stp SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

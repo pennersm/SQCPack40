@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/L3IUR2.xml" />
+  <kpi name="RNC_1438a">
+    <formula>decode(
+			(l3iur2.period_duration),0,null, 
+
+			(((l3iur2.intera_data_from_drnc_1 + 
+			l3iur2.bgr_data_from_drnc_1)*8)
+			 / 
+			(1000*l3iur2.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[PS Interactive/Background MAC-d throughput at Iur UL]]></title>
+      <use><![CDATA[This KPI provides information about the Iur MAC-d PDU throughput for PS Interactive and Background data comming from DRNC (uplink direction), in the SRNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum ( (INTERA_DATA_FROM_DRNC+BGR_DATA_FROM_DRNC) * 8)
+&lt;br&gt;-------------------------------
+&lt;br&gt;1000 *sum (PERIOD_DURATION * 60)</formula>
+      <unit>[Kbit/s]</unit>
+      <tables>nokrww_ps_l3iur2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS IB MACd thp Iur UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/L3IUR2_ext.xml" />
+</conf_file>
+

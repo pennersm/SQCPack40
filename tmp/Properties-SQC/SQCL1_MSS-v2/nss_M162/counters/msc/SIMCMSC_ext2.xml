@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M396 SIMCMSC measurement dump</header>
+    <csv_title>Nokia Siemens NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M396 SIMCMSC measurement dump</csv_title>
+    <report-description>Simultaneous call measurement(SIMCMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <SIMUL_MSC_AVG_SIM_CALL_1 />
+    <SIMUL_MSC_PEAK_SIM_CALL_1 />
+    <mss_number />
+  </column_order>
+
+  <temp_table name="SIMCMSC_ext2" meas_level="PLMN/MSC5" type="PM" master="yes" pragma="NSS" create="yes">
+    <koala_meas_id_list>SIMCMSC</koala_meas_id_list>
+    <counters>
+      <counter alias="SIMUL_MSC_AVG_SIM_CALL_1">trunc(AVG(SIMUL_MSC_AVG_SIM_CALL_1))</counter>
+      <counter alias="SIMUL_MSC_PEAK_SIM_CALL_1">MAX(SIMUL_MSC_PEAK_SIM_CALL_1)</counter>
+      <counter alias="mss_number">MAX(mss_number)</counter>
+    </counters>
+
+	<!--  RAW tables used in meastempalte -->	
+	<table_name><![CDATA[ rns_ps_simcmsc_msc_raw  ]]></table_name>
+
+    <alias_name>SIMCMSC_ext2</alias_name>
+  </temp_table>
+  
+    <kpi_info>
+      <title>SIMUL_MSC_AVG_SIM_CALL_1</title>
+      <use>Shows the average number of simultaneous calls.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-agg="AVG">SUM(SIMUL_MSC_AVG_SIM_CALL_1)</formula>
+      <unit>#</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    
+    <kpi_alias>SIMUL_MSC_AVG_SIM_CALL (M396B2C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />  
+
+    <kpi_info>
+      <title>SIMUL_MSC_PEAK_SIM_CALL_1</title>
+      <use>Shows the peak number of simultaneous calls.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-agg="MAX">SUM(SIMUL_MSC_PEAK_SIM_CALL_1)</formula>
+      <unit>#</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    
+    <kpi_alias>SIMUL_MSC_AVG_SIM_CALL (M396B2C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />  
+    
+    <kpi_info>
+      <title>mss_number</title>
+      <use>Indicates the number of MSSs that have actual measured traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>mss_number</formula>
+      <unit />
+      <tables>ns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>mss_number</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />   
+</conf_file>

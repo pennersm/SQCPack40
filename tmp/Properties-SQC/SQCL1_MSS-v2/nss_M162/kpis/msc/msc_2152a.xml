@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_2152a">
+    <formula>
+(
+	nvl(vlr1msc.imsiattachumtsattempt,0) 
+	+ nvl(vlr1msc.imsiattachgsmattempt,0) 
+	+ nvl(vlr1msc.EPS_IMSI_ATTACH_ATT,0)
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[IMSI attach attempts in the target VLR (GSM + UMTS + EPS)]]></title>
+      <use><![CDATA[Indicates IMSI attach attempts for GSM + UMTS + EPS.]]></use>
+
+		<use_experience><![CDATA[<br>
+		<br>Same KPI as msc_466b (new KPI ID reference starting from M15.1).
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part one (M82/52H)
+		<br> 
+		]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+      	&lt;br&gt;
+      	&lt;br&gt;SUM( NVL( IMSIAttachGSMAttempt , 0 ) + 
+		&lt;br&gt;      NVL( IMSIAttachUMTSAttempt , 0 ) + 
+		&lt;br&gt;      NVL( EPS_IMSI_ATTACH_ATT , 0 ) ) 
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, RNS_PS_VR1MCBH_MSC_{time_agg}
+		&lt;br&gt;
+		</formula>
+		
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[IMSI AttchAtt GSM UMTS EPS]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/UBRR_ext.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/UBRS_ext.xml" />
+  <kpi name="flng_496a">
+    <formula>decode( ((GTPCV2.gtpcv2_update_bear_req_sent + GTPCV2.gtpcv2_up_bearer_req_recv)),0,NULL, ((UBRS_ext.gtpcv2_up_bearer_resp_sent_16 + UBRR_ext.gtpcv2_up_bearer_resp_recv_16)) / ((GTPCV2.gtpcv2_update_bear_req_sent + GTPCV2.gtpcv2_up_bearer_req_recv)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update Bearer success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 update bearer requests, i.e., the number of update bearer response messages received/sent with cause code 'Request Accepted' when compared to the number of update bearer request messages sent/received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(ubrr_id,'16',b.GTPCV2_UP_BEARER_RESP_RECV,0)) + 
+	  <br>sum(decode(ubrs_id,('16' or 'cs_1_16'),c.GTPCV2_UP_BEARER_RESP_SENT,0))
+
+     <br>---------------------------------------------------------------------------------------- *100 
+
+      <br>sum(a.GTPCV2_UPDATE_BEAR_REQ_SENT + a.GTPCV2_UP_BEARER_REQ_RECV)
+	  <br>
+	  <br>counters from measurement(s): 
+
+	  <br>a = GTP-C v2 
+
+	  <br>b = GTP-C v2 Update Bearer Response received 
+	  <br>c = GTP-C v2 Update Bearer Response sent]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_UBRR_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_UBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Update Bearer SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

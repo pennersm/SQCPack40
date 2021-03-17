@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FIPSEC.xml" />
+  <kpi name="RNC_2622a">
+    <formula>100*decode(
+			(fipsec.Protected_ESPFramesRx + 
+			fipsec.Discarded_ESPFramesRx + 
+			fipsec.Bypassed_FramesRx),0,null, 
+
+			(fipsec.Protected_ESPFramesRx)
+			 / 
+			(fipsec.Protected_ESPFramesRx + 
+			fipsec.Discarded_ESPFramesRx + 
+			fipsec.Bypassed_FramesRx))</formula>
+    <kpi_info>
+      <title><![CDATA[Encrypted ESP recvd packets SR]]></title>
+      <use><![CDATA[Encrypted ESP received packets success ratio. Defined by the percentage of successfully decrypted ESP packets in ingress direction among all encrypted packets received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(Protected_ESPFramesRx)
+&lt;br&gt;----------------------------------
+&lt;br&gt;SUM(Protected_ESPFramesRx +
+&lt;br&gt;Discarded_ESPFramesRx +
+&lt;br&gt;Bypassed_FramesRx)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_FIPSEC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:56.403 +0100</date>
+          <comment><![CDATA[Source: RSRAN127.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Encrypt ESP rcvd pkt SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

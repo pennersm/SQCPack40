@@ -1,0 +1,178 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M22 CELLMSC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M22 CELLMSC measurement dump</csv_title>
+    <report-description>Cell measurement(CELLMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CELLMEAS_INT_AVE_CALL_TIME_SEC/>
+    <CELLMEAS_OUT_AVE_CALL_TIME_SEC/>
+    <CELLMEAS_INC_AVE_CALL_TIME_SEC/>
+    <CELLMEAS_TRA_AVE_CALL_TIME_SEC/>
+    <CELLMEAS_AVE_PAGETIME_SEC_x100/>
+    <CELLMEAS_CORRUPT_MESSAGE/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC" name="CELLMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CELLMEAS_INT_AVE_CALL_TIME_SEC" symmetrical="true">AVG(CELLMEAS_INT_AVE_CALL_TIME_SEC)</counter>
+      <counter alias="CELLMEAS_OUT_AVE_CALL_TIME_SEC" symmetrical="true">AVG(CELLMEAS_OUT_AVE_CALL_TIME_SEC)</counter>
+      <counter alias="CELLMEAS_INC_AVE_CALL_TIME_SEC" symmetrical="true">AVG(CELLMEAS_INC_AVE_CALL_TIME_SEC)</counter>
+      <counter alias="CELLMEAS_TRA_AVE_CALL_TIME_SEC" symmetrical="true">AVG(CELLMEAS_TRA_AVE_CALL_TIME_SEC)</counter>
+      <counter alias="CELLMEAS_AVE_PAGETIME_SEC_x100" symmetrical="true">AVG(CELLMEAS_AVE_PAGETIME_SEC_x100)</counter>
+      <counter alias="CELLMEAS_CORRUPT_MESSAGE" symmetrical="true">AVG(CELLMEAS_CORRUPT_MESSAGE)</counter>
+    </counters>
+    <table_name>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CELLMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CELLMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CELLMEAS_INT_AVE_CALL_TIME_SEC">
+    <formula>CELLMSC.CELLMEAS_INT_AVE_CALL_TIME_SEC</formula>
+    <kpi_info>
+      <title>CELLMEAS_INT_AVE_CALL_TIME_SEC</title>
+      <use>The average reservation time of the entireexchange given in seconds for internal calls. Only calls finished
+during the period are taken into account. Range of the counter is
+0...999999.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CELLMEAS_INT_AVE_CALL_TIME_SEC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELLMEAS_INT_AVE_CALL_TIME_SEC (M22B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CELLMEAS_OUT_AVE_CALL_TIME_SEC">
+    <formula>CELLMSC.CELLMEAS_OUT_AVE_CALL_TIME_SEC</formula>
+    <kpi_info>
+      <title>CELLMEAS_OUT_AVE_CALL_TIME_SEC</title>
+      <use>The average reservation time of the entireexchange given in seconds for outgoing calls. Only calls finished
+during the period are taken into account. The calls from and to
+private branch exchange (PBX) circuits are included. Range of the
+counter is 0...999999.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CELLMEAS_OUT_AVE_CALL_TIME_SEC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELLMEAS_OUT_AVE_CALL_TIME_SEC (M22B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CELLMEAS_INC_AVE_CALL_TIME_SEC">
+    <formula>CELLMSC.CELLMEAS_INC_AVE_CALL_TIME_SEC</formula>
+    <kpi_info>
+      <title>CELLMEAS_INC_AVE_CALL_TIME_SEC</title>
+      <use>The average reservation time of the entireexchange given in seconds for incoming calls. Only calls finished during
+the period are taken into account. The calls from and to private
+branch exchange (PBX) circuits are included. Range of the counter
+is 0...999999.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CELLMEAS_INC_AVE_CALL_TIME_SEC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELLMEAS_INC_AVE_CALL_TIME_SEC (M22B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CELLMEAS_TRA_AVE_CALL_TIME_SEC">
+    <formula>CELLMSC.CELLMEAS_TRA_AVE_CALL_TIME_SEC</formula>
+    <kpi_info>
+      <title>CELLMEAS_TRA_AVE_CALL_TIME_SEC</title>
+      <use>The average reservation time of the entireexchange given in seconds for transit calls. Only calls finished
+during the period are taken into account. Range of the counter is
+0...999999.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CELLMEAS_TRA_AVE_CALL_TIME_SEC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELLMEAS_TRA_AVE_CALL_TIME_SEC (M22B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CELLMEAS_AVE_PAGETIME_SEC_x100">
+    <formula>CELLMSC.CELLMEAS_AVE_PAGETIME_SEC_x100</formula>
+    <kpi_info>
+      <title>CELLMEAS_AVE_PAGETIME_SEC_x100</title>
+      <use>Average paging time for successful pagingsgiven in milliseconds (0...99999)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CELLMEAS_AVE_PAGETIME_SEC_x100)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELLMEAS_AVE_PAGETIME_SEC_x100 (M22B3C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CELLMEAS_CORRUPT_MESSAGE">
+    <formula>CELLMSC.CELLMEAS_CORRUPT_MESSAGE</formula>
+    <kpi_info>
+      <title>CELLMEAS_CORRUPT_MESSAGE</title>
+      <use>This tag appears with value 1 when thereare no records or the whole report is corrupted.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CELLMEAS_CORRUPT_MESSAGE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CELLMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CELLMEAS_CORRUPT_MESSAGE (M22B3C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

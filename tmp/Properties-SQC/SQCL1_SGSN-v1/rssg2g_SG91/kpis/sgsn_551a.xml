@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSP.xml">
+    <counters>
+      <!-- sgsn_831a  -->
+      <counter alias="sgsn_831a">sum(sgsn_level_iu_ps_pagings)</counter>
+    </counters>
+  </temp_table_ref>
+  <temp_table_ref src="rssg2g/counters/SGPA.xml">
+    <counters>
+      <!-- sgsn_833a -->
+      <counter alias="sgsn_833a">sum(sgsn_level_ps_pagings)</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="sgsn_551a">
+    <formula>decode(
+			(nvl(iusp.sgsn_831a,0) +
+			nvl(sgpa.sgsn_833a,0)),0,NULL,
+
+			(100*(sgpa.sgsn_833a)
+			 /
+			(nvl(iusp.sgsn_831a,0) +
+			nvl(sgpa.sgsn_833a,0))))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of Gb Paging attempts]]></title>
+      <use><![CDATA[This KPI shows the share of 2G started paging procedures when compared to all (2G+3G) started paging procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           (sgsn_833a)
+&lt;br&gt;100 * ----------------------------------
+&lt;br&gt;           (sgsn_831a + sgsn_833a)</formula>
+      <unit>[%]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of Gb Paging attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

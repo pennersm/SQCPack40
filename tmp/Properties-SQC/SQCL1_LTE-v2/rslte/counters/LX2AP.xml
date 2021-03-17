@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LX2AP (LTE X2AP)</header>
+    <csv_title>LX2AP (LTE X2AP)</csv_title>
+    <report-description>LTE X2AP (M8022) provides measurements related to X2 Setup procedure. The counters are updated at the originating eNB site.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <X2_SETUP_ATT/>
+    <X2_SETUP_FAIL/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LX2AP" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LX2AP</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="X2_SETUP_ATT" symmetrical="true">SUM(X2_SETUP_ATT)</counter>
+          <counter alias="X2_SETUP_FAIL" symmetrical="true">SUM(X2_SETUP_FAIL)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lx2ap_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LX2AP</alias_name>
+    <ui_name>LTE X2AP</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LX2AP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lx2ap_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="X2_SETUP_ATT">
+    <formula>LX2AP.X2_SETUP_ATT</formula>
+    <kpi_info>
+      <title>X2_SETUP_ATT (M8022C0)</title>
+      <use>This counter provides the number of X2 Setup procedures triggered by eNB. UPDATED: Transmission of X2AP: X2 SETUP REQUEST message to the neighbor eNB (3GPP TS 36.423)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(X2_SETUP_ATT)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lx2ap_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>X2_SETUP_ATT (M8022C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="X2_SETUP_FAIL">
+    <formula>LX2AP.X2_SETUP_FAIL</formula>
+    <kpi_info>
+      <title>X2_SETUP_FAIL (M8022C1)</title>
+      <use>This counter provides the number of X2 Setup procedures which were triggered by eNB and then failed. UPDATED: Reception of X2AP: X2 SETUP FAILURE message or expiration of Timer (wait for X2 SETUP RESPONSE) - (3GPP TS 36.423)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(X2_SETUP_FAIL)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lx2ap_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>X2_SETUP_FAIL (M8022C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LX2AP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lx2ap_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

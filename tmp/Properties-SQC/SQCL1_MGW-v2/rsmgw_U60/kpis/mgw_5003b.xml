@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/M3UA.xml" />
+  <temp_table_ref src="rsmgw/counters/MTPSLU.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/MTPSLU_ext.xml" />
+  <kpi name="mgw_5003b">
+    <formula>decode(
+			(mtpslu_ext.mtp_corr_multi_recv_num*mtpslu.period_duration*m3ua.period_duration),0,0, 
+
+			(m3ua.m3ua_messages_received*
+			(mtpslu_ext.sum_min_5_peakload_traffic_in
+			 / 
+			((mtpslu_ext.mtp_corr_multi_recv_num)*8
+			 / 
+			(mtpslu.period_duration*60)))
+			 / 
+			(m3ua.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[M3UA signalling received messages per second]]></title>
+      <use><![CDATA[M3UA signalling received messages per second.]]></use>
+
+<use_experience><![CDATA[
+<br> Aiding formula for calculating received M3UA msg/s. Includes correction multiplier.
+<br>
+<br>This formula gives an estimated peak value of received M3UA messages per second. Use hourly measure activation period.
+<br>
+<br>Theoretical KPI summary levels: PLMN - MGW - ASS_NAME - ASS_INDEX
+<br>LAST UPDATE: 14-04-2010
+<br>RECOMMENDED SUMMARY LEVELS: MGW
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MTP signalling link utilization (210/D2H), M3UA Association Set
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;SUMoverASS_index( M3UA_MESSAGES_RECEIVED * ( hourlyMax( ( SUMoverSL(
+&lt;br&gt;MIN_5_PEAKLOAD_TRAFFIC_IN * ( Period_Duration * 60 * BIT_RATE ) ) ) / ( ( SUMoverSL
+&lt;br&gt;SIF_AND_SIO_OCTETS_RECEIVED + 6 * SUMoverSL MSUS_RECEIVED ) * 8 ) ) ) ) / (
+&lt;br&gt;Period_Duration * 60 ) ) 
+&lt;br&gt;
+&lt;br&gt; Counters from RAW + AGGREGATED tables(s)/view(s) </formula>
+      <unit>[msg/s]</unit>
+      <tables>nokmww_ps_m3ua_{obj_agg}_{time_agg},nokmww_ps_mtpslu_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>m3ua_msg_rec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

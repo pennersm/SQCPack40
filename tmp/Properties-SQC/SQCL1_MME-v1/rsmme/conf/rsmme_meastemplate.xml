@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="1.0">
+	  <meas-template priority="5" pragma="pcofns">
+	    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+	    <grouping level="PLMN/MARKET" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/REGION" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/WS_FLEXINS" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <time-truncation>
+	      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+	      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+	      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW )" />
+	      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+	    </time-truncation>
+	    <!-- The required number of pivot levels will be generated starting with PLMN -->
+	    <pivots>
+	      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+	      <pivot level="FLEXINS" id="flexins_gid">flexins.co_gid</pivot>
+	      <pivot level="MME-UNIT" id="unit_id">p.unit_id</pivot>
+	      <pivot level="MME-PIU" id="piu_id">p.piu_id</pivot>
+	      <pivot level="MME-LIF" id="lif_id">p.lif_id</pivot>
+	      <pivot level="MME-TRA" id="tra_id">p.tra_id</pivot>
+	      <pivot level="MARKET" id="market">g.market</pivot>
+	      <pivot level="REGION" id="region">g.region</pivot>
+	      <pivot level="MR_FLEXINS" id="mr_gid">flexins.co_mr_gid</pivot>
+	      <pivot level="WS_FLEXINS" id="ws">g.ws</pivot>
+	    </pivots>
+	    <sql-template><![CDATA[select
+					#pivots#,
+					#pi_aggregations#
+				from
+					#grouping_sql#
+					utp_common_objects plmn,
+					utp_common_objects flexins,
+					#meas_table# p
+				where
+					#add_on_clause# and
+					period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+					period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+					flexins.co_oc_id=3766 and
+					flexins.co_gid = p.fins_id and
+					flexins.co_parent_gid = plmn.co_gid
+				group by
+					#group_by#]]>
+		</sql-template>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="FLEXINS,MME-UNIT,MME-PIU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-UNIT/MME-PIU</level>
+	        <level keys="FLEXINS,MME-UNIT,MME-PIU,MME-LIF" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF</level>
+	        <level keys="FLEXINS,MME-UNIT,MME-PIU,MME-LIF,MME-TRA" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="raw" subst="{OBJ_AGG}:tra1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+	        <time-level name="whole_period" subst="{OBJ_AGG}:tra1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:tra1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:tra1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:tra1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:tra1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:tra1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	</meas-template>
+	
+	<!-- LIF Intermediary Level -->
+	<meas-template priority="4" pragma="pcofns">
+	    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+	    <grouping level="PLMN/MARKET" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/REGION" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/WS_FLEXINS" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <time-truncation>
+	      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+	      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+	      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW )" />
+	      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+	    </time-truncation>
+	    <!-- The required number of pivot levels will be generated starting with PLMN -->
+	    <pivots>
+	      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+	      <pivot level="FLEXINS" id="flexins_gid">flexins.co_gid</pivot>
+	      <pivot level="MME-MCC" id="mcc_id">p.mcc_id</pivot>
+	      <pivot level="MME-MNC" id="mnc_id">p.mnc_id</pivot>
+	      <pivot level="MME-TA" id="ta_id">p.ta_id</pivot>
+	      <pivot level="MME-UNIT" id="unit_id">p.unit_id</pivot>
+	      <pivot level="MME-PIU" id="piu_id">p.piu_id</pivot>
+	      <pivot level="MME-LIF" id="lif_id">p.lif_id</pivot>
+	      <pivot level="MME-TRA" id="tra_id">p.tra_id</pivot>
+	      <pivot level="MARKET" id="market">g.market</pivot>
+	      <pivot level="REGION" id="region">g.region</pivot>
+	      <pivot level="MR_FLEXINS" id="mr_gid">flexins.co_mr_gid</pivot>
+	      <pivot level="WS_FLEXINS" id="ws">g.ws</pivot>
+	    </pivots>
+	    <sql-template><![CDATA[select
+					#pivots#,
+					#pi_aggregations#
+				from
+					#grouping_sql#
+					utp_common_objects plmn,
+					utp_common_objects flexins,
+					#meas_table# p
+				where
+					#add_on_clause# and
+					period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+					period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+					flexins.co_oc_id=3766 and
+					flexins.co_gid = p.fins_id and
+					flexins.co_parent_gid = plmn.co_gid
+				group by
+					#group_by#]]>
+		</sql-template>
+		<base-level id="PLMN/FLEXINS/MME-MCC/MME-MNC/MME-TA">
+    	  <levels>
+    		<level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+    		<level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+    		<level keys="FLEXINS,MME-MCC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-MCC</level>
+    		<level keys="FLEXINS,MME-MCC,MME-MNC" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-MCC/MME-MNC</level>
+    		<level keys="FLEXINS,MME-MCC,MME-MNC,MME-TA" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-MCC/MME-MNC/MME-TA</level>
+    		<level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+    	    <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+    	  </levels>
+    	  <subst>
+    		<time-level name="raw" subst="{OBJ_AGG}:ta,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        	<time-level name="whole_period" subst="{OBJ_AGG}:ta,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:ta,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:ta,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:ta,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:ta,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:ta,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+    	  </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="FLEXINS,MME-UNIT,MME-PIU" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-UNIT/MME-PIU</level>
+	        <level keys="FLEXINS,MME-UNIT,MME-PIU,MME-LIF" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:lif1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:lif1,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:lif1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:lif1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:lif1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	</meas-template>
+	
+	<!-- PIU Intermediary level  -->
+	<meas-template priority="3" pragma="pcofns">
+	    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+	    <grouping level="PLMN/MARKET" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/REGION" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/WS_FLEXINS" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <time-truncation>
+	      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+	      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+	      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW )" />
+	      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+	    </time-truncation>
+	    <!-- The required number of pivot levels will be generated starting with PLMN -->
+	    <pivots>
+	      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+	      <pivot level="FLEXINS" id="flexins_gid">flexins.co_gid</pivot>
+	      <pivot level="MME-MCC" id="mcc_id">p.mcc_id</pivot>
+	      <pivot level="MME-MNC" id="mnc_id">p.mnc_id</pivot>
+	      <pivot level="MME-UNIT" id="unit_id">p.unit_id</pivot>
+	      <pivot level="MME-PIU" id="piu_id">p.piu_id</pivot>
+	      <pivot level="MME-LIF" id="lif_id">p.lif_id</pivot>
+	      <pivot level="MME-TRA" id="tra_id">p.tra_id</pivot>
+	      <pivot level="MARKET" id="market">g.market</pivot>
+	      <pivot level="REGION" id="region">g.region</pivot>
+	      <pivot level="MR_FLEXINS" id="mr_gid">flexins.co_mr_gid</pivot>
+	      <pivot level="WS_FLEXINS" id="ws">g.ws</pivot>
+	    </pivots>
+	    <sql-template><![CDATA[select
+					#pivots#,
+					#pi_aggregations#
+				from
+					#grouping_sql#
+					utp_common_objects plmn,
+					utp_common_objects flexins,
+					#meas_table# p
+				where
+					#add_on_clause# and
+					period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+					period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+					flexins.co_oc_id=3766 and
+					flexins.co_gid = p.fins_id and
+					flexins.co_parent_gid = plmn.co_gid
+				group by
+					#group_by#]]>
+		</sql-template>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="FLEXINS,MME-UNIT,MME-PIU" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-UNIT/MME-PIU</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:piu1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:piu1,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:piu1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:piu1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:piu1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	</meas-template>
+	
+	<!-- Unit intermediary level -->
+	<meas-template priority="2" pragma="pcofns">
+	    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+	    <grouping level="PLMN/MARKET" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/REGION" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/WS_FLEXINS" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <time-truncation>
+	      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+	      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+	      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW )" />
+	      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+	    </time-truncation>
+	    <!-- The required number of pivot levels will be generated starting with PLMN -->
+	    <pivots>
+	      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+	      <pivot level="FLEXINS" id="flexins_gid">flexins.co_gid</pivot>
+	      <pivot level="MME-SMMU" id="smmu_id">p.smmu_id</pivot>
+	      <pivot level="MME-MMDU" id="mmdu_id">p.mmdu_id</pivot>
+	      <pivot level="MME-UNIT" id="unit_id">p.unit_id</pivot>
+	      <pivot level="MME-PIU" id="piu_id">p.piu_id</pivot>
+	      <pivot level="MME-LIF" id="lif_id">p.lif_id</pivot>
+	      <pivot level="MME-TRA" id="tra_id">p.tra_id</pivot>
+	      <pivot level="MARKET" id="market">g.market</pivot>
+	      <pivot level="REGION" id="region">g.region</pivot>
+	      <pivot level="MR_FLEXINS" id="mr_gid">flexins.co_mr_gid</pivot>
+	      <pivot level="WS_FLEXINS" id="ws">g.ws</pivot>
+	    </pivots>
+	    <sql-template><![CDATA[select
+					#pivots#,
+					#pi_aggregations#
+				from
+					#grouping_sql#
+					utp_common_objects plmn,
+					utp_common_objects flexins,
+					#meas_table# p
+				where
+					#add_on_clause# and
+					period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+					period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+					flexins.co_oc_id=3766 and
+					flexins.co_gid = p.fins_id and
+					flexins.co_parent_gid = plmn.co_gid
+				group by
+					#group_by#]]>
+		</sql-template>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="raw" subst="{OBJ_AGG}:unit1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+	        <time-level name="whole_period" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:unit1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:unit1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT_A1">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="raw" subst="{OBJ_AGG}:unit1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+	        <time-level name="whole_period" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:unit1,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:unit1,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-SMMU">
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	    	<level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	    	<level keys="FLEXINS,MME-SMMU" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-SMMU</level>
+	    	<level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+			<level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+			<level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	    	<level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+    	  <subst>
+    		<time-level name="raw" subst="{OBJ_AGG}:smmu,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        	<time-level name="whole_period" subst="{OBJ_AGG}:smmu,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:smmu,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:smmu,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:smmu,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:smmu,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:smmu,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+    	  </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-MMDU">
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	    	<level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	    	<level keys="FLEXINS,MME-MMDU" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-MMDU</level>
+	    	<level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+			<level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+			<level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	    	<level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+    	  <subst>
+    		<time-level name="raw" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+        	<time-level name="whole_period" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:mmdu,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+    	  </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:unit1,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/FLEXINS</level>
+	        <level keys="FLEXINS,MME-UNIT" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS/MME-UNIT</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:unit1,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:unit1,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:unit1,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	</meas-template>
+	
+	<!--  FlexiNS top level -->
+	<meas-template priority="1" pragma="pcofns">
+	    <processor>com.nokia.oss.qengine.BasicTempTable</processor>
+	    <grouping level="PLMN/MARKET" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/REGION" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <grouping level="PLMN/WS_FLEXINS" filter-level="FLEXINS" grouping-subquery-alias="g" />
+	    <time-truncation>
+	      <time-level level="whole_period" time-agg="to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')" />
+	      <time-level level="month" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="week" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="day" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="hour" time-agg="trunc( p.period_start_time, 'hh24' )" />
+	      <time-level level="raw" time-agg="trunc( p.period_start_time, 'mi' )" />
+	      <time-level level="monthbh" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="monthbh2" time-agg="trunc( p.period_start_time, 'month' )" />
+	      <time-level level="weekbh" time-agg="trunc( p.period_start_time, 'IW' )" />
+	      <time-level level="weekbh2" time-agg="trunc( p.period_start_time, 'IW )" />
+	      <time-level level="bh" time-agg="trunc( p.period_start_time, 'dd' )" />
+	      <time-level level="bh2" time-agg="trunc( p.period_start_time, 'dd' )" />
+	    </time-truncation>
+	    <!-- The required number of pivot levels will be generated starting with PLMN -->
+	    <pivots>
+	      <pivot level="PLMN" id="plmn_gid">plmn.co_gid</pivot>
+	      <pivot level="FLEXINS" id="flexins_gid">flexins.co_gid</pivot>
+	      <pivot level="MME-UNIT" id="unit_id">p.unit_id</pivot>
+	      <pivot level="MME-PIU" id="piu_id">p.piu_id</pivot>
+	      <pivot level="MME-LIF" id="lif_id">p.lif_id</pivot>
+	      <pivot level="MME-TRA" id="tra_id">p.tra_id</pivot>
+	      <pivot level="MARKET" id="market">g.market</pivot>
+	      <pivot level="REGION" id="region">g.region</pivot>
+	      <pivot level="MR_FLEXINS" id="mr_gid">flexins.co_mr_gid</pivot>
+	      <pivot level="WS_FLEXINS" id="ws">g.ws</pivot>
+	    </pivots>
+	    <sql-template><![CDATA[select
+					#pivots#,
+					#pi_aggregations#
+				from
+					#grouping_sql#
+					utp_common_objects plmn,
+					utp_common_objects flexins,
+					#meas_table# p
+				where
+					#add_on_clause# and
+					period_start_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+					period_start_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+					flexins.co_oc_id=3766 and
+					flexins.co_gid = p.fins_id and
+					flexins.co_parent_gid = plmn.co_gid
+				group by
+					#group_by#]]>
+		</sql-template>
+		<base-level id="PLMN/FLEXINS">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,weekbh,bh">PLMN/FLEXINS</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="raw" subst="{OBJ_AGG}:flexins,{TIME_AGG}:raw" can-use-raw="yes" is-raw="yes" />
+	        <time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="yes" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="yes" is-raw="no" />
+	        <time-level name="hour" subst="{OBJ_AGG}:flexins,{TIME_AGG}:raw" can-use-raw="yes" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT_A1">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-SMMU">
+	    	<levels>
+	    		<level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	    		<level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	    		<level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+		        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+		        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	    	    <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	    	</levels>
+	    	<subst>
+	        	<time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+		        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+		        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+		        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+		        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	    	</subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-MMDU">
+	    	<levels>
+	    		<level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	    		<level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	    		<level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+		        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+		        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	    	    <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	    	</levels>
+	    	<subst>
+	        	<time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+		        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+		        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+		        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+		        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	    	</subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-MCC/MME-MNC/MME-TA">
+	    	<levels>
+	    		<level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	    		<level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	    		<level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+		        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+		        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	    	    <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	    	</levels>
+	    	<subst>
+	        	<time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+		        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+		        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+		        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+		        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	    	</subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	    <base-level id="PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA">
+	      <!-- The required number of base-level elements will be generated dependant on the adaptation -->
+	      <!-- The required number of levels will be generated starting with PLMN. The keys can contain a level list. -->
+	      <levels>
+	        <level keys="PLMN" time-agg-levels="day,hour,raw,whole_period,week">PLMN</level>
+	        <level keys="FLEXINS" time-agg-levels="day,hour,raw,whole_period,week,bh,weekbh">PLMN/FLEXINS</level>
+	        <level keys="MARKET" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MARKET</level>
+	        <level keys="REGION" time-agg-levels="day,hour,raw,whole_period,week">PLMN/REGION</level>
+	        <level keys="MR_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/MR_FLEXINS</level>
+	        <level keys="WS_FLEXINS" time-agg-levels="day,hour,raw,whole_period,week">PLMN/WS_FLEXINS</level>
+	      </levels>
+	      <subst>
+	        <time-level name="whole_period" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="week" subst="{OBJ_AGG}:flexins,{TIME_AGG}:week" can-use-raw="no" is-raw="no" />
+	        <time-level name="day" subst="{OBJ_AGG}:flexins,{TIME_AGG}:day" can-use-raw="no" is-raw="no" />
+	        <time-level name="weekbh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:weekbh" can-use-raw="no" is-raw="no" />
+	        <time-level name="bh" subst="{OBJ_AGG}:flexins,{TIME_AGG}:bh" can-use-raw="no" is-raw="no" />
+	      </subst>
+	    </base-level>
+	</meas-template>
+</object-conf>
+

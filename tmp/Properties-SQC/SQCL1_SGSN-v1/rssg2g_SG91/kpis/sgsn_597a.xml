@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml" />
+  <kpi name="sgsn_597a">
+    <formula>100*decode(
+			(data.gtp_data_in_bytes_sent_in_dl + 4294967296 * data.gtp_data_bytes_sent_in_dl_ofl),0,NULL,
+
+			((data.dropped_dl_bytes_data_limiter)
+			 /
+			(data.gtp_data_in_bytes_sent_in_dl + 4294967296 * data.gtp_data_bytes_sent_in_dl_ofl)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of dropped bytes due to capacity limit exceeded]]></title>
+      <use><![CDATA[This KPI measures the ratio of dropped downlink bytes when the licensed capacity in the SGSN has been exceeded.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DROPPED_DL_BYTES_DATA_LIMITER) 
+&lt;br&gt;---------------------------------------------------------------- *100
+&lt;br&gt;sum(GTP_DATA_IN_BYTES_SENT_IN_DL + 
+&lt;br&gt;       4294967296 * GTP_DATA_BYTES_SENT_IN_DL_OFL) 
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_data</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_data_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ratio of dropped bytes due to capacity limit exceeded]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

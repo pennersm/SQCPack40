@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 PMIP_binding_revocation_ack_received BRR measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 PMIP_binding_revocation_ack_received BRR measurement dump</csv_title>
+    <report-description>Pmip bra response received statistics.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PMIP_BRA_RESP_RECV />
+  </column_order>
+  <temp_table name="BRR" meas_level="PLMN/FING/FNODE/PMIP/BRR" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PMIP_BRA_RESP_RECV" time-alias="PMIP_BRA_RESP_RECV" timeagg="SUM(PMIP_BRA_RESP_RECV)">SUM(PMIP_BRA_RESP_RECV)</counter>
+    </counters>
+    <table_name>pcofng_ps_brr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>BRR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>BRR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_brr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PMIP_BRA_RESP_RECV">
+    <formula>BRR.PMIP_BRA_RESP_RECV</formula>
+    <kpi_info>
+      <title>PMIP_BRA_RESP_RECV</title>
+      <use>This counter contains the number of received Binding Revocation Ack (BRA) response messages according to the error code UPDATED: Updated when a Binding Revocation Ack message is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PMIP_BRA_RESP_RECV)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_brr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PMIP_BRA_RESP_RECV (m3026c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

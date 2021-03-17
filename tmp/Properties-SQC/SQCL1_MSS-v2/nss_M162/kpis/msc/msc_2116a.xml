@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNLAC.xml">
+  <counters>
+  		<counter alias="count_period_msc_2116a">count(distinct period_start_time)</counter>
+  </counters>
+  </temp_table_ref>
+  <kpi name="msc_2116a">
+    <formula>(nvl(VLRNLAC.NSAVERAGE,nvl(VLRNLAC.sim_avg_reg + VLRNLAC.usim_avg_reg + VLRNLAC.unknown_avg_reg,VLRNLAC.REG_AVG)))/vlrnlac.count_period_msc_2116a</formula>
+	<kpi_info>
+      <title><![CDATA[Total average number of subscriber @ LAC level]]></title>
+      <use><![CDATA[Average number of subscribers in the given LAC (Location Area) during the result accumulation period. This KPI sums the subscribers that have triplet authentication vectors in VLR (2G), quintuplet authentication vectors in VLR (3G) and the ones that do not have authentication vectors in VLR for the given LAC (values fetched from the HLR/AUC). For the calculation of the average, the number of subscribers is interrogated at five-minute intervals.]]></use>
+<use_experience><![CDATA[ 
+<br>This KPI depends on the parameters SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE.
+<br>
+<br>!!!!IMPORTANT REMARK!!!!
+<br>The implemented formula covers three different KPI specifications: 
+<br>
+<br>=>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive, the KPI formula is equal to counter NSAVERAGE. 
+<br>
+<br>=>If parameter SIM_USIM_MEAS_PER_LAI FIFILE is active, the KPI formula is specified by "msc_2048a"
+<br>
+<br>=>If SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active, the KPI formula is equal to counter REG_AVG.
+<br>
+<br>
+<br>PUBLISHED: M15.0
+<br>LAST UPDATE: 14-09-2011
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->LAC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: LAC
+<br>
+<br>KPI CLASS: Subscriber
+<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+&lt;br&gt;            
+&lt;br&gt;Counter: NSAVERAGE (If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive) 
+&lt;br&gt; 
+&lt;br&gt;            
+&lt;br&gt;msc_2048a = SIM_AVG_REG + USIM_AVG_REG + UNKNOWN_AVG_REG
+&lt;br&gt;            
+&lt;br&gt;            
+&lt;br&gt;Counter: REG_AVG (If SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active)
+&lt;br&gt;
+</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLRNLAC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[AvgSubs LAC Aux]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

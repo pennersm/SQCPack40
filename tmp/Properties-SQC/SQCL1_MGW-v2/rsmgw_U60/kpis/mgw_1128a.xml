@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/T38FAX.xml" />
+  <kpi name="mgw_1128a">
+    <formula>decode(
+			(t38fax.t38_reservation + 
+			t38fax.t38_error),0,null, 
+
+			(100*(t38fax.t38_reservation)
+			 / 
+			(t38fax.t38_reservation + 
+			t38fax.t38_error)))</formula>
+    <kpi_info>
+      <title><![CDATA[Successful ratio of T.38 Fax resource reservation for IP based Route]]></title>
+      <use><![CDATA[Ratio of successful resource reservation usage of T.38]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           SUM(T38_RESERVATION)
+&lt;br&gt;100 * --------------------------------
+&lt;br&gt;      SUM(T38_RESERVATION + T38_ERROR)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_t38fax_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>T.38 Fax rsrv IP Route SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

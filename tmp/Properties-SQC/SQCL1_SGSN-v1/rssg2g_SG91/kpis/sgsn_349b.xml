@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml" />
+  <kpi name="sgsn_349b">
+    <formula>decode(
+			(data.nsvc_passed_data_packets_pr1),0,NULL, 
+
+			(100*(data.nsvc_forw_data_packets_pr1)
+			 / 
+			(data.nsvc_passed_data_packets_pr1)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of NS-VC forwarded data packets Priority 1]]></title>
+      <use><![CDATA[This KPI shows the ratio of forwarded NS-VC priority 1 packets when compared  to total amount of NSVC priority 1 passed packets]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (NSVC_FORW_DATA_PACKETS_PR1)
+&lt;br&gt;---------------------------------------------------------------------------- * 100
+&lt;br&gt;sum (NSVC_PASSED_DATA_PACKETS_PR1)
+&lt;br&gt;
+&lt;br&gt;counters from tables(s): p_sgsn_data</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_data_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ratio of NS-VC forwarded data packets Priority 1]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

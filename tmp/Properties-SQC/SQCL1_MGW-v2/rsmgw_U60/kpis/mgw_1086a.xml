@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/NSUPPR.xml" />
+  <kpi name="mgw_1086a">
+    <formula>decode(
+			(nsuppr.ater_ns_success + 
+			nsuppr.ater_ns_reservation_failure),0,null, 
+
+			(100*(nsuppr.ater_ns_success)
+			 / 
+			(nsuppr.ater_ns_success + 
+			nsuppr.ater_ns_reservation_failure)))</formula>
+    <kpi_info>
+      <title><![CDATA[Noise Suppression in Ater interface Success Ratio]]></title>
+      <use><![CDATA[Indicates success ratio of resource reservation attempts with Noise Suppression in Ater interface in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                   SUM(ATER_NS_SUCCESS)
+&lt;br&gt;100 * -------------------------------------------------
+&lt;br&gt;      SUM(ATER_NS_SUCCESS + ATER_NS_RESERVATION_FAILURE)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_nsuppr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NS Ater success ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

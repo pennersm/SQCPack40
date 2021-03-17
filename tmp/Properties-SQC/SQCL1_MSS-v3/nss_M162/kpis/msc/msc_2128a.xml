@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_2128a">
+    
+	<formula>
+    100*decode(
+	(VLR1MSC.PSI_PAGING_SGS_ATTEMPT),0,null, 
+
+	(VLR1MSC.PSI_PAGING_SGS_SUCCESS)
+	/ 
+	(VLR1MSC.PSI_PAGING_SGS_ATTEMPT))
+	</formula>
+
+	<kpi_info>
+      <title><![CDATA[SGs PSI paging success ratio - Own MSS.]]></title>
+      <use><![CDATA[PSI (Provide Subscriber Information) SGs interface paging success ratio when the CS Fall Back is made to the same MSS.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>
+		<br>This KPI needs an optional feature (L.1630 => FN1914: CS Fallback in EPS for MSC Server).
+		<br>
+		<br>PUBLISHED: M15.1
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part one (M82)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt;            
+		&lt;br&gt;SUM( PSI_PAGING_SGS_SUCCESS ) 
+		&lt;br&gt;------------------------------- * 100 
+		&lt;br&gt;SUM( PSI_PAGING_SGS_ATTEMPT ) 
+		&lt;br&gt;
+		&lt;br&gt;Counters from AGGREGATED view(s) 
+		&lt;br&gt;
+		</formula>
+
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[AvgSubs LAC Aux]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M306</header>
+    <csv_title>Nokia Siemens NSS M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M306 DSE measurement dump</csv_title>
+    <report-description>Data service unit measurement(DSE)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="DSE_ext" meas_level="PLMN/MSC/CALLTYPE" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="DSU_CALLS">SUM(DSU_CALLS)</counter>
+      <counter alias="DSU_ACCEP">SUM(DSU_ACCEP)</counter>
+      <counter alias="DSU_ANSW">SUM(DSU_ANSW)</counter>
+      <counter alias="DSU_ONLINE">SUM(DSU_ONLINE)</counter>
+      <counter alias="DSU_SFAIL">SUM(DSU_SFAIL)</counter>
+      <counter alias="DSU_IFAIL">SUM(DSU_IFAIL)</counter>
+      <counter alias="DSU_EFAIL">SUM(DSU_EFAIL)</counter>
+      <counter alias="DSU_SEIZURE">SUM(DSU_SEIZURE)</counter>
+      <counter alias="DSU_INVALID_RECORD">AVG(DSU_INVALID_RECORD)</counter>
+
+      <counter alias="dsu_answ_1">sum(CASE WHEN CALL_TYPE_ID='TRANSPARENT_NO_IWF' OR CALL_TYPE_ID='UMTS_TRANSP_NO_IWF' THEN 0 ELSE DSU_ANSW END)</counter>
+      <counter alias="dsu_online_1">sum(CASE WHEN CALL_TYPE_ID='TRANSPARENT_NO_IWF' OR CALL_TYPE_ID='UMTS_TRANSP_NO_IWF' THEN 0 ELSE DSU_ONLINE END)</counter>
+    </counters>
+    <table_name>rns_ps_dse_calltype1_{TIME_AGG}</table_name>
+    <alias_name>DSE_ext</alias_name>
+  </temp_table>
+</conf_file>
+

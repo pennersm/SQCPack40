@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4025a">
+    <formula>
+decode(TC_ext.tcat_call_amount_38 ,0,null,
+	100 * ( (TC_ext.tcat_ok_amount_23 + TC_ext.tcat_group1_1 + TC_ext.tcat_group4_2 ) / TC_ext.tcat_call_amount_38 )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MOC-PSTN Success Ratio]]></title>
+      <use><![CDATA[Indicates the number of successful MOC-PSTN or other PLMN calls ratio.]]></use>
+
+<use_experience><![CDATA[ 
+<br>TCat_Id:
+<br>   123 = 2G OUT OTH -> 2G originating and outgoing calls to other PLMN or PSTN
+<br>   125 = 3G OUT OTH -> 3G originating and outgoing calls to other PLMN or PSTN
+<br>
+<br>=> tcat_group1 = (MOC-PSTN B-BUSY ratio) + (MOC-PSTN No-Answer Ratio) + (MOC-PSTN A-Release Ratio)
+<br>   4 = B BUSY OR CONGESTION RECEIVED FROM OUTGOING CIRCUIT
+<br>   5 = B SUBSCRIBER BUSY
+<br>   6 = B ANSWER TIME OUT
+<br>   7 = CALL WAITING TIME OUT
+<br>   21 = B-SUBSCRIBER BUSY, CCBS POSSIBLE
+<br>   22 = B-SUBSCRIBER BUSY, CCBS NOT POSSIBLE 
+<br>   26 = B-SUBSCRIBER BUSY, CCBS POSSIBLE WITH CCBS-MOBILE STATION
+<br>   D07 = NO RESPONSE TO CALL ESTABLISHMENT; ALERTING OR CONNECT
+<br>   10 = ABSENT SUBSCRIBER 
+<br>   30A = CLEAR/A ONHOOK DURING SET-UP PHAS
+<br>   30B = CLEAR/A ONHOOK DURING WAIT FOR ANSWER PHASE
+<br>  
+<br>=> tcat_group4 = Radio related clear codes:   
+<br>   012 - NO PAGING RESPONSE
+<br>   205 - RADIO INTERFACE CONGESTION
+<br>   844 - RADIONW AS MAG FAILURE
+<br>   845 - RANAP PROTOCOL ERROR
+<br>   846 - RNW INIT SIGN CON FAILURE
+<br>   B13 - RADIO INTERFACE FAILURE
+<br>   B16 - REMOTE EQUIPMENT FAILURE
+<br>   B1B - RADIO INTERFACE MESSAGE FAILURE
+<br>   B1E - RADIO RESOURCE UNAVAILABLE
+<br>   B1F - REQUESTED TERRESTRIAL RESOURCE UNAVAILABLE
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 03-05-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is partially compliant with ex-S &quot;MOC-PSTN Success Ratio&quot; KPI
+<br>In this NSN mapping KPI, contrary to the ex-S approach, the errors due to other exchange were are not included in the success factors.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( tcat_ok_amount ) +  SUM( tcat_group1 ) +  SUM( tcat_group4 ) 
+&lt;br&gt;         ;WHERE TCat_id = 123, 125
+&lt;br&gt;100 * --------------------------------
+&lt;br&gt;      SUM( tcat_call_amount )
+&lt;br&gt;         ;WHERE TCat_id = 123, 125</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MOC to PSTN/oth PLMN SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

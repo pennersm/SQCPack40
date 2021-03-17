@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="mgw_1196a">
+    <formula>decode(
+			(signtrc.mgw_1002c),0,null, 
+
+			(100*(signtrc.cat1_to_cat2_aoip + 
+			signtrc.cat2_to_cat1_aoip + 
+			signtrc.inside_cat1_aoip + 
+			signtrc.inside_cat2_aoip)
+			 / 
+			signtrc.mgw_1002c))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful codec modification in AoIP interface]]></title>
+      <use><![CDATA[Indicates share of successful codec modification in AoIP interface of all successful codec modifications in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(CAT1_TO_CAT2_AOIP + CAT2_TO_CAT1_AOIP + 
+&lt;br&gt;          INSIDE_CAT1_AOIP  + INSIDE_CAT2_AOIP)
+&lt;br&gt;100 * --------------------------------------------- 
+&lt;br&gt;                       mgw_1002c
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shar Succ Codec Modf AoIP If</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

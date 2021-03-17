@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/AAL2CAC.xml" />
+  <kpi name="MGW_551a">
+    <formula>100*decode(
+			aal2cac.aal2_path_guar_cell_rate,0,null, 
+
+			(decode(
+			aal2cac.nbr_samples,0,null, 
+
+			aal2cac.sum_reserved_cell_rate
+			 / 
+			aal2cac.nbr_samples))
+			 / 
+			aal2cac.aal2_path_guar_cell_rate)</formula>
+    <kpi_info>
+      <title><![CDATA[AAL2 path average reserved bandwidth]]></title>
+      <use><![CDATA[The ratio between average reserved bandwidth and total bandwidth of AAL2 path estimated by CAC during measurement period. The high reservation level may cause blocking of radio bearer setup. This KPI is based on AAL2 Path CAC Resource Measurement.]]></use>
+
+<use_experience><![CDATA[ 
+<br>formula edit
+<br>LAST UPDATE: 23-09-2008
+<br>THEORETICAL SUMMARY LEVELS: PLMN, MGW
+<br>RECOMMENDED TIME SUMMARY LEVELS: Total; day; dailyBH; hour
+<br>KPI CLASS: Resource
+<br>MEASUREMENT(S): AAL2 Path CAC Resource
+<br>M550
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(SUM_RESERVED_CELL_RATE/NBR_SAMPLES)/sum(AAL2_PATH_GUAR_CELL_RATE)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_aal2cac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[AAL2 path average reserved bandwidth]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M240</header>
+    <csv_title>Nokia Siemens NSS M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M240 LULAC measurement dump</csv_title>
+    <report-description>VLR measurement, part n, location update per LAC (LULAC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="LULAC_ext" meas_level="PLMN/MSC/MNCM/LAC/ACCESS" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT">SUM(INTRA_VLR_LOC_UPDATE_ATTEMPT)</counter>
+      <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS">SUM(INTRA_VLR_LOC_UPDATE_SUCCESS)</counter>
+      <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT">SUM(INTER_VLR_LOC_UPDATE_ATTEMPT)</counter>
+      <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS">SUM(INTER_VLR_LOC_UPDATE_SUCCESS)</counter>
+      <counter alias="PERIODIC_LOC_UPDATE_ATTEMPT">SUM(PERIODIC_LOC_UPDATE_ATTEMPT)</counter>
+      <counter alias="PERIODIC_LOC_UPDATE_SUCCESS">SUM(PERIODIC_LOC_UPDATE_SUCCESS)</counter>
+      <counter alias="IMSI_ATTACH_ATTEMPT">SUM(IMSI_ATTACH_ATTEMPT)</counter>
+      <counter alias="IMSI_ATTACH_SUCCESS">SUM(IMSI_ATTACH_SUCCESS)</counter>
+      <counter alias="TCAT_CALL_AMOUNT">SUM(TCAT_CALL_AMOUNT)</counter>
+      <counter alias="TC_PERIOD_DURATION">AVG(period_duration)</counter>
+
+	  <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN INTRA_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN INTRA_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN INTER_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN INTER_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_SUCCESS_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN PERIODIC_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_ATTEMPT_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN PERIODIC_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_SUCCESS_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN IMSI_ATTACH_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_ATTEMPT_1">sum(CASE WHEN ACCESS_ID LIKE '2G' THEN IMSI_ATTACH_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN INTRA_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN INTRA_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN INTRA_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN INTRA_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN INTRA_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN INTRA_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN INTER_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN INTER_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN INTER_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN INTER_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN INTER_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN INTER_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_SUCCESS_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN PERIODIC_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_ATTEMPT_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN PERIODIC_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_SUCCESS_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN PERIODIC_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_ATTEMPT_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN PERIODIC_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_SUCCESS_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN PERIODIC_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="PERIODIC_LOC_UPDATE_ATTEMPT_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN PERIODIC_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_SUCCESS_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN IMSI_ATTACH_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_ATTEMPT_2">sum(CASE WHEN ACCESS_ID LIKE '3G' THEN IMSI_ATTACH_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_SUCCESS_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN IMSI_ATTACH_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_ATTEMPT_3">sum(CASE WHEN ACCESS_ID LIKE 'UMA' THEN IMSI_ATTACH_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_SUCCESS_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN IMSI_ATTACH_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_ATTEMPT_4">sum(CASE WHEN ACCESS_ID LIKE 'SIP' THEN IMSI_ATTACH_ATTEMPT ELSE 0 END)</counter>
+
+	  <counter alias="INTRA_VLR_LOC_UPDATE_SUCCESS_5">sum(CASE WHEN ACCESS_ID LIKE 'LTE' THEN INTRA_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTRA_VLR_LOC_UPDATE_ATTEMPT_5">sum(CASE WHEN ACCESS_ID LIKE 'LTE' THEN INTRA_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_SUCCESS_5">sum(CASE WHEN ACCESS_ID LIKE 'LTE' THEN INTER_VLR_LOC_UPDATE_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="INTER_VLR_LOC_UPDATE_ATTEMPT_5">sum(CASE WHEN ACCESS_ID LIKE 'LTE' THEN INTER_VLR_LOC_UPDATE_ATTEMPT ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_SUCCESS_5">sum(CASE WHEN ACCESS_ID LIKE 'LTE' THEN IMSI_ATTACH_SUCCESS ELSE 0 END)</counter>
+	  <counter alias="IMSI_ATTACH_ATTEMPT_5">sum(CASE WHEN ACCESS_ID LIKE 'LTE' THEN IMSI_ATTACH_ATTEMPT ELSE 0 END)</counter>
+
+      <counter alias="IE_VLR_LU_REROUTE_1">SUM(CASE WHEN ACCESS_ID LIKE '2G' THEN IE_VLR_LU_REROUTE ELSE 0 END)</counter>
+      <counter alias="IE_VLR_LU_REROUTE_2">SUM(CASE WHEN ACCESS_ID LIKE '3G' THEN IE_VLR_LU_REROUTE ELSE 0 END)</counter>
+
+    </counters>
+    <table_name>rns_ps_lulac_access1_{TIME_AGG}</table_name>
+    <alias_name>LULAC_ext</alias_name>
+  </temp_table>
+</conf_file>

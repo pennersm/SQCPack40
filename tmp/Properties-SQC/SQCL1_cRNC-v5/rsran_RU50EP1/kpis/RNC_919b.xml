@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_919b">
+    <formula>decode(
+			(traffic.rel_edch_norm_int + 
+			traffic.rel_edch_norm_bgr + 
+			traffic.rel_edch_rl_fail_int + 
+			traffic.rel_edch_rl_fail_bgr + 
+			traffic.rel_edch_other_fail_int + 
+			traffic.rel_edch_other_fail_bgr),0,null, 
+
+			(100*(traffic.rel_edch_norm_int + 
+			traffic.rel_edch_norm_bgr)
+			 / 
+			(traffic.rel_edch_norm_int + 
+			traffic.rel_edch_norm_bgr +  
+			traffic.rel_edch_rl_fail_int + 
+			traffic.rel_edch_rl_fail_bgr + 
+			traffic.rel_edch_other_fail_int + 
+			traffic.rel_edch_other_fail_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA resource Retainability for NRT Traffic]]></title>
+      <use><![CDATA[The retainability of all successfully allocated E-DCH resources for NRT traffic.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(REL_EDCH_NORM_INT + 
+&lt;br&gt;REL_EDCH_NORM_BGR)
+&lt;br&gt;/
+&lt;br&gt;sum(REL_EDCH_NORM_INT +
+&lt;br&gt;REL_EDCH_NORM_BGR + 
+&lt;br&gt;REL_EDCH_RL_FAIL_INT + 
+&lt;br&gt;REL_EDCH_RL_FAIL_BGR + 
+&lt;br&gt;REL_EDCH_OTHER_FAIL_INT + 
+&lt;br&gt;REL_EDCH_OTHER_FAIL_BGR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSUPA resource Retainability for NRT Traffic]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

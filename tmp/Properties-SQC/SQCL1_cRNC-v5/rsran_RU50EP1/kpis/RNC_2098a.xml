@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2098a">
+    <formula>decode(
+			(100*60*(TRAFFIC.period_duration_sum)*1000),0,null, 
+
+			((5.9*traffic.allo_dur_hs_dsch_5_9_amr + 
+			12.2*traffic.allo_dur_hs_dsch_12_2_amr + 
+			12.65*traffic.allo_dur_hs_dsch_12_65_amr))
+			 / 
+			(100*60*(TRAFFIC.period_duration_sum)*1000))</formula>
+    <kpi_info>
+      <title><![CDATA[Average allocated DL HSPA CS voice channel capacity]]></title>
+      <use><![CDATA[Allocated Downlink Channel Capacity for CS Voice over HSPA in Controlling RNC. This KPI provides information about a CS Voice over HSDPA throughput estimation based on channel allocation counters.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (5.9 * allo_dur_hs_dsch_5_9_amr + 12.2 * allo_dur_hs_dsch_12_2_amr + 12.65 * allo_dur_hs_dsch_12_65_amr)
+&lt;br&gt;------------------------------------------------------------------------------------------------------------
+&lt;br&gt;                                100 * 60 * sum (period_duration_sum) * 1000
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Kbit/s]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Avg allo DL HSPA cap CS voice]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

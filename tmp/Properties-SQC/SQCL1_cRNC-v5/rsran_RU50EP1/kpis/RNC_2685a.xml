@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/OPSTA.xml" />
+  <kpi name="RNC_2685a">
+    <formula>100*decode(
+			(opsta.allo_success_edch_op + 
+			opsta.edch_allo_canc_na_as_op + 
+			opsta.ul_dch_sel_max_hsupa_usr_op + 
+			opsta.ul_dch_sel_bts_hw_op + 
+			opsta.setup_fail_edch_op + 
+			opsta.setup_rej_edch_ac_nrt_op),0,null, 
+
+			opsta.edch_allo_canc_na_as_op
+			 / 
+			(opsta.allo_success_edch_op + 
+			opsta.edch_allo_canc_na_as_op + 
+			opsta.ul_dch_sel_max_hsupa_usr_op + 
+			opsta.ul_dch_sel_bts_hw_op + 
+			opsta.setup_fail_edch_op + 
+			opsta.setup_rej_edch_ac_nrt_op))</formula>
+    <kpi_info>
+      <title><![CDATA[E-DCH Allocation FR OP, NA AS]]></title>
+      <use><![CDATA[Percentage of times when E-DCH allocation made by the cell specific packet scheduler for a interactive, background and streaming class connection is cancelled due to non-acceptable E-DCH active set.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(EDCH_ALLO_CANC_NA_AS_OP)
+&lt;br&gt;-----------------------------
+&lt;br&gt;sum(ALLO_SUCCESS_EDCH_OP +
+&lt;br&gt;EDCH_ALLO_CANC_NA_AS_OP +
+&lt;br&gt;UL_DCH_SEL_MAX_HSUPA_USR_OP +
+&lt;br&gt;UL_DCH_SEL_BTS_HW_OP +
+&lt;br&gt;SETUP_FAIL_EDCH_OP +
+&lt;br&gt;SETUP_REJ_EDCH_AC_NRT_OP)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_OPSTA_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/06/10 13:26:17.405 +0100</date>
+          <comment><![CDATA[Source: RSRAN130.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>OP E-DCH alloc, NA AS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

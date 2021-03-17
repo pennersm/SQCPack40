@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_5007a">
+    <formula>
+    decode(TC_ext.tcat_call_amount_32,0,null,
+    	(ho1.INTRABSCOK + ho1.INTRARNCOK)/(TC_ext.tcat_call_amount_32)
+    )
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Intra BSC-RNC Handovers per call]]></title>
+      <use><![CDATA[Intra BSC/RNC handovers per call.]]></use>
+
+<use_experience><![CDATA[
+<br> BH is found for both M81 + M20 measures when MAX of AVG ( c.tcat_traffx100 ) WHERE c = M20 = &quot;Traffic category measurement&quot; is achieved
+<br>
+<br>Traffic Categories IDs:
+<br>32=3G ORIG=Orig traff from a 3G radio network when the call is started
+<br>33=3G TERM=Term traff to a 3G radio network when the call is started
+<br>34=2G ORIG=Orig traff from GSM radio network when the call is started
+<br>35=2G TERM=Term traff to GSM radio network when the call is started
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>LAST UPDATE: 05-03-2010
+<br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Traffic category measurement (20/14H), Handover measurement (81/51H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(
+&lt;br&gt;    a.intraBscOk
+&lt;br&gt;    + a.intraRncOk)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;SUM(
+&lt;br&gt;    b.TCAT_CALL_AMOUNT) 
+&lt;br&gt;
+&lt;br&gt;;where traffic_category_id in (32, 33, 34, 35)
+&lt;br&gt;;For BH
+&lt;br&gt; 
+&lt;br&gt;Counters from measures:
+&lt;br&gt;a = M81 = Handover measurement, part 1
+&lt;br&gt;b = M20 = Traffic category measurement</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_HO1_{OBJ_AGG}_{TIME_AGG},rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Intra BSC-RNC HO per call</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

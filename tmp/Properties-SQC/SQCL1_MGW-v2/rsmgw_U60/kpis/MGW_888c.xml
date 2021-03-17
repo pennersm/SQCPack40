@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_888c">
+    <formula>decode(
+			(signtrc.mgw_1005c),0,null, 
+
+			(100*(signtrc.mume_to_speech_nb_ip + 
+			signtrc.mume_to_speech_nb_atm + 
+			signtrc.mume_to_speech_iu_atm + 
+			signtrc.mume_to_speech_iu_ip)
+			 / 
+			signtrc.mgw_1005c))</formula>
+    <kpi_info>
+      <title><![CDATA[Successful ratio of call type modifications from MuMe dummy codec to any speech codec]]></title>
+      <use><![CDATA[Indicates successful SCUDIF related call type modifications from MultiMedia dummy codec to any speech codec of all successful call type modifications in measured MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(MUME_TO_SPEECH_NB_IP + MUME_TO_SPEECH_NB_ATM +
+&lt;br&gt;               MUME_TO_SPEECH_IU_ATM +  MUME_TO_SPEECH_IU_IP)
+&lt;br&gt;----------------------------------------------------------------------------------------------------------- x 100
+&lt;br&gt;                                     mgw_1005c
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CTMod MuMeDmyCod AnySpcCod SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

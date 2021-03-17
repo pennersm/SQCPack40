@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU50EP1/counters/FSEPS_ext.xml" />
+  <kpi name="RNC_3177a">
+    <formula>100*decode(
+			(fseps.receivedesppackets_1),0,null, 
+
+			(fseps.trafficselectormismatch)
+			 / 
+			(fseps.receivedesppackets_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of discarded ESP packets discarded due to traffic selector mismatch]]></title>
+      <use><![CDATA[The percentage of received ESP packets addressed to a local tunnel endpoint with a SPI of an existing IPsec SA, the packets fit into the anti replay window, the packets could be decrypted and authenticated but the packets do not match the traffic selectors configured for the associated policy.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(trafficSelectorMismatch)
+&lt;br&gt;/
+&lt;br&gt;SUM(receivedESPpackets)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_FSEPS_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:10:01.176 +0100</date>
+          <comment><![CDATA[Source: RSRAN127.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Disc pkt select mism</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

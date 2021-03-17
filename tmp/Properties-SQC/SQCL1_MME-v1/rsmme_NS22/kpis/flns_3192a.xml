@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/S6A.xml" />
+  <kpi name="flns_3192a">
+    <formula>decode(
+            (s6a.dia_successful_connections + 
+            s6a.dia_failed_connections),0,null,
+            
+            s6a.dia_successful_connections
+            / 
+            (s6a.dia_successful_connections + 
+            s6a.dia_failed_connections))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S6a Diameter connection success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of diameter connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DIA_SUCCESSFUL_CONNECTIONS)
+&lt;br&gt;--------------------------------- *100
+&lt;br&gt;sum(DIA_SUCCESSFUL_CONNECTIONS +
+&lt;br&gt;   DIA_FAILED_CONNECTIONS)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_S6A_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.664 +0100</date>
+          <comment><![CDATA[Source: RSMME018.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S6a Diameter conn SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

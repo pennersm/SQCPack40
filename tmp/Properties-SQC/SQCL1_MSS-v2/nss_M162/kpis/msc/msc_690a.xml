@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_690a">
+    <formula>100*decode(
+			(vlr1msc.pagingthroughaifattempts + 
+			vlr1msc.mssearchattempts),0,null, 
+
+			(vlr1msc.mssearchsucc + 
+			vlr1msc.pagingthroughaifsucc)
+			 / 
+			(vlr1msc.pagingthroughaifattempts + 
+			vlr1msc.mssearchattempts))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging success ratio through CS domain with MS search]]></title>
+      <use><![CDATA[Indicates the success ratio of CS paging, including MS search (call &amp; SMS).]]></use>
+
+<use_experience><![CDATA[ 
+<br>The MS Search procedure results have been included to the KPI, since from the customer perception point of it does not matter if the paging success was the result of Paging or MS Search procedure. 
+<br>
+<br>PUBLISHED:  M12
+<br>LAST UPDATE: 26-09-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum(MSSearchSucc
+&lt;br&gt;            + PagingThroughAIFSucc)
+&lt;br&gt;   100 * -----------------------------------------------------------------------------------------
+&lt;br&gt;          sum(PagingThroughAIFAttempts
+&lt;br&gt;            +MSSearchAttempts)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg},RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Paging success ratio through CS domain with MS search]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

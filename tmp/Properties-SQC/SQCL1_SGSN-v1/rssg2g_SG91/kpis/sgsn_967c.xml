@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/NSVCDATA.xml" />
+  <kpi name="sgsn_967c">
+    <formula>decode(nsvcdata.nsvc_passed_data_bytes_pr1 + nsvcdata.nsvc_passed_data_bytes_pr2 +
+					nsvcdata.nsvc_passed_data_bytes_pr3 + nsvcdata.nsvc_passed_data_bytes_pr4 +
+					nsvcdata.nsvc_passed_data_bytes_str + nsvcdata.nsvc_disc_data_bytes_pr1 +
+					nsvcdata.nsvc_disc_data_bytes_pr2 + nsvcdata.nsvc_disc_data_bytes_pr3 +
+					nsvcdata.nsvc_disc_data_bytes_pr4 + nsvcdata.nsvc_disc_data_bytes_str
+					,0,NULL,
+					100*(nsvcdata.nsvc_disc_data_bytes_pr1 +
+					nsvcdata.nsvc_disc_data_bytes_pr2 + nsvcdata.nsvc_disc_data_bytes_pr3 +
+					nsvcdata.nsvc_disc_data_bytes_pr4 + nsvcdata.nsvc_disc_data_bytes_str)
+			 		/
+					(nsvcdata.nsvc_passed_data_bytes_pr1 + nsvcdata.nsvc_passed_data_bytes_pr2 +
+					nsvcdata.nsvc_passed_data_bytes_pr3 + nsvcdata.nsvc_passed_data_bytes_pr4 +
+					nsvcdata.nsvc_passed_data_bytes_str + nsvcdata.nsvc_disc_data_bytes_pr1 +
+					nsvcdata.nsvc_disc_data_bytes_pr2 + nsvcdata.nsvc_disc_data_bytes_pr3 +
+					nsvcdata.nsvc_disc_data_bytes_pr4 + nsvcdata.nsvc_disc_data_bytes_str))</formula>
+   <kpi_info>
+      <title><![CDATA[NS-VC DL data discard ratio]]></title>
+      <use><![CDATA[This KPI shows the data discard ratio of NS-VC downlink data discarded by the Frame Relay NS-VC control due to CIR overflow.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum NSVC_DISC_DATA_BYTES_PR1 +
+&lt;br&gt;       NSVC_DISC_DATA_BYTES_PR2 + NSVC_DISC_DATA_BYTES_PR3 +
+&lt;br&gt;       NSVC_DISC_DATA_BYTES_PR4 + NSVC_DISC_DATA_BYTES_STR)
+&lt;br&gt;----------------------------------------------------------------------------------------------------------------------------*100
+&lt;br&gt;sum(NSVC_PASSED_DATA_BYTES_PR1 + NSVC_PASSED_DATA_BYTES_PR2 +
+&lt;br&gt;       NSVC_PASSED_DATA_BYTES_PR3 + NSVC_PASSED_DATA_BYTES_PR4 +
+&lt;br&gt;       NSVC_PASSED_DATA_BYTES_STR + NSVC_DISC_DATA_BYTES_PR1 +
+&lt;br&gt;       NSVC_DISC_DATA_BYTES_PR2 + NSVC_DISC_DATA_BYTES_PR3 +
+&lt;br&gt;       NSVC_DISC_DATA_BYTES_PR4 + NSVC_DISC_DATA_BYTES_STR)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;counters from table(s):p_sgsn_nsvc_data</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_nsvcdata_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[NS-VC DL data discard ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

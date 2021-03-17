@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RCRLCR.xml" />
+  <kpi name="RNC_1887a">
+    <formula>8*decode(
+			(rcrlcr.rlc_am_ul_meas_time_r),0,null, 
+
+			(rcrlcr.rlc_am_sdu_ul_ps_vol_r)
+			 / 
+			(rcrlcr.rlc_am_ul_meas_time_r*0.001*1000000))</formula>
+    <kpi_info>
+      <title><![CDATA[Average HSUPA Session Throughput , RNC Level]]></title>
+      <use><![CDATA[Average HSUPA Session throughput. This KPI is based on the number of SDU bytes transmitted in uplink using RLC Aknowledge Mode and on the actual transmission time.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; 8 * SUM(RLC_AM_SDU_UL_PS_VOL_R)
+&lt;br&gt; --------------------------------------
+&lt;br&gt; SUM(RLC_AM_UL_MEAS_TIME_R)*0,001*1000000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_RCRLCR_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/29 05:32:41.627 +0000</date>
+          <comment><![CDATA[Source: RSRAN144.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSUPA session thp RNC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

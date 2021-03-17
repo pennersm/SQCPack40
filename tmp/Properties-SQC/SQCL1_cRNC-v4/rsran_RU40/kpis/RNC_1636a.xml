@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPROUT.xml" />
+  <kpi name="RNC_1636a">
+    <formula>decode(
+			(iprout.period_duration),0,null, 
+
+			(8*(iprout.in_data_ip_route_1)
+			 / 
+			(60*iprout.period_duration*1000)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iub throughput - ingress]]></title>
+      <use><![CDATA[This KPI provides information about the RNC Iub IP layer uplink throughput in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;8* SUM(IN_DATA_IP_ROUTE)
+&lt;br&gt;------------------------
+&lt;br&gt;SUM(60 * PERIOD_DURATION)*1000</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Iub thp ingress</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/IPROUT_ext.xml" />
+</conf_file>
+

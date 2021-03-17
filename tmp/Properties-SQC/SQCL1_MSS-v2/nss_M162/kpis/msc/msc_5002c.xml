@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <temp_table_ref src="nss/counters/VLRNMSC.xml" />
+  <kpi name="msc_5002c">
+    <formula>
+decode(
+			(vlrnmsc.REG_AVG_TOTAL),0,null,
+
+	(
+		(vlr1msc.periodiclocreggsmattempt + 
+			vlr1msc.periodiclocregumtsattempt + 
+			vlr1msc.sip_periodic_lu_attempt)
+				 / 
+				(vlrnmsc.REG_AVG_TOTAL)
+		)
+	)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Periodic Location Update per Mobile Subscriber in the Busy Hour. ENH_VLR Opt.]]></title>
+      <use><![CDATA[Periodic location update per mobile subscribers during the busy hour.
+	  <br>
+	  <br>This KPI is to be used if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active. ]]></use>	  	  
+
+<use_experience><![CDATA[
+<br> BH is found for both M80 + M82 measures when MAX of AVG ( c.tcat_traffx100 ) WHERE c = M20 = &quot;Traffic category measurement&quot; is achieved.
+<br>
+<br>SIP Periodic LU Attempt is provided only if the NVS feature is active.
+<br>
+<br>Starting from M14.6, the UMTS LU attempts also count the I-HSPA related events (LU attempts via I-HSPA).
+<br>
+<br>This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.
+<br>
+<br>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive please use msc_5002a KPI. 
+<br>
+<br>If SIM_USIM_MEAS_PER_LAI is active please use msc_5002b KPI.
+<br>
+<br>LAST UPDATE: 28-10-2010
+<br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement, part n (80/50H), VLR measurement, part 1 (82/52H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM (  
+&lt;br&gt;       a.PeriodicLocRegGSMAttempt
+&lt;br&gt;       + a.PeriodicLocRegUMTSAttempt
+&lt;br&gt;       + a.SIP_Periodic_LU_Attempt)
+&lt;br&gt;-------------------------------------------------
+&lt;br&gt; AVG (b.REG_AVG_TOTAL) 
+&lt;br&gt;
+&lt;br&gt; 
+&lt;br&gt;;For the BH
+&lt;br&gt;
+&lt;br&gt;Counter from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;Counters from measures:
+&lt;br&gt;a = M82 = VLR measurement, part one
+&lt;br&gt;b = M80 = VLR measurement, part n
+&lt;br&gt;
+&lt;br&gt;b =&amp;amp;gt; TotalAverage counter aggregation: AVG for time and SUM for network</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg},rns_ps_vlrnmsc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Prd LU Mobi Subsc BsyHor</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

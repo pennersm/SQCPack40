@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>LNCELHO (LTE Neighbour cell related Handover)</header>
+    <csv_title>LNCELHO (LTE Neighbour cell related Handover)</csv_title>
+    <report-description>Neighbour cell related Handover measurement (M8015)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <INTRA_HO_PREP_FAIL_NB />
+    <INTRA_HO_ATT_NB />
+    <INTRA_HO_SUCC_NB />
+    <INTRA_HO_DROPS_NB />
+    <INTER_HO_PREP_FAIL_OTH_NB />
+    <INTER_HO_PREP_FAIL_TIME_NB />
+    <INTER_HO_PREP_FAIL_AC_NB />
+    <INTER_HO_ATT_NB />
+    <INTER_HO_SUCC_NB />
+    <INTER_HO_FAIL_NB />
+    <INTER_HO_DROPS_NB />
+    <INTRA_HO_FAIL_NB />
+    <MRO_LATE_HO_NB />
+    <MRO_EARLY_TYPE1_HO_NB />
+    <MRO_EARLY_TYPE2_HO_NB />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="LNCELHO" meas_level="PLMN/MRBTS/LNBTS/LNCEL/LTE-ECI" type="PM" master="yes" pragma="noklte" create="yes">
+  <koala_meas_id_list>LNCELHO</koala_meas_id_list>
+    <counters>
+	  <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+	  <counter alias="INTRA_HO_PREP_FAIL_NB" symmetrical="true">SUM(INTRA_HO_PREP_FAIL_NB)</counter>
+	  <counter alias="INTRA_HO_ATT_NB" symmetrical="true">SUM(INTRA_HO_ATT_NB)</counter>
+	  <counter alias="INTRA_HO_SUCC_NB" symmetrical="true">SUM(INTRA_HO_SUCC_NB)</counter>
+	  <counter alias="INTRA_HO_DROPS_NB" symmetrical="true">SUM(INTRA_HO_DROPS_NB)</counter>
+	  <counter alias="INTER_HO_PREP_FAIL_OTH_NB" symmetrical="true">SUM(INTER_HO_PREP_FAIL_OTH_NB)</counter>
+	  <counter alias="INTER_HO_PREP_FAIL_TIME_NB" symmetrical="true">SUM(INTER_HO_PREP_FAIL_TIME_NB)</counter>
+	  <counter alias="INTER_HO_PREP_FAIL_AC_NB" symmetrical="true">SUM(INTER_HO_PREP_FAIL_AC_NB)</counter>
+	  <counter alias="INTER_HO_ATT_NB" symmetrical="true">SUM(INTER_HO_ATT_NB)</counter>
+	  <counter alias="INTER_HO_SUCC_NB" symmetrical="true">SUM(INTER_HO_SUCC_NB)</counter>
+	  <counter alias="INTER_HO_FAIL_NB" symmetrical="true">SUM(INTER_HO_FAIL_NB)</counter>
+	  <counter alias="INTER_HO_DROPS_NB" symmetrical="true">SUM(INTER_HO_DROPS_NB)</counter>
+	  <counter alias="INTRA_HO_FAIL_NB" symmetrical="true">SUM(INTRA_HO_FAIL_NB)</counter>
+	  <counter alias="MRO_LATE_HO_NB" symmetrical="true">SUM(MRO_LATE_HO_NB)</counter>
+	  <counter alias="MRO_EARLY_TYPE1_HO_NB" symmetrical="true">SUM(MRO_EARLY_TYPE1_HO_NB)</counter>
+	  <counter alias="MRO_EARLY_TYPE2_HO_NB" symmetrical="true">SUM(MRO_EARLY_TYPE2_HO_NB)</counter>
+	  <counter alias="period_duration_sum" time-alias="period_duration_sum" time-formula="SUM(period_duration_sum)" object-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LNCELHO</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LNCELHO.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTRA_HO_PREP_FAIL_NB">
+    <formula>LNCELHO.INTRA_HO_PREP_FAIL_NB</formula>
+    <kpi_info>
+      <title>INTRA_HO_PREP_FAIL_NB</title>
+      <use>The number of failed Intra-eNB Handover preparations per neighbor cell relationship. UPDATED: This counter is updated when an Intra-eNB Handover preparation fails for any reason. This counter is updated in the source side of the handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTRA_HO_PREP_FAIL_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_HO_PREP_FAIL_NB (M8015C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTRA_HO_ATT_NB">
+    <formula>LNCELHO.INTRA_HO_ATT_NB</formula>
+    <kpi_info>
+      <title>INTRA_HO_ATT_NB</title>
+      <use>The number of Intra-eNB Handover attempts per neighbor cell relationship. UPDATED: This counter is updated when an RRC CONNECTION RECONFIGURATION message is sent by the eNB to the UE, indicating a Handover Command to the UE. This counter is updated in the source side of the handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTRA_HO_ATT_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_HO_ATT_NB (M8015C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTRA_HO_SUCC_NB">
+    <formula>LNCELHO.INTRA_HO_SUCC_NB</formula>
+    <kpi_info>
+      <title>INTRA_HO_SUCC_NB</title>
+      <use>The number of successful Intra-eNB Handover completions per neighbor cell relationship. UPDATED: This counter is updated when an Intra-eNB Handover succeeds. This counter is updated in the source side of the handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTRA_HO_SUCC_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_HO_SUCC_NB (M8015C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTRA_HO_DROPS_NB">
+    <formula>LNCELHO.INTRA_HO_DROPS_NB</formula>
+    <kpi_info>
+      <title>INTRA_HO_DROPS_NB</title>
+      <use>The number of Intra-eNB Handover drops. UPDATED: This counter is updated when an Intra-eNB Handover fails as a result of a radio link failure. This counter is updated in the source side of the handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTRA_HO_DROPS_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_HO_DROPS_NB (M8015C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_PREP_FAIL_OTH_NB">
+    <formula>LNCELHO.INTER_HO_PREP_FAIL_OTH_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_PREP_FAIL_OTH_NB</title>
+      <use>The number of failed Inter eNB Handover preparations per cause per neighbor cell relationship. Note: Parts of the Handover preparation will be executed in the target eNB. UPDATED: This counter is updated following any failure in the HO preparation phase in the target cell apart from a HANDOVER PREPARATION FAILURE message (from target side) or expiration of the respective guarding timer in the source cell
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_PREP_FAIL_OTH_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_PREP_FAIL_OTH_NB (M8015C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_PREP_FAIL_TIME_NB">
+    <formula>LNCELHO.INTER_HO_PREP_FAIL_TIME_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_PREP_FAIL_TIME_NB</title>
+      <use>The number of failed Inter eNB Handover preparations per neighbor cell relationship due to the expiration of the respective guarding timer. Note: Parts of the Handover preparation will be executed in the target eNB. UPDATED: HO via X2: This counter is updated following the expiration of the guarding timer TX2RELOCprep
+HO via S1: This counter is updated following the expiration of the guarding timer TS1RELOCprep
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_PREP_FAIL_TIME_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_PREP_FAIL_TIME_NB (M8015C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_PREP_FAIL_AC_NB">
+    <formula>LNCELHO.INTER_HO_PREP_FAIL_AC_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_PREP_FAIL_AC_NB</title>
+      <use>The number of failed Inter eNB Handover preparations per neighbor cell relationship due to failures in the HO preparation on the target side, for example caused by &quot;No Radio Resource Available in Target cell&quot;. Note: Parts of the Handover preparation will be executed in the target eNB. UPDATED: HO via X2: This counter is updated following the reception of an X2AP:HANDOVER PREPARATION FAILURE message from the target eNB with the cause &quot;No Radio Resources Available in Target cell&quot;
+HO via S1: This counter is updated following the reception of an S1AP:HANDOVER PREPARATION FAILURE message from the MME with the cause &quot;No Radio Resources Available in Target cell&quot;
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_PREP_FAIL_AC_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_PREP_FAIL_AC_NB (M8015C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_ATT_NB">
+    <formula>LNCELHO.INTER_HO_ATT_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_ATT_NB</title>
+      <use>The number of Inter-eNB Handover attempts per neighbor cell relationship UPDATED: HO via X2:
+This counter is updated following the reception of an X2AP:HANDOVER REQUEST ACKNOWLEDGE message from the target eNB 
+
+HO via S1:
+This counter is updated following the reception of an S1AP:HANDOVER COMMAND message from the MME
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_ATT_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_ATT_NB (M8015C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_SUCC_NB">
+    <formula>LNCELHO.INTER_HO_SUCC_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_SUCC_NB</title>
+      <use>The number of successful Inter-eNB Handover completions per neighbor cell relationship UPDATED: HO via X2: This counter is updated following the reception of an X2AP:UE CONTEXT RELEASE message sent by the target eNB.
+
+HO via S1: This counter is updated following the reception of an S1AP:UE CONTEXT RELEASE COMMAND message from the MME with the cause value Radio Network Layer (Successful Handover) in case that this message is received for an Inter eNB Handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_SUCC_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_SUCC_NB (M8015C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_FAIL_NB">
+    <formula>LNCELHO.INTER_HO_FAIL_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_FAIL_NB</title>
+      <use>The number of Inter-eNB Handover failures per cause per neighbor cell relationship UPDATED: This counter is updated following the expiry of a guarding timer, either TX2RELOCoverall or TS1RELOCoverall, in case that one of these timers was started because of an Inter-eNB Handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_FAIL_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_FAIL_NB (M8015C10)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTER_HO_DROPS_NB">
+    <formula>LNCELHO.INTER_HO_DROPS_NB</formula>
+    <kpi_info>
+      <title>INTER_HO_DROPS_NB</title>
+      <use>The number of Inter eNB Handover drops caused by radio link failure. UPDATED: Updated when Inter eNB Handover fails due to radio link failure. This counter is updated in the source side of the handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTER_HO_DROPS_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTER_HO_DROPS_NB (M8015C14)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="INTRA_HO_FAIL_NB">
+    <formula>LNCELHO.INTRA_HO_FAIL_NB</formula>
+    <kpi_info>
+      <title>INTRA_HO_FAIL_NB</title>
+      <use>The number of Intra-eNB Handover failures per neighbor cell relationship UPDATED: This counter is updated when an Intra-eNB Handover fails for any reason. This counter is updated in the source side of the handover.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INTRA_HO_FAIL_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INTRA_HO_FAIL_NB (M8015C15)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MRO_LATE_HO_NB">
+    <formula>LNCELHO.MRO_LATE_HO_NB</formula>
+    <kpi_info>
+      <title>MRO_LATE_HO_NB</title>
+      <use>This counter provides the number of Late Handovers per neighbor cell relationship.
+A Late Handover is a sequence of a missed HO attempt (instead of HO: RLF on UE side and optionally recoverable RLF on eNB side) in one cell followed by RRC connection re-establishment request in another cell. UPDATED: Reception of X2AP:RLF INDICATION message satisfying the following conditions:
+- C-RNTI corresponds to an available UE context
+- shortMAC-I is included
+- shortMAC-I matches the local security calculation (successful authentication)
+- Tstore_UE_cntxt timer associated with corresponding authenticated shortMAC-I is not running
+source cell:
+cell receiving the X2AP: RLF INDICATION message is received (source cell of missed HO attempt and optional recoverable RLF on eNB side)
+target cell: 
+cell sending X2AP: RLF INDICATION message  (cell receiving the reestablishment request after missed HO attempt)
+The counter is incremented at the source cell per neighbor cell (target cell)
+Notes:
+The case of reestablishment causes that &quot;ReconfigFailure&quot; is excluded from counting. The case of reestablishment causes that &quot;HOfailure&quot; is excluded from counting when re-establishment target cell is prepared for incoming HO, as this means HO has been attempted, not missed. In case of reestablishment request to cell prepared for incoming HO, the case of received PCI different from source cell PCI of prepared HO is excluded from counting.
+In the source cell of missed HO attempt, a HO preparation for the considered UE context might be ongoing. The target cell of such HO preparation can be different from the cell receiving the reestablishment request.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MRO_LATE_HO_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MRO_LATE_HO_NB (M8015C16)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MRO_EARLY_TYPE1_HO_NB">
+    <formula>LNCELHO.MRO_EARLY_TYPE1_HO_NB</formula>
+    <kpi_info>
+      <title>MRO_EARLY_TYPE1_HO_NB</title>
+      <use>This counter provides the number of Early Handover Type 1 per neighbor cell relationship.
+An Early Handover Type 1 is a sequence of a failed HO attempt followed by RRC connection re-establishment in the HO source cell. UPDATED: Reception of RRCConnectionReestablishmentRequest after the &quot;HO command&quot; has been sent to the UE. The early HO Type 1 condition is met only in case that the HO supervision timer is running and the ShortMAC-I is known.
+The neighbor cell is equals the target cell of the ongoing Handover.
+Reception of RRCConnectionReestablishmentRequest satisfying the following conditions:
+- reestablishment cause is equal to &quot;HOfailure&quot;
+- C-RNTI corresponds to an available UE context for which outgoing HO preparation is ongoing
+- shortMAC-I is included
+- shortMAC-I matches the local security calculation (successful authentication)
+source cell:
+cell receiving the reestablishment request (source cell of failed HO attempt)
+target cell: 
+target cell of failed HO attempt
+The counter is incremented at the source cell per neighbor cell (target cell)
+Note:
+The RRCConnectionReestablishmentRequest after a failed HO is recognized by reestablishment cause &quot;HOfailure&quot;.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MRO_EARLY_TYPE1_HO_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MRO_EARLY_TYPE1_HO_NB (M8015C17)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MRO_EARLY_TYPE2_HO_NB">
+    <formula>LNCELHO.MRO_EARLY_TYPE2_HO_NB</formula>
+    <kpi_info>
+      <title>MRO_EARLY_TYPE2_HO_NB</title>
+      <use>This counter provides the number of Early Handovers Type 2 per neighbor cell relationship.
+An Early Handover Type 2 is recognized in the following cases:
+Case 1:
+An Early Handover Type 2 is a sequence of a successful connection establishment in HO target cell (attempted HO completed) followed by RRC connection re-establishment in another cell a short time after &quot;HO completion&quot;.
+Case 2:
+An Early Handover Type 2 is a sequence of a successful random access in HO target followed by failed Msg3 reception (attempted HO not completed) followed by re-establishment request in another cell. UPDATED: Reception of X2AP:HANDOVER REPORT message with Handover Report Type =&quot;HO too early&quot;.
+source cell:
+cell receiving the X2AP:HANDOVER REPORT message (source cell of attempted HO)
+target cell: 
+cell sending the X2AP:HANDOVER REPORT message (target cell of attempted HO)
+The counter is incremented at the source cell per neighbor cell (target cell)
+Notes:
+&quot;short time&quot; is defined as time period no longer than expiration value of Tstore_UE_cntxt timer up from HO completion.
+For the sequence of Case2 the reestablishment request (with cause &quot;handoverFailure&quot;) received at cell prepared for incoming HO or at HO source cell is excluded from counting.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MRO_EARLY_TYPE2_HO_NB)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MRO_EARLY_TYPE2_HO_NB (M8015C18)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LNCELHO.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration_sum)">SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lncelho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

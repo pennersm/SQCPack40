@@ -1,0 +1,284 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M85 EIRH measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M85 EIRH measurement dump</csv_title>
+    <report-description>EIR measurement(EIRH)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <USED_SPACE_IN_BLACK_DATABASE/>
+    <USED_SPACE_IN_GREY_DATABASE/>
+    <USED_SPACE_IN_WHITE_DATABASE/>
+    <TOT_ENTRIES_ON_BLACK_LIST/>
+    <UNK_EQUIP_REQUESTS/>
+    <OVERFLOW_REQUESTS/>
+    <!--<EIRH_PERIOD_DURATION/>-->
+    <TOT_REQUESTS_ON_BLACK_LIST/>
+    <TOT_ENTRIES_ON_GREY_LIST/>
+    <TOT_REQUESTS_ON_GREY_LIST/>
+    <WHITE_LIST_REQUESTS/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/HLR" name="EIRH" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="USED_SPACE_IN_BLACK_DATABASE" symmetrical="true">MAX(USED_SPACE_IN_BLACK_DATABASE)</counter>
+      <counter alias="USED_SPACE_IN_GREY_DATABASE" symmetrical="true">MAX(USED_SPACE_IN_GREY_DATABASE)</counter>
+      <counter alias="USED_SPACE_IN_WHITE_DATABASE" symmetrical="true">MAX(USED_SPACE_IN_WHITE_DATABASE)</counter>
+      <counter alias="TOT_ENTRIES_ON_BLACK_LIST" symmetrical="true">SUM(TOT_ENTRIES_ON_BLACK_LIST)</counter>
+      <counter alias="UNK_EQUIP_REQUESTS" symmetrical="true">SUM(UNK_EQUIP_REQUESTS)</counter>
+      <counter alias="OVERFLOW_REQUESTS" symmetrical="true">SUM(OVERFLOW_REQUESTS)</counter>
+      <counter alias="TOT_REQUESTS_ON_BLACK_LIST" symmetrical="true">SUM(TOT_REQUESTS_ON_BLACK_LIST)</counter>
+      <counter alias="TOT_ENTRIES_ON_GREY_LIST" symmetrical="true">SUM(TOT_ENTRIES_ON_GREY_LIST)</counter>
+      <counter alias="TOT_REQUESTS_ON_GREY_LIST" symmetrical="true">SUM(TOT_REQUESTS_ON_GREY_LIST)</counter>
+      <counter alias="WHITE_LIST_REQUESTS" symmetrical="true">SUM(WHITE_LIST_REQUESTS)</counter>
+      <!--<counter alias="EIRH_PERIOD_DURATION">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>EIRH</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>EIRH.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USED_SPACE_IN_BLACK_DATABASE">
+    <formula>EIRH.USED_SPACE_IN_BLACK_DATABASE</formula>
+    <kpi_info>
+      <title>USED_SPACE_IN_BLACK_DATABASE</title>
+      <use>The amount of space used by the BLACK-LISTis the amount of space used by the object</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(USED_SPACE_IN_BLACK_DATABASE)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USED_SPACE_IN_BLACK_DATABASE (M85B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USED_SPACE_IN_GREY_DATABASE">
+    <formula>EIRH.USED_SPACE_IN_GREY_DATABASE</formula>
+    <kpi_info>
+      <title>USED_SPACE_IN_GREY_DATABASE</title>
+      <use>The amount of space used by the GREY-LISTis the amount of space used by the object</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(USED_SPACE_IN_GREY_DATABASE)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USED_SPACE_IN_GREY_DATABASE (M85B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="USED_SPACE_IN_WHITE_DATABASE">
+    <formula>EIRH.USED_SPACE_IN_WHITE_DATABASE</formula>
+    <kpi_info>
+      <title>USED_SPACE_IN_WHITE_DATABASE</title>
+      <use>The amount of space used by the WHITE-LISTis the amount of space used by the object</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(USED_SPACE_IN_WHITE_DATABASE)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USED_SPACE_IN_WHITE_DATABASE (M85B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOT_ENTRIES_ON_BLACK_LIST">
+    <formula>EIRH.TOT_ENTRIES_ON_BLACK_LIST</formula>
+    <kpi_info>
+      <title>TOT_ENTRIES_ON_BLACK_LIST</title>
+      <use>The total number of individual devices andseries of devices on the black list. The devices can be defined
+as series on the black list, in case of which more devices are displayed
+as one in the field.If no requests are made during
+the measurement on the black list, no field headings are displayed
+in ASCII report and in XML report the counter will not be sent at
+all.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOT_ENTRIES_ON_BLACK_LIST)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOT_ENTRIES_ON_BLACK_LIST (M85B3C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNK_EQUIP_REQUESTS">
+    <formula>EIRH.UNK_EQUIP_REQUESTS</formula>
+    <kpi_info>
+      <title>UNK_EQUIP_REQUESTS</title>
+      <use>The number of IMEI requests made during the measurement of devices that cannot be found on any lists</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNK_EQUIP_REQUESTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNK_EQUIP_REQUESTS (M85B3C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="OVERFLOW_REQUESTS">
+    <formula>EIRH.OVERFLOW_REQUESTS</formula>
+    <kpi_info>
+      <title>OVERFLOW_REQUESTS</title>
+      <use>The number of device requests in case of overflow. This field is displayed only if, during the measurement,
+requests of more than 200 devices have been made. The measurement
+file has space for 200 different devices that are either on the black
+list or on the grey list. If, during a measurement, requests are
+made of more than 200 devices, the requests that exceed 200 are
+counted in the OVERFLOW field.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(OVERFLOW_REQUESTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>OVERFLOW_REQUESTS (M85B3C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!--
+  <kpi name="EIRH_PERIOD_DURATION">
+    <formula>EIRH.EIRH_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>EIRH_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-agg="SUM">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EIRH_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+  <kpi name="TOT_REQUESTS_ON_BLACK_LIST">
+    <formula>EIRH.TOT_REQUESTS_ON_BLACK_LIST</formula>
+    <kpi_info>
+      <title>TOT_REQUESTS_ON_BLACK_LIST</title>
+      <use>The total number of IMEI requests on blacklist made during the measurement.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOT_REQUESTS_ON_BLACK_LIST)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOT_REQUESTS_ON_BLACK_LIST (M85B3C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOT_ENTRIES_ON_GREY_LIST">
+    <formula>EIRH.TOT_ENTRIES_ON_GREY_LIST</formula>
+    <kpi_info>
+      <title>TOT_ENTRIES_ON_GREY_LIST</title>
+      <use>The total number of individual devices andseries of devices on the black list. The devices can be defined
+as series on the black list, in case of which more devices are displayed
+as one in the field.If no requests are made during
+the measurement on the grey list, no field headings are displayed
+in ASCII report and in XML report the counter will not be sent at
+all.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOT_ENTRIES_ON_GREY_LIST)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOT_ENTRIES_ON_GREY_LIST (M85B3C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="TOT_REQUESTS_ON_GREY_LIST">
+    <formula>EIRH.TOT_REQUESTS_ON_GREY_LIST</formula>
+    <kpi_info>
+      <title>TOT_REQUESTS_ON_GREY_LIST</title>
+      <use>The total number of IMEI requests on greylist made during the measurement.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(TOT_REQUESTS_ON_GREY_LIST)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TOT_REQUESTS_ON_GREY_LIST (M85B3C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="WHITE_LIST_REQUESTS">
+    <formula>EIRH.WHITE_LIST_REQUESTS</formula>
+    <kpi_info>
+      <title>WHITE_LIST_REQUESTS</title>
+      <use>The number of IMEI requests made of deviceson the white list during the measurement</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(WHITE_LIST_REQUESTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_eirh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WHITE_LIST_REQUESTS (M85B3C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

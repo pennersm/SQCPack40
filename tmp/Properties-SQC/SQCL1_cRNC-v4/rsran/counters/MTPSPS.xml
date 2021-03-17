@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 MTP_SP_Status MTPSPS measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 MTP_SP_Status MTPSPS measurement dump</csv_title>
+    <report-description>MTP Signalling Point Status</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ADJACENT_SP_INA_DURATION />
+    <ADJACENT_SP_INACCESSIBLE />
+    <NBR_OF_RECEIVED_TFC />
+    <MSU_DISCARDED_TRANS_MSUS />
+    <MSU_DISCARDED_REC_MSUS />
+    <UNAUTHORIZED_STP_MSUS_INH_DPC />
+    <UNAUTHORIZED_STP_MSUS_INH_OPC />
+    <UNAUTHORIZED_STP_MSUS_INH_STP />
+    <UPUS_TRANSMITTED />
+    <UPUS_RECEIVED />
+  </column_order>
+  <temp_table name="MTPSPS" meas_level="PLMN/RNC/SNET/SPCD" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="ADJACENT_SP_INA_DURATION">SUM(ADJACENT_SP_INA_DURATION)</counter>
+      <counter alias="ADJACENT_SP_INACCESSIBLE">SUM(ADJACENT_SP_INACCESSIBLE)</counter>
+      <counter alias="NBR_OF_RECEIVED_TFC">SUM(NBR_OF_RECEIVED_TFC)</counter>
+      <counter alias="MSU_DISCARDED_TRANS_MSUS">SUM(MSU_DISCARDED_TRANS_MSUS)</counter>
+      <counter alias="MSU_DISCARDED_REC_MSUS">SUM(MSU_DISCARDED_REC_MSUS)</counter>
+      <counter alias="UNAUTHORIZED_STP_MSUS_INH_DPC">SUM(UNAUTHORIZED_STP_MSUS_INH_DPC)</counter>
+      <counter alias="UNAUTHORIZED_STP_MSUS_INH_OPC">SUM(UNAUTHORIZED_STP_MSUS_INH_OPC)</counter>
+      <counter alias="UNAUTHORIZED_STP_MSUS_INH_STP">SUM(UNAUTHORIZED_STP_MSUS_INH_STP)</counter>
+      <counter alias="UPUS_TRANSMITTED">SUM(UPUS_TRANSMITTED)</counter>
+      <counter alias="UPUS_RECEIVED">SUM(UPUS_RECEIVED)</counter>
+    </counters>
+    <table_name>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MTPSPS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MTPSPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ADJACENT_SP_INA_DURATION">
+    <formula>MTPSPS.ADJACENT_SP_INA_DURATION</formula>
+    <kpi_info>
+      <title>ADJACENT_SP_INA_DURATION</title>
+      <use>Duration of adjacent signal point inaccessible, 5.2 in ITU-T Q.752. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ADJACENT_SP_INA_DURATION)</formula>
+      <unit>s</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ADJACENT_SP_INA_DURATION (M211B2C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ADJACENT_SP_INACCESSIBLE">
+    <formula>MTPSPS.ADJACENT_SP_INACCESSIBLE</formula>
+    <kpi_info>
+      <title>ADJACENT_SP_INACCESSIBLE</title>
+      <use>Number of adjacent signal point inaccessible, 5.1 in ITU-T Q.752. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ADJACENT_SP_INACCESSIBLE)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ADJACENT_SP_INACCESSIBLE (M211B2C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NBR_OF_RECEIVED_TFC">
+    <formula>MTPSPS.NBR_OF_RECEIVED_TFC</formula>
+    <kpi_info>
+      <title>NBR_OF_RECEIVED_TFC</title>
+      <use>Number of transfer controlled messages received, 5.8 in ITU-T Q.752. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NBR_OF_RECEIVED_TFC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NBR_OF_RECEIVED_TFC (M211B2C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MSU_DISCARDED_TRANS_MSUS">
+    <formula>MTPSPS.MSU_DISCARDED_TRANS_MSUS</formula>
+    <kpi_info>
+      <title>MSU_DISCARDED_TRANS_MSUS</title>
+      <use>Number of message signal units (MSU) discarded due to routing data error for transmitted msus, part of 5.5 in ITU-T Q.752. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MSU_DISCARDED_TRANS_MSUS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MSU_DISCARDED_TRANS_MSUS (M211B2C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MSU_DISCARDED_REC_MSUS">
+    <formula>MTPSPS.MSU_DISCARDED_REC_MSUS</formula>
+    <kpi_info>
+      <title>MSU_DISCARDED_REC_MSUS</title>
+      <use>Number of message signal units (MSU) discarded due to routing data error for received msus, part of 5.5 in ITU-T Q.752. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(MSU_DISCARDED_REC_MSUS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MSU_DISCARDED_REC_MSUS (M211B2C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UNAUTHORIZED_STP_MSUS_INH_DPC">
+    <formula>MTPSPS.UNAUTHORIZED_STP_MSUS_INH_DPC</formula>
+    <kpi_info>
+      <title>UNAUTHORIZED_STP_MSUS_INH_DPC</title>
+      <use>Unauthorized STP MSU count for inhibited DPC. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UNAUTHORIZED_STP_MSUS_INH_DPC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNAUTHORIZED_STP_MSUS_INH_DPC (M211B2C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UNAUTHORIZED_STP_MSUS_INH_OPC">
+    <formula>MTPSPS.UNAUTHORIZED_STP_MSUS_INH_OPC</formula>
+    <kpi_info>
+      <title>UNAUTHORIZED_STP_MSUS_INH_OPC</title>
+      <use>Unauthorized STP MSU count for inhibited OPC. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UNAUTHORIZED_STP_MSUS_INH_OPC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNAUTHORIZED_STP_MSUS_INH_OPC (M211B2C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UNAUTHORIZED_STP_MSUS_INH_STP">
+    <formula>MTPSPS.UNAUTHORIZED_STP_MSUS_INH_STP</formula>
+    <kpi_info>
+      <title>UNAUTHORIZED_STP_MSUS_INH_STP</title>
+      <use>Unauthorized STP MSU count for inhibited STP. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UNAUTHORIZED_STP_MSUS_INH_STP)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNAUTHORIZED_STP_MSUS_INH_STP (M211B2C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UPUS_TRANSMITTED">
+    <formula>MTPSPS.UPUS_TRANSMITTED</formula>
+    <kpi_info>
+      <title>UPUS_TRANSMITTED</title>
+      <use>User part unavailable MSU transmitted, 5.6 in ITU-T Q.752. UPDATED:</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UPUS_TRANSMITTED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPUS_TRANSMITTED (M211B2C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UPUS_RECEIVED">
+    <formula>MTPSPS.UPUS_RECEIVED</formula>
+    <kpi_info>
+      <title>UPUS_RECEIVED</title>
+      <use>User part unavailable MSU received, 5.7 in ITU-T Q.752. UPDATED</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UPUS_RECEIVED)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpsps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPUS_RECEIVED (M211B2C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

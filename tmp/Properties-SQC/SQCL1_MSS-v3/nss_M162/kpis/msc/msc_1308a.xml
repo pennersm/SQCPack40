@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/MEG.xml" />
+  <kpi name="msc_1308a">
+    <formula>
+decode(meg.period_duration,0,null,
+	100*(1 -(( meg.unavailability_duration  / 100) /
+                    ( meg.period_duration  * 60)))
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MC link availability ratio]]></title>
+      <use><![CDATA[Indicates the availability ratio of H.248 SCTP signaling links.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;            SUM( UNAVAILABILITY_DURATION ) / 100
+&lt;br&gt;100 * (1 - ------------------------------------ )
+&lt;br&gt;                    SUM( DURATION ) * 60
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_meg_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mc link avail</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/DBRR_ext.xml" />
+  <kpi name="flng_144a">
+    <formula>decode( ((GTPCV2.gtpcv2_del_bearer_req_sent)),0,NULL, ((DBRR_ext.gtpcv2_del_bearer_resp_r_16)) / ((GTPCV2.gtpcv2_del_bearer_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer sent success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 delete bearer requests sent, i.e., the number of delete bearer response messages received with cause code 'Request Accepted' when compared to the number of delete bearer request messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(dbrr_id,'16',b.GTPCV2_DEL_BEARER_RESP_RECV,0))) ;Request accepted
+<br>-------------------------------------------------------------------------- *100
+<br>sum(a.GTPCV2_DEL_BEARER_REQ_SENT)
+<br>
+<br>counters from measurement(s): 
+<br>a = GTP-C v2 
+<br>b = GTP-C v2 Delete Bearer Response received  
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_DBRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Bearer sent SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

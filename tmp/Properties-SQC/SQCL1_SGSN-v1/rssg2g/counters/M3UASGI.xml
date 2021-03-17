@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M661 M3UASGI measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M661 M3UASGI measurement dump</csv_title>
+    <report-description>M3UA association set measurement(M3UASGI)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <M3UA_CUMUL_UNAVAILABLE_TIME />
+    <M3UA_UNAVAILABLE />
+    <M3UA_MESSAGES_RECEIVED />
+    <M3UA_MESSAGES_SENT />
+    <M3UA_SCTP_PACKETS_RECEIVED />
+    <M3UA_SCTP_PACKETS_SENT />
+    <M3UA_SCTP_OCTETS_RECEIVED />
+    <M3UA_SCTP_OCTETS_SENT />
+    <M3UA_SCTP_PACKETS_RETRANSMIT />
+    <M3UA_SCTP_DUPLICATED_TSN />
+    <M3UASGI_PERIOD_DURATION />
+    <M3UA_OCTETS_RECEIVED />
+    <M3UA_OCTETS_SENT />
+  </column_order>
+  <temp_table name="M3UASGI" meas_level="PLMN/SGSN/ASSOSET/ASSOIND" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="M3UA_CUMUL_UNAVAILABLE_TIME" symmetrical="true">SUM(M3UA_CUMUL_UNAVAILABLE_TIME)</counter>
+      <counter alias="M3UA_UNAVAILABLE" symmetrical="true">SUM(M3UA_UNAVAILABLE)</counter>
+      <counter alias="M3UA_MESSAGES_RECEIVED" symmetrical="true">SUM(M3UA_MESSAGES_RECEIVED)</counter>
+      <counter alias="M3UA_MESSAGES_SENT" symmetrical="true">SUM(M3UA_MESSAGES_SENT)</counter>
+      <counter alias="M3UA_SCTP_PACKETS_RECEIVED" symmetrical="true">SUM(M3UA_SCTP_PACKETS_RECEIVED)</counter>
+      <counter alias="M3UA_SCTP_PACKETS_SENT" symmetrical="true">SUM(M3UA_SCTP_PACKETS_SENT)</counter>
+      <counter alias="M3UA_SCTP_OCTETS_RECEIVED" symmetrical="true">SUM(M3UA_SCTP_OCTETS_RECEIVED)</counter>
+      <counter alias="M3UA_SCTP_OCTETS_SENT" symmetrical="true">SUM(M3UA_SCTP_OCTETS_SENT)</counter>
+      <counter alias="M3UA_SCTP_PACKETS_RETRANSMIT" symmetrical="true">SUM(M3UA_SCTP_PACKETS_RETRANSMIT)</counter>
+      <counter alias="M3UA_SCTP_DUPLICATED_TSN" symmetrical="true">SUM(M3UA_SCTP_DUPLICATED_TSN)</counter>
+      <counter alias="M3UASGI_PERIOD_DURATION" time-alias="M3UASGI_PERIOD_DURATION" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="M3UA_OCTETS_RECEIVED" symmetrical="true">SUM(M3UA_OCTETS_RECEIVED)</counter>
+      <counter alias="M3UA_OCTETS_SENT" symmetrical="true">SUM(M3UA_OCTETS_SENT)</counter>
+    </counters>
+    <table_name>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>M3UASGI</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>M3UASGI.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_CUMUL_UNAVAILABLE_TIME">
+    <formula>M3UASGI.M3UA_CUMUL_UNAVAILABLE_TIME</formula>
+    <kpi_info>
+      <title>M3UA_CUMUL_UNAVAILABLE_TIME</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_CUMUL_UNAVAILABLE_TIME)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_CUMUL_UNAVAILABLE_TIME (M661B3C1)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_UNAVAILABLE">
+    <formula>M3UASGI.M3UA_UNAVAILABLE</formula>
+    <kpi_info>
+      <title>M3UA_UNAVAILABLE</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_UNAVAILABLE)</formula>
+      <unit>No</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_UNAVAILABLE (M661B3C2)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_MESSAGES_RECEIVED">
+    <formula>M3UASGI.M3UA_MESSAGES_RECEIVED</formula>
+    <kpi_info>
+      <title>M3UA_MESSAGES_RECEIVED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_MESSAGES_RECEIVED)</formula>
+      <unit>No</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_MESSAGES_RECEIVED (M661B3C3)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_MESSAGES_SENT">
+    <formula>M3UASGI.M3UA_MESSAGES_SENT</formula>
+    <kpi_info>
+      <title>M3UA_MESSAGES_SENT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_MESSAGES_SENT)</formula>
+      <unit>No</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_MESSAGES_SENT (M661B3C4)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_SCTP_PACKETS_RECEIVED">
+    <formula>M3UASGI.M3UA_SCTP_PACKETS_RECEIVED</formula>
+    <kpi_info>
+      <title>M3UA_SCTP_PACKETS_RECEIVED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_SCTP_PACKETS_RECEIVED)</formula>
+      <unit>Packet</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_SCTP_PACKETS_RECEIVED (M661B4C1)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_SCTP_PACKETS_SENT">
+    <formula>M3UASGI.M3UA_SCTP_PACKETS_SENT</formula>
+    <kpi_info>
+      <title>M3UA_SCTP_PACKETS_SENT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_SCTP_PACKETS_SENT)</formula>
+      <unit>Packet</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_SCTP_PACKETS_SENT (M661B4C2)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_SCTP_OCTETS_RECEIVED">
+    <formula>M3UASGI.M3UA_SCTP_OCTETS_RECEIVED</formula>
+    <kpi_info>
+      <title>M3UA_SCTP_OCTETS_RECEIVED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_SCTP_OCTETS_RECEIVED)</formula>
+      <unit>Byte</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_SCTP_OCTETS_RECEIVED (M661B4C3)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_SCTP_OCTETS_SENT">
+    <formula>M3UASGI.M3UA_SCTP_OCTETS_SENT</formula>
+    <kpi_info>
+      <title>M3UA_SCTP_OCTETS_SENT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_SCTP_OCTETS_SENT)</formula>
+      <unit>Byte</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_SCTP_OCTETS_SENT (M661B4C4)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_SCTP_PACKETS_RETRANSMIT">
+    <formula>M3UASGI.M3UA_SCTP_PACKETS_RETRANSMIT</formula>
+    <kpi_info>
+      <title>M3UA_SCTP_PACKETS_RETRANSMIT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_SCTP_PACKETS_RETRANSMIT)</formula>
+      <unit>Packet</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_SCTP_PACKETS_RETRANSMIT (M661B4C5)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_SCTP_DUPLICATED_TSN">
+    <formula>M3UASGI.M3UA_SCTP_DUPLICATED_TSN</formula>
+    <kpi_info>
+      <title>M3UA_SCTP_DUPLICATED_TSN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_SCTP_DUPLICATED_TSN)</formula>
+      <unit>No</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_SCTP_DUPLICATED_TSN (M661B4C6)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UASGI_PERIOD_DURATION">
+    <formula>M3UASGI.M3UASGI_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>M3UASGI_PERIOD_DURATION</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UASGI_PERIOD_DURATION</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_OCTETS_RECEIVED">
+    <formula>M3UASGI.M3UA_OCTETS_RECEIVED</formula>
+    <kpi_info>
+      <title>M3UA_OCTETS_RECEIVED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_OCTETS_RECEIVED)</formula>
+      <unit>Byte</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_OCTETS_RECEIVED (M661B3C5)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_OCTETS_SENT">
+    <formula>M3UASGI.M3UA_OCTETS_SENT</formula>
+    <kpi_info>
+      <title>M3UA_OCTETS_SENT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_OCTETS_SENT)</formula>
+      <unit>Byte</unit>
+      <tables>rsg_ps_m3uasgi_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_OCTETS_SENT (M661B3C6)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

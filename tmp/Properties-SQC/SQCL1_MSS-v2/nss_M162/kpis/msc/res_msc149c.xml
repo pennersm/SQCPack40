@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml" />
+  <kpi name="res_msc149c">
+    <formula>decode(
+		(cgr.cgrcgroup_nof_circuits),0,null, 
+		(100*(( cgr.cgrcgroup_erlangs_in_x_100
+                + cgr.cgrcgroup_erlangs_out_x_100 ) / 100)/
+             ( cgr.cgrcgroup_nof_circuits )))</formula>
+    <kpi_info>
+      <title><![CDATA[Average traffic - all circuits]]></title>
+      <use><![CDATA[Average traffic for both incoming and outgoing circuits. Effective usage of the provided circuits (busy circuit share).]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI will not work for SIP CGRs.
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 12-03-2009
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CDS; CGRNAME/CGR; CGRDIR;
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CDS; CGRDIR
+<br>
+<br>KPI CLASS: Resource
+<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             SUM( cgrcgroup_erlangs_in_x_100
+&lt;br&gt;                + cgrcgroup_erlangs_out_x_100 ) / 100
+&lt;br&gt;   100 * ---------------------------------------------------------------
+&lt;br&gt;             SUM( cgrcgroup_nof_circuits )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg},rns_ps_cgrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg Traf All Circ</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

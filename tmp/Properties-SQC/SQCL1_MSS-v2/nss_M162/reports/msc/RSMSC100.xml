@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSMSC M162 Report Set</report_version>
+    <release number="8.1.2-64"/>
+    <valid-time-levels>day,hour,raw,whole_period,week</valid-time-levels>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSMSC100 - System Program</header>
+    <csv_title>System Program</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[
+    <br>This report intends to provide a network (PLMN) level overview.
+    <br>
+    <br>Measurements:
+    <br>M20: Traffic category measurement
+    <br>M80: VLR measurement part n
+    <br>M81: Handover measurement
+    <br>M82: VLR measurement part one
+    <br>M114: Rejected calls observation measurement
+    <br>M131: Clear Code Measurement
+    <br>M309: SMS Measurement
+    <br>M386: Call setup time and success measurement
+    <br>M387: Call setup service mean time measurement
+    <br>M396: Simultaneous Call measurement
+    <br>
+	<br>This report has the following drill definitions:
+	<br>- From msc_404a KPI to RSMSC073 report
+	<br>- From msc_601c KPI to RSMSC040 report
+	<br>- From msc_2265a KPI to RSMSC040 report
+	<br>- From msc_602a KPI to RSMSC038 report
+	<br>- From msc_603b KPI to RSMSC038 report
+	<br>- From msc_2184a KPI to RSMSC004 report
+	<br>- From msc_2185a KPI to RSMSC003 report
+	<br>- From mob_vlr86c KPI to RSMSC005c report
+	<br>- From msc_2067a KPI to RSMSC005c report
+	<br>- From msc_2123c KPI to RSMSC089 report
+	<br>- From msc_2218a KPI to RSMSC101 report]]></help_text>
+     <history>
+      <revision>
+        <author><![CDATA[NSN]]></author>
+        <date>2012/10/01 16:55:27.344 +0000</date>
+        <comment><![CDATA[Source: RSMSC100.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>System Program</report-description>
+    <report-title>System Program</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <msc_2188a ui_name="DX200+ATCA MSS" chartType="bar" master-group="Network Usage" group="Number of MSS"  />  
+    <msc_2249a ui_name="ATCA MSS" chartType="bar" master-group="Network Usage" group="Number of MSS" />  
+    <msc_2250a ui_name="Transit MSS" chartType="bar" master-group="Network Usage" group="Number of MSS" />  
+    <msc_2200a ui_name="Max subs in PLMN" master-group="Network Usage" group="Subscribers" />
+    <msc_5013d ui_name="Max subs in MSS" master-group="Network Usage" group="Subscribers" />
+    <msc_2201a ui_name="Avg" master-group="Network Usage" group="Simultaneous Calls in PLMN" />
+    <msc_2202a ui_name="Peak" master-group="Network Usage" group="Simultaneous Calls in PLMN" />
+    <msc_784a ui_name="Avg" master-group="Network Usage" group="Simultaneous Calls in MSS" />
+    <msc_785a ui_name="Peak" master-group="Network Usage" group="Simultaneous Calls in MSS" />
+    <msc_570a ui_name="Call Attempts" master-group="Network Usage" group="Call Attempts" />
+    <msc_571a ui_name="Total Traffic" master-group="Network Usage" group="Traffic" />   
+
+
+    <msc_405b ui_name="Avg Call Setup Time" chartType="bar" master-group="Calls" group="Call Setup" yAxis="2"/>
+    <msc_404a ui_name="Call Setup Success Ratio" master-group="Calls" group="Call Setup" report_drill="RSMSC_CALL_SETUP_MSC"/>
+    <msc_407a ui_name="MO Calls Setup Ratio" master-group="Calls" group="Call Setup"/>   
+    <msc_2183a ui_name="Answer Call Ratio" master-group="Calls" group="Answer Ratio"/>  
+    <msc_601c ui_name="Dropped Calls Ratio" master-group="Calls" group="Drop Ratio" report_drill="RSMSC_CLEAR_CODES"/>
+
+    <msc_2193a ui_name="Rejected" chartType="bar" master-group="Calls" group="Rejected" yAxis="2"/>
+    <msc_2194a ui_name="Rejected Ratio" master-group="Calls" group="Rejected"/> 
+
+    <msc_2265a ui_name="Technical SR" master-group="Calls" group="Technical SR" report_drill="RSMSC_CLEAR_CODES"/> 
+
+	
+    <msc_2191a ui_name="MO att" chartType="bar" master-group="SMS" group="MO" yAxis="2"/> 
+    <msc_602a ui_name="MO SR" master-group="SMS" group="MO" report_drill="RSMSC_SMS_TRAFFIC"/>
+    <msc_2190a ui_name="MT att" chartType="bar" master-group="SMS" group="MT" yAxis="2"/> 
+    <msc_603b ui_name="MT SR" master-group="SMS" group="MT" report_drill="RSMSC_SMS_TRAFFIC"/>  
+          
+    <msc_2189a ui_name="HO att" chartType="bar" master-group="Mobility" group="Handover" yAxis="2"/> 
+    <msc_2184a ui_name="HO SR"  master-group="Mobility" group="Handover" report_drill="RSMSC_MSC_HANDOVER"/>      
+    <msc_2187a ui_name="LU att" chartType="bar" master-group="Mobility" group="Location Update" yAxis="2"/>      
+    <msc_2185a ui_name="LU SR" master-group="Mobility" group="Location Update" report_drill="RSMSC_LU_LAC"/>      
+    <msc_2195a ui_name="Paging att(CS only)" chartType="bar" master-group="Mobility" group="Paging" yAxis="2"/> 
+    <mob_vlr86c ui_name="Paging SR(CS only)" master-group="Mobility" group="Paging" report_drill="RSMSC_PAGING"/>      
+    <msc_2196a ui_name="GPRS Paging att(PS)" chartType="bar" master-group="Mobility" group="Paging" yAxis="2"/>
+    <mob_vlr170b ui_name="GPRS Paging SR(PS)" master-group="Mobility" group="Paging"/>     
+    <msc_2197a ui_name="EPS Paging att" chartType="bar" master-group="Mobility" group="Paging" yAxis="2"/>
+    <msc_2067a ui_name="EPS Paging SR" master-group="Mobility" group="Paging" report_drill="RSMSC_PAGING"/> 
+    <msc_2198a ui_name="TAU att" chartType="bar" master-group="Mobility" group="TAU" yAxis="2"/>    
+    <msc_2033a ui_name="TAU SR" master-group="Mobility" group="TAU"/>      
+
+    <msc_2125b ui_name="MT Succ Time" master-group="CSFB" group="MT Succ Time"/>
+    <msc_2192c ui_name="MT CSFB att" chartType="bar" master-group="CSFB" group="MT" yAxis="2"/>      
+    <msc_2123c ui_name="MT CSFB SR" master-group="CSFB" group="MT" report_drill="RSMSC_CALL_SETUP_MME"/>    
+    <msc_2203a ui_name="MT CSFB to MT att" master-group="CSFB" group="MT"/>
+    <msc_2257a ui_name="PRN Relay Att" chartType="bar" master-group="CSFB" group="MTRF" yAxis="2"/>
+	<msc_2258a ui_name="PRN Relay SR" master-group="CSFB" group="MTRF"/>
+    <msc_2244a ui_name="MO CSFB att" chartType="bar" master-group="CSFB" group="MO" yAxis="2"/>    
+    <msc_2204a ui_name="MO CSFB to MO att" master-group="CSFB" group="MO"/>    
+    <msc_2199a ui_name="LU w/CSMT flag" master-group="CSFB" group="Location Update"/> 
+
+    <msc_2217a ui_name="SRVCC HO att" chartType="bar" master-group="SRVCC" group="HO" yAxis="2"/>      
+    <msc_2218a ui_name="SRVCC HO SR" master-group="SRVCC" group="HO" report_drill="RSMSC_SRVCC"/>    
+    <msc_2219a ui_name="SRVCC LU att" chartType="bar" master-group="SRVCC" group="LU" yAxis="2"/>    
+    <msc_2220a ui_name="SRVCC LU SR" master-group="SRVCC" group="LU"/>    
+
+    <msc_2245a ui_name="Att" chartType="bar" master-group="SCC AS" group="PS-CS Session Transfer" yAxis="2"/>      
+    <msc_2231a ui_name="SR" master-group="SCC AS" group="PS-CS Session Transfer"/>    
+    <msc_2246a ui_name="Duration" chartType="bar" master-group="SCC AS" group="PS-CS Session Transfer Duration" yAxis="2"/>    
+
+    <msc_2301a ui_name="ISC CS TERM Call Att" chartType="bar" master-group="SCC AS" group="T-ADS" yAxis="2"/>      
+    <msc_2302a ui_name="ISC CS TERM Calls SR" master-group="SCC AS" group="T-ADS"/>    
+    <msc_2303a ui_name="ISC CS TERM Call Answ rto" master-group="SCC AS" group="T-ADS"/>      
+    <msc_2304a ui_name="T-ADS CS Terminating Ratio" master-group="SCC AS" group="T-ADS"/>    
+	
+    <msc_2233a ui_name="Att" chartType="bar" master-group="IP-SM-GW" group="SO Message" yAxis="2"/>      
+    <msc_2234a ui_name="SR" master-group="IP-SM-GW" group="SO Message"/>    
+    <msc_2238a ui_name="Att" chartType="bar" master-group="IP-SM-GW" group="ST Message" yAxis="2"/>      
+    <msc_2239a ui_name="SR" master-group="IP-SM-GW" group="ST Message"/>    
+
+    <msc_2254a ui_name="Att" chartType="bar" master-group="SIP AS" group="Calls" yAxis="2"/>      
+    <msc_2255a ui_name="SR" master-group="SIP AS" group="Calls"/>    
+    <msc_2256a ui_name="Answer rto" master-group="SIP AS" group="Calls"/>    
+    <msc_2228a ui_name="Att" chartType="bar" master-group="SIP AS" group="Registration" yAxis="2"/>      
+    <msc_2230a ui_name="SR" master-group="SIP AS" group="Registration"/>    
+
+    <msc_7000a ui_name="Total" group="Active Alarms" chartType="bar" yAxis="2" />
+    <msc_7001a ui_name="Critical" group="Active Alarms" chartType="bar" yAxis="2" />
+    <msc_7002a ui_name="Major" group="Active Alarms" chartType="bar" yAxis="2" />
+
+    <msc_7005a ui_name="Critical" group="Active Alarms Duration" chartType="bar" yAxis="2" />
+    <msc_7006a ui_name="Major" group="Active Alarms Duration" chartType="bar" yAxis="2" />
+      
+  </column_order>
+  
+  <!-- Drills configuration -->  
+  <report_drill id="RSMSC_CALL_SETUP_MSC" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_traffic_uiConf.xml"/>
+            </param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC073.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Call setup time and success - MSC report"/>
+            </param>
+        </drill>
+  </report_drill>
+
+  <report_drill id="RSMSC_CLEAR_CODES" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_traffic_uiConf.xml"/>
+            </param>
+			<param key="reportLevel">
+				<string value="PLMN/MSC/CC_NSS"/>
+			</param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC040.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Traffic by clear codes report"/>
+            </param>
+        </drill>
+  </report_drill>
+
+  <report_drill id="RSMSC_SMS_TRAFFIC" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_traffic_uiConf.xml"/>
+            </param>
+			<param key="reportLevel">
+				<string value="PLMN/MSC/SMSCM"/>
+			</param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC038.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to SMS traffic report"/>
+            </param>
+        </drill>
+  </report_drill>
+  
+  <report_drill id="RSMSC_MSC_HANDOVER" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_mobility_uiConf.xml"/>
+            </param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC004.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Mobility in MSC, Handovers report"/>
+            </param>
+        </drill>
+  </report_drill>
+
+  <report_drill id="RSMSC_LU_LAC" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_mobility_uiConf.xml"/>
+            </param>
+			<param key="reportLevel">
+				<string value="PLMN/MSC/MCCM/MNCM/LAC_NSS"/>
+			</param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC003.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to LU per LAC report"/>
+            </param>
+        </drill>
+  </report_drill>
+  
+  <report_drill id="RSMSC_PAGING" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_mobility_uiConf.xml"/>
+            </param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC005c.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Paging report"/>
+            </param>
+        </drill>
+  </report_drill>
+  
+  <report_drill id="RSMSC_CALL_SETUP_MME" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_traffic_uiConf.xml"/>
+            </param>
+			<param key="reportLevel">
+				<string value="PLMN/MSC/MME"/>
+			</param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC089.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Call setup time and success - MME report"/>
+            </param>
+        </drill>
+  </report_drill>
+  
+  <report_drill id="RSMSC_SRVCC" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_mobility_uiConf.xml"/>
+            </param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC101.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to SRVCC report"/>
+            </param>
+        </drill>
+  </report_drill>
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2188a.xml#msc_2188a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2249a.xml#msc_2249a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2250a.xml#msc_2250a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2200a.xml#msc_2200a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_5013d.xml#msc_5013d" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2201a.xml#msc_2201a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2202a.xml#msc_2202a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_784a.xml#msc_784a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_785a.xml#msc_785a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_570a.xml#msc_570a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_571a.xml#msc_571a" />  
+  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_405b.xml#msc_405b" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_404a.xml#msc_404a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2183a.xml#msc_2183a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_601c.xml#msc_601c" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_407a.xml#msc_407a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2193a.xml#msc_2193a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2194a.xml#msc_2194a" />    
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2265a.xml#msc_2265a" />    
+  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2191a.xml#msc_2191a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_602a.xml#msc_602a" /> 
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2190a.xml#msc_2190a" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_603b.xml#msc_603b" />   
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2189a.xml#msc_2189a" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2184a.xml#msc_2184a" />     
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2187a.xml#msc_2187a" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2185a.xml#msc_2185a" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2195a.xml#msc_2195a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/mob_vlr86c.xml#mob_vlr86c" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2196a.xml#msc_2196a" /> 
+  <kpi_ref ref="nss_M162/kpis/msc/mob_vlr170b.xml#mob_vlr170b" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2197a.xml#msc_2197a" /> 
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2067a.xml#msc_2067a" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2198a.xml#msc_2198a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2033a.xml#msc_2033a" />     
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2125b.xml#msc_2125b" /> 
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2192c.xml#msc_2192c" />     
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2123c.xml#msc_2123c" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2203a.xml#msc_2203a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2257a.xml#msc_2257a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2258a.xml#msc_2258a" />  
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2244a.xml#msc_2244a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2204a.xml#msc_2204a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2199a.xml#msc_2199a" />  
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2217a.xml#msc_2217a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2218a.xml#msc_2218a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2219a.xml#msc_2219a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2220a.xml#msc_2220a" />    
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2245a.xml#msc_2245a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2231a.xml#msc_2231a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2246a.xml#msc_2246a" />    
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2301a.xml#msc_2301a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2302a.xml#msc_2302a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2303a.xml#msc_2303a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2304a.xml#msc_2304a" />    
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2233a.xml#msc_2233a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2234a.xml#msc_2234a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2238a.xml#msc_2238a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2239a.xml#msc_2239a" />    
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2254a.xml#msc_2254a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2255a.xml#msc_2255a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2256a.xml#msc_2256a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2228a.xml#msc_2228a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2230a.xml#msc_2230a" />    
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_7000a.xml#msc_7000a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_7001a.xml#msc_7001a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_7002a.xml#msc_7002a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_7005a.xml#msc_7005a" />    
+  <kpi_ref ref="nss_M162/kpis/msc/msc_7006a.xml#msc_7006a" />    
+
+ 
+</conf_file>
+

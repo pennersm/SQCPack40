@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte_RL70/counters/LEPSB_ext.xml" />
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5210a">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth - 
+			(lepsb.epc_eps_bear_rel_req_n_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_d_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_r_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_o_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_rd_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_n_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_r_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_t_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_o_qci1_1)),0,null, 
+
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm - 
+			(lepsb.epc_eps_bear_rel_req_n_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_d_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_rd_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_n_qci1_1))
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth - 
+			(lepsb.epc_eps_bear_rel_req_n_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_d_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_r_qci1_1 + 
+			lepsb.epc_eps_bear_rel_req_o_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_rd_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_n_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_r_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_t_qci1_1 + 
+			lepsb.enb_eps_bear_rel_req_o_qci1_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB non GBR Normal Release Ratio User Perspective]]></title>
+      <use><![CDATA[This KPI describes the ratio of normally released non GBR E-RABs from user perspective. This KPI is corresponding to a Connection Completion Ratio.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(EPC_EPS_BEARER_REL_REQ_NORM+EPC_EPS_BEARER_REL_REQ_DETACH+ENB_EPSBEAR_REL_REQ_RNL_REDIR+ ENB_EPS_BEARER_REL_REQ_NORM - (EPC_EPS_BEAR_REL_REQ_N_QCI1+EPC_EPS_BEAR_REL_REQ_D_QCI1+ENB_EPS_BEAR_REL_REQ_RD_QCI1+ ENB_EPS_BEAR_REL_REQ_N_QCI1)) / sum(EPC_EPS_BEARER_REL_REQ_NORM+EPC_EPS_BEARER_REL_REQ_DETACH+EPC_EPS_BEARER_REL_REQ_RNL+ EPC_EPS_BEARER_REL_REQ_OTH + ENB_EPSBEAR_REL_REQ_RNL_REDIR+ ENB_EPS_BEARER_REL_REQ_NORM + ENB_EPS_BEARER_REL_REQ_RNL +ENB_EPS_BEARER_REL_REQ_TNL +ENB_EPS_BEARER_REL_REQ_OTH - (EPC_EPS_BEAR_REL_REQ_N_QCI1 +EPC_EPS_BEAR_REL_REQ_D_QCI1+ EPC_EPS_BEAR_REL_REQ_R_QCI1 + EPC_EPS_BEAR_REL_REQ_O_QCI1  + ENB_EPS_BEAR_REL_REQ_RD_QCI1+ ENB_EPS_BEAR_REL_REQ_N_QCI1 + ENB_EPS_BEAR_REL_REQ_R_QCI1 +ENB_EPS_BEAR_REL_REQ_T_QCI1 +ENB_EPS_BEAR_REL_REQ_O_QCI1))</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LEPSB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/03/30 15:46:15.72 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB non-GBR normal rel, NW</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

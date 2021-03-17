@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_176b">
+    <formula>decode(
+			(servlev.rab_act_compl_2psnrt_i_i + 
+			servlev.rab_act_compl_2psnrt_i_b + 
+			servlev.rab_act_compl_2psnrt_b_b + 
+			servlev.rab_act_compl_3psnrt + 
+			servlev.rab_act_fail_2psnrti + 
+			servlev.rab_act_fail_psnrt_i_b + 
+			servlev.rab_act_fail_2psnrtb + 
+			servlev.rab_act_fail_3psnrt),0,null, 
+
+			100 - 
+			100*(servlev.rab_act_fail_2psnrti + 
+			servlev.rab_act_fail_psnrt_i_b + 
+			servlev.rab_act_fail_2psnrtb + 
+			servlev.rab_act_fail_3psnrt)
+			 / 
+			(servlev.rab_act_compl_2psnrt_i_i + 
+			servlev.rab_act_compl_2psnrt_i_b + 
+			servlev.rab_act_compl_2psnrt_b_b + 
+			servlev.rab_act_compl_3psnrt + 
+			servlev.rab_act_fail_2psnrti + 
+			servlev.rab_act_fail_psnrt_i_b + 
+			servlev.rab_act_fail_2psnrtb + 
+			servlev.rab_act_fail_3psnrt))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Success Ratio, Multi RAB containing more than one NRT Services, from Network Perspective]]></title>
+      <use><![CDATA[RAB Success Ratio, Multi RAB containing more than one NRT Services, [%] over the reporting period. Covers RAB Active Phase of a call.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 - 100 * (
+&lt;br&gt;  sum( RAB_ACT_FAIL_2PSNRTI
+&lt;br&gt;       + RAB_ACT_FAIL_PSNRT_I_B
+&lt;br&gt;       + RAB_ACT_FAIL_2PSNRTB
+&lt;br&gt;       + RAB_ACT_FAIL_3PSNRT )
+&lt;br&gt;  ------------------------------------------------
+&lt;br&gt;  sum( RAB_ACT_COMPL_2PSNRT_I_I
+&lt;br&gt;       + RAB_ACT_COMPL_2PSNRT_I_B
+&lt;br&gt;       + RAB_ACT_COMPL_2PSNRT_B_B
+&lt;br&gt;       + RAB_ACT_COMPL_3PSNRT
+&lt;br&gt;       + RAB_ACT_FAIL_2PSNRTI
+&lt;br&gt;       + RAB_ACT_FAIL_PSNRT_I_B
+&lt;br&gt;       + RAB_ACT_FAIL_2PSNRTB
+&lt;br&gt;       + RAB_ACT_FAIL_3PSNRT )
+&lt;br&gt;  )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Success Ratio, Multi RAB containing more than one NRT Services, from Network Perspective]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

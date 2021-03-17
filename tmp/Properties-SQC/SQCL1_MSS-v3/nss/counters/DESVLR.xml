@@ -1,0 +1,212 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M339 DESVLR measurement dump</header>
+    <csv_title>NSN NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M339 DESVLR measurement dump</csv_title>
+    <report-description>VLR measurement, part n, subscribers per HLR(DESVLR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <HSAVERAGE/>
+    <CANCEL_LOCATION/>
+    <AVG_NBR_HOME_SUBS_2G/>
+    <AVG_NBR_HOME_SUBS_3G/>
+    <AVG_NBR_HOME_SUBS_UNKNOWN/>
+    <AVG_NBR_HOME_SUBS_2G_DET/>
+    <AVG_NBR_HOME_SUBS_3G_DET/>
+    <AVG_NBR_HOME_SUBS_UNKNOWN_DET/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/DEST3" name="DESVLR" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="HSAVERAGE" object-formula="SUM(HSAVERAGE)" time-alias="HSAVERAGE" time-formula="AVG(HSAVERAGE)">SUM(HSAVERAGE)</counter>
+      <counter alias="CANCEL_LOCATION" symmetrical="true">SUM(CANCEL_LOCATION)</counter>
+      <counter alias="AVG_NBR_HOME_SUBS_2G" object-formula="SUM(AVG_NBR_HOME_SUBS_2G)" time-alias="AVG_NBR_HOME_SUBS_2G" time-formula="AVG(AVG_NBR_HOME_SUBS_2G)">SUM(AVG_NBR_HOME_SUBS_2G)</counter>
+      <counter alias="AVG_NBR_HOME_SUBS_3G" object-formula="SUM(AVG_NBR_HOME_SUBS_3G)" time-alias="AVG_NBR_HOME_SUBS_3G" time-formula="AVG(AVG_NBR_HOME_SUBS_3G)">SUM(AVG_NBR_HOME_SUBS_3G)</counter>
+      <counter alias="AVG_NBR_HOME_SUBS_UNKNOWN" object-formula="SUM(AVG_NBR_HOME_SUBS_UNKNOWN)" time-alias="AVG_NBR_HOME_SUBS_UNKNOWN" time-formula="AVG(AVG_NBR_HOME_SUBS_UNKNOWN)">SUM(AVG_NBR_HOME_SUBS_UNKNOWN)</counter>    
+      <counter alias="AVG_NBR_HOME_SUBS_2G_DET" object-formula="SUM(AVG_NBR_HOME_SUBS_2G_DET)" time-alias="AVG_NBR_HOME_SUBS_2G_DET" time-formula="AVG(AVG_NBR_HOME_SUBS_2G_DET)">SUM(AVG_NBR_HOME_SUBS_2G_DET)</counter>
+      <counter alias="AVG_NBR_HOME_SUBS_3G_DET" object-formula="SUM(AVG_NBR_HOME_SUBS_3G_DET)" time-alias="AVG_NBR_HOME_SUBS_3G_DET" time-formula="AVG(AVG_NBR_HOME_SUBS_3G_DET)">SUM(AVG_NBR_HOME_SUBS_3G_DET)</counter>
+      <counter alias="AVG_NBR_HOME_SUBS_UNKNOWN_DET" object-formula="SUM(AVG_NBR_HOME_SUBS_UNKNOWN_DET)" time-alias="AVG_NBR_HOME_SUBS_UNKNOWN_DET" time-formula="AVG(AVG_NBR_HOME_SUBS_UNKNOWN_DET)">SUM(AVG_NBR_HOME_SUBS_UNKNOWN_DET)</counter>      
+    </counters>
+    <table_name>RNS_PS_DESVLR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DESVLR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DESVLR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_DESVLR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HSAVERAGE">
+    <formula>DESVLR.HSAVERAGE</formula>
+    <kpi_info>
+      <title>HSAVERAGE</title>
+      <use>Average number of home subscribers belongingto the HLR displayed in the same line, during the reporting period. For
+the calculation of the average, the number of home subscribers is interrogated
+at five-minute intervals. The maximum number of different HLR addresses
+in a report is 40.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(HSAVERAGE)">SUM(HSAVERAGE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_DESVLR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HSAVERAGE (M339B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CANCEL_LOCATION">
+    <formula>DESVLR.CANCEL_LOCATION</formula>
+    <kpi_info>
+      <title>CANCEL_LOCATION</title>
+      <use>The number of CancelLocation operationsreceived from the specific HLR.This counter is printed
+only with Feature 1627: Super-Charger feature.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CANCEL_LOCATION)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_DESVLR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CANCEL_LOCATION (M339B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_HOME_SUBS_2G">
+    <formula>DESVLR.AVG_NBR_HOME_SUBS_2G</formula>
+    <kpi_info>
+      <title>AVG_NBR_HOME_SUBS_2G</title>
+      <use>Average number of home 2G subscribers belonging to the HLR displayed in the same line, during the reporting period. The measured object is the ISDN address of the HLR. Zero HLR address indicates the number of subscribers whose HLR address is unknown</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_HOME_SUBS_2G)">SUM(AVG_NBR_HOME_SUBS_2G)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_desvlr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_HOME_SUBS_2G (M339B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_HOME_SUBS_3G">
+    <formula>DESVLR.AVG_NBR_HOME_SUBS_3G</formula>
+    <kpi_info>
+      <title>AVG_NBR_HOME_SUBS_3G</title>
+      <use>Average number of home 3G subscribers belonging to the HLR displayed in the same line, during the reporting period. The measured object is the ISDN address of the HLR. Zero HLR address indicates the number of subscribers whose HLR address is unknown</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_HOME_SUBS_3G)">SUM(AVG_NBR_HOME_SUBS_3G)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_desvlr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_HOME_SUBS_3G (M339B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_HOME_SUBS_UNKNOWN">
+    <formula>DESVLR.AVG_NBR_HOME_SUBS_UNKNOWN</formula>
+    <kpi_info>
+      <title>AVG_NBR_HOME_SUBS_UNKNOWN</title>
+      <use>Average number of home unknown subscribers belonging to the HLR displayed in the same line, during the reporting period. The measured object is the ISDN address of the HLR. Zero HLR address indicates the number of subscribers whose HLR address is unknown</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_HOME_SUBS_UNKNOWN)">SUM(AVG_NBR_HOME_SUBS_UNKNOWN)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_desvlr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_HOME_SUBS_UNKNOWN (M339B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_HOME_SUBS_2G_DET">
+    <formula>DESVLR.AVG_NBR_HOME_SUBS_2G_DET</formula>
+    <kpi_info>
+      <title>AVG_NBR_HOME_SUBS_2G_DET</title>
+      <use>Counts the average number of detached 2G subscribers per HLR during the measurement period. Number of subscribers in the VLR is collected in every 5 minutes, and then at the end of the measurement period the average number of subscribers in the VLR is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_HOME_SUBS_2G_DET)">SUM(AVG_NBR_HOME_SUBS_2G_DET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_desvlr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_HOME_SUBS_2G_DET (M339B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_HOME_SUBS_3G_DET">
+    <formula>DESVLR.AVG_NBR_HOME_SUBS_3G_DET</formula>
+    <kpi_info>
+      <title>AVG_NBR_HOME_SUBS_3G_DET</title>
+      <use>Counts the average number of detached 3G subscribers per HLR during the measurement period. Number of subscribers in the VLR is collected in every 5 minutes, and then at the end of the measurement period the average number of subscribers in the VLR is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_HOME_SUBS_3G_DET)">SUM(AVG_NBR_HOME_SUBS_3G_DET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_desvlr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_HOME_SUBS_3G_DET (M339B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_HOME_SUBS_UNKNOWN_DET">
+    <formula>DESVLR.AVG_NBR_HOME_SUBS_UNKNOWN_DET</formula>
+    <kpi_info>
+      <title>AVG_NBR_HOME_SUBS_UNKNOWN_DET</title>
+      <use>Counts the average number of subscribers per HLR during the measurement period whose access can not be determined or are other than 2G/3G. SIP subscribers are counted as UNKNOWN. Number of subscribers in the VLR is collected in every 5 minutes, and then at the end of the measurement period the average number of subscribers in the VLR is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_HOME_SUBS_UNKNOWN_DET)">SUM(AVG_NBR_HOME_SUBS_UNKNOWN_DET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_desvlr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_HOME_SUBS_UNKNOWN_DET (M339B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>   
+</conf_file>

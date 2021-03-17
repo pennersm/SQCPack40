@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/AALCAC.xml" />
+  <kpi name="RNC_601a">
+    <formula>decode(
+			(aalcac.nbr_samples*aalcac.aal2_path_guar_cell_rate),0,null, 
+
+			100*(aalcac.sum_reserved_cell_rate
+			 / 
+			aalcac.nbr_samples)
+			 / 
+			(aalcac.aal2_path_guar_cell_rate))</formula>
+    <kpi_info>
+      <title><![CDATA[AAL2 path average reserved bandwidth]]></title>
+      <use><![CDATA[The ratio between average reserved bandwidth and total bandwidth of AAL2 path estimated by CAC during measurement period. The AAL2 path is an ATM VCC between two AAL type 2 entities. The high reservation level may cause blocking of radio bearer setup.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum (SUM_RESERVED_CELL_RATE / NBR_SAMPLES)
+&lt;br&gt;              --------------------------------------------------
+&lt;br&gt;             sum(AAL2_PATH_GUAR_CELL_RATE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Alloc avg cap of CBR VCC]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<report id="RSRAN251 - RU40 Objects SW" thresholds="false">
+		<report-level key="rnc">PLMN/RNC</report-level>
+		<level>PLMN/RNC</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSRAN251 - RU40 Objects SW</title>
+		<help-text>
+		<![CDATA[<br>Report lists all RNC NEs software versions in the network.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">plmn.co_gid</pivot>
+			<pivot level="RNC">rnc.co_gid</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="plmn_co_name">
+				<alias>PLMN name</alias>
+			</column>		
+		    <column col-id="rnc_co_name">
+				<alias>RNC name</alias>
+			</column>
+		    <column col-id="wbts_co_name">
+				<alias>WBTS name</alias>
+			</column>
+			<column col-id="co_sc_name">
+				<alias>Mode</alias>
+			</column>
+			<column col-id="co_gid" columnType="KEY">
+				<alias>co_gid</alias>
+			</column>
+			<column col-id="vendor">
+				<alias>Vendor</alias>
+			</column>
+			<column col-id="sys_ver">
+				<alias>Sys Version</alias>
+			</column>
+			<column col-id="co_dn">
+				<alias>Distinguished name</alias>
+			</column>
+			<column col-id="int_id" columnType="KEY">
+				<alias>Int ID</alias>
+			</column>
+			<column col-id="sw_name">
+				<alias>Software package name</alias>
+			</column>
+			<column col-id="package_id">
+				<alias>Package ID</alias>
+			</column>
+			<column col-id="active_package_id">
+				<alias>Active Software ID</alias>
+			</column>
+			<column col-id="row_update_date">
+				<alias>Last Update Date</alias>
+			</column>
+			<column col-id="site_id">
+				<alias>Site ID</alias>
+			</column>
+			<column col-id="so_address">
+				<alias>Site Address</alias>
+			</column>
+			
+			<column col-id="longitude" columnType="KEY">
+				<alias>Longitude</alias>
+			</column>
+			<column col-id="latitude" columnType="KEY">
+				<alias>Latitude</alias>
+			</column>
+			<column col-id="height" columnType="KEY">
+				<alias>Height</alias>
+			</column>
+			<column col-id="plmn_co_gid" columnType="KEY">
+			<alias>PLMN GID</alias>
+			</column>
+			<column col-id="rnc_co_gid" columnType="KEY">
+			<alias>RNC GID</alias>
+			</column>
+			<column col-id="wbts_co_gid" columnType="KEY">
+			<alias>WBTS GID</alias>
+			</column>
+			<column col-id="wcel_co_gid" columnType="KEY">
+			<alias>WCEL GID</alias>
+			</column>
+		</columns>
+
+
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Software RNC:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			plmn.co_gid plmn_co_gid,
+			nvl(rnc.co_name,'NN('||rnc.co_gid||')') rnc_co_name,
+			rnc.co_gid rnc_co_gid,
+				sw.name sw_name,
+				/*sw.package_id,*/
+				sw.active_package_id,
+				sw.row_update_date
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				a_sw_package sw
+			WHERE  
+			    #object_selection# and
+				plmn.co_oc_id = 16 AND
+				rnc.co_oc_id=811 and				
+				rnc.co_parent_gid = plmn.co_gid
+				and sw.is_running=1
+				and rnc.co_int_id = sw.int_id
+			ORDER BY sw.int_id, sw.row_update_date
+	 		]]>
+	 	</sql>	
+	 	
+	 	<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Software WBTS:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			plmn.co_gid plmn_co_gid,
+			nvl(rnc.co_name,'NN('||rnc.co_gid||')') rnc_co_name,
+			rnc.co_gid rnc_co_gid,
+			nvl(wbts.co_name,'NN('||wbts.co_gid||')') wbts_co_name,
+			wbts.co_gid wbts_co_gid,
+				sw.name sw_name,
+				/*sw.package_id,*/
+				sw.active_package_id,
+				sw.row_update_date
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				a_sw_package sw
+			WHERE  
+			   #object_selection# and
+				rnc.co_oc_id=811 and
+				plmn.co_oc_id = 16 AND
+				wbts.co_oc_id = 812 AND
+				rnc.co_parent_gid = plmn.co_gid  and
+				wbts.co_parent_gid=rnc.co_gid and 
+				sw.is_running=1 and
+				wbts.co_int_id = sw.int_id
+			
+	 		]]>
+	 	</sql>
+	 	
+<!-- 	 	<literal> -->
+<!-- 			<![CDATA[ -->
+<!-- 				<br><br><span class ="sql_h2">Software WCel:</span><br><br> -->
+<!-- 		 		]]> -->
+<!-- 		</literal> -->
+
+<!-- 				<sql> -->
+<!-- 			<![CDATA[ -->
+
+<!-- 			SELECT -->
+<!-- 				nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name, -->
+<!-- 				plmn.co_gid plmn_co_gid, -->
+<!-- 				nvl(iada.co_name,'NN('||iada.co_gid||')') iada_co_name, -->
+<!-- 				iada.co_gid ada_co_gid, -->
+<!-- 				nvl(wbts.co_name,'NN('||wbts.co_gid||')') wbts_co_name, -->
+<!-- 				wbts.co_gid wbts_co_gid, -->
+<!-- 				nvl(wcel.co_name,'NN('||wcel.co_gid||')') wcel_co_name, -->
+<!-- 				wcel.co_gid wcel_co_gid, -->
+<!-- 				sw.name sw_name, -->
+<!-- 				sw.package_id, -->
+<!-- 				sw.active_package_id, -->
+<!-- 				sw.row_update_date -->
+<!-- 			FROM -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects iada, -->
+<!-- 				utp_common_objects wbts, -->
+<!-- 				utp_common_objects wcel, -->
+<!-- 				a_sw_package sw -->
+<!-- 			WHERE   -->
+<!-- 			   #object_selection# and -->
+<!-- 				iada.co_oc_id=2504 and -->
+<!-- 				plmn.co_oc_id = 16 AND -->
+<!-- 				wbts.co_oc_id = 812 AND -->
+<!-- 				iada.co_parent_gid = plmn.co_gid  and -->
+<!-- 				wbts.co_parent_gid=iada.co_gid and  -->
+<!-- 				wcel.co_parent_gid=wbts.co_gid and -->
+<!-- 				sw.is_running=1 and -->
+<!-- 				wcel.co_int_id = sw.int_id -->
+<!-- 	 		]]> -->
+<!-- 	 	</sql> -->
+	 	
+<!-- 	 	<literal> -->
+<!-- 			<![CDATA[ -->
+<!-- 				<br><br><span class ="sql_h2">Location IADA:</span><br><br> -->
+<!-- 		 		]]> -->
+<!-- 		</literal> -->
+
+<!-- 				<sql> -->
+<!-- 			<![CDATA[ -->
+
+<!-- 			SELECT -->
+<!-- 			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name, -->
+<!-- 			plmn.co_gid plmn_co_gid, -->
+<!-- 			nvl(iada.co_name,'NN('||iada.co_gid||')') iada_co_name, -->
+<!-- 			iada.co_gid ada_co_gid, -->
+<!-- 				site.so_address, -->
+<!-- 				site.so_longitude longitude, -->
+<!-- 				site.so_latitude latitude, -->
+<!-- 				site.so_ground_height height, -->
+<!-- 				site.so_site_id site_id -->
+<!-- 			FROM -->
+<!-- 				utp_common_objects plmn, -->
+<!-- 				utp_common_objects iada, -->
+<!-- 				utp_site_object site -->
+<!-- 			WHERE   -->
+<!-- 			    #object_selection# and -->
+<!-- 			    plmn.co_oc_id = 16 AND -->
+<!-- 				iada.co_oc_id=2504 and				 -->
+<!-- 				iada.co_parent_gid = plmn.co_gid and  -->
+<!-- 				site.so_co_gid=iada.co_gid -->
+<!-- 	 		]]> -->
+<!-- 	 	</sql> -->
+		
+		
+		
+			<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Location WBTS:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT
+			
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			plmn.co_gid plmn_co_gid,
+			nvl(rnc.co_name,'NN('||rnc.co_gid||')') rnc_co_name,
+			rnc.co_gid rnc_co_gid,
+			nvl(wbts.co_name,'NN('||wbts.co_gid||')') wbts_co_name,
+			wbts.co_gid wbts_co_gid,
+
+				site.so_address so_address,
+				site.so_longitude longitude,
+				site.so_latitude latitude,
+				site.so_ground_height height,
+				site.so_site_id site_id
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects rnc,
+				utp_common_objects wbts,
+				utp_site_object site
+			WHERE  
+			     #object_selection# and
+				rnc.co_oc_id=811 and
+				plmn.co_oc_id = 16 AND
+				wbts.co_oc_id = 812 AND
+				rnc.co_parent_gid = plmn.co_gid  and
+				wbts.co_parent_gid=rnc.co_gid and 
+				site.so_co_gid=wbts.co_so_gid
+	 		]]>
+	 	</sql>
+		
+		
+
+
+	</report>
+</reports>

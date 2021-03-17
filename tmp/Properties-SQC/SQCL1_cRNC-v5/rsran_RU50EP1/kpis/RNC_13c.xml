@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+	<temp_table_ref src="rsran_RU50EP1/counters/TRAFFIC_ext.xml" />
+	<kpi name="RNC_13c">
+		<formula>
+			decode((traffic.period_duration),0,null,(((8*traffic.dur_ps_backg_8_ul_in_srnc)+(16*traffic.dur_ps_backg_16_ul_in_srnc)+(32*traffic.dur_ps_backg_32_ul_in_srnc)+(64*traffic.dur_ps_backg_64_ul_in_srnc)+(128*traffic.dur_ps_backg_128_ul_in_srnc)+(256*traffic.dur_ps_backg_256_ul_in_srnc)+(384*traffic.dur_ps_backg_384_ul_in_srnc))/(traffic.period_duration*60*100)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[PS Background allocated UL]]>
+			</title>
+			<use>
+				<![CDATA[Allocated Uplink Dedicated Channel Capacity [kbit/s] for non-transparent PS Data Calls with background class.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+SUM((8*DUR_PS_BACKG_8_UL_IN_SRNC)
++ (16*DUR_PS_BACKG_16_UL_IN_SRNC)
++ (32*DUR_PS_BACKG_32_UL_IN_SRNC)
++ (64*DUR_PS_BACKG_64_UL_IN_SRNC)
++ (128*DUR_PS_BACKG_128_UL_IN_SRNC)
++ (256*DUR_PS_BACKG_256_UL_IN_SRNC)
++ (384*DUR_PS_BACKG_384_UL_IN_SRNC))
+----------------------------------------
+SUM(PERIOD_DURATION * 60*100)
+				</pre>]]>
+			</formula>
+			<unit>[kbit/s]</unit>
+			<tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[PS Background allocated UL]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

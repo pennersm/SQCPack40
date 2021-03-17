@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <kpi name="RNC_722d">
+    <formula>decode(
+			(hsdpaw.hs_scch_pwr_dist_class_0 + 
+			hsdpaw.hs_scch_pwr_dist_class_1 + 
+			hsdpaw.hs_scch_pwr_dist_class_2 + 
+			hsdpaw.hs_scch_pwr_dist_class_3 + 
+			hsdpaw.hs_scch_pwr_dist_class_4 + 
+			hsdpaw.hs_scch_pwr_dist_class_5),0,null, 
+
+			((hsdpaw.received_hs_macd_bits - 
+			hsdpaw.discarded_hs_macd_bits + 
+			(celtpw.mc_hsdpa_orig_data_pri + 
+			celtpw.mc_hsdpa_orig_data_sec)*8)*500)
+			 / 
+			(hsdpaw.hs_scch_pwr_dist_class_0 + 
+			hsdpaw.hs_scch_pwr_dist_class_1 + 
+			hsdpaw.hs_scch_pwr_dist_class_2 + 
+			hsdpaw.hs_scch_pwr_dist_class_3 + 
+			hsdpaw.hs_scch_pwr_dist_class_4 + 
+			hsdpaw.hs_scch_pwr_dist_class_5))</formula>
+    <kpi_info>
+      <title><![CDATA[Active HS-DSCH cell throughput]]></title>
+      <use><![CDATA[The average active HS-DSCH MAC-d cell throughput from network perspective calculated as the HSDPA MAC-d throughput at BTS divided by the active HS-DSCH time from the network perspective.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sum(RECEIVED_HS_MACD_BITS-DISCARDED_HS_MACD_BITS
+&lt;br&gt;+(MC_HSDPA_ORIG_DATA_PRI+MC_HSDPA_ORIG_DATA_SEC)*8)
+&lt;br&gt;* 500)
+&lt;br&gt;/
+&lt;br&gt;sum(HS_SCCH_PWR_DIST_CLASS_0 
+&lt;br&gt;+ HS_SCCH_PWR_DIST_CLASS_1
+&lt;br&gt;+ HS_SCCH_PWR_DIST_CLASS_2 
+&lt;br&gt;+ HS_SCCH_PWR_DIST_CLASS_3 
+&lt;br&gt;+ HS_SCCH_PWR_DIST_CLASS_4 
+&lt;br&gt;+ HS_SCCH_PWR_DIST_CLASS_5)
+&lt;br&gt;</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg},nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:36.209 +0100</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Active HS-DSCH cell thr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

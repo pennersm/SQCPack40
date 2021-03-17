@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG9.0;SG8.0;SG7.0;SG6.0;SG5.0 overload measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG9.0;SG8.0;SG7.0;SG6.0;SG5.0 overload measurement dump</csv_title>
+    <report-description>Overload control measurement(OVERLOAD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <cs_paging_msgs />
+    <dl_messages_discarded_in_gs />
+    <dl_tom_msgs />
+    <failed_detach_attempts />
+    <rej_attach_in_ear_phase />
+    <rej_mo_sms_attempts />
+    <rej_pdp_cont_act_attempts />
+    <rej_pdp_cont_modify_att />
+    <rej_ra_upd_in_early_phase />
+    <rejected_attach_attempts />
+    <rejected_ra_updates />
+    <!--<gtp_data_in_bytes_sent_in_ul />
+    <gtp_data_in_bytes_sent_in_dl />-->
+    <OVER_ECHO_REQ_REJ />
+    <OVER_PDP_DEACT_REJ />
+    <OVER_PDP_UPD_REJ />
+    <OVER_ERR_IND_REJ />
+    <OVER_RAU_REJ />
+    <OVER_REL_REJ />
+    <OVER_DL_DATA_REJ />
+    <OVER_RIM_REJ />
+  </column_order>
+  <temp_table name="overload" meas_level="PLMN/SGSN" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="cs_paging_msgs" symmetrical="true">SUM(cs_paging_msgs)</counter>
+      <counter alias="dl_messages_discarded_in_gs" symmetrical="true">SUM(dl_messages_discarded_in_gs)</counter>
+      <counter alias="dl_tom_msgs" symmetrical="true">SUM(dl_tom_msgs)</counter>
+      <counter alias="failed_detach_attempts" symmetrical="true">SUM(failed_detach_attempts)</counter>
+      <counter alias="rej_attach_in_ear_phase" symmetrical="true">SUM(rej_attach_in_ear_phase)</counter>
+      <counter alias="rej_mo_sms_attempts" symmetrical="true">SUM(rej_mo_sms_attempts)</counter>
+      <counter alias="rej_pdp_cont_act_attempts" symmetrical="true">SUM(rej_pdp_cont_act_attempts)</counter>
+      <counter alias="rej_pdp_cont_modify_att" symmetrical="true">SUM(rej_pdp_cont_modify_att)</counter>
+      <counter alias="rej_ra_upd_in_early_phase" symmetrical="true">SUM(rej_ra_upd_in_early_phase)</counter>
+      <counter alias="rejected_attach_attempts" symmetrical="true">SUM(rejected_attach_attempts)</counter>
+      <counter alias="rejected_ra_updates" symmetrical="true">SUM(rejected_ra_updates)</counter>
+<!--  <counter alias="gtp_data_in_bytes_sent_in_ul" symmetrical="true">SUM(gtp_data_in_bytes_sent_in_ul)</counter>
+      <counter alias="gtp_data_in_bytes_sent_in_dl" symmetrical="true">SUM(gtp_data_in_bytes_sent_in_dl)</counter> -->
+      <counter alias="OVER_ECHO_REQ_REJ" symmetrical="true">SUM(OVER_ECHO_REQ_REJ)</counter>
+      <counter alias="OVER_PDP_DEACT_REJ" symmetrical="true">SUM(OVER_PDP_DEACT_REJ)</counter>
+      <counter alias="OVER_PDP_UPD_REJ" symmetrical="true">SUM(OVER_PDP_UPD_REJ)</counter>
+      <counter alias="OVER_ERR_IND_REJ" symmetrical="true">SUM(OVER_ERR_IND_REJ)</counter>
+      <counter alias="OVER_RAU_REJ" symmetrical="true">SUM(OVER_RAU_REJ)</counter>
+      <counter alias="OVER_REL_REJ" symmetrical="true">SUM(OVER_REL_REJ)</counter>
+      <counter alias="OVER_DL_DATA_REJ" symmetrical="true">SUM(OVER_DL_DATA_REJ)</counter>
+      <counter alias="OVER_RIM_REJ" symmetrical="true">SUM(OVER_RIM_REJ)</counter>
+    </counters>
+    <table_name>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>overload</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>overload.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="cs_paging_msgs">
+    <formula>overload.cs_paging_msgs</formula>
+    <kpi_info>
+      <title>cs_paging_msgs</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(cs_paging_msgs)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>cs_paging_msgs</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="dl_messages_discarded_in_gs">
+    <formula>overload.dl_messages_discarded_in_gs</formula>
+    <kpi_info>
+      <title>dl_messages_discarded_in_gs</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(dl_messages_discarded_in_gs)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>dl_messages_discarded_in_gs</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="dl_tom_msgs">
+    <formula>overload.dl_tom_msgs</formula>
+    <kpi_info>
+      <title>dl_tom_msgs</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(dl_tom_msgs)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>dl_tom_msgs</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="failed_detach_attempts">
+    <formula>overload.failed_detach_attempts</formula>
+    <kpi_info>
+      <title>failed_detach_attempts</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(failed_detach_attempts)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>failed_detach_attempts</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rej_attach_in_ear_phase">
+    <formula>overload.rej_attach_in_ear_phase</formula>
+    <kpi_info>
+      <title>rej_attach_in_ear_phase</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rej_attach_in_ear_phase)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rej_attach_in_ear_phase</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rej_mo_sms_attempts">
+    <formula>overload.rej_mo_sms_attempts</formula>
+    <kpi_info>
+      <title>rej_mo_sms_attempts</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rej_mo_sms_attempts)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rej_mo_sms_attempts</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rej_pdp_cont_act_attempts">
+    <formula>overload.rej_pdp_cont_act_attempts</formula>
+    <kpi_info>
+      <title>rej_pdp_cont_act_attempts</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rej_pdp_cont_act_attempts)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rej_pdp_cont_act_attempts</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rej_pdp_cont_modify_att">
+    <formula>overload.rej_pdp_cont_modify_att</formula>
+    <kpi_info>
+      <title>rej_pdp_cont_modify_att</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rej_pdp_cont_modify_att)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rej_pdp_cont_modify_att</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rej_ra_upd_in_early_phase">
+    <formula>overload.rej_ra_upd_in_early_phase</formula>
+    <kpi_info>
+      <title>rej_ra_upd_in_early_phase</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rej_ra_upd_in_early_phase)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rej_ra_upd_in_early_phase</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rejected_attach_attempts">
+    <formula>overload.rejected_attach_attempts</formula>
+    <kpi_info>
+      <title>rejected_attach_attempts</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rejected_attach_attempts)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rejected_attach_attempts</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rejected_ra_updates">
+    <formula>overload.rejected_ra_updates</formula>
+    <kpi_info>
+      <title>rejected_ra_updates</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rejected_ra_updates)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rejected_ra_updates</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!--kpi name="gtp_data_in_bytes_sent_in_ul">
+    <formula>overload.gtp_data_in_bytes_sent_in_ul</formula>
+    <kpi_info>
+      <title>gtp_data_in_bytes_sent_in_ul</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(gtp_data_in_bytes_sent_in_ul)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>gtp_data_in_bytes_sent_in_ul</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="gtp_data_in_bytes_sent_in_dl">
+    <formula>overload.gtp_data_in_bytes_sent_in_dl</formula>
+    <kpi_info>
+      <title>gtp_data_in_bytes_sent_in_dl</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(gtp_data_in_bytes_sent_in_dl)</formula>
+      <unit>byte</unit>
+      <tables>rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>gtp_data_in_bytes_sent_in_dl</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+  <kpi name="OVER_ECHO_REQ_REJ"  >
+    <formula >overload.OVER_ECHO_REQ_REJ</formula>
+    <kpi_info >
+      <title >OVER_ECHO_REQ_REJ</title>
+      <use >Number of GGSN Initiated echo request rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_ECHO_REQ_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_ECHO_REQ_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_PDP_DEACT_REJ"  >
+    <formula >overload.OVER_PDP_DEACT_REJ</formula>
+    <kpi_info >
+      <title >OVER_PDP_DEACT_REJ</title>
+      <use >Number of GGSN Initiated PDP context deactivation rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_PDP_DEACT_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_PDP_DEACT_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_PDP_UPD_REJ"  >
+    <formula >overload.OVER_PDP_UPD_REJ</formula>
+    <kpi_info >
+      <title >OVER_PDP_UPD_REJ</title>
+      <use >Number of GGSN Initiated PDP context modification rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_PDP_UPD_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_PDP_UPD_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_ERR_IND_REJ"  >
+    <formula >overload.OVER_ERR_IND_REJ</formula>
+    <kpi_info >
+      <title >OVER_ERR_IND_REJ</title>
+      <use >Number of GGSN Initiated Error indication rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_ERR_IND_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_ERR_IND_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_RAU_REJ"  >
+    <formula >overload.OVER_RAU_REJ</formula>
+    <kpi_info >
+      <title >OVER_RAU_REJ</title>
+      <use >Number of RAU rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_RAU_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_RAU_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_REL_REJ"  >
+    <formula >overload.OVER_REL_REJ</formula>
+    <kpi_info >
+      <title >OVER_REL_REJ</title>
+      <use >Number of Relocation rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_REL_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_REL_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_DL_DATA_REJ"  >
+    <formula >overload.OVER_DL_DATA_REJ</formula>
+    <kpi_info >
+      <title >OVER_DL_DATA_REJ</title>
+      <use >Number of GGSN Initiated downlink data rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_DL_DATA_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_DL_DATA_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="OVER_RIM_REJ"  >
+    <formula >overload.OVER_RIM_REJ</formula>
+    <kpi_info >
+      <title >OVER_RIM_REJ</title>
+      <use >Number of  GGSN Initiated RIM request rejects during Gn interface overload
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(OVER_RIM_REJ)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >OVER_RIM_REJ</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

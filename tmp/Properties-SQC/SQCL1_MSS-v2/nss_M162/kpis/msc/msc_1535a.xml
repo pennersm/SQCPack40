@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/TBSC.xml" />
+  <kpi name="msc_1535a">
+    <formula>
+decode(tbsc.bscrnc_mo_sm_att,0,null,
+		
+		100* (tbsc.bscrnc_mo_sm_succ)
+		/
+		(tbsc.bscrnc_mo_sm_att)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[MO SMS Success Ratio per BSC]]></title>
+      <use><![CDATA[Mobile originating short messages success ratio per BSC]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(BSCRNC_MO_SM_SUCC)
+&lt;br&gt;100 * ---------------------- 
+&lt;br&gt;      SUM(BSCRNC_MO_SM_ATT)
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;Use view(s):
+&lt;br&gt;RNS_P_TBSC_{Object}_{Time}</formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_TBSC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:59.57 +0000</date>
+          <comment><![CDATA[Source: RSMSC060.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MO SMS SR per BSC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

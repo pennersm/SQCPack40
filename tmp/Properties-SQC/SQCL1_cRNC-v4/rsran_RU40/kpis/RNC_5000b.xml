@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_5000b">
+    <formula>100*decode(
+			(traffic.allo_hs_dsch_flow_str + 
+			traffic.dch_sel_max_hsdpa_users_str + 
+			traffic.rej_hs_dsch_ret_str + 
+			traffic.setup_fail_rnc_hs_dsch_str + 
+			traffic.setup_fail_bts_hs_dsch_str + 
+			traffic.setup_fail_iub_hs_total_str + 
+			traffic.setup_fail_ue_hs_dsch_str),0,null, 
+
+			traffic.allo_hs_dsch_flow_str
+			 / 
+			(traffic.allo_hs_dsch_flow_str + 
+			traffic.dch_sel_max_hsdpa_users_str + 
+			traffic.rej_hs_dsch_ret_str + 
+			traffic.setup_fail_rnc_hs_dsch_str + 
+			traffic.setup_fail_bts_hs_dsch_str + 
+			traffic.setup_fail_iub_hs_total_str + 
+			traffic.setup_fail_ue_hs_dsch_str))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA Resource Accessibility for RT Traffic]]></title>
+      <use><![CDATA[The accessibility of all started resource allocations for HS-DSCH for RT Traffic.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum(ALLO_HS_DSCH_FLOW_STR)
+&lt;br&gt;/
+&lt;br&gt;sum(ALLO_HS_DSCH_FLOW_STR + 
+&lt;br&gt;DCH_SEL_MAX_HSDPA_USERS_STR + 
+&lt;br&gt;REJ_HS_DSCH_RET_STR + 
+&lt;br&gt;SETUP_FAIL_RNC_HS_DSCH_STR + 
+&lt;br&gt;SETUP_FAIL_BTS_HS_DSCH_STR + 
+&lt;br&gt;SETUP_FAIL_IUB_HS_TOTAL_STR +
+&lt;br&gt;SETUP_FAIL_UE_HS_DSCH_STR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:38.45 +0100</date>
+          <comment><![CDATA[Source: RSRAN003.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSDPA res acc for RT traf</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

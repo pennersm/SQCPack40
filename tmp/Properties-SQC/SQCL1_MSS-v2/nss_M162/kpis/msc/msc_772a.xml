@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/LULAC.xml"/>
+  <kpi name="msc_772a">
+    <formula>
+    100*decode(
+		(nvl(lulac.periodic_loc_update_attempt,0)),0,null, 
+		(nvl(lulac.periodic_loc_update_success,0)
+			 / 
+			(nvl(lulac.periodic_loc_update_attempt,0))
+		)
+	)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Periodic Location Update per LAC success ratio]]></title>
+      <use><![CDATA[The ratio of successful Periodic-VLR location updates compared to all location updates of this type for the given LAC]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.6, the LTE access is also going to be supported.
+<br>In case of &quot;LTE&quot; access type the periodic location upate (please refer to PERIODIC ATTEMPT/SUCCESS counters) can not be interpreted on VLR level.
+<br>Starting from M14.6 (and respective LTE support) this KPI only reflects the &quot;periodic location update&quot; of 2G + 3G + SIP access types.
+<br>PUBLISHED: M13.6
+<br>LAST UPDATE: 09-03-2010
+<br>THEORETICAL SUMMARY LEVELS: LAC, ACCESS
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: LAC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement,  part n, location update per LAC (240 / F0)
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature. Available if LAC based LU reporting feature is bought
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+&lt;br&gt;              SUM( NVL( PERIODIC_LOC_UPDATE_SUCCESS , 0 ) ) 
+&lt;br&gt;100 * ----------------------------------------------------------------------------
+&lt;br&gt;              SUM( NVL( PERIODIC_LOC_UPDATE_ATTEMPT , 0 ) ) 
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_LULAC_ACCESS1_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_lulac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Periodic Location Update per LAC success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M16</header>
+    <csv_title>Nokia Siemens NSS M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M16 CGRC measurement dump</csv_title>
+    <report-description>Circuit group measurement(CGRC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="CGRC_ext" meas_level="PLMN/CDS/CGRDIR" type="PM" master="yes" pragma="NSS" create="yes">
+    <counters>
+      <counter alias="CGRCGROUP_NOF_WOEX_CRTS_IN">sum(CGRCGROUP_NOF_WOEX_CRTS_IN)</counter>
+      <counter alias="CGRCGROUP_NOF_WOEX_CRTS_OUT">sum(CGRCGROUP_NOF_WOEX_CRTS_OUT)</counter>
+      <counter alias="CGRCGROUP_NOF_CIRCUITS">sum(CGRCGROUP_NOF_CIRCUITS)</counter>
+      <counter alias="MSC_1292a">
+(min(DECODE((cgrcgroup_nof_circuits),0,null,
+	 DECODE(NVL(cgrcgroup_nof_woex_crts_in,-1) + NVL(cgrcgroup_nof_woex_crts_out,-1), -2, null,
+		100*(least(nvl((cgrcgroup_nof_woex_crts_in /100),cgrcgroup_nof_circuits),
+		nvl((cgrcgroup_nof_woex_crts_out/100),cgrcgroup_nof_circuits)))/cgrcgroup_nof_circuits))
+	)
+)
+	  </counter>
+      <counter alias="CDS_1292a">
+(min(DECODE((cgrcgroup_nof_circuits),0,null,
+	 DECODE(NVL(cgrcgroup_nof_woex_crts_in,-1) + NVL(cgrcgroup_nof_woex_crts_out,-1), -2, null,
+		100*(least(nvl((cgrcgroup_nof_woex_crts_in /100),cgrcgroup_nof_circuits),
+		nvl((cgrcgroup_nof_woex_crts_out/100),cgrcgroup_nof_circuits)))/cgrcgroup_nof_circuits))
+	)
+)
+	  </counter>
+      <counter alias="MSC148C_NUM">
+DECODE(
+	(COUNT(DISTINCT PERIOD_START_TIME)),0,null, 
+	(100*(SUM(decode(cgr_dir_id, '1',CGRCGROUP_ERLANGS_OUT_X_100,0))/100)/COUNT(DISTINCT PERIOD_START_TIME))
+ )
+	  </counter>
+      <counter alias="MSC148C_DEN">
+DECODE(
+	(COUNT(DISTINCT PERIOD_START_TIME)),0,null, 
+	(SUM(NVL(CGRCGROUP_NOF_CIRCUITS,0))/COUNT(DISTINCT PERIOD_START_TIME))
+)
+	  </counter>
+      <counter alias="MSC612B_NUM">
+DECODE(
+		(COUNT(DISTINCT PERIOD_START_TIME)),0,null, 
+		(SUM(CGRCGROUP_ERLANGS_IN_X_100+CGRCGROUP_ERLANGS_OUT_X_100)/100/COUNT(DISTINCT PERIOD_START_TIME))
+)
+      </counter>
+      <counter alias="MSC612B_DEN">
+DECODE(
+		(COUNT(DISTINCT PERIOD_START_TIME)),0,null, 
+		(SUM(DECODE(CGR_DIR_ID,'3',1/2,1)*(NVL(CGRCGROUP_NOF_WOEX_CRTS_IN,0)+NVL(CGRCGROUP_NOF_WOEX_CRTS_OUT,0)))/100/COUNT(DISTINCT PERIOD_START_TIME))
+)
+      </counter>
+      <counter alias="MSC612C_NUM">
+DECODE(
+		(COUNT(DISTINCT period_start_time)),0,null, 
+		(SUM(CGRCGROUP_ERLANGS_IN_x_100+CGRCGROUP_ERLANGS_OUT_x_100 )/100/COUNT(DISTINCT period_start_time))
+)
+      </counter>
+      <counter alias="MSC612C_DEN">
+DECODE(
+		(COUNT(DISTINCT period_start_time)),0,null, 
+		(SUM(NVL(CGRCGROUP_NOF_CIRCUITS,0))/COUNT(DISTINCT period_start_time))
+)
+      </counter>
+    </counters>
+    <table_name>rns_ps_cgrc_cgrdir2_raw</table_name>
+	<alias_name>CGRC_ext</alias_name>
+  </temp_table>
+</conf_file>

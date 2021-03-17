@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4027a">
+    <formula>
+decode(TC_ext.tcat_call_amount_37 ,0,null,
+	100 * ( TC_ext.tcat_call_amount_38 / TC_ext.tcat_call_amount_37 )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MOC-PSTN Ratio]]></title>
+      <use><![CDATA[Provides the ratio of calls to others PLMNs or PSTN in relation to the number of calls generated at area served by this MSC.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_Id:
+<br>   123 = 2G OUT OTH -> 2G originating and outgoing calls to other PLMN or PSTN 
+<br>   125 = 3G OUT OTH -> 3G originating and outgoing calls to other PLMN or PSTN
+<br>   32 = 3G ORIG -> Originating traffic from a 3G radio network when the call is started
+<br>   34 = 2G ORIG -> Originating traffic from GSM radio network when the call is started
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MOC-PSTN Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        SUM( TCAT_CALL_AMOUNT )   ;WHERE tcat_ID = 123, 125
+&lt;br&gt;100 *  ---------------------------
+&lt;br&gt;        SUM( TCAT_CALL_AMOUNT )   ;WHERE tcat_ID = 32, 34
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MOC-PSTN Ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

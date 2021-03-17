@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/Netstat.xml"/>
+  <kpi name="flng_300a">
+    <formula>decode(
+			((Netstat.period_duration*60*1048576)),0,NULL, 
+
+			((8*(Netstat.recv_octets + 
+			Netstat.transmit_octets)))
+			 / 
+			((Netstat.period_duration*60*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Ethernet data throughput]]></title>
+      <use><![CDATA[This KPI shows the total data throughput per interface during the reporting period.
+In this calculation both receive and send directions are considered.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (8 * (recv_octets + transmit_octets))
+&lt;br&gt;-----------------------------------------
+&lt;br&gt;  sum (period_duration * 60 * 1048576)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>PCOFNG_PS_Netstat_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Ethernet data thp]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

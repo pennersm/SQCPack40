@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4029a">
+    <formula>
+decode(TC_ext.tcat_ok_amount_25,0,null,
+	( ((TC_ext.tcat_answ_tr_3 / 100) / TC_ext.PERIOD_START_TIME_1 * TC_ext.PERIOD_DURATION_1 * 60 * TC_ext.PERIOD_START_TIME_1)
+	/
+	TC_ext.tcat_ok_amount_25
+	)
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MMC Average Call Duration (Speech + Data)]]></title>
+      <use><![CDATA[Provides the average call duration of MMC speech and data calls.]]></use>
+
+<use_experience><![CDATA[ 
+<br>TCat_IDs:
+<br>   92 = VOICE INT 2G-2G ->  2G orig and 2G term voice call
+<br>   93 = VOICE INT 2G-3G ->  2G orig and 3G term voice call
+<br>   95 = VOICE INT 3G-2G   ->  3G orig and 2G term voice call
+<br>   96 = VOICE INT 3G-3G   ->  3G orig and 3G term voice call
+<br>   107 = DATA INT 2G-2G ->  2G orig and 2G term CS data call
+<br>   108 = DATA INT 2G-3G ->  2G orig and 3G term CS data call
+<br>   110 = DATA 3G-2G   ->  3G orig and 2G term CS data call
+<br>   111 = DATA 3G-3G   ->  3G orig and 3G termCS data call
+<br>   122 = 2G OUT OWN   ->  2G originating and outgoing calls to own PLMN or PSTN
+<br>   124 = 3G OUT OWN   ->  3G originating and outgoing calls to own PLMN or PSTN
+<br>
+<br>This KPI provides the total speech + data calls traffic handled within one MSC.
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is partially compliant with ex-S &quot;MMC Average Speech Call Duration&quot; KPI. This KPI does not provide exactly the same content as ex-S one. It provides, however, a enough good approach. This NSN KPI provides the speech + data analysis.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#149; For OBJECT:
+&lt;br&gt;
+&lt;br&gt;(SUM( tcat_answ_tr ) / 100) * AVG( DURATION ) * 60
+&lt;br&gt;;WHERE TCat_ID = 92, 93, 95, 96, 107,  108, 110, 111, 122, 124
+&lt;br&gt;-------------------------------------
+&lt;br&gt;SUM( tcat_ok_amount )
+&lt;br&gt;;WHERE TCat_ID = 92, 93, 95, 96, 107,  108, 110, 111, 122, 124
+&lt;br&gt;
+&lt;br&gt;&amp;#149; For TIME:
+&lt;br&gt;
+&lt;br&gt;(AVG( tcat_answ_tr ) / 100) * SUM( DURATION ) * 60
+&lt;br&gt;;WHERE TCat_ID = 92, 93, 95, 96, 107,  108, 110, 111, 122, 124
+&lt;br&gt;-------------------------------------
+&lt;br&gt;SUM( tcat_ok_amount )
+&lt;br&gt;;WHERE TCat_ID = 92, 93, 95, 96, 107,  108, 110, 111, 122, 124
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;(SUM( tcat_answ_tr ) / 100) / COUNT(DISTINCT period_start_time) * AVG( DURATION ) * COUNT(DISTINCT period_start_time) * 60
+&lt;br&gt;;WHERE TCat_ID = 92, 93, 95, 96, 107,  108, 110, 111, 122, 124
+&lt;br&gt;-----------------------------------
+&lt;br&gt;SUM( tcat_ok_amount )
+&lt;br&gt;;WHERE TCat_ID = 92, 93, 95, 96, 107,  108, 110, 111, 122, 124</formula>
+      <unit>[Seconds]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg MMC call dur</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

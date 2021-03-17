@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU50EP1/counters/FSEPS_ext.xml" />
+  <kpi name="RNC_3175a">
+    <formula>100*decode(
+			(fseps.receivedesppackets_1),0,null, 
+
+			(fseps.antireplayerrors)
+			 / 
+			(fseps.receivedesppackets_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of discarded ESP packets discarded due to wrong sequence]]></title>
+      <use><![CDATA[The percentage of received ESP packets addressed to a local tunnel endpoint which are received with a SPI of an existing IPsec SA but the packets are discarded because the sequence number of the packets are outside the anti replay window.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(antiReplayErrors)
+&lt;br&gt;/
+&lt;br&gt;SUM(receivedESPpackets)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_FSEPS_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:10:01.174 +0100</date>
+          <comment><![CDATA[Source: RSRAN127.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Disc pkt wrong seq</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

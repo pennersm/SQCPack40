@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/L3IUB.xml" />
+  <kpi name="RNC_2455a">
+    <formula>100*decode(
+			(l3iub.rec_prep_drnc_ready + 
+			l3iub.rec_prep_drnc_fail),0,null, 
+
+			l3iub.rec_prep_drnc_ready
+			 / 
+			(l3iub.rec_prep_drnc_ready + 
+			l3iub.rec_prep_drnc_fail))</formula>
+    <kpi_info>
+      <title><![CDATA[SR sync RL reconfig prep DRNC]]></title>
+      <use><![CDATA[Success Rate of synchronised radio link reconfiguration preparations on DRNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(rec_prep_drnc_ready)
+&lt;br&gt;-------------------------------
+&lt;br&gt;sum (rec_prep_drnc_ready + 
+&lt;br&gt;rec_prep_drnc_fail )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_L3IUB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:56.302 +0100</date>
+          <comment><![CDATA[Source: RSRAN126.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SR sync RL reconf prep, DRNC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

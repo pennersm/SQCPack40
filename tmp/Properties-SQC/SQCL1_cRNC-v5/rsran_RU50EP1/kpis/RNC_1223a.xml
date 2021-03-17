@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1223a">
+    <formula>decode(
+			(servlev.succ_rrc_setup_backg),0,null, 
+
+			(100*(servlev.srb_act_fail_backg)
+			 / 
+			(servlev.succ_rrc_setup_backg)))</formula>
+    <kpi_info>
+      <title><![CDATA[Standalone SRB Failure Rate - Background]]></title>
+      <use><![CDATA[This KPI monitors the standalone SRB failure rate for Background traffic class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(SRB_ACT_FAIL_BACKG)
+&lt;br&gt;--------------------------------------
+&lt;br&gt;SUM(SUCC_RRC_SETUP_BACKG)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Standalone SRB FR Background</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

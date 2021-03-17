@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0 CD2 MTPSLS measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0 CD2 MTPSLS measurement dump</csv_title>
+    <report-description>MTP Signalling link set and route set availability measurement (MTPSLS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <SL_SET_DURATION_OF_UNA />  
+    <SR_SET_UNA_TO_GIVEN_DEST />  
+    <SR_SET_UNA_DURA_TO_GIVEN_DEST />  
+  </column_order>
+  <temp_table name="MTPSLS" meas_level="PLMN/SGSN/SNET/SPC/SLSN" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SL_SET_DURATION_OF_UNA" symmetrical="true">SUM(SL_SET_DURATION_OF_UNA)</counter> 
+      <counter alias="SR_SET_UNA_TO_GIVEN_DEST" symmetrical="true">SUM(SR_SET_UNA_TO_GIVEN_DEST)</counter> 
+      <counter alias="SR_SET_UNA_DURA_TO_GIVEN_DEST" symmetrical="true">SUM(SR_SET_UNA_DURA_TO_GIVEN_DEST)</counter> 
+	</counters>
+    <table_name>rsg_ps_mtpsls_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MTPSLS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MTPSLS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_mtpsls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SL_SET_DURATION_OF_UNA">
+    <formula>MTPSLS.SL_SET_DURATION_OF_UNA</formula>
+    <kpi_info>
+      <title>SL_SET_DURATION_OF_UNA</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SL_SET_DURATION_OF_UNA)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_mtpsls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SL_SET_DURATION_OF_UNA</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SR_SET_UNA_TO_GIVEN_DEST">
+    <formula>MTPSLS.SR_SET_UNA_TO_GIVEN_DEST</formula>
+    <kpi_info>
+      <title>SR_SET_UNA_TO_GIVEN_DEST</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SR_SET_UNA_TO_GIVEN_DEST)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_mtpsls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SR_SET_UNA_TO_GIVEN_DEST</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SR_SET_UNA_DURA_TO_GIVEN_DEST">
+    <formula>MTPSLS.SR_SET_UNA_DURA_TO_GIVEN_DEST</formula>
+    <kpi_info>
+      <title>SR_SET_UNA_DURA_TO_GIVEN_DEST</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SR_SET_UNA_DURA_TO_GIVEN_DEST)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_mtpsls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SR_SET_UNA_DURA_TO_GIVEN_DEST</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

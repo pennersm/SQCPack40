@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="M1000C140">
+    <formula>round(decode(nvl(cellres.avg_act_non_hsdpa_pwr_denom,0),0,0,
+	(cellres.avg_active_non_hsdpa_pwr*cellres.avg_act_non_hsdpa_pwr_denom)
+	/
+	(cellres.avg_act_non_hsdpa_pwr_denom)),3)</formula>
+    <kpi_info>
+      <title><![CDATA[AVERAGE RATIO FOR ACTIVE NON HSDPA POWER AND THE MAXIMUM POWER]]></title>
+      <use><![CDATA[This counter gives the average active non-HSDPA power ratio. The ratio of transmitted non-HSPA power and the maximum transmission power possible to use on that DL carrier at that moment. If only HSDPA is enabled, the non-HSPA power is the transmitted carrier power of all codes not used for HS-PDSCH or HS-SCCH transmission. If HSUPA is enabled, the non-HSPA power is the transmitted carrier power of all codes not used for HS-PDSCH, HS-SCCH, E-AGCH, E-RGCH or E-HICH transmission. UPDATED:This counter is updated periodically according to RNC internal timer whose period with WBTS is RRIndPeriod and with NBxxx the period is MIN(PrxTotalReportPeriod, PtxTotalReportPeriod). When the timer expires, the latest received non-HSPA power value in NBAP:PRIVATE:RADIO RESOURCE MEASUREMENT REPORT or NBAP: COMMON MEASUREMENT REPORT is used for counter update. This counter is updated only if there are HS-DSCH user allocations in the cell.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;ROUND(DECODE(NVL(SUM(AVG_ACT_NON_HSDPA_PWR_DENOM),0),0,0,SUM(AVG_ACTIVE_NON_HSDPA_PWR*AVG_ACT_NON_HSDPA_PWR_DENOM)/SUM(AVG_ACT_NON_HSDPA_PWR_DENOM)),3)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_CELLRES_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:10:01.668 +0100</date>
+          <comment><![CDATA[Source: RSRAN142.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[AVERAGE RATIO FOR ACTIVE NON HSDPA POWER AND THE MAXIMUM POWER]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

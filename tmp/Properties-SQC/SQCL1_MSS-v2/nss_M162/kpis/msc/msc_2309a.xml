@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CSTS.xml"/>
+  <kpi name="msc_2309a">
+    <formula>100*(decode(
+			(csts.csts_norm_rl_all_unsucc_setups + 
+			csts.csts_intfail_all_unsucc_setup + 
+			csts.csts_extfail_all_unsucc_setup + 
+			csts.csts_subsfail_all_unsucc_setup),0,null, 
+
+			(csts.csts_subsfail_all_unsucc_setup)
+			 / 
+			(csts.csts_norm_rl_all_unsucc_setups + 
+			csts.csts_intfail_all_unsucc_setup + 
+			csts.csts_extfail_all_unsucc_setup + 
+			csts.csts_subsfail_all_unsucc_setup)))</formula>
+    <kpi_info>
+      <title><![CDATA[SUBSCRIBER Unsuccessful call ratio]]></title>
+      <use><![CDATA[This KPI gives the ratio of the unsuccessful setups due to SUBSCRIBER failures compared to all unsuccessful setups at MSC/MSS level.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      SUM(CSTS_SUBSFAIL_ALL_UNSUCC_SETUP)
+&lt;br&gt;100* -------------------------------------------------------------------
+&lt;br&gt;      SUM(CSTS_NORM_RL_ALL_UNSUCC_SETUPS
+&lt;br&gt;        + CSTS_INTFAIL_ALL_UNSUCC_SETUP 
+&lt;br&gt;        + CSTS_EXTFAIL_ALL_UNSUCC_SETUP
+&lt;br&gt;        + CSTS_SUBSFAIL_ALL_UNSUCC_SETUP)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_csts_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[SUBSC Unsucc Call ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

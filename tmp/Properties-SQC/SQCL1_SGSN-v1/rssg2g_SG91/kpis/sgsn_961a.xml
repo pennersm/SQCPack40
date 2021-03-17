@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/OVERLOAD.xml" />
+  <kpi name="sgsn_961a">
+    <formula>100*decode(
+			(overload.cs_paging_msgs + 
+			overload.dl_tom_msgs),0,NULL, 
+
+			(overload.dl_messages_discarded_in_gs)
+			 / 
+			(overload.cs_paging_msgs + 
+			overload.dl_tom_msgs))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of Gs interface blocking]]></title>
+      <use><![CDATA[This KPI shows the percentage of Gs interface blocking.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(DL_MESSAGES_DISCARDED_IN_GS)
+&lt;br&gt;----------------------------------------------------------------------- * 100
+&lt;br&gt;sum(CS_PAGING_MSGS + DL_TOM_MSGS)
+&lt;br&gt;
+&lt;br&gt;Counters from table(s): p_sgsn_overload</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_overload_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ratio of Gs interface blocking]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

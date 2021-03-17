@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="PRRS5_ext" meas_level="PLMN/FING/FNODE/PMIP/PRRS5" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="PMIP_PBA_RESP_RECV_S5_S2">SUM(PMIP_PBA_RESP_RECV_S5_S2)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="PMIP_PBA_RESP_RECV_S5_S2_ALL">MAX(PMIP_PBA_RESP_RECV_S5_S2_ALL)</counter>
+			<counter alias="PMIP_PBA_RESP_RECV_S5_S2_0"> SUM(decode(prrs5_id,'0',pmip_pba_resp_recv_s5_s2,0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		prrs5.*,
+		PMIP_PBA_RESP_RECV_S5_S2_ALL,
+		PMIP_PBA_RESP_RECV_S5_S2_0
+FROM
+	pcofng_ps_prrs5_prrs5_{TIME_AGG} prrs5,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(PMIP_PBA_RESP_RECV_S5_S2) PMIP_PBA_RESP_RECV_S5_S2_ALL,
+			SUM(DECODE(PRRS5_ID,'0',PMIP_PBA_RESP_RECV_S5_S2,0)) PMIP_PBA_RESP_RECV_S5_S2_0
+		FROM
+			 pcofng_ps_prrs5_prrs5_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	prrs5.fing_id = fnode_level.fing_id and fnode_level.fnode_id = prrs5.fnode_id and 
+	prrs5.period_start_time = fnode_level.period_start_time AND
+	prrs5.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	prrs5.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+
+			]]>
+		</table_name>
+		<alias_name>PRRS5_ext</alias_name>
+	</temp_table>
+  <kpi name="period_duration">
+    <formula>PRRS5_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_prrs5_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PMIP_PBA_RESP_RECV_S5_S2">
+    <formula>PRRS5_ext.PMIP_PBA_RESP_RECV_S5_S2</formula>
+    <kpi_info>
+      <title>PMIP_PBA_RESP_RECV_S5_S2</title>
+      <use>This counter contains the number of received Proxy Binding Acknowledgement (PBA) response messages with error code on s5/s2 interface. UPDATED: The value is updated when a PBA response message with error code is received on the s5/s2 interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PMIP_PBA_RESP_RECV_S5_S2)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_prrs5_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PMIP_PBA_RESP_RECV_S5_S2 (m3065c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+	<!-- Auxiliary Counters -->
+  <kpi name="PMIP_PBA_RESP_RECV_S5_S2_ALL">
+    <formula>PRRS5_ext.PMIP_PBA_RESP_RECV_S5_S2_ALL</formula>
+    <kpi_info>
+      <title>PMIP_PBA_RESP_RECV_S5_S2_ALL</title>
+      <use>This counter contains the number of received Proxy Binding Acknowledgement (PBA) response messages with error code on s5/s2 interface. UPDATED: The value is updated when a PBA response message with error code is received on the s5/s2 interface.</use>
+	  <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(PMIP_PBA_RESP_RECV_S5_S2_ALL)</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_prrs5_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PMIP_PBA_RESP_RECV_S5_S2_ALL (m3065c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PMIP_PBA_RESP_RECV_S5_S2_0">
+    <formula>PRRS5_ext.PMIP_PBA_RESP_RECV_S5_S2_0</formula>
+    <kpi_info>
+      <title>PMIP_PBA_RESP_RECV_S5_S2_0</title>
+      <use>This counter contains the number of received Proxy Binding Acknowledgement (PBA) response messages with error code "0" on s5/s2 interface.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DECODE(PRRS5_ID,0,PMIP_PBA_RESP_RECV_S5_S2,0))</formula>
+      <unit>Integernumber</unit>
+      <tables>pcofng_ps_prrs5_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PMIP_PBA_RESP_RECV_S5_S2_0 (m3065c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/H248GR2.xml" />
+  <kpi name="mgw_1207a">
+    <formula>
+decode(h248gr2.period_duration,0,null,
+ 	(h248gr2.RECEIVED_SCTP_OCT_H248_SCTP * 8)/
+ 	(h248gr2.period_duration * 60 * 1000)
+ )
+	</formula>
+	<kpi_info>
+      <title><![CDATA[Mc link received SCTP bandwidth]]></title>
+      <use><![CDATA[Indicates the SCTP bandwidth used in receiving direction per H.248 link.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;  SUM( RECEIVED_SCTP_OCT_H248_SCTP ) * 8 
+&lt;br&gt; -------------------------------------
+&lt;br&gt;          SUM( DURATION ) * 60 * 1000
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>NOKMWW_PS_H248_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.502 +0100</date>
+          <comment><![CDATA[Source: RSMGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mc link rcvd SCTP bandwidth</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

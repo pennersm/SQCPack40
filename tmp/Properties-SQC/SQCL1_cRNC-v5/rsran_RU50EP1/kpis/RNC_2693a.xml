@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/OPSTA.xml" />
+  <kpi name="RNC_2693a">
+    <formula>100*decode(
+			(opsta.dch_sel_max_hsdpa_users_op + 
+			opsta.setup_fail_hs_dsch_op + 
+			opsta.rej_hs_dsch_ret_op),0,null, 
+
+			opsta.rej_hs_dsch_ret_op
+			 / 
+			(opsta.dch_sel_max_hsdpa_users_op + 
+			opsta.setup_fail_hs_dsch_op + 
+			opsta.rej_hs_dsch_ret_op))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA Access FR due to UL DCH OP]]></title>
+      <use><![CDATA[HSDPA Access failure rate due to associated UL DCH channel]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(REJ_HS_DSCH_RET_OP)
+&lt;br&gt;--------------------------------
+&lt;br&gt;sum(DCH_SEL_MAX_HSDPA_USERS_OP +
+&lt;br&gt;SETUP_FAIL_HS_DSCH_OP +
+&lt;br&gt;REJ_HS_DSCH_RET_OP)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_OPSTA_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/06/10 13:26:17.382 +0100</date>
+          <comment><![CDATA[Source: RSRAN130.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>OP HSDPA acc FR UL DCH</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_2786b">
+    <formula>decode(
+			(pktcall.sum_dur_hsdpa_user_conn - 
+			pktcall.sum_dur_hsupa_user_conn),0,null, 
+
+			(celltp.nrt_dch_hsdpa_ul_data_vol*decode(
+			1000,0,null, 
+
+			8
+			 / 
+			1000))
+			 / 
+			(pktcall.sum_dur_hsdpa_user_conn - 
+			pktcall.sum_dur_hsupa_user_conn))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA UL Average throughput per session]]></title>
+      <use><![CDATA[HSDPA UL Average throughput per session.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(NRT_DCH_HSDPA_UL_DATA_VOL * 8 / 1000) 
+&lt;br&gt;/ 
+&lt;br&gt;sum(SUM_DUR_HSDPA_USER_CONN -
+&lt;br&gt;SUM_DUR_HSUPA_USER_CONN)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg},nokrww_ps_CELLTP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/12/11 18:28:36.191 +0000</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg thp serv HSDPA UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

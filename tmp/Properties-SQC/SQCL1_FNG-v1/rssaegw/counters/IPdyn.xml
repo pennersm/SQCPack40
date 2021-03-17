@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IP_dynamic IPdyn measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IP_dynamic IPdyn measurement dump</csv_title>
+    <report-description>NG local IP pool statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IPPOOL_SIZE />
+    <IPPOOL_ALLOCATED />
+  </column_order>
+  <temp_table name="IPdyn" meas_level="PLMN/FING/FNODE/IPPOOL/PERPOOL" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="IPPOOL_SIZE" time-alias="IPPOOL_SIZE" timeagg="AVG(IPPOOL_SIZE)">SUM(IPPOOL_SIZE)</counter>
+      <counter alias="IPPOOL_ALLOCATED" time-alias="IPPOOL_ALLOCATED" timeagg="AVG(IPPOOL_ALLOCATED)">SUM(IPPOOL_ALLOCATED)</counter>
+    </counters>
+    <table_name>pcofng_ps_ipdyn_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPdyn</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPdyn.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_ipdyn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPPOOL_SIZE">
+    <formula>IPdyn.IPPOOL_SIZE</formula>
+    <kpi_info>
+      <title>IPPOOL_SIZE</title>
+      <use>This gauge contains the total size of the internal IP pool. This gauge does not exist for external pools.UPDATED: Updated when an internal IP pool is created.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(IPPOOL_SIZE)">SUM(IPPOOL_SIZE)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_ipdyn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPPOOL_SIZE (m3011c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPPOOL_ALLOCATED">
+    <formula>IPdyn.IPPOOL_ALLOCATED</formula>
+    <kpi_info>
+      <title>IPPOOL_ALLOCATED</title>
+      <use>This gauge value contains the total number of dynamic addresses allocated for each internal pool. There is one gauge for each internal pool. UPDATED: Updated when a dynamic IP address is allocated or released from a specified internal pool.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(IPPOOL_ALLOCATED)">SUM(IPPOOL_ALLOCATED)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_ipdyn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPPOOL_ALLOCATED (m3011c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

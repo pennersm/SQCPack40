@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml"/>
+  <kpi name="RNC_2125a">
+    <formula>100*decode(
+			((TRAFFIC.att_hspa_direal_int + 
+			TRAFFIC.att_hspa_direal_bgr)),0,null, 
+
+			((TRAFFIC.allo_succ_hspa_direal_int + 
+			TRAFFIC.allo_succ_hspa_direal_bgr))
+			 / 
+			((TRAFFIC.att_hspa_direal_int + 
+			TRAFFIC.att_hspa_direal_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA Resource Allocation SR - Direct Resource Allocation]]></title>
+      <use><![CDATA[HS-DSCH/E-DCH or HS-DSCH/DCH allocation Success Ratio with Direct Resource Allocation.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (allo_succ_hspa_direal_int + allo_succ_hspa_direal_bgr)
+&lt;br&gt;100 * -----------------------------------------------------------
+&lt;br&gt;            sum (att_hspa_direal_int + att_hspa_direal_bgr)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HSPA alloc SR,DirRscAlloc]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

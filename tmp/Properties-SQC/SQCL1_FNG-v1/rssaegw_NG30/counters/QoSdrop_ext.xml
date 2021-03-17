@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<period_duration />
+	<QOS_DL_DROP_QCI />
+	<QOS_DL_DROP_QCI_ALL />
+	<temp_table name="QoSdrop_ext" meas_level="PLMN/FING/FNODE/QOS/QCI_2" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="QOS_DL_DROP_QCI">SUM(QOS_DL_DROP_QCI)</counter>
+			<!-- Auxiliary counters -->
+			<counter alias="QOS_DL_DROP_QCI_ALL">MAX(QOS_DL_DROP_QCI_ALL)</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		qosdrop.*,
+		QOS_DL_DROP_QCI_ALL
+FROM
+	pcofng_ps_qosdrop_qci2_{TIME_AGG} qosdrop,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(QOS_DL_DROP_QCI) QOS_DL_DROP_QCI_ALL
+		FROM
+			 pcofng_ps_qosdrop_qci2_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	qosdrop.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = qosdrop.fnode_id and
+	qosdrop.period_start_time = fnode_level.period_start_time AND
+	qosdrop.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	qosdrop.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+			]]>
+		</table_name>
+		<alias_name>QoSdrop_ext</alias_name>
+	</temp_table>
+	
+	<kpi name="period_duration">
+		<formula>QoSdrop_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_qosdrop_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="QOS_DL_DROP_QCI">
+		<formula>QoSdrop_ext.QOS_DL_DROP_QCI</formula>
+		<kpi_info>
+			<title>QOS_DL_DROP_QCI</title>
+			<use>This counter contains the number of dropped downlink packets per 
+				QoS class identifier (QCI).&lt;br/&gt;
+				UPDATED: Updated when a downlink packet matching a specific QCI is dropped.
+			</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(QOS_DL_DROP_QCI)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_qosdrop_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>QOS_DL_DROP_QCI (m3035c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<!-- Auxiliary counters -->
+	<kpi name="QOS_DL_DROP_QCI_ALL">
+		<formula>QoSdrop_ext.QOS_DL_DROP_QCI_ALL</formula>
+		<kpi_info>
+			<title>QOS_DL_DROP_QCI</title>
+			<use>This counter contains the number of dropped downlink packets per 
+				QoS class identifier (QCI). &lt;br/&gt;
+				UPDATED: Updated when a downlink packet matching any QCI is dropped.
+			</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(QOS_DL_DROP_QCI)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_qosdrop_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>QOS_DL_DROP_QCI_ALL (m3035c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>IPCACIP (IP CAC for IP Based Route)</header>
+    <csv_title>IPCACIP (IP CAC for IP Based Route)</csv_title>
+    <report-description>769/301H IP CAC Measurement for IP based Route</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IPBR_IP_ATTEMPTS />
+    <IPBR_IP_RESERVED_AVG />
+    <IPBR_IP_RESERVED_PEAK />
+    <IPBR_IP_ATTS_REJ_EXT_IP_CAC />
+    <IPBR_IP_ATTS_REJ_OTHER />
+    <IPBR_IP_BANDWIDTH_AVG />
+    <IPBR_IP_BANDWIDTH_PEAK />
+    <IPBR_RTP_PACKET_LOSS_AVG />
+    <IPBR_RTP_PACKET_LOSS_PEAK />
+  </column_order>
+  <temp_table name="IPCACIP" meas_level="PLMN/RSMGW-MGW/RSMGW-IPROU_A1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>IPCACIP</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="IPBR_IP_ATTEMPTS"  symmetrical="true"  itk_id="IPBR_IP_ATTEMPTS">SUM(IPBR_IP_ATTEMPTS)</counter>
+          <counter alias="IPBR_IP_RESERVED_AVG"  symmetrical="true"  itk_id="IPBR_IP_RESERVED_AVG">AVG(IPBR_IP_RESERVED_AVG)</counter>
+          <counter alias="IPBR_IP_RESERVED_PEAK"  symmetrical="true"  itk_id="IPBR_IP_RESERVED_PEAK">MAX(IPBR_IP_RESERVED_PEAK)</counter>
+          <counter alias="IPBR_IP_ATTS_REJ_EXT_IP_CAC"  symmetrical="true"  itk_id="IPBR_IP_ATTS_REJ_EXT_IP_CAC">SUM(IPBR_IP_ATTS_REJ_EXT_IP_CAC)</counter>
+          <counter alias="IPBR_IP_ATTS_REJ_OTHER"  symmetrical="true"  itk_id="IPBR_IP_ATTS_REJ_OTHER">SUM(IPBR_IP_ATTS_REJ_OTHER)</counter>
+          <counter alias="IPBR_IP_BANDWIDTH_AVG"  symmetrical="true"  itk_id="IPBR_IP_BANDWIDTH_AVG">AVG(IPBR_IP_BANDWIDTH_AVG)</counter>
+          <counter alias="IPBR_IP_BANDWIDTH_PEAK"  symmetrical="true"  itk_id="IPBR_IP_BANDWIDTH_PEAK">MAX(IPBR_IP_BANDWIDTH_PEAK)</counter>
+          <counter alias="IPBR_RTP_PACKET_LOSS_AVG"  symmetrical="true"  itk_id="IPBR_RTP_PACKET_LOSS_AVG">AVG(IPBR_RTP_PACKET_LOSS_AVG)</counter>
+          <counter alias="IPBR_RTP_PACKET_LOSS_PEAK"  symmetrical="true"  itk_id="IPBR_RTP_PACKET_LOSS_PEAK">MAX(IPBR_RTP_PACKET_LOSS_PEAK)</counter>
+    </counters>
+    <table_name>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPCACIP</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>IPCACIP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_ATTEMPTS" itk_id="IPBR_IP_ATTEMPTS">
+    <formula>IPCACIP.IPBR_IP_ATTEMPTS</formula>
+    <kpi_info>
+      <title>IPBR_IP_ATTEMPTS (M769C0)</title>
+      <use>The number of IP termination reservation attempts in IP based Route. This counter shows how many successful or unsuccessful IP termination reservation attempts have been made in IP based Route. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE CALLS licence. UPDATED:When an IP termination reservation request (H.248 AddReq) has been received in MGW.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPBR_IP_ATTEMPTS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_ATTEMPTS (M769C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_RESERVED_AVG" itk_id="IPBR_IP_RESERVED_AVG">
+    <formula>IPCACIP.IPBR_IP_RESERVED_AVG</formula>
+    <kpi_info>
+      <title>IPBR_IP_RESERVED_AVG (M769C1)</title>
+      <use>The average value of simultaneously active IP terminations in IP based Route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE CALLS licence. UPDATED:Samples are taken from the simultaneously active IP terminations count every 20 seconds. The average value is calculated at the end of each result accumulation period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(IPBR_IP_RESERVED_AVG)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_RESERVED_AVG (M769C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_RESERVED_PEAK" itk_id="IPBR_IP_RESERVED_PEAK">
+    <formula>IPCACIP.IPBR_IP_RESERVED_PEAK</formula>
+    <kpi_info>
+      <title>IPBR_IP_RESERVED_PEAK (M769C2)</title>
+      <use>The highest number of simultaneously active IP terminations in IP based Route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE CALLS licence. UPDATED: When the count of simultaneously active IP terminations reaches a new high.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IPBR_IP_RESERVED_PEAK)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_RESERVED_PEAK (M769C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_ATTS_REJ_EXT_IP_CAC" itk_id="IPBR_IP_ATTS_REJ_EXT_IP_CAC">
+    <formula>IPCACIP.IPBR_IP_ATTS_REJ_EXT_IP_CAC</formula>
+    <kpi_info>
+      <title>IPBR_IP_ATTS_REJ_EXT_IP_CAC (M769C3)</title>
+      <use>The highest number of simultaneously active IP terminations in IP based Route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE CALLS licence. UPDATED: When an IP termination reservation attempt has been rejected by external IP CAC due to IP-based route limit.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPBR_IP_ATTS_REJ_EXT_IP_CAC)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_ATTS_REJ_EXT_IP_CAC (M769C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_ATTS_REJ_OTHER" itk_id="IPBR_IP_ATTS_REJ_OTHER">
+    <formula>IPCACIP.IPBR_IP_ATTS_REJ_OTHER</formula>
+    <kpi_info>
+      <title>IPBR_IP_ATTS_REJ_OTHER (M769C4)</title>
+      <use>The number of unsuccessful IP termination reservation attempts which have been rejected by other reason than external IP CAC (Connection Admission Control) in IP based Route. UPDATED: When an IP termination reservation attempt has been rejected by some other reason than IP CAC limit, for example, MGW has no internal resources, user plane initialisation procedure fails, or IPBCP tunnelling negotiation fails.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPBR_IP_ATTS_REJ_OTHER)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_ATTS_REJ_OTHER (M769C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_BANDWIDTH_AVG" itk_id="IPBR_IP_BANDWIDTH_AVG">
+    <formula>IPCACIP.IPBR_IP_BANDWIDTH_AVG</formula>
+    <kpi_info>
+      <title>IPBR_IP_BANDWIDTH_AVG (M769C5)</title>
+      <use>The average value of used IP bandwidth in IP based Route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE BANDWIDTH licence. UPDATED: Samples are taken from the IP bandwidth used in an IP-based route every 20 seconds. The average value is calculated at the end of each result accumulation period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(IPBR_IP_BANDWIDTH_AVG)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_BANDWIDTH_AVG (M769C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_IP_BANDWIDTH_PEAK" itk_id="IPBR_IP_BANDWIDTH_PEAK">
+    <formula>IPCACIP.IPBR_IP_BANDWIDTH_PEAK</formula>
+    <kpi_info>
+      <title>IPBR_IP_BANDWIDTH_PEAK (M769C6)</title>
+      <use>The highest value of used IP bandwidth in IP based Route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE BANDWIDTH licence. UPDATED: When simultaneously used IP bandwidth in an IP-based route reaches a new high.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IPBR_IP_BANDWIDTH_PEAK)</formula>
+      <unit>kbit/s</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_IP_BANDWIDTH_PEAK (M769C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_RTP_PACKET_LOSS_AVG" itk_id="IPBR_RTP_PACKET_LOSS_AVG">
+    <formula>IPCACIP.IPBR_RTP_PACKET_LOSS_AVG</formula>
+    <kpi_info>
+      <title>IPBR_RTP_PACKET_LOSS_AVG (M769C7)</title>
+      <use>The average value of the RTP packet loss or packet arrived too late percentage in an IP-based route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE PACKET LOSS licence. UPDATED:Samples are taken from the RTP packet loss percentage in an IP-based route every 20 seconds. The average value is calculated at the end of each result accumulation period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(IPBR_RTP_PACKET_LOSS_AVG)</formula>
+      <unit>0.01*%</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_RTP_PACKET_LOSS_AVG (M769C7)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPBR_RTP_PACKET_LOSS_PEAK" itk_id="IPBR_RTP_PACKET_LOSS_PEAK">
+    <formula>IPCACIP.IPBR_RTP_PACKET_LOSS_PEAK</formula>
+    <kpi_info>
+      <title>IPBR_RTP_PACKET_LOSS_PEAK (M769C8)</title>
+      <use>The highest value of the RTP packet loss or packet arrived too late percentage in an IP-based route during one result accumulation period. This counter is optional and dependent on MGW EXTERNAL IP CAC ROUTE PACKET LOSS license. UPDATED:When the RTP packet loss percentage reaches a new high.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IPBR_RTP_PACKET_LOSS_PEAK)</formula>
+      <unit>0.01*%</unit>
+      <tables>nokmww_ps_ipcacip_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPBR_RTP_PACKET_LOSS_PEAK (M769C8)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

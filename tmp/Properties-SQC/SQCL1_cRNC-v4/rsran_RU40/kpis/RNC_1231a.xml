@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_1231a">
+    <formula>decode(
+			(rrc.att_rb_setup_hsdpa),0,null, 
+
+			(100*(rrc.succ_rb_setup_hsdpa)
+			 / 
+			(rrc.att_rb_setup_hsdpa)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH RB Setup Success Rate - RRC Signalling]]></title>
+      <use><![CDATA[This KPI provides information about the Radio Bearer Setup Success Ratio for HSDPA. It covers only RRC protocol signalling and all resource allocations are already done at this phase.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(SUCC_RB_SETUP_HSDPA)
+&lt;br&gt;------------------------------------
+&lt;br&gt;SUM(ATT_RB_SETUP_HSDPA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HS-DSCH RB stp SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

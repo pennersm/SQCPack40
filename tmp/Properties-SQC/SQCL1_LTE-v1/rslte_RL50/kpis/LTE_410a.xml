@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLT.xml"/>
+  <kpi name="LTE_410a">
+    <formula>decode(
+			((lcellt.vol_orig_trans_dl_sch_tb + 
+			lcellt.vol_re_trans_dl_sch_tb)),0,null, 
+
+			(100*(lcellt.vol_re_trans_dl_sch_tb))
+			 / 
+			((lcellt.vol_orig_trans_dl_sch_tb + 
+			lcellt.vol_re_trans_dl_sch_tb)))</formula>
+    <kpi_info>
+      <title><![CDATA[Perc  ReTrans Traffic DL_SCH]]></title>
+      <use><![CDATA[This KPI gives indication about percentage of Mbyte Retransmitted (RBs) on DL_SCH]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100*           sum(  VOL_RE_TRANS_DL_SCH_TB )
+&lt;br&gt;                  --------------------------------
+&lt;br&gt;                  sum(VOL_ORIG_TRANS_DL_SCH_TB +
+&lt;br&gt;                      VOL_RE_TRANS_DL_SCH_TB  )
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Perc  ReTrans Traffic DL_SCH]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

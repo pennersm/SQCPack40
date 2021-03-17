@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TRNCTC_ext.xml" />
+  <kpi name="msc_1424a">
+    <formula>
+		(trnctc_ext.bscrnc_cc_group1_tcid_1+trnctc_ext.bscrnc_cc_group1_tcid_2)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[3G Call attempts per RNC terminating in CC Group1]]></title>
+      <use><![CDATA[Number of call attempts per RNC terminating in CC Group1. Originating and terminating calls in the measured RNC are counted.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_IDs:
+<br>1 => ORIG
+<br>2 => TERM
+<br>
+<br>Note1: With selected Tcat_IDs (ORIG+TERM) all 3G call attempts terminated in CC GROUP1 are counted.
+<br>
+<br>Note2: To measure call attempts terminated in CC GROUP1 for each individual traffic category, please consider the following Tcat_IDs:
+<br>           
+<br>           ->   &quot;3G Originating call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 1 (ORIG)
+<br>           ->   &quot;3G Originating VOICE call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 9 (VOICE ORIG)
+<br>           ->   &quot;3G Originating DATA call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 13 (DATA ORIG)
+<br>           ->   &quot;Originating VIDEO call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 5 (VIDEO ORIG)
+<br>
+<br>           ->   &quot;3G Terminating call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 2 (TERM)
+<br>           ->   &quot;3G Terminating VOICE call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 10 (VOICE TERM)
+<br>           ->   &quot;3G Terminating DATA call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 14 (DATA TERM)
+<br>           ->   &quot;Terminating VIDEO call attempts per RNC terminating in CC Group1&quot; => Tcat_ID: 6 (VIDEO TERM)
+<br>
+<br>           ->   &quot;3G Incoming terminating call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 4 (INC-TERM)
+<br>           ->   &quot;3G Incoming terminating VOICE call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 12 (VOICE INC-TERM)
+<br>           ->   &quot;3G Incoming terminating DATA call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 16 (DATA INC-TERM)
+<br>           ->   &quot;Incoming terminating VIDEO call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 8 (VIDEO INC-TERM)
+<br>
+<br>           ->   &quot;3G Originating outgoing call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 3 (ORIG-OUT)
+<br>           ->   &quot;3G Originating outgoing VOICE call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 11 (VOICE ORIG-OUT)
+<br>           ->   &quot;3G Originating outgoing DATA call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 15 (DATA ORIG-OUT)
+<br>           ->   &quot;Originating outgoing VIDEO call attempts per RNC terminating in CC Group1&quot; Tcat_ID: 7 (VIDEO ORIG-OUT)
+<br>
+<br>Note3: Clear Codes selection for CC GROUP1 is customer dependent. Here are some examples:
+<br>
+<br>         - To measure the number of calls terminating due to no answer:
+<br>           GROUP1 Clear Codes:
+<br>           0006 - B ANSWER TIME OUT
+<br>           0007 - CALL WAITING TIME OUT
+<br>
+<br>         - To measure the number of calls terminating due to call reject:
+<br>           GROUP1 Clear codes:
+<br>           0206 &#150; CALL REJECTED
+<br>           0220 &#150; ANONYMOUS CALLS REJECTION
+<br>
+<br>         - To measure the number of calls terminating due to early release (before alerting):
+<br>           GROUP1 Clear codes:
+<br>           030A &#150; CLEAR/A ONHOOK DURING SET-UP PHASE
+<br> 
+<br>         - To measure the number of calls terminating due to release during alerting:
+<br>           GROUP1 Clear codes:
+<br>           030B &#150; CLEAR/A ONHOOK DURING WAIT FOR ANSWER PHASE
+<br>
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 14-04-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->RNCM->MCCM-MNCM->TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: RNCM
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic Measurement per BSC/RNC (M399)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(BSCRNC_CC_GROUP1) ;WHERE Tcat_ID = 1,2
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;Use view(s):
+&lt;br&gt;RNS_P_TRNCTC_{Object}_{Time}</formula>
+      <unit>[#]</unit>
+      <tables>XMLNSS_PS_TRNCTC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:59.120 +0000</date>
+          <comment><![CDATA[Source: RSMSC061.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>3G calls term CC Group1</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

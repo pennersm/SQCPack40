@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/SERVLEV.xml">
+		<counters>
+			<counter alias="rnc_346a">
+				sum(rab_stp_att_cs_voice)
+			</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_349b">
+		<formula>
+			decode((servlev.rnc_346a),0,null,(100*(servlev.rab_stp_fail_cs_voice_bts)/servlev.rnc_346a))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[RAB Setup FR for CS Voice due to BTS]]>
+			</title>
+			<use>
+				<![CDATA[Percentage of RAB setup failures for CS voice calls caused by a BTS.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum(RAB_STP_FAIL_CS_VOICE_BTS)
+----- 
+RNC_346a
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[RAB Setup FR for CS Voice due to BTS]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

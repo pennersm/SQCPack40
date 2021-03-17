@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="msc_2150a">
+    <formula>nvl(decode((VLRNMSC.TOTALAVERAGE),0,null, 
+														((VLR1MSC.IMSIDETACHGSMATTEMPT + 
+														VLR1MSC.IMSIDETACHUMTSATTEMPT + 
+														VLR1MSC.EXPLICIT_DETACH_EPS_ATT)
+																	/ 
+														VLRNMSC.TOTALAVERAGE)),
+				 nvl(decode((VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL + VLRNMSC.UNKNOWN_AVG_REG_TOTAL),0,null, 
+														((VLR1MSC.IMSIDETACHGSMATTEMPT + 
+														VLR1MSC.IMSIDETACHUMTSATTEMPT + 
+														VLR1MSC.EXPLICIT_DETACH_EPS_ATT)
+	 																/ 
+													   (VLRNMSC.SIM_AVG_REG_TOTAL
+														+ VLRNMSC.USIM_AVG_REG_TOTAL
+														+ VLRNMSC.UNKNOWN_AVG_REG_TOTAL)) ),
+					decode((VLRNMSC.REG_AVG_TOTAL),0,null,
+														((VLR1MSC.IMSIDETACHGSMATTEMPT + 
+														VLR1MSC.IMSIDETACHUMTSATTEMPT + 
+														VLR1MSC.EXPLICIT_DETACH_EPS_ATT)
+																	/ 
+														(VLRNMSC.REG_AVG_TOTAL)))
+				 )
+			 )	 
+			</formula>
+    <kpi_info>
+      <title><![CDATA[IMSI detach attempts per subscriber (w/EPS). Parameter set independent.]]></title>
+      <use><![CDATA[Indicates number of IMSI detach attempts per subscriber (GSM + UMTS + EPS). It includes EPS related part.This KPI is applicable for the overall parameter set.]]></use>  
+		
+		<use_experience><![CDATA[
+		<br>Normal subscribers are counted.
+		<br>This KPI includes optional features (L.4130 + N.4252 + N.1509).
+		<br>This KPI is applicable for the overall parameter set: if both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive, if SIM_USIM_MEAS_PER_LAI FIFILE parameter is active, if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.
+		<br>
+		<br>The implemented formula covers three different KPI specifications.
+		<br>This 3 to 1 KPI approach is achieved by taking advantage of the NVL function: NVL( mob_vlr74e , NVL( mob_vlr74f, mob_vlr74h ) ) 
+		<br>=> If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive, the KPI formula is specified by "mob_vlr74e" 
+		<br>=> If parameter SIM_USIM_MEAS_PER_LAI FIFILE is active, the KPI formula is specified by "mob_vlr74f"
+		<br>=> If SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active, the KPI formula is specified by "mob_vlr74h".
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt; 
+		&lt;br&gt;            SUM( a.IMSIDetachGSMAttempt + a.IMSIDetachUMTSAttempt + a.EXPLICIT_DETACH_EPS_ATT)
+		&lt;br&gt;mob_vlr74e = ---------------------------------------------------------------------------------------------------------
+		&lt;br&gt;            AVG (b.TotalAverage) 
+		&lt;br&gt; 
+		&lt;br&gt;           SUM( a.IMSIDetachGSMAttempt + a.IMSIDetachUMTSAttempt + a.EXPLICIT_DETACH_EPS_ATT)
+		&lt;br&gt;mob_vlr74f = ---------------------------------------------------------------------------------------------------------
+		&lt;br&gt;            AVG (b.SIM_AVG_REG_TOTAL + b.USIM_AVG_REG_TOTAL + b.UNKNOWN_AVG_REG_TOTAL)  
+		&lt;br&gt; 
+		&lt;br&gt;            SUM( a.IMSIDetachGSMAttempt + a.IMSIDetachUMTSAttempt + a.EXPLICIT_DETACH_EPS_ATT)
+		&lt;br&gt;mob_vlr74h = ---------------------------------------------------------------------------------------------------------
+		&lt;br&gt;            AVG (b.REG_AVG_TOTAL) 
+		&lt;br&gt;
+		&lt;br&gt;Counters from table(s)/view(s):
+		&lt;br&gt;a = RNS_PS_VLR1MSC_MSC_&lt;Time&gt; or RNS_PS_VR1MCBH_MSC_&lt;Time&gt;
+		&lt;br&gt;b = RNS_PS_VLRNMSC_MSC_&lt;Time&gt; or RNS_PS_VRNMCBH_MSC_&lt;Time&gt;
+		&lt;br&gt;
+		&lt;br&gt;
+		&lt;br&gt;KPI's implementation:
+		&lt;br&gt;  
+		&lt;br&gt; nvl( decode( ( VLRNMSC.TOTALAVERAGE ), 0, null,  
+		&lt;br&gt;           ( ( VLR1MSC.IMSIDETACHGSMATTEMPT +  
+		&lt;br&gt;               VLR1MSC.IMSIDETACHUMTSATTEMPT +  
+		&lt;br&gt;               VLR1MSC.EXPLICIT_DETACH_EPS_ATT ) 
+		&lt;br&gt;                  /  
+		&lt;br&gt;               VLRNMSC.TOTALAVERAGE ) ), 
+		&lt;br&gt;  nvl( decode( ( VLRNMSC.SIM_AVG_REG_TOTAL + VLRNMSC.USIM_AVG_REG_TOTAL +
+		&lt;br&gt; VLRNMSC.UNKNOWN_AVG_REG_TOTAL ) , 0, null,  
+		&lt;br&gt;           ( ( VLR1MSC.IMSIDETACHGSMATTEMPT +  
+		&lt;br&gt;               VLR1MSC.IMSIDETACHUMTSATTEMPT +  
+		&lt;br&gt;               VLR1MSC.EXPLICIT_DETACH_EPS_ATT ) 
+		&lt;br&gt;                   /  
+		&lt;br&gt;             ( VLRNMSC.SIM_AVG_REG_TOTAL 
+		&lt;br&gt;             + VLRNMSC.USIM_AVG_REG_TOTAL 
+		&lt;br&gt;             + VLRNMSC.UNKNOWN_AVG_REG_TOTAL ) ) ), 
+		&lt;br&gt;  decode( ( VLRNMSC.REG_AVG_TOTAL ), 0, null, 
+		&lt;br&gt;           ( ( VLR1MSC.IMSIDETACHGSMATTEMPT +  
+		&lt;br&gt;               VLR1MSC.IMSIDETACHUMTSATTEMPT +  
+		&lt;br&gt;               VLR1MSC.EXPLICIT_DETACH_EPS_ATT ) 
+		&lt;br&gt;                  /  
+		&lt;br&gt;             ( VLRNMSC.REG_AVG_TOTAL ) ) ) 
+		&lt;br&gt;   ) )
+		&lt;br&gt;
+		</formula>
+		
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}, RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IMSIDtachAttSubs wEPS All]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

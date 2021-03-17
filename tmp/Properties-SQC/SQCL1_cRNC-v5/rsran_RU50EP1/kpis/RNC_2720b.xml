@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml"/>
+  <temp_table_ref src="rsran/counters/RRC.xml"/>
+  <kpi name="RNC_2720b">
+    <formula>decode(
+			((SERVLEV.rab_acc_comp_ps_strea + 
+			SERVLEV.rab_acc_comp_ps_inter + 
+			SERVLEV.rab_acc_comp_ps_backg)),0,NULL,((RRC.RRC_RE_EST_SUCC_NRT + 
+			RRC.RRC_RE_EST_FAIL_UE_NRT + 
+			RRC.RRC_RE_EST_FAIL_NOREPLY_NRT))
+			 / 
+			((SERVLEV.rab_acc_comp_ps_strea + 
+			SERVLEV.rab_acc_comp_ps_inter + 
+			SERVLEV.rab_acc_comp_ps_backg)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC re-establishment Ratio, NRT]]></title>
+      <use><![CDATA[Ratio of  RRC connection re-establishments, NRT. KPI is valid only on RNC level because re-est and RAB access completions happen with high probability in different cells. Also the counters are updated at different times, so in small time aggregation levels also the time difference causes mismatch.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( RRC_RE_EST_SUCC_NRT          +   
+&lt;br&gt;      RRC_RE_EST_FAIL_UE_NRT       +   
+&lt;br&gt;      RRC_RE_EST_FAIL_NOREPLY_NRT  ) 
+&lt;br&gt;--------------------------------------------
+&lt;br&gt;      sum( rab_acc_comp_ps_strea +        
+&lt;br&gt;           rab_acc_comp_ps_inter  +        
+&lt;br&gt;           rab_acc_comp_ps_backg  )      
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}, NOKRWW_PS_RRC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RRC re-estab Ratio, NRT]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

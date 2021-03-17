@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DBRS_ext.xml" />
+  <kpi name="flng_469a">
+    <formula>decode( ((DBRS_ext.gtpcv2_del_bearer_resp_s_all)),0,NULL, ((DBRS_ext.gtpcv2_del_bearer_resp_sent)) / ((DBRS_ext.gtpcv2_del_bearer_resp_s_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Bearer responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete bearer responses sent for a specific cause code when compared to total number of GTP-C v2 delete bearer response messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(dbrs_id,'x',GTPCV2_DEL_BEARER_RESP_SENT,0))  ;DBRS for cause code x 
+	  <br>---------------------------------------------------------------------------------------- *100 
+
+	  <br>sum(GTPCV2_DEL_BEARER_RESP_SENT)  ;all DBRS's  
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DBRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Bearer resp sent ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

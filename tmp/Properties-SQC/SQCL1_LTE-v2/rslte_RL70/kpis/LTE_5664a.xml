@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LVLIP.xml" />
+  <kpi name="LTE_5664a">
+    <formula>decode(
+			(lvlip.period_duration),0,null, 
+
+			lvlip.ifoutoctets15*8
+			 / 
+			(60*lvlip.period_duration))</formula>
+    <kpi_info>
+      <title><![CDATA[IP outgoing VLAN traffic troughput]]></title>
+      <use><![CDATA[This KPI shows the troughput over the plain IP in incoming direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(ifOutOctets15)*8/(60*sum(PERIOD_DURATION ))</formula>
+      <unit>[kbit/s]</unit>
+      <tables>NOKLTE_PS_LIP_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LVLIP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.347 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP outg VLAN thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

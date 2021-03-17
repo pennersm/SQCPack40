@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="UPRR_ext" meas_level="PLMN/FING/FNODE/GTPC/UPRR" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="GTPC_UPDATE_PDP_RESP_RECV">SUM(GTPC_UPDATE_PDP_RESP_RECV)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="GTPC_UPDATE_PDP_RESP_RECV_ALL">MAX(GTPC_UPDATE_PDP_RESP_RECV_ALL)</counter>
+			<counter alias="GTPC_UPDATE_PDP_RESP_RECV_128">SUM(decode(uprr_id,'128',gtpc_update_pdp_resp_recv,0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		uprr.*,
+		GTPC_UPDATE_PDP_RESP_RECV_ALL,
+		GTPC_UPDATE_PDP_RESP_RECV_128A
+FROM
+	pcofng_ps_uprr_uprr_{TIME_AGG} uprr,
+	(
+		SELECT 
+			fing_id, fnode_id, 
+			period_start_time,
+			SUM(GTPC_UPDATE_PDP_RESP_RECV) GTPC_UPDATE_PDP_RESP_RECV_ALL,
+			SUM(DECODE(uprr_ID,'128',GTPC_UPDATE_PDP_RESP_RECV,0)) GTPC_UPDATE_PDP_RESP_RECV_128A
+		FROM
+			 pcofng_ps_uprr_uprr_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	uprr.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = uprr.fnode_id and
+	uprr.period_start_time = fnode_level.period_start_time AND
+	uprr.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	uprr.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+			]]>
+		</table_name>
+		<alias_name>UPRR_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>UPRR_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_uprr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPC_UPDATE_PDP_RESP_RECV">
+		<formula>UPRR_ext.GTPC_UPDATE_PDP_RESP_RECV</formula>
+		<kpi_info>
+			<title>GTPC_UPDATE_PDP_RESP_RECV</title>
+			<use>The number of received Update PDP Context Response messages by cause code. &lt;br/&gt;
+				UPDATED: Updated when a Update PDP 
+				Context response is received by the cause code.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(GTPC_UPDATE_PDP_RESP_RECV)</formula>
+			<unit>Integernumber</unit>
+			<tables>pcofng_ps_uprr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPC_UPDATE_PDP_RESP_RECV (m3037c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<!-- Auxiliary Counters -->
+	<kpi name="GTPC_UPDATE_PDP_RESP_RECV_ALL">
+		<formula>UPRR_ext.GTPC_UPDATE_PDP_RESP_RECV_ALL</formula>
+		<kpi_info>
+			<title>GTPC_UPDATE_PDP_RESP_RECV_ALL</title>
+			<use>The number of received Update PDP Context Response messages by all cause code. &lt;br/&gt;
+				UPDATED: Updated when a Update PDP Context response is received by any cause code.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(GTPC_UPDATE_PDP_RESP_RECV)</formula>
+			<unit>Integernumber</unit>
+			<tables>pcofng_ps_uprr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPC_UPDATE_PDP_RESP_RECV_ALL (m3037c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPC_UPDATE_PDP_RESP_RECV_128">
+		<formula>UPRR_ext.GTPC_UPDATE_PDP_RESP_RECV_128</formula>
+		<kpi_info>
+			<title>GTPC_UPDATE_PDP_RESP_RECV_128</title>
+			<use>The number of received Update PDP Context Response messages by cause code 128. &lt;br/&gt;
+				UPDATED: Updated when a Update PDP Context response is received by the cause code 128.
+			</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(DECODE(UPRR_ID,128,GTPC_UPDATE_PDP_RESP_RECV,0))</formula>
+			<unit>Integernumber</unit>
+			<tables>pcofng_ps_uprr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPC_UPDATE_PDP_RESP_RECV_128 (m3037c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

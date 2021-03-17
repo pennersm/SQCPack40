@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml">
+		<counters>
+			<counter alias="rnc_923a">
+				sum(allo_success_edch_int+allo_success_edch_bgr+edch_allo_canc_na_as_bgr+edch_allo_canc_na_as_int+ul_dch_sel_max_hsupa_usr_bgr+ul_dch_sel_max_hsupa_usr_int+ul_dch_sel_bts_hw_int+ul_dch_sel_bts_hw_bgr+setup_fail_edch_bts_bgr+setup_fail_edch_bts_int+setup_fail_edch_other_bgr+setup_fail_edch_other_int+setup_fail_edch_trans_bgr+setup_fail_edch_trans_int+setup_fail_edch_ue_bgr+setup_fail_edch_ue_int)
+			</counter>
+		</counters>
+	</temp_table_ref>
+	<kpi name="RNC_956a">
+		<formula>
+			decode((traffic.rnc_923a),0,null,100*((traffic.setup_fail_edch_bts_int+traffic.setup_fail_edch_bts_bgr)/traffic.rnc_923a))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[E-DCH Setup FR due to BTS]]>
+			</title>
+			<use>
+				<![CDATA[The percentage of E-DCH setup failures due to BTS for interactive and background class connections.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100* sum ( SETUP_FAIL_EDCH_BTS_INT
++ SETUP_FAIL_EDCH_BTS_BGR )
+-------------------
+RNC_923a
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[E-DCH Setup FR due to BTS]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

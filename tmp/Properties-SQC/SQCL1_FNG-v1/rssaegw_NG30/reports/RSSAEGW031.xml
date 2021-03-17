@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW031 - PMIP PBU cause code</header>
+    <csv_title>PMIP PBU cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about PMIP Proxy Binding Acknowledgement (PBA) responses received/sent per cause code on S5/S2 PMIP interface.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Proxy Binding Update' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2010/11/23 14:57:22.66 +0000</date>
+        <comment><![CDATA[Source: RSSAEGW031.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>PMIP PBU cause code</report-description>
+    <report-title>PMIP PBU cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_267a ui_name="Att" group="rcvd" master-group="Proxy Binding Ack" chartType="bar" yAxis="2" />
+    <flng_268a ui_name="Ratio" group="rcvd" master-group="Proxy Binding Ack" />
+    <flng_600a ui_name="Att" group="rcvd on S5/S2" master-group="Proxy Binding Ack" chartType="bar" yAxis="2" />
+    <flng_601a ui_name="Ratio" group="rcvd on S5/S2" master-group="Proxy Binding Ack" />
+    <flng_271a ui_name="Att" group="sent" master-group="Proxy Binding Ack" chartType="bar" yAxis="2" />
+    <flng_272a ui_name="Ratio" group="sent" master-group="Proxy Binding Ack" />
+    <flng_604a ui_name="Att" group="sent on S5/S2" master-group="Proxy Binding Ack" chartType="bar" yAxis="2" />
+    <flng_605a ui_name="Ratio" group="sent on S5/S2" master-group="Proxy Binding Ack" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/PMIPRESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_267a">
+    <formula>(PMIPRESP.pmip_pba_resp_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Ack responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of PMIPv6 proxy binding acknowledgement (PBA) responses received by S-GW node per cause code.
+PBA Response received: 
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (pmip_pba_resp_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_PRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMIP PBA resp rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_268a">
+    <formula>decode(
+			((PMIPRESP.pmip_pba_resp_recv_all)),0,NULL, 
+
+			((PMIPRESP.pmip_pba_resp_recv))
+			 / 
+			((PMIPRESP.pmip_pba_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Ack responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 proxy binding acknowledgement (PBA) responses received for a specific cause code when compared to total number of PMIP proxy binding Acknowledgement (PBA) responses messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(prr_id,'x',PMIP_PBA_RESP_RECV,0))  ;PRR for cause code x
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_PBA_RESP_RECV)  ;all PRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP PBA resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_600a">
+    <formula>PMIPRESP.PMIP_PBA_RESP_RECV_S5_S2</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 PMIP Proxy Binding Ack responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of PMIPv6 proxy binding acknowledgement (PBA) responses received by S-GW node on S5/S2 interface per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(PMIP_PBA_RESP_RECV_S5_S2)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:21.53 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW076.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 PMIP PBA resp rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_601a">
+    <formula>100*decode(PMIPRESP.PMIP_PBA_RESP_RECV_S5_S2_ALL,0,null,
+	(
+	 PMIPRESP.PMIP_PBA_RESP_RECV_S5_S2
+	 /
+	 PMIPRESP.PMIP_PBA_RESP_RECV_S5_S2_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 PMIP Proxy Binding Ack responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 proxy binding acknowledgement (PBA) responses received on S5/S2 interface for a specific cause code when compared to total number of PMIP proxy binding acknowledgement (PBA) responses messages received on S5/S2 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(prrs5_id,&amp;#039;x&amp;#039;,PMIP_PBA_RESP_RECV_S5_S2,0))  ;PRRS5 for cause code x
+&lt;br&gt;------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_PBA_RESP_RECV_S5_S2)  ;all PRRS5&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:21.69 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW076.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 PMIP PBA re rcv rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_271a">
+    <formula>(PMIPRESP.pmip_pba_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Ack responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of PMIPv6 proxy binding acknowledgement (PBA) responses sent by P-GW node per cause code.
+PBA Response sent: 
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (pmip_pba_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_PRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMIP PBA resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_272a">
+    <formula>decode(
+			((PMIPRESP.pmip_pba_resp_sent_all)),0,NULL, 
+
+			((PMIPRESP.pmip_pba_resp_sent))
+			 / 
+			((PMIPRESP.pmip_pba_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Proxy Binding Ack responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 proxy binding acknowledgement (PBA) responses sent for a specific cause code when compared to total number of PMIP proxy binding acknowledgement (PBA) responses messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(prs_id,'x',PMIP_PBA_RESP_SENT,0))  ;PRS for cause code x
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_PBA_RESP_SENT)  ;all PRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP PBA resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_604a">
+    <formula>PMIPRESP.PMIP_PBA_RESP_SENT_S5_S2</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 PMIP Proxy Binding Ack responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of PMIPv6 proxy binding acknowledgement (PBA) responses sent by P-GW node on S5/S2 interface per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(PMIP_PBA_RESP_SENT_S5_S2)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:21.116 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW077.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 PMIP PBA resp sent</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_605a">
+    <formula>100*decode(PMIPRESP.PMIP_PBA_RESP_SENT_S5_S2_ALL,0,null,
+	(
+	 PMIPRESP.PMIP_PBA_RESP_SENT_S5_S2
+	 /
+	 PMIPRESP.PMIP_PBA_RESP_SENT_S5_S2_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S5/S2 PMIP Proxy Binding Ack responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 proxy binding acknowledgement (PBA) responses sent on S5/S2 interface for a specific cause code when compared to total number of PMIP proxy binding acknowledgement (PBA) responses messages sent on S5/S2 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(prss5_id,&amp;#039;x&amp;#039;,PMIP_PBA_RESP_SENT_S5_S2,0))  ;PRSS5 for cause code x
+&lt;br&gt;------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_PBA_RESP_SENT_S5_S2)  ;all PRSS5&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:21.116 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW077.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5/S2 PMIP PBA re sent rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

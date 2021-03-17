@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <kpi name="sgsn_2240a">
+    <formula>decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_gprs_attach + 
+			mobmgmnt.succ_imsi_attach + 
+			mobmgmnt.FAIL_GPRS_ATTACH_GEN + 
+			mobmgmnt.fail_imsi_attach + 
+			mobmgmnt.FAIL_COMB_ATTACH_GEN + 
+			mobmgmnt.comb_attach_succ_in_ps_side))
+			 / 
+			((mobmgmnt.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[2G attach requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of 2G attach request procedures per second. 
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( SUCC_GPRS_ATTACH + SUCC_IMSI_ATTACH +
+&lt;br&gt;   FAIL_GPRS_ATTACH_GEN + FAIL_IMSI_ATTACH +
+&lt;br&gt;   FAIL_COMB_ATTACH_GEN +
+&lt;br&gt;   COMB_ATTACH_SUCC_IN_PS_SIDE ) 
+&lt;br&gt;----------------------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G attach req pr sec]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

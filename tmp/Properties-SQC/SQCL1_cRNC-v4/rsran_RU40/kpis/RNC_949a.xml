@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/CELLRES.xml" />
+	<kpi name="RNC_949a">
+		<formula>
+			decode((cellres.chan_code_sf4_request+cellres.chan_code_sf8_request+cellres.chan_code_sf16_request+cellres.chan_code_sf32_request+cellres.chan_code_sf64_request+cellres.chan_code_sf128_request+cellres.chan_code_sf256_request),0,null,100-(100*((cellres.nbr_succ_code_tree_allo)/(cellres.chan_code_sf4_request+cellres.chan_code_sf8_request+cellres.chan_code_sf16_request+cellres.chan_code_sf32_request+cellres.chan_code_sf64_request+cellres.chan_code_sf128_request+cellres.chan_code_sf256_request))))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Spreading Code Blocking rate in DL]]>
+			</title>
+			<use>
+				<![CDATA[Spreading Code Blocking rate of a cell over the reporting period.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+(100 - 100 * (
+sum (nbr_succ_code_tree_allo )
+--------------------------
+sum (CHAN_CODE_SF4_REQUEST
++ CHAN_CODE_SF8_REQUEST
++ CHAN_CODE_SF16_REQUEST
++CHAN_CODE_SF32_REQUEST
++CHAN_CODE_SF64_REQUEST
++CHAN_CODE_SF128_REQUEST
++CHAN_CODE_SF256_REQUEST ) )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Spreading Code Blocking rate in DL]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

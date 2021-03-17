@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_1172a">
+    <formula>100*decode(lcelld.sum_active_ue_data_dl,0,null,
+			((lcelld.ca_scell_active_ue_avg/100)
+			 / 
+			(decode(
+			lcelld.denom_active_ue_data_dl,0,null, 
+
+			(lcelld.sum_active_ue_data_dl
+			 / 
+			lcelld.denom_active_ue_data_dl)))))</formula>
+    <kpi_info>
+      <title><![CDATA[Use of CA by the UEs with data in the buffer]]></title>
+      <use><![CDATA[This KPI measures the use of Carrier Aggregation by the UEs with data in buffer.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(CA_SCELL_ACTIVE_UE_AVG/100)
+&lt;br&gt;/
+&lt;br&gt;(SUM(SUM_ACTIVE_UE_DATA_DL)
+&lt;br&gt;/
+&lt;br&gt;SUM(DENOM_ACTIVE_UE_DATA_DL))</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:44.827 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Use CA by UEs data in buff</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

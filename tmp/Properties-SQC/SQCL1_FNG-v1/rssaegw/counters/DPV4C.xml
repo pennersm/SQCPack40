@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 DHCPv4Client DPV4C measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 DHCPv4Client DPV4C measurement dump</csv_title>
+    <report-description>DHCPv4 client</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DHCPV4_SENT_DISC_MSG />
+    <DHCPV4_RECV_OFFER_MSG />
+    <DHCPV4_SENT_REQ_MSG />
+    <DHCPV4_RECV_ACK_MSG />
+    <DHCPV4_RECV_NAK_MSG />
+    <DHCPV4_SENT_DECL_MSG />
+    <DHCPV4_SENT_REL_MSG />
+    <DHCPV4_RECV_MSG_DROPPED />
+  </column_order>
+  <temp_table name="DPV4C" meas_level="PLMN/FING/FNODE/DHCPV4" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="DHCPV4_SENT_DISC_MSG" time-alias="DHCPV4_SENT_DISC_MSG" timeagg="SUM(DHCPV4_SENT_DISC_MSG)">SUM(DHCPV4_SENT_DISC_MSG)</counter>
+      <counter alias="DHCPV4_RECV_OFFER_MSG" time-alias="DHCPV4_RECV_OFFER_MSG" timeagg="SUM(DHCPV4_RECV_OFFER_MSG)">SUM(DHCPV4_RECV_OFFER_MSG)</counter>
+      <counter alias="DHCPV4_SENT_REQ_MSG" time-alias="DHCPV4_SENT_REQ_MSG" timeagg="SUM(DHCPV4_SENT_REQ_MSG)">SUM(DHCPV4_SENT_REQ_MSG)</counter>
+      <counter alias="DHCPV4_RECV_ACK_MSG" time-alias="DHCPV4_RECV_ACK_MSG" timeagg="SUM(DHCPV4_RECV_ACK_MSG)">SUM(DHCPV4_RECV_ACK_MSG)</counter>
+      <counter alias="DHCPV4_RECV_NAK_MSG" time-alias="DHCPV4_RECV_NAK_MSG" timeagg="SUM(DHCPV4_RECV_NAK_MSG)">SUM(DHCPV4_RECV_NAK_MSG)</counter>
+      <counter alias="DHCPV4_SENT_DECL_MSG" time-alias="DHCPV4_SENT_DECL_MSG" timeagg="SUM(DHCPV4_SENT_DECL_MSG)">SUM(DHCPV4_SENT_DECL_MSG)</counter>
+      <counter alias="DHCPV4_SENT_REL_MSG" time-alias="DHCPV4_SENT_REL_MSG" timeagg="SUM(DHCPV4_SENT_REL_MSG)">SUM(DHCPV4_SENT_REL_MSG)</counter>
+      <counter alias="DHCPV4_RECV_MSG_DROPPED" time-alias="DHCPV4_RECV_MSG_DROPPED" timeagg="SUM(DHCPV4_RECV_MSG_DROPPED)">SUM(DHCPV4_RECV_MSG_DROPPED)</counter>
+    </counters>
+    <table_name>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DPV4C</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DPV4C.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_SENT_DISC_MSG">
+    <formula>DPV4C.DHCPV4_SENT_DISC_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_SENT_DISC_MSG</title>
+      <use>This counter contains the number of DHCPDISCOVER messages sent by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_SENT_DISC_MSG)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_SENT_DISC_MSG (m3075c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_RECV_OFFER_MSG">
+    <formula>DPV4C.DHCPV4_RECV_OFFER_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_RECV_OFFER_MSG</title>
+      <use>This counter contains the number of DHCPOFFER messages received by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_RECV_OFFER_MSG)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_RECV_OFFER_MSG (m3075c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_SENT_REQ_MSG">
+    <formula>DPV4C.DHCPV4_SENT_REQ_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_SENT_REQ_MSG</title>
+      <use>This counter contains the number of DHCPREQUEST messages sent by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_SENT_REQ_MSG)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_SENT_REQ_MSG (m3075c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_RECV_ACK_MSG">
+    <formula>DPV4C.DHCPV4_RECV_ACK_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_RECV_ACK_MSG</title>
+      <use>This counter contains the number of DHCPACK messages received by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_RECV_ACK_MSG)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_RECV_ACK_MSG (m3075c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_RECV_NAK_MSG">
+    <formula>DPV4C.DHCPV4_RECV_NAK_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_RECV_NAK_MSG</title>
+      <use>This counter contains the number of DHCPNAK messages received by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_RECV_NAK_MSG)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_RECV_NAK_MSG (m3075c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_SENT_DECL_MSG">
+    <formula>DPV4C.DHCPV4_SENT_DECL_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_SENT_DECL_MSG</title>
+      <use>This counter contains the number of DHCPDECLINE messages sent by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_SENT_DECL_MSG)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_SENT_DECL_MSG (m3075c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_SENT_REL_MSG">
+    <formula>DPV4C.DHCPV4_SENT_REL_MSG</formula>
+    <kpi_info>
+      <title>DHCPV4_SENT_REL_MSG</title>
+      <use>This counter contains the number of DHCPRELEASE messages sent by the DHCPv4 client.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_SENT_REL_MSG)</formula>
+      <unit>&gt;Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_SENT_REL_MSG (m3075c0007)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DHCPV4_RECV_MSG_DROPPED">
+    <formula>DPV4C.DHCPV4_RECV_MSG_DROPPED</formula>
+    <kpi_info>
+      <title>DHCPV4_RECV_MSG_DROPPED</title>
+      <use>This counter contains the number of messages dropped by the DHCPv4 client due to unsupported message type. UPDATED: Updated when a message is dropped by the DHCPv4 client due to unsupported message type.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DHCPV4_RECV_MSG_DROPPED)</formula>
+      <unit>&gt;Integer number</unit>
+      <tables>pcofng_ps_dpv4c_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DHCPV4_RECV_MSG_DROPPED (m3075c0008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_2091a">
+    <formula>decode(
+			(servlev.rab_stp_comp_ps_inter + 
+			servlev.rab_stp_comp_ps_backg),0,null, 
+
+			(rrc.cell_fach_state_to_cell_dch + 
+			rrc.cell_dch_state_to_cell_fach + 
+			rrc.cell_fach_state_cell_pch_ina + 
+			rrc.cell_fach_state_cell_pch_upd + 
+			rrc.cell_fach_state_to_ura_pch)
+			 / 
+			(servlev.rab_stp_comp_ps_inter + 
+			servlev.rab_stp_comp_ps_backg))</formula>
+    <kpi_info>
+      <title><![CDATA[Average number of RRC state changes per PS RAB]]></title>
+      <use><![CDATA[Average number of RRC state changes per PS RAB]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (cell_fach_state_to_cell_dch
+&lt;br&gt; + cell_dch_state_to_cell_fach
+&lt;br&gt; + cell_fach_state_cell_pch_ina
+&lt;br&gt; + cell_fach_state_cell_pch_upd
+&lt;br&gt; + cell_fach_state_to_ura_pch)
+&lt;br&gt;-------------------------------
+&lt;br&gt;sum (rab_stp_comp_ps_inter
+&lt;br&gt; + rab_stp_comp_ps_backg)
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg},nokrww_ps_RRC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/07/02 19:41:11.351 +0100</date>
+          <comment><![CDATA[Source: RSRAN108.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg nb RRC stt chg PS RAB</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

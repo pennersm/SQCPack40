@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/GV25_ext.xml" />
+  <kpi name="flng_538a">
+    <formula>100*decode(GTPCV2.GTPCV2_CRE_SESS_REQ_SENT_S5,0,null,
+	(
+	 GV25_ext.CRE_SESS_RESP_RECV_S5_16
+	 /
+	 GTPCV2.GTPCV2_CRE_SESS_REQ_SENT_S5))</formula>
+    <kpi_info>
+      <title><![CDATA[S5 Create Session sent success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 create session requests sent on S5 interface, i.e., the number of create session response messages received on S5 interface with cause code 'Request Accepted' when compared to the number of create session request messages sent on S5 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv25_id,(&amp;#039;16&amp;#039; or &amp;#039;cs_1_16&amp;#039;),b.GTPCV2_CRE_SESS_RESP_RECV_S5,0)) ;Request accepted
+&lt;br&gt;---------------------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(a.GTPCV2_CRE_SESS_REQ_SENT_S5)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v2
+&lt;br&gt;b = GTP-C v2 Create Session Response received on S5 interface</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:18.272 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5 Create Sess sent SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

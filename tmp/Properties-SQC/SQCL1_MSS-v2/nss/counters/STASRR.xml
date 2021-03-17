@@ -1,0 +1,248 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M211 STASRR measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M211 STASRR measurement dump</csv_title>
+    <report-description>MTP signalling point status measurement(STASRR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <ADJACENT_SP_INA_DURATION/>
+    <ADJACENT_SP_INACCESSIBLE/>
+    <NBR_OF_RECEIVED_TFC/>
+    <MSU_DISCARDED_TRANS_MSUS/>
+    <MSU_DISCARDED_REC_MSUS/>
+    <UNAUTHORIZED_STP_MSUS_INH_DPC/>
+    <UNAUTHORIZED_STP_MSUS_INH_OPC/>
+    <UNAUTHORIZED_STP_MSUS_INH_STP/>
+    <UPUS_TRANSMITTED/>
+    <UPUS_RECEIVED/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/SRR/SNET/SPC" name="STASRR" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="ADJACENT_SP_INA_DURATION" symmetrical="true">SUM(ADJACENT_SP_INA_DURATION)</counter>
+      <counter alias="ADJACENT_SP_INACCESSIBLE" symmetrical="true">SUM(ADJACENT_SP_INACCESSIBLE)</counter>
+      <counter alias="NBR_OF_RECEIVED_TFC" symmetrical="true">SUM(NBR_OF_RECEIVED_TFC)</counter>
+      <counter alias="MSU_DISCARDED_TRANS_MSUS" symmetrical="true">SUM(MSU_DISCARDED_TRANS_MSUS)</counter>
+      <counter alias="MSU_DISCARDED_REC_MSUS" symmetrical="true">SUM(MSU_DISCARDED_REC_MSUS)</counter>
+      <counter alias="UNAUTHORIZED_STP_MSUS_INH_DPC" symmetrical="true">SUM(UNAUTHORIZED_STP_MSUS_INH_DPC)</counter>
+      <counter alias="UNAUTHORIZED_STP_MSUS_INH_OPC" symmetrical="true">SUM(UNAUTHORIZED_STP_MSUS_INH_OPC)</counter>
+      <counter alias="UNAUTHORIZED_STP_MSUS_INH_STP" symmetrical="true">SUM(UNAUTHORIZED_STP_MSUS_INH_STP)</counter>
+      <counter alias="UPUS_TRANSMITTED" symmetrical="true">SUM(UPUS_TRANSMITTED)</counter>
+      <counter alias="UPUS_RECEIVED" symmetrical="true">SUM(UPUS_RECEIVED)</counter>
+    </counters>
+    <table_name>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>STASRR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>STASRR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ADJACENT_SP_INA_DURATION">
+    <formula>STASRR.ADJACENT_SP_INA_DURATION</formula>
+    <kpi_info>
+      <title>ADJACENT_SP_INA_DURATION</title>
+      <use>Duration of inaccessibility of adjacent signallingpoint (5.2 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ADJACENT_SP_INA_DURATION)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ADJACENT_SP_INA_DURATION (M211B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ADJACENT_SP_INACCESSIBLE">
+    <formula>STASRR.ADJACENT_SP_INACCESSIBLE</formula>
+    <kpi_info>
+      <title>ADJACENT_SP_INACCESSIBLE</title>
+      <use>Adjacent signalling point inaccessible (5.1in ITU-T Q.752).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ADJACENT_SP_INACCESSIBLE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ADJACENT_SP_INACCESSIBLE (M211B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NBR_OF_RECEIVED_TFC">
+    <formula>STASRR.NBR_OF_RECEIVED_TFC</formula>
+    <kpi_info>
+      <title>NBR_OF_RECEIVED_TFC</title>
+      <use>Number of transfer controlled messages received (5.8 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NBR_OF_RECEIVED_TFC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NBR_OF_RECEIVED_TFC (M211B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MSU_DISCARDED_TRANS_MSUS">
+    <formula>STASRR.MSU_DISCARDED_TRANS_MSUS</formula>
+    <kpi_info>
+      <title>MSU_DISCARDED_TRANS_MSUS</title>
+      <use>Number of message signal units (MSU) discarded due to routing data error (transmitted) (5.5 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(MSU_DISCARDED_TRANS_MSUS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MSU_DISCARDED_TRANS_MSUS (M211B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MSU_DISCARDED_REC_MSUS">
+    <formula>STASRR.MSU_DISCARDED_REC_MSUS</formula>
+    <kpi_info>
+      <title>MSU_DISCARDED_REC_MSUS</title>
+      <use>Number of message signal units (MSU) discarded due to routing data error (received) (5.5 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(MSU_DISCARDED_REC_MSUS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MSU_DISCARDED_REC_MSUS (M211B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNAUTHORIZED_STP_MSUS_INH_DPC">
+    <formula>STASRR.UNAUTHORIZED_STP_MSUS_INH_DPC</formula>
+    <kpi_info>
+      <title>UNAUTHORIZED_STP_MSUS_INH_DPC</title>
+      <use>Unauthorized STP MSU count for inhibitedDPC</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNAUTHORIZED_STP_MSUS_INH_DPC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNAUTHORIZED_STP_MSUS_INH_DPC (M211B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNAUTHORIZED_STP_MSUS_INH_OPC">
+    <formula>STASRR.UNAUTHORIZED_STP_MSUS_INH_OPC</formula>
+    <kpi_info>
+      <title>UNAUTHORIZED_STP_MSUS_INH_OPC</title>
+      <use>Unauthorized STP MSU count for inhibitedOPC</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNAUTHORIZED_STP_MSUS_INH_OPC)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNAUTHORIZED_STP_MSUS_INH_OPC (M211B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNAUTHORIZED_STP_MSUS_INH_STP">
+    <formula>STASRR.UNAUTHORIZED_STP_MSUS_INH_STP</formula>
+    <kpi_info>
+      <title>UNAUTHORIZED_STP_MSUS_INH_STP</title>
+      <use>Unauthorized STP MSU count for inhibitedSTP</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNAUTHORIZED_STP_MSUS_INH_STP)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNAUTHORIZED_STP_MSUS_INH_STP (M211B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UPUS_TRANSMITTED">
+    <formula>STASRR.UPUS_TRANSMITTED</formula>
+    <kpi_info>
+      <title>UPUS_TRANSMITTED</title>
+      <use>User Part unavailable MSU transmitted (5.6in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UPUS_TRANSMITTED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPUS_TRANSMITTED (M211B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UPUS_RECEIVED">
+    <formula>STASRR.UPUS_RECEIVED</formula>
+    <kpi_info>
+      <title>UPUS_RECEIVED</title>
+      <use>User Part unavailable MSU received (5.7in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UPUS_RECEIVED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_STASRR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPUS_RECEIVED (M211B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

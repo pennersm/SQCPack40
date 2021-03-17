@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/FRPRW.xml" />
+  <kpi name="RNC_1451a">
+    <formula>decode(
+			(frprw.period_duration),0,null, 
+
+			((8*(frprw.cch_data_from_iub_1 + 
+			frprw.dch_data_from_iub_1 + 
+			frprw.hsdsch_data_from_iub_1))
+			 / 
+			(1000*frprw.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iub throughput DL]]></title>
+      <use><![CDATA[This KPI provides information about the Iub throughput DL in BTS FP level.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM( 8 * (CCH_DATA_FROM_IUB
+&lt;br&gt;+DCH_DATA_FROM_IUB
+&lt;br&gt;+HSDSCH_DATA_FROM_IUB))
+&lt;br&gt;--------------------------
+&lt;br&gt;1000 * sum ( PERIOD_DURATION * 60 )</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_frprw_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iub thp DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/FRPRW_ext.xml" />
+</conf_file>
+

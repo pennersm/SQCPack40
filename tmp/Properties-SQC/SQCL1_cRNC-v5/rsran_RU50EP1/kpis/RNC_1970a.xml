@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran/counters/AALCAC.xml"/>
+  <kpi name="RNC_1970a">
+    <formula>decode(
+			(aalcac.nbr_samples*aalcac.aal2_path_guar_cell_rate),0,null, 
+
+			(100*(aalcac.sum_reserved_cell_rate)
+			 / 
+			(aalcac.nbr_samples*aalcac.aal2_path_guar_cell_rate)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average available bandwidth for UBR+ within VCC Bundle]]></title>
+      <use><![CDATA[This KPI reports average available bandwidth for UBR+ VCC traffic within downlink VCC Bundle. AAL2 CAC uses this value as a reference, if the UBR+ VCC is inside VCC Bundle. If the UBR+ VCC is dedicated to NRT, the available bandwidth can have values between MDCR as minimum and VCC bundle PCR - MDCR for HSDPA VCC as maximum. If the UBR+ VCC is dedicated to HSDPA, the available bandwidth can have values between MDCR as minimum and VCC Bundle PCR as maximum (=100%).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(SUM_RESERVED_CELL_RATE)
+&lt;br&gt;---------------------------------
+&lt;br&gt;sum(NBR_SAMPLES) * sum(AAL2_PATH_GUAR_CELL_RATE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Alloc avg cap UBR+ in VCC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

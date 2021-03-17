@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ATMPERF.xml" />
+  <kpi name="RNC_5220a">
+    <formula>100*decode(
+			(atmperf.e_clp1_drop + 
+			atmperf.e_ppd_drop + 
+			atmperf.e_epd_drop + 
+			atmperf.e_clp0_drop),0,null, 
+
+			(atmperf.e_clp1_drop + 
+			atmperf.e_ppd_drop + 
+			atmperf.e_epd_drop + 
+			atmperf.e_clp0_drop)
+			 / 
+			(atmperf.e_clp1_drop + 
+			atmperf.e_ppd_drop + 
+			atmperf.e_epd_drop + 
+			atmperf.e_clp0_drop) + 
+			atmperf.e_transmit_to_phy + 
+			atmperf.e_err_bram + 
+			atmperf.e_rcv_from_fi + 
+			atmperf.e_err_fi + 
+			atmperf.e_err_lookup)</formula>
+    <kpi_info>
+      <title><![CDATA[ATM discarded cells egress due to congestion]]></title>
+      <use><![CDATA[ATM cells dropped, due to interface unit internal congestion. Egress direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *sum (E_CLP1_DROP+
+&lt;br&gt;E_PPD_DROP +
+&lt;br&gt;E_EPD_DROP +
+&lt;br&gt;E_CLP0_DROP)
+&lt;br&gt;/
+&lt;br&gt;sum (E_CLP1_DROP+
+&lt;br&gt;E_PPD_DROP +
+&lt;br&gt;E_EPD_DROP +
+&lt;br&gt;E_CLP0_DROP +
+&lt;br&gt;E_TRANSMIT_TO_PHY+
+&lt;br&gt;E_ERR_BRAM +
+&lt;br&gt;E_RCV_FROM_FI +
+&lt;br&gt;E_ERR_FI +
+&lt;br&gt;E_ERR_LOOKUP)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ATMPERF_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.569 +0100</date>
+          <comment><![CDATA[Source: RSRAN068.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>ATM dis cells egr due con</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

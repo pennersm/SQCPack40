@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LIP.xml" />
+  <kpi name="LTE_5075b">
+    <formula>
+decode(
+	(lip.period_duration)
+	,0,null,
+	(8*lip.ifinpackets15)
+	 / 
+	(lip.period_duration*60)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IP incoming traffic volume]]></title>
+      <use><![CDATA[This KPI shows the total throughput for IP based traffic in incoming direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(ifInOctets15) *8 / ((PERIOD_DURATION )*60)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>NOKLTE_PS_LIP_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LVLIP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/08/03 17:59:23.83 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN IP incoming Thp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

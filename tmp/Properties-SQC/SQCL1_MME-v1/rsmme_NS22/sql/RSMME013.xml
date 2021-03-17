@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<report id="RSMME013 - FlexiNS Measurements" thresholds="false">
+		<report-level>PLMN/FLEXINS</report-level>
+		<level>PLMN/FLEXINS</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSMME013 - FlexiNS Measurements</title>
+		<help-text>
+		<![CDATA[<br>Report shows the date and time of last FlexiNS records available in NetAct for each measurement type.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">plmn.co_gid</pivot>
+            <pivot level="FLEXINS">flexins.co_gid</pivot>
+		</pivots>
+        
+		<columns>
+		    <column col-id="MEAS_ID" columnType="KEY">
+				<alias>ID</alias>
+			</column>
+			<column col-id="M_ABBR" columnType="KEY">
+				<alias>Abbr</alias>
+			</column>
+			<column col-id="M_NAME" columnType="KEY">
+				<alias>Measurement name</alias>
+			</column>
+			<column col-id="M_OBJ" columnType="KEY">
+				<alias>Object level</alias>
+			</column>
+			<column col-id="F_RCD" columnType="KEY">
+				<alias>First record</alias>
+			</column>
+			<column col-id="L_RCD" columnType="KEY">
+				<alias>Last record</alias>
+			</column>
+			<column col-id="ROW_CNT" columnType="KEY">
+				<alias>Count</alias>
+			</column>
+
+		</columns>
+
+        <sql type="create" table="obj_filter_013">
+            select
+                flexins.co_gid
+            from
+                utp_common_objects plmn,
+                utp_common_objects flexins
+            where
+                #object_selection# 
+                and plmn.co_oc_id = 16
+                and flexins.co_oc_id=3766
+                and flexins.co_parent_gid = plmn.co_gid
+        </sql>
+
+		<sql type="create" table="flexins_meas_013">
+        <![CDATA[
+		  select
+            '                     ' FLEXINS,
+            -10 MEAS_ID,
+            '                              ' M_ABBR,
+            '                                                                                ' M_NAME,
+            '                                                                                ' M_OBJ,
+            TO_DATE('01/01/2011', 'dd/mm/yyyy') F_RCD,
+            TO_DATE('01/01/2011', 'dd/mm/yyyy') L_RCD,
+            0 ROW_CNT
+          from dual
+		]]></sql>
+
+        <sql type="literal"><![CDATA[delete from #flexins_meas_013# where meas_id = -10]]></sql>
+		<literal>
+			<![CDATA[
+				<br><br>
+		 		]]>
+		</literal>
+
+	 	<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 50 meas_id, 'MMMT' m_abbr, 'Mobility Management' m_name, 'FLEXINS-MCC-MNC-TA' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_MMMT_TA_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+	 	<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 51 meas_id, 'SMMT' m_abbr, 'Session Management' m_name, 'FLEXINS-MCC-MNC-TA' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_SMMT_TA_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 52 meas_id, 'USLM' m_abbr, 'User SMMU Level' m_name, 'FLEXINS-SMMU' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_USLM_SMMU_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 53 meas_id, 'UMLM' m_abbr, 'User MME Level' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_UMLM_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 54 meas_id, 'SMLM' m_abbr, 'Security' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_SMLM_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 55 meas_id, 'SGSM' m_abbr, 'SGsAP' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_SGSM_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 58 meas_id, 'MULM' m_abbr, 'MMDU User Level' m_name, 'FLEXINS-MMDU' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_MULM_MMDU_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 56 meas_id, 'SONM' m_abbr, 'Self Organizing Network' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_SONM_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 59 meas_id, 'S1' m_abbr, 'S1 Interface' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_S1_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 60 meas_id, 'S11' m_abbr, 'S11 Interface' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_S11_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 61 meas_id, 'S6A' m_abbr, 'S6A Interface ' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_S6A_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 62 meas_id, 'PWS' m_abbr, 'Public Warning System' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_PWS_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 293 meas_id, 'LEMB' m_abbr, 'LAN EMB Load, FLEXINS' m_name, 'FLEXINS' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_LEMB_FLEXINS_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 293 meas_id, 'LEMBT' m_abbr, 'LAN EMB Load, Transdir' m_name, 'FLEXINS-UNIT-PIU-LIF-TRA' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_LEMBT_TRA1_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 563 meas_id, 'TCPIP' m_abbr, 'TCP/IP Protocol' m_name, 'FLEXINS-UNIT' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_TCPIP_UNIT1_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+		<sql type="literal"><![CDATA[insert into #flexins_meas_013# (flexins,meas_id,m_abbr,m_name,m_obj,f_rcd,l_rcd,row_cnt) SELECT flexins.co_name flexins, 592 meas_id, 'ULOAD' m_abbr, 'Computer Unit Load' m_name, 'FLEXINS-UNIT' m_obj, min(period_start_time) f_rcd, max(period_start_time) l_rcd, decode(count(*), 1, NULL,count(*)) row_cnt from PCOFNS_PS_ULOAD_UNIT1_RAW p, utp_common_objects flexins where flexins.co_gid in (select * from #obj_filter_013#) AND p.fins_id (+) = flexins.co_gid GROUP BY flexins.co_name]]></sql>
+
+
+ 		<sql><![CDATA[
+
+			select meas_id, flexins,
+				m_abbr,
+				m_name,
+				m_obj,
+				f_rcd,
+				l_rcd,
+				row_cnt
+			from
+				#flexins_meas_013# order by flexins ASC, meas_id ASC
+
+		]]></sql>
+
+	</report>
+</reports>

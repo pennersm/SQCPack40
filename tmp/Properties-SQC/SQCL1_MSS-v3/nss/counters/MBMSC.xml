@@ -1,0 +1,138 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M120 MBMSC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M120 MBMSC measurement dump</csv_title>
+    <report-description>Message bus load observation measurement(MBMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <MBLOAD_PEAK_LOAD/>
+    <MBLOAD_PEAK_LOAD_TIME_IN_SEC/>
+    <MBLOAD_ERROR_IN_RECORD/>
+    <MBLOAD_LOAD_X10/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/UNIT1" name="MBMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="MBLOAD_PEAK_LOAD" symmetrical="true">AVG(MBLOAD_PEAK_LOAD)</counter>
+      <counter alias="MBLOAD_PEAK_LOAD_TIME_IN_SEC" symmetrical="true">SUM(MBLOAD_PEAK_LOAD_TIME_IN_SEC)</counter>
+      <counter alias="MBLOAD_ERROR_IN_RECORD" symmetrical="true">AVG(MBLOAD_ERROR_IN_RECORD)</counter>
+      <counter alias="MBLOAD_LOAD_X10" symmetrical="true">AVG(MBLOAD_LOAD_X10)</counter>
+    </counters>
+    <table_name>rns_ps_mbmsc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MBMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MBMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_mbmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MBLOAD_PEAK_LOAD">
+    <formula>MBMSC.MBLOAD_PEAK_LOAD</formula>
+    <kpi_info>
+      <title>MBLOAD_PEAK_LOAD</title>
+      <use>The peak load rate in percents (0..100).This is the highest recorded value of the message bus load rate during
+a measurement period. The peak load is an average load of sixty
+seconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(MBLOAD_PEAK_LOAD)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_mbmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MBLOAD_PEAK_LOAD (M120B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MBLOAD_PEAK_LOAD_TIME_IN_SEC">
+    <formula>MBMSC.MBLOAD_PEAK_LOAD_TIME_IN_SEC</formula>
+    <kpi_info>
+      <title>MBLOAD_PEAK_LOAD_TIME_IN_SEC</title>
+      <use>The time of peak load. It indicates the interval in seconds between the start time and the
+time when the highest value of the message bus load was obtained.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(MBLOAD_PEAK_LOAD_TIME_IN_SEC)</formula>
+      <unit>sec</unit>
+      <tables>rns_ps_mbmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MBLOAD_PEAK_LOAD_TIME_IN_SEC (M120B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MBLOAD_ERROR_IN_RECORD">
+    <formula>MBMSC.MBLOAD_ERROR_IN_RECORD</formula>
+    <kpi_info>
+      <title>MBLOAD_ERROR_IN_RECORD</title>
+      <use>Tag appears at the end of the given countergroup with field value 1 when the load data on the message bus is
+not obtained from the OMU, or the measurement resources of the message bus
+could not be reserved from the operating system.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(MBLOAD_ERROR_IN_RECORD)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_mbmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MBLOAD_ERROR_IN_RECORD (M120B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="MBLOAD_LOAD_X10">
+    <formula>MBMSC.MBLOAD_LOAD_X10</formula>
+    <kpi_info>
+      <title>MBLOAD_LOAD_X10</title>
+      <use>The average load rate of the message bus(0.0 - 100.0).This is the average load of the message bus
+during the measurement period. On the message bus, the load measurement
+is done by an operating system primitive which reads the load values
+of the currently used message bus every minute. The value of percentage
+is multiplied by 10, since only integer values are allowed to be output
+in the XML report.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(MBLOAD_LOAD_X10)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_mbmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MBLOAD_LOAD_X10 (M120B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

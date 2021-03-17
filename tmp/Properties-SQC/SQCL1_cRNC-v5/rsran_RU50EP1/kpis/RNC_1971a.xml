@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran/counters/AALCAC.xml"/>
+  <kpi name="RNC_1971a">
+    <formula>decode(
+			(aalcac.nbr_samples*aalcac.aal2_path_guar_cell_rate),0,null, 
+
+			(100*(aalcac.sum_reserved_cell_rate)
+			 / 
+			(aalcac.nbr_samples*aalcac.aal2_path_guar_cell_rate)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average available bandwidth for UBR+ outside VCC Bundle]]></title>
+      <use><![CDATA[This KPI reports average reserved bandwidth for NRT traffic. For UBR+ VCC outside the VCC bundle AAL2_PATH_GUAR_CELL_RATE represents MDCR value. AAL2 CAC uses MDCR value as a reference for UBR+ VCC, if the VCC is outside VCC Bundle.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(SUM_RESERVED_CELL_RATE)
+&lt;br&gt;---------------------------------
+&lt;br&gt;sum(NBR_SAMPLES) * sum(AAL2_PATH_GUAR_CELL_RATE)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Alloc AvgCap UBR+ out VCC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

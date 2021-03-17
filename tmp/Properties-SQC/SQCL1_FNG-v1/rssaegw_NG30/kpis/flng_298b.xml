@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/Netstat.xml" />
+  <kpi name="flng_298b">
+    <formula>decode(
+			(Netstat.recv_packets + nvl(Netstat.received_packets,0)),0,NULL, 
+
+			(Netstat.recv_errors + nvl(Netstat.received_errors,0))
+			 / 
+			(Netstat.recv_packets + nvl(Netstat.received_packets,0)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Ethernet received errors ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of erroneous packets received per interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(RECEIVED_ERRORS)
+&lt;br&gt;---------------------- *100
+&lt;br&gt;sum(RECEIVED_PACKETS)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_NETSTAT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:27.202 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW023.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Ethernet rcv errors ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

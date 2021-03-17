@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_1164a">
+    <formula>decode(
+			(intsysho.inter_rnc_hho_att_hspa_scc),0,null, 
+
+			(100*(intsysho.inter_rnc_hho_drop_scc)
+			 / 
+			(intsysho.inter_rnc_hho_att_hspa_scc)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA Inter-RNC SCC Drop Rate]]></title>
+      <use><![CDATA[HSPA Inter-RNC Serving Cell Change Drop Rate for the &quot;old&quot; cell. Main reason is lack of successful or failure messages coming either from CN or from UE. After drop appearance UE is moved to FACH state for RRC re-establishment or connection is released.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          sum (INTER_RNC_HHO_DROP_SCC )
+&lt;br&gt;100* ---------------------------------------------------------
+&lt;br&gt;          sum(INTER_RNC_HHO_ATT_HSPA_SCC)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSPA Inter-RNC SCC Drop Rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

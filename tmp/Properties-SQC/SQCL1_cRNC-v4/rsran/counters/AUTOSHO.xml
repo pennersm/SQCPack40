@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AUTOSHO measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AUTOSHO measurement dump</csv_title>
+    <report-description>Autodef Soft Handover</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <SHO_ADJ_INTRA_FREQ_SHO_ATT />
+    <SHO_CEL_INTRA_FREQ_SHO_ATT />
+    <SHO_ADJ_INTRA_FREQ_SHO_COMPL />
+  </column_order>
+  <temp_table name="AUTOSHO" meas_level="PLMN/SourceRNC/SourceWBTS/SourceWCEL/DMNC1CELLPAIR1" type="PM" master="yes" pragma="report46_oss4ran" create="yes">
+    <counters>
+      <counter alias="SHO_ADJ_INTRA_FREQ_SHO_ATT">SUM(SHO_ADJ_INTRA_FREQ_SHO_ATT)</counter>
+      <counter alias="SHO_ADJ_INTRA_FREQ_SHO_COMPL">SUM(SHO_ADJ_INTRA_FREQ_SHO_COMPL)</counter>
+      <counter alias="SHO_CEL_INTRA_FREQ_SHO_ATT">SUM(SHO_CEL_INTRA_FREQ_SHO_ATT)</counter>
+    </counters>
+    <table_name>NOKRWW_PS_AUTOSHO_DMNC1_RAW</table_name>
+    <alias_name>AUTOSHO</alias_name>
+  </temp_table>
+  <kpi name="SHO_ADJ_INTRA_FREQ_SHO_ATT">
+    <formula>AUTOSHO.SHO_ADJ_INTRA_FREQ_SHO_ATT</formula>
+    <kpi_info>
+      <title>SHO_ADJ_INTRA_FREQ_SHO_ATT</title>
+      <use>The number of intra frequency soft handover attempts. This counter is updated for a measurement object in which source and target cells are defined. Also Inter-RNC handovers are counted. Branch addition: If cells A and B are in the active set and branch addition for cell C is attempted, this counter is updated by 1 for objects (A,C) and (B,C). Branch replacement: If cells A and B are in the active set and cell B is attempted to be replaced with cell C, this counter is updated by 1 for object (A,C) Branch deletion: This counter is not updated in branch deletion. UPDATED: When the SRNC starts resource allocation for a Branch Addition or Branch Replacement procedure. This counter is not updated if the soft handover is prevented by an ongoing layer-3 procedure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SHO_ADJ_INTRA_FREQ_SHO_ATT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autosho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SHO_ADJ_INTRA_FREQ_SHO_ATT (M1013C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="SHO_ADJ_INTRA_FREQ_SHO_COMPL">
+    <formula>AUTOSHO.SHO_ADJ_INTRA_FREQ_SHO_COMPL</formula>
+    <kpi_info>
+      <title>SHO_ADJ_INTRA_FREQ_SHO_COMPL</title>
+      <use>The number of completed intra frequency soft handovers. This counter is updated for a measurement object in which source and target cells are defined. Also Inter-RNC handovers are counted. Branch addition: If cells A and B are in the active set and branch addition for cell C is successful, this counter is updated by 1 for objects (A,C) and (B,C). Branch replacement: If cells A and B are in the active set and cell C is successfully added to active set with in branch replacement operation with cell B (B branch removed), this counter is updated by 1 for object (A,C) Branch deletion: This counter is not updated in branch deletion. UPDATED:When SRNC successfully ends the Branch Addition or Branch Replacement procedure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SHO_ADJ_INTRA_FREQ_SHO_COMPL)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autosho_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SHO_ADJ_INTRA_FREQ_SHO_COMPL (M1013C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+    <kpi name="SHO_CEL_INTRA_FREQ_SHO_ATT">
+    <formula>AUTOSHO.SHO_CEL_INTRA_FREQ_SHO_ATT</formula>
+    <kpi_info>
+      <title>SHO_CEL_INTRA_FREQ_SHO_ATT</title>
+      <use/>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(SHO_CEL_INTRA_FREQ_SHO_ATT)</formula>
+      <unit>No.</unit>
+      <tables>NOKRWW_PS_AUTOSHO_DMNC1_RAW</tables>
+    </kpi_info>
+    <kpi_alias>SHO_CEL_INTRA_FREQ_SHO_ATT</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/cds/CGRC_ext.xml" />
+  <kpi name="cds_1292a">
+    <formula>
+<!--  
+MIN(
+	100*(
+		LEAST(
+			NVL(
+				(CGRC_ext.CGRCGROUP_NOF_WOEX_CRTS_IN/100)
+				,0
+			)
+			,
+			NVL(
+				(CGRC_ext.CGRCGROUP_NOF_WOEX_CRTS_OUT/100)
+				,0
+			)
+		)
+	)
+	/
+	CGRC_ext.CGRCGROUP_NOF_CIRCUITS
+)
+-->
+CGRC_ext.CDS_1292a
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Minimum availability of circuit group for both incoming + outgoing calls]]></title>
+      <use><![CDATA[Indicates the minimum availability of circuit group for both incoming + outgoing calls.
+	  <br>
+	  <br>This KPI is similar to msc_1292a. New KPI ID reference for CDS NE usage. This new KPI ID reference is to to be used starting from M15.1 report sets. ]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI is applicable to IN (incoming) + OUT (Outgoing) + BOTH (Bidirectional) circuits.
+<br>This KPI will not work for SIP CGRs.
+<br>The numerator 100 division is needed becasue the counter has been divised by 100.
+<br>This KPI is based on NetAct RAW views.
+<br>This KPI shall be used on a per CGR level.
+<br>
+<br>PUBLISHED: M12
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CDS; CGRNAME/CGR; CGRDIR;
+<br>RECOMMENDED SUMMARY LEVELS: CGRNAME/CGR;
+<br>KPI CLASS: Resource
+<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                  LEAST( cgrcgroup_nof_woex_crts_in /100 ,
+&lt;br&gt;                       cgrcgroup_nof_woex_crts_out / 100 )
+&lt;br&gt;MIN (   100 * ------------------------------------------------------   )
+&lt;br&gt;                    cgrcgroup_nof_circuits
+&lt;br&gt;
+&lt;br&gt;KPI formula to be based on NetAct RAW data tables and for CGR level.
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Formula based on NetAct RAW data table. To be used for CGR level.
+&lt;br&gt;
+&lt;br&gt;MIN(100*(LEAST(NVL((cgrcgroup_nof_woex_crts_in/100),0),NVL((cgrcgroup_nof_woex_crts_out/100),0)))/cgrcgroup_nof_circuits)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_cgrc_cgrdir2_raw</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Min Avail CircGrp IncOutg Calls</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

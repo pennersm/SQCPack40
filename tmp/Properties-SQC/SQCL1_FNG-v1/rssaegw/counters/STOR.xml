@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 StorageUsage STOR measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 StorageUsage STOR measurement dump</csv_title>
+    <report-description>Flexi platform storage usage</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <FREE_DISK_PARTITION />
+    <USED_DISK_PARTITION />
+    <PERCENT_USED_DISK_PARTITION />
+  </column_order>
+  <temp_table name="STOR" meas_level="PLMN/FING/FNODE/STOR" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="FREE_DISK_PARTITION" time-alias="FREE_DISK_PARTITION" timeagg="AVG(FREE_DISK_PARTITION)">SUM(FREE_DISK_PARTITION)</counter>
+      <counter alias="USED_DISK_PARTITION" time-alias="USED_DISK_PARTITION" timeagg="AVG(USED_DISK_PARTITION)">SUM(USED_DISK_PARTITION)</counter>
+      <counter alias="PERCENT_USED_DISK_PARTITION" time-alias="PERCENT_USED_DISK_PARTITION" timeagg="AVG(PERCENT_USED_DISK_PARTITION)">AVG(PERCENT_USED_DISK_PARTITION)</counter>
+    </counters>
+    <table_name>pcofng_ps_stor_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>STOR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>STOR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_stor_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="FREE_DISK_PARTITION">
+    <formula>STOR.FREE_DISK_PARTITION</formula>
+    <kpi_info>
+      <title>FREE_DISK_PARTITION</title>
+      <use>The available free space of a particular partition or logical volume in kilobytes(1024 bytes) at the end of the reporting period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(FREE_DISK_PARTITION)">SUM(FREE_DISK_PARTITION)</formula>
+      <unit>kilobytes</unit>
+      <tables>pcofng_ps_stor_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FREE_DISK_PARTITION (m2001c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="USED_DISK_PARTITION">
+    <formula>STOR.USED_DISK_PARTITION</formula>
+    <kpi_info>
+      <title>USED_DISK_PARTITION</title>
+      <use>The used space of a particular partition or logical volume in kilobytes (1024 bytes) at the end of the reporting period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(USED_DISK_PARTITION)">SUM(USED_DISK_PARTITION)</formula>
+      <unit>kilobytes</unit>
+      <tables>pcofng_ps_stor_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>USED_DISK_PARTITION (m2001c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PERCENT_USED_DISK_PARTITION">
+    <formula>STOR.PERCENT_USED_DISK_PARTITION</formula>
+    <kpi_info>
+      <title>PERCENT_USED_DISK_PARTITION</title>
+      <use>The disk used in the partition or logical volume in percent (between 0 and 100 with values rounded to the next integer) during the reporting period between time T1 (beginning of the reporting period) and T2 (end of the reporting period). This is calculated using the formula: 100 - 100 * delta(m02001c0002)/(delta(m02001c0001) + delta(m02001c0002)), where delta(X) = X(T2) - X(T1).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(PERCENT_USED_DISK_PARTITION)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_stor_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PERCENT_USED_DISK_PARTITION (m2001c0003)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

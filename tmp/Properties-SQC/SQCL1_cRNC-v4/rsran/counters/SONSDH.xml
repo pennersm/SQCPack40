@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 Sonet_SDH SONSDH measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 Sonet_SDH SONSDH measurement dump</csv_title>
+    <report-description>SONET/SDH Protection Group</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <PROT_GR_PSC />
+    <PROT_GR_PSD />
+  </column_order>
+  <temp_table name="SONSDH" meas_level="PLMN/RNC/GRP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="PROT_GR_PSC">SUM(PROT_GR_PSC)</counter>
+      <counter alias="PROT_GR_PSD">SUM(PROT_GR_PSD)</counter>
+    </counters>
+    <table_name>nokrww_ps_sonsdh_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SONSDH</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SONSDH.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_sonsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PROT_GR_PSC">
+    <formula>SONSDH.PROT_GR_PSC</formula>
+    <kpi_info>
+      <title>PROT_GR_PSC</title>
+      <use>Protection Switch Count of Protection Group. This counter contains the number of switches to the protection section and switches to the working section. UPDATED:The counter is updated when traffic is switched from working section to protection section or from protection section to working section.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PROT_GR_PSC)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_sonsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PROT_GR_PSC (M516C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PROT_GR_PSD">
+    <formula>SONSDH.PROT_GR_PSD</formula>
+    <kpi_info>
+      <title>PROT_GR_PSD</title>
+      <use>Protection Switch Duration of Protection Group. The value of this counter is the number of seconds the traffic is in protection section. UPDATED:The counter is updated at one second intervals when the traffic is in protection section.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PROT_GR_PSD)</formula>
+      <unit>sec</unit>
+      <tables>nokrww_ps_sonsdh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PROT_GR_PSD (M516C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

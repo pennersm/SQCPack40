@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+    <kpi name="MGW_760d">
+    <formula>decode(
+			(signtrc.mgw_1002c + 
+			signtrc.mgw_1003c),0,null, 
+
+			(100*signtrc.mgw_1002c
+			 / 
+			(signtrc.mgw_1002c + 
+			signtrc.mgw_1003c)))</formula>
+    <kpi_info>
+      <title><![CDATA[Codec modification success ratio]]></title>
+      <use><![CDATA[Indicates success ratio of codec modification in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           mgw_1002c 
+&lt;br&gt;100 * -------------------
+&lt;br&gt;      mgw_1002c + mgw_1003c</formula>
+      <unit>[%]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Codec modification SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

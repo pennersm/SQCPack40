@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+    <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="mob_msc70b">
+    <formula>decode(
+			tc_ext.tcat_call_amount_19,0,null, 
+
+			(ho1.intramscintragsmok + 
+			ho1.intramscgsmtoumtsok + 
+			ho1.intramscumtstogsmok + 
+			ho1.intramscintraumtsok + 
+			ho1.interplmnintramscintragsmok + 
+			ho1.interplmnintramscgsmtoumtsok + 
+			ho1.interplmnintramscumtstogsmok + 
+			ho1.interplmnintramscintraumtsok + 
+			ho1.intramscintragsmnok + 
+			ho1.intramscgsmtoumtsnok + 
+			ho1.intramscumtstogsmnok + 
+			ho1.intramscintraumtsnok + 
+			ho1.interplmnintramscintragsmnok + 
+			ho1.interplmnintramscgsmtoumtsnok + 
+			ho1.interplmnintramscumtstogsmnok + 
+			ho1.interplmnintramscintraumtsnok)
+			 / 
+			tc_ext.tcat_call_amount_19)</formula>
+    <kpi_info>
+      <title><![CDATA[Intra-MSC HO attempts  (excluding intra-BSC and intra-RNC / call (MTC, MOC))]]></title>
+      <use><![CDATA[Indicates the number of intra-MSC handover attempts during the call (MOC and MTC). InterPLMN intraMSC are also included.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      sum(
+&lt;br&gt;              a.intraMscIntraGsmOk
+&lt;br&gt;            + a.intraMscGsmToUmtsOk
+&lt;br&gt;            + a.intraMscUmtsToGsmOk 
+&lt;br&gt;            + a.intraMscIntraUmtsOk
+&lt;br&gt;            + a.InterPlmnIntraMscIntraGsmOk
+&lt;br&gt;            + a.InterPlmnIntraMscGsmToUmtsOk 
+&lt;br&gt;            + a.InterPlmnIntraMscUmtsToGsmOk
+&lt;br&gt;            + a.InterPlmnIntraMscIntraUmtsOk)
+&lt;br&gt;     +sum(
+&lt;br&gt;              a.intraMscIntraGsmNok
+&lt;br&gt;            + a.intraMscGsmToUmtsNok 
+&lt;br&gt;            + a.intraMscUmtsToGsmNok
+&lt;br&gt;            + a.intraMscIntraUmtsNok
+&lt;br&gt;            + a.InterPlmnIntraMscIntraGsmNok
+&lt;br&gt;            + a.InterPlmnIntraMscGsmToUmtsNok 
+&lt;br&gt;            + a.InterPlmnIntraMscUmtsToGsmNok 
+&lt;br&gt;            + a.InterPlmnIntraMscIntraUmtsNok)
+&lt;br&gt;100 * -------------------------------------------------------------------------------------                                                          
+&lt;br&gt;          sum(b.tcat_call_amount)
+&lt;br&gt;
+&lt;br&gt;   ;where b.traffic_category_id=22
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s) :
+&lt;br&gt;a = RNS_PS_HO1_MSC_{time_agg} or  RNS_PS_HO1BH_MSC_{time_agg}
+&lt;br&gt;b = RNS_PS_TC_{obj_agg}_{time_agg}
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Intra-MSC HO attempts  (excluding intra-BSC and intra-RNC / call (MTC, MOC))]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

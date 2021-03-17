@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_968a">
+    <formula>decode(
+			(traffic.allo_success_edch_int + 
+			traffic.allo_success_edch_bgr + 
+			traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr + 
+			traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr + 
+			traffic.setup_fail_edch_bts_bgr + 
+			traffic.setup_fail_edch_bts_int + 
+			traffic.setup_fail_edch_other_bgr + 
+			traffic.setup_fail_edch_other_int + 
+			traffic.setup_fail_edch_trans_bgr + 
+			traffic.setup_fail_edch_trans_int + 
+			traffic.setup_fail_edch_ue_bgr + 
+			traffic.setup_fail_edch_ue_int),0,null, 
+
+			(100*(traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr)
+			 / 
+			(traffic.allo_success_edch_int + 
+			traffic.allo_success_edch_bgr + 
+			traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr + 
+			traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr + 
+			traffic.setup_fail_edch_bts_bgr + 
+			traffic.setup_fail_edch_bts_int + 
+			traffic.setup_fail_edch_other_bgr + 
+			traffic.setup_fail_edch_other_int + 
+			traffic.setup_fail_edch_trans_bgr + 
+			traffic.setup_fail_edch_trans_int + 
+			traffic.setup_fail_edch_ue_bgr + 
+			traffic.setup_fail_edch_ue_int)))</formula>
+    <kpi_info>
+      <title><![CDATA[UL DCH Selected due to too many HSUPA users]]></title>
+      <use><![CDATA[Percentage of unavailable E-DCH uplink transport channel for an interactive or background class connection due to maximum amount of E-DCH users in the cell exceed the limit defined by MaxNumberEDCHCell or the number of E-DCH users in local cell group exceed MaxNumberEDCHLCG.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum (
+&lt;br&gt;UL_DCH_SEL_MAX_HSUPA_USR_INT
+&lt;br&gt;+ UL_DCH_SEL_MAX_HSUPA_USR_BGR)
+&lt;br&gt;-------------------------------------------
+&lt;br&gt;RNC_923a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>UL DCH sel many HSUPA usr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

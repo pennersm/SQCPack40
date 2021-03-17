@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml"/>
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <temp_table_ref src="rssg2g/counters/RAPA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IURA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IURP.xml"/>
+  <kpi name="sgsn_2305f">
+    <formula>( decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_gprs_attach + 
+			mobmgmnt.succ_imsi_attach + 
+			mobmgmnt.FAIL_GPRS_ATTACH_GEN + 
+			mobmgmnt.fail_imsi_attach + 
+			mobmgmnt.FAIL_COMB_ATTACH_GEN + 
+			mobmgmnt.comb_attach_succ_in_ps_side))
+			 / 
+			((mobmgmnt.period_duration*60)))
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_power_off_detach + 
+			mobmgmnt.succ_mo_gprs_detach + 
+			mobmgmnt.succ_mo_combined_detach + 
+			mobmgmnt.succ_mo_imsi_detach + 
+			mobmgmnt.succ_impl_gprs_detach + 
+			mobmgmnt.succ_impl_combined_detach + 
+			mobmgmnt.general_undef_detach_failures + 
+			mobmgmnt.gprs_detached_inactive_subscri + 
+			mobmgmnt.nwr_gprs_detach_imsi_unk_hlr + 
+			mobmgmnt.nwr_gprs_detach_illegal_ms + 
+			mobmgmnt.nwr_gprs_detach_illegal_me + 
+			mobmgmnt.nwr_gprs_detach_gprs_ser_na + 
+			mobmgmnt.nwr_gprs_detach_ngprs_ser_na + 
+			mobmgmnt.nwr_gprs_detach_plmn_na + 
+			mobmgmnt.nwr_gprs_detach_la_na + 
+			mobmgmnt.nwr_gprs_detach_roaming_na + 
+			mobmgmnt.nwr_gprs_detach_gprs_na_plmn + 
+			mobmgmnt.nwr_gprs_detach_no_s_cel_in_la + 
+			mobmgmnt.FAIL_NWR_GPRS_DETACH_GEN + 
+			nvl(MOBMGMN2.HLR_INITIATED_DETACH,0)))
+			 / 
+			((mobmgmnt.period_duration*60))) 
+			+
+			
+			decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.FAIL_MO_PDP_CONT_ACT_GEN + 
+			sesmgmnt.mo_sec_pdp_activation_succ + 
+			sesmgmnt.FAIL_MO_SEC_PDP_CONT_ACT_GEN))
+			 / 
+			((sesmgmnt.period_duration*60)))
+			+
+			
+			decode(SIGN(
+			decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.succ_pdp_cont_modify_services + 
+			sesmgmnt.FAIL_MO_PDP_CONT_MOD_GEN - 
+			(((mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.succ_inter_sgsn_ra_updat)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))) + 
+			((MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))))))
+			 / 
+			((sesmgmnt.period_duration*60))) ),-1,0,decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.succ_pdp_cont_modify_services + 
+			sesmgmnt.FAIL_MO_PDP_CONT_MOD_GEN - 
+			(((mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.succ_inter_sgsn_ra_updat)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))) + 
+			((MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO)*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))))))
+			 / 
+			((sesmgmnt.period_duration*60))) )
+			+
+			
+			decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.SUCC_MO_PDP_CONT_DEACT_GEN + 
+			sesmgmnt.fail_mo_pdp_context_deact + 
+			sesmgmnt.SUCC_NWR_PDP_CONT_DEACT_GEN + 
+			sesmgmnt.fail_nwr_pdp_context_deact + 
+			sesmgmnt.succ_impl_pdp_context_deact + 
+			sesmgmnt.fail_impl_pdp_context_deact))
+			 / 
+			((sesmgmnt.period_duration*60)))
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_intra_papu_ra_updat + 
+			mobmgmnt.FAIL_INTRA_PAPU_RAU_GEN + 
+			mobmgmnt.intra_papu_ra_la_up_s_in_ps + 
+			mobmgmnt.FAIL_INTRA_PAPU_RA_LA_UP_GEN +
+			MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTRA_PAPU_3G_2G_SHO))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_ATTACH_GB_USERS - 
+			PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS)) 
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.FAIL_INTER_PAPU_RAU_GEN + 
+			mobmgmnt.inter_papu_ra_la_up_s_in_ps + 
+			mobmgmnt.FAIL_INTER_PAPU_RA_LA_UP_GEN +
+			mobmgmnt.succ_inter_sgsn_ra_updat + 
+			mobmgmnt.FAIL_INTER_SGSN_RAU_GEN + 
+			mobmgmnt.inter_sgsn_ra_la_up_s_in_ps + 
+			mobmgmnt.FAIL_INTER_SGSN_RA_LA_UP_GEN +
+			mobmgmnt.succ_outg_inter_sgsn_ra_updat + 
+			mobmgmnt.fail_outg_inter_sgsn_ra_updat +
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTER_PAPU_3G_2G_SHO +
+			mobmgmnt.SUCC_OUTG_INTER_SYS_RAU + 
+			mobmgmnt.FAIL_OUTG_INTER_SYS_RAU))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_ATTACH_GB_USERS - 
+			PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))			
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_periodical_ra_updat + 
+			mobmgmnt.FAIL_PERIODIC_RAU_GEN + 
+			mobmgmnt.FAIL_PERIODIC_RA_LA_UP_GEN))
+			 / 
+			((mobmgmnt.period_duration*60))) 
+			+ 
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_intra_papu_ra_updat + 
+			mobmgmnt.FAIL_INTRA_PAPU_RAU_GEN + 
+			mobmgmnt.intra_papu_ra_la_up_s_in_ps + 
+			mobmgmnt.FAIL_INTRA_PAPU_RA_LA_UP_GEN +
+			MOBMGMN2.IU_SUCC_INTRA_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTRA_PAPU_3G_2G_SHO))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))
+			+			
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((mobmgmnt.succ_inter_papu_ra_updat + 
+			mobmgmnt.FAIL_INTER_PAPU_RAU_GEN + 
+			mobmgmnt.inter_papu_ra_la_up_s_in_ps + 
+			mobmgmnt.FAIL_INTER_PAPU_RA_LA_UP_GEN +
+			mobmgmnt.succ_inter_sgsn_ra_updat + 
+			mobmgmnt.FAIL_INTER_SGSN_RAU_GEN + 
+			mobmgmnt.inter_sgsn_ra_la_up_s_in_ps + 
+			mobmgmnt.FAIL_INTER_SGSN_RA_LA_UP_GEN +
+			mobmgmnt.succ_outg_inter_sgsn_ra_updat + 
+			mobmgmnt.fail_outg_inter_sgsn_ra_updat +
+			MOBMGMN2.IU_SUCC_INTER_PAPU_3G_2G_SHO + 
+			MOBMGMN2.IU_FAIL_INTER_PAPU_3G_2G_SHO+
+			mobmgmnt.SUCC_OUTG_INTER_SYS_RAU + 
+			mobmgmnt.FAIL_OUTG_INTER_SYS_RAU))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS)) 
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((nvl(MOBMGMN2.SUCC_OUTG_TAU_2GSGSN_TO_MME,0) + 
+			nvl(MOBMGMN2.FAIL_OUTG_TAU_2GSGSN_TO_MME,0)))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_ATTACH_GB_USERS - 
+			PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((nvl(MOBMGMN2.SUCC_OUTG_TAU_2GSGSN_TO_MME,0) + 
+			nvl(MOBMGMN2.FAIL_OUTG_TAU_2GSGSN_TO_MME,0)))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))
+			+
+			
+			decode(
+			((mobmgmnt.period_duration*60)),0,NULL,((nvl(MOBMGMN2.SUCC_IN_RAU_MME_TO_2GSGSN,0) + 
+			nvl(MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN,0)))
+			 / 
+			((mobmgmnt.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_GB_USERS),0,NULL,(PAUS.PEAK_GB_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_GB_USERS))
+			+
+			
+			decode(
+			((RAPA.period_duration*60)),0,NULL,((nvl(RAPA.GB_PS_PAGING_PROCS,0)))
+			 / 
+			((RAPA.period_duration*60))) )			
+			+
+	
+			( decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_GPRS_ATTACH + 
+			IUMM1.IU_SUCC_IMSI_ATTACH + 
+			IUMM1.IU_FAIL_GPRS_ATTACH + 
+			IUMM1.IU_FAIL_IMSI_ATTACH + 
+			IUMM1.IU_FAIL_COMB_ATTACH_IN_PS + 
+			IUMM1.IU_SUCC_COMB_ATTACH_ONLY_IN_PS))
+			 / 
+			((IUMM1.period_duration*60)))
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_MO_GPRS_DETACH + 
+			IUMM1.IU_SUCC_MO_COMBINED_DETACH + 
+			IUMM1.IU_SUCC_MO_IMSI_DETACH + 
+			IUMM1.IU_SUCC_POWER_OFF_DETACH + 
+			IUMM1.IU_SUCC_IMPL_GPRS_DETACH + 
+			IUMM1.IU_SUCC_IMPL_COMBINED_DETACH + 
+			IUMM1.IU_SUCC_DETACH_BY_DETACH_TIMER + 
+			IUMM1.IU_GENERAL_UNDEF_DETACH_FAIL + 
+			nvl(IUMM1.IU_HLR_INITIATED_DETACH,0)))
+			 / 
+			((IUMM1.period_duration*60))) 
+			+
+			
+			decode(
+			((IUSM.period_duration*60)),0,NULL,((IUSM.IU_SUCC_MO_PDP_CON_ACT + 
+			IUSM.IU_FAIL_MO_PDP_CON_ACT + 
+			IUSM.IU_MO_SEC_PDP_ACTIVATION_SUCC + 
+			IUSM.IU_MO_SEC_PDP_ACT_FAILED))
+			 / 
+			((IUSM.period_duration*60))) 
+			+
+			
+			decode(SIGN(
+			decode(
+			((IUSM.period_duration*60)),0,NULL,((IUSM.IU_SUCC_PDP_CON_MOD + 
+			IUSM.IU_FAIL_PDP_CON_MOD - 
+			(PAUS.DIRECT_TUN_CHANGES_2T_TO_1T + 
+			((IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))) + 
+			(IUMM2.IU_SUCC_INTER_PAPU_RE + 
+			IUMM2.IU_SUCC_INTER_SGSN_RE) + 
+			(IUMM2.IU_SUCC_INTRA_PAPU_RE*decode(
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE),0,NULL,(PAUS.DIRECT_TUN_PDP_CONT_PEAK)
+			 / 
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE))) + 
+			((IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))))))
+			 / 
+			((IUSM.period_duration*60))) ),-1,0,decode(
+			((IUSM.period_duration*60)),0,NULL,((IUSM.IU_SUCC_PDP_CON_MOD + 
+			IUSM.IU_FAIL_PDP_CON_MOD - 
+			(PAUS.DIRECT_TUN_CHANGES_2T_TO_1T + 
+			((IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))) + 
+			(IUMM2.IU_SUCC_INTER_PAPU_RE + 
+			IUMM2.IU_SUCC_INTER_SGSN_RE) + 
+			(IUMM2.IU_SUCC_INTRA_PAPU_RE*decode(
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE),0,NULL,(PAUS.DIRECT_TUN_PDP_CONT_PEAK)
+			 / 
+			(IURA.PEAK_RABS_CURRENTLY_IN_USE))) + 
+			((IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO)*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))))))
+			 / 
+			((IUSM.period_duration*60))) )
+			+
+			
+			decode(
+			((IUSM.period_duration*60)),0,NULL,((IUSM.IU_SUCC_PDP_CON_DEACT_BY_MS + 
+			IUSM.IU_FAIL_PDP_CON_DEACT_BY_MS + 
+			IUSM.IU_SUCC_NWR_PDP_CON_DEACT + 
+			IUSM.IU_FAIL_NWR_PDP_CON_DEACT + 
+			IUSM.IU_SUCC_IMPL_PDP_DEACT_SGSN + 
+			IUSM.IU_FAIL_IMPL_PDP_DEACT_SGSN))
+			 / 
+			((IUSM.period_duration*60))) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_INTRA_PAPU_UPD_PS + 
+			IUMM1.IU_SUCC_COMB_INTRA_PAPU_UPD_PS +
+			IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTRA_PAPU_2G3G_ISHO))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_ATTACH_IU_USERS - 
+			PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS)) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_INTER_PAPU_UPD_PS + 
+			IUMM1.IU_SUCC_COMB_INTER_PAPU_UPD_PS +
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_INTER_SGSN_UPD_PS + 
+			IUMM1.IU_SUCC_COMB_INTER_SGSN_UPD_PS +
+			IUMM1.IU_SUCC_OG_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_OG_INTER_SGSN_RA_UPD +
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTER_PAPU_2G3G_ISHO +
+			IUMM2.IU_SUCC_OG_INTE_SGSN_3G2G_ISHO + 
+			IUMM2.IU_FAIL_OG_INTE_SGSN_3G2G_ISHO ))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_ATTACH_IU_USERS - 
+			PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS)) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_PERIODIC_RA_UPD + 
+			IUMM1.IU_FAIL_PERIODIC_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_PERIODIC_UP_PS + 
+			IUMM1.IU_SUCC_COMB_PERIODIC_UP_PS))
+			 / 
+			((IUMM1.period_duration*60))) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTRA_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_INTRA_PAPU_UPD_PS + 
+			IUMM1.IU_SUCC_COMB_INTRA_PAPU_UPD_PS +
+			IUMM2.IU_SUCC_INTRA_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTRA_PAPU_2G3G_ISHO))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS)) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM1.IU_SUCC_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_PAPU_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_INTER_PAPU_UPD_PS + 
+			IUMM1.IU_SUCC_COMB_INTER_PAPU_UPD_PS +
+			IUMM1.IU_SUCC_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_IN_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_COMB_INTER_SGSN_UPD_PS + 
+			IUMM1.IU_SUCC_COMB_INTER_SGSN_UPD_PS +
+			IUMM1.IU_SUCC_OG_INTER_SGSN_RA_UPD + 
+			IUMM1.IU_FAIL_OG_INTER_SGSN_RA_UPD +
+			IUMM2.IU_SUCC_INTER_PAPU_2G3G_ISHO + 
+			IUMM2.IU_FAIL_INTER_PAPU_2G3G_ISHO +
+			IUMM2.IU_SUCC_OG_INTE_SGSN_3G2G_ISHO + 
+			IUMM2.IU_FAIL_OG_INTE_SGSN_3G2G_ISHO))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS)) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM2.IU_SUCC_INTRA_PAPU_RE + 
+			IUMM2.IU_FAIL_INTRA_PAPU_RE_SGSN + 
+			IUMM2.IU_FAIL_INTRA_PAPU_RE_RNC + 
+			IUMM2.IU_FAIL_INTRA_PAPU_RELOC_COLL))
+			 / 
+			((IUMM1.period_duration*60))) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM2.IU_SUCC_INTER_PAPU_RE + 
+			IUMM2.IU_FAIL_INTER_PAPU_RE_SGSN + 
+			IUMM2.IU_FAIL_INTER_PAPU_RE_RNC + 
+			IUMM2.IU_FAIL_INTER_PAPU_RELOC_COLL +
+			IUMM2.IU_SUCC_INTER_SGSN_RE + 
+			nvl(IUMM1.IU_FAIL_INTER_SGSN_RE_SGSN,0) + 
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_NEW_SGSN,0) + 
+			nvl(IUMM2.IU_FAIL_INTER_SGSN_RE_OLD_SGSN,0) + 
+			IUMM2.IU_FAIL_INTER_SGSN_RE_RNC + 
+			IUMM2.IU_FAIL_INTER_SGSN_RELOC_COLL +
+			IUMM2.IU_SUCC_OG_INTER_SGSN_RE + 
+			nvl(IUMM1.IU_FAIL_OG_INTER_SGSN_RE_SGSN,0) + 
+			nvl(IUMM2.IU_FAIL_OG_INTE_SGSN_RE_NEW_SG,0) + 
+			nvl(IUMM2.IU_FAIL_OG_INTE_SGSN_RE_OLD_SG,0) + 
+			IUMM2.IU_FAIL_OG_INTER_SGSN_RE_RNC + 
+			IUMM2.IU_FAIL_OG_INTER_SGSN_RE_CAN + 
+			IUMM2.IU_FAIL_INTER_SGSN_OG_RE_COLL))
+			 / 
+			((IUMM1.period_duration*60))) 
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((nvl(IUMM1.SUCC_OUTG_TAU_3GSGSN_TO_MME,0) + 
+			nvl(IUMM1.FAIL_OUTG_TAU_3GSGSN_TO_MME,0)))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_ATTACH_IU_USERS - 
+			PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))
+			+
+		
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((nvl(IUMM1.SUCC_OUTG_TAU_3GSGSN_TO_MME,0) + 
+			nvl(IUMM1.FAIL_OUTG_TAU_3GSGSN_TO_MME,0)))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((nvl(IUMM1.SUCC_IN_RAU_MME_TO_3GSGSN,0) + 
+			nvl(IUMM1.FAIL_IN_RAU_MME_TO_3GSGSN,0)))
+			 / 
+			((IUMM1.period_duration*60)))*decode(
+			(PAUS.PEAK_ATTACH_IU_USERS),0,NULL,(PAUS.PEAK_IU_PDP_CONT)
+			 / 
+			(PAUS.PEAK_ATTACH_IU_USERS))
+			+
+			
+			decode(
+			iumm1.period_duration,0,NULL,
+			(nvl(iumm1.iu_s_inter_psho_mme_to_sgsn,0) + 
+			nvl(iumm1.iu_f_inr_psho_me_to_sg_at_rc,0) + 
+			nvl(iumm1.iu_f_inr_psho_mme_to_sg_at_me,0) + 
+			nvl(iumm1.iu_f_inr_psho_me_to_sg_at_sg,0) + 
+			nvl(iumm1.iu_cnl_inr_psho_mme_to_sgsn,0) +
+			nvl(iumm1.iu_s_inter_psho_sgsn_to_mme,0) + 
+			nvl(iumm1.iu_f_inr_psho_sg_to_me_at_rc,0) + 
+			nvl(iumm1.iu_f_inr_psho_sg_to_me_at_me,0) + 
+			nvl(iumm1.iu_f_inr_psho_sg_to_me_at_sg,0) + 
+			nvl(iumm1.iu_cnl_inr_s_psho_sg_to_me,0))
+			/ 
+			(iumm1.period_duration*60))
+			+
+			
+			decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM2.IU_SUCC_SERVICE_REQUEST_DATA + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_DATA + 
+			IUMM2.IU_SUCC_SERVICE_REQUEST_PAGING + 
+			IUMM2.IU_FAIL_SERVICE_REQUEST_PAGING))
+			 / 
+			((IUMM1.period_duration*60))) 
+			+
+			
+			decode(
+			((IURA.period_duration*60)),0,NULL,((IURA.IU_RELEASE_ATTEMPTS - 
+			IURA.IU_RELEASE_REL_TIMER))
+			 / 
+			((IURA.period_duration*60))) 
+			+
+			
+			decode(
+			((PAUS.period_duration*60)),0,NULL,((PAUS.DIRECT_TUN_CHANGES_1T_TO_2T + 
+			PAUS.DIRECT_TUN_CHANGES_2T_TO_1T))
+			 / 
+			((PAUS.period_duration*60)))
+			+ 
+			
+			decode(
+			((IURP.period_duration*60)),0,NULL,((nvl(IURP.IU_PS_PAGING_PROCS,0)))
+			 / 
+			((IURP.period_duration*60))) )</formula>
+    <kpi_info>
+      <title><![CDATA[2G+3G Transactions per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of 2G and 3G transactions per second. 
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>( sgsn_2303d +
+&lt;br&gt;  sgsn_2304f )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_mobmgmnt_{OBJ_AGG}_{TIME_AGG}, RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_sesmgmnt_{OBJ_AGG}_{TIME_AGG, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUSM_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}, RSG_PS_RAPA_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IURA_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IURP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G+3G transactions /s]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_949b">
+    <formula>100 - 
+			100*decode(
+			(cellres.chan_code_sf4_request + 
+			cellres.chan_code_sf8_request + 
+			cellres.chan_code_sf16_request + 
+			cellres.chan_code_sf32_request + 
+			cellres.chan_code_sf64_request + 
+			cellres.chan_code_sf128_request + 
+			cellres.chan_code_sf256_request),0,null, 
+
+			cellres.nbr_succ_code_tree_allo
+			 / 
+			(cellres.chan_code_sf4_request + 
+			cellres.chan_code_sf8_request + 
+			cellres.chan_code_sf16_request + 
+			cellres.chan_code_sf32_request + 
+			cellres.chan_code_sf64_request + 
+			cellres.chan_code_sf128_request + 
+			cellres.chan_code_sf256_request))</formula>
+    <kpi_info>
+      <title><![CDATA[Spreading Code Blocking rate in DL]]></title>
+      <use><![CDATA[Spreading Code Blocking rate of a cell over the reporting period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100-100* 
+&lt;br&gt;sum(NBR_SUCC_CODE_TREE_ALLO)
+&lt;br&gt;/
+&lt;br&gt;sum(CHAN_CODE_SF4_REQUEST + 
+&lt;br&gt;CHAN_CODE_SF8_REQUEST + 
+&lt;br&gt;CHAN_CODE_SF16_REQUEST + 
+&lt;br&gt;CHAN_CODE_SF32_REQUEST + 
+&lt;br&gt;CHAN_CODE_SF64_REQUEST + 
+&lt;br&gt;CHAN_CODE_SF128_REQUEST + 
+&lt;br&gt;CHAN_CODE_SF256_REQUEST)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_CELLRES_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.245 +0100</date>
+          <comment><![CDATA[Source: RSRAN067.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Spreading Code block R DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

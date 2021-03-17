@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml" />
+  <temp_table_ref src="rssg2g/counters/PAUS.xml"/>
+  <kpi name="sgsn_2421a">
+    <formula>3600*(decode(
+			iumm1.period_duration,0,NULL,
+			
+			(iumm1.iu_s_inter_psho_mme_to_sgsn + 
+			iumm1.iu_f_inr_psho_me_to_sg_at_rc + 
+			iumm1.iu_f_inr_psho_mme_to_sg_at_me + 
+			iumm1.iu_f_inr_psho_me_to_sg_at_sg + 
+			iumm1.iu_cnl_inr_psho_mme_to_sgsn +
+			iumm1.iu_s_inter_psho_sgsn_to_mme + 
+			iumm1.iu_f_inr_psho_sg_to_me_at_rc + 
+			iumm1.iu_f_inr_psho_sg_to_me_at_me + 
+			iumm1.iu_f_inr_psho_sg_to_me_at_sg + 
+			iumm1.iu_cnl_inr_s_psho_sg_to_me)
+			/ 
+			(iumm1.period_duration*60))
+            )/
+            decode(
+			(paus.avg_attach_iu_users_sum * paus.avg_attach_iu_users_den),0,NULL,(paus.avg_attach_iu_users_sum / paus.avg_attach_iu_users_den))</formula>
+    <kpi_info>
+      <title><![CDATA[3G Inter SGSN MME handover requests per subscriber per hour]]></title>
+      <use><![CDATA[This KPI shows the average amount of 3G Inter SGSN MME handover request procedures per subscriber per hour.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>3600 * sgsn_2354a
+&lt;br&gt;--------------------
+&lt;br&gt;sgsn_693a</formula>
+      <unit>#/sub/h</unit>
+      <tables>RSG_PS_IUMM_{OBJ_AGG}_{TIME_AGG}, RSG_PS_PAUS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/02/18 20:06:10.110 +0000</date>
+          <comment><![CDATA[Source: rssg2g082.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>3G Inter SGSN MME HO req /subs /h</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

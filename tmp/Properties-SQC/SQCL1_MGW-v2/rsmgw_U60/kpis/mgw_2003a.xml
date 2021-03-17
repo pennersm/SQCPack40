@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/ETHPRF.xml" />
+  <kpi name="mgw_2003a">
+    <formula>
+decode(
+	ethprf.ether_tx_frame
+	,0,null,   
+    100*(ethprf.ether_tx_abort_for_coll + 
+		ethprf.ether_tx_late_coll)
+ 	/ 
+	ethprf.ether_tx_frame
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Ethernet interface error ratio (egress)]]></title>
+      <use><![CDATA[Egress ethernet interface errors.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        SUM( ETHER_TX_ABORT_FOR_COLL
+&lt;br&gt;              + ETHER_TX_LATE_COLL )
+&lt;br&gt;100 * -------------------- 
+&lt;br&gt;         SUM( ETHER_TX_FRAME )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_ETHPRF_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/05/20 16:01:26.481 +0100</date>
+          <comment><![CDATA[Source: RSMGW012.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EthIf error ratio egress</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

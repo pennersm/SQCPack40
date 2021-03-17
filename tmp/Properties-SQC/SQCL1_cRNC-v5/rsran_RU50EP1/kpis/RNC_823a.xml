@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_823a">
+    <formula>decode(
+			(cellres.ce_sample_amount),0,null, 
+
+			(cellres.ave_ce_used_amr*cellres.ce_sample_amount)
+			 / 
+			(cellres.ce_sample_amount))</formula>
+    <kpi_info>
+      <title><![CDATA[Average used CEs for CS Voice]]></title>
+      <use><![CDATA[The average number of used CEs for AMR allocations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum( AVE_CE_USED_AMR * CE_SAMPLE_AMOUNT )
+&lt;br&gt;-----------------------------------------
+&lt;br&gt;sum( CE_SAMPLE_AMOUNT )</formula>
+      <unit>[#]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average used CEs for CS Voice]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+  <kpi name="RNC_604a">
+    <formula>100*decode(
+			(traffic.allo_hs_dsch_flow_int_1 +
+			traffic.allo_hs_dsch_flow_bgr_1 +
+			traffic.rej_hs_dsch_ret_int_1 +
+			traffic.rej_hs_dsch_ret_bgr_1 +
+			traffic.setup_fail_rnc_hs_dsch_int_1 +
+			traffic.setup_fail_bts_hs_dsch_int_1 +
+			traffic.setup_fail_iub_hs_total_int_1 +
+			traffic.setup_fail_rnc_hs_dsch_bgr_1 +
+			traffic.setup_fail_bts_hs_dsch_bgr_1 +
+			traffic.setup_fail_iub_hs_total_bgr_1),0,null,
+
+			(traffic.allo_hs_dsch_flow_int_1 +
+			traffic.allo_hs_dsch_flow_bgr_1)
+			 /
+			(traffic.allo_hs_dsch_flow_int_1 +
+			traffic.allo_hs_dsch_flow_bgr_1 +
+			traffic.rej_hs_dsch_ret_int_1 +
+			traffic.rej_hs_dsch_ret_bgr_1 +
+			traffic.setup_fail_rnc_hs_dsch_int_1 +
+			traffic.setup_fail_bts_hs_dsch_int_1 +
+			traffic.setup_fail_iub_hs_total_int_1 +
+			traffic.setup_fail_rnc_hs_dsch_bgr_1 +
+			traffic.setup_fail_bts_hs_dsch_bgr_1 +
+			traffic.setup_fail_iub_hs_total_bgr_1))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA Resource Accessibility for NRT Traffic]]></title>
+      <use><![CDATA[The accessibility of all started allocations for HS-DSCH for NRT Traffic. This KPI is based on Traffic measurement. The number of times when HS-DSCH channel has been established are divided by the number of times when HS-DSCH channel has been selected by the cell-specific PS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt; sum( ALLO_HS_DSCH_FLOW_INT
+&lt;br&gt;      + ALLO_HS_DSCH_FLOW_BGR )
+&lt;br&gt;---------------------------------------------------------
+&lt;br&gt; sum( ALLO_HS_DSCH_FLOW_INT
+&lt;br&gt;      + ALLO_HS_DSCH_FLOW_BGR
+&lt;br&gt;      + REJ_HS_DSCH_RET_INT
+&lt;br&gt;      + REJ_HS_DSCH_RET_BGR
+&lt;br&gt;      + SETUP_FAIL_RNC_HS_DSCH_INT
+&lt;br&gt;      + SETUP_FAIL_BTS_HS_DSCH_INT
+&lt;br&gt;      + SETUP_FAIL_IUB_HS_TOTAL_INT
+&lt;br&gt;      + SETUP_FAIL_RNC_HS_DSCH_BGR
+&lt;br&gt;      + SETUP_FAIL_BTS_HS_DSCH_BGR
+&lt;br&gt;      + SETUP_FAIL_IUB_HS_TOTAL_BGR )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSDPA Resource Accessibility for NRT Traffic]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

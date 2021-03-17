@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/UPD.xml"/>
+  <kpi name="msc_563b">
+    <formula>upd.upd_num_of_call_att + upd.upd_num_of_call_rej</formula>
+    <kpi_info>
+      <title><![CDATA[Call attempts using UPD]]></title>
+      <use><![CDATA[Number of call attempts (0...9999999). The field is updated when the circuit is released.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The counter is updated when the UPD is released. It means the following events:
+<br>
+<br>&#149; Receiving the CC RELEASE COMPLETE message from the RNC
+<br>&#149; Receiving the BICC REL / SIP Bye or Cancel message from the preceding or following exchange
+<br>
+<br>It is also updated when a handover occurs and during handover the UPD is changed. It means that the RANAP HANDOVER COMPLETE message is received from the RNC.
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 30-10-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC; MGWMNAME; UPD
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: UPD
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): UPD measurement M384
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;sum(UPD_NUM_OF_CALL_ATT + UPD_NUM_OF_CALL_REJ)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_UPD_MSC_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_upd_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Call attempts using UPD]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

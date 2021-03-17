@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_943a">
+    <formula>decode(
+			(pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr),0,null, 
+
+			(100*(pktcall.d_d_req_d_d_allo_int + 
+			pktcall.d_d_req_d_d_allo_bgr)
+			 / 
+			(pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr)))</formula>
+    <kpi_info>
+      <title><![CDATA[R99 Setup Success Ratio from user perspective for NRT]]></title>
+      <use><![CDATA[R99 Setup Success Ratio for Interactive and Background Services [%] from user perspective over the reporting period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(D_D_REQ_D_D_ALLO_INT + D_D_REQ_D_D_ALLO_BGR)
+&lt;br&gt;/
+&lt;br&gt;sum(PS_ATT_DCH_DCH_INT + PS_ATT_DCH_DCH_BGR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[R99 Setup Success Ratio from user perspective for NRT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml"/>
+  <kpi name="flng_228a">
+    <formula>decode(
+			((SSPROF.sm_nbr_act_sess_rat_2g + 
+			SSPROF.sm_nbr_act_sess_rat_3g + 
+			SSPROF.sm_nbr_act_sess_rat_4g + 
+			SSPROF.sm_nbr_act_sess_rat_unknown)),0,NULL, 
+
+			((SSPROF.sm_nbr_act_sess_rat_4g))
+			 / 
+			((SSPROF.sm_nbr_act_sess_rat_2g + 
+			SSPROF.sm_nbr_act_sess_rat_3g + 
+			SSPROF.sm_nbr_act_sess_rat_4g + 
+			SSPROF.sm_nbr_act_sess_rat_unknown)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[LTE active sessions ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of active sessions using the radio access type LTE when compared to total number of active sessions.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (sm_nbr_act_sess_rat_4g)
+&lt;br&gt;---------------------------------- * 100
+&lt;br&gt;sum (sm_nbr_act_sess_rat_2g + 
+&lt;br&gt;   sm_nbr_act_sess_rat_3g + 
+&lt;br&gt;   sm_nbr_act_sess_rat_4g + 
+&lt;br&gt;   sm_nbr_act_sess_rat_unknown)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[LTE active sess ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

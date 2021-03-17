@@ -1,0 +1,208 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M196 IACIMSAC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M196 IACIMSAC measurement dump</csv_title>
+    <report-description>INAP Application Contexts-Incoming report (IACIMSAC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <INAP_IAC_STARTED/>
+    <INAP_IAC_USER_ABORT/>
+    <INAP_IAC_INTERNAL_ABORT/>
+    <INAP_IAC_TCAP_USER_ABORT/>
+    <INAP_IAC_TCAP_PROVIDER_ABORT/>
+    <INAP_IAC_CANCELLED/>
+    <INAP_IAC_TIMER_EXPIRATION/>
+    <!--<INAP_IAC_SUM_STARTED />-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/SNET/SPC/SPCN/SUB/AC" name="IACIMSAC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="INAP_IAC_STARTED" symmetrical="true">SUM(INAP_IAC_STARTED)</counter>
+      <counter alias="INAP_IAC_USER_ABORT" symmetrical="true">SUM(INAP_IAC_USER_ABORT)</counter>
+      <counter alias="INAP_IAC_INTERNAL_ABORT" symmetrical="true">SUM(INAP_IAC_INTERNAL_ABORT)</counter>
+      <counter alias="INAP_IAC_TCAP_USER_ABORT" symmetrical="true">SUM(INAP_IAC_TCAP_USER_ABORT)</counter>
+      <counter alias="INAP_IAC_TCAP_PROVIDER_ABORT" symmetrical="true">SUM(INAP_IAC_TCAP_PROVIDER_ABORT)</counter>
+      <counter alias="INAP_IAC_CANCELLED" symmetrical="true">SUM(INAP_IAC_CANCELLED)</counter>
+      <counter alias="INAP_IAC_TIMER_EXPIRATION" symmetrical="true">SUM(INAP_IAC_TIMER_EXPIRATION)</counter>
+      <!--<counter alias="INAP_IAC_SUM_STARTED" timeagg="SUM(INAP_IAC_SUM_STARTED)">SUM(INAP_IAC_SUM_STARTED)</counter>-->
+    </counters>
+    <table_name>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IACIMSAC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IACIMSAC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_STARTED">
+    <formula>IACIMSAC.INAP_IAC_STARTED</formula>
+    <kpi_info>
+      <title>INAP_IAC_STARTED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_STARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_STARTED (M196B3C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_USER_ABORT">
+    <formula>IACIMSAC.INAP_IAC_USER_ABORT</formula>
+    <kpi_info>
+      <title>INAP_IAC_USER_ABORT</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_USER_ABORT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_USER_ABORT (M196B3C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_INTERNAL_ABORT">
+    <formula>IACIMSAC.INAP_IAC_INTERNAL_ABORT</formula>
+    <kpi_info>
+      <title>INAP_IAC_INTERNAL_ABORT</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_INTERNAL_ABORT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_INTERNAL_ABORT (M196B3C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_TCAP_USER_ABORT">
+    <formula>IACIMSAC.INAP_IAC_TCAP_USER_ABORT</formula>
+    <kpi_info>
+      <title>INAP_IAC_TCAP_USER_ABORT</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_TCAP_USER_ABORT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_TCAP_USER_ABORT (M196B3C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_TCAP_PROVIDER_ABORT">
+    <formula>IACIMSAC.INAP_IAC_TCAP_PROVIDER_ABORT</formula>
+    <kpi_info>
+      <title>INAP_IAC_TCAP_PROVIDER_ABORT</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_TCAP_PROVIDER_ABORT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_TCAP_PROVIDER_ABORT (M196B3C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_CANCELLED">
+    <formula>IACIMSAC.INAP_IAC_CANCELLED</formula>
+    <kpi_info>
+      <title>INAP_IAC_CANCELLED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_CANCELLED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_CANCELLED (M196B3C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="INAP_IAC_TIMER_EXPIRATION">
+    <formula>IACIMSAC.INAP_IAC_TIMER_EXPIRATION</formula>
+    <kpi_info>
+      <title>INAP_IAC_TIMER_EXPIRATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(INAP_IAC_TIMER_EXPIRATION)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_TIMER_EXPIRATION (M196B3C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!--<kpi name="INAP_IAC_SUM_STARTED">
+    <formula>IACIMSAC.INAP_IAC_SUM_STARTED</formula>
+    <kpi_info>
+      <title>INAP_IAC_SUM_STARTED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(INAP_IAC_SUM_STARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_iacimsac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>INAP_IAC_SUM_STARTED (M196B1C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>-->
+</conf_file>

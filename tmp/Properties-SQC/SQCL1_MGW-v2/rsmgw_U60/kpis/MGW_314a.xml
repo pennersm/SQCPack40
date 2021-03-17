@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="MGW_314a">
+    <formula>decode(
+			(conn.all_vconn_cas),0,null, 
+
+			(100*(conn.all_vconn_cas - 
+			conn.all_vconn_cas_unsuccess)
+			 / 
+			(conn.all_vconn_cas)))</formula>
+    <kpi_info>
+      <title><![CDATA[Virtual connection reservation attempts success ratio]]></title>
+      <use><![CDATA[Indicates successful ratio of virtual connection reservation attempts]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(ALL_VCONN_CAS - ALL_VCONN_CAS_UNSUCCESS) /sum( ALL_VCONN_CAS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Virtual connection recervation attempts success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

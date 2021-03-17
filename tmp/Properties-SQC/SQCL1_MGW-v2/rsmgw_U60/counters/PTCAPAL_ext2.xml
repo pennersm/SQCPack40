@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>M771 - PTCAPAL</header>
+    <csv_title>M771 - PTCAPAL measurement dump</csv_title>
+    <report-description>Port Type Capacity Licence Measurement(M771)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <context_average_res_1 />
+    <context_peak_res_1 />
+  </column_order>
+
+  <temp_table name="PTCAPAL_ext2" meas_level="PLMN/RSMGW-MGW1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>PTCAPAL</koala_meas_id_list>
+    <counters>
+      <counter alias="context_average_res_1">AVG(context_average_res_1)</counter>
+      <counter alias="context_peak_res_1">MAX(context_peak_res_1)</counter>
+    </counters>
+
+	<!--  RAW tables used in meastempalte -->	
+	<table_name><![CDATA[ nokmww_ps_ptcapal_mgw_raw  ]]></table_name>
+
+    <alias_name>PTCAPAL_ext2</alias_name>
+  </temp_table>
+  
+    <kpi_info>
+      <title>context_average_res_1</title>
+      <use>Average number of simultaneously active contexts in PLMN.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-agg="AVG">SUM(context_average_res_1)</formula>
+      <unit>#</unit>
+      <tables>nokmww_ps_ptcapal_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    
+    <kpi_alias>context_average_res (M771C28)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />  
+
+    <kpi_info>
+      <title>context_peak_res_1</title>
+      <use>Peak number of simultaneously active contexts in PLMN.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-agg="MAX">SUM(context_peak_res_1)</formula>
+      <unit>#</unit>
+      <tables>nokmww_ps_ptcapal_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    
+    <kpi_alias>context_peak_res (M771C29)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />  
+
+    
+</conf_file>

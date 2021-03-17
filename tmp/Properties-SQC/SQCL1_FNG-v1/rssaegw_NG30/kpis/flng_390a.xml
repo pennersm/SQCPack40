@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/IPtra.xml"/>
+  <kpi name="flng_390a">
+    <formula>decode(
+			((IPtra.ipv4_tpdu_bytes_sent + 
+			IPtra.ipv6_tpdu_bytes_sent + 
+			IPtra.ipv4_tpdu_bytes_received + 
+			IPtra.ipv6_tpdu_bytes_received)),0,NULL, 
+
+			((IPtra.ipv4_tpdu_bytes_sent + 
+			IPtra.ipv6_tpdu_bytes_sent))
+			 / 
+			((IPtra.ipv4_tpdu_bytes_sent + 
+			IPtra.ipv6_tpdu_bytes_sent + 
+			IPtra.ipv4_tpdu_bytes_received + 
+			IPtra.ipv6_tpdu_bytes_received)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Gi/SGi T-PDU traffic sent ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of sent T-PDU traffic to the Gi/SGi interface when compared to total (received+sent) T-PDU traffic on Gi/SGi interface.
+This KPI can be used to check T-PDU traffic balancing in Gi/SGi interfaces.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (ipv4_tpdu_bytes_sent + 
+&lt;br&gt;   ipv6_tpdu_bytes_sent)
+&lt;br&gt;--------------------------------- * 100
+&lt;br&gt;sum (ipv4_tpdu_bytes_sent + 
+&lt;br&gt;   ipv6_tpdu_bytes_sent + 
+&lt;br&gt;   ipv4_tpdu_bytes_received + 
+&lt;br&gt;   ipv6_tpdu_bytes_received)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_IPtra_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gi/SGi traffic sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

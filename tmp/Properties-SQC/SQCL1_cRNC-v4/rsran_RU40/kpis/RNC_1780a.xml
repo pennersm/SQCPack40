@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPCAC.xml" />
+  <kpi name="RNC_1780a">
+    <formula>decode(
+			(ipcac.succ_rnc_ip_res + 
+			ipcac.fail_rnc_ip_res_ext + 
+			ipcac.fail_rnc_ip_res_int + 
+			ipcac.fail_rnc_ip_res_other),0,null, 
+
+			(100*(ipcac.fail_rnc_ip_res_ext)
+			 / 
+			(ipcac.succ_rnc_ip_res + 
+			ipcac.fail_rnc_ip_res_ext + 
+			ipcac.fail_rnc_ip_res_int + 
+			ipcac.fail_rnc_ip_res_other)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Route Resource Reservations Failure Ratio - RNC External Connection Admission Control rejections]]></title>
+      <use><![CDATA[This KPI provides information about the IP route resource reservations failure rate in the RNC due to external connection admission control.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(FAIL_RNC_IP_RES_EXT) 
+&lt;br&gt;------------------
+&lt;br&gt;sum(SUCC_RNC_IP_RES +  
+&lt;br&gt;FAIL_RNC_IP_RES_EXT +  
+&lt;br&gt;FAIL_RNC_IP_RES_INT +  
+&lt;br&gt;FAIL_RNC_IP_RES_OTHER)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ipcac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP RouteResResv FR,extCAC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

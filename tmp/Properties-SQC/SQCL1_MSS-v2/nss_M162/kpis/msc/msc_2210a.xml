@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+  <kpi name="msc_2210a">
+    
+	<formula>
+	decode((nvl(HO1.SRVCC_INTRA_MSS_UMTS_SUCC,0)+
+    nvl(HO1.SRVCC_INTRA_MSS_UMTS_FAIL,0)),0,null, 
+	(100*
+	(nvl(HO1.SRVCC_INTRA_MSS_UMTS_SUCC,0))
+	/
+	(nvl(HO1.SRVCC_INTRA_MSS_UMTS_SUCC,0)+
+    nvl(HO1.SRVCC_INTRA_MSS_UMTS_FAIL,0)) ) )
+	</formula>
+
+	<kpi_info>
+      <title><![CDATA[IntraMSS-SRVCC handover to UMTS SR]]></title>
+      <use><![CDATA[Indicates IntraMSS-SRVCC handover to UMTS success ratio. The target RNC is controlled by the same MSS.]]></use>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt;            
+		&lt;br&gt;SUM( SRVCC_INTRA_MSS_UMTS_SUCC  ) 
+		&lt;br&gt;----------------------------------------------------------- * 100   
+		&lt;br&gt;SUM( SRVCC_INTRA_MSS_UMTS_SUCC +  
+		&lt;br&gt;     SRVCC_INTRA_MSS_UMTS_FAIL ) 
+		&lt;br&gt;		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Intra-SRVCC HO UMTS SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

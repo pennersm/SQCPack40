@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml">
+    <counters>
+      <!-- res_sgsn187d -->
+      <counter alias="res_sgsn187e">sum(succ_mo_pdp_context_act + fail_mo_pdp_context_act +
+				fail_mo_pdp_act_wrong_password+ fail_mo_pdp_act_inv_pdp_actmsg +
+				fail_mo_pdp_act_insuf_res + fail_mo_pdp_act_mis_unk_apn +
+				fail_mo_pdp_act_unk_addr_type + fail_mo_pdp_act_act_re_ggsn +
+				fail_mo_pdp_act_rej_unspec + fail_mo_pdp_act_serv_opt_ns +
+				fail_mo_pdp_act_req_se_op_ns + fail_mo_pdp_act_nsapi_used +
+				nvl(mo_pdp_act_fail_so_out_of_ord + fail_mo_pdp_ctx_act_rej_sgw,0))</counter>
+    </counters>
+  </temp_table_ref>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml">
+    <counters>
+      <!-- sgsn_784a -->
+      <counter alias="sgsn_784a">sum(iu_succ_mo_pdp_con_act + iu_fail_mo_pdp_con_act)</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="sgsn_590b">
+    <formula>decode(
+			(nvl(sesmgmnt.res_sgsn187e,0) +
+			nvl(iusm.sgsn_784a,0)),0,NULL,
+
+			(100*(iusm.sgsn_784a)
+			 /
+			(nvl(sesmgmnt.res_sgsn187e,0) +
+			nvl(iusm.sgsn_784a,0))))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of Iu PDP activation attempts]]></title>
+      <use><![CDATA[This KPI shows the share of 3G PDP activation attempts when compared to all (2G+3G) PDP activation attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;              (sgsn_784a)
+&lt;br&gt;100 * ----------------------------
+&lt;br&gt;              (res_sgsn187e+sgsn_784a)</formula>
+      <unit>[%]</unit>
+      <tables />
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of Iu PDP activation attempts]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

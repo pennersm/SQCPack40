@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_575d">
+    <formula>(decode(
+			(servlev.moc_strea_call_atts_1 +
+			servlev.mtc_strea_call_atts_1 -
+			servlev.rrc_att_rep_mo_streaming_1 -
+			servlev.rrc_att_rep_mt_streaming_1 -
+			servlev.rrc_acc_rel_mo_streaming_1 -
+			servlev.rrc_acc_rel_mt_streaming_1),0,null,
+
+			100*(servlev.moc_strea_call_atts_1 -
+			servlev.moc_strea_call_fails_1 +
+			servlev.mtc_strea_call_atts_1 -
+			servlev.mtc_strea_call_fails_1 -
+			servlev.rrc_acc_rel_mo_streaming_1 -
+			servlev.rrc_acc_rel_mt_streaming_1)
+			 /
+			(servlev.moc_strea_call_atts_1 +
+			servlev.mtc_strea_call_atts_1 -
+			servlev.rrc_att_rep_mo_streaming_1 -
+			servlev.rrc_att_rep_mt_streaming_1 -
+			servlev.rrc_acc_rel_mo_streaming_1 -
+			servlev.rrc_acc_rel_mt_streaming_1)))
+			*
+			(decode(
+			(servlev.rab_stp_att_cs_strea_1 +
+			servlev.rab_stp_att_ps_strea_1),0,null,
+
+			(servlev.rab_acc_comp_cs_strea_1 +
+			servlev.rab_acc_comp_ps_strea_1)
+			 /
+			(servlev.rab_stp_att_cs_strea_1 +
+			servlev.rab_stp_att_ps_strea_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[Streaming Call Setup Success Ratio (CSSR)]]></title>
+      <use><![CDATA[Streaming Call Setup Success Ratio [%] over the reporting period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum(MOC_STREA_CALL_ATTS - 
+&lt;br&gt;MOC_STREA_CALL_FAILS + 
+&lt;br&gt;MTC_STREA_CALL_ATTS - 
+&lt;br&gt;MTC_STREA_CALL_FAILS - 
+&lt;br&gt;RRC_ACC_REL_MO_STREAMING - 
+&lt;br&gt;RRC_ACC_REL_MT_STREAMING)
+&lt;br&gt;/
+&lt;br&gt;sum(MOC_STREA_CALL_ATTS + 
+&lt;br&gt;MTC_STREA_CALL_ATTS - 
+&lt;br&gt;RRC_ATT_REP_MO_STREAMING - 
+&lt;br&gt;RRC_ATT_REP_MT_STREAMING - 
+&lt;br&gt;RRC_ACC_REL_MO_STREAMING - 
+&lt;br&gt;RRC_ACC_REL_MT_STREAMING) 
+&lt;br&gt;* sum(RAB_ACC_COMP_CS_STREA + RAB_ACC_COMP_PS_STREA)
+&lt;br&gt;/ sum(RAB_STP_ATT_CS_STREA + RAB_STP_ATT_PS_STREA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Streaming Call Setup Success Ratio (CSSR)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

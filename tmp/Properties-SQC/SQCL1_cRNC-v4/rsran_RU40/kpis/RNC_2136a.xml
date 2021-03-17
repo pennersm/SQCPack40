@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml"/>
+  <kpi name="RNC_2136a">
+    <formula>100*decode(
+			((INTSYSHO.edch_scc_inter_rnc_success + 
+			INTSYSHO.edch_scc_inter_rnc_fail)),0,null, 
+
+			((INTSYSHO.edch_scc_inter_rnc_success))
+			 / 
+			((INTSYSHO.edch_scc_inter_rnc_success + 
+			INTSYSHO.edch_scc_inter_rnc_fail)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Inter-RNC Serving Cell Change Success Ratio]]></title>
+      <use><![CDATA[HSUPA Inter-RNC Serving Cell Change Success Ratio. This KPI provides a subset view of Inter-RNC HSUPA Serving Cell Change using new HSDPA over Iur feature. The overall perspective about HSDPA SCC is provided by  RNC_918b - HSUPA Serving Cell Change Success Ratio. All the events that update the counters included in this new formula are also accounted in the overall formula.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>                   sum (edch_scc_inter_rnc_success)
+&lt;br&gt;100 * ----------------------------------------------------------
+&lt;br&gt;      sum (edch_scc_inter_rnc_success + edch_scc_inter_rnc_fail)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_INTSYSHO_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Inter-RNC HSUPA SCC SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

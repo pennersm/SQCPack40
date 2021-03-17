@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_918b">
+    <formula>decode(
+			(intsysho.edch_scc_started),0,null, 
+
+			(100*(intsysho.edch_scc_intra_bts_success + 
+			intsysho.edch_scc_inter_bts_success)
+			 / 
+			(intsysho.edch_scc_started)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA Serving Cell Change Success Ratio]]></title>
+      <use><![CDATA[HSUPA Serving Cell Success Ratio [%] for the reporting period in the Source Cell of the Hard Handover.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(EDCH_SCC_INTRA_BTS_SUCCESS + EDCH_SCC_INTER_BTS_SUCCESS)
+&lt;br&gt;/
+&lt;br&gt;sum(EDCH_SCC_STARTED)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSUPA SCC SR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTPP GTPP2 measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTPP GTPP2 measurement dump</csv_title>
+    <report-description>GTP-Prime statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <NUMBER_OF_CDR_IN_Q />
+    <Q_CAP_EXCEEDED_ALARM_UP />
+    <Q_APPROACHING_CAP_ALARM_UP />
+    <Q_CAP_EXCEEDED_ALARM_DOWN />
+    <Q_APPROACHING_CAP_ALARM_DOWN />
+    <ALL_CONN_ARE_DOWN_ALARM_UP />
+    <ALL_CONN_ARE_DOWN_ALARM_DOWN />
+    <DRT_RETRASMISSION />
+    <CDRS_ACKNOWLEDGED />
+    <CDRS_DISCARDED />
+    <CDRS_RESENT />
+  </column_order>
+  <temp_table name="GTPP2" meas_level="PLMN/FING/FNODE/GTPP" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="NUMBER_OF_CDR_IN_Q" time-alias="NUMBER_OF_CDR_IN_Q" timeagg="AVG(NUMBER_OF_CDR_IN_Q)">SUM(NUMBER_OF_CDR_IN_Q)</counter>
+      <counter alias="Q_CAP_EXCEEDED_ALARM_UP" time-alias="Q_CAP_EXCEEDED_ALARM_UP" timeagg="SUM(Q_CAP_EXCEEDED_ALARM_UP)">SUM(Q_CAP_EXCEEDED_ALARM_UP)</counter>
+      <counter alias="Q_APPROACHING_CAP_ALARM_UP" time-alias="Q_APPROACHING_CAP_ALARM_UP" timeagg="SUM(Q_APPROACHING_CAP_ALARM_UP)">SUM(Q_APPROACHING_CAP_ALARM_UP)</counter>
+      <counter alias="Q_CAP_EXCEEDED_ALARM_DOWN" time-alias="Q_CAP_EXCEEDED_ALARM_DOWN" timeagg="SUM(Q_CAP_EXCEEDED_ALARM_DOWN)">SUM(Q_CAP_EXCEEDED_ALARM_DOWN)</counter>
+      <counter alias="Q_APPROACHING_CAP_ALARM_DOWN" time-alias="Q_APPROACHING_CAP_ALARM_DOWN" timeagg="SUM(Q_APPROACHING_CAP_ALARM_DOWN)">SUM(Q_APPROACHING_CAP_ALARM_DOWN)</counter>
+      <counter alias="ALL_CONN_ARE_DOWN_ALARM_UP" time-alias="ALL_CONN_ARE_DOWN_ALARM_UP" timeagg="SUM(ALL_CONN_ARE_DOWN_ALARM_UP)">SUM(ALL_CONN_ARE_DOWN_ALARM_UP)</counter>
+      <counter alias="ALL_CONN_ARE_DOWN_ALARM_DOWN" time-alias="ALL_CONN_ARE_DOWN_ALARM_DOWN" timeagg="SUM(ALL_CONN_ARE_DOWN_ALARM_DOWN)">SUM(ALL_CONN_ARE_DOWN_ALARM_DOWN)</counter>
+      <counter alias="DRT_RETRASMISSION" time-alias="DRT_RETRASMISSION" timeagg="SUM(DRT_RETRASMISSION)">SUM(DRT_RETRASMISSION)</counter>
+      <counter alias="CDRS_ACKNOWLEDGED" time-alias="CDRS_ACKNOWLEDGED" timeagg="SUM(CDRS_ACKNOWLEDGED)">SUM(CDRS_ACKNOWLEDGED)</counter>
+      <counter alias="CDRS_DISCARDED" time-alias="CDRS_DISCARDED" timeagg="SUM(CDRS_DISCARDED)">SUM(CDRS_DISCARDED)</counter>
+      <counter alias="CDRS_RESENT" time-alias="CDRS_RESENT" timeagg="SUM(CDRS_RESENT)">SUM(CDRS_RESENT)</counter>
+    </counters>
+    <table_name>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>GTPP2</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>GTPP2.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NUMBER_OF_CDR_IN_Q">
+    <formula>GTPP2.NUMBER_OF_CDR_IN_Q</formula>
+    <kpi_info>
+      <title>NUMBER_OF_CDR_IN_Q</title>
+      <use>This gauge contains the number of CDRs in the queues. UPDATED: Updated when the CDR is added to or removed from the Charging Gateway queues.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(NUMBER_OF_CDR_IN_Q)">SUM(NUMBER_OF_CDR_IN_Q)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NUMBER_OF_CDR_IN_Q (m3030c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Q_CAP_EXCEEDED_ALARM_UP">
+    <formula>GTPP2.Q_CAP_EXCEEDED_ALARM_UP</formula>
+    <kpi_info>
+      <title>Q_CAP_EXCEEDED_ALARM_UP</title>
+      <use>This counter contains the number of times the alarm 'QUEUE CAPACITY EXCEEDED ALARM' is raised. UPDATED: Updated when an alarm 'QUEUE CAPACITY EXCEEDED ALARM' is raised.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Q_CAP_EXCEEDED_ALARM_UP)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Q_CAP_EXCEEDED_ALARM_UP (m3030c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Q_APPROACHING_CAP_ALARM_UP">
+    <formula>GTPP2.Q_APPROACHING_CAP_ALARM_UP</formula>
+    <kpi_info>
+      <title>Q_APPROACHING_CAP_ALARM_UP</title>
+      <use>This counter contains the number of times the alarm 'APPROACHING QUEUE CAPACITY ALARM' is raised. UPDATED: Updated when the alarm 'APPROACHING QUEUE CAPACITY ALARM' is raised.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Q_APPROACHING_CAP_ALARM_UP)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Q_APPROACHING_CAP_ALARM_UP (m3030c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Q_CAP_EXCEEDED_ALARM_DOWN">
+    <formula>GTPP2.Q_CAP_EXCEEDED_ALARM_DOWN</formula>
+    <kpi_info>
+      <title>Q_CAP_EXCEEDED_ALARM_DOWN</title>
+      <use>This counter contains the number of times the alarm 'QUEUE CAPACITY EXCEEDED ALARM' is cleared UPDATED: Updated when an alarm 'QUEUE CAPACITY EXCEEDED ALARM' is cleared.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Q_CAP_EXCEEDED_ALARM_DOWN)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Q_CAP_EXCEEDED_ALARM_DOWN (m3030c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="Q_APPROACHING_CAP_ALARM_DOWN">
+    <formula>GTPP2.Q_APPROACHING_CAP_ALARM_DOWN</formula>
+    <kpi_info>
+      <title>Q_APPROACHING_CAP_ALARM_DOWN</title>
+      <use>This counter contains the number of times the alarm 'APPROACHING QUEUE CAPACITY ALARM' is cleared in Flexi NG. UPDATED: The value is updated every time the 'APPROACHING QUEUE CAPACITY ALARM' alarm is cleared.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(Q_APPROACHING_CAP_ALARM_DOWN)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>Q_APPROACHING_CAP_ALARM_DOWN (m3030c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ALL_CONN_ARE_DOWN_ALARM_UP">
+    <formula>GTPP2.ALL_CONN_ARE_DOWN_ALARM_UP</formula>
+    <kpi_info>
+      <title>ALL_CONN_ARE_DOWN_ALARM_UP</title>
+      <use>This counter contains the number of times the alarm 'ALL CONNECTIONS ARE DOWN' has been raised. UPDATED: Updated when the alarm 'ALL CONNECTIONS ARE DOWN' is raised.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ALL_CONN_ARE_DOWN_ALARM_UP)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ALL_CONN_ARE_DOWN_ALARM_UP (m3030c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ALL_CONN_ARE_DOWN_ALARM_DOWN">
+    <formula>GTPP2.ALL_CONN_ARE_DOWN_ALARM_DOWN</formula>
+    <kpi_info>
+      <title>ALL_CONN_ARE_DOWN_ALARM_DOWN</title>
+      <use>This counter contains the number of times the alarm 'ALL CONNECTIONS ARE DOWN' is cleared. UPDATED: Updated when the alarm 'ALL CONNECTIONS ARE DOWN' is cleared.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ALL_CONN_ARE_DOWN_ALARM_DOWN)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ALL_CONN_ARE_DOWN_ALARM_DOWN (m3030c0007)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DRT_RETRASMISSION">
+    <formula>GTPP2.DRT_RETRASMISSION</formula>
+    <kpi_info>
+      <title>DRT_RETRASMISSION</title>
+      <use>This counter contains the number of the Data Record Transfer(DRT) Request retransmissions. UPDATED: Updated when the Data Record Transfer Request message is retransmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DRT_RETRASMISSION)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DRT_RETRASMISSION (m3030c0008)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDRS_ACKNOWLEDGED">
+    <formula>GTPP2.CDRS_ACKNOWLEDGED</formula>
+    <kpi_info>
+      <title>CDRS_ACKNOWLEDGED</title>
+      <use>This counter contains the number of CDRs acknowledged by the charging gateway. UPDATED: This counter is incremented when GTP' receives an acknowledgement from the charging gateway.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDRS_ACKNOWLEDGED)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDRS_ACKNOWLEDGED (m3030c0009)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDRS_DISCARDED">
+    <formula>GTPP2.CDRS_DISCARDED</formula>
+    <kpi_info>
+      <title>CDRS_DISCARDED</title>
+      <use>This counter contains the number of CDRs discarded by the GTP'. UPDATED: Updated when a CDR  is discarded by the GTP'.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDRS_DISCARDED)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDRS_DISCARDED (m3030c0010)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDRS_RESENT">
+    <formula>GTPP2.CDRS_RESENT</formula>
+    <kpi_info>
+      <title>CDRS_RESENT</title>
+      <use>This counter contains the number of CDRs resent by the GTP'. UPDATED: Updated when a CDR is resent by the GTP'.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDRS_RESENT)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_gtpp2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDRS_RESENT (m3030c0011)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

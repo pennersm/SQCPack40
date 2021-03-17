@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/FIP_ext.xml"/>
+  <kpi name="RNC_1638b">
+    <formula>decode(
+			(1000*(FIP.PERIOD_DURATION*60)),0,NULL,(8*(FIP.ifOutOctets15_1))
+			 / 
+			(1000*(FIP.PERIOD_DURATION*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iub throughput (BTS pov) - UL]]></title>
+      <use><![CDATA[IP layer Uplink throughput in BTS.
+
+The report is based on the counting of received and transmitted data in IP packets. The BTS counts all received/transmitted packets/bytes without transmission errors (Ethernet FCS pass).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>        8 × sum( ifOutOctets15 )        
+&lt;br&gt;---------------------------------------
+&lt;br&gt; 1000 × sum( PERIOD_DURATION × 60 ) 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>NOKRWW_PS_FIP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IP Iub thp BTS UL]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

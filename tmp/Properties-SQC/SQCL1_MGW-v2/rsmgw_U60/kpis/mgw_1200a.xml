@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/CGR.xml" />
+  <kpi name="mgw_1200a">
+    <formula>
+decode(
+			(cgr.cgrcgroup_nof_circuits),0,null, 
+
+			(100*(nvl(cgr.cgrcgroup_nof_woex_crts_out,0)/100)
+			 / 
+			cgr.cgrcgroup_nof_circuits))
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Average availability of circuit groups]]></title>
+      <use><![CDATA[Indicates the availability of circuit groups.]]></use>
+      <use_experience><![CDATA[The numerator counter CGRCGROUP_NOF_WOEX_CRTS_OUT is multiplied by 100 and as so shall be divided by 100 in the KPI formula.]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             SUM(CGRCGROUP_NOF_WOEX_CRTS_OUT / 100)
+&lt;br&gt;100 * --------------------------------------------------
+&lt;br&gt;              SUM(CGRCGROUP_NOF_CIRCUITS)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_CGR_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.590 +0100</date>
+          <comment><![CDATA[Source: RSMGW035.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg Avail CircGrp</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ETHPRF.xml" />
+  <temp_table_ref src="rsran_RU50EP1/counters/ETHPRF_ext2.xml" />
+  <kpi name="RNC_5223b">
+    <formula>100*0.7*8*decode(
+			(ethprf.period_duration_sum*60),0,null, 
+
+			(ethprf_ext2.ether_rx_kilobyte_2
+			 /
+			 (ethprf.period_duration_sum*60))/
+			 1650000)
+			</formula>1
+    <kpi_info>
+      <title><![CDATA[NPGE RX Utilization]]></title>
+      <use><![CDATA[The formula calculates the sum of received datavolumes, measured from all Ethernet ports of NPGE and NPGEP, converts the measurements to Kbps, and compares against the maximum SFU port rate, 1650000 kbps. The measured interface data is converted to ATM/AAL level with a factor of 0,7.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 0,7 * (SUM (ETHER_RX_KILOBYTE)* 8)/(PERIOD_DURATION_SUM *60)
+&lt;br&gt;/
+&lt;br&gt;1650000</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ETHPRF_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.585 +0100</date>
+          <comment><![CDATA[Source: RSRAN068.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NPGE RX Utilization</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,284 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M396 SIMCMSC measurement dump</header>
+    <csv_title>NSN NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M396 SIMCMSC measurement dump</csv_title>
+    <report-description>Simultaneous call measurement(SIMCMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SIMUL_MSC_AVG_SIM_CALL/>
+    <SIMUL_MSC_PEAK_SIM_CALL/>
+    <SIMUL_DATA_PROV_RESTARTED/>
+    <SIMUL_IPPBX_AVG_SIM_CALL/>
+    <SIMUL_IPPBX_PEAK_SIM_CALL/>
+    <SIMUL_SIP_I_AVG_SIM_CALL/>
+    <SIMUL_SIP_I_PEAK_SIM_CALL/>
+    <SIMUL_SIP_MGCF_AVG_SIM_CALL/>
+    <SIMUL_SIP_MGCF_PEAK_SIM_CALL/>
+    <SIMUL_GROUP_AVG_SIM_CALL/>
+    <SIMUL_GROUP_PEAK_SIM_CALL/>
+
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC6" name="SIMCMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SIMUL_MSC_AVG_SIM_CALL" symmetrical="true">AVG(SIMUL_MSC_AVG_SIM_CALL)</counter>
+      <counter alias="SIMUL_MSC_PEAK_SIM_CALL" symmetrical="true">MAX(SIMUL_MSC_PEAK_SIM_CALL)</counter>
+      <counter alias="SIMUL_DATA_PROV_RESTARTED" symmetrical="true">AVG(SIMUL_DATA_PROV_RESTARTED)</counter>
+      <counter alias="SIMUL_IPPBX_AVG_SIM_CALL" symmetrical="true">AVG(SIMUL_IPPBX_AVG_SIM_CALL)</counter>
+      <counter alias="SIMUL_IPPBX_PEAK_SIM_CALL" symmetrical="true">MAX(SIMUL_IPPBX_PEAK_SIM_CALL)</counter>
+	  <!--M16.2 new counters-->
+      <counter alias="SIMUL_SIP_I_AVG_SIM_CALL" symmetrical="true">AVG(SIMUL_SIP_I_AVG_SIM_CALL)</counter>
+      <counter alias="SIMUL_SIP_I_PEAK_SIM_CALL" symmetrical="true">MAX(SIMUL_SIP_I_PEAK_SIM_CALL)</counter>
+      <counter alias="SIMUL_SIP_MGCF_AVG_SIM_CALL" symmetrical="true">AVG(SIMUL_SIP_MGCF_AVG_SIM_CALL)</counter>
+      <counter alias="SIMUL_SIP_MGCF_PEAK_SIM_CALL" symmetrical="true">MAX(SIMUL_SIP_MGCF_PEAK_SIM_CALL)</counter>
+	  <!--Mr17.0 new counters-->
+      <counter alias="SIMUL_GROUP_AVG_SIM_CALL" symmetrical="true">AVG(SIMUL_GROUP_AVG_SIM_CALL)</counter>
+      <counter alias="SIMUL_GROUP_PEAK_SIM_CALL" symmetrical="true">MAX(SIMUL_GROUP_PEAK_SIM_CALL)</counter>
+    </counters>
+    <table_name>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SIMCMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SIMCMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SIMUL_MSC_AVG_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_MSC_AVG_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_MSC_AVG_SIM_CALL</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(SIMUL_MSC_AVG_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_MSC_AVG_SIM_CALL (M396B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SIMUL_MSC_PEAK_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_MSC_PEAK_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_MSC_PEAK_SIM_CALL</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(SIMUL_MSC_PEAK_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_MSC_PEAK_SIM_CALL (M396B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi> 
+  <kpi name="SIMUL_DATA_PROV_RESTARTED">
+    <formula>SIMCMSC.SIMUL_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>SIMUL_DATA_PROV_RESTARTED</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(SIMUL_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_DATA_PROV_RESTARTED (M396B3C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>   
+   <kpi name="SIMUL_IPPBX_AVG_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_IPPBX_AVG_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_IPPBX_AVG_SIM_CALL</title>
+      <use>Shows the average number of simultaneous IP-PBX calls during the measurement period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(SIMUL_IPPBX_AVG_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_IPPBX_AVG_SIM_CALL (M396B5C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SIMUL_IPPBX_PEAK_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_IPPBX_PEAK_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_IPPBX_PEAK_SIM_CALL</title>
+      <use>Provides the peak number of simultaneous IP-PBX calls during the measurement period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(SIMUL_IPPBX_PEAK_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_IPPBX_PEAK_SIM_CALL (M396B5C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>   
+  <kpi name="SIMUL_SIP_I_AVG_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_SIP_I_AVG_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_SIP_I_AVG_SIM_CALL</title>
+      <use>Shows the average number of simultaneous calls on SIP-I interface during the measurement period.
+A sampling is done in each 30 seconds to determine the number of simultaneous calls in the MSS/TAS. The average is calculated by dividing the cumulative number of simultaneous calls by the number of samples.
+Measured object: MSS/TAS</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(SIMUL_SIP_I_AVG_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_SIP_I_AVG_SIM_CALL (M396B6C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi> 
+  <kpi name="SIMUL_SIP_I_PEAK_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_SIP_I_PEAK_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_SIP_I_PEAK_SIM_CALL</title>
+      <use>Provides the peak number of simultaneous calls on SIP-I interface during the measurement period.
+A sampling is done in each 30 seconds to determine the number of simultaneous calls in the MSS/TAS. The maximum will be calculated from the samples.
+Measured object: MSS/TAS</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(SIMUL_SIP_I_PEAK_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_SIP_I_PEAK_SIM_CALL (M396B6C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>   
+  <kpi name="SIMUL_SIP_MGCF_AVG_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_SIP_MGCF_AVG_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_SIP_MGCF_AVG_SIM_CALL</title>
+      <use>Shows the average number of simultaneous calls on SIP MGCF interface during the measurement period.
+A sampling is done in each 30 seconds to determine the number of simultaneous calls in the MSS/TAS. The average is calculated by dividing the cumulative number of simultaneous calls by the number of samples.
+Measured object: MSS/TAS</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(SIMUL_SIP_MGCF_AVG_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_SIP_MGCF_AVG_SIM_CALL (M396B7C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>   
+  <kpi name="SIMUL_SIP_MGCF_PEAK_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_SIP_MGCF_PEAK_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_SIP_MGCF_PEAK_SIM_CALL</title>
+      <use>Provides the peak number of simultaneous calls on SIP MGCF interface during the measurement period.
+A sampling is done in each 30 seconds to determine the number of simultaneous calls in the MSS/TAS. The maximum will be calculated from the samples.
+Measured object: MSS/TAS</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(SIMUL_SIP_MGCF_PEAK_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_SIP_MGCF_PEAK_SIM_CALL (M396B7C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  
+  
+    <kpi name="SIMUL_GROUP_AVG_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_GROUP_AVG_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_GROUP_AVG_SIM_CALL</title>
+      <use>Shows the average number of simultaneous group calls during the measurement period.  A sampling is done in each 30 seconds to determine the number of simultaneous group calls in the MSS. The average is calculated by dividing the cumulative number of simultaneous group calls by the number of samples. 
+Measured object: MSS</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(SIMUL_GROUP_AVG_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_GROUP_AVG_SIM_CALL (M396B8C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  
+  <kpi name="SIMUL_GROUP_PEAK_SIM_CALL">
+    <formula>SIMCMSC.SIMUL_GROUP_PEAK_SIM_CALL</formula>
+    <kpi_info>
+      <title>SIMUL_GROUP_PEAK_SIM_CALL</title>
+      <use>Provides the peak number of simultaneous group calls during the measurement period.  A sampling is done in each 30 seconds to determine the number of simultaneous calls in the MSS.The maximum will be calculated from the samples.
+Measured object: MSS</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(SIMUL_GROUP_PEAK_SIM_CALL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_simcmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SIMUL_GROUP_PEAK_SIM_CALL (M396B8C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

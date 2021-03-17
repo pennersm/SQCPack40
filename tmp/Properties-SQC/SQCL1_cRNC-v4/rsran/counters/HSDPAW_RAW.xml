@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC4.0;RNC RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 HSDPAW measurement dump</header>
+    <csv_title>Nokia Siemens RNC RNC4.0;RN3.0;RN2.2ED;RN2.2;RN2.1;RN2.0 HSDPAW measurement dump</csv_title>
+    <report-description>HSPA in WBTS (M5000) measures HSPA in WCDMA Base Station.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsran/RSRAN.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="HSDPAWRAW" meas_level="PLMN/RNC/WBTS/WCEL1" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="RNC_722b">
+      sum(decode(
+			((hs_scch_pwr_dist_class_0 + 
+			hs_scch_pwr_dist_class_1 + 
+			hs_scch_pwr_dist_class_2 + 
+			hs_scch_pwr_dist_class_3 + 
+			hs_scch_pwr_dist_class_4 + 
+			hs_scch_pwr_dist_class_5)
+			 / 
+			500),0,null, 
+
+			((received_hs_macd_bits - 
+			discarded_hs_macd_bits)
+			 / 
+			((hs_scch_pwr_dist_class_0 + 
+			hs_scch_pwr_dist_class_1 + 
+			hs_scch_pwr_dist_class_2 + 
+			hs_scch_pwr_dist_class_3 + 
+			hs_scch_pwr_dist_class_4 + 
+			hs_scch_pwr_dist_class_5)
+			 / 
+			500))))
+			/
+			count(distinct period_start_time)
+		</counter>
+    </counters>
+    <table_name>nokrww_ps_hsdpaw_mnc1_raw</table_name>
+    <alias_name>hsdpawraw</alias_name>
+  </temp_table>
+</conf_file>
+

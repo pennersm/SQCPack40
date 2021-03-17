@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5574d">
+    <formula>100*(decode(
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_del_tol + 
+			luest.sign_conn_estab_att_hiprio + 
+			luest.sign_conn_estab_att_emg + 
+			luest.sign_conn_estab_att_others),0,null, 
+
+			luest.sign_conn_estab_comp
+			 / 
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_del_tol + 
+			luest.sign_conn_estab_att_hiprio + 
+			luest.sign_conn_estab_att_emg + 
+			luest.sign_conn_estab_att_others)))
+			*
+			(decode(luest.s1_sign_conn_estab_att_ue,0,null, 
+
+			luest.s1_sign_conn_estab_succ_ue
+			 / 
+			luest.s1_sign_conn_estab_att_ue))
+			*
+			(decode((lepsb.erab_ini_setup_att_qci1 + 
+			lepsb.erab_ini_setup_att_qci2 + 
+			lepsb.erab_ini_setup_att_qci3 + 
+			lepsb.erab_ini_setup_att_qci4 + 
+			lepsb.erab_ini_setup_att_qci5 + 
+			lepsb.erab_ini_setup_att_qci6 + 
+			lepsb.erab_ini_setup_att_qci7 + 
+			lepsb.erab_ini_setup_att_qci8 + 
+			lepsb.erab_ini_setup_att_qci9),0,null, 
+
+			(lepsb.erab_ini_setup_succ_qci1 + 
+			lepsb.erab_ini_setup_succ_qci2 + 
+			lepsb.erab_ini_setup_succ_qci3 + 
+			lepsb.erab_ini_setup_succ_qci4 + 
+			lepsb.erab_ini_setup_succ_qci5 + 
+			lepsb.erab_ini_setup_succ_qci6 + 
+			lepsb.erab_ini_setup_succ_qci7 + 
+			lepsb.erab_ini_setup_succ_qci8 + 
+			lepsb.erab_ini_setup_succ_qci9)
+			 / 
+			(lepsb.erab_ini_setup_att_qci1 + 
+			lepsb.erab_ini_setup_att_qci2 + 
+			lepsb.erab_ini_setup_att_qci3 + 
+			lepsb.erab_ini_setup_att_qci4 + 
+			lepsb.erab_ini_setup_att_qci5 + 
+			lepsb.erab_ini_setup_att_qci6 + 
+			lepsb.erab_ini_setup_att_qci7 + 
+			lepsb.erab_ini_setup_att_qci8 + 
+			lepsb.erab_ini_setup_att_qci9)))
+			*
+			(decode((lepsb.erab_add_setup_att_qci1 + 
+			lepsb.erab_add_setup_att_qci2 + 
+			lepsb.erab_add_setup_att_qci3 + 
+			lepsb.erab_add_setup_att_qci4 + 
+			lepsb.erab_add_setup_att_qci5 + 
+			lepsb.erab_add_setup_att_qci6 + 
+			lepsb.erab_add_setup_att_qci7 + 
+			lepsb.erab_add_setup_att_qci8 + 
+			lepsb.erab_add_setup_att_qci9),0,null, 
+
+			(lepsb.erab_add_setup_succ_qci1 + 
+			lepsb.erab_add_setup_succ_qci2 + 
+			lepsb.erab_add_setup_succ_qci3 + 
+			lepsb.erab_add_setup_succ_qci4 + 
+			lepsb.erab_add_setup_succ_qci5 + 
+			lepsb.erab_add_setup_succ_qci6 + 
+			lepsb.erab_add_setup_succ_qci7 + 
+			lepsb.erab_add_setup_succ_qci8 + 
+			lepsb.erab_add_setup_succ_qci9)
+			 / 
+			(lepsb.erab_add_setup_att_qci1 + 
+			lepsb.erab_add_setup_att_qci2 + 
+			lepsb.erab_add_setup_att_qci3 + 
+			lepsb.erab_add_setup_att_qci4 + 
+			lepsb.erab_add_setup_att_qci5 + 
+			lepsb.erab_add_setup_att_qci6 + 
+			lepsb.erab_add_setup_att_qci7 + 
+			lepsb.erab_add_setup_att_qci8 + 
+			lepsb.erab_add_setup_att_qci9)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Additional E-RAB Accessibility]]></title>
+      <use><![CDATA[This KPI shows the eNB (radio part) observed probability to set up an end to end connection. Under the end to end a connection to be provided with an additional E-RAB at request is meant.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* (sum(SIGN_CONN_ESTAB_COMP) / sum(SIGN_CONN_ESTAB_ATT_MO_S+SIGN_CONN_ESTAB_ATT_MT+SIGN_CONN_ESTAB_ATT_MO_D+SIGN_CONN_ESTAB_ATT_DEL_TOL+ SIGN_CONN_ESTAB_ATT_HIPRIO+SIGN_CONN_ESTAB_ATT_EMG+SIGN_CONN_ESTAB_ATT_OTHERS)) *(sum(S1_SIGN_CONN_ESTAB_SUCC_UE)/sum(S1_SIGN_CONN_ESTAB_ATT_UE))*
+&lt;br&gt;* (sum(ERAB_INI_SETUP_SUCC_QCI1+ ERAB_INI_SETUP_SUCC_QCI2 + ERAB_INI_SETUP_SUCC_QCI3 + ERAB_INI_SETUP_SUCC_QCI4 + ERAB_INI_SETUP_SUCC_QCI5 + ERAB_INI_SETUP_SUCC_QCI6 + ERAB_INI_SETUP_SUCC_QCI7 + ERAB_INI_SETUP_SUCC_QCI8 + ERAB_INI_SETUP_SUCC_QCI9) /sum(ERAB_INI_SETUP_ATT_QCI1+ ERAB_INI_SETUP_ATT_QCI2 + ERAB_INI_SETUP_ATT_QCI3 + ERAB_INI_SETUP_ATT_QCI4 + ERAB_INI_SETUP_ATT_QCI5 + ERAB_INI_SETUP_ATT_QCI6 + ERAB_INI_SETUP_ATT_QCI7 + ERAB_INI_SETUP_ATT_QCI8 + ERAB_INI_SETUP_ATT_QCI9))*
+&lt;br&gt;* (sum(ERAB_ADD_SETUP_SUCC_QCI1+ ERAB_ADD_SETUP_SUCC_QCI2 + ERAB_ADD_SETUP_SUCC_QCI3 + ERAB_ADD_SETUP_SUCC_QCI4 + ERAB_ADD_SETUP_SUCC_QCI5 + ERAB_ADD_SETUP_SUCC_QCI6 + ERAB_ADD_SETUP_SUCC_QCI7 + ERAB_ADD_SETUP_SUCC_QCI8 + ERAB_ADD_SETUP_SUCC_QCI9) /sum(ERAB_ADD_SETUP_ATT_QCI1+ERAB_ADD_SETUP_ATT_QCI2 + ERAB_ADD_SETUP_ATT_QCI3 + ERAB_ADD_SETUP_ATT_QCI4 + ERAB_ADD_SETUP_ATT_QCI5 + ERAB_ADD_SETUP_ATT_QCI6 + ERAB_ADD_SETUP_ATT_QCI7 + ERAB_ADD_SETUP_ATT_QCI8 + ERAB_ADD_SETUP_ATT_QCI9))</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LUEST_{obj_agg}_{time_agg},noklte_ps_LEPSB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/10/29 14:03:24.428 +0000</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN Add E-RAB acc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

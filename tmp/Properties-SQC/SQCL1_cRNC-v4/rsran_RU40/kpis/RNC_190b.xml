@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_190b">
+    <formula>decode(
+			(traffic.period_duration),0,null, 
+
+			((traffic.allo_dur_cs_conv_64_in_srnc)
+			 / 
+			(100*60*traffic.period_duration)))</formula>
+    <kpi_info>
+      <title><![CDATA[CS Conversational, Erlangs with SHO]]></title>
+      <use><![CDATA[Erlangs coming from CS Conversational  calls.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(ALLO_DUR_CS_CONV_64_IN_SRNC) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;      SUM(100*60*PERIOD_DURATION)</formula>
+      <unit>[Erl]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[CS Conversational, Erlangs with SHO]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

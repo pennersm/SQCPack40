@@ -1,0 +1,120 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M92 PGNFMSC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M92 PGNFMSC measurement dump</csv_title>
+    <report-description>VLR, Paging Failure (PGNFMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <DATA_MISSING_IN_PAG_FAIL_VAL/>
+<!--    <TCAT_TRAFFx100 />
+    <TC_PERIOD_DURATION/>-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC6" name="PGNFMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="DATA_MISSING_IN_PAG_FAIL_VAL" symmetrical="true">AVG(DATA_MISSING_IN_PAG_FAIL_VAL)</counter>
+<!--      <counter alias="TCAT_TRAFFx100" timeagg="AVG(TCAT_TRAFFx100)">SUM(TCAT_TRAFFx100)</counter> 
+      <counter alias="TC_PERIOD_DURATION" object-formula="avg(period_duration)" time-alias="TC_PERIOD_DURATION" time-formula="sum(period_duration)">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_pgnfmsc_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PGNFMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PGNFMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_pgnfmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DATA_MISSING_IN_PAG_FAIL_VAL">
+    <formula>PGNFMSC.DATA_MISSING_IN_PAG_FAIL_VAL</formula>
+    <kpi_info>
+      <title>DATA_MISSING_IN_PAG_FAIL_VAL</title>
+      <use>This counter is printed if data transfer from one or several VLRUs failed during one or more inquiries, that is, only a subset of the data could be collected. It means that the printed paging failure values are not reliable. (The problem can be overloaded VLRUs, a VLRU startup.)Measured object:MSC UPDATED: When no PAGING RESPONSE is received or PAGING RESPONSE is received with a failure internal error.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(DATA_MISSING_IN_PAG_FAIL_VAL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_pgnfmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATA_MISSING_IN_PAG_FAIL_VAL (M92B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+<!--  <kpi name="TCAT_TRAFFx100">-->
+<!--    <formula>PGNFMSC.TCAT_TRAFFx100</formula>-->
+<!--    <kpi_info>-->
+<!--      <title>TCAT_TRAFFx100</title>-->
+<!--      <use>The amount of traffic in the traffic categoryin erlangs (0.0...999999.9). That means the total reservation time of-->
+<!--the measured object in relation to the results accumulation period.The-->
+<!--erlangs are calculated from circuit seizure to circuit release.-->
+<!--In combination categories the erlang calculation starts when both-->
+<!--circuits are seized. In combination categories the end point of-->
+<!--erlang calculation is determined by the circuit that is released-->
+<!--first.All of the circuit reservation time is updated-->
+<!--in the results accumulation period in which the circuit is released (and-->
+<!--in combination categories in the results accumulation period in-->
+<!--which the first released circuit is released). For this reason remarkably-->
+<!--large values in the ERLANGS field are possible in a case in which-->
+<!--there are many calls that have started before the results accumulation-->
+<!--period but that end in the results accumulation period.</use>-->
+<!--      <open_questions />-->
+<!--      <use_experience />-->
+<!--      <known_problems />-->
+<!--      <pm_class />-->
+<!--      <formula time-agg="AVG">SUM(TCAT_TRAFFx100)</formula>-->
+<!--      <unit>Erl</unit>-->
+<!--      <tables>rns_ps_pgnfmsc_{OBJ_AGG}_{TIME_AGG}</tables>-->
+<!--    </kpi_info>-->
+<!--    <kpi_alias>TCAT_TRAFFx100 (M20B2C12)</kpi_alias>-->
+<!--    <kpi_format>format %8.0f</kpi_format>-->
+<!--    <kpi_mark />-->
+<!--    <area_level />-->
+<!--  </kpi>
+  <kpi name="TC_PERIOD_DURATION">
+    <formula>PGNFMSC.TC_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>TC_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_pgnfmsc_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TC_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+</conf_file>

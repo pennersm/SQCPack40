@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_1067c">
+    <formula>decode(
+			(traffic.period_duration),0,null, 
+
+			(273.3*(traffic.dur_ps_backg_256_dl_in_srnc + 
+			traffic.dur_ps_intera_256_dl_in_srnc)
+			 / 
+			(1000*traffic.period_duration*60*100)))</formula>
+    <kpi_info>
+      <title><![CDATA[NRT DCH DL load - 256kbps]]></title>
+      <use><![CDATA[This KPI provides information about the DCH DL load with an allocated bit rate equal to 256kbps.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;273.3 * sum ( DUR_PS_BACKG_256_DL_IN_SRNC + DUR_PS_INTERA_256_DL_IN_SRNC )
+&lt;br&gt;----------------------------------------------
+&lt;br&gt;1000 * sum ( PERIOD_DURATION * 60 * 100)</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NRT DCH DL load - 256k</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

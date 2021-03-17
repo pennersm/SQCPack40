@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LISHO.xml" />
+  <kpi name="LTE_5194b">
+    <formula>100*decode(
+			(lisho.isys_ho_prep - 
+			lisho.isys_ho_prep_fail_oth),0,null, 
+
+			(lisho.isys_ho_prep - 
+			lisho.isys_ho_prep_fail_oth - 
+			(lisho.isys_ho_att + 
+			lisho.isys_ho_utran_srvcc_att + 
+			lisho.isys_ho_geran_srvcc_att) - 
+			lisho.isys_ho_prep_fail_tim - 
+			lisho.isys_ho_prep_fail_ac)
+			 / 
+			(lisho.isys_ho_prep - 
+			lisho.isys_ho_prep_fail_oth))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Inter RAT HO Preparation Failure Ratio per Cause, Other]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific inter RAT handover preparation failure cause related to total number of inter RAT HO preparations. The source eNB fails to prepare resources for the handover to a neighboring cell within the own eNB.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(ISYS_HO_PREP - ISYS_HO_PREP_FAIL_OTH - (ISYS_HO_ATT+ISYS_HO_UTRAN_SRVCC_ATT+ISYS_HO_GERAN_SRVCC_ATT) - ISYS_HO_PREP_FAIL_TIM - ISYS_HO_PREP_FAIL_AC)/ sum(ISYS_HO_PREP - ISYS_HO_PREP_FAIL_OTH)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LISHO_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/10/02 15:01:58.521 +0100</date>
+          <comment><![CDATA[Source: RSLTE054.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inter RAT HO Prep FR, Other</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

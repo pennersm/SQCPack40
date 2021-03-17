@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/CDR.xml" />
+  <kpi name="sgsn_645a">
+    <formula>decode(
+			(cdr.ave_master_queue_length_den),0,NULL, 
+
+			(cdr.ave_master_queue_length_sum)
+			 / 
+			(cdr.ave_master_queue_length_den))</formula>
+    <kpi_info>
+      <title><![CDATA[CDR master queue average length]]></title>
+      <use><![CDATA[This KPI shows the average length of CDR master queue]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(AVE_MASTER_QUEUE_LENGTH_SUM)
+&lt;br&gt;-----------------------------------------
+&lt;br&gt;sum (AVE_MASTER_QUEUE_LENGTH_DEN)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_cdr</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_cdr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[CDR master queue average length]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

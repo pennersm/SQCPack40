@@ -1,0 +1,197 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M392 PRCAR measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M392 PRCAR measurement dump</csv_title>
+    <report-description>Priority call measurement(PRCAR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <WPS_ATTEMPTS/>
+    <NSEP_ATTEMPTS/>
+    <NSEP_CALLS/>
+    <NSEP_QUEUED/>
+    <NSEP_OVERFLOW/>
+    <NSEP_TIME_OUT/>
+    <NSEP_ABANDON/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/ROUTE" name="PRCAR" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="WPS_ATTEMPTS" symmetrical="true">SUM(WPS_ATTEMPTS)</counter>
+      <counter alias="NSEP_ATTEMPTS" symmetrical="true">SUM(NSEP_ATTEMPTS)</counter>
+      <counter alias="NSEP_CALLS" symmetrical="true">SUM(NSEP_CALLS)</counter>
+      <counter alias="NSEP_QUEUED" symmetrical="true">SUM(NSEP_QUEUED)</counter>
+      <counter alias="NSEP_OVERFLOW" symmetrical="true">SUM(NSEP_OVERFLOW)</counter>
+      <counter alias="NSEP_TIME_OUT" symmetrical="true">SUM(NSEP_TIME_OUT)</counter>
+      <counter alias="NSEP_ABANDON" symmetrical="true">SUM(NSEP_ABANDON)</counter>
+    </counters>
+    <table_name>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PRCAR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PRCAR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="WPS_ATTEMPTS">
+    <formula>PRCAR.WPS_ATTEMPTS</formula>
+    <kpi_info>
+      <title>WPS_ATTEMPTS</title>
+      <use>Total number of outgoing WPS Call Attempts,which require an outgoing trunk on the specified route /trunk
+group/ (counter 0.17).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(WPS_ATTEMPTS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>WPS_ATTEMPTS (M392B4C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NSEP_ATTEMPTS">
+    <formula>PRCAR.NSEP_ATTEMPTS</formula>
+    <kpi_info>
+      <title>NSEP_ATTEMPTS</title>
+      <use>Total number of outgoing PRIORITY CallAttempts which require an outgoing trunk on the specified route /trunk
+group/ (counter 0.18).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NSEP_ATTEMPTS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NSEP_ATTEMPTS (M392B4C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NSEP_CALLS">
+    <formula>PRCAR.NSEP_CALLS</formula>
+    <kpi_info>
+      <title>NSEP_CALLS</title>
+      <use>Total number of outgoing PRIORITY Callsfor which trunks are successfully set up to a succeeding switch
+on the specified route/trunk group/ (counter 0.19).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NSEP_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NSEP_CALLS (M392B4C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NSEP_QUEUED">
+    <formula>PRCAR.NSEP_QUEUED</formula>
+    <kpi_info>
+      <title>NSEP_QUEUED</title>
+      <use>Total number of outgoing PRIORITY Callsthat are queued for a trunk on the specified route /trunk
+group/ (counter 0.20).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NSEP_QUEUED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NSEP_QUEUED (M392B4C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NSEP_OVERFLOW">
+    <formula>PRCAR.NSEP_OVERFLOW</formula>
+    <kpi_info>
+      <title>NSEP_OVERFLOW</title>
+      <use>Total number of outgoing PRIORITY Callsthat fail to queue because the maximum trunk queue length has been reached
+on the specified route /trunk group/ (counter
+0.21).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NSEP_OVERFLOW)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NSEP_OVERFLOW (M392B4C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NSEP_TIME_OUT">
+    <formula>PRCAR.NSEP_TIME_OUT</formula>
+    <kpi_info>
+      <title>NSEP_TIME_OUT</title>
+      <use>Total number of times when PRIORITY callsare removed from a trunk queue because the call exceeded the maximum
+trunk queue time on the specified route (counter 0.22).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NSEP_TIME_OUT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NSEP_TIME_OUT (M392B4C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NSEP_ABANDON">
+    <formula>PRCAR.NSEP_ABANDON</formula>
+    <kpi_info>
+      <title>NSEP_ABANDON</title>
+      <use>Total number of times when PRIORITY callsare removed from the trunk group because the MS has disconnected
+the call, the radio contact with the MS has been lost, or a release
+message is received on the incoming ISUP trunk (counter 0.23).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NSEP_ABANDON)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PRCAR{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NSEP_ABANDON (M392B4C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

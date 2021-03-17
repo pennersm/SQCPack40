@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPC.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/DRR_ext.xml" />
+  <kpi name="flng_117a">
+    <formula>decode( ((GTPC.gtpc_delete_req_sent)),0,NULL, ((DRR_ext.gtpc_delete_resp_recv_128)) / ((GTPC.gtpc_delete_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete PDP context success ratio, GGSN initiated]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v1 delete PDP context requests sent (GGSN/Combined S-GW and P-GW initiated), i.e., the number of delete PDP context response messages received with cause code 'Request Accepted' when compared to the number of delete PDP context request messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(drr_id,'128',b.GTPC_DELETE_RESP_RECV,0))) ;Request accepted
+<br>--------------------------------------------------------------------- * 100
+<br>sum(a.GTPC_DELETE_REQ_SENT)
+<br>
+<br>counters from measurement(s): 
+<br>a = GTP-C v1 
+<br>b = GTP-C v1 Delete Response received 
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPC_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_DRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Delete PDP ctx SR, GGSN]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

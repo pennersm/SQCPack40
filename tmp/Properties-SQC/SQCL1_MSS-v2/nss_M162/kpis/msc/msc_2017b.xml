@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+  <kpi name="msc_2017b">
+    <formula>decode(
+			(HO1.intra_ihspa_umts_succ + 
+			HO1.intra_ihspa_umts_fail + 
+			HO1.intrp_intra_ihspa_umts_succ + 
+			HO1.intrp_intra_ihspa_umts_fail + 
+			HO1.ou_inter_msc_ihspa_umts_succ + 
+			HO1.ou_inter_msc_ihspa_umts_fail + 
+			HO1.ou_intr_p_ihspa_umts_succ + 
+			HO1.ou_intr_p_ihspa_umts_fail),0,null, 
+			(100 * 
+			(HO1.intra_ihspa_umts_succ + 
+			HO1.intrp_intra_ihspa_umts_succ + 
+			HO1.ou_inter_msc_ihspa_umts_succ + 
+			HO1.ou_intr_p_ihspa_umts_succ)
+			 / 
+			(HO1.intra_ihspa_umts_succ + 
+			HO1.intra_ihspa_umts_fail + 
+			HO1.intrp_intra_ihspa_umts_succ + 
+			HO1.intrp_intra_ihspa_umts_fail + 
+			HO1.ou_inter_msc_ihspa_umts_succ + 
+			HO1.ou_inter_msc_ihspa_umts_fail + 
+			HO1.ou_intr_p_ihspa_umts_succ + 
+			HO1.ou_intr_p_ihspa_umts_fail)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter System HO (I-HSPA -> UMTS) Success Ratio]]></title>
+      <use><![CDATA[Inter System HO (I-HSPA -> UMTS) Success Ratio]]></use>
+
+	  <use_experience><![CDATA[ 
+	  <br>In order to avoid double count, this KPI should only be used at MSC level.
+	  <br>In Outgoing Inter-MSC handover cases it is not possible to identify if the target is UMTS or I-HSPA.
+	  <br>
+	  <br>PUBLISHED: M14.6
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: MSC
+	  <br>KPI CLASS: Mobility
+	  <br>MEASUREMENT(S): Handover measurement  part 1 (M81/51H)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+
+      <formula>&lt;br&gt;
+	  &lt;br&gt;SUM( INTRA_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + INTRP_INTRA_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + OU_INTER_MSC_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + OU_INTR_P_IHSPA_UMTS_SUCC ) 
+	  &lt;br&gt;--------------------------------------------- * 100 
+	  &lt;br&gt;SUM( INTRA_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + INTRA_IHSPA_UMTS_FAIL 
+	  &lt;br&gt;   + INTRP_INTRA_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + INTRP_INTRA_IHSPA_UMTS_FAIL 
+	  &lt;br&gt;   + OU_INTER_MSC_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + OU_INTER_MSC_IHSPA_UMTS_FAIL 
+	  &lt;br&gt;   + OU_INTR_P_IHSPA_UMTS_SUCC 
+	  &lt;br&gt;   + OU_INTR_P_IHSPA_UMTS_FAIL ) 
+	  &lt;br&gt;      
+	  &lt;br&gt;Use Aggregated tables</formula>
+
+      <unit>[%]</unit>
+      <tables>RNS_PS_HO1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IntSysHO IHSPA UMTS SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

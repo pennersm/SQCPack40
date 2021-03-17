@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/NetQoS.xml" />
+  <kpi name="flng_303b">
+    <formula>decode(
+			(NetQoS.packets_enqueued + 
+			NetQoS.packet_dropped + nvl(NetQoS.packets_dropped,0)),0,NULL, 
+
+			(NetQoS.packets_enqueued)
+			 / 
+			(NetQoS.packets_enqueued + 
+			NetQoS.packet_dropped + nvl(NetQoS.packets_dropped,0)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Packets enqueued success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of packets enqueued to the queue.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(PACKETS_ENQUEUED)
+&lt;br&gt;----------------------------------------- *100
+&lt;br&gt;sum(PACKETS_ENQUEUED + PACKETS_DROPPED)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_NETQOS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:27.247 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW024.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Packets enqueued SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

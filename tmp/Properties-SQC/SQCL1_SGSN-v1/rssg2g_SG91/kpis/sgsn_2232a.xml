@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/USER.xml"/>
+  <kpi name="sgsn_2232a">
+    <formula>decode(
+			(jflx_user.SGW_PDP_ACT_TOTAL),0,NULL,(jflx_user.SGW_PDP_ACT_USER_AUTH_FAILURE)
+			 / 
+			(jflx_user.SGW_PDP_ACT_TOTAL))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S-GW PDP context creation due to "user authentication failed" failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of S-GW PDP context creation operations due to "user authentication failed". ]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(SGW_PDP_ACT_USER_AUTH_FAILURE)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(SGW_PDP_ACT_TOTAL)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_jflx_user_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[SGW PDP user auth fail FR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

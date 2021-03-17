@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<report id="RSLTE251 - LTE Radio Objects SW" thresholds="false">
+		<report-level key="mrbts">PLMN/MRBTS</report-level>
+		<level>PLMN/MRBTS</level>
+		<time-agg>whole_period</time-agg>
+		<title>RSLTE251 - LTE Radio Objects SW</title>
+		<help-text>
+		<![CDATA[<br>This Report provides:
+		<br> The list of successful Software Manager Activation tasks for the selected MRBTS; 
+		<br> The list of MRBTS software versions available in the Software Manager database;
+		<br> Location information available in the Netact databse for the LTE radio network elements.]]>
+		</help-text>
+		<!-- none,whole_period,day,week,hour,bh,weekbh,raw -->
+		<pivots>
+			<pivot level="PLMN">plmn.co_gid</pivot>
+			<pivot level="MRBTS">mrbts.co_gid</pivot>
+		</pivots>
+		<columns>
+		    <column col-id="co_name">
+				<alias>MRBTS name</alias>
+			</column>
+			<column col-id="co_sc_name">
+				<alias>Mode</alias>
+			</column>
+			<column col-id="plmn_co_name">
+			<alias>PLMN name</alias>
+			</column>
+			<column col-id="mrbts_co_name">
+			<alias>MRBTS name</alias>
+			</column>
+			<column col-id="lnbts_co_name">
+			<alias>LNBTS name</alias>
+			</column>
+			<column col-id="co_gid" columnType="KEY">
+				<alias>co_gid</alias>
+			</column>
+			<column col-id="vendor">
+				<alias>Vendor</alias>
+			</column>
+			<column col-id="sys_ver">
+				<alias>Sys Version</alias>
+			</column>
+			<column col-id="co_dn">
+				<alias>DN</alias>
+			</column>
+			<column col-id="int_id" columnType="KEY">
+				<alias>Int ID</alias>
+			</column>
+			<column col-id="status">
+               <alias>Status</alias>
+            </column>
+			<column col-id="sw_name">
+				<alias>SW OC name</alias>
+			</column>
+			<column col-id="package_id">
+				<alias>Package ID</alias>
+			</column>
+			<column col-id="active_package_id">
+				<alias>Active Package ID</alias>
+			</column>
+			<column col-id="row_update_date">
+				<alias>Entry last update</alias>
+			</column>
+			<column col-id="sw_package">
+				<alias>SW Package</alias>
+			</column>
+			<column col-id="sw_type">
+				<alias>SW Type</alias>
+			</column>
+			<column col-id="task_status_info">
+				<alias>Task Status</alias>
+			</column>
+			<column col-id="task_end_time">
+				<alias>Task End Time</alias>
+			</column>
+		
+			<column col-id="so_address" columnType="KEY">
+				<alias>address</alias>
+			</column>
+			<column col-id="longitude" columnType="KEY">
+				<alias>longitude</alias>
+			</column>
+			<column col-id="latitude" columnType="KEY">
+				<alias>latitude</alias>
+			</column>
+			<column col-id="height" columnType="KEY">
+				<alias>height</alias>
+			</column>
+			<column col-id="site_id">
+				<alias>Site</alias>
+			</column>
+			<column col-id="plmn_co_gid" columnType="KEY">
+			<alias>PLMN_GID</alias>
+			</column>
+			<column col-id="mrbts_co_gid" columnType="KEY">
+			<alias>MRBTS_GID</alias>
+			</column>
+			<column col-id="lnbts_co_gid" columnType="KEY">
+			<alias>LNBTS_GID</alias>
+			</column>
+			<column col-id="lncel_co_gid" columnType="KEY">
+			<alias>LNCEL_GID</alias>
+			</column>
+			<column col-id="mrbts_co_dn" columnType="KEY">
+            <alias>MRBTS DN</alias>
+            </column>
+			<column col-id="lnbts_co_dn" columnType="KEY">
+            <alias>LNBTS DN</alias>
+            </column>
+
+
+		</columns>
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">MRBTS:Software Manager Activation Tasks:</span><br><br>
+		 		]]>
+		</literal>
+		
+		<sql>
+			<![CDATA[
+	SELECT DISTINCT
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			nvl(mrbts.co_name,'NN('||mrbts.co_gid||')') mrbts_co_name,
+			mrbts.co_dn mrbts_co_dn,
+				sw.sw_package,
+				sw.sw_type,
+        		sw.task_status_info,
+				to_char(sw.real_end_time, 'yyyy/dd/mm hh24:mi:ss') task_end_time 
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				a_sw_task sw
+			WHERE  
+			    #object_selection# and
+			    sw.real_end_time >= to_date('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss')  and
+			    sw.real_end_time < to_date('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss') and
+				plmn.co_oc_id = 16 and
+				mrbts.co_oc_id=3128 and				
+				mrbts.co_parent_gid = plmn.co_gid and
+				mrbts.co_int_id = sw.int_id and
+       			sw.task_type = 3 and
+        		sw.task_status = 2 
+			ORDER BY 3 asc,7 desc
+	 		]]>
+	 	</sql>	
+	 	
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">MRBTS Software:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT DISTINCT
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			--plmn.co_gid plmn_co_gid,
+			nvl(mrbts.co_name,'NN('||mrbts.co_gid||')') mrbts_co_name,
+			mrbts.co_dn mrbts_co_dn,
+				sw.status,
+				sw.name sw_name,
+				sw.package_id,
+				sw.active_package_id,
+				to_char(sw.row_update_date, 'yyyy/dd/mm hh24:mi:ss') row_update_date 
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				a_sw_package sw
+			WHERE  
+			    #object_selection# and
+				plmn.co_oc_id = 16 and
+				mrbts.co_oc_id=3128 and				
+				mrbts.co_parent_gid = plmn.co_gid and
+				sw.history=0 and
+				mrbts.co_int_id = sw.int_id
+			ORDER BY mrbts_co_name,status,row_update_date
+	 		]]>
+	 	</sql>	
+	 		
+		<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Location MRBTS:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT
+			
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			plmn.co_gid plmn_co_gid,
+			nvl(mrbts.co_name,'NN('||mrbts.co_gid||')') mrbts_co_name,
+			mrbts.co_gid mrbts_co_gid,
+			mrbts.co_dn dn,
+				site.so_address so_address,
+				site.so_longitude longitude,
+				site.so_latitude latitude,
+				site.so_ground_height height,
+				site.so_site_id site_id
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_site_object site
+			WHERE  
+			     #object_selection# and
+				mrbts.co_oc_id =3128 and
+				plmn.co_oc_id = 16 AND
+				mrbts.co_parent_gid = plmn.co_gid  and
+				site.so_co_gid=mrbts.co_so_gid
+	 		]]>
+	 	</sql>
+		
+			<literal>
+			<![CDATA[
+				<br><br><span class ="sql_h2">Location LNBTS:</span><br><br>
+		 		]]>
+		</literal>
+
+				<sql>
+			<![CDATA[
+
+			SELECT
+			
+			nvl(plmn.co_name,'NN('||plmn.co_gid||')') plmn_co_name,
+			plmn.co_gid plmn_co_gid,
+			nvl(mrbts.co_name,'NN('||mrbts.co_gid||')') mrbts_co_name,
+			mrbts.co_gid mrbts_co_gid,
+			nvl(lnbts.co_name,'NN('||lnbts.co_gid||')') lnbts_co_name,
+			lnbts.co_gid lnbts_co_gid,
+			lnbts.co_dn dn,
+				site.so_address so_address,
+				site.so_longitude longitude,
+				site.so_latitude latitude,
+				site.so_ground_height height,
+				site.so_site_id site_id
+			FROM
+				utp_common_objects plmn,
+				utp_common_objects mrbts,
+				utp_common_objects lnbts,
+				utp_site_object site
+			WHERE  
+			     #object_selection# and
+				mrbts.co_oc_id =3128 and
+				lnbts.co_oc_id = 3129 and
+				plmn.co_oc_id = 16 AND
+				lnbts.co_parent_gid = mrbts.co_gid  and
+				mrbts.co_parent_gid = plmn.co_gid  and
+				site.so_co_gid=lnbts.co_so_gid
+	 		]]>
+	 	</sql>		
+
+
+	</report>
+</reports>

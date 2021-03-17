@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml"/>
+  <kpi name="RNC_2119a">
+    <formula>100*decode(
+			((TRAFFIC.att_hs_dsch_drnc)),0,null, 
+
+			((TRAFFIC.allo_hs_dsch_drnc))
+			 / 
+			((TRAFFIC.att_hs_dsch_drnc)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH Resource Allocation SR in DRNC]]></title>
+      <use><![CDATA[HS-DSCH Resource Allocation Success Ratio in DRNC.
+
+Occurs every time the DRNC sends RNSAP: RADIO LINK RECONFIGURATION READY or RNSAP: RADIO LINK SETUP RESPONSE message to the SRNC after successful HS-DSCH allocation.
+
+It must be noted that at this phase the new configuration has not yet been signalled to the UE.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (allo_hs_dsch_drnc)
+&lt;br&gt;100 * -----------------------
+&lt;br&gt;      sum (att_hs_dsch_drnc)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[HS-DSCH res alloc SR,DRNC]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

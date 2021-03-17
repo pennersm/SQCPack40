@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/VLRNMSC_ext.xml" />
+  <kpi name="msc_4030a">
+    <formula>
+decode((VLRNMSC_ext.TotalAverage_1 / VLRNMSC_ext.PERIOD_START_TIME_1) ,0,null,
+	TC_ext.tcat_call_amount_40 / (VLRNMSC_ext.TotalAverage_1 / VLRNMSC_ext.PERIOD_START_TIME_1)
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MMC to other MSC per Subscriber]]></title>
+      <use><![CDATA[The number of MMC speech and data call attempts originated at the A / IuCs -Interface and terminating at a mobile located in another MSC of the own PLMN in relation to the number of subscribers in the VLR.]]></use>
+
+<use_experience><![CDATA[ 
+<br>TCat_IDs:
+<br>   122 = 2G OUT OWN  -> 2G originating and outgoing calls to own PLMN or PSTN
+<br>   124 = 3G OUT OWN  -> 3G originating and outgoing calls to own PLMN or PSTN
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>
+<br>Starting from M14.6, this KPI is only applicable if the SIM_USIM_MEAS_PER_LAI FIFILE is not activated in the MSC/VLR. If activated please use msc_4030b KPI.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 17-03-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->TCAT
+<br>PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>+
+<br>VLR measurement part n (80/50H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;MMC to other MSC per Subscriber&quot; KPI.
+<br>Please note that this KPI counts the total number of calls (speech + data). It is not only related to speech calls analysis.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#149; For OBJECT:
+&lt;br&gt;
+&lt;br&gt;SUM( a.tcat_call_amount )
+&lt;br&gt;;WHERE TCat_ID = 122, 124
+&lt;br&gt;------------------------------
+&lt;br&gt;SUM( b.TotalAverage )
+&lt;br&gt;
+&lt;br&gt;&amp;#149; For TIME:
+&lt;br&gt;
+&lt;br&gt;SUM( a.tcat_call_amount )
+&lt;br&gt;;WHERE TCat_ID = 122, 124
+&lt;br&gt;-------------------------------
+&lt;br&gt;AVG( b.TotalAverage )
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)
+&lt;br&gt;
+&lt;br&gt;a = M20 = Traffic category measurement (M20/14H)
+&lt;br&gt;b = M80 = VLR measurement part n (M80/50H)
+&lt;br&gt;
+&lt;br&gt;==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;SUM( a.tcat_call_amount )
+&lt;br&gt;;WHERE TCat_ID = 122, 124
+&lt;br&gt;------------------------------
+&lt;br&gt;SUM( b.TotalAverage ) / COUNT(DISTINCT period_start_time)</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG},rns_ps_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MMC to oth MSC per subsc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

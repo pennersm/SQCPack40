@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/IPROUT.xml" />
+  <kpi name="mgw_1212a">
+    <formula>
+	decode(
+	(iprout.ip_eg_bw_uti_class_1 +
+	iprout.ip_eg_bw_uti_class_2 +
+	iprout.ip_eg_bw_uti_class_3 +
+	iprout.ip_eg_bw_uti_class_4 +
+	iprout.ip_eg_bw_uti_class_5),0,null,
+	100*(iprout.ip_eg_bw_uti_class_2)
+	/
+	(iprout.ip_eg_bw_uti_class_1 +
+	iprout.ip_eg_bw_uti_class_2 +
+	iprout.ip_eg_bw_uti_class_3 +
+	iprout.ip_eg_bw_uti_class_4 +
+	iprout.ip_eg_bw_uti_class_5))</formula>
+    <kpi_info>
+      <title><![CDATA[Outgoing IP route traffic utilization rate 26-51%]]></title>
+      <use><![CDATA[This KPI provides information about the Rate of the IP route egress throughput between 26% and 51% of the configured bandwidth.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             SUM(IP_EG_BW_UTI_CLASS_2) 
+&lt;br&gt;100 * ----------------------------------------  
+&lt;br&gt;             SUM(IP_EG_BW_UTI_CLASS_1+
+&lt;br&gt;IP_EG_BW_UTI_CLASS_2+
+&lt;br&gt;IP_EG_BW_UTI_CLASS_3+
+&lt;br&gt;IP_EG_BW_UTI_CLASS_4+
+&lt;br&gt;IP_EG_BW_UTI_CLASS_5)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_IPROUT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.616 +0100</date>
+          <comment><![CDATA[Source: RSMGW055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Out IP traff uti rto 26-51%</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

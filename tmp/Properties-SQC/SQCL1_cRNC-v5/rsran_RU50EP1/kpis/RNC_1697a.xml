@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_1697a">
+    <formula>decode(
+			(intsysho.att_hspa_intra_ifho),0,null, 
+
+			(100*(intsysho.fail_hspa_intra_ifho_ue_nack)
+			 / 
+			(intsysho.att_hspa_intra_ifho)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSPA Intra-RNC Inter-Frequency HHO Failure Rate due to No Acknowledge from UE]]></title>
+      <use><![CDATA[This KPI provides information about the HSPA Intra-RNC Inter-Frequency Hard Handover failure rate due to UE rejection]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(FAIL_HSPA_INTRA_IFHO_UE_NACK)
+&lt;br&gt;----------------------------------
+&lt;br&gt;SUM(ATT_HSPA_INTRA_IFHO)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSPA Intra-RNC IFHO FR nA</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

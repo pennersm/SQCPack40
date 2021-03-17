@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="M1000C234">
+    <formula>round(decode(
+			nvl((cellres.ptx_target_ps_denom),0),0,0, 
+
+			10*log(10,((cellres.ptx_target_ps_denom*(power(10,(cellres.ave_ptx_target_ps
+			 / 
+			10))
+			 / 
+			1000))
+			 / 
+			(cellres.ptx_target_ps_denom))*1000)),3)</formula>
+    <kpi_info>
+      <title><![CDATA[AVERAGE PTXTARGETPS]]></title>
+      <use><![CDATA[The average target threshold PtxTargetPS value during the measurement period. The PtxTargetPS value is adjusted dynamically based on the measurement reports received from the BTS. UPDATED:When an RNC internal scheduling timer expires and there is at least one MAC-d flow allocated in the cell and HSDPA Dynamic Resource Allocation is enabled.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;ROUND(DECODE(NVL(SUM(PTX_TARGET_PS_DENOM),0),0,0,10*LOG(10,(SUM(PTX_TARGET_PS_DENOM*(POWER(10,(AVE_PTX_TARGET_PS/10))/1000))/SUM(PTX_TARGET_PS_DENOM))*1000)),3)</formula>
+      <unit>[dBm]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[AVERAGE PTXTARGETPS]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

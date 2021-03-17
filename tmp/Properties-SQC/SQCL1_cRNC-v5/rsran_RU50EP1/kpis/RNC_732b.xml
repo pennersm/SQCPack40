@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsran/counters/ATMVCC.xml" />
+  <kpi name="RNC_732b">
+    <formula>decode(
+			(atmvcc.eg_cap_vc*atmvcc.period_duration),0,null, 
+
+			(100*(atmvcc.eg_tot_cells_vc)
+			 / 
+			(atmvcc.eg_cap_vc*atmvcc.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[ATM VCC specific outgoing traffic load]]></title>
+      <use><![CDATA[This KPI shows the outgoing ATM layer traffic load for single ATM VC connection.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(EG_TOT_CELLS_VC)
+&lt;br&gt;/
+&lt;br&gt;sum(EG_CAP_VC*PERIOD_DURATION)*60
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_atmvcc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>ATM VCC traf load Iub DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/AALCAC.xml"/>
+	<temp_table_ref src="rsran/counters/ATMVCC.xml" />
+	<kpi name="RNC_1057a">
+		<formula>100*decode(
+             ( atmvcc.period_duration_sum  ),0, null,
+             ( atmvcc.in_tot_cells_vc   )
+             /
+             ( atmvcc.period_duration_sum * 60   )) /248</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Max AAL2 connection utilization]]>
+			</title>
+			<use>
+				<![CDATA[The ratio between maximum number of ALL2 connections and total maximum number of connections during measurement period.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * RNC_762a
+-------
+248
+</pre>]]></formula>
+			<unit>[%]</unit>
+<!--			<tables>nokrww_ps_aalcac_{obj_agg}_{time_agg}</tables>-->
+			<tables>nokrww_ps_atmvcc_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Max AAL2 connection utilization]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

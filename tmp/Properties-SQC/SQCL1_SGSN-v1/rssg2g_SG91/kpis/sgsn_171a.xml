@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/GBSD.xml" />
+  <kpi name="sgsn_171a">
+    <formula>decode(
+			(gbsd.avg_gtp_bytes_sent_dl_den),0,NULL, 
+
+			((gbsd.avg_gtp_bytes_sent_dl_sum + 4294967296 * gbsd.avg_gtp_bytes_sent_dl_sum_of)
+			 / 
+			(gbsd.avg_gtp_bytes_sent_dl_den*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gn DL GTP average data volume, SGSN]]></title>
+      <use><![CDATA[This KPI shows the downlink average GTP data volume on SGSN level for Gn (Gb+Iu) traffic]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; sum(AVG_GTP_BYTES_SENT_DL_SUM + 4294967296 * AVG_GTP_BYTES_SENT_DL_SUM_OF) 
+&lt;br&gt;----------------------------------------------------------------------------
+&lt;br&gt;sum(AVG_GTP_BYTES_SENT_DL_DEN * 1048576) 
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_gb_sgsn_data</formula>
+      <unit>[MB]</unit>
+      <tables>rsg_ps_gbsd_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Gn DL GTP average data volume, SGSN]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

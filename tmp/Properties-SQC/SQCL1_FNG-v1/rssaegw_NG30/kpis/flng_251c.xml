@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SSPROF.xml" />
+  <kpi name="flng_251c">
+    <formula>decode(
+			(ssprof.sm_succ_bear_deact_ng_init + 
+			ssprof.sm_fail_bear_deact_ng_init),0,NULL,
+			
+			100*ssprof.sm_succ_bear_deact_ng_init 
+			/ 
+			(ssprof.sm_succ_bear_deact_ng_init +
+			ssprof.sm_fail_bear_deact_ng_init))</formula>
+    <kpi_info>
+      <title><![CDATA[Bearer deactivation success ratio, Flexi-NG initiated]]></title>
+      <use><![CDATA[This KPI shows the success ratio of Flexi-NG initiated bearer deactivations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SM_SUCC_BEAR_DEACT_NG_INIT)
+&lt;br&gt;----------------------------------- *100
+&lt;br&gt;sum(SM_SUCC_BEAR_DEACT_NG_INIT + 
+&lt;br&gt;   SM_FAIL_BEAR_DEACT_NG_INIT)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_SSPROF_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/24 14:41:20.88 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW013.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Bear deact SR, NG init</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

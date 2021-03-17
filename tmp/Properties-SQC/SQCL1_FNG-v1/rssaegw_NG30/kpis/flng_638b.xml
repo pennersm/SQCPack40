@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <kpi name="flng_638b">
+    <formula>decode(gtpcv2.period_duration,0,null, 
+			(gtpcv2.gtpcv2_cre_sess_req_recv + gtpcv2.gtpcv2_create_session_req_sent + 
+			gtpcv2.gtpcv2_cre_bearer_req_recv + gtpcv2.gtpcv2_cre_bearer_req_sent)
+			 / 	(gtpcv2.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS bearer activations per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS bearer activation request procedures per second.
+      This KPI can be used to measure the signalling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPCV2_CRE_SESS_REQ_RECV +
+&lt;br&gt;   GTPCV2_CREATE_SESSION_REQ_SENT +
+&lt;br&gt;   GTPCV2_CRE_BEARER_REQ_RECV +
+&lt;br&gt;   GTPCV2_CRE_BEARER_REQ_SENT)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;sum(period_duration * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/25 16:16:10.334 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW081.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS bearer act pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/GBSD.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUSD.xml"/>
+  <kpi name="sgsn_2046a">
+    <formula>decode(
+			(decode(
+			(GBSD.avg_gtp_bytes_sent_dl_den),0,NULL, 
+
+			(60*GBSD.period_duration)
+			 / 
+			(GBSD.avg_gtp_bytes_sent_dl_den))),0,NULL, 
+
+			(((8*GBSD.gtp_bytes_sent_dl_peak)
+			 / 
+			(1048576)))
+			 / 
+			(decode(
+			(GBSD.avg_gtp_bytes_sent_dl_den),0,NULL, 
+
+			(60*GBSD.period_duration)
+			 / 
+			(GBSD.avg_gtp_bytes_sent_dl_den)))) - 
+			decode(
+			(decode(
+			(IUSD.iu_avg_gtp_bytes_dl_den),0,NULL, 
+
+			(60*IUSD.period_duration)
+			 / 
+			(IUSD.iu_avg_gtp_bytes_dl_den))),0,NULL, 
+
+			(((8*IUSD.iu_gtp_bytes_dl_peak)
+			 / 
+			(1048576)))
+			 / 
+			(decode(
+			(IUSD.iu_avg_gtp_bytes_dl_den),0,NULL, 
+
+			(60*IUSD.period_duration)
+			 / 
+			(IUSD.iu_avg_gtp_bytes_dl_den))))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb DL GTP peak throughput, SGSN]]></title>
+      <use><![CDATA[This KPI shows the downlink peak GTP data throughput on SGSN level for Gb interface.
+Since the peak values can happen in different periods, peak figures can slightly misleading.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>  max (8 * gtp_bytes_sent_dl_peak)
+&lt;br&gt;  --------------------------------
+&lt;br&gt;              1048576
+&lt;br&gt;------------------------------------- - sgsn_909a
+&lt;br&gt;      /   60 * period_duration    \
+&lt;br&gt; avg |  -------------------------  |
+&lt;br&gt;      \ avg_gtp_bytes_sent_dl_den /
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>RSG_PS_GBSD_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUSD_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gb DL GTP peak thp, SGSN]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

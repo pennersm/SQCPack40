@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPROUT.xml"/>
+  <kpi name="RNC_1794b">
+    <formula>100*decode(
+			((IPROUT.IP_EG_BW_CONFIG)),0,NULL,(8*(IPROUT.OUT_DATA_IP_ROUTE))
+			 / 
+			((IPROUT.IP_EG_BW_CONFIG)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iub traffic load - Downlink]]></title>
+      <use><![CDATA[IP Iub traffic load in DL direction. It compares the DL traffic throughput against the available bandwith.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>               8* SUM( OUT_DATA_IP_ROUTE) 
+&lt;br&gt;100*  -------------------------------------; When Interface=Iub
+&lt;br&gt;                   SUM(IP_EG_BW_CONFIG ) 
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_IPROUT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[IP Iub traffic load DL]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

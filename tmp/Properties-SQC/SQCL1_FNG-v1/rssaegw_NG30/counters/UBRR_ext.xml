@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="UBRR_ext" meas_level="PLMN/FING/FNODE/GTPCV2/UBRR" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="GTPCV2_UP_BEARER_RESP_RECV">SUM(GTPCV2_UP_BEARER_RESP_RECV)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="GTPCV2_UP_BEARER_RESP_RECV_ALL">MAX(GTPCV2_UP_BEARER_RESP_RECV_ALL)</counter>
+			<counter alias="GTPCV2_UP_BEARER_RESP_RECV_16">SUM(decode(ubrr_id,'16',gtpcv2_up_bearer_resp_recv,0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		ubrr.*,
+		GTPCV2_UP_BEARER_RESP_RECV_ALL,
+		GTPCV2_UP_BEARER_RESP_RECV_16A
+FROM
+	pcofng_ps_ubrr_ubrr_{TIME_AGG} ubrr,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(GTPCV2_UP_BEARER_RESP_RECV) GTPCV2_UP_BEARER_RESP_RECV_ALL,
+			SUM(DECODE(UBRR_ID,'16',GTPCV2_UP_BEARER_RESP_RECV,0)) GTPCV2_UP_BEARER_RESP_RECV_16A
+		FROM
+			 pcofng_ps_ubrr_ubrr_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	ubrr.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = ubrr.fnode_id and
+	ubrr.period_start_time = fnode_level.period_start_time AND
+	ubrr.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	ubrr.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+			]]>
+		</table_name>
+		<alias_name>UBRR_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>UBRR_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_ubrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_UP_BEARER_RESP_RECV">
+		<formula>UBRR_ext.GTPCV2_UP_BEARER_RESP_RECV</formula>
+		<kpi_info>
+			<title>GTPCV2_UP_BEARER_RESP_RECV</title>
+			<use>This counter contains the number of received Update Bearer Response 
+				messages by the cause code. &lt;br/&gt;
+				UPDATED: Updated when an Update Bearer Response message by 
+				the cause code is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(GTPCV2_UP_BEARER_RESP_RECV)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ubrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_UP_BEARER_RESP_RECV (m3032c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<!-- Auxiliary Counters -->
+	<kpi name="GTPCV2_UP_BEARER_RESP_RECV_ALL">
+		<formula>UBRR_ext.GTPCV2_UP_BEARER_RESP_RECV_ALL</formula>
+		<kpi_info>
+			<title>GTPCV2_UP_BEARER_RESP_RECV_ALL</title>
+			<use>This counter contains the number of received Update Bearer Response 
+				messages by all the cause codes. &lt;br/&gt;
+				UPDATED: Updated when an Update Bearer Response message by 
+				any cause code is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(GTPCV2_UP_BEARER_RESP_RECV)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ubrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_UP_BEARER_RESP_RECV_ALL (m3032c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_UP_BEARER_RESP_RECV_16">
+		<formula>UBRR_ext.GTPCV2_UP_BEARER_RESP_RECV_16</formula>
+		<kpi_info>
+			<title>GTPCV2_UP_BEARER_RESP_RECV_16</title>
+			<use>This counter contains the number of received Update Bearer Response 
+				messages by the cause code 16. &lt;br/&gt;
+				UPDATED: Updated when an Update Bearer Response message by 
+				the cause code 16 is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(DECODE(UBRR_ID,16,GTPCV2_UP_BEARER_RESP_RECV,0))</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ubrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_UP_BEARER_RESP_RECV_16 (m3032c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

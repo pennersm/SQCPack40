@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_1296a">
+    <formula>decode(
+			(rrc.rrc_re_est_succ_mr + 
+			rrc.rrc_re_est_fail_ue_mr + 
+			rrc.rrc_re_est_fail_noreply_mr),0,null, 
+
+			(100*(rrc.rrc_re_est_succ_mr)
+			 / 
+			(rrc.rrc_re_est_succ_mr + 
+			rrc.rrc_re_est_fail_ue_mr + 
+			rrc.rrc_re_est_fail_noreply_mr)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Re-establishment Success Ratio Multi RAB]]></title>
+      <use><![CDATA[This KPI monitors the RRC Re-establishments success ratio for Multi-RAB connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(RRC_RE_EST_SUCC_MR)
+&lt;br&gt;---------------------------------------
+&lt;br&gt;SUM(RRC_RE_EST_SUCC_MR
+&lt;br&gt;+RRC_RE_EST_FAIL_UE_MR
+&lt;br&gt;+RRC_RE_EST_FAIL_NOREPLY_MR)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RRC re-estab SR Multi RAB</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

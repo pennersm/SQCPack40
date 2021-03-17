@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CCMEA.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml" />
+  <kpi name="msc_601b">
+    <formula>decode(
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech),0,null, 
+
+			(100*(ccmea_ext.ccmeas_speech_2)
+			 / 
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech)))</formula>
+    <kpi_info>
+      <title><![CDATA[Dropped calls ratio]]></title>
+      <use><![CDATA[If the call is answered and it is not successful]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        sum (CCMEAS_SPEECH) ;where clearcode_id = 400-7FF 
+&lt;br&gt;100 * -----------------------------------------------------
+&lt;br&gt;        sum(CCMEAS_SIGNALLING + CCMEAS_RING + CCMEAS_SPEECH)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_CCMEA_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ccmea_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Dropped calls ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

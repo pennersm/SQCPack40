@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/CELLDATA.xml" />
+  <kpi name="sgsn_606b">
+    <formula>100 - 
+			100*decode(
+			(celldata.bssgp_passed_data_in_bytes + 
+			celldata.discarded_data_by_bssgp),0,NULL, 
+
+			((celldata.discarded_data_by_bssgp)
+			 / 
+			(celldata.bssgp_passed_data_in_bytes + 
+			celldata.discarded_data_by_bssgp)))</formula>
+    <kpi_info>
+      <title><![CDATA[BSSGP MS-BVC flow control passed data success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of BSSGP MS-BVC flow control passed data.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             sum(DISCARDED_DATA_BY_BSSGP) 
+&lt;br&gt;100 -     ----------------------------------------------------------- * 100
+&lt;br&gt;             sum(BSSGP_PASSED_DATA_IN_BYTES + 
+&lt;br&gt;                    DISCARDED_DATA_BY_BSSGP)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_cell_data</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_celldata_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BSSGP MS-BVC flow control passed data success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

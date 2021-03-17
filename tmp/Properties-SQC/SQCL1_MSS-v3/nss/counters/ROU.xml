@@ -1,0 +1,373 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M391 ROU measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M391 ROU measurement dump</csv_title>
+    <report-description>Route measurement(ROU)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <ROUTE_ATTEMPT/>
+    <ROUTE_URA/>
+    <ROUTE_ACCEP/>
+    <ROUTE_ANSWER/>
+    <ROUTE_SFAIL/>
+    <ROUTE_IFAIL/>
+    <ROUTE_EFAIL/>
+    <ROUTE_ERLANGS_x100/>
+    <ROUTE_INVALID_RECORD/>
+    <ROUTE_DATA_PROV_RESTARTED/>
+    <ROUTE_CRA/>
+    <ROUTE_URAREL/>
+    <ROUTE_CONGREL/>
+    <!--TCAT_TRAFFx100 /-->
+    <!--<TC_PERIOD_DURATION/>-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/ROUTE1" name="ROU" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="ROUTE_ATTEMPT" symmetrical="true">SUM(ROUTE_ATTEMPT)</counter>
+      <counter alias="ROUTE_URA" symmetrical="true">SUM(ROUTE_URA)</counter>
+      <counter alias="ROUTE_ACCEP" symmetrical="true">SUM(ROUTE_ACCEP)</counter>
+      <counter alias="ROUTE_ANSWER" symmetrical="true">SUM(ROUTE_ANSWER)</counter>
+      <counter alias="ROUTE_SFAIL" symmetrical="true">SUM(ROUTE_SFAIL)</counter>
+      <counter alias="ROUTE_IFAIL" symmetrical="true">SUM(ROUTE_IFAIL)</counter>
+      <counter alias="ROUTE_EFAIL" symmetrical="true">SUM(ROUTE_EFAIL)</counter>
+      <counter alias="ROUTE_ERLANGS_x100" symmetrical="true">SUM(ROUTE_ERLANGS_x100)</counter>
+      <counter alias="ROUTE_INVALID_RECORD" symmetrical="true">AVG(ROUTE_INVALID_RECORD)</counter>
+      <counter alias="ROUTE_DATA_PROV_RESTARTED" symmetrical="true">AVG(ROUTE_DATA_PROV_RESTARTED)</counter>
+      <counter alias="ROUTE_CRA" symmetrical="true">SUM(ROUTE_CRA)</counter>
+      <counter alias="ROUTE_URAREL" symmetrical="true">SUM(ROUTE_URAREL)</counter>
+      <counter alias="ROUTE_CONGREL" symmetrical="true">SUM(ROUTE_CONGREL)</counter>
+<!--      <counter alias="TCAT_TRAFFx100" timeagg="AVG(TCAT_TRAFFx100)">SUM(TCAT_TRAFFx100)</counter> 
+      <counter alias="TC_PERIOD_DURATION" object-formula="avg(period_duration)" time-alias="TC_PERIOD_DURATION" time-formula="sum(period_duration)">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ROU</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ROU.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_ATTEMPT">
+    <formula>ROU.ROUTE_ATTEMPT</formula>
+    <kpi_info>
+      <title>ROUTE_ATTEMPT</title>
+      <use>The counter shows the amount of routingattempts on the given route.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_ATTEMPT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_ATTEMPT (M391B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_URA">
+    <formula>ROU.ROUTE_URA</formula>
+    <kpi_info>
+      <title>ROUTE_URA</title>
+      <use>The counter shows unsuccessful RoutingAttempts. Those cases are counted here, where no circuit reservation
+was possible on the given route because, for example, congestion has
+happened.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_URA)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_URA (M391B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_ACCEP">
+    <formula>ROU.ROUTE_ACCEP</formula>
+    <kpi_info>
+      <title>ROUTE_ACCEP</title>
+      <use>The counter shows amount of calls on thegiven route that were ended with clear code 00x3FF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_ACCEP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_ACCEP (M391B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_ANSWER">
+    <formula>ROU.ROUTE_ANSWER</formula>
+    <kpi_info>
+      <title>ROUTE_ANSWER</title>
+      <use>The counter shows amount of calls on thegiven route that were answered.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_ANSWER)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_ANSWER (M391B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_SFAIL">
+    <formula>ROU.ROUTE_SFAIL</formula>
+    <kpi_info>
+      <title>ROUTE_SFAIL</title>
+      <use>The counter shows the amount of calls onthe given route that were ended with clear code 0xC000xFFF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_SFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_SFAIL (M391B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_IFAIL">
+    <formula>ROU.ROUTE_IFAIL</formula>
+    <kpi_info>
+      <title>ROUTE_IFAIL</title>
+      <use>The counter shows the amount of calls onthe given route that were ended with clear code 0x4000x7FF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_IFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_IFAIL (M391B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_EFAIL">
+    <formula>ROU.ROUTE_EFAIL</formula>
+    <kpi_info>
+      <title>ROUTE_EFAIL</title>
+      <use>The counter shows the amount of calls onthe given route that were ended with clear code 0x8000xBFF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_EFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_EFAIL (M391B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_ERLANGS_x100">
+    <formula>ROU.ROUTE_ERLANGS_x100</formula>
+    <kpi_info>
+      <title>ROUTE_ERLANGS_x100</title>
+      <use>The counter shows the erlang value of allattempts on the given route, when circuit reservation was made.
+Erlang is calculated on the basis of circuit reservation.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_ERLANGS_x100)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_ERLANGS_x100 (M391B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_INVALID_RECORD">
+    <formula>ROU.ROUTE_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>ROUTE_INVALID_RECORD</title>
+      <use>Counter is printed with value 1 if the measurementrecord was corrupted during the measurement period, otherwise, the
+counter is omitted. If SUBDEST in localMoid was UNKNOWN, then whole
+record was corrupted, else only that route was corrupted.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ROUTE_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_INVALID_RECORD (M391B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_DATA_PROV_RESTARTED">
+    <formula>ROU.ROUTE_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>ROUTE_DATA_PROV_RESTARTED</title>
+      <use>Counter is printed with value 1 if thedata provider in signalling unit or the signalling unit is restarted
+during the measurement period, otherwise, the counter is omitted.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ROUTE_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_DATA_PROV_RESTARTED (M391B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_CRA">
+    <formula>ROU.ROUTE_CRA</formula>
+    <kpi_info>
+      <title>ROUTE_CRA</title>
+      <use>Counter indicates the number of unsuccessfulrouting attempts,which were unsuccessful because of congestion.
+The following clear codes are considered as congestion: 81A, 804,80F,
+814, 843, 81F.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_CRA)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_CRA (M391B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_URAREL">
+    <formula>ROU.ROUTE_URAREL</formula>
+    <kpi_info>
+      <title>ROUTE_URAREL</title>
+      <use>Counter indicates the number of unsuccessfulrouting attempts,which were unsuccessful for any reason, and the
+call was released,that is, there is no other alternative route possibility.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_URAREL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_URAREL (M391B2C15)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUTE_CONGREL">
+    <formula>ROU.ROUTE_CONGREL</formula>
+    <kpi_info>
+      <title>ROUTE_CONGREL</title>
+      <use>Counter indicates the number of unsuccessfulrouting attempts,which were unsuccessful because of congestion,
+and the call wasreleased, that is, there is no other alternative
+route possibility .The following clear codes are considered as congestion:
+81A, 804,80F, 814, 843, 81F.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUTE_CONGREL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTE_CONGREL (M391B2C16)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!--kpi name="TCAT_TRAFFx100">
+    <formula>ROU.TCAT_TRAFFx100</formula>
+    <kpi_info>
+      <title>TCAT_TRAFFx100</title>
+      <use>The amount of traffic in the traffic categoryin erlangs (0.0...999999.9). That means the total reservation time of
+the measured object in relation to the results accumulation period.The
+erlangs are calculated from circuit seizure to circuit release.
+In combination categories the erlang calculation starts when both
+circuits are seized. In combination categories the end point of
+erlang calculation is determined by the circuit that is released
+first.All of the circuit reservation time is updated
+in the results accumulation period in which the circuit is released (and
+in combination categories in the results accumulation period in
+which the first released circuit is released). For this reason remarkably
+large values in the ERLANGS field are possible in a case in which
+there are many calls that have started before the results accumulation
+period but that end in the results accumulation period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(TCAT_TRAFFx100)">SUM(TCAT_TRAFFx100)</formula>
+      <unit>Erl</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCAT_TRAFFx100 (M20B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+  <!--
+  <kpi name="TC_PERIOD_DURATION">
+    <formula>ROU.TC_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>TC_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_rou_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TC_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+</conf_file>

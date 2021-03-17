@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml" />
+  <kpi name="msc_612c">
+    <formula>
+100*decode(
+	CGR.CGRCGROUP_NOF_CIRCUITS, 0, NULL, 
+	(CGR.CGRCGROUP_ERLANGS_IN_x_100+CGR.CGRCGROUP_ERLANGS_OUT_x_100)
+	/
+	CGR.CGRCGROUP_NOF_CIRCUITS
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Carried traffic ratio - Nbr of provided circuits comparison]]></title>
+      <use><![CDATA[Traffic load ratio for incoming and outgoing sides - comparison analysis is made against the total number of provided circuits]]></use>
+
+<use_experience><![CDATA[ 
+<br>NetAct pre-aggregation of the counters: (CGRCGROUP_ERLANGS_IN_x_100) + (CGRCGROUP_ERLANGS_OUT_x_100) + (CGRCGROUP_NOF_CIRCUITS) => TIME aggregated data defined as AVG and NETWORK/OBJECT aggregated data defined as SUM
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 12-03-2009
+<br>THEORETICAL SUMMARY LEVELS: PLMN; MSC; CDS; CGRNAME/CGR; CGRDIR;
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CDS; CGRDIR
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+<br>
+<br>NOTES: This KPI does not use the &quot;ratio between the traffic carried by internal routes (in erlang) divided by the B Erlang formula.&quot; as in the ex-S approach. Still it provides the carried traffic route utilisation ratio.
+<br>
+<br>This NSN KPI is partially compliant with ex-S CS_2G3G_MSC_LOAD_05
+<br>(still subject to ex-S KPI mapping CS TechWG approval)
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;For OBJECT and CGRDIR level =&gt; considering NetAct pre-aggregation level calculations:
+&lt;br&gt;        ( SUM( CGRCGROUP_ERLANGS_IN_x_100 + CGRCGROUP_ERLANGS_OUT_x_100 ) / 100 )
+&lt;br&gt;100 * ----------------------------------------------------------------------------------
+&lt;br&gt;          SUM( CGRCGROUP_NOF_CIRCUITS )
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;For TIME and CGRDIR level =&gt; considering NetAct pre-aggregation level calculations:
+&lt;br&gt;        ( AVG( CGRCGROUP_ERLANGS_IN_x_100 + CGRCGROUP_ERLANGS_OUT_x_100 ) / 100 )
+&lt;br&gt;100 * ----------------------------------------------------------------------------------
+&lt;br&gt;          AVG( CGRCGROUP_NOF_CIRCUITS )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED table view(s):
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW table data
+&lt;br&gt;
+&lt;br&gt;100*(SUM(CGRCGROUP_ERLANGS_IN_x_100+CGRCGROUP_ERLANGS_OUT_x_100 )/100/COUNT(DISTINCT period_start_time))/(SUM( NVL(CGRCGROUP_NOF_CIRCUITS,0)/COUNT(DISTINCT period_start_time)))</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_CGR_{OBJ_AGG}_{TIME_AGG},rns_ps_CGRC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Carried traff ratio - Nbr Circ</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

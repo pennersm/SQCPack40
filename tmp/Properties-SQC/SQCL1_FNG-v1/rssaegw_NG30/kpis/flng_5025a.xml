@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/SGWP.xml"/>
+  <kpi name="flng_5025a">
+    <formula>decode(
+			((SGWP.SM_SUCC_SGW_SESS_MOD + 
+			SGWP.SM_FAIL_SGW_SESS_MOD)),0,NULL, 
+
+			((SGWP.SM_SUCC_SGW_SESS_MOD))
+			 / 
+			((SGWP.SM_SUCC_SGW_SESS_MOD + 
+			SGWP.SM_FAIL_SGW_SESS_MOD)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S-GW session modification success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of S-GW session modifications.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>               sum( SM_SUCC_SGW_SESS_MOD )                     
+&lt;br&gt;---------------------------------------------------------------- *100
+&lt;br&gt; sum( SM_SUCC_SGW_SESS_MOD + SM_FAIL_SGW_SESS_MOD )       
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_SGWP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[S-GW session mod SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

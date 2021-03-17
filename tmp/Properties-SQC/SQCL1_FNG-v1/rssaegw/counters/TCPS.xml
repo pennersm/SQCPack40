@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 TcpStat TCPS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 TcpStat TCPS measurement dump</csv_title>
+    <report-description>Collects the TCP statistics for each node. The measurement type collects the TCP statistics every 30 seconds. The data is measured on per-node level. It provides information on the TCP connection configured on the node and also the statistics related to the TCP packets flowing in and flowing out of the node. The data collected is not affected by licensing of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <TCP_ACTIVE_OPENS />
+    <TCP_PASSIVE_OPENS />
+    <TCP_ATTEMPT_FAILS />
+    <TCP_ESTAB_RESETS />
+    <TCP_CURRENT_ESTAB />
+    <TCP_IN_SEGMENTS />
+    <TCP_OUT_SEGMENTS />
+    <TCP_RETRANS_SEGMENTS />
+    <TCP_IN_ERRORS />
+    <TCP_OUT_RSTS />
+  </column_order>
+  <temp_table name="TCPS" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>TCPS</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="TCP_ACTIVE_OPENS">SUM(TCP_ACTIVE_OPENS)</counter>
+      <counter alias="TCP_PASSIVE_OPENS">SUM(TCP_PASSIVE_OPENS)</counter>
+      <counter alias="TCP_ATTEMPT_FAILS">SUM(TCP_ATTEMPT_FAILS)</counter>
+      <counter alias="TCP_ESTAB_RESETS">SUM(TCP_ESTAB_RESETS)</counter>
+      <counter alias="TCP_CURRENT_ESTAB">SUM(TCP_CURRENT_ESTAB)</counter>
+      <counter alias="TCP_IN_SEGMENTS">SUM(TCP_IN_SEGMENTS)</counter>
+      <counter alias="TCP_OUT_SEGMENTS">SUM(TCP_OUT_SEGMENTS)</counter>
+      <counter alias="TCP_RETRANS_SEGMENTS">SUM(TCP_RETRANS_SEGMENTS)</counter>
+      <counter alias="TCP_IN_ERRORS">SUM(TCP_IN_ERRORS)</counter>
+      <counter alias="TCP_OUT_RSTS">SUM(TCP_OUT_RSTS)</counter>
+    </counters>
+    <table_name>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>TCPS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>TCPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_ACTIVE_OPENS">
+    <formula>TCPS.TCP_ACTIVE_OPENS</formula>
+    <kpi_info>
+      <title>TCP_ACTIVE_OPENS</title>
+      <use>The number of times the TCP connections have made a direct transition to the SYN-SENT state from the CLOSED state. UPDATED: When a transition happened from a closed to syn-sent state.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_ACTIVE_OPENS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_ACTIVE_OPENS (m2068c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_PASSIVE_OPENS">
+    <formula>TCPS.TCP_PASSIVE_OPENS</formula>
+    <kpi_info>
+      <title>TCP_PASSIVE_OPENS</title>
+      <use>The number of times TCP connections have made a direct transition to the SYN-RCVD state from the LISTEN state. UPDATED: When a transition happened from the listen state to the syn-rcvd state.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_PASSIVE_OPENS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_PASSIVE_OPENS (m2068c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_ATTEMPT_FAILS">
+    <formula>TCPS.TCP_ATTEMPT_FAILS</formula>
+    <kpi_info>
+      <title>TCP_ATTEMPT_FAILS</title>
+      <use>The number of times the TCP connections have made a direct transition to the CLOSED state from either the SYN-SENT state or the SYN-RCVD state, plus the number of times the TCP connections have made a direct transition to the LISTEN state from the SYN-RCVD state. UPDATED: When a transition happened from syn_sent or syn_rcvd to closed, and a transition from syn_rcvd to listen.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_ATTEMPT_FAILS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_ATTEMPT_FAILS (m2068c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_ESTAB_RESETS">
+    <formula>TCPS.TCP_ESTAB_RESETS</formula>
+    <kpi_info>
+      <title>TCP_ESTAB_RESETS</title>
+      <use>The number of times the TCP connections have made a direct transition to the CLOSED state from either the ESTABLISHED state or the CLOSE-WAIT state. UPDATED: When a transition happened from either established or close_wait state to closed state.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_ESTAB_RESETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_ESTAB_RESETS (m2068c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_CURRENT_ESTAB">
+    <formula>TCPS.TCP_CURRENT_ESTAB</formula>
+    <kpi_info>
+      <title>TCP_CURRENT_ESTAB</title>
+      <use>The number of TCP connections for which the current state is either ESTABLISHED or CLOSE-WAIT. UPDATED: When a transition happened to either established or close_wait state.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-agg="AVG">SUM(TCP_CURRENT_ESTAB)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_CURRENT_ESTAB (m2068c0005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_IN_SEGMENTS">
+    <formula>TCPS.TCP_IN_SEGMENTS</formula>
+    <kpi_info>
+      <title>TCP_IN_SEGMENTS</title>
+      <use>The total number of received TCP segments. UPDATED: When a TCP segment is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_IN_SEGMENTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_IN_SEGMENTS (m2068c0006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_OUT_SEGMENTS">
+    <formula>TCPS.TCP_OUT_SEGMENTS</formula>
+    <kpi_info>
+      <title>TCP_OUT_SEGMENTS</title>
+      <use>The total number of sent TCP segments. UPDATED: When a TCP segment is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_OUT_SEGMENTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_OUT_SEGMENTS (m2068c0007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_RETRANS_SEGMENTS">
+    <formula>TCPS.TCP_RETRANS_SEGMENTS</formula>
+    <kpi_info>
+      <title>TCP_RETRANS_SEGMENTS</title>
+      <use>The number of TCP segments that are transmitted again. UPDATED: When a TCP segment is transmitted again.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_RETRANS_SEGMENTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_RETRANS_SEGMENTS (m2068c0008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_IN_ERRORS">
+    <formula>TCPS.TCP_IN_ERRORS</formula>
+    <kpi_info>
+      <title>TCP_IN_ERRORS</title>
+      <use>The total number of TCP segments received with an error. UPDATED: When an erroneous segment is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_IN_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_IN_ERRORS (m2068c0009)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TCP_OUT_RSTS">
+    <formula>TCPS.TCP_OUT_RSTS</formula>
+    <kpi_info>
+      <title>TCP_OUT_RSTS</title>
+      <use>The total number of TCP segments sent containing the RST (reset) flag. UPDATED: When segments that contain RST flag are transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TCP_OUT_RSTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_tcps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCP_OUT_RSTS (m2068c0010)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

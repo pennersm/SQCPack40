@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>RCOLPW (RCPM OLPC WCEL)</header>
+    <csv_title>RCOLPW (RCPM OLPC WCEL)</csv_title>
+    <report-description>RCPM OLPC WCEL</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <UL_AVERAGE_EBNO_W/>
+    <UL_AVERAGE_EBNO_DENOM_W/>
+    <UL_SUM_SQ_EBNO_W/>
+    <UL_NUM_EBNO_REPORTS_W/>
+    <UL_CRC_OKS_W/>
+    <UL_CRC_NOKS_W/>
+    <UL_SUM_SQ_BLER_W/>
+    <UL_NUM_BLER_REPORTS_W/>
+    <UL_AVERAGE_BER_W/>
+    <UL_AVERAGE_BER_DENOM_W/>
+    <UL_SUM_SQ_BER_W/>
+    <UL_NUM_OF_BER_REPORTS_W/>
+    <UL_BAD_CONNECTIONS_W/>
+    <UL_IDEAL_CONNECTIONS_W/>
+    <UL_TOO_GOOD_CONNECTIONS_W/>
+    <RL_POWER_SUM_DL_W/>
+    <RL_POWER_SQ_SUM_DL_W/>
+    <RL_POWER_NO_OF_SAMPLES_DL_W/>
+    <RL_POWER_NO_OF_OUTAGE_DL_W/>
+    <UL_EDCH_HARQ_RETRANS_W/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="RCOLPW" omes_name="RCPM_OLPC_WCEL" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-CHTYP" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>RCOLPW</koala_meas_id>
+	<last_mo_level>RSRAN-WCEL</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="UL_AVERAGE_EBNO_W" symmetrical="false">ROUND(DECODE(NVL(SUM(UL_AVERAGE_EBNO_DENOM_W),0),0,0,10*(LOG(10,(SUM(POWER(10,(UL_AVERAGE_EBNO_W/10))*UL_AVERAGE_EBNO_DENOM_W)/SUM(UL_AVERAGE_EBNO_DENOM_W))))),0)</counter>
+          <counter alias="UL_AVERAGE_EBNO_DENOM_W" symmetrical="false">SUM(UL_AVERAGE_EBNO_DENOM_W)</counter>
+          <counter alias="UL_SUM_SQ_EBNO_W" symmetrical="false">SUM(UL_SUM_SQ_EBNO_W)</counter>
+          <counter alias="UL_NUM_EBNO_REPORTS_W" symmetrical="false">SUM(UL_NUM_EBNO_REPORTS_W)</counter>
+          <counter alias="UL_CRC_OKS_W" symmetrical="false">SUM(UL_CRC_OKS_W)</counter>
+          <counter alias="UL_CRC_NOKS_W" symmetrical="false">SUM(UL_CRC_NOKS_W)</counter>
+          <counter alias="UL_SUM_SQ_BLER_W" symmetrical="false">SUM(UL_SUM_SQ_BLER_W)</counter>
+          <counter alias="UL_NUM_BLER_REPORTS_W" symmetrical="false">SUM(UL_NUM_BLER_REPORTS_W)</counter>
+          <counter alias="UL_AVERAGE_BER_W" symmetrical="false">ROUND(DECODE(NVL(SUM(UL_AVERAGE_BER_DENOM_W),0),0,0,SUM(UL_AVERAGE_BER_W*UL_AVERAGE_BER_DENOM_W)/SUM(UL_AVERAGE_BER_DENOM_W)),0)</counter>
+          <counter alias="UL_AVERAGE_BER_DENOM_W" symmetrical="false">SUM(UL_AVERAGE_BER_DENOM_W)</counter>
+          <counter alias="UL_SUM_SQ_BER_W" symmetrical="false">SUM(UL_SUM_SQ_BER_W)</counter>
+          <counter alias="UL_NUM_OF_BER_REPORTS_W" symmetrical="false">SUM(UL_NUM_OF_BER_REPORTS_W)</counter>
+          <counter alias="UL_BAD_CONNECTIONS_W" symmetrical="false">SUM(UL_BAD_CONNECTIONS_W)</counter>
+          <counter alias="UL_IDEAL_CONNECTIONS_W" symmetrical="false">SUM(UL_IDEAL_CONNECTIONS_W)</counter>
+          <counter alias="UL_TOO_GOOD_CONNECTIONS_W" symmetrical="false">SUM(UL_TOO_GOOD_CONNECTIONS_W)</counter>
+          <counter alias="RL_POWER_SUM_DL_W" symmetrical="false">ROUND(DECODE(NVL(SUM(RL_POWER_NO_OF_SAMPLES_DL_W),0),0,0,10*LOG(10,(SUM(RL_POWER_NO_OF_SAMPLES_DL_W*(POWER(10,(RL_POWER_SUM_DL_W/10))/1000))/SUM(RL_POWER_NO_OF_SAMPLES_DL_W))*1000)),3)</counter>
+          <counter alias="RL_POWER_SQ_SUM_DL_W" symmetrical="false">SUM(RL_POWER_SQ_SUM_DL_W)</counter>
+          <counter alias="RL_POWER_NO_OF_SAMPLES_DL_W" symmetrical="false">SUM(RL_POWER_NO_OF_SAMPLES_DL_W)</counter>
+          <counter alias="RL_POWER_NO_OF_OUTAGE_DL_W" symmetrical="false">SUM(RL_POWER_NO_OF_OUTAGE_DL_W)</counter>
+          <counter alias="UL_EDCH_HARQ_RETRANS_W" symmetrical="false">SUM(UL_EDCH_HARQ_RETRANS_W)</counter>
+          <counter alias="period_duration_sum" symmetrical="false">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RCOLPW</alias_name>
+    <ui_name>RCPM OLPC WCEL</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RCOLPW.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_AVERAGE_EBNO_W">
+    <formula>RCOLPW.UL_AVERAGE_EBNO_W</formula>
+    <kpi_info>
+      <title>UL_AVERAGE_EBNO_W (M1024C0)</title>
+      <use>The average uplink Eb/No, calculated as a weighted average from the Eb/No values reported by OLPC. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>ROUND(DECODE(NVL(SUM(UL_AVERAGE_EBNO_DENOM_W),0),0,0,10*(LOG(10,(SUM(POWER(10,(UL_AVERAGE_EBNO_W/10))*UL_AVERAGE_EBNO_DENOM_W)/SUM(UL_AVERAGE_EBNO_DENOM_W))))),0)</formula>
+      <unit>dB</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_AVERAGE_EBNO_W (M1024C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_AVERAGE_EBNO_DENOM_W">
+    <formula>RCOLPW.UL_AVERAGE_EBNO_DENOM_W</formula>
+    <kpi_info>
+      <title>UL_AVERAGE_EBNO_DENOM_W (M1024C1)</title>
+      <use>The number of Eb/No samples in the Average UL Eb/No counter. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_AVERAGE_EBNO_DENOM_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_AVERAGE_EBNO_DENOM_W (M1024C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_SUM_SQ_EBNO_W">
+    <formula>RCOLPW.UL_SUM_SQ_EBNO_W</formula>
+    <kpi_info>
+      <title>UL_SUM_SQ_EBNO_W (M1024C2)</title>
+      <use>The sum of Squared linear Eb/No values, calculated from the UL Eb/No values reported by OLPC. UPDATED: When OLPC reports an Eb/No value to L3 entity, for example when a DCH is modified or released.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_SUM_SQ_EBNO_W)</formula>
+      <unit>decimal</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_SUM_SQ_EBNO_W (M1024C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_NUM_EBNO_REPORTS_W">
+    <formula>RCOLPW.UL_NUM_EBNO_REPORTS_W</formula>
+    <kpi_info>
+      <title>UL_NUM_EBNO_REPORTS_W (M1024C3)</title>
+      <use>The UL Eb/No reports that L3 entity has received from the OLPC Controller. UPDATED: When OLPC reports an Eb/No value to L3 entity, for example when a DCH is modified or released.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_NUM_EBNO_REPORTS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_NUM_EBNO_REPORTS_W (M1024C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_CRC_OKS_W">
+    <formula>RCOLPW.UL_CRC_OKS_W</formula>
+    <kpi_info>
+      <title>UL_CRC_OKS_W (M1024C4)</title>
+      <use>The number of received transport blocks with CRC OK in the uplink. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_CRC_OKS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_CRC_OKS_W (M1024C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_CRC_NOKS_W">
+    <formula>RCOLPW.UL_CRC_NOKS_W</formula>
+    <kpi_info>
+      <title>UL_CRC_NOKS_W (M1024C5)</title>
+      <use>The number of transport blocks received with CRC NOK in the uplink. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_CRC_NOKS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_CRC_NOKS_W (M1024C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_SUM_SQ_BLER_W">
+    <formula>RCOLPW.UL_SUM_SQ_BLER_W</formula>
+    <kpi_info>
+      <title>UL_SUM_SQ_BLER_W (M1024C6)</title>
+      <use>The sum of squared BLER values, calculated from UL BLER values reported by OLPC. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_SUM_SQ_BLER_W)</formula>
+      <unit>decimal</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_SUM_SQ_BLER_W (M1024C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_NUM_BLER_REPORTS_W">
+    <formula>RCOLPW.UL_NUM_BLER_REPORTS_W</formula>
+    <kpi_info>
+      <title>UL_NUM_BLER_REPORTS_W (M1024C7)</title>
+      <use>The number of UL BLER reports received from OLPC. UPDATED: When OLPC reports measured data to L3 entity.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_NUM_BLER_REPORTS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_NUM_BLER_REPORTS_W (M1024C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_AVERAGE_BER_W">
+    <formula>RCOLPW.UL_AVERAGE_BER_W</formula>
+    <kpi_info>
+      <title>UL_AVERAGE_BER_W (M1024C8)</title>
+      <use>The average uplink BER, calculated as a weighted average from UL BER values reported by the OLPC controller that gets the BER estimate from the WBTS in the Frame Protocol data frame. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>ROUND(DECODE(NVL(SUM(UL_AVERAGE_BER_DENOM_W),0),0,0,SUM(UL_AVERAGE_BER_W*UL_AVERAGE_BER_DENOM_W)/SUM(UL_AVERAGE_BER_DENOM_W)),0)</formula>
+      <unit>decimal</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_AVERAGE_BER_W (M1024C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_AVERAGE_BER_DENOM_W">
+    <formula>RCOLPW.UL_AVERAGE_BER_DENOM_W</formula>
+    <kpi_info>
+      <title>UL_AVERAGE_BER_DENOM_W (M1024C9)</title>
+      <use>The number of BER samples in the Average BER counter. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_AVERAGE_BER_DENOM_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_AVERAGE_BER_DENOM_W (M1024C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_SUM_SQ_BER_W">
+    <formula>RCOLPW.UL_SUM_SQ_BER_W</formula>
+    <kpi_info>
+      <title>UL_SUM_SQ_BER_W (M1024C10)</title>
+      <use>The sum of squared UL BER values calculated by the OLPC controller. UPDATED: When OLPC reports a BER value to L3 entity, for example when a DCH is modified or released.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_SUM_SQ_BER_W)</formula>
+      <unit>decimal</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_SUM_SQ_BER_W (M1024C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_NUM_OF_BER_REPORTS_W">
+    <formula>RCOLPW.UL_NUM_OF_BER_REPORTS_W</formula>
+    <kpi_info>
+      <title>UL_NUM_OF_BER_REPORTS_W (M1024C11)</title>
+      <use>The number of UL BER reports received from OLPC. Updated only when BER is used as a quality estimate for UL OLPC. UPDATED: When OLPC reports a BER value to L3 entity, for example when a DCH is modified or released.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_NUM_OF_BER_REPORTS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_NUM_OF_BER_REPORTS_W (M1024C11)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_BAD_CONNECTIONS_W">
+    <formula>RCOLPW.UL_BAD_CONNECTIONS_W</formula>
+    <kpi_info>
+      <title>UL_BAD_CONNECTIONS_W (M1024C12)</title>
+      <use>The number of bad uplink connections. UPDATED: When the object is changed or removed (for example, when the connection is released or the RB is reconfigured) and if the ratio between the received transport blocks with CRC NOK and the total number of received transport blocks is the following: (CRC_nok
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_BAD_CONNECTIONS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_BAD_CONNECTIONS_W (M1024C12)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_IDEAL_CONNECTIONS_W">
+    <formula>RCOLPW.UL_IDEAL_CONNECTIONS_W</formula>
+    <kpi_info>
+      <title>UL_IDEAL_CONNECTIONS_W (M1024C13)</title>
+      <use>The number of ideal uplink connections. UPDATED: When the object is changed or removed (for example, when the connection is released or the RB is reconfigured) and neither of the equations presented in counters M1024C12 and M1024C14 is true.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_IDEAL_CONNECTIONS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_IDEAL_CONNECTIONS_W (M1024C13)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_TOO_GOOD_CONNECTIONS_W">
+    <formula>RCOLPW.UL_TOO_GOOD_CONNECTIONS_W</formula>
+    <kpi_info>
+      <title>UL_TOO_GOOD_CONNECTIONS_W (M1024C14)</title>
+      <use>The number of too good uplink connections. UPDATED: When the object is changed or removed (for example, when the connection is released or the RB is reconfigured) and if the ratio between the received transport blocks with CRC NOK and the total number of received transport blocks is the following: (CRC_nok
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_TOO_GOOD_CONNECTIONS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_TOO_GOOD_CONNECTIONS_W (M1024C14)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RL_POWER_SUM_DL_W">
+    <formula>RCOLPW.RL_POWER_SUM_DL_W</formula>
+    <kpi_info>
+      <title>RL_POWER_SUM_DL_W (M1024C15)</title>
+      <use>The average downlink transmission power of the radio links matching the RAB parameters of the measurement object. UPDATED: When NBAP: DEDICATED MEASUREMENT REPORT is received from the BTS.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>ROUND(DECODE(NVL(SUM(RL_POWER_NO_OF_SAMPLES_DL_W),0),0,0,10*LOG(10,(SUM(RL_POWER_NO_OF_SAMPLES_DL_W*(POWER(10,(RL_POWER_SUM_DL_W/10))/1000))/SUM(RL_POWER_NO_OF_SAMPLES_DL_W))*1000)),3)</formula>
+      <unit>dBm</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RL_POWER_SUM_DL_W (M1024C15)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RL_POWER_SQ_SUM_DL_W">
+    <formula>RCOLPW.RL_POWER_SQ_SUM_DL_W</formula>
+    <kpi_info>
+      <title>RL_POWER_SQ_SUM_DL_W (M1024C16)</title>
+      <use>The sum of the squared radio link power values in DL. UPDATED: When NBAP: DEDICATED MEASUREMENT REPORT is received from the BTS.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RL_POWER_SQ_SUM_DL_W)</formula>
+      <unit>watt^2</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RL_POWER_SQ_SUM_DL_W (M1024C16)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RL_POWER_NO_OF_SAMPLES_DL_W">
+    <formula>RCOLPW.RL_POWER_NO_OF_SAMPLES_DL_W</formula>
+    <kpi_info>
+      <title>RL_POWER_NO_OF_SAMPLES_DL_W (M1024C17)</title>
+      <use>The number of samples for the dedicated radio link power measurement counter M1024C15. UPDATED: When NBAP: DEDICATED MEASUREMENT REPORT is received from the BTS, this counter is updated by the number of samples used for M1024C15 calculation.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RL_POWER_NO_OF_SAMPLES_DL_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RL_POWER_NO_OF_SAMPLES_DL_W (M1024C17)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RL_POWER_NO_OF_OUTAGE_DL_W">
+    <formula>RCOLPW.RL_POWER_NO_OF_OUTAGE_DL_W</formula>
+    <kpi_info>
+      <title>RL_POWER_NO_OF_OUTAGE_DL_W (M1024C18)</title>
+      <use>The number of dedicated radio link reports received where transmission power is at the maximum value defined by the parameters PtxDLAbsMax and CPICHtoRefRABoffset. UPDATED: When NBAP: DEDICATED MEASUREMENT REPORT is received from the BTS.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(RL_POWER_NO_OF_OUTAGE_DL_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RL_POWER_NO_OF_OUTAGE_DL_W (M1024C18)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UL_EDCH_HARQ_RETRANS_W">
+    <formula>RCOLPW.UL_EDCH_HARQ_RETRANS_W</formula>
+    <kpi_info>
+      <title>UL_EDCH_HARQ_RETRANS_W (M1024C19)</title>
+      <use>The number of HARQ retransmissions reported by the BTS in E-DCH FP frames. UPDATED: When the UL Outer Loop PC Controller receives an activity report from the RNC OLPC Process.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UL_EDCH_HARQ_RETRANS_W)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UL_EDCH_HARQ_RETRANS_W (M1024C19)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>RCOLPW.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_rcolpw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_1103c">
+    <formula>100*decode(
+			(((traffic.allo_success_edch_int + 
+			traffic.allo_success_edch_bgr + 
+			traffic.allo_success_edch_str_1 + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_str_1 + 
+			traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr + 
+			traffic.ul_dch_sel_max_hsupa_usr_str_1 + 
+			traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr + 
+			traffic.ul_dch_sel_bts_hw_str_1 + 
+			traffic.setup_fail_edch_bts_int + 
+			traffic.setup_fail_edch_bts_bgr + 
+			traffic.setup_fail_edch_bts_str_1 + 
+			traffic.setup_fail_edch_other_int + 
+			traffic.setup_fail_edch_other_bgr + 
+			traffic.setup_fail_edch_other_str_1 + 
+			traffic.setup_fail_edch_trans_int + 
+			traffic.setup_fail_edch_trans_bgr + 
+			traffic.setup_fail_edch_trans_str_1 + 
+			traffic.setup_fail_edch_ue_int + 
+			traffic.setup_fail_edch_ue_bgr + 
+			traffic.setup_fail_edch_ue_str_1))),0,null, 
+
+			((traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.edch_allo_canc_na_as_str_1))
+			 / 
+			(((traffic.allo_success_edch_int + 
+			traffic.allo_success_edch_bgr + 
+			traffic.allo_success_edch_str_1 + 
+			traffic.edch_allo_canc_na_as_int + 
+			traffic.edch_allo_canc_na_as_bgr + 
+			traffic.edch_allo_canc_na_as_str_1 + 
+			traffic.ul_dch_sel_max_hsupa_usr_int + 
+			traffic.ul_dch_sel_max_hsupa_usr_bgr + 
+			traffic.ul_dch_sel_max_hsupa_usr_str_1 + 
+			traffic.ul_dch_sel_bts_hw_int + 
+			traffic.ul_dch_sel_bts_hw_bgr + 
+			traffic.ul_dch_sel_bts_hw_str_1 + 
+			traffic.setup_fail_edch_bts_int + 
+			traffic.setup_fail_edch_bts_bgr + 
+			traffic.setup_fail_edch_bts_str_1 + 
+			traffic.setup_fail_edch_other_int + 
+			traffic.setup_fail_edch_other_bgr + 
+			traffic.setup_fail_edch_other_str_1 + 
+			traffic.setup_fail_edch_trans_int + 
+			traffic.setup_fail_edch_trans_bgr + 
+			traffic.setup_fail_edch_trans_str_1 + 
+			traffic.setup_fail_edch_ue_int + 
+			traffic.setup_fail_edch_ue_bgr + 
+			traffic.setup_fail_edch_ue_str_1))))</formula>
+    <kpi_info>
+      <title><![CDATA[E-DCH Allocation FR due to NA AS]]></title>
+      <use><![CDATA[Percentage of times when E-DCH allocation made by the cell specific packet scheduler for a interactive, background and streaming class connection is cancelled due to non-acceptable E-DCH active set.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (edch_allo_canc_na_as_bgr + edch_allo_canc_na_as_int + edch_allo_canc_na_as_str)
+&lt;br&gt;100 * ------------------------------------------------------------------------------------
+&lt;br&gt;                                         sum (RNC_923c)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[E-DCH alloc due to NA AS]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

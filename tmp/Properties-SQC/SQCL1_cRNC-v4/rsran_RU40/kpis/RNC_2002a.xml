@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_2002a">
+    <formula>100*decode(
+			((SERVLEV.rab_act_comp_cs_conv + 
+			SERVLEV.rab_act_rel_cs_conv_srnc + 
+			SERVLEV.rab_act_rel_cs_conv_p_emp + 
+			servlev.rab_act_rel_cs_conv_hho_1 + 
+			servlev.rab_act_rel_cs_conv_isho_1 + 
+			SERVLEV.rab_act_fail_cs_conv_iu + 
+			SERVLEV.rab_act_fail_cs_conv_radio + 
+			SERVLEV.rab_act_fail_cs_conv_bts + 
+			SERVLEV.rab_act_fail_cs_conv_rnc + 
+			SERVLEV.rab_act_fail_cs_conv_iur + 
+			SERVLEV.rab_act_fail_cs_conv_ue + 
+			servlev.rab_act_fail_cs_conv_trans_1)),0,null, 
+
+			((servlev.rab_act_fail_cs_conv_trans_1))
+			 / 
+			((SERVLEV.rab_act_comp_cs_conv + 
+			SERVLEV.rab_act_rel_cs_conv_srnc + 
+			SERVLEV.rab_act_rel_cs_conv_p_emp + 
+			servlev.rab_act_rel_cs_conv_hho_1 + 
+			servlev.rab_act_rel_cs_conv_isho_1 + 
+			SERVLEV.rab_act_fail_cs_conv_iu + 
+			SERVLEV.rab_act_fail_cs_conv_radio + 
+			SERVLEV.rab_act_fail_cs_conv_bts + 
+			SERVLEV.rab_act_fail_cs_conv_rnc + 
+			SERVLEV.rab_act_fail_cs_conv_iur + 
+			SERVLEV.rab_act_fail_cs_conv_ue + 
+			servlev.rab_act_fail_cs_conv_trans_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Active FR for CS Conv due to Transmission]]></title>
+      <use><![CDATA[RAB active Failure Rate for CS Conv calls caused by Transmission.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (rab_act_fail_cs_conv_trans)
+&lt;br&gt;100 * -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (rab_act_comp_cs_conv + rab_act_rel_cs_conv_srnc + rab_act_rel_cs_conv_p_emp + rab_act_rel_cs_conv_hho + rab_act_rel_cs_conv_isho + rab_act_fail_cs_conv_iu + rab_act_fail_cs_conv_radio + rab_act_fail_cs_conv_bts + rab_act_fail_cs_conv_rnc + rab_act_fail_cs_conv_iur + rab_act_fail_cs_conv_ue + rab_act_fail_cs_conv_trans)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB act FR CS Conv Trans]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

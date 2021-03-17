@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CGRC.xml"/>
+  <kpi name="res_msc148b">
+    <formula>decode(
+			cgrc.cgrcgroup_nof_woex_crts_out,0,null,
+
+			100*(cgrc.cgrcgroup_erlangs_in_x_100 +
+			cgrc.cgrcgroup_erlangs_out_x_100)
+			 /
+			cgrc.cgrcgroup_nof_woex_crts_out)</formula>
+    <kpi_info>
+      <title><![CDATA[Average usage of available circuits for outgoing and bidirectional circuit groups ratio]]></title>
+      <use><![CDATA[Indicates the share of available circuits that have been busy during the period. This is applicable only for outgoing and bidirectional circuit groups, not for pure incoming circuit group.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          ( sum(
+&lt;br&gt;              cgrcgroup_erlangs_in_x_100
+&lt;br&gt;            + cgrcgroup_erlangs_out_x_100) / 100)
+&lt;br&gt;   100 * --------------------------------------------------------------
+&lt;br&gt;          sum(cgrcgroup_nof_woex_crts_out)
+&lt;br&gt;
+&lt;br&gt;Counters from views):
+&lt;br&gt;RNS_PS_CGR_{obj_agg}_{time_agg}
+&lt;br&gt;RNS_PS_CGRC_CDS_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Average usage of available circuits for outgoing and bidirectional circuit groups ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

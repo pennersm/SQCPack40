@@ -1,0 +1,738 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M15.1;M15.1IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M386 CSTS measurement dump</header>
+    <csv_title>NSN NSS M15.1;M15.1IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M386 CSTS measurement dump</csv_title>
+    <report-description>Call setup time and success measurement(CSTS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CSTS_LONG_SETUP_TIME/>
+    <CSTS_ALL_SUCC_SETUPS/>
+    <CSTS_LONG_SUCC_SETUPS/>
+    <CSTS_MIN_SUCC_SETUP_TIME/>
+    <CSTS_MAX_SUCC_SETUP_TIME/>
+    <CSTS_SUCC_SETUP_AVE/>
+    <CSTS_NORM_RL_ALL_UNSUCC_SETUPS/>
+    <CSTS_NORM_RL_LONG_UNSUCC_SETUP/>
+    <CSTS_NORM_RL_X_UNSUCC_SETUPTIM/>
+    <CSTS_NORM_RL_UNSUCC_SETUP_AVE/>
+    <CSTS_INTFAIL_ALL_UNSUCC_SETUP/>
+    <CSTS_INTFAIL_LONG_UNSUCC_SETUP/>
+    <CSTS_INTFAIL_X_UNSUCC_SETUPTIM/>
+    <CSTS_INT_FAIL_UNSUCC_SETUP_AVE/>
+    <CSTS_EXTFAIL_ALL_UNSUCC_SETUP/>
+    <CSTS_EXTFAIL_LONG_UNSUCC_SETUP/>
+    <CSTS_EXTFAIL_X_UNSUCC_SETUPTIM/>
+    <CSTS_EXT_FAIL_UNSUCC_SETUP_AVE/>
+    <CSTS_SUBSFAIL_ALL_UNSUCC_SETUP/>
+    <CSTS_SUBSFAIL_LONG_UNSUC_SETUP/>
+    <CSTS_SUBSFAIL_X_UNSUC_SETUPTIM/>
+    <CSTS_SUBSFAIL_UNSUCC_SETUP_AVE/>
+    <CSTS_DATA_PROV_RESTARTED/>
+    
+    <!-- M15.1 new counters -->
+    <CSTS_CSFB_SUCC_EVENTS/>
+    <CSTS_CSFB_SUCC_AVETIME_X100/>
+    <CSTS_CSFB_UNSUCC_EVENTS/>
+    <CSTS_CSFB_UNSUCC_AVETIME_X100/>
+    <!-- M15.1 new counters -->
+    
+    <!--<TCAT_TRAFFx100 />
+    <TC_PERIOD_DURATION/>-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC6" name="CSTS" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CSTS_LONG_SETUP_TIME" symmetrical="true">SUM(CSTS_LONG_SETUP_TIME)</counter>
+      <counter alias="CSTS_ALL_SUCC_SETUPS" symmetrical="true">SUM(CSTS_ALL_SUCC_SETUPS)</counter>
+      <counter alias="CSTS_LONG_SUCC_SETUPS" symmetrical="true">SUM(CSTS_LONG_SUCC_SETUPS)</counter>
+      <counter alias="CSTS_MIN_SUCC_SETUP_TIME" symmetrical="true">MIN(CSTS_MIN_SUCC_SETUP_TIME)</counter>
+      <counter alias="CSTS_MAX_SUCC_SETUP_TIME" symmetrical="true">MAX(CSTS_MAX_SUCC_SETUP_TIME)</counter>
+      <counter alias="CSTS_SUCC_SETUP_AVE" symmetrical="true">AVG(CSTS_SUCC_SETUP_AVE)</counter>
+      <counter alias="CSTS_NORM_RL_ALL_UNSUCC_SETUPS" symmetrical="true">SUM(CSTS_NORM_RL_ALL_UNSUCC_SETUPS)</counter>
+      <counter alias="CSTS_NORM_RL_LONG_UNSUCC_SETUP" symmetrical="true">SUM(CSTS_NORM_RL_LONG_UNSUCC_SETUP)</counter>
+      <counter alias="CSTS_NORM_RL_X_UNSUCC_SETUPTIM" symmetrical="true">MAX(CSTS_NORM_RL_X_UNSUCC_SETUPTIM)</counter>
+      <counter alias="CSTS_NORM_RL_UNSUCC_SETUP_AVE" symmetrical="true">AVG(CSTS_NORM_RL_UNSUCC_SETUP_AVE)</counter>
+      <counter alias="CSTS_INTFAIL_ALL_UNSUCC_SETUP" symmetrical="true">SUM(CSTS_INTFAIL_ALL_UNSUCC_SETUP)</counter>
+      <counter alias="CSTS_INTFAIL_LONG_UNSUCC_SETUP" symmetrical="true">SUM(CSTS_INTFAIL_LONG_UNSUCC_SETUP)</counter>
+      <counter alias="CSTS_INTFAIL_X_UNSUCC_SETUPTIM" symmetrical="true">MAX(CSTS_INTFAIL_X_UNSUCC_SETUPTIM)</counter>
+      <counter alias="CSTS_INT_FAIL_UNSUCC_SETUP_AVE" symmetrical="true">AVG(CSTS_INT_FAIL_UNSUCC_SETUP_AVE)</counter>
+      <counter alias="CSTS_EXTFAIL_ALL_UNSUCC_SETUP" symmetrical="true">SUM(CSTS_EXTFAIL_ALL_UNSUCC_SETUP)</counter>
+      <counter alias="CSTS_EXTFAIL_LONG_UNSUCC_SETUP" symmetrical="true">SUM(CSTS_EXTFAIL_LONG_UNSUCC_SETUP)</counter>
+      <counter alias="CSTS_EXTFAIL_X_UNSUCC_SETUPTIM" symmetrical="true">MAX(CSTS_EXTFAIL_X_UNSUCC_SETUPTIM)</counter>
+      <counter alias="CSTS_EXT_FAIL_UNSUCC_SETUP_AVE" symmetrical="true">AVG(CSTS_EXT_FAIL_UNSUCC_SETUP_AVE)</counter>
+      <counter alias="CSTS_SUBSFAIL_ALL_UNSUCC_SETUP" symmetrical="true">SUM(CSTS_SUBSFAIL_ALL_UNSUCC_SETUP)</counter>
+      <counter alias="CSTS_SUBSFAIL_LONG_UNSUC_SETUP" symmetrical="true">SUM(CSTS_SUBSFAIL_LONG_UNSUC_SETUP)</counter>
+      <counter alias="CSTS_SUBSFAIL_X_UNSUC_SETUPTIM" symmetrical="true">MAX(CSTS_SUBSFAIL_X_UNSUC_SETUPTIM)</counter>
+      <counter alias="CSTS_SUBSFAIL_UNSUCC_SETUP_AVE" symmetrical="true">AVG(CSTS_SUBSFAIL_UNSUCC_SETUP_AVE)</counter>
+      <counter alias="CSTS_DATA_PROV_RESTARTED" symmetrical="true">AVG(CSTS_DATA_PROV_RESTARTED)</counter>
+      
+      <!-- M15.1 new counters -->
+      <counter alias="CSTS_CSFB_SUCC_EVENTS" symmetrical="true">SUM(CSTS_CSFB_SUCC_EVENTS)</counter>
+      <counter alias="CSTS_CSFB_SUCC_AVETIME_X100" symmetrical="true">AVG(CSTS_CSFB_SUCC_AVETIME_X100)</counter>
+      <counter alias="CSTS_CSFB_UNSUCC_EVENTS" symmetrical="true">SUM(CSTS_CSFB_UNSUCC_EVENTS)</counter>
+      <counter alias="CSTS_CSFB_UNSUCC_AVETIME_X100" symmetrical="true">AVG(CSTS_CSFB_UNSUCC_AVETIME_X100)</counter>
+      <!-- M15.1 new counters -->
+      
+      <!--<counter alias="TCAT_TRAFFx100" timeagg="AVG(TCAT_TRAFFx100)">SUM(TCAT_TRAFFx100)</counter>
+      <counter alias="TC_PERIOD_DURATION">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CSTS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CSTS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_LONG_SETUP_TIME">
+    <formula>CSTS.CSTS_LONG_SETUP_TIME</formula>
+    <kpi_info>
+      <title>CSTS_LONG_SETUP_TIME</title>
+      <use>Long setup time is a PRFILE parameter which describes the time limit for the long call setups, that is,
+if the call setup time exceeds long setup time limit, it will be
+counted in M386B2C4 counter. The unit of time in ASCII report is seconds,
+in XML reports, it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_LONG_SETUP_TIME)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_LONG_SETUP_TIME (M386B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_ALL_SUCC_SETUPS">
+    <formula>CSTS.CSTS_ALL_SUCC_SETUPS</formula>
+    <kpi_info>
+      <title>CSTS_ALL_SUCC_SETUPS</title>
+      <use>Number of all successful setup attempts during the report period. The counter is updated when the signalling
+phase is ended, that is, before sending the ALERT message.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_ALL_SUCC_SETUPS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_ALL_SUCC_SETUPS (M386B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_LONG_SUCC_SETUPS">
+    <formula>CSTS.CSTS_LONG_SUCC_SETUPS</formula>
+    <kpi_info>
+      <title>CSTS_LONG_SUCC_SETUPS</title>
+      <use>Number of long successful setups when the setup time is over the time defined by the PRFILE parameter.
+The counter is updated when the signalling phase ends, that is before
+sending the ALERT message.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_LONG_SUCC_SETUPS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_LONG_SUCC_SETUPS (M386B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_MIN_SUCC_SETUP_TIME">
+    <formula>CSTS.CSTS_MIN_SUCC_SETUP_TIME</formula>
+    <kpi_info>
+      <title>CSTS_MIN_SUCC_SETUP_TIME</title>
+      <use>The shortest successful setup time in report period. The unit of time in ASCII report is seconds, in XML reports,
+it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MIN(CSTS_MIN_SUCC_SETUP_TIME)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_MIN_SUCC_SETUP_TIME (M386B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_MAX_SUCC_SETUP_TIME">
+    <formula>CSTS.CSTS_MAX_SUCC_SETUP_TIME</formula>
+    <kpi_info>
+      <title>CSTS_MAX_SUCC_SETUP_TIME</title>
+      <use>The longest successful setup time in the report period. The unit of time in ASCII report is seconds,
+in XML reports, it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CSTS_MAX_SUCC_SETUP_TIME)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_MAX_SUCC_SETUP_TIME (M386B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_SUCC_SETUP_AVE">
+    <formula>CSTS.CSTS_SUCC_SETUP_AVE</formula>
+    <kpi_info>
+      <title>CSTS_SUCC_SETUP_AVE</title>
+      <use>The longest successful setup time in the report period. The unit of time in ASCII report is seconds,
+in XML reports, it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_SUCC_SETUP_AVE)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_SUCC_SETUP_AVE (M386B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_NORM_RL_ALL_UNSUCC_SETUPS">
+    <formula>CSTS.CSTS_NORM_RL_ALL_UNSUCC_SETUPS</formula>
+    <kpi_info>
+      <title>CSTS_NORM_RL_ALL_UNSUCC_SETUPS</title>
+      <use>Number of failed call setup attempts that have terminated in a normal release. The counter
+is updated when the call is interrupted during the setup phase,
+and the clear code is in the range of 001-3FF. It means that the
+MSC either receives the CM_SERVICE_ABORT message, receives
+or sends the BSSAP RELEASE COMPLETE message, receives or sends the
+CC RELEASE COMPLETE message, or receives the ISUP Release Complete
+or the ISUP Release message from the other exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_NORM_RL_ALL_UNSUCC_SETUPS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_NORM_RL_ALL_UNSUCC_SETUPS (M386B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_NORM_RL_LONG_UNSUCC_SETUP">
+    <formula>CSTS.CSTS_NORM_RL_LONG_UNSUCC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_NORM_RL_LONG_UNSUCC_SETUP</title>
+      <use>Number of failed call setup attempts that have terminated in normal release, and the setup time is over
+the defined time by the LONG_SETUP_TIME PRFILE parameter. The
+counter is updated when the call is interrupted during the setup phase,
+and the clear code is in the range of 001-3FF. It means that the
+MSC either receives the CM_SERVICE_ABORT message, receives
+or sends the BSSAP RELEASE COMPLETE message, receives or sends the
+CC RELEASE COMPLETE message, or receives the ISUP Release Complete
+or the ISUP Release message from the other exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_NORM_RL_LONG_UNSUCC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_NORM_RL_LONG_UNSUCC_SETUP (M386B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_NORM_RL_X_UNSUCC_SETUPTIM">
+    <formula>CSTS.CSTS_NORM_RL_X_UNSUCC_SETUPTIM</formula>
+    <kpi_info>
+      <title>CSTS_NORM_RL_X_UNSUCC_SETUPTIM</title>
+      <use>The longest call setup time from the failed call setup attempts, which terminated in the normal release
+(where the clear code is in the range of 001-3FF). The unit of time
+in ASCII report is seconds, in XML reports, it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CSTS_NORM_RL_X_UNSUCC_SETUPTIM)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_NORM_RL_X_UNSUCC_SETUPTIM (M386B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_NORM_RL_UNSUCC_SETUP_AVE">
+    <formula>CSTS.CSTS_NORM_RL_UNSUCC_SETUP_AVE</formula>
+    <kpi_info>
+      <title>CSTS_NORM_RL_UNSUCC_SETUP_AVE</title>
+      <use>The average call setup time of the failed call setup attempts, which terminated in the normal release (where
+the clear code is in the range of 001-3FF). The unit of the average
+call setup time in ASCII report is seconds, in XML reports, it is
+10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_NORM_RL_UNSUCC_SETUP_AVE)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_NORM_RL_UNSUCC_SETUP_AVE (M386B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_INTFAIL_ALL_UNSUCC_SETUP">
+    <formula>CSTS.CSTS_INTFAIL_ALL_UNSUCC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_INTFAIL_ALL_UNSUCC_SETUP</title>
+      <use>Number of failed call setup attempts due to internal failure. The counter is updated when the call is
+interrupted during the setup phase, and the clear code is in the range
+of 400-7FF. It means that the MSC either receives the CM_SERVICE_ABORT
+message, receives or sends the BSSAP RELEASE COMPLETE message, receives
+or sends the CC RELEASE COMPLETE message, receives the ISUP Release Complete
+or the ISUP Release message from the other exchange, or sends the
+CLEAR COMMAND message to the MS.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_INTFAIL_ALL_UNSUCC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_INTFAIL_ALL_UNSUCC_SETUP (M386B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_INTFAIL_LONG_UNSUCC_SETUP">
+    <formula>CSTS.CSTS_INTFAIL_LONG_UNSUCC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_INTFAIL_LONG_UNSUCC_SETUP</title>
+      <use>Number of failed call setup attempts due to internal failure, and the call setup time is over the time
+defined by the LONG_SETUP_TIMEPRFILE parameter.
+The counter is updated when the call is interrupted during the setup
+phase, and the clear code is in the range of 400-7FF. It means that
+the MSC either receives the CM_SERVICE_ABORT message, receives
+or sends the BSSAPRELEASE COMPLETE message, receives or sends the CCRELEASE
+COMPLETE message, receives the ISUP Release Complete or the ISUP Release
+message from the other exchange, or sends the CLEAR COMMAND message
+to the MS.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_INTFAIL_LONG_UNSUCC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_INTFAIL_LONG_UNSUCC_SETUP (M386B2C15)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_INTFAIL_X_UNSUCC_SETUPTIM">
+    <formula>CSTS.CSTS_INTFAIL_X_UNSUCC_SETUPTIM</formula>
+    <kpi_info>
+      <title>CSTS_INTFAIL_X_UNSUCC_SETUPTIM</title>
+      <use>The longest call setup time in the report period for internal failure released connections. Clear code range
+for internal failure released connection: 400...7FF. The unit of time
+in ASCII report is seconds, and in XML reports, it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CSTS_INTFAIL_X_UNSUCC_SETUPTIM)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_INTFAIL_X_UNSUCC_SETUPTIM (M386B2C16)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_INT_FAIL_UNSUCC_SETUP_AVE">
+    <formula>CSTS.CSTS_INT_FAIL_UNSUCC_SETUP_AVE</formula>
+    <kpi_info>
+      <title>CSTS_INT_FAIL_UNSUCC_SETUP_AVE</title>
+      <use>The average time of the durations of the internal released connections during the period. Clear
+code range for internal failure released connection: 400...7FF.
+The unit of time in ASCII report is seconds, and in XML reports,
+it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_INT_FAIL_UNSUCC_SETUP_AVE)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_INT_FAIL_UNSUCC_SETUP_AVE (M386B2C17)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_EXTFAIL_ALL_UNSUCC_SETUP">
+    <formula>CSTS.CSTS_EXTFAIL_ALL_UNSUCC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_EXTFAIL_ALL_UNSUCC_SETUP</title>
+      <use>Number of failed call setup attempts due to external failure. The counter is updated when the call is
+interrupted during the setup phase, and the clear code is in the range
+of 800-BFF. It means that the MSC either receives the CM_SERVICE_ABORT
+message, receives or sends the BSSAP RELEASE COMPLETE message, receives
+or sends the CC RELEASE COMPLETE message, receives the ISUP Release Complete
+or the ISUP Release message from the other exchange, or sends the
+CLEAR COMMAND message to the MS.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_EXTFAIL_ALL_UNSUCC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_EXTFAIL_ALL_UNSUCC_SETUP (M386B2C18)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_EXTFAIL_LONG_UNSUCC_SETUP">
+    <formula>CSTS.CSTS_EXTFAIL_LONG_UNSUCC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_EXTFAIL_LONG_UNSUCC_SETUP</title>
+      <use>Number of failed call setup attempts due to external failure, and the call setup time is over the time
+defined by the LONG_SETUP_TIMEPRFILE parameter.
+The counter is updated when the call is interrupted during the setup
+phase, and the clear code is in the range of 800-BFF. It means that
+the MSC either receives the CM_SERVICE_ABORT message, receives
+or sends the BSSAPRELEASE COMPLETE message, receives or sends the CCRELEASE
+COMPLETE message, receives the ISUP Release Complete or the ISUP Release
+message from the other exchange, or sends the CLEAR COMMAND message
+to the MS.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_EXTFAIL_LONG_UNSUCC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_EXTFAIL_LONG_UNSUCC_SETUP (M386B2C20)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_EXTFAIL_X_UNSUCC_SETUPTIM">
+    <formula>CSTS.CSTS_EXTFAIL_X_UNSUCC_SETUPTIM</formula>
+    <kpi_info>
+      <title>CSTS_EXTFAIL_X_UNSUCC_SETUPTIM</title>
+      <use>The longest call setup time in report period for external failure released connections. Clear code range
+for internal failure released connection: 800...BFF. The unit of time
+in ASCII report is seconds, and in XML reports, it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CSTS_EXTFAIL_X_UNSUCC_SETUPTIM)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_EXTFAIL_X_UNSUCC_SETUPTIM (M386B2C21)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_EXT_FAIL_UNSUCC_SETUP_AVE">
+    <formula>CSTS.CSTS_EXT_FAIL_UNSUCC_SETUP_AVE</formula>
+    <kpi_info>
+      <title>CSTS_EXT_FAIL_UNSUCC_SETUP_AVE</title>
+      <use>The average call setup time of the durations of the external released connections during the period. Clear code
+range for internal failure released connection: 800...BFF. The unit
+of measure is seconds in ASCII reports and 10 milliseconds in XML
+reports.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_EXT_FAIL_UNSUCC_SETUP_AVE)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_EXT_FAIL_UNSUCC_SETUP_AVE (M386B2C22)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_SUBSFAIL_ALL_UNSUCC_SETUP">
+    <formula>CSTS.CSTS_SUBSFAIL_ALL_UNSUCC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_SUBSFAIL_ALL_UNSUCC_SETUP</title>
+      <use>Number of failed call setup attempts due to subscriber failure. The counter is updated when the call
+is interrupted during the setup phase, and the clear code is in
+the range of C00-FFF. It means that the MSC either receives the CM_SERVICE_ABORT
+message, receives or sends the BSSAP RELEASE COMPLETE message, receives
+or sends the CC RELEASE COMPLETE message, receives the ISUP Release Complete
+or the ISUP Release message from the other exchange, or sends the
+CLEAR COMMAND message to the MS.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_SUBSFAIL_ALL_UNSUCC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_SUBSFAIL_ALL_UNSUCC_SETUP (M386B2C23)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_SUBSFAIL_LONG_UNSUC_SETUP">
+    <formula>CSTS.CSTS_SUBSFAIL_LONG_UNSUC_SETUP</formula>
+    <kpi_info>
+      <title>CSTS_SUBSFAIL_LONG_UNSUC_SETUP</title>
+      <use>Number of failed call setup attempts due to subscriber failure, and the call setup time is over the defined
+time by the LONG_SETUP_TIMEPRFILE parameter. The
+counter is updated when the call is interrupted during the setup
+phase, and the clear code is in the range of C00-FFF. It means that
+the MSC receives the CM_SERVICE_ABORT message or
+receives or sends the BSSAPRELEASE COMPLETE message or receives
+or sends CC RELEASE COMPLETE message or receives the ISUP Release Complete
+or the ISUP Release message from the other exchange or sends the
+CLEAR COMMAND message to the MS.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_SUBSFAIL_LONG_UNSUC_SETUP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_SUBSFAIL_LONG_UNSUC_SETUP (M386B2C25)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_SUBSFAIL_X_UNSUC_SETUPTIM">
+    <formula>CSTS.CSTS_SUBSFAIL_X_UNSUC_SETUPTIM</formula>
+    <kpi_info>
+      <title>CSTS_SUBSFAIL_X_UNSUC_SETUPTIM</title>
+      <use>The longest call setup time in the report period for subscriber failure released connections. Clear code range
+for internal failure released connection: C00...FFF. The unit of time
+in ASCII report is seconds, in XML reports it is 10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CSTS_SUBSFAIL_X_UNSUC_SETUPTIM)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_SUBSFAIL_X_UNSUC_SETUPTIM (M386B2C26)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_SUBSFAIL_UNSUCC_SETUP_AVE">
+    <formula>CSTS.CSTS_SUBSFAIL_UNSUCC_SETUP_AVE</formula>
+    <kpi_info>
+      <title>CSTS_SUBSFAIL_UNSUCC_SETUP_AVE</title>
+      <use>The average call setup time of the durations of the subscriber released connections during the period. Clear
+code range for internal failure released connection: C00...FFF.
+The unit of time in ASCII report is seconds, in XML reports it is
+10 milliseconds.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_SUBSFAIL_UNSUCC_SETUP_AVE)</formula>
+      <unit>10 ms</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_SUBSFAIL_UNSUCC_SETUP_AVE (M386B2C27)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_DATA_PROV_RESTARTED">
+    <formula>CSTS.CSTS_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>CSTS_DATA_PROV_RESTARTED</title>
+      <use>If the result corruption flag is true, thismeans that the data provider in signalling unit or signalling unit(s) is
+restarted during the period. In this case, M386B2C30 counter is written
+(with value '1'). Otherwise, the counter is omitted.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_DATA_PROV_RESTARTED (M386B2C30)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  
+  <!-- M15.1 new counters -->
+  <kpi name="CSTS_CSFB_SUCC_EVENTS">
+    <formula>CSTS.CSTS_CSFB_SUCC_EVENTS</formula>
+    <kpi_info>
+      <title>CSTS_CSFB_SUCC_EVENTS</title>
+      <use>Number of successful CS fallback events from LTE to 2G/3G access</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_CSFB_SUCC_EVENTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_CSFB_SUCC_EVENTS (M386B2C31)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_CSFB_SUCC_AVETIME_X100">
+    <formula>CSTS.CSTS_CSFB_SUCC_AVETIME_X100</formula>
+    <kpi_info>
+      <title>CSTS_CSFB_SUCC_AVETIME_X100</title>
+      <use>Average duration of successful CS fallback events from LTE to 2G/3G access</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_CSFB_SUCC_AVETIME_X100)</formula>
+      <unit>Sec</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_CSFB_SUCC_AVETIME_X100 (M386B2C32)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_CSFB_UNSUCC_EVENTS">
+    <formula>CSTS.CSTS_CSFB_UNSUCC_EVENTS</formula>
+    <kpi_info>
+      <title>CSTS_CSFB_UNSUCC_EVENTS</title>
+      <use>Number of unsuccessful CS fallback events attempted from LTE to 2G/3G access</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CSTS_CSFB_UNSUCC_EVENTS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_CSFB_UNSUCC_EVENTS (M386B2C33)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CSTS_CSFB_UNSUCC_AVETIME_X100">
+    <formula>CSTS.CSTS_CSFB_UNSUCC_AVETIME_X100</formula>
+    <kpi_info>
+      <title>CSTS_CSFB_UNSUCC_AVETIME_X100</title>
+      <use>Average duration of unsuccessful CS fallback events from LTE to 2G/3G access</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CSTS_CSFB_UNSUCC_AVETIME_X100)</formula>
+      <unit>Sec</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CSTS_CSFB_UNSUCC_AVETIME_X100 (M386B2C34)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!-- M15.1 new counters -->
+  
+  <!--<kpi name="TCAT_TRAFFx100">
+    <formula>CSTS.TCAT_TRAFFx100</formula>
+    <kpi_info>
+      <title>TCAT_TRAFFx100</title>
+      <use>The amount of traffic in the traffic categoryin erlangs (0.0...999999.9). That means the total reservation time of
+the measured object in relation to the results accumulation period.The
+erlangs are calculated from circuit seizure to circuit release.
+In combination categories the erlang calculation starts when both
+circuits are seized. In combination categories the end point of
+erlang calculation is determined by the circuit that is released
+first.All of the circuit reservation time is updated
+in the results accumulation period in which the circuit is released (and
+in combination categories in the results accumulation period in
+which the first released circuit is released). For this reason remarkably
+large values in the ERLANGS field are possible in a case in which
+there are many calls that have started before the results accumulation
+period but that end in the results accumulation period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(TCAT_TRAFFx100)">SUM(TCAT_TRAFFx100)</formula>
+      <unit>Erl</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TCAT_TRAFFx100 (M20B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TC_PERIOD_DURATION">
+    <formula>CSTS.TC_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>TC_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-agg="SUM">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TC_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+</conf_file>

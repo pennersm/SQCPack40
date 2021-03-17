@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml">
+    <counters>
+      <counter alias="rnc_1101c">
+sum(REL_ALLO_NORM_HS_DSCH_STR + REL_ALLO_OTH_FAIL_HSDSCH_STR + REL_ALLO_RL_FAIL_HS_DSCH_STR)
+      </counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="RNC_1187c">
+    <formula>
+decode(traffic.rnc_1101c
+	,0, null,
+	100 * traffic.REL_ALLO_HS_DSCH_PRE_EMP_STR 
+	/
+	traffic.rnc_1101c
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[RT HS-DSCH Allocation Release Rate due to pre-emption]]></title>
+      <use><![CDATA[Percentage of HS-DSCH allocation releases due HSDPA releases due to pre-emption. From user point of view this can be also a failure. This KPI covers streaming class connections.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(REL_ALLO_HS_DSCH_PRE_EMP_STR)
+&lt;br&gt;-------------
+&lt;br&gt;RNC_1101c</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RT HS-DSCH ret FR,preEmp]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

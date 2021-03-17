@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml" />
+  <kpi name="msc_1309a">
+    <formula>decode(
+		(cgr.cgrcgroup_tfo_att_in +
+            cgr.cgrcgroup_tfo_att_out),0,null, 
+		(100*( cgr.cgrcgroup_tfo_succ_in +
+            cgr.cgrcgroup_tfo_succ_out ) /
+        ( cgr.cgrcgroup_tfo_att_in +
+            cgr.cgrcgroup_tfo_att_out )))</formula>
+    <kpi_info>
+      <title><![CDATA[TFO in CGRs success ratio]]></title>
+      <use><![CDATA[Indicates the TFO success ratio for BSC/PSTN circuit groups connected to the MSS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;        SUM( CGRCGROUP_TFO_SUCC_IN +
+&lt;br&gt;            CGRCGROUP_TFO_SUCC_OUT ) 
+&lt;br&gt; 100 *  ---------------------------- 
+&lt;br&gt;        SUM( CGRCGROUP_TFO_ATT_IN +
+&lt;br&gt;            CGRCGROUP_TFO_ATT_OUT )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>TFO SR (CGRs)</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

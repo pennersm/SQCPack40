@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1721a">
+    <formula>decode(
+			(pktcall.att_chan_swi_hs_dsch_to_dch),0,null, 
+
+			(100*(pktcall.succ_chan_swi_hs_dsch_to_dch)
+			 / 
+			(pktcall.att_chan_swi_hs_dsch_to_dch)))</formula>
+    <kpi_info>
+      <title><![CDATA[Channel Switch Success Ratio - HS-DSCH to DCH]]></title>
+      <use><![CDATA[This KPI provides information about the channel switches success ratio from HS-DSCH to DCH.  It only covers RRC Signalling phase, providing no information about resource allocations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(SUCC_CHAN_SWI_HS_DSCH_TO_DCH)
+&lt;br&gt;---------------------
+&lt;br&gt;SUM(ATT_CHAN_SWI_HS_DSCH_TO_DCH)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SWI HS-DSCH to DCH SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

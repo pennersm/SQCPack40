@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLR.xml"/>
+  <kpi name="LTE_235a">
+    <formula>decode(
+			((lcellr.mean_avail_ul_prb_tti_ue)),0,null, 
+
+			(100*(lcellr.mean_alloc_ul_prb_tti_ue))
+			 / 
+			((lcellr.mean_avail_ul_prb_tti_ue)))</formula>
+    <kpi_info>
+      <title><![CDATA[UL PRB Usage ratio p TTI p UE]]></title>
+      <use><![CDATA[This KPI provides the percentage of available Physical Resource Block (PRB) in Uplink  per TTI per UE that were allocated per TTI per UE.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>100*            sum( MEAN_ALLOC_UL_PRB_TTI_UE )
+&lt;br&gt;                  ---------------------------------
+&lt;br&gt;                  sum( MEAN_AVAIL_UL_PRB_TTI_UE)
+&lt;br&gt;
+&lt;br&gt;null</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[UL PRB Usage Rate p TTI p UE]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

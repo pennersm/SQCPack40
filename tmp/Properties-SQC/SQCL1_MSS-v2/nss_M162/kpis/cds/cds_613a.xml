@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/cds/CGRC_ext.xml"/>
+  <kpi name="cds_613a">
+    <formula>100*decode(
+			CGRC_ext.MSC612C_DEN,0,null,
+
+			CGRC_ext.MSC612C_NUM
+
+
+
+			 /
+			CGRC_ext.MSC612C_DEN
+
+
+			)</formula>
+    <kpi_info>
+      <title><![CDATA[Carried traffic ratio - Nbr of provided circuits comparision]]></title>
+      <use><![CDATA[Traffic load ratio for incoming and outgoing sides - comparision analysis is made against the total number of provided circuits. Same KPI as msc_612e.
+      This KPI reference is now only for the CDS NE usage. This new KPI ID reference is to to be used starting from M15.1 report sets.]]></use>
+
+		<use_experience><![CDATA[<br>NetAct pre-aggregation of the counters: (CGRCGROUP_ERLANGS_IN_x_100) + (CGRCGROUP_ERLANGS_OUT_x_100) + (CGRCGROUP_NOF_CIRCUITS) => TIME aggregated data defined as AVG and NETWORK/OBJECT aggregated data defined as SUM
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: CDS; CGRDIR
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+		<br>
+		<br>]]>
+		</use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+		<formula>&lt;br&gt;For OBJECT and CGRDIR level =&gt; considering NetAct pre-aggregation level calculations:
+		&lt;br&gt;        ( SUM( nvl(CGRCGROUP_ERLANGS_IN_x_100,0) + nvl(CGRCGROUP_ERLANGS_OUT_x_100,0) ) / 100 )
+		&lt;br&gt;100 * ----------------------------------------------------------------------------------
+		&lt;br&gt;          SUM( CGRCGROUP_NOF_CIRCUITS )
+		&lt;br&gt;
+		&lt;br&gt;
+		&lt;br&gt;For TIME and CGRDIR level =&gt; considering NetAct pre-aggregation level calculations:
+		&lt;br&gt;        ( AVG( nvl(CGRCGROUP_ERLANGS_IN_x_100,0) + nvl(CGRCGROUP_ERLANGS_OUT_x_100,0) ) / 100 )
+		&lt;br&gt;100 * ----------------------------------------------------------------------------------
+		&lt;br&gt;          AVG( CGRCGROUP_NOF_CIRCUITS )
+		&lt;br&gt;
+		&lt;br&gt;Counters from AGGREGATED table view(s):
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_cgrc_cds_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Carried traff ratio - Nbr Circ</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

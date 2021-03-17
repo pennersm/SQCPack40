@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml" />
+  <temp_table_ref src="rssaegw/counters/IPtra.xml" />
+  <temp_table_ref src="rssaegw/counters/GREtun.xml" />
+  <temp_table_ref src="rssaegw/counters/URPL.xml" />
+  <kpi name="flng_5016e">
+  <formula>decode(
+			((nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_2G,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_3G,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_LTE,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_UNKN,0) + 
+			nvl(IPtra.IPV4_TPDU_PACKETS_RECEIVED,0) + 
+			nvl(IPtra.IPV6_TPDU_PACKETS_RECEIVED,0) + 
+			nvl(GREtun.GRE_TUN_PMIP_IPV4_PACKETS_RX,0) + 
+			nvl(GREtun.GRE_TUN_PMIP_IPV6_PACKETS_RX,0))),0,NULL, 
+
+			(((nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_2G,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_3G,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_LTE,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_UNKN,0) + 
+			nvl(IPtra.IPV4_TPDU_PACKETS_RECEIVED,0) + 
+			nvl(IPtra.IPV6_TPDU_PACKETS_RECEIVED,0) + 
+			nvl(GREtun.GRE_TUN_PMIP_IPV4_PACKETS_RX,0) + 
+			nvl(GREtun.GRE_TUN_PMIP_IPV6_PACKETS_RX,0)) - 
+			(URPL.UP_PKTS_DROPPED +
+			nvl(URPL.UPLINK_DROP_FORGED_UE_SRC_ADDR,0) +
+			nvl(URPL.UP_DROP_PKTS_BLOCKING_FLAG_SET,0) + 
+			nvl(URPL.PKTS_DROPPED_MAX_FLOW_REACHED,0) )))
+			 / 
+			((nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_2G,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_3G,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_LTE,0) + 
+			nvl(GTPU.GTPU_GPDU_PKTS_RECV_RAT_UNKN,0) + 
+			nvl(IPtra.IPV4_TPDU_PACKETS_RECEIVED,0) + 
+			nvl(IPtra.IPV6_TPDU_PACKETS_RECEIVED,0) + 
+			nvl(GREtun.GRE_TUN_PMIP_IPV4_PACKETS_RX,0) + 
+			nvl(GREtun.GRE_TUN_PMIP_IPV6_PACKETS_RX,0))))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Packet forwarding success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of packet forwarding.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum( (GTPU_GPDU_PKTS_RECV_RAT_2G +
+&lt;br&gt;   GTPU_GPDU_PKTS_RECV_RAT_3G +
+&lt;br&gt;   GTPU_GPDU_PKTS_RECV_LTE +
+&lt;br&gt;   GTPU_GPDU_PKTS_RECV_RAT_UNKN +
+&lt;br&gt;   IPV4_TPDU_PACKETS_RECEIVED +
+&lt;br&gt;   IPV6_TPDU_PACKETS_RECEIVED +
+&lt;br&gt;   GRE_TUN_PMIP_IPV4_PACKETS_RX +
+&lt;br&gt;   GRE_TUN_PMIP_IPV6_PACKETS_RX) -
+&lt;br&gt;   (UP_PKTS_DROPPED + 
+&lt;br&gt;    UPLINK_DROP_FORGED_UE_SRC_ADDR + 
+&lt;br&gt;    UP_DROP_PKTS_BLOCKING_FLAG_SET +
+&lt;br&gt;    PKTS_DROPPED_MAX_FLOW_REACHED) )
+&lt;br&gt;--------------------------------------- *100
+&lt;br&gt;sum(GTPU_GPDU_PKTS_RECV_RAT_2G +
+&lt;br&gt;   GTPU_GPDU_PKTS_RECV_RAT_3G +
+&lt;br&gt;   GTPU_GPDU_PKTS_RECV_LTE +
+&lt;br&gt;   GTPU_GPDU_PKTS_RECV_RAT_UNKN +
+&lt;br&gt;   IPV4_TPDU_PACKETS_RECEIVED +
+&lt;br&gt;   IPV6_TPDU_PACKETS_RECEIVED +
+&lt;br&gt;   GRE_TUN_PMIP_IPV4_PACKETS_RX +
+&lt;br&gt;   GRE_TUN_PMIP_IPV6_PACKETS_RX)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG},PCOFNG_PS_IPTRA_{OBJ_AGG}_{TIME_AGG},PCOFNG_PS_GRETUN_{OBJ_AGG}_{TIME_AGG},PCOFNG_PS_URPL_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/24 14:41:18.728 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Packet forwarding SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

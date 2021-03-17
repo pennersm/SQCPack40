@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <temp_table_ref src="nss/counters/VLR1MSC.xml">
+    <counters>
+      <!-- mob_vlr40c -->
+      <counter alias="mob_vlr40c">
+		sum(intravlrintraplmnhsgsmattempt + 
+			intravlrintraplmnrsgsmattempt + 
+			intravlrinterplmnhsgsmattempt + 
+			intravlrinterplmnrsgsmattempt + 
+			periodiclocreggsmattempt)
+	  </counter>
+	  <!-- msc_433b -->
+      <counter alias="msc_433b">
+		sum(intravlrintraplmnhsumtsattempt + 
+			intravlrintraplmnrsumtsattempt + 
+			intravlrinterplmnhsumtsattempt + 
+			intravlrinterplmnrsumtsattempt + 
+			periodiclocregumtsattempt)
+	  </counter>
+    </counters>
+  </temp_table_ref>
+  
+  <kpi name="msc_487b">
+    <formula>decode(
+			(vlr1msc.mob_vlr40c + 
+			vlr1msc.msc_433b),0,null, 
+
+			(100*(vlr1msc.intravlrintraplmnhsgsmsucc + 
+			vlr1msc.intravlrintraplmnrsgsmsucc + 
+			vlr1msc.intravlrinterplmnhsgsmsucc + 
+			vlr1msc.intravlrinterplmnrsgsmsucc + 
+			vlr1msc.periodiclocreggsmsucc + 
+			vlr1msc.intravlrintraplmnhsumtssucc + 
+			vlr1msc.intravlrintraplmnrsumtssucc + 
+			vlr1msc.intravlrinterplmnhsumtssucc + 
+			vlr1msc.intravlrinterplmnrsumtssucc + 
+			vlr1msc.periodiclocregumtssucc)
+			 / 
+			(vlr1msc.mob_vlr40c + 
+			vlr1msc.msc_433b)))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra-VLR LU success ratio in the target VLR (GSM and UMTS)]]></title>
+      <use><![CDATA[Indicates success ratio of  location updates inside of VLR. Periodic location updates are included. For GSM and UMTS]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      sum(
+&lt;br&gt;           IntraVLRIntraPLMNHSGSMSucc
+&lt;br&gt;         + IntraVLRIntraPLMNRSGSMSucc 
+&lt;br&gt;         + IntraVLRInterPLMNHSGSMSucc
+&lt;br&gt;         + IntraVLRInterPLMNRSGSMSucc
+&lt;br&gt;         + PeriodicLocRegGSMSucc) 
+&lt;br&gt;      +sum(
+&lt;br&gt;           IntraVLRIntraPLMNHSUMTSSucc
+&lt;br&gt;         + IntraVLRIntraPLMNRSUMTSSucc 
+&lt;br&gt;         + IntraVLRInterPLMNHSUMTSSucc
+&lt;br&gt;         + IntraVLRInterPLMNRSUMTSSucc
+&lt;br&gt;         + PeriodicLocRegUMTSSucc)
+&lt;br&gt;100 * -----------------------------------------------------------------
+&lt;br&gt;                                mob_vlr40c + msc_433b
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, 
+&lt;br&gt;BH Counters from view(s):
+&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Intra-VLR LU success ratio in the target VLR (GSM and UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

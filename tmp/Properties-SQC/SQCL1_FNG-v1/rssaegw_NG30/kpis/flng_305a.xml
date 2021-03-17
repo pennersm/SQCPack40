@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/RADIUS.xml"/>
+  <kpi name="flng_305a">
+    <formula>decode(
+			((RADIUS.radius_auth_req_sent)),0,NULL, 
+
+			((RADIUS.radius_auth_resp_rec))
+			 / 
+			((RADIUS.radius_auth_req_sent)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[RADIUS Authentication success ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of accepted authentications (Access-Accept) received when compared to the authentication request messages (Access-Request) sent to RADIUS server.
+RADIUS server sends an Access-Accept message back to Flexi NG in case user authentication is successful.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (radius_auth_resp_rec)
+&lt;br&gt;-------------------------- * 100
+&lt;br&gt;sum (radius_auth_req_sent)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_RADIUS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RADIUS Auth SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

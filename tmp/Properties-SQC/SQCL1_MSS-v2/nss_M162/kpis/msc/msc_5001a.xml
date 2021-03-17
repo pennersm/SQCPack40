@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/SERVI.xml" />
+  <kpi name="msc_5001a">
+    <formula>MAX( servi.MSCSSM_USAGE )</formula>
+    <kpi_info>
+      <title><![CDATA[Mobile Terminated Short Message Service in the Busy Hour]]></title>
+      <use><![CDATA[Mobile-terminated short message service during the busy hour.]]></use>
+
+<use_experience><![CDATA[
+<br> BH is found when MAX of AVG (MSCSSM_USAGE) gets its greatest value
+<br>
+<br>This KPI provides the MAX ( SUM over SMS MT SERVICE [MSCSSM_USAGE] ) for the BH
+<br>
+<br>RAW tables must be used since the NetAct aggregated tables provide SUM for (TIME) + (OBJECT / NETWORK) levels
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PLMN-MSC
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Service measurement report (128/80H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;MAX ( MSCSSM_USAGE )
+&lt;br&gt; 
+&lt;br&gt;Counter from RAW view(s)
+&lt;br&gt;
+&lt;br&gt;;WHERE service = SHORT MESSAGE MT VMSC = Service ID = T21/95H
+&lt;br&gt;;For the BH
+&lt;br&gt;
+&lt;br&gt;Counters from measure:
+&lt;br&gt;M128/80H</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mob Ter Shrt Msg Serv BsyHor</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

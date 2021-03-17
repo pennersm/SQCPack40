@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/MGWTCV_ext.xml" />
+  <kpi name="msc_2093a">
+    <formula>
+decode(MGWTCV_ext.mgwtcat_call_attempts_3,0,null,
+	100 * (MGWTCV_ext.mgwtcat_call_attempts_ring_3 / MGWTCV_ext.mgwtcat_call_attempts_3)
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Virtual MGW Video Call Success Ratio]]></title>
+      <use><![CDATA[Video call success ratio for a given Virtual MGW.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_ids:
+<br>
+<br>63 -> Originated Video calls
+<br>65 -> Incoming Video calls
+<br>
+<br>This KPI is restricted to be used at the (MSC->PMGW->) VMGW level. The inter-MGW calls are counted in the INCOMING counters. If used to upper MSC or PMGW levels, this KPI will not provide valid values because it will make a double count.
+<br>
+<br>PUBLISHED: M15.0
+<br>
+<br>LAST UPDATE: 26-04-2011
+<br>
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC -> PMGW -> VMGW 
+<br>
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: VMGW
+<br>
+<br>
+<br>KPI CLASS: Traffic
+<br>
+<br>MEASUREMENT(S): MGW Traffic Category measurement (M395/18BH)  
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;           SUM( MGWTCAT_CALL_ATTEMPTS_RINGING )
+&lt;br&gt;100 * ( ------------------------------------------ )
+&lt;br&gt;           SUM( MGWTCAT_CALL_ATTEMPTS )
+&lt;br&gt;
+&lt;br&gt;   ;WHERE traffic_category_id = 63, 65
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_MGWTCV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>VMGW Video Call SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

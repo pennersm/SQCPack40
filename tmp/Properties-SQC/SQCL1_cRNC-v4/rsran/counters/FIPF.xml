@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>FIPF (FTM IP Filtering)</header>
+    <csv_title>FIPF (FTM IP Filtering)</csv_title>
+    <report-description>FTM IP Filtering</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ifIpDroppedPacketsRateLimiting />
+    <ifIpDroppedPacketsFiltering />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FIPF" meas_level="PLMN/RNC/WBTS/FTM/IPNO/IPRM" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ifIpDroppedPacketsRateLimiting">SUM(ifIpDroppedPacketsRateLimiting)</counter>
+      <counter alias="ifIpDroppedPacketsFiltering">SUM(ifIpDroppedPacketsFiltering)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fipf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FIPF</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FIPF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpDroppedPacketsRateLimiting">
+    <formula>FIPF.ifIpDroppedPacketsRateLimiting</formula>
+    <kpi_info>
+      <title>ifIpDroppedPacketsRateLimiting</title>
+      <use>The number of dropped packets due to rate limiting. UPDATED: The counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpDroppedPacketsRateLimiting)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpDroppedPacketsRateLimiting (M5133C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ifIpDroppedPacketsFiltering">
+    <formula>FIPF.ifIpDroppedPacketsFiltering</formula>
+    <kpi_info>
+      <title>ifIpDroppedPacketsFiltering</title>
+      <use>The number of packets discarded due filter violations. UPDATED: The counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ifIpDroppedPacketsFiltering)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ifIpDroppedPacketsFiltering (M5133C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FIPF.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fipf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

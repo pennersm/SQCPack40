@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUDA.xml"/>
+  <kpi name="sgsn_2015a">
+    <formula>decode(
+			((DATA.period_duration*60)),0,NULL, 
+
+			( 8*( (DATA.gtp_data_in_bytes_sent_in_dl + 4294967296*DATA.gtp_data_bytes_sent_in_dl_ofl) - 
+			(nvl(IUDA.iu_gtp_bytes_sent_in_dl + 4294967296*IUDA.iu_gtp_bytes_sent_in_dl_ofl,0)) )
+			 / 
+			(DATA.period_duration*60*1048576)) )</formula>
+    <kpi_info>
+      <title><![CDATA[DL GTP throughput, Gb]]></title>
+      <use><![CDATA[This KPI shows the average downlink GTP throughput going to Gb interface]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      8 * sgsn_912a
+&lt;br&gt;--------------------------
+&lt;br&gt;sum (period_duration * 60)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>RSG_PS_DATA_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gb GTP DL throughput, e2e]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

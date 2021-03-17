@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/HSDPAW.xml" />
+	<kpi name="RNC_635b">
+		<formula>
+			100*(decode(hsdpaw.orig_trans_1_code_qpsk,0,null,hsdpaw.retrans_1_code_qpsk/hsdpaw.orig_trans_1_code_qpsk))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average MAC-hs retransmissions, QPSK, 1 code]]>
+			</title>
+			<use>
+				<![CDATA[The average number of retransmissions required to send a MAC-hs PDU using the given code and modulation.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * sum(RETRANS_1_CODE_QPSK)
+--------------------------------------------------
+sum(ORIG_TRANS_1_CODE_QPSK)
+     			</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_hsdpaw_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average MAC-hs retransmissions, QPSK, 1 code]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

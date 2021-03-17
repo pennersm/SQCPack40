@@ -1,0 +1,268 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M25 DTD measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M25 DTD measurement dump</csv_title>
+    <report-description>Number destination to number destination measurement(DTD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <DTD_CALLS/>
+    <DTD_ACCEP/>
+    <DTD_ANSW/>
+    <DTD_SFAIL/>
+    <DTD_IFAIL/>
+    <DTD_EFAIL/>
+    <DTD_ERLANGS/>
+    <DTD_INVALID_RECORD/>
+    <DTD_OVERL_CNTRL_ACTIVE/>
+    <DTD_DATA_PROV_RESTARTED/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/OUTDEST" name="DTD" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="DTD_CALLS">SUM(DTD_CALLS)</counter>
+      <counter alias="DTD_ACCEP">SUM(DTD_ACCEP)</counter>
+      <counter alias="DTD_ANSW">SUM(DTD_ANSW)</counter>
+      <counter alias="DTD_SFAIL">SUM(DTD_SFAIL)</counter>
+      <counter alias="DTD_IFAIL">SUM(DTD_IFAIL)</counter>
+      <counter alias="DTD_EFAIL">SUM(DTD_EFAIL)</counter>
+      <counter alias="DTD_ERLANGS">SUM(DTD_ERLANGS)</counter>
+      <counter alias="DTD_INVALID_RECORD">AVG(DTD_INVALID_RECORD)</counter>
+      <counter alias="DTD_OVERL_CNTRL_ACTIVE">AVG(DTD_OVERL_CNTRL_ACTIVE)</counter>
+      <counter alias="DTD_DATA_PROV_RESTARTED">AVG(DTD_DATA_PROV_RESTARTED)</counter>
+    </counters>
+    <table_name>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DTD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DTD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_CALLS">
+    <formula>DTD.DTD_CALLS</formula>
+    <kpi_info>
+      <title>DTD_CALLS</title>
+      <use>Number of call attempts (0...9999999).Thefield is updated when the first circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DTD_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_CALLS (M25B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_ACCEP">
+    <formula>DTD.DTD_ACCEP</formula>
+    <kpi_info>
+      <title>DTD_ACCEP</title>
+      <use>Number of successful call attempts, clearcodes 0...3FF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DTD_ACCEP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_ACCEP (M25B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_ANSW">
+    <formula>DTD.DTD_ANSW</formula>
+    <kpi_info>
+      <title>DTD_ANSW</title>
+      <use>The number of call attempts (0...999999) that have reached the conversation state.The field
+is updated when the first circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DTD_ANSW)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_ANSW (M25B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_SFAIL">
+    <formula>DTD.DTD_SFAIL</formula>
+    <kpi_info>
+      <title>DTD_SFAIL</title>
+      <use>Number of failed call attempts that have terminated in a subscriber error, clear codes C00...FFF.The
+field is updated when the first circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DTD_SFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_SFAIL (M25B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_IFAIL">
+    <formula>DTD.DTD_IFAIL</formula>
+    <kpi_info>
+      <title>DTD_IFAIL</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in an error in the home exchange, clear codes
+400...7FF.The field is updated when the first circuit
+is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DTD_IFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_IFAIL (M25B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_EFAIL">
+    <formula>DTD.DTD_EFAIL</formula>
+    <kpi_info>
+      <title>DTD_EFAIL</title>
+      <use>Number of failed call attempts (0...65535) that have terminated in an error in the trunk circuit, clear codes 800...BFF.The
+field is updated when the first circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DTD_EFAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_EFAIL (M25B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_ERLANGS">
+    <formula>DTD.DTD_ERLANGS</formula>
+    <kpi_info>
+      <title>DTD_ERLANGS</title>
+      <use>Calculation is started when the incomingnumber and the outgoing number are known. Calculation is stopped
+when the circuit is released.The amount of traffic
+measured from number destination to number destination in erlangs.
+That means the total reservation time of the measured object in
+relation to the results accumulation period.The erlang
+calculation starts when both circuits are seized. The end point
+of erlang calculation is determined by the circuit that is released
+first.All of the circuit reservation time is updated
+in the results accumulation period in which the first released circuit
+is released. For this reason remarkably large values in the ERLANGS
+field are possible if there are many calls that have started before
+the results accumulation period but end in the results accumulation
+period.CODING: DW (value is multiplied by 100)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula timeagg="AVG(DTD_ERLANGS)">SUM(DTD_ERLANGS)</formula>
+      <unit>Erl</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_ERLANGS (M25B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_INVALID_RECORD">
+    <formula>DTD.DTD_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>DTD_INVALID_RECORD</title>
+      <use>The tag appears at the end of the givencounter group with field value 1 when the actual record is invalid
+or if the destination information is corrupted.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(DTD_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_INVALID_RECORD (M25B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_OVERL_CNTRL_ACTIVE">
+    <formula>DTD.DTD_OVERL_CNTRL_ACTIVE</formula>
+    <kpi_info>
+      <title>DTD_OVERL_CNTRL_ACTIVE</title>
+      <use>This tag appears at the end of the givencounter group if the field value is 10 (In this case the Automatic Overload
+Control of Statistics has been activated).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(DTD_OVERL_CNTRL_ACTIVE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_OVERL_CNTRL_ACTIVE (M25B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DTD_DATA_PROV_RESTARTED">
+    <formula>DTD.DTD_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>DTD_DATA_PROV_RESTARTED</title>
+      <use>Tag appears with value 1 when the dataprovider in the signalling unit or the signalling unit(s) is restarted during
+the period and data might not be reliable.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(DTD_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_dtd_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DTD_DATA_PROV_RESTARTED (M25B2C15)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

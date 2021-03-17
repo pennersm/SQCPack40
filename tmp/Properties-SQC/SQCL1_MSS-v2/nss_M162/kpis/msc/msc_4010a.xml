@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4010a">
+    <formula>
+decode(TC_ext.tcat_call_amount_35,0,null,
+	100 * ( TC_ext.tcat_group3_1 / TC_ext.tcat_call_amount_35 )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[External Congestion and Technical Irregularities Release Ratio]]></title>
+      <use><![CDATA[This KPI indicates the ratio of calls that are released because of external congestion or external technical irregularities.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_Ids:
+<br>   46 = OUTNOHO = Outgoing traffic without HO
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC - TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;External Congestion and Technical Irregularities Release Ratio&quot; KPI.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;              TCAT_GROUP3   ;WHERE Tcat_ID = 46
+&lt;br&gt;KPI= 100 * --------------------
+&lt;br&gt;              TCAT_CALL_AMOUNT   ;WHERE Tcat_ID = 46
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;GROUP3 clear codes: 800-BFF = External congestion clear codes</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Ext Cong Tech Irr RlsRto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

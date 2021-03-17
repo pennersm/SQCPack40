@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ACHDEST.xml"/>
+  <kpi name="hlr_450a">
+    <formula>100*decode(
+			ACHDEST.NUMBEROFREQUESTS,0,null, 
+
+			ACHDEST.NUMBEROFANSWERED
+			 / 
+			ACHDEST.NUMBEROFREQUESTS)</formula>
+    <kpi_info>
+      <title><![CDATA[Authentication request answer ratio per DEST]]></title>
+      <use><![CDATA[The KPI indicates authentication request answer rate per DEST.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_524c KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: PLMN->HLR->DEST
+	  <br>KPI CLASS: Security
+	  <br>MEASUREMENT(S): AC measurement in HLR (M87)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+		<formula>
+		&lt;br&gt;  sum (numberOfAnswered) 
+		&lt;br&gt;---------------------------------------------------- * 100
+		&lt;br&gt;  sum (numberOfRequests)
+		&lt;br&gt;
+		&lt;br&gt;Counters from views:
+		&lt;br&gt;RNS_PS_ACHDEST_HLR_{time_agg}
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_achdest_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Auth req answ ratio DEST]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

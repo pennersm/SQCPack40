@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPC.xml" />
+  <temp_table_ref src="rssaegw/counters/GTPCCRS.xml" />
+  <kpi name="flng_685a">
+    <formula>decode(
+			gtpc.GTPC_CREATE_REQ_RECV,0,null,
+
+			(gtpccrs.GTPC_CREATE_RESP_SENT
+			/ 
+			gtpc.GTPC_CREATE_REQ_RECV))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create PDP context response sent / request received ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 create PDP context response messages sent as response to the create PDP context request messages received (including retransmissions).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.GTPC_CREATE_RESP_SENT)
+&lt;br&gt;------------------------------ *100
+&lt;br&gt;sum(a.GTPC_CREATE_REQ_RECV)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v1 
+&lt;br&gt;b = GTP-C v1 Create Response sent</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCCRS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:26.281 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW001.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Cre PDP resp sent/req rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

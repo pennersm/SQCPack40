@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia SGSN  PAUS measurement dump</header>
+    <csv_title>Nokia SGSN  PAUS measurement dump</csv_title>
+    <report-description>PAPU user measurement(PAUS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="PAUS_ext" meas_level="PLMN/SGSN/PAPU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="PAPU_CAPA_1">MAX(PAPU_CAPA_1)</counter>
+      
+<!--      <counter alias="AVG_ATTACH_GB_USERS_SUM">SUM(AVG_ATTACH_GB_USERS_SUM)</counter>-->
+<!--      <counter alias="AVG_ATTACH_GB_USERS_DEN">SUM(AVG_ATTACH_GB_USERS_DEN)</counter>-->
+
+<!--      <counter alias="AVG_ATTACH_IU_USERS_SUM">SUM(AVG_ATTACH_IU_USERS_SUM)</counter>-->
+<!--      <counter alias="AVG_ATTACH_IU_USERS_DEN">SUM(AVG_ATTACH_IU_USERS_DEN)</counter>-->
+      
+    </counters>
+    <table_name>
+    <![CDATA[
+    (SELECT a.papu_capa_1, b.*
+	   FROM		
+			rsg_ps_paus_papu_{TIME_AGG} b,
+			(SELECT 
+					sgsn_gid, 
+					papu_index, 
+					MAX(papu_capa) papu_capa_1
+			FROM
+				rsg_ps_paus_papu_raw
+			GROUP BY
+				  sgsn_gid, papu_index
+			 ) a
+	 WHERE
+		 b.sgsn_gid = a.sgsn_gid (+) AND
+		 b.papu_index = a.papu_index (+))
+    ]]>
+	</table_name>
+    <alias_name>PAUS_ext</alias_name>
+  </temp_table>
+</conf_file>
+

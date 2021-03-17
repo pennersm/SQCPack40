@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/MGWTCP_ext.xml" />
+  <kpi name="msc_2081a">
+    <formula>
+decode(MGWTCP_ext.mgwtcat_call_attempts_2,0,null,
+	100 * (MGWTCP_ext.mgwtcat_call_attempts_ring_2 / MGWTCP_ext.mgwtcat_call_attempts_2)
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Physical MGW Voice Call Success Ratio]]></title>
+      <use><![CDATA[Voice call success ratio for a given physical MGW. ]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_ids:
+<br>
+<br>67 -> Originated Voice 2G calls
+<br>68 -> Originated Voice 3G calls
+<br>71 -> Incoming Voice calls
+<br>
+<br>This KPI is restricted to be used at the (MSC->) PMGW level. The inter-MGW calls are counted in the INCOMING counters. If used to upper MSC level, this KPI will not provide valid values because it will make a double count.
+<br>
+<br>PUBLISHED: M15.0
+<br>
+<br>LAST UPDATE: 26-04-2011
+<br>
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC -> PMGW
+<br>
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: PMGW
+<br>
+<br>
+<br>KPI CLASS: Traffic
+<br>
+<br>MEASUREMENT(S): MGW Traffic Category measurement (M395/18BH)  
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;           SUM( MGWTCAT_CALL_ATTEMPTS_RINGING )
+&lt;br&gt;100 * ( ------------------------------------------ )
+&lt;br&gt;           SUM( MGWTCAT_CALL_ATTEMPTS )
+&lt;br&gt;
+&lt;br&gt;   ;WHERE traffic_category_id = 67, 68, 71
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_MGWTCP_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PMGW Voice Call SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

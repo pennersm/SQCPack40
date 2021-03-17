@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+	<kpi name="RNC_1116a">
+		<formula>
+			decode((traffic.allo_success_edch_int+traffic.allo_success_edch_bgr+traffic.edch_allo_canc_na_as_bgr+traffic.edch_allo_canc_na_as_int+traffic.ul_dch_sel_bts_hw_int+traffic.ul_dch_sel_bts_hw_bgr+traffic.setup_fail_edch_bts_bgr+traffic.setup_fail_edch_bts_int+traffic.setup_fail_edch_other_bgr+traffic.setup_fail_edch_other_int+traffic.setup_fail_edch_trans_bgr+traffic.setup_fail_edch_trans_int),0,null,(100*(traffic.allo_success_edch_int+traffic.allo_success_edch_bgr)/(traffic.allo_success_edch_int+traffic.allo_success_edch_bgr+traffic.edch_allo_canc_na_as_bgr+traffic.edch_allo_canc_na_as_int+traffic.ul_dch_sel_bts_hw_int+traffic.ul_dch_sel_bts_hw_bgr+traffic.setup_fail_edch_bts_bgr+traffic.setup_fail_edch_bts_int+traffic.setup_fail_edch_other_bgr+traffic.setup_fail_edch_other_int+traffic.setup_fail_edch_trans_bgr+traffic.setup_fail_edch_trans_int)))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[HSUPA Accessibility for NRT Traffic, Network prespective]]>
+			</title>
+			<use>
+				<![CDATA[The accessibility of all started resource allocations for E-DCH for NRT Traffic from network point of view. The number of times when E-DCH channel has been established divided by the number of times when HS-DSCH channel has been selected by cell specific PS. This KPI is based on Traffic Measurement [3].]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+100 * 
+sum ( ALLO_SUCCESS_EDCH_INT
++ ALLO_SUCCESS_EDCH_BGR )
+---------------------------------------------
+sum ( ALLO_SUCCESS_EDCH_INT 
++ALLO_SUCCESS_EDCH_BGR 
++EDCH_ALLO_CANC_NA_AS_BGR 
++EDCH_ALLO_CANC_NA_AS_INT 
++UL_DCH_SEL_BTS_HW_INT 
++ UL_DCH_SEL_BTS_HW_BGR
++ SETUP_FAIL_EDCH_BTS_BGR 
++SETUP_FAIL_EDCH_BTS_INT 
++SETUP_FAIL_EDCH_OTHER_BGR 
++SETUP_FAIL_EDCH_OTHER_INT 
++SETUP_FAIL_EDCH_TRANS_BGR 
++SETUP_FAIL_EDCH_TRANS_INT )
+</pre>]]>
+			</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[HSUPA Accessibility for NRT Traffic, Network prespective]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

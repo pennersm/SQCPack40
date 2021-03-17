@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/HL1HLR.xml"/>
+  <kpi name="hlr_457a">
+    <formula>100*decode(
+			hl1hlr.hlr_homenormalsubslutotalsucc + 
+			hl1hlr.hlr_homenormalsubslutotalfail,0,null, 
+
+			hl1hlr.hlr_homenormalsubslutotalsucc
+			 / 
+			(hl1hlr.hlr_homenormalsubslutotalsucc + 
+			hl1hlr.hlr_homenormalsubslutotalfail))</formula>
+    <kpi_info>
+      <title><![CDATA[Home subscriber LU success ratio]]></title>
+      <use><![CDATA[Rate of success location updates by home subscribers during the measurement period. The number does not include location updates within the same VLR]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_618b KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: HLR
+	  <br>KPI CLASS: Mobility
+	  <br>MEASUREMENT(S): HLR measurement, part one (M83)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;  sum (HLR_HomeNormalSubsLUTotalSucc)
+	  &lt;br&gt;--------------------------------- * 100
+	  &lt;br&gt;( sum (HLR_HomeNormalSubsLUTotalSucc)
+	  &lt;br&gt;+ sum (HLR_HomeNormalSubsLUTotalFail) )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s) :
+	  &lt;br&gt;RNS_PS_HL1HLR_HLR_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_hl1hlr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Home subscriber LU SR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

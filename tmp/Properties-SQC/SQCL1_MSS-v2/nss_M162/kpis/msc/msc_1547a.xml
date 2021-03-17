@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/UPD_ext.xml" />
+  <kpi name="msc_1547a">
+    <formula>
+		(upd_ext.upd_num_of_call_rej_in + upd_ext.upd_num_of_call_rej_out)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[UPD Call attempts rejected by the MGW(IN+OUT)]]></title>
+      <use><![CDATA[Number of the call attempts in UPD rejected by the MGW.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The MSC Server controls several MGWs. When the first one rejects the resource reservation for some reason and the next MGW is tried, this counter is updated.
+<br>
+<br>Updating conditions:
+<br>&#149; When the MGW rejects the resource reservation request, the MSS tries to reserve resources from another MGW. If the connection is disconnected by this rejection, the field is not updated.
+<br>&#149; The field is updated immediately after the rejection.
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 17-11-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC; MGWMNAME; UPD
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: UPD
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): UPD measurement M384
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(UPD_NUM_OF_CALL_REJ_IN + UPD_NUM_OF_CALL_REJ_OUT) 
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)</formula>
+      <unit>[#]</unit>
+      <tables>XMLNSS_PS_UPD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.104 +0000</date>
+          <comment><![CDATA[Source: RSMSC048.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>UPD Call att term by MGW</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

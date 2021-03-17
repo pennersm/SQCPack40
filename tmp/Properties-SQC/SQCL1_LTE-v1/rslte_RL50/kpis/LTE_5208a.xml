@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_5208a">
+    <formula>decode(
+			(lcelld.rlc_pdu_first_trans + 
+			lcelld.rlc_pdu_re_trans),0,null, 
+
+			(lcelld.rlc_pdu_re_trans)
+			 / 
+			(lcelld.rlc_pdu_first_trans + 
+			lcelld.rlc_pdu_re_trans))*100</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN RLC PDU Re-transmission Ratio Downlink]]></title>
+      <use><![CDATA[This KPI shows the retransmission ratio for RLC PDUs in downlink direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(RLC_PDU_RE_TRANS) / (RLC_PDU_FIRST_TRANS+ RLC_PDU_RE_TRANS)*100</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/08/03 17:59:22.630 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RLC PDU Re-transmission DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_827a">
+    <formula>decode(
+			(cellres.ce_sample_amount),0,null, 
+
+			((cellres.ave_ce_used_ps_str_8_dl + 
+			cellres.ave_ce_used_ps_str_16_dl + 
+			cellres.ave_ce_used_ps_str_32_dl + 
+			cellres.ave_ce_used_ps_str_64_dl + 
+			cellres.ave_ce_used_ps_str_128_dl + 
+			cellres.ave_ce_used_ps_str_256_dl)*cellres.ce_sample_amount)
+			 / 
+			(cellres.ce_sample_amount))</formula>
+    <kpi_info>
+      <title><![CDATA[Average used CEs for PS Streaming DL]]></title>
+      <use><![CDATA[The average number of used CEs for PS Streaming DL]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum( 
+&lt;br&gt;     ( AVE_CE_USED_PS_STR_8_DL
+&lt;br&gt;    + AVE_CE_USED_PS_STR_16_DL
+&lt;br&gt;    + AVE_CE_USED_PS_STR_32_DL
+&lt;br&gt;    + AVE_CE_USED_PS_STR_64_DL
+&lt;br&gt;    + AVE_CE_USED_PS_STR_128_DL
+&lt;br&gt;    + AVE_CE_USED_PS_STR_256_DL )
+&lt;br&gt;    * CE_SAMPLE_AMOUNT
+&lt;br&gt;)
+&lt;br&gt;-----------------------------------------
+&lt;br&gt;sum( CE_SAMPLE_AMOUNT )</formula>
+      <unit>[#]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average used CEs for PS Streaming DL]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

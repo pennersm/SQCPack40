@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSG2G Combi-SGSN SG91</report_version>
+    <release number="5.9.2-64" />
+    <valid-report-levels>PLMN/SGSN/PAPU</valid-report-levels>
+    <valid-time-levels>raw</valid-time-levels>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSG2G064 - PAPU Configuration</header>
+    <csv_title>PAPU Configuration</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[<br>				This is a CM report that gives information about PAPU configuration attributes.
+<br>Use case specific instructions:
+<br>To run this report &#039;PAPU User&#039; (021) measurement must be activated in SGSN.
+<br>For instance, with the output of this report:
+<br>- a mapping between &#039;logical PAPU index&#039; and corresponding &#039;physical PAPU index&#039; can be build;
+<br>- the users PAPU capacity of each card can be observed;
+<br>- how PAPU cards are configured in a PAPU group (in case LRAS is active) can be observed.
+<br>
+<br>Report columns: 
+<br>
+<br>1. SGSN - &#039;SGSN name&#039;
+<br>- stores the SGSN identifier.
+<br>
+<br>2. PERIOD_START_TIME - &#039;Period start time&#039;
+<br>- stores the time stamp.
+<br>
+<br>3. PAPU_INDEX - &#039;PAPU logical index&#039; [#]
+<br>- stores the logical PAPU index; Possible values: 0-40; Values of 33-40 are shown if &#039;LRAS enhancement&#039; feature is activated and they indicate PAPU group used.
+<br>
+<br>4. PAPU_PHYSICAL_INDEX - &#039;PAPU physical index&#039; [#] 
+<br>- stores the physical index of PAPU that has served the logical PAPU index at the time when measurement file is saved to disk; Possible values: 0-40; Values of 33-40 are shown if &#039;LRAS enhancement&#039; feature is activated and they indicate PAPU group used.
+<br>
+<br>5. PAPU_SWITCHOVER_MADE - &#039;PAPU switchover state&#039; [#]
+<br>- indicates if this PAPU has made a switchover during measurement period; Possible values: 1 = PAPU switchover has happened during measurement period, 0 = switchover hasn't happened during measurement period.
+<br>
+<br>6. PAPU_GROUPID - &#039;PAPU group id&#039; [#]
+<br>- stores the group id the PAPU belongs to; Possible values: 0-255; Value 0 means that PAPU doesn't belong to any group.
+<br>
+<br>7. PAPU_CAPA (x1000) - &#039;PAPU max users capacity&#039; [#]
+<br>- indicates the maximum subscriber capacity of PAPU.
+<br>
+<br>8. RT_PDP_CTX_CAPACITY - &#039;PAPU cap allwd RT PDP ctx&#039; [%]
+<br>- stores how many percent of PAPU capacity is allowed for RT PDP contexts; Possible values: 0-100; Value 65535 means feature SG01007 is not in use.
+<br>
+<br>9. AVG_BANDW_LMT_FOR_RT_PDP_CTXS - &#039;Avg BW active RT PDP ctx allwd to use&#039; [kbps]
+<br>- stores how much (real) average bandwidth (Kbit/s) are active RT PDP contexts allowed to use per PAPU; Possible values: 0-64000; Value 65535 means feature SG01007 is not in use.
+<br>
+<br>10. BANDW_LMT_FOR_RT_PDP_CTXS - &#039;BW active RT PDP ctx allwd to use&#039; [kbps]
+<br>- stores how much bandwidth (Kbit/s) are active RT PDP contexts allowed to use per PAPU; Possible values: 0-64000; Value 65535 means feature SG01007 is not in use.]]></help_text>
+    <report-description>PAPU Configuration</report-description>
+    <report-title>PAPU Configuration</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+  <PAPU_LOGICAL_INDEX ui_name="PAPU logical index" /> 																								  
+  <PAPU_PHYSICAL_INDEX ui_name="PAPU physical index" /> 
+  <PAPU_SWITCHOVER_MADE ui_name="PAPU switchover state" />
+  <PAPU_GROUPID ui_name="PAPU group id" />
+  <PAPU_CAPA ui_name="PAPU max users capacity" />
+  <RT_PDP_CTX_CAPACITY ui_name="PAPU cap allwd RT PDP ctx" />
+  <AVG_BANDW_LMT_FOR_RT_PDP_CTXS ui_name="Avg BW active RT PDP ctx allwd" />
+  <BANDW_LMT_FOR_RT_PDP_CTXS ui_name="BW active RT PDP ctx allwd" />        
+  </column_order>
+  <temp_table name="PAPU" meas_level="PLMN/SGSN/PAPU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="PAPU_INDEX">SUM(PAPU_INDEX)</counter>
+      <counter alias="PAPU_CAPA">SUM(PAPU_CAPA)</counter>
+      <counter alias="PAPU_GROUPID">SUM(PAPU_GROUPID)</counter>
+      <counter alias="PAPU_PHYSICAL_INDEX">SUM(PAPU_PHYSICAL_INDEX)</counter>
+      <counter alias="PAPU_SWITCHOVER_MADE">SUM(PAPU_SWITCHOVER_MADE)</counter>
+      <counter alias="RT_PDP_CTX_CAPACITY">SUM(RT_PDP_CTX_CAPACITY)</counter>
+      <counter alias="AVG_BANDW_LMT_FOR_RT_PDP_CTXS">SUM(AVG_BANDW_LMT_FOR_RT_PDP_CTXS)</counter>
+      <counter alias="BANDW_LMT_FOR_RT_PDP_CTXS">SUM(BANDW_LMT_FOR_RT_PDP_CTXS)</counter>
+      </counters>
+    <table_name>rsg_ps_paus_papu_raw</table_name>
+    <alias_name>papu</alias_name>
+   </temp_table>
+   
+     <kpi name="PAPU_LOGICAL_INDEX">
+    <formula>papu.papu_index</formula>
+    <kpi_info>
+      <title><![CDATA[PAPU logical index]]></title>
+      <use><![CDATA[Stores the logical index of PAPU at the time when measurment file is saved to disk]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>PAPU_LOGICAL_INDEX]]></formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PAPU logical index]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+    
+  <kpi name="PAPU_PHYSICAL_INDEX">
+    <formula>papu.papu_physical_index</formula>
+    <kpi_info>
+      <title><![CDATA[PAPU physical index]]></title>
+      <use><![CDATA[Stores the physical index of PAPU that has served the logical PAPU index at the time when measurment file is saved to disk; Possible values: 0-40; Values of 33-40 are shown if &#039;LRAS enhancement&#039; feature is activated and they indicate PAPU group used.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>PAPU_PHYSICAL_INDEX]]></formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PAPU physical index]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+    <kpi name="PAPU_SWITCHOVER_MADE">
+    <formula>papu.papu_switchover_made</formula>
+    <kpi_info>
+      <title><![CDATA[PAPU switchover state]]></title>
+      <use><![CDATA[Indicates if this PAPU has made a switchover during measurement period; Possible values: 1 = PAPU switchover has happened during measurement period, 0 = switchover hasn't happened during measurement period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>PAPU_SWITCHOVER_MADE]]></formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PAPU switchover state]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+      <kpi name="PAPU_GROUPID">
+    <formula>papu.papu_groupid</formula>
+    <kpi_info>
+      <title><![CDATA[PAPU group id]]></title>
+      <use><![CDATA[Indicates if this PAPU has made a switchover during measurement period; Possible values: 1 = PAPU switchover has happened during measurement period, 0 = switchover hasn't happened during measurement period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>PAPU_GROUPID]]></formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PAPU group id]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  
+   <kpi name="PAPU_CAPA">
+    <formula>papu.papu_capa*1000</formula>
+    <kpi_info>
+      <title><![CDATA[PAPU max users capacity]]></title>
+      <use><![CDATA[Indicates the maximum subscriber capacity of PAPU.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>PAPU_CAPA*1000]]></formula>
+      <unit>[Users]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PAPU max users capacity]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+
+   <kpi name="RT_PDP_CTX_CAPACITY">
+    <formula>papu.rt_pdp_ctx_capacity</formula>
+    <kpi_info>
+      <title><![CDATA[PAPU cap allwd RT PDP ctx]]></title>
+      <use><![CDATA[Stores how many percent of PAPU capacity is allowed for RT PDP contexts; Possible values: 0-100; Value 65535 means feature SG01007 is not in use.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>RT_PDP_CTX_CAPACITY]]></formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PAPU cap allwd RT PDP ctx]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+
+   <kpi name="AVG_BANDW_LMT_FOR_RT_PDP_CTXS">
+    <formula>papu.avg_bandw_lmt_for_rt_pdp_ctxs</formula>
+    <kpi_info>
+      <title><![CDATA[Avg BW active RT PDP ctx allwd to use]]></title>
+      <use><![CDATA[Stores how much (real) average bandwidth (kbit/s) are active RT PDP contexts allowed to use per PAPU, possible values: 0-64000; value 65535 means feature SG01007 is not in use.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>AVG_BANDW_LMT_FOR_RT_PDP_CTXS]]></formula>
+      <unit>[Kbit/s]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Avg BW active RT PDP ctx allwd to use]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+
+   <kpi name="BANDW_LMT_FOR_RT_PDP_CTXS">
+    <formula>papu.bandw_lmt_for_rt_pdp_ctxs</formula>
+    <kpi_info>
+      <title><![CDATA[BW active RT PDP ctx allwd to use]]></title>
+      <use><![CDATA[Stores how much bandwidth (Kbit/s) are active RT PDP contexts allowed to use per PAPU; Possible values: 0-64000; Value 65535 means feature SG01007 is not in use.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>BANDW_LMT_FOR_RT_PDP_CTXS]]></formula>
+      <unit>[Kbit/s]</unit>
+      <tables>rsg_ps_paus_papu_raw</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[BW active RT PDP ctx allwd to use]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+        
+</conf_file>
+

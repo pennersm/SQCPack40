@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>NSN MGW U5.0EP1;U5.0;U4.2EP;U4.2;U4.1;U4.0;U3C ATM_interface ATMIF measurement dump</header>
+    <csv_title>NSN MGW U5.0EP1;U5.0;U4.2EP;U4.2;U4.1;U4.0;U3C ATM_interface ATMIF measurement dump</csv_title>
+    <report-description>ATM interface measurement (532)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>/rsmgw/RSMGW.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IN_CAP />
+    <EG_CAP />
+  </column_order>
+  <temp_table name="ATMIF_ext" meas_level="PLMN/RSMGW-MGW/RSMGW-IF" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <counters>
+      <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+      <counter alias="IN_CAP" time-alias="IN_CAP" time-formula="AVG(IN_CAP)" object-formula="SUM(IN_CAP)">SUM(IN_CAP)</counter>
+	  <counter alias="EG_CAP" time-alias="EG_CAP" time-formula="AVG(EG_CAP)" object-formula="SUM(EG_CAP)">SUM(EG_CAP)</counter>
+    </counters>
+    <table_name>NOKMWW_PS_atmif_if_raw</table_name>
+    <alias_name>ATMIF_ext</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ATMIF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration)</formula>
+      <unit />
+      <tables>NOKMWW_PS_atmif_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IN_CAP">
+    <formula>ATMIF.IN_CAP</formula>
+    <kpi_info>
+      <title>IN_CAP</title>
+      <use>The configured ingress bandwidth for CLP=0+1 ATM cells. The counter is sampled at the end of the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>&lt;br&gt; Time: AVG(IN_CAP) + Object: SUM(IN_CAP)</formula>
+      <unit>cell/s</unit>
+      <tables>NOKMWW_PS_atmif_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IN_CAP (M532C24)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EG_CAP">
+    <formula>ATMIF.EG_CAP</formula>
+    <kpi_info>
+      <title>EG_CAP</title>
+      <use>The configured egress bandwidth for CLP=0+1 ATM cells. The counter is sampled at the end of the measurement period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>&lt;br&gt; Time: AVG(EG_CAP) + Object: SUM(EG_CAP)</formula>
+      <unit>cell/s</unit>
+      <tables>NOKMWW_PS_atmif_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EG_CAP (M532C25)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

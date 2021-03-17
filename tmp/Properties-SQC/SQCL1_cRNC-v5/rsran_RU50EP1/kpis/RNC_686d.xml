@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_686d">
+    <formula>decode(
+			(traffic.period_duration),0,null, 
+
+			((16*traffic.allo_dur_hs_dsch_ret_16_int + 
+			64*traffic.allo_dur_hs_dsch_ret_64_int + 
+			128*traffic.allo_dur_hs_dsch_ret_128_int + 
+			384*traffic.allo_dur_hs_dsch_ret_384_int + 
+			16*traffic.allo_dur_hs_dsch_ret_16_bgr + 
+			64*traffic.allo_dur_hs_dsch_ret_64_bgr + 
+			128*traffic.allo_dur_hs_dsch_ret_128_bgr + 
+			384*traffic.allo_dur_hs_dsch_ret_384_bgr + 
+			16*traffic.allo_dur_hs_dsch_ret_16_str + 
+			64*traffic.allo_dur_hs_dsch_ret_64_str + 
+			128*traffic.allo_dur_hs_dsch_ret_128_str)
+			 / 
+			(traffic.period_duration*60*100)))</formula>
+    <kpi_info>
+      <title><![CDATA[HS-DSCH return channel allocations, total]]></title>
+      <use><![CDATA[The allocated HS-DSCH return channel capacity in the SRNC. Note: these allocations are also included in the old DCH UL allocation counters.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(16 * ALLO_DUR_HS_DSCH_RET_16_INT
+&lt;br&gt;    + 64 * ALLO_DUR_HS_DSCH_RET_64_INT
+&lt;br&gt;    + 128 * ALLO_DUR_HS_DSCH_RET_128_INT
+&lt;br&gt;    + 384 * ALLO_DUR_HS_DSCH_RET_384_INT
+&lt;br&gt;    + 16 * ALLO_DUR_HS_DSCH_RET_16_BGR
+&lt;br&gt;    + 64 * ALLO_DUR_HS_DSCH_RET_64_BGR
+&lt;br&gt;    + 128 * ALLO_DUR_HS_DSCH_RET_128_BGR
+&lt;br&gt;    + 384 * ALLO_DUR_HS_DSCH_RET_384_BGR
+&lt;br&gt;    + 16 * ALLO_DUR_HS_DSCH_RET_16_STR
+&lt;br&gt;    + 64 * ALLO_DUR_HS_DSCH_RET_64_STR
+&lt;br&gt;    + 128 * ALLO_DUR_HS_DSCH_RET_128_STR)
+&lt;br&gt;---------------------------------------------------------------
+&lt;br&gt; sum (PERIOD_DURATION)*60*100</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HS-DSCH return channel allocations, total]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

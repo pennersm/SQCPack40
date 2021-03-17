@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/L3IUR2.xml" />
+  <kpi name="RNC_2127a">
+    <formula>decode(
+			((L3IUR2.period_duration)*60*1000),0,null, 
+
+			((l3iur2.rt_hsdpa_ul_data_from_drnc_1*8))
+			 / 
+			((L3IUR2.period_duration)*60*1000))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA RT return channel MAC-d Throughput at Iur]]></title>
+      <use><![CDATA[HSDPA RT uplink return channel MAC-d data throughput received from DRNC for non-real time connections. This includes only Rel99 return channel, not E-DCH. The counter is updated also when the HSDPA serving cell is in the SRNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (rt_hsdpa_ul_data_from_drnc * 8)
+&lt;br&gt;------------------------------------
+&lt;br&gt; sum (period_duration) * 60 * 1000
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Kbit/s]</unit>
+      <tables>NOKRWW_PS_L3IUR2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSDPA RT R99 UL thp, Iur]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/L3IUR2_ext.xml" />
+</conf_file>
+

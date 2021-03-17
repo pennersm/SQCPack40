@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/MTPSLU.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/MTPSLU_ext.xml" />
+  <kpi name="mgw_5005b">
+    <formula>decode(
+			(mtpslu_ext.mtp_corr_multi_trans_num*mtpslu.period_duration),0,0, 
+
+			(mtpslu_ext.sum_min_5_peakload_traffic_out
+			 / 
+			((mtpslu_ext.mtp_corr_multi_trans_num*8)
+			 / 
+			 (mtpslu.period_duration*60))))</formula>
+    <kpi_info>
+      <title><![CDATA[MTP signalling - Correction multiplier for transmitted msg/s]]></title>
+      <use><![CDATA[MTP signalling - Correction multiplier for transmitted msg/s]]></use>
+
+<use_experience><![CDATA[
+<br> Aiding formula for calculating transmitted msg/s correction multiplier (&quot;peaky&quot; factor). This correction multiplier provides the peak value versus the average real traffic.
+<br>
+<br>From RAW tables =&amp;gt; MIN_5_PEAKLOAD_TRAFFIC_OUT
+<br>From AGGREGATED tables =&amp;gt; SIF_AND_SIO_OCTETS_TRANSMITTED + MSUS_TRANSMITTED
+<br>
+<br>Use hourly measure activation period.
+<br>
+<br>Theoretical KPI summary levels: PLMN - MGW - SLN - SL_TYPE - SNET - SPCD - SLSN
+<br>LAST UPDATE: 14-04-2010
+<br>RECOMMENDED SUMMARY LEVELS: MGW
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MTP signalling link utilization (210/D2H)
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+&lt;br&gt;hourlyMax( ( SUMoverSL( MIN_5_PEAKLOAD_TRAFFIC_OUT * ( Period_Duration * 60 * BIT_RATE )
+&lt;br&gt;) ) / ( ( SUMoverSL SIF_AND_SIO_OCTETS_TRANSMITTED + 6 * SUMoverSL MSUS_TRANSMITTED ) * 8
+&lt;br&gt;) ) 
+&lt;br&gt;
+&lt;br&gt;Counters from RAW + AGGREGATED tables(s)/view(s)</formula>
+      <unit>[#]</unit>
+      <tables>nokmww_ps_mtpslu_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>trans_correction_multiplier</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

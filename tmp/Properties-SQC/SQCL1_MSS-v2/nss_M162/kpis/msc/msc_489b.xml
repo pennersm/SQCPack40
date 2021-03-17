@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_489b">
+    <formula>decode(
+			(vlr1msc.intervlrhsgsmattempt + 
+			vlr1msc.intervlrrsgsmattempt + 
+			vlr1msc.intervlrhsumtsattempt + 
+			vlr1msc.intervlrrsumtsattempt),0,null, 
+
+			(100*(vlr1msc.intervlrhsgsmsucc + 
+			vlr1msc.intervlrrsgsmsucc + 
+			vlr1msc.intervlrhsumtssucc + 
+			vlr1msc.intervlrrsumtssucc)
+			 / 
+			(vlr1msc.intervlrhsgsmattempt + 
+			vlr1msc.intervlrrsgsmattempt + 
+			vlr1msc.intervlrhsumtsattempt + 
+			vlr1msc.intervlrrsumtsattempt)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter-VLR LU success ratio in the target VLR (GSM and UMTS)]]></title>
+      <use><![CDATA[Indicates the share of successful location updates between VLRs. For GSM, UMTS]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      sum(
+&lt;br&gt;            InterVLRHSGSMSucc
+&lt;br&gt;          + InterVLRRSGSMSucc)
+&lt;br&gt;       + sum(
+&lt;br&gt;            InterVLRHSUMTSSucc
+&lt;br&gt;          + InterVLRRSUMTSSucc)
+&lt;br&gt;   100 * ---------------------------------------------------
+&lt;br&gt;         sum(
+&lt;br&gt;            InterVLRHSGSMAttempt
+&lt;br&gt;          + InterVLRRSGSMAttempt)
+&lt;br&gt;          + sum(
+&lt;br&gt;            InterVLRHSUMTSAttempt
+&lt;br&gt;          + InterVLRRSUMTSAttempt)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}
+&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Inter-VLR LU success ratio in the target VLR (GSM and UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

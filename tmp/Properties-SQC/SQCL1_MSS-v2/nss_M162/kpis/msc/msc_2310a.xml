@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CCMEA.xml"/>
+  <temp_table_ref src="nss_M162/counters/msc/CCMEA_ext.xml"/>
+  <kpi name="msc_2310a">
+    <formula>100*(decode(
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech),0,null, 
+
+			(ccmea_ext.ccmeas_signalling_17 +
+			ccmea_ext.ccmeas_ring_17 +
+			ccmea_ext.ccmeas_speech_17)
+			 / 
+			(ccmea.ccmeas_signalling + 
+			ccmea.ccmeas_ring + 
+			ccmea.ccmeas_speech)))</formula>
+    <kpi_info>
+      <title><![CDATA[Teleservice usage attempts due problem in the radio network failure ratio]]></title>
+      <use><![CDATA[The Teleservice usage failure ratio due to a problem in the radio network.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The following clear codes are considered as radio network failures: 
+<br>
+<br>205H => Radio interface congestion
+<br>208H => Subscriber out of radio cover
+<br>844H => Radionw as mag failure
+<br>845H => RANAP protocol error
+<br>846H => RNW init sign con failure
+<br>B13H => Radio interface failure
+<br>B14H => Handover failure
+<br>B16H => Remote equipment failure
+<br>0B1A => BSSMAP protocol error
+<br>0B1B => Radio interface message failure
+<br>0B1C => Radio interface failure reversion to old channel
+<br>0B1D => O&M released inside network
+<br>0B1E => Radio resource unavailable
+<br>0B1F => Requested terrestrial resource unvailable
+<br>0D00 => Subscriber signalling message content error
+<br>0D01 => Subscriber signalling message format error
+<br>D04H => Subscriber signalling protocol error
+<br>D07H => No response to call establishment, alerting or connect
+<br>D08H => GSM ERH 4.08 protocol timer expires
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;         sum(
+&lt;br&gt;              CCMEAS_SIGNALLING
+&lt;br&gt;            + CCMEAS_RING
+&lt;br&gt;            + CCMEAS_SPEECH ) 
+&lt;br&gt;                ;WHERE clearcode_id IN ( 205H, 208H, 844H, 845H, 846H, B13H-B14H, B16H, B1AH-B1FH,D00H-D01H, D04H, D07H-D08H ) 
+&lt;br&gt;100* -----------------------------------------------------
+&lt;br&gt;         sum (CCMEAS_SIGNALLING
+&lt;br&gt;            + CCMEAS_RING
+&lt;br&gt;            + CCMEAS_SPEECH )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ccmea_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Tel Usg Att Prob RadioNW FR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

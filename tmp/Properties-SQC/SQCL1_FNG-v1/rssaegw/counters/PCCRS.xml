@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 PCCrule_statistics PCCRS measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 PCCrule_statistics PCCRS measurement dump</csv_title>
+    <report-description>NG10 statistics per PCC rule</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <UPLINK_BYTES />
+    <PCC_RULE_UPLINK_VOL />
+    <PCC_RULE_DOWNLINK_VOL />
+  </column_order>
+  <temp_table name="PCCRS" meas_level="PLMN/FING/FNODE/PCCR" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="UPLINK_BYTES" time-alias="UPLINK_BYTES" timeagg="SUM(UPLINK_BYTES)">SUM(UPLINK_BYTES)</counter>
+      <counter alias="PCC_RULE_UPLINK_VOL" time-alias="PCC_RULE_UPLINK_VOL" timeagg="SUM(PCC_RULE_UPLINK_VOL)">SUM(PCC_RULE_UPLINK_VOL)</counter>
+      <counter alias="PCC_RULE_DOWNLINK_VOL" time-alias="PCC_RULE_DOWNLINK_VOL" timeagg="SUM(PCC_RULE_DOWNLINK_VOL)">SUM(PCC_RULE_DOWNLINK_VOL)</counter>
+    </counters>
+    <table_name>pcofng_ps_pccrs_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PCCRS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PCCRS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_pccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UPLINK_BYTES">
+    <formula>PCCRS.UPLINK_BYTES</formula>
+    <kpi_info>
+      <title>UPLINK_BYTES</title>
+      <use>This counter contains the number of uplink bytes for a pcc rule that has been selected for statistics through the "set statistics pcc-rule-statistics" command. UPDATED: Updated when an uplink packet is matched to a pcc rule that has been selected for statistics through the "set statistics pcc-rule-statistics" command, before the pcc rule action is applied (e.g. "drop").</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(UPLINK_BYTES)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_pccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPLINK_BYTES (dummy_m3076c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PCC_RULE_UPLINK_VOL">
+    <formula>PCCRS.PCC_RULE_UPLINK_VOL</formula>
+    <kpi_info>
+      <title>PCC_RULE_UPLINK_VOL</title>
+      <use>This counter contains the number of uplink bytes for a PCC rule that has been selected for statistics through the set ng statistics pcc-rulestatistics command. UPDATED: Updated when an uplink packet is matched to a PCC rule that has been selected for statistics through the set ng statistics pcc-rule-statistics command, before any PCC rule action is applied (for example drop).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PCC_RULE_UPLINK_VOL)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_pccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PCC_RULE_UPLINK_VOL (m3076c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="PCC_RULE_DOWNLINK_VOL">
+    <formula>PCCRS.PCC_RULE_DOWNLINK_VOL</formula>
+    <kpi_info>
+      <title>PCC_RULE_DOWNLINK_VOL</title>
+      <use>This counter contains the number of downlink bytes for a PCC rule that has been selected for statistics through the set ng statistics pcc-rule-statistics command. UPDATED: Updated when a downlink packet is matched to a PCC rule that has been selected for statistics through the set ng statistics pcc-rule-statistics command, before any PCC rule action is applied (for example drop).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(PCC_RULE_DOWNLINK_VOL)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_pccrs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PCC_RULE_DOWNLINK_VOL (m3076c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

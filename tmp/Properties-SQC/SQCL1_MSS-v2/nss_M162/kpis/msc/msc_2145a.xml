@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml"/>
+  <kpi name="msc_2145a">
+    <formula>decode(
+    		(CGR.CGRCGROUP_CALL_CONG_x_100),0,null,
+			100 * 
+			(CGR.CGRCGROUP_CONG_AMOUNT)
+			 /
+			(CGR.CGRCGROUP_CALL_CONG_x_100))</formula>
+    <kpi_info>
+      <title><![CDATA[Release calls due to congestion compared to congested call attempts ratio.]]></title>
+      <use><![CDATA[Release calls due to congestion compared to congested call attempts ratio.]]></use>
+
+		<use_experience><![CDATA[
+		<br>
+		<br>PUBLISHED: M115.1
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: (CGR -> CGRNAME) / CGRDIR
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+		<br>
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+
+      	<formula>
+      	&lt;br&gt;
+		&lt;br&gt;SUM( CGRCGROUP_CONG_AMOUNT ) 
+		&lt;br&gt;--------------------------------------------------------------------------- * 100 
+		&lt;br&gt;SUM( CGRCGROUP_CALL_CONG_X_100 )
+		&lt;br&gt;      
+		&lt;br&gt;Counters from AGGREGATED view(s)
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_cgr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RlsCallsCongCongCallAtt Rt]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

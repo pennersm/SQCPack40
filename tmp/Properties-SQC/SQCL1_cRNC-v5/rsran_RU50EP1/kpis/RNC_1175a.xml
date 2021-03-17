@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/CELLTP.xml" />
+	<kpi name="RNC_1175a">
+		<formula>
+			decode((1000*celltp.period_duration*60),0,null,(celltp.nrt_dch_hsdpa_ul_data_vol*8)/(1000*celltp.period_duration*60))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[HSDPA UL Return Channel Throughput]]>
+			</title>
+			<use>
+				<![CDATA[NRT DCH MAC-d throughput in the uplink direction, including only the HS-DSCH return channels. This KPI is based on Cell Throughput measurement.]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+sum ( NRT_DCH_HSDPA_UL_DATA_VOL * 8)
+--------------------------
+sum ( 1000 * PERIOD_DURATION * 60 )
+				</pre>]]>
+			</formula>
+			<unit>[kbit/s]</unit>
+			<tables>nokrww_ps_celltp_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[HSDPA UL Return Channel Throughput]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

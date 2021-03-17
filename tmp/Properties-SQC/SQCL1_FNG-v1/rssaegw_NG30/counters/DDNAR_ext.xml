@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="DDNAR_ext" meas_level="PLMN/FING/FNODE/GTPCV2/DDNAR" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="GTPCV2_DL_DATA_NOTIF_ACK_RECV">SUM(GTPCV2_DL_DATA_NOTIF_ACK_RECV)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="GTPCV2_DL_DATA_NOTIF_ACK_R_ALL">MAX(GTPCV2_DL_DATA_NOTIF_ACK_R_ALL)</counter>
+			<counter alias="GTPCV2_DL_DATA_NOTIF_ACK_R_16">SUM(decode(ddnar_id,'16',gtpcv2_dl_data_notif_ack_recv,0))
+			</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		ddnar.*,
+		GTPCV2_DL_DATA_NOTIF_ACK_R_ALL,
+		GTPCV2_DL_DATA_NOTIF_ACK_R_16A
+FROM
+	pcofng_ps_ddnar_ddnar_{TIME_AGG} ddnar,
+	(
+		SELECT 
+			fing_id, fnode_id,
+			period_start_time,
+			SUM(GTPCV2_DL_DATA_NOTIF_ACK_RECV) GTPCV2_DL_DATA_NOTIF_ACK_R_ALL,
+			SUM(DECODE(DDNAR_ID,'16',GTPCV2_DL_DATA_NOTIF_ACK_RECV,0)) GTPCV2_DL_DATA_NOTIF_ACK_R_16A
+		FROM
+			pcofng_ps_ddnar_ddnar_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	ddnar.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = ddnar.fnode_id and
+	ddnar.period_start_time = fnode_level.period_start_time AND
+	ddnar.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	ddnar.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+		
+			]]>
+		</table_name>
+		<alias_name>DDNAR_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>DDNAR_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_ddnar_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_DL_DATA_NOTIF_ACK_RECV">
+		<formula>DDNAR_ext.GTPCV2_DL_DATA_NOTIF_ACK_RECV</formula>
+		<kpi_info>
+			<title>GTPCV2_DL_DATA_NOTIF_ACK_RECV</title>
+			<use>This counter contains the number of received Downlink 
+				Data Notification Acknowledgement messages with the
+				cause code. &lt;br/&gt;
+				UPDATED: Updated when a Downlink Data Notification Acknowledgement 
+				message with the cause code is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(GTPCV2_DL_DATA_NOTIF_ACK_RECV)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ddnar_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_DL_DATA_NOTIF_ACK_RECV (m3022c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+  <!-- Auxiliary Counters -->
+  <kpi name="GTPCV2_DL_DATA_NOTIF_ACK_R_16">
+		<formula>DDNAR_ext.GTPCV2_DL_DATA_NOTIF_ACK_R_16</formula>
+		<kpi_info>
+			<title>GTPCV2_DL_DATA_NOTIF_ACK_RECV_16</title>
+			<use>This counter contains the number of received Downlink 
+				Data Notification Acknowledgement messages with the
+				cause code 16. &lt;br/&gt;
+				UPDATED: Updated when a Downlink Data Notification Acknowledgement 
+				message with the cause code 16 is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(DECODE(DDNAR_ID,16,GTPCV2_DL_DATA_NOTIF_ACK_RECV,0))</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ddnar_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_DL_DATA_NOTIF_ACK_RECV_16 (m3022c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_DL_DATA_NOTIF_ACK_R_ALL">
+		<formula>DDNAR_ext.GTPCV2_DL_DATA_NOTIF_ACK_R_ALL</formula>
+		<kpi_info>
+			<title>GTPCV2_DL_DATA_NOTIF_ACK_RECV_ALL</title>
+			<use>This counter contains the number of received Downlink 
+				Data Notification Acknowledgement messages with any
+				cause codes. &lt;br/&gt;
+				UPDATED: Updated when a Downlink Data Notification Acknowledgement 
+				message with any cause code is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(GTPCV2_DL_DATA_NOTIF_ACK_RECV)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_ddnar_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_DL_DATA_NOTIF_ACK_RECV (m3022c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

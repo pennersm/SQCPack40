@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml"/>
+  <kpi name="sgsn_2277a">
+    <formula>decode(
+			((sesmgmnt.period_duration*60)),0,NULL,((sesmgmnt.SUCC_MO_PDP_CONT_DEACT_GEN + 
+			sesmgmnt.fail_mo_pdp_context_deact + 
+			sesmgmnt.SUCC_NWR_PDP_CONT_DEACT_GEN + 
+			sesmgmnt.fail_nwr_pdp_context_deact + 
+			sesmgmnt.succ_impl_pdp_context_deact + 
+			sesmgmnt.fail_impl_pdp_context_deact))
+			 / 
+			((sesmgmnt.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[2G PDP context deactivation requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of 2G PDP context deactivation request procedures per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( SUCC_MO_PDP_CONT_DEACT_GEN + FAIL_MO_PDP_CONTEXT_DEACT +
+&lt;br&gt;   SUCC_NWR_PDP_CONT_DEACT_GEN + FAIL_NWR_PDP_CONTEXT_DEACT +
+&lt;br&gt;   SUCC_IMPL_PDP_CONTEXT_DEACT + FAIL_IMPL_PDP_CONTEXT_DEACT )
+&lt;br&gt;---------------------------------------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_sesmgmnt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[2G PDP ctx deact r pr sec]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/PTCAPAL.xml" />
+  <kpi name="mgw_1108a">
+    <formula>decode(
+			(ptcapal.mb_res_attempts),0,null, 
+
+			(100*(ptcapal.mb_reject_no_capa)
+			 / 
+			(ptcapal.mb_res_attempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[Mb port type capacity licence rejection ratio]]></title>
+      <use><![CDATA[Indicates rejection ratio of Mb port type capacity reservations, which have been rejected by the capacity limit of the licence in MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM(MB_REJECT_NO_CAPA)
+&lt;br&gt;100 *  ---------------------
+&lt;br&gt;       SUM(MB_RES_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_ptcapal_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Mb port type no capa rej rto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml" />
+  <kpi name="sgsn_475b">
+    <formula>100*decode(
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_wrong_password + 
+			sesmgmnt.fail_mo_pdp_act_inv_pdp_actmsg + 
+			sesmgmnt.fail_mo_pdp_act_insuf_res + 
+			sesmgmnt.fail_mo_pdp_act_mis_unk_apn + 
+			sesmgmnt.fail_mo_pdp_act_unk_addr_type + 
+			sesmgmnt.fail_mo_pdp_act_act_re_ggsn + 
+			sesmgmnt.fail_mo_pdp_act_rej_unspec + 
+			sesmgmnt.fail_mo_pdp_act_serv_opt_ns + 
+			sesmgmnt.fail_mo_pdp_act_req_se_op_ns + 
+			sesmgmnt.fail_mo_pdp_act_nsapi_used + 
+			sesmgmnt.mo_pdp_act_fail_so_out_of_ord),0,NULL, 
+
+			(sesmgmnt.mo_pdp_act_fail_so_out_of_ord)
+			 / 
+			(sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_context_act + 
+			sesmgmnt.fail_mo_pdp_act_wrong_password + 
+			sesmgmnt.fail_mo_pdp_act_inv_pdp_actmsg + 
+			sesmgmnt.fail_mo_pdp_act_insuf_res + 
+			sesmgmnt.fail_mo_pdp_act_mis_unk_apn + 
+			sesmgmnt.fail_mo_pdp_act_unk_addr_type + 
+			sesmgmnt.fail_mo_pdp_act_act_re_ggsn + 
+			sesmgmnt.fail_mo_pdp_act_rej_unspec + 
+			sesmgmnt.fail_mo_pdp_act_serv_opt_ns + 
+			sesmgmnt.fail_mo_pdp_act_req_se_op_ns + 
+			sesmgmnt.fail_mo_pdp_act_nsapi_used + 
+			sesmgmnt.mo_pdp_act_fail_so_out_of_ord))</formula>
+    <kpi_info>
+      <title><![CDATA[Failure ratio of Gb PDP activations due to service option temporarily out of order]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of PDP activations from Gb interface due to service option temporarily out of order]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(MO_PDP_ACT_FAIL_SO_OUT_OF_ORD)
+&lt;br&gt;--------------------------------------------------- * 100
+&lt;br&gt;sum(SUCC_MO_PDP_CONTEXT_ACT + FAIL_MO_PDP_CONTEXT_ACT +
+&lt;br&gt;       FAIL_MO_PDP_ACT_WRONG_PASSWORD+ FAIL_MO_PDP_ACT_INV_PDP_ACTMSG + 
+&lt;br&gt;       FAIL_MO_PDP_ACT_INSUF_RES + FAIL_MO_PDP_ACT_MIS_UNK_APN +
+&lt;br&gt;       FAIL_MO_PDP_ACT_UNK_ADDR_TYPE + FAIL_MO_PDP_ACT_ACT_RE_GGSN +
+&lt;br&gt;       FAIL_MO_PDP_ACT_REJ_UNSPEC + FAIL_MO_PDP_ACT_SERV_OPT_NS +
+&lt;br&gt;       FAIL_MO_PDP_ACT_REQ_SE_OP_NS + FAIL_MO_PDP_ACT_NSAPI_USED +
+&lt;br&gt;       MO_PDP_ACT_FAIL_SO_OUT_OF_ORD)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_session_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_sesmgmnt_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Failure ratio of Gb PDP activations due to service option temporarily out of order]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

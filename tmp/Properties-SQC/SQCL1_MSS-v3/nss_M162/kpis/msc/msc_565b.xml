@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/UPD_ext.xml" />
+  <kpi name="msc_565b">
+    <formula>
+		decode ( upd_ext.count_dist_pstart, 0, null,
+			((upd_ext.upd_erlangs_x100)
+			/ 100)
+			/ upd_ext.count_dist_pstart )
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Traffic in the media gateway in erlangs]]></title>
+      <use><![CDATA[The amount of traffic in the media gateway in erlangs. That means the total reservation time of the
+measured object in relation to the results accumulation period.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The counter is updated at the same time as the CALLS counter. The Erlangs are calculated from the RAB ASSIGNEMENT REQUEST / BICC IAM / SIP invite to RAP RELEASE COMPLETED / BICC REL / SIP Bye or Cancel message. If handover happens, the Erlang is calculated until/from the RANAP RELOCATION REQUIRED message.
+<br>PUBLISHED: M14.4
+<br>LAST UPDATE: 30-10-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC; MGWMNAME; UPD
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: UPD
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): UPD measurement M384
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;For OBJECT level: 
+&lt;br&gt;SUM((UPD_ERLANGS_x100) / 100 ) 
+&lt;br&gt;
+&lt;br&gt;For TIME level: 
+&lt;br&gt;AVG((UPD_ERLANGS_x100) / 100 ) 
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+&lt;br&gt;
+&lt;br&gt;** SQL test formula - proof of concept
+&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+&lt;br&gt;** Formula based on RAW data table
+&lt;br&gt;
+&lt;br&gt;SUM((UPD_ERLANGS_x100) / 100 ) / COUNT(DISTINCT period_start_time)</formula>
+      <unit>[Erlang]</unit>
+      <tables>rns_ps_upd_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Traffic in the media gateway in erlangs]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

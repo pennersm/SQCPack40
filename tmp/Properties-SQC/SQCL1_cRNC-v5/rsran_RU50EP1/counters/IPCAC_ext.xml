@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>IPCAC (RNC IP CAC)</header>
+    <csv_title>IPCAC (RNC IP CAC)</csv_title>
+    <report-description>RNC IP CAC</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SUCC_RNC_IP_RES/>
+    <FAIL_RNC_IP_RES_EXT/>
+    <FAIL_RNC_IP_RES_INT/>
+    <FAIL_RNC_IP_RES_OTHER/>
+    <SUCC_BTS_IP_RES/>
+    <FAIL_BTS_IP_RES_EXT_TRANS/>
+    <FAIL_BTS_IP_RES_OTHER_TRANS/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="IPCAC_ext" meas_level="PLMN/RSRAN-RNC/RSRAN-RWB" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <counters>
+      <counter alias="period_duration">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="SUCC_RNC_IP_RES">SUM(SUCC_RNC_IP_RES)</counter>
+      <counter alias="FAIL_RNC_IP_RES_EXT">SUM(FAIL_RNC_IP_RES_EXT)</counter>
+      <counter alias="FAIL_RNC_IP_RES_INT">SUM(FAIL_RNC_IP_RES_INT)</counter>
+      <counter alias="FAIL_RNC_IP_RES_OTHER">SUM(FAIL_RNC_IP_RES_OTHER)</counter>
+      <counter alias="SUCC_BTS_IP_RES">SUM(SUCC_BTS_IP_RES)</counter>
+      <counter alias="FAIL_BTS_IP_RES_EXT_TRANS">SUM(FAIL_BTS_IP_RES_EXT_TRANS)</counter>
+      <counter alias="FAIL_BTS_IP_RES_OTHER_TRANS">SUM(FAIL_BTS_IP_RES_OTHER_TRANS)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPCAC_ext</alias_name>
+    <ui_name>RNC IP CAC</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPCAC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_RNC_IP_RES">
+    <formula>IPCAC.SUCC_RNC_IP_RES</formula>
+    <kpi_info>
+      <title>SUCC_RNC_IP_RES (M804C0)</title>
+      <use>The number of successful IP transport resource reservations in the RNC. UPDATED: When the IP resources are successfully reserved on the RNC side.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_RNC_IP_RES)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_RNC_IP_RES (M804C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_RNC_IP_RES_EXT">
+    <formula>IPCAC.FAIL_RNC_IP_RES_EXT</formula>
+    <kpi_info>
+      <title>FAIL_RNC_IP_RES_EXT (M804C1)</title>
+      <use>The number of failed IP transport resource reservations in the RNC due to external connection admission control. UPDATED: When the RNC external IP connection admission control rejects the resource request.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_RNC_IP_RES_EXT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_RNC_IP_RES_EXT (M804C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_RNC_IP_RES_INT">
+    <formula>IPCAC.FAIL_RNC_IP_RES_INT</formula>
+    <kpi_info>
+      <title>FAIL_RNC_IP_RES_INT (M804C2)</title>
+      <use>The number of failed IP transport resource reservations in the RNC due to internal connection admission control. UPDATED: When the RNC internal IP connection admission control rejects the resource request.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_RNC_IP_RES_INT)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_RNC_IP_RES_INT (M804C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_RNC_IP_RES_OTHER">
+    <formula>IPCAC.FAIL_RNC_IP_RES_OTHER</formula>
+    <kpi_info>
+      <title>FAIL_RNC_IP_RES_OTHER (M804C3)</title>
+      <use>The number of failed IP transport resource reservations in the RNC due to other than connection admission control reasons. UPDATED: When the IP resource reservation fails due to any reason other than connection admission control failure. Such a reason could be for example route analysis failure caused by a configuration error.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_RNC_IP_RES_OTHER)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_RNC_IP_RES_OTHER (M804C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SUCC_BTS_IP_RES">
+    <formula>IPCAC.SUCC_BTS_IP_RES</formula>
+    <kpi_info>
+      <title>SUCC_BTS_IP_RES (M804C4)</title>
+      <use>The number of successful IP transport resource reservations in the BTS. UPDATED: When the BTS returns NBAP: Radio Link Setup Response or NBAP: Radio Link Reconfiguration Ready indicating a successful radio link setup or reconfiguration with IP-based Iub interface.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SUCC_BTS_IP_RES)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SUCC_BTS_IP_RES (M804C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_BTS_IP_RES_EXT_TRANS">
+    <formula>IPCAC.FAIL_BTS_IP_RES_EXT_TRANS</formula>
+    <kpi_info>
+      <title>FAIL_BTS_IP_RES_EXT_TRANS (M804C5)</title>
+      <use>The number of failed IP transport resource reservations in the BTS due to external connection admission control. UPDATED: When the BTS returns Transport Layer cause 'Transport resources Unavailable' in NBAP: Radio Link Setup Failure or NBAP: Radio Link Reconfiguration Failure.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_BTS_IP_RES_EXT_TRANS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_BTS_IP_RES_EXT_TRANS (M804C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="FAIL_BTS_IP_RES_OTHER_TRANS">
+    <formula>IPCAC.FAIL_BTS_IP_RES_OTHER_TRANS</formula>
+    <kpi_info>
+      <title>FAIL_BTS_IP_RES_OTHER_TRANS (M804C6)</title>
+      <use>The number of failed IP transport resource reservations in the BTS due to some other transport related failure than congestion. Also RNC internal failures after BTS successful response are included in this counter. UPDATED:When the BTS returns Transport Layer cause 'Unspecified' in NBAP: Radio Link Setup Failure or NBAP: Radio Link Reconfiguration Failure. The counter is updated also if an RNC internal failure prevents the transport bearer establishment even if BTS would have returned a successful NBAP response.
+Note: This counter doesn't have a formula and the default (SUM) was used.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(FAIL_BTS_IP_RES_OTHER_TRANS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>FAIL_BTS_IP_RES_OTHER_TRANS (M804C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>IPCAC.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

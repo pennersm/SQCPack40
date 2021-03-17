@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml" />
+  <kpi name="RNC_2595a">
+    <formula>100*decode(
+			(hsdpaw.hsdpa_users_one_tti + 
+			hsdpaw.hsdpa_users_two_tti + 
+			hsdpaw.hsdpa_users_three_tti + 
+			hsdpaw.hsdpa_users_four_tti),0,null, 
+
+			(hsdpaw.hsdpa_users_one_tti + 
+			2*hsdpaw.hsdpa_users_two_tti + 
+			3*hsdpaw.hsdpa_users_three_tti + 
+			4*hsdpaw.hsdpa_users_four_tti)
+			 / 
+			(hsdpaw.hsdpa_users_one_tti + 
+			hsdpaw.hsdpa_users_two_tti + 
+			hsdpaw.hsdpa_users_three_tti + 
+			hsdpaw.hsdpa_users_four_tti))</formula>
+    <kpi_info>
+      <title><![CDATA[Average nr of HSDPA users per TTI]]></title>
+      <use><![CDATA[Average number of scheduled HSDPA users per TTI in WCELL]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(HSDPA_USERS_ONE_TTI +
+&lt;br&gt;2 * HSDPA_USERS_TWO_TTI +
+&lt;br&gt;3 * HSDPA_USERS_THREE_TTI +
+&lt;br&gt;4 * HSDPA_USERS_FOUR_TTI)
+&lt;br&gt;----------------------------
+&lt;br&gt;SUM(HSDPA_USERS_ONE_TTI +
+&lt;br&gt;HSDPA_USERS_TWO_TTI +
+&lt;br&gt;HSDPA_USERS_THREE_TTI +
+&lt;br&gt;HSDPA_USERS_FOUR_TTI)
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>nokrww_ps_HSDPAW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:44.601 +0100</date>
+          <comment><![CDATA[Source: RSRAN051.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg HSDPA usr TTI</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_1170a">
+    <formula>100*decode(
+			(lcelld.pdcp_sdu_loss_dl),0,null, 
+
+			(lcelld.pdcp_sdu_loss_dl_qci_4)
+			 / 
+			(lcelld.pdcp_sdu_loss_dl))</formula>
+    <kpi_info>
+      <title><![CDATA[Fraction of lost DL PDCP SDUs for QCI4]]></title>
+      <use><![CDATA[This KPI measures the Percentage of lost DL PDCP SDUs for QCI4 compared to all lost SDUs in DL.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(PDCP_SDU_LOSS_DL_QCI_4)
+&lt;br&gt;/
+&lt;br&gt;SUM(PDCP_SDU_LOSS_DL)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:20:44.230 +0000</date>
+          <comment><![CDATA[Source: RSLTE055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Fract lost PDCP SDU DL QCI4</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

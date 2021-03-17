@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml" />
+  <kpi name="msc_4043a">
+    <formula>decode(
+		(ho1.intramscumtstogsmok +
+            ho1.intramscumtstogsmnok +
+            ho1.interplmnintramscumtstogsmok +
+            ho1.interplmnintramscumtstogsmnok),0,null, 
+		(100*( ho1.intramscumtstogsmnok +
+            ho1.interplmnintramscumtstogsmnok )/
+       ( ho1.intramscumtstogsmok +
+            ho1.intramscumtstogsmnok +
+            ho1.interplmnintramscumtstogsmok +
+            ho1.interplmnintramscumtstogsmnok )))</formula>
+    <kpi_info>
+      <title><![CDATA[Intra MSC Inter System (3G-2G) HO Failure Ratio]]></title>
+      <use><![CDATA[Indicates the failure ratio of intra MSC and Intersystem (3G->2G) handover procedures.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The analysis includes both 2G + 3G.
+<br>This analysis does not includes I-HSPA traffic (available starting from M14.6).
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 02-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Handover measurement, part 1 (M81/51H)
+<br>
+<br>NOTES: This KPI uses a different approach compared to ex-S KPI: one&#146;s complement of the number of successful Intersystem (3G->2G) Intra MSC HO procedures divided by the number of Intersystem (3G->2G) Intra MSC HO attempts. The KPI&#039;s purpose is, however, the same.
+<br>
+<br>This NSN KPI is compliant with ex-S &quot;Intra MSC Inter System (3G-2G) HO Failure Ratio&quot; KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM( IntraMscUmtsToGsmNok +
+&lt;br&gt;            InterPlmnIntraMscUmtsToGsmNok )
+&lt;br&gt;100 * ------------------------------------------
+&lt;br&gt;       SUM( IntraMscUmtsToGsmOk +
+&lt;br&gt;            IntraMscUmtsToGsmNok +
+&lt;br&gt;            InterPlmnIntraMscUmtsToGsmOk +
+&lt;br&gt;            InterPlmnIntraMscUmtsToGsmNok )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IntraMSC Intersys(3G-&gt;2G)HOFR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

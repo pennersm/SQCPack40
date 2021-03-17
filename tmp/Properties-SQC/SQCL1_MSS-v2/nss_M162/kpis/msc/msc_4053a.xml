@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml" />
+  <kpi name="msc_4053a">
+    <formula>
+decode(SERVI_ext.MSCSSM_USAGE_23 ,0,null,
+	100 * (SERVI_ext.MSCSSM_USAGE_22 / SERVI_ext.MSCSSM_USAGE_23 )
+)  
+	</formula>
+    <kpi_info>
+      <title><![CDATA[SMS Failure Ratio (2G+3G)]]></title>
+      <use><![CDATA[Indicates the number of failed incoming and failed outgoing SMS messages in relation to the number of attempted incoming and attempted outgoing SMS messages.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Service ID:
+<br>   112H = UNSUCCESSFUL MO SMS 2G
+<br>   113H = UNSUCCESSFUL MT SMS 2G
+<br>   10EH = SUCCESSFUL MO SMS 2G
+<br>   10FH = SUCCESSFUL MT SMS 2G
+<br>   114H = UNSUCCESSFUL MO SMS 3G
+<br>   115H = UNSUCCESSFUL MT SMS 3G
+<br>   110H = SUCCESSFUL MO SMS 3G
+<br>   111H = SUCCESSFUL MT SMS 3G
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 31-07-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Service
+<br>MEASUREMENT(S): Service measurement (M128/80H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;SMS Failure Ratio&quot; (2G + 3G) KPI.
+<br>The ex-S one complement approach was not followed. The unsuccessful causes were directly counted. The final objective is, however, accomplished.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( MSCSSM_USAGE ) ;WHERE Service_id = 112H, 113H,114H, 115H
+&lt;br&gt;100 * -----------------------------------
+&lt;br&gt;      SUM( MSCSSM_USAGE ) ;WHERE Service_id = 112H, 113H, 10EH, 10FH, 114H, 115H, 110H, 111H
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_SERVI_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SMS FR - 2G+3G</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

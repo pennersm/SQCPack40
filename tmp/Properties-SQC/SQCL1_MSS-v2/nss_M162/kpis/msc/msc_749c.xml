@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/M3UAMI_ext.xml" />
+  <kpi name="msc_749c">
+    <formula>greatest(M3UAMI_ext.m3ua_octets_received,M3UAMI_ext.m3ua_octets_sent)*8
+ /
+1000</formula>
+    <kpi_info>
+      <title><![CDATA[Maximum M3UA Association traffic per granularity period]]></title>
+      <use><![CDATA[M3UA Association Traffic. The obtained value is the maximum traffic per granularity period.]]></use>
+
+<use_experience><![CDATA[
+<br>M3UA Association Traffic. The obtained value is the maximum traffic per granularity period.
+<br>
+<br>FORMULA NOTES:
+<br>We cannot sum sent+received side, as then the KPI does not correspond to the hw capabilities (two-way processing capacity [e.g. 400kb/s per *SU for M13 and earlier; 1 Mbp/s per *SU for M14.* => Applicable if the CP816 is installed]). We need to define these as max(xxx_sent; xxx_received).
+<br>
+<br>It is necessary to access the RAW table values to get the necessary MAX values because the NetAct default used aggregation rules for these counters are defined as SUM for time and SUM for network.
+<br>
+<br>PUBLISHED: M14.0
+<br>
+<br>LAST UPDATE: 21-03-2011
+<br>
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC - ASSO_SETNAME - ASSO_INDEX,
+<br>HLR - ASSO_SETNAME - ASSO_INDEX,
+<br>SRR - ASSO_SETNAME - ASSO_INDEX
+<br>
+<br>
+<br>KPI CLASS: Traffic
+<br>
+<br>MEASUREMENT(S): M3UA association set measurement M661
+<br>
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature. For HLR this KPI is only valid for M14. SRR: not supported by NE but supported in the adaptation.
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;Greatest[ MAX( M3UA_OCTETS_RECEIVED ) , MAX( M3UA_OCTETS_SENT ) ] * 8
+&lt;br&gt;------------------------------------------------------------
+&lt;br&gt;          1.000
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s) </formula>
+      <unit>kbit</unit>
+      <tables>rns_ps_m3uami_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Maximum M3UA Association traffic per granularity period]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

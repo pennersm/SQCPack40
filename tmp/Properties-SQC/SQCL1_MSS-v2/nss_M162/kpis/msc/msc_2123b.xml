@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CSTS.xml"/>
+  <kpi name="msc_2123b">
+    
+	<formula>
+	decode(
+	(CSTS.CSTS_CSFB_SUCC_EVENTS + CSTS.CSTS_CSFB_UNSUCC_EVENTS),0,null, 
+	(100*
+	(CSTS.CSTS_CSFB_SUCC_EVENTS)
+	/
+	(CSTS.CSTS_CSFB_SUCC_EVENTS + CSTS.CSTS_CSFB_UNSUCC_EVENTS) ) )
+	</formula>
+
+	<kpi_info>
+      <title><![CDATA[MT CSFB SR]]></title>
+      <use><![CDATA[This KPI provides the MSC CS fallback (from LTE to 2G/3G access) success events ratio.]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>
+		<br>This KPI needs optional features.
+		<br>
+		<br>PUBLISHED: M15.1
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Call setup time and success measurement (M386)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+      	<formula>
+		&lt;br&gt;            
+		&lt;br&gt;SUM( CSTS_CSFB_SUCC_EVENTS )
+		&lt;br&gt;----------------------------------------------------------------------------------------------------------------- * 100 
+		&lt;br&gt;SUM( CSTS_CSFB_SUCC_EVENTS + CSTS_CSFB_UNSUCC_EVENTS )
+		&lt;br&gt;
+		&lt;br&gt;Counters from AGGREGATED view(s) 
+		&lt;br&gt;
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_csts_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[MT CSFB SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

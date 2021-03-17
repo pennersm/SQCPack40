@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0 CD3 IOCP measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0 CD3 IOCP measurement dump</csv_title>
+    <report-description>None</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IOCP_AVERAGE_LOAD />
+    <IOCP_PEAK_LOAD_PERCENT /> 
+    <IOCP_PEAK_LOAD_DATE />
+    <IOCP_PEAK_LOAD_TIME />
+    <IOCP_INVALID_RECORD />
+  </column_order>
+  <temp_table name="IOCP" meas_level="PLMN/SGSN/UNIT/PIU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="IOCP_AVERAGE_LOAD" symmetrical="true">AVG(IOCP_AVERAGE_LOAD)</counter>
+      <counter alias="IOCP_PEAK_LOAD_PERCENT" symmetrical="true">MAX(IOCP_PEAK_LOAD_PERCENT)</counter>
+      <counter alias="IOCP_PEAK_LOAD_DATE" symmetrical="true">MAX(IOCP_PEAK_LOAD_DATE)</counter>
+      <counter alias="IOCP_PEAK_LOAD_TIME" symmetrical="true">MAX(IOCP_PEAK_LOAD_TIME)</counter>
+      <counter alias="IOCP_INVALID_RECORD" symmetrical="true">AVG(IOCP_INVALID_RECORD)</counter>
+    </counters>
+    <table_name>rsg_ps_iocp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IOCP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IOCP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_iumm1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IOCP_AVERAGE_LOAD">
+    <formula>IOCP.IOCP_AVERAGE_LOAD</formula>
+    <kpi_info>
+      <title>IOCP_AVERAGE_LOAD</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(IOCP_AVERAGE_LOAD)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_iocp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IOCP_AVERAGE_LOAD</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IOCP_PEAK_LOAD_PERCENT">
+    <formula>IOCP.IOCP_PEAK_LOAD_PERCENT</formula>
+    <kpi_info>
+      <title>IOCP_PEAK_LOAD_PERCENT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IOCP_PEAK_LOAD_PERCENT)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_iocp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IOCP_PEAK_LOAD_PERCENT</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IOCP_PEAK_LOAD_DATE">
+    <formula>IOCP.IOCP_PEAK_LOAD_DATE</formula>
+    <kpi_info>
+      <title>IOCP_PEAK_LOAD_DATE</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IOCP_PEAK_LOAD_DATE)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_iocp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IOCP_PEAK_LOAD_DATE</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IOCP_PEAK_LOAD_TIME">
+    <formula>IOCP.IOCP_PEAK_LOAD_TIME</formula>
+    <kpi_info>
+      <title>IOCP_PEAK_LOAD_TIME</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IOCP_PEAK_LOAD_TIME)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_iocp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IOCP_PEAK_LOAD_TIME</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IOCP_INVALID_RECORD">
+    <formula>IOCP.IOCP_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>IOCP_INVALID_RECORD</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(IOCP_INVALID_RECORD)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_iocp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IOCP_INVALID_RECORD</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

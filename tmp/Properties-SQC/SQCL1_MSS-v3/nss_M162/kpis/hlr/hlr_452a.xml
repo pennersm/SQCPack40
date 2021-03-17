@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/ACHMME.xml"/>
+  <kpi name="hlr_452a">
+    <formula>100*decode(
+			((ACHMME.numberOfRequests)),0,0, 
+
+			((ACHMME.numberOfAnswered))
+			 / 
+			((ACHMME.numberOfRequests)))</formula>
+    <kpi_info>
+      <title><![CDATA[Authentication request answer ratio per MME ]]></title>
+      <use><![CDATA[The KPI indicates authentication request answer rate per MME.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_524e KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: PLMN->HLR->MME
+	  <br>KPI CLASS: Security
+	  <br>MEASUREMENT(S): AC measurement in HLR (M87)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>  SUM( numberOfAnswered )
+&lt;br&gt;------------------- * 100
+&lt;br&gt;  SUM( numberOfRequests )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED views:
+&lt;br&gt;RNS_P_ACHMME_MMEID_PMC
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_ACHMME_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Auth req answ ratio MME]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

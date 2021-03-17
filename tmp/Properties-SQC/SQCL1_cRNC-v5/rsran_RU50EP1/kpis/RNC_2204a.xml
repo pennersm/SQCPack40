@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_2204a">
+    <formula>100*decode(
+			pktcall.ps_rel_rl_fail_d_d_int + 
+			pktcall.ps_rel_rl_fail_d_d_bgr + 
+			pktcall.ps_rel_rl_fail_d_d_stre + 
+			pktcall.ps_rel_oth_fail_d_d_int + 
+			pktcall.ps_rel_oth_fail_d_d_bgr + 
+			pktcall.ps_rel_oth_fail_d_d_stre + 
+			pktcall.ps_rel_norm_d_d_int + 
+			pktcall.ps_rel_norm_d_d_bgr + 
+			pktcall.ps_rel_norm_d_d_stre,0,null, 
+
+			(pktcall.ps_rel_rl_fail_d_d_int + 
+			pktcall.ps_rel_rl_fail_d_d_bgr + 
+			pktcall.ps_rel_rl_fail_d_d_stre)
+			 / 
+			(pktcall.ps_rel_rl_fail_d_d_int + 
+			pktcall.ps_rel_rl_fail_d_d_bgr + 
+			pktcall.ps_rel_rl_fail_d_d_stre + 
+			pktcall.ps_rel_oth_fail_d_d_int + 
+			pktcall.ps_rel_oth_fail_d_d_bgr + 
+			pktcall.ps_rel_oth_fail_d_d_stre + 
+			pktcall.ps_rel_norm_d_d_int + 
+			pktcall.ps_rel_norm_d_d_bgr + 
+			pktcall.ps_rel_norm_d_d_stre))</formula>
+    <kpi_info>
+      <title><![CDATA[DCH/DCH Packet Call Rel due to RL Failures]]></title>
+      <use><![CDATA[Percentage of DCH/DCH packet call releases caused by radio link failure for interactive, background and streaming traffic class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum ( PS_REL_RL_FAIL_D_D_INT
+&lt;br&gt;+ PS_REL_RL_FAIL_D_D_BGR
+&lt;br&gt;+ PS_REL_RL_FAIL_D_D_STRE)
+&lt;br&gt;---------------
+&lt;br&gt;RNC_2206a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:47.714 +0100</date>
+          <comment><![CDATA[Source: RSRAN079.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>DCH/DCH PktSession FR,RL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

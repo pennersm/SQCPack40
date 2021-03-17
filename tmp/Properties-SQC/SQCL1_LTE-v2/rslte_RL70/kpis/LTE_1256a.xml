@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_1256a">
+    <formula>decode(
+			(lcelld.period_duration*60),0,null, 
+
+			(lcelld.time_cplane_ovl_l1 + 
+			lcelld.time_cplane_ovl_l2)
+			 / 
+			(lcelld.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of time the eNB was in the c-plane overload state]]></title>
+      <use><![CDATA[Percentage of time the eNB was in the c-plane overload state]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(TIME_CPLANE_OVL_L1 + TIME_CPLANE_OVL_L2)
+&lt;br&gt;/
+&lt;br&gt;SUM(PERIOD_DURATION *60)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/07/22 18:43:16.106 +0100</date>
+          <comment><![CDATA[Source: RSLTE999.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>% time eNB in c-pl ovrld</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

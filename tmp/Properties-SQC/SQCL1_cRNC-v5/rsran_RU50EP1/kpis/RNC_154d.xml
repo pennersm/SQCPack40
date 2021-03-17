@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_154d">
+    <formula>decode(
+			(servlev.rrc_conn_stp_att - 
+			servlev.rrc_conn_setup_att_repeat - 
+			servlev.rrc_conn_acc_rel_cell_resel + 
+			servlev.rrc_conn_setup_comp_aft_dir - 
+			servlev.rrc_conn_stp_rej_emerg_call),0,null, 
+
+			(100*(servlev.rrc_conn_acc_comp + 
+			servlev.rrc_con_setup_comp_directed)
+			 / 
+			(servlev.rrc_conn_stp_att - 
+			servlev.rrc_conn_setup_att_repeat - 
+			servlev.rrc_conn_acc_rel_cell_resel + 
+			servlev.rrc_conn_setup_comp_aft_dir - 
+			servlev.rrc_conn_stp_rej_emerg_call)))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Setup and Access Complete Ratio]]></title>
+      <use><![CDATA[RRC Setup and Access Complete Ratio [%] over the reporting period. Covers RRC Setup and Access phases (From RRC Connection Request to RRC Connection Setup Complete).  Note1: RRC connection is needed also for other purposes than a call (SMS, LU, Detach, etc.).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(RRC_CONN_ACC_COMP + 
+&lt;br&gt;RRC_CON_SETUP_COMP_DIRECTED)
+&lt;br&gt;/
+&lt;br&gt;sum(RRC_CONN_STP_ATT - 
+&lt;br&gt;RRC_CONN_SETUP_ATT_REPEAT - 
+&lt;br&gt;RRC_CONN_ACC_REL_CELL_RESEL + 
+&lt;br&gt;RRC_CONN_SETUP_COMP_AFT_DIR - 
+&lt;br&gt;RRC_CONN_STP_REJ_EMERG_CALL)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RRC Setup and Access Complete Ratio from end user perspective]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

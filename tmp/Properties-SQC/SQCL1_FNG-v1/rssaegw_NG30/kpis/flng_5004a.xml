@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <kpi name="flng_5004a">
+    <formula>decode(
+			((GTPU.period_duration*60*1048576)),0,NULL, 
+
+			((8*(GTPU.gtpu_gpdu_bytes_recv_rat_unkn + 
+			GTPU.gtpu_gpdu_bytes_sent_rat_unkn)))
+			 / 
+			((GTPU.period_duration*60*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Unknown GTPU data throughput]]></title>
+      <use><![CDATA[This KPI shows the total (received+sent) amount of GTP-U data throughput with unknown access type (that is; the access type was not received by Flexi NG or the access type is not 2G; 3G; or LTE).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (8 * (gtpu_gpdu_bytes_recv_rat_unkn + 
+&lt;br&gt;   gtpu_gpdu_bytes_sent_rat_unkn))
+&lt;br&gt;------------------------------------------
+&lt;br&gt;sum (period_duration * 60 * 1048576)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Unkn GTPU data thp]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2088a">
+    <formula>decode(
+			((TRAFFIC.allo_hs_dsch_flow_int + 
+			TRAFFIC.allo_hs_dsch_flow_bgr)*100),0,null, 
+
+			((TRAFFIC.allo_dur_hs_dsch_flow_int + 
+			TRAFFIC.allo_dur_hs_dsch_flow_bgr))
+			 / 
+			((TRAFFIC.allo_hs_dsch_flow_int + 
+			TRAFFIC.allo_hs_dsch_flow_bgr)*100))</formula>
+    <kpi_info>
+      <title><![CDATA[Average duration of each HS-DSCH allocation on Cell_DCH state]]></title>
+      <use><![CDATA[Average duration (in seconds) of each HS-DSCH allocation on Cell_DCH state, provides information about the total time that at least one HS-DSCH was allocated divided by the total number of HS-DSCH allocations.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (allo_dur_hs_dsch_flow_int + allo_dur_hs_dsch_flow_bgr)
+&lt;br&gt;-----------------------------------------------------------
+&lt;br&gt; sum (allo_hs_dsch_flow_int + allo_hs_dsch_flow_bgr) * 100
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Seconds]</unit>
+      <tables>NOKRWW_PS_TRAFFIC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HS-DSCH alloc avg dur]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>

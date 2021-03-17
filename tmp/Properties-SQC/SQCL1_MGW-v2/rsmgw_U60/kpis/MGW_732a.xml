@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/H248GR2.xml" />
+  <kpi name="MGW_732a">
+    <formula>decode(
+			(h248gr2.period_duration*60),0,null, 
+
+			(((8*h248gr2.total_size_of_rec_msg)
+			 / 
+			1000)
+			 / 
+			(h248gr2.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[Incoming throughput of Mc interface]]></title>
+      <use><![CDATA[The calculation of the throughput of received H.248 messages. Incoming bandwidth.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum((8*TOTAL_SIZE_OF_REC_MSG)/1000) /sum(PERIOD_DURATION*60)</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokmww_ps_h248gr2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Incoming throughput of Mc interface]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

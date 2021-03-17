@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 MTP_matr_sign_traf MTPMST measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 MTP_matr_sign_traf MTPMST measurement dump</csv_title>
+    <report-description>MTP Matrix Signalling Traffic</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <NBR_OF_SIF_AND_SIO_OCTETS />
+    <NBR_OF_MSUS />
+  </column_order>
+  <temp_table name="MTPMST" meas_level="PLMN/RNC/SNET/SIO/OPC/DSPC" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="NBR_OF_SIF_AND_SIO_OCTETS">SUM(NBR_OF_SIF_AND_SIO_OCTETS)</counter>
+      <counter alias="NBR_OF_MSUS">SUM(NBR_OF_MSUS)</counter>
+    </counters>
+    <table_name>nokrww_ps_mtpmst_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MTPMST</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MTPMST.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_mtpmst_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NBR_OF_SIF_AND_SIO_OCTETS">
+    <formula>MTPMST.NBR_OF_SIF_AND_SIO_OCTETS</formula>
+    <kpi_info>
+      <title>NBR_OF_SIF_AND_SIO_OCTETS</title>
+      <use>Number of SIF and SIO octets handled with given OPD, DPC, SIO, 6.6 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NBR_OF_SIF_AND_SIO_OCTETS)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtpmst_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NBR_OF_SIF_AND_SIO_OCTETS (M215B2C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="NBR_OF_MSUS">
+    <formula>MTPMST.NBR_OF_MSUS</formula>
+    <kpi_info>
+      <title>NBR_OF_MSUS</title>
+      <use>Number of MSUs handled with given OPD, DPC, SIO, 6.7 in ITU-T Q.752</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(NBR_OF_MSUS)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_mtpmst_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NBR_OF_MSUS (M215B2C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

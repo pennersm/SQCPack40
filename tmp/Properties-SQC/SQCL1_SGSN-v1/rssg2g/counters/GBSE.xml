@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 GBSE measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 GBSE measurement dump</csv_title>
+    <report-description>Security measurement(GBSE)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <GSM_AUTH_ATTEMPTS />
+    <GSM_SUCC_MM_AUTH />
+    <GSM_SUCC_SM_AUTH />
+    <GSM_FAIL_MM_AUTH_NO_MS_REPLY />
+    <GSM_FAIL_SM_AUTH_NO_MS_REPLY />
+    <GSM_SUCC_MO_SMS_AUTH />
+    <GSM_FAIL_MO_SMS_AUTH />
+    <GSM_SUCC_MT_SMS_AUTH />
+    <GSM_FAIL_MT_SMS_AUTH />
+    <GSM_IDEN_ATTEMPTS />
+    <GSM_SUCC_MM_IDEN />
+    <GSM_SUCC_SM_IDEN />
+    <GSM_FAIL_MM_IDEN_NO_MS_REPLY />
+    <GSM_FAIL_SM_IDEN_NO_MS_REPLY />
+    <GSM_SUCC_MO_SMS_IDEN />
+    <GSM_FAIL_MO_SMS_IDEN />
+    <GSM_SUCC_MT_SMS_IDEN />
+    <GSM_FAIL_MT_SMS_IDEN />
+  </column_order>
+  <temp_table name="GBSE" meas_level="PLMN/SGSN/PAPU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="GSM_AUTH_ATTEMPTS" symmetrical="true">SUM(GSM_AUTH_ATTEMPTS)</counter>
+      <counter alias="GSM_SUCC_MM_AUTH" symmetrical="true">SUM(GSM_SUCC_MM_AUTH)</counter>
+      <counter alias="GSM_SUCC_SM_AUTH" symmetrical="true">SUM(GSM_SUCC_SM_AUTH)</counter>
+      <counter alias="GSM_FAIL_MM_AUTH_NO_MS_REPLY" symmetrical="true">SUM(GSM_FAIL_MM_AUTH_NO_MS_REPLY)</counter>
+      <counter alias="GSM_FAIL_SM_AUTH_NO_MS_REPLY" symmetrical="true">SUM(GSM_FAIL_SM_AUTH_NO_MS_REPLY)</counter>
+      <counter alias="GSM_SUCC_MO_SMS_AUTH" symmetrical="true">SUM(GSM_SUCC_MO_SMS_AUTH)</counter>
+      <counter alias="GSM_FAIL_MO_SMS_AUTH" symmetrical="true">SUM(GSM_FAIL_MO_SMS_AUTH)</counter>
+      <counter alias="GSM_SUCC_MT_SMS_AUTH" symmetrical="true">SUM(GSM_SUCC_MT_SMS_AUTH)</counter>
+      <counter alias="GSM_FAIL_MT_SMS_AUTH" symmetrical="true">SUM(GSM_FAIL_MT_SMS_AUTH)</counter>
+      <counter alias="GSM_IDEN_ATTEMPTS" symmetrical="true">SUM(GSM_IDEN_ATTEMPTS)</counter>
+      <counter alias="GSM_SUCC_MM_IDEN" symmetrical="true">SUM(GSM_SUCC_MM_IDEN)</counter>
+      <counter alias="GSM_SUCC_SM_IDEN" symmetrical="true">SUM(GSM_SUCC_SM_IDEN)</counter>
+      <counter alias="GSM_FAIL_MM_IDEN_NO_MS_REPLY" symmetrical="true">SUM(GSM_FAIL_MM_IDEN_NO_MS_REPLY)</counter>
+      <counter alias="GSM_FAIL_SM_IDEN_NO_MS_REPLY" symmetrical="true">SUM(GSM_FAIL_SM_IDEN_NO_MS_REPLY)</counter>
+      <counter alias="GSM_SUCC_MO_SMS_IDEN" symmetrical="true">SUM(GSM_SUCC_MO_SMS_IDEN)</counter>
+      <counter alias="GSM_FAIL_MO_SMS_IDEN" symmetrical="true">SUM(GSM_FAIL_MO_SMS_IDEN)</counter>
+      <counter alias="GSM_SUCC_MT_SMS_IDEN" symmetrical="true">SUM(GSM_SUCC_MT_SMS_IDEN)</counter>
+      <counter alias="GSM_FAIL_MT_SMS_IDEN" symmetrical="true">SUM(GSM_FAIL_MT_SMS_IDEN)</counter>
+    </counters>
+    <table_name>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>GBSE</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>GBSE.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_AUTH_ATTEMPTS"  >
+    <formula >GBSE.GSM_AUTH_ATTEMPTS</formula>
+    <kpi_info >
+      <title >GSM_AUTH_ATTEMPTS</title>
+      <use >
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula >SUM(GSM_AUTH_ATTEMPTS)</formula>
+      <unit >#</unit>
+      <tables >rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias >GSM_AUTH_ATTEMPTS</kpi_alias>
+    <kpi_format >float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_MM_AUTH">
+    <formula>GBSE.GSM_SUCC_MM_AUTH</formula>
+    <kpi_info>
+      <title>GSM_SUCC_MM_AUTH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_MM_AUTH)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_MM_AUTH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_SM_AUTH">
+    <formula>GBSE.GSM_SUCC_SM_AUTH</formula>
+    <kpi_info>
+      <title>GSM_SUCC_SM_AUTH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_SM_AUTH)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_SM_AUTH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_MM_AUTH_NO_MS_REPLY">
+    <formula>GBSE.GSM_FAIL_MM_AUTH_NO_MS_REPLY</formula>
+    <kpi_info>
+      <title>GSM_FAIL_MM_AUTH_NO_MS_REPLY</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_MM_AUTH_NO_MS_REPLY)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_MM_AUTH_NO_MS_REPLY</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_SM_AUTH_NO_MS_REPLY">
+    <formula>GBSE.GSM_FAIL_SM_AUTH_NO_MS_REPLY</formula>
+    <kpi_info>
+      <title>GSM_FAIL_SM_AUTH_NO_MS_REPLY</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_SM_AUTH_NO_MS_REPLY)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_SM_AUTH_NO_MS_REPLY</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_MO_SMS_AUTH">
+    <formula>GBSE.GSM_SUCC_MO_SMS_AUTH</formula>
+    <kpi_info>
+      <title>GSM_SUCC_MO_SMS_AUTH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_MO_SMS_AUTH)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_MO_SMS_AUTH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_MO_SMS_AUTH">
+    <formula>GBSE.GSM_FAIL_MO_SMS_AUTH</formula>
+    <kpi_info>
+      <title>GSM_FAIL_MO_SMS_AUTH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_MO_SMS_AUTH)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_MO_SMS_AUTH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_MT_SMS_AUTH">
+    <formula>GBSE.GSM_SUCC_MT_SMS_AUTH</formula>
+    <kpi_info>
+      <title>GSM_SUCC_MT_SMS_AUTH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_MT_SMS_AUTH)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_MT_SMS_AUTH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_MT_SMS_AUTH">
+    <formula>GBSE.GSM_FAIL_MT_SMS_AUTH</formula>
+    <kpi_info>
+      <title>GSM_FAIL_MT_SMS_AUTH</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_MT_SMS_AUTH)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_MT_SMS_AUTH</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_IDEN_ATTEMPTS">
+    <formula>GBSE.GSM_IDEN_ATTEMPTS</formula>
+    <kpi_info>
+      <title>GSM_IDEN_ATTEMPTS</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_IDEN_ATTEMPTS)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_IDEN_ATTEMPTS</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_MM_IDEN">
+    <formula>GBSE.GSM_SUCC_MM_IDEN</formula>
+    <kpi_info>
+      <title>GSM_SUCC_MM_IDEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_MM_IDEN)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_MM_IDEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_SM_IDEN">
+    <formula>GBSE.GSM_SUCC_SM_IDEN</formula>
+    <kpi_info>
+      <title>GSM_SUCC_SM_IDEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_SM_IDEN)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_SM_IDEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_MM_IDEN_NO_MS_REPLY">
+    <formula>GBSE.GSM_FAIL_MM_IDEN_NO_MS_REPLY</formula>
+    <kpi_info>
+      <title>GSM_FAIL_MM_IDEN_NO_MS_REPLY</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_MM_IDEN_NO_MS_REPLY)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_MM_IDEN_NO_MS_REPLY</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_SM_IDEN_NO_MS_REPLY">
+    <formula>GBSE.GSM_FAIL_SM_IDEN_NO_MS_REPLY</formula>
+    <kpi_info>
+      <title>GSM_FAIL_SM_IDEN_NO_MS_REPLY</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_SM_IDEN_NO_MS_REPLY)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_SM_IDEN_NO_MS_REPLY</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_MO_SMS_IDEN">
+    <formula>GBSE.GSM_SUCC_MO_SMS_IDEN</formula>
+    <kpi_info>
+      <title>GSM_SUCC_MO_SMS_IDEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_MO_SMS_IDEN)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_MO_SMS_IDEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_MO_SMS_IDEN">
+    <formula>GBSE.GSM_FAIL_MO_SMS_IDEN</formula>
+    <kpi_info>
+      <title>GSM_FAIL_MO_SMS_IDEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_MO_SMS_IDEN)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_MO_SMS_IDEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_SUCC_MT_SMS_IDEN">
+    <formula>GBSE.GSM_SUCC_MT_SMS_IDEN</formula>
+    <kpi_info>
+      <title>GSM_SUCC_MT_SMS_IDEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_SUCC_MT_SMS_IDEN)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_SUCC_MT_SMS_IDEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GSM_FAIL_MT_SMS_IDEN">
+    <formula>GBSE.GSM_FAIL_MT_SMS_IDEN</formula>
+    <kpi_info>
+      <title>GSM_FAIL_MT_SMS_IDEN</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GSM_FAIL_MT_SMS_IDEN)</formula>
+      <unit>no.</unit>
+      <tables>rsg_ps_gbse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GSM_FAIL_MT_SMS_IDEN</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

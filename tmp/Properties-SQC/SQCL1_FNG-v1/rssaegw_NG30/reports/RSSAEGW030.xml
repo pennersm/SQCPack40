@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <valid-time-levels>day,hour,raw,whole_period,week</valid-time-levels>
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW030 - PMIP PDN Connection Management</header>
+    <csv_title>PMIP PDN Connection Management</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about PDN connection management functionality on S5/S2 PMIP interface.
+<br>Proxy Binding Update (PBU) messages are sent/received as part of 'PDN connection creation', 'PDN connection handover', 'PDN connection lifetime extension' and 'S-GW initiated PDN connection deletion' procedures.
+<br>Binding Revocation Indication (BRI) messages are sent/received as part of 'P-GW initiated connection deletion' procedure.
+<br>Use case specific instructions:
+<br>- For 'PBU sent or rcvd' troubleshooting, go to detailed report "PMIP PBU cause code";
+<br>- For 'BRI rcvd or sent' troubleshooting, go to detailed report "PMIP BRI cause code".]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/10/27 14:57:21.956 +0000</date>
+        <comment><![CDATA[Source: RSSAEGW030.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>PMIP PDN Connection Management</report-description>
+    <report-title>PMIP PDN Connection Management</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_265a ui_name="Att" group="PBU sent" master-group="S-GW specific" chartType="bar" yAxis="2" />
+    <flng_266a ui_name="Succ" group="PBU sent" master-group="S-GW specific" report_drill="RSSAEGW_PBU" />
+    <flng_708a ui_name="Resp/Req" group="PBU sent" master-group="S-GW specific" />    
+    <flng_598a ui_name="Att" group="PBU sent on S5/S2" master-group="S-GW specific" chartType="bar" yAxis="2" />
+    <flng_599a ui_name="Succ" group="PBU sent on S5/S2" master-group="S-GW specific" report_drill="RSSAEGW_PBU" />
+    <flng_709a ui_name="Resp/Req" group="PBU sent on S5/S2" master-group="S-GW specific" />
+    <flng_273a ui_name="Att" group="BRI rcvd" master-group="S-GW specific" chartType="bar" yAxis="2" />
+    <flng_274a ui_name="Succ" group="BRI rcvd" master-group="S-GW specific" report_drill="RSSAEGW_BRI" />
+    <flng_710a ui_name="Resp/Req" group="BRI rcvd" master-group="S-GW specific" />
+    <flng_269a ui_name="Att" group="PBU rcvd" master-group="P-GW specific" chartType="bar" yAxis="2" />
+    <flng_270a ui_name="Succ" group="PBU rcvd" master-group="P-GW specific" report_drill="RSSAEGW_PBU" />
+    <flng_711a ui_name="Resp/Req" group="PBU rcvd" master-group="P-GW specific" />
+    <flng_602a ui_name="Att" group="PBU rcvd on S5/S2" master-group="P-GW specific" chartType="bar" yAxis="2" />
+    <flng_603a ui_name="Succ" group="PBU rcvd on S5/S2" master-group="P-GW specific" report_drill="RSSAEGW_PBU" />
+    <flng_712a ui_name="Resp/Req" group="PBU rcvd on S5/S2" master-group="P-GW specific" />    
+    <flng_277a ui_name="Att" group="BRI sent" master-group="P-GW specific" chartType="bar" yAxis="2" />
+    <flng_278a ui_name="Succ" group="BRI sent" master-group="P-GW specific" report_drill="RSSAEGW_BRI" />
+    <flng_713a ui_name="Resp/Req" group="BRI sent" master-group="P-GW specific" />
+    <flng_384a ui_name="HBI rcv" group="Heartbeat rcv" master-group="PMIP path management" chartType="bar" yAxis="2" />
+    <flng_385a ui_name="HBA sent/HBI rcv" group="Heartbeat rcv" master-group="PMIP path management" />
+    <flng_386a ui_name="HBI sent" group="Heartbeat sent" master-group="PMIP path management" chartType="bar" yAxis="2" />
+    <flng_387a ui_name="HBA rcv/HBI sent" group="Heartbeat sent" master-group="PMIP path management" />
+    <flng_283a ui_name="Total" group="PMIP data sig" master-group="" />
+    <flng_281a ui_name="Rcvd" group="PMIP data sig" master-group="" />
+    <flng_282a ui_name="Sent" group="PMIP data sig" master-group="" />
+  </column_order>
+  <report_drill id="RSSAEGW_PBU" >
+  	<drill reportLevel="PLMN/FING/FNODE" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssaegw_NG30/ui_conf/rssaegw_NG30_SAEGW_PMIP_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+			<string value="PLMN/FING/FNODE/PMIP/PMIPCC"/>
+		</param>
+		<param key="report">
+			<string value="rssaegw_NG30/reports/RSSAEGW031.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to PMIP PBU cause code"/>
+		</param>
+	</drill>
+  	<drill reportLevel="PLMN/FING/FNODE/PMIP" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssaegw_NG30/ui_conf/rssaegw_NG30_SAEGW_PMIP_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+			<string value="PLMN/FING/FNODE/PMIP/PMIPCC"/>
+		</param>
+		<param key="report">
+			<string value="rssaegw_NG30/reports/RSSAEGW031.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to PMIP PBU cause code"/>
+		</param>
+	</drill>
+  </report_drill>
+  <report_drill id="RSSAEGW_BRI" >
+  	<drill reportLevel="PLMN/FING/FNODE" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssaegw_NG30/ui_conf/rssaegw_NG30_SAEGW_PMIP_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+			<string value="PLMN/FING/FNODE/PMIP/PMIPCC"/>
+		</param>
+		<param key="report">
+			<string value="rssaegw_NG30/reports/RSSAEGW032.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to PMIP BRI cause code"/>
+		</param>
+	</drill>
+  	<drill reportLevel="PLMN/FING/FNODE/PMIP" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssaegw_NG30/ui_conf/rssaegw_NG30_SAEGW_PMIP_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+			<string value="PLMN/FING/FNODE/PMIP/PMIPCC"/>
+		</param>
+		<param key="report">
+			<string value="rssaegw_NG30/reports/RSSAEGW032.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to PMIP BRI cause code"/>
+		</param>
+	</drill>
+  </report_drill> 
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_265a.xml#flng_265a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_266a.xml#flng_266a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_708a.xml#flng_708a" />  
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_598a.xml#flng_598a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_599a.xml#flng_599a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_709a.xml#flng_709a" />  
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_273a.xml#flng_273a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_274a.xml#flng_274a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_710a.xml#flng_710a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_269a.xml#flng_269a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_270a.xml#flng_270a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_711a.xml#flng_711a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_602a.xml#flng_602a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_603a.xml#flng_603a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_712a.xml#flng_712a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_277a.xml#flng_277a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_278a.xml#flng_278a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_713a.xml#flng_713a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_384a.xml#flng_384a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_385a.xml#flng_385a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_386a.xml#flng_386a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_387a.xml#flng_387a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_283a.xml#flng_283a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_281a.xml#flng_281a" />
+  <kpi_ref ref="rssaegw_NG30/kpis/flng_282a.xml#flng_282a" />
+</conf_file>
+

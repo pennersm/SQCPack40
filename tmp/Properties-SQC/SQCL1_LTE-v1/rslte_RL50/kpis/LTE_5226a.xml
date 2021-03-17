@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_5226a">
+    <formula>100*decode(
+			(luest.sign_est_f_rrccompl_missing + 
+			luest.sign_est_f_rrccompl_error + 
+			luest.sign_conn_estab_fail_rrmrac),0,null, 
+
+			(luest.sign_conn_estab_fail_rrmrac)
+			 / 
+			(luest.sign_est_f_rrccompl_missing + 
+			luest.sign_est_f_rrccompl_error + 
+			luest.sign_conn_estab_fail_rrmrac))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC Connection Setup Distribution Failure Ratio AC]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific RRC connection setup failure cause &quot;admission control&quot; related to all failed RRC connection setups.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(SIGN_CONN_ESTAB_FAIL_RRMRAC) / (SIGN_EST_F_RRCCOMPL_MISSING+
+&lt;br&gt;SIGN_EST_F_RRCCOMPL_ERROR+
+&lt;br&gt;SIGN_CONN_ESTAB_FAIL_RRMRAC)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LUEST_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/08/03 17:59:23.36 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RRC conn stp FDR AC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

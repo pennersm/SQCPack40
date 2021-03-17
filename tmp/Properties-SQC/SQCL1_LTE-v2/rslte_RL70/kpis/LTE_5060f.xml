@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5060f">
+    <formula>100*decode(
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0)),0,null, 
+
+			luest.sign_conn_estab_comp
+			 / 
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0)))*
+			decode(
+			(lepsb.eps_bearer_stp_att_ini_qci_1 + 
+			nvl(lepsb.eps_bearer_stp_att_ini_qci_2,0) + 
+			nvl(lepsb.eps_bearer_stp_att_ini_qci_3,0) + 
+			nvl(lepsb.eps_bearer_stp_att_ini_qci_4,0) + 
+			lepsb.eps_bear_stp_att_ini_non_gbr),0,null, 
+
+			(lepsb.eps_bearer_stp_com_ini_qci1 + 
+			nvl(lepsb.eps_bearer_stp_com_ini_qci_2,0) + 
+			nvl(lepsb.eps_bearer_stp_com_ini_qci_3,0) + 
+			nvl(lepsb.eps_bearer_stp_com_ini_qci_4,0) + 
+			lepsb.eps_bear_stp_com_ini_non_gbr)
+			 / 
+			(lepsb.eps_bearer_stp_att_ini_qci_1 + 
+			nvl(lepsb.eps_bearer_stp_att_ini_qci_2,0) + 
+			nvl(lepsb.eps_bearer_stp_att_ini_qci_3,0) + 
+			nvl(lepsb.eps_bearer_stp_att_ini_qci_4,0) + 
+			lepsb.eps_bear_stp_att_ini_non_gbr))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN Initial E-RAB Accessibility]]></title>
+      <use><![CDATA[This KPI shows the eNB (radio part) observed probability to set up an end to end connection. Under the end to end a connection to be provided with an initial E-RAB at request is meant.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(SIGN_CONN_ESTAB_COMP) / sum(SIGN_CONN_ESTAB_ATT_MO_S+SIGN_CONN_ESTAB_ATT_MT+SIGN_CONN_ESTAB_ATT_MO_D+SIGN_CONN_ESTAB_ATT_OTHERS + SIGN_CONN_ESTAB_ATT_EMG+SIGN_CONN_ESTAB_ATT_HIPRIO+SIGN_CONN_ESTAB_ATT_DEL_TOL)*
+&lt;br&gt;* sum(EPS_BEARER_STP_COM_INI_QCI1+ EPS_BEARER_STP_COM_INI_QCI_2 + EPS_BEARER_STP_COM_INI_QCI_3 + EPS_BEARER_STP_COM_INI_QCI_4 +  EPS_BEAR_STP_COM_INI_NON_GBR) /sum(EPS_BEARER_STP_ATT_INI_QCI_1+ EPS_BEARER_STP_ATT_INI_QCI_2 + EPS_BEARER_STP_ATT_INI_QCI_3 + EPS_BEARER_STP_ATT_INI_QCI_4 + EPS_BEAR_STP_ATT_INI_NON_GBR)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LUEST_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/07/31 12:01:53.977 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN E-RAB acc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

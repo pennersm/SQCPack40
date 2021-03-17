@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_733a">
+    <formula>decode(
+			(intsysho.scc_started_cpich_ecno + 
+			intsysho.scc_started_ul_sir_error + 
+			intsysho.scc_started_active_set_upd + 
+			intsysho.scc_started_other_reason),0,null, 
+
+			100*((intsysho.scc_intra_bts_successful + 
+			intsysho.scc_inter_bts_successful)
+			 / 
+			(intsysho.scc_started_cpich_ecno + 
+			intsysho.scc_started_ul_sir_error + 
+			intsysho.scc_started_active_set_upd + 
+			intsysho.scc_started_other_reason)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA Serving Cell Change Success Rate]]></title>
+      <use><![CDATA[HSDPA Serving Cell Change Success Rate over the reporting period in the Source Cell.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* 
+&lt;br&gt;sum(SCC_INTRA_BTS_SUCCESSFUL + 
+&lt;br&gt;SCC_INTER_BTS_SUCCESSFUL)
+&lt;br&gt;/
+&lt;br&gt;sum(SCC_STARTED_CPICH_ECNO +
+&lt;br&gt;SCC_STARTED_UL_SIR_ERROR + 
+&lt;br&gt;SCC_STARTED_ACTIVE_SET_UPD + 
+&lt;br&gt;SCC_STARTED_OTHER_REASON)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intsysho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSDPA Serving Cell Change Success Rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

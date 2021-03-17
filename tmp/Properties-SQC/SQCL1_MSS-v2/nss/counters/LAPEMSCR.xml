@@ -1,0 +1,348 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M223 LAPEMSCR measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M223 LAPEMSCR measurement dump</csv_title>
+    <report-description>LAPD Q.921 error counter measurement(LAPEMSCR)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <REC_UNCON_DM_F0/>
+    <REC_UNCON_DM_F1/>
+    <REC_UNCON_UA_F0/>
+    <REC_UNCON_UA_F1/>
+    <REC_UNCON_RR_RNR_REJ_F1/>
+    <UNSUC_RETRANS_SABME/>
+    <UNSUC_RETRANS_DISC/>
+    <UNSUC_RETRANS_STAT_ENQ/>
+    <REC_FRMR_RESP/>
+    <REC_NON_IMPL_FRAME/>
+    <REC_I_FIELD_NOT_PERM/>
+    <REC_FRAME_WRONG_SIZE/>
+    <PEER_INIT_RE_ESTAB/>
+    <NR_ERR/>
+    <N201_ERR/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC1" name="LAPEMSCR" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="REC_UNCON_DM_F0" symmetrical="true">SUM(REC_UNCON_DM_F0)</counter>
+      <counter alias="REC_UNCON_DM_F1" symmetrical="true">SUM(REC_UNCON_DM_F1)</counter>
+      <counter alias="REC_UNCON_UA_F0" symmetrical="true">SUM(REC_UNCON_UA_F0)</counter>
+      <counter alias="REC_UNCON_UA_F1" symmetrical="true">SUM(REC_UNCON_UA_F1)</counter>
+      <counter alias="REC_UNCON_RR_RNR_REJ_F1" symmetrical="true">SUM(REC_UNCON_RR_RNR_REJ_F1)</counter>
+      <counter alias="UNSUC_RETRANS_SABME" symmetrical="true">SUM(UNSUC_RETRANS_SABME)</counter>
+      <counter alias="UNSUC_RETRANS_DISC" symmetrical="true">SUM(UNSUC_RETRANS_DISC)</counter>
+      <counter alias="UNSUC_RETRANS_STAT_ENQ" symmetrical="true">SUM(UNSUC_RETRANS_STAT_ENQ)</counter>
+      <counter alias="REC_FRMR_RESP" symmetrical="true">SUM(REC_FRMR_RESP)</counter>
+      <counter alias="REC_NON_IMPL_FRAME" symmetrical="true">SUM(REC_NON_IMPL_FRAME)</counter>
+      <counter alias="REC_I_FIELD_NOT_PERM" symmetrical="true">SUM(REC_I_FIELD_NOT_PERM)</counter>
+      <counter alias="REC_FRAME_WRONG_SIZE" symmetrical="true">SUM(REC_FRAME_WRONG_SIZE)</counter>
+      <counter alias="PEER_INIT_RE_ESTAB" symmetrical="true">SUM(PEER_INIT_RE_ESTAB)</counter>
+      <counter alias="NR_ERR" symmetrical="true">SUM(NR_ERR)</counter>
+      <counter alias="N201_ERR" symmetrical="true">SUM(N201_ERR)</counter>
+    </counters>
+    <table_name>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LAPEMSCR</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LAPEMSCR.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_UNCON_DM_F0">
+    <formula>LAPEMSCR.REC_UNCON_DM_F0</formula>
+    <kpi_info>
+      <title>REC_UNCON_DM_F0</title>
+      <use>Receipt of unsolicited DM, F=0(cntr E)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_UNCON_DM_F0)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_UNCON_DM_F0 (M223B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_UNCON_DM_F1">
+    <formula>LAPEMSCR.REC_UNCON_DM_F1</formula>
+    <kpi_info>
+      <title>REC_UNCON_DM_F1</title>
+      <use>Receipt of unsolicited DM, F=1(cntr B)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_UNCON_DM_F1)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_UNCON_DM_F1 (M223B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_UNCON_UA_F0">
+    <formula>LAPEMSCR.REC_UNCON_UA_F0</formula>
+    <kpi_info>
+      <title>REC_UNCON_UA_F0</title>
+      <use>Receipt of unsolicited UA, F=0(cntr D)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_UNCON_UA_F0)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_UNCON_UA_F0 (M223B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_UNCON_UA_F1">
+    <formula>LAPEMSCR.REC_UNCON_UA_F1</formula>
+    <kpi_info>
+      <title>REC_UNCON_UA_F1</title>
+      <use>Receipt of unsolicited UA, F=1(cntr C)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_UNCON_UA_F1)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_UNCON_UA_F1 (M223B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_UNCON_RR_RNR_REJ_F1">
+    <formula>LAPEMSCR.REC_UNCON_RR_RNR_REJ_F1</formula>
+    <kpi_info>
+      <title>REC_UNCON_RR_RNR_REJ_F1</title>
+      <use>Receipt of unsolicited RR/RNR/REJ, F=1(cntr A)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_UNCON_RR_RNR_REJ_F1)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_UNCON_RR_RNR_REJ_F1 (M223B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUC_RETRANS_SABME">
+    <formula>LAPEMSCR.UNSUC_RETRANS_SABME</formula>
+    <kpi_info>
+      <title>UNSUC_RETRANS_SABME</title>
+      <use>Unsuccessful retransmission of SABME (cntrG)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUC_RETRANS_SABME)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUC_RETRANS_SABME (M223B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUC_RETRANS_DISC">
+    <formula>LAPEMSCR.UNSUC_RETRANS_DISC</formula>
+    <kpi_info>
+      <title>UNSUC_RETRANS_DISC</title>
+      <use>Unsuccessful retransmission of DISC (cntrH)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUC_RETRANS_DISC)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUC_RETRANS_DISC (M223B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="UNSUC_RETRANS_STAT_ENQ">
+    <formula>LAPEMSCR.UNSUC_RETRANS_STAT_ENQ</formula>
+    <kpi_info>
+      <title>UNSUC_RETRANS_STAT_ENQ</title>
+      <use>Unsuccessful retransmission of status inquiry(cntr I)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(UNSUC_RETRANS_STAT_ENQ)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UNSUC_RETRANS_STAT_ENQ (M223B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_FRMR_RESP">
+    <formula>LAPEMSCR.REC_FRMR_RESP</formula>
+    <kpi_info>
+      <title>REC_FRMR_RESP</title>
+      <use>Receipt of FRMR response (cntr K)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_FRMR_RESP)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_FRMR_RESP (M223B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_NON_IMPL_FRAME">
+    <formula>LAPEMSCR.REC_NON_IMPL_FRAME</formula>
+    <kpi_info>
+      <title>REC_NON_IMPL_FRAME</title>
+      <use>Receipt of non-implemented frame (cntr L)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_NON_IMPL_FRAME)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_NON_IMPL_FRAME (M223B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_I_FIELD_NOT_PERM">
+    <formula>LAPEMSCR.REC_I_FIELD_NOT_PERM</formula>
+    <kpi_info>
+      <title>REC_I_FIELD_NOT_PERM</title>
+      <use>Receipt of I field not permitted (cntrM)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_I_FIELD_NOT_PERM)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_I_FIELD_NOT_PERM (M223B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REC_FRAME_WRONG_SIZE">
+    <formula>LAPEMSCR.REC_FRAME_WRONG_SIZE</formula>
+    <kpi_info>
+      <title>REC_FRAME_WRONG_SIZE</title>
+      <use>Receipt of frame with wrong size (cntr N)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REC_FRAME_WRONG_SIZE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REC_FRAME_WRONG_SIZE (M223B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PEER_INIT_RE_ESTAB">
+    <formula>LAPEMSCR.PEER_INIT_RE_ESTAB</formula>
+    <kpi_info>
+      <title>PEER_INIT_RE_ESTAB</title>
+      <use>Peer initiated re-establishment (cntrF)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PEER_INIT_RE_ESTAB)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PEER_INIT_RE_ESTAB (M223B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="NR_ERR">
+    <formula>LAPEMSCR.NR_ERR</formula>
+    <kpi_info>
+      <title>NR_ERR</title>
+      <use>N(R) error (cntr J)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(NR_ERR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>NR_ERR (M223B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="N201_ERR">
+    <formula>LAPEMSCR.N201_ERR</formula>
+    <kpi_info>
+      <title>N201_ERR</title>
+      <use>N201 error (cntr O)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(N201_ERR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_lapemscr_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>N201_ERR (M223B2C15)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

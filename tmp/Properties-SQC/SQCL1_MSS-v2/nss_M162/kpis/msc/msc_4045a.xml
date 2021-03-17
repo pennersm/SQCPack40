@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml" />
+  <kpi name="msc_4045a">
+    <formula>decode(
+		(ho1.outierplmniermscintragsmok + ho1.outierplmniermscintragsmnok +
+               ho1.outierplmniermscgsmtoumtsok + ho1.outierplmniermscgsmtoumtsnok + 
+               ho1.outierplmniermscumtstogsmok + ho1.outierplmniermscumtstogsmnok +
+               ho1.outierplmniermscintraumtsok + ho1.outierplmniermscintraumtsnok +
+               ho1.outgoingintermscintragsmok + ho1.outgoingintermscintragsmnok +
+               ho1.outgoingintermscgsmtoumtsok + ho1.outgoingintermscgsmtoumtsnok +
+               ho1.outgoingintermscumtstogsmok + ho1.outgoingintermscumtstogsmnok +
+               ho1.outgoingintermscintraumtsok + ho1.outgoingintermscintraumtsnok),0,null, 
+		(100*( ho1.outierplmniermscintragsmok +
+               ho1.outierplmniermscgsmtoumtsok + 
+               ho1.outierplmniermscumtstogsmok +
+               ho1.outierplmniermscintraumtsok + 
+               ho1.outgoingintermscintragsmok +
+               ho1.outgoingintermscgsmtoumtsok +
+               ho1.outgoingintermscumtstogsmok +
+               ho1.outgoingintermscintraumtsok)/
+          ( ho1.outierplmniermscintragsmok + ho1.outierplmniermscintragsmnok +
+               ho1.outierplmniermscgsmtoumtsok + ho1.outierplmniermscgsmtoumtsnok + 
+               ho1.outierplmniermscumtstogsmok + ho1.outierplmniermscumtstogsmnok +
+               ho1.outierplmniermscintraumtsok + ho1.outierplmniermscintraumtsnok +
+               ho1.outgoingintermscintragsmok + ho1.outgoingintermscintragsmnok +
+               ho1.outgoingintermscgsmtoumtsok + ho1.outgoingintermscgsmtoumtsnok +
+               ho1.outgoingintermscumtstogsmok + ho1.outgoingintermscumtstogsmnok +
+               ho1.outgoingintermscintraumtsok + ho1.outgoingintermscintraumtsnok)))</formula>
+    <kpi_info>
+      <title><![CDATA[Inter-MSCA-Handover Success Ratio]]></title>
+      <use><![CDATA[Indicates the ratio of successful Inter-MSC handover in relation to the number of attempted Inter-MSC handover at the old MSC.]]></use>
+
+<use_experience><![CDATA[ 
+<br>The analysis includes both 2G + 3G.
+<br>This analysis does not includes I-HSPA traffic (available starting from M14.6).
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 02-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Handover measurement, part 1 (M81/51H)
+<br>
+<br>NOTES: This NSN KPI is compliant with ex-S &quot;Inter-MSCA-Handover Success Ratio&quot; KPI
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          SUM( OutIerPlmnIerMscIntraGsmOk +
+&lt;br&gt;               OutIerPlmnIerMscGsmToUmtsOk + 
+&lt;br&gt;               OutIerPlmnIerMscUmtsToGsmOk +
+&lt;br&gt;               OutIerPlmnIerMscIntraUmtsOk + 
+&lt;br&gt;               OutgoingInterMscIntraGsmOk +
+&lt;br&gt;               OutgoingInterMscGsmToUmtsOk +
+&lt;br&gt;               OutgoingInterMscUmtsToGsmOk +
+&lt;br&gt;               OutgoingInterMscIntraUmtsOk)
+&lt;br&gt;100 * -----------------------------------------------------------------------
+&lt;br&gt;          SUM( OutIerPlmnIerMscIntraGsmOk + OutIerPlmnIerMscIntraGsmNok +
+&lt;br&gt;               OutIerPlmnIerMscGsmToUmtsOk + OutIerPlmnIerMscGsmToUmtsNok + 
+&lt;br&gt;               OutIerPlmnIerMscUmtsToGsmOk + OutIerPlmnIerMscUmtsToGsmNok +
+&lt;br&gt;               OutIerPlmnIerMscIntraUmtsOk + OutIerPlmnIerMscIntraUmtsNok +
+&lt;br&gt;               OutgoingInterMscIntraGsmOk + OutgoingInterMscIntraGsmNok +
+&lt;br&gt;               OutgoingInterMscGsmToUmtsOk + OutgoingInterMscGsmToUmtsNok +
+&lt;br&gt;               OutgoingInterMscUmtsToGsmOk + OutgoingInterMscUmtsToGsmNok +
+&lt;br&gt;               OutgoingInterMscIntraUmtsOk + OutgoingInterMscIntraUmtsNok)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Inter-MSCA HO SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

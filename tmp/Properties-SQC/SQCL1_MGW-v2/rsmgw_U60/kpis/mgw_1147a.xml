@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SCCPCE.xml" />
+  <kpi name="mgw_1147a">
+    <formula>decode(
+			(sccpce.assignment_conn_att + 
+			sccpce.handover_conn_att),0,null, 
+
+			(100*(sccpce.assignment_conn_att + 
+			sccpce.handover_conn_att - 
+			sccpce.assignment_conn_att_fail - 
+			sccpce.handover_conn_att_fail)
+			 / 
+			(sccpce.assignment_conn_att + 
+			sccpce.handover_conn_att)))</formula>
+    <kpi_info>
+      <title><![CDATA[SCCP connection establishment success ratio]]></title>
+      <use><![CDATA[Indicates SCCP connection establishment success ratio in MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(ASSIGNMENT_CONN_ATT      + HANDOVER_CONN_ATT - 
+&lt;br&gt;          ASSIGNMENT_CONN_ATT_FAIL - HANDOVER_CONN_ATT_FAIL) 
+&lt;br&gt;100 * --------------------------------------------------------
+&lt;br&gt;            SUM(ASSIGNMENT_CONN_ATT + HANDOVER_CONN_ATT)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_sccpce_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SCCP conn esthab succ ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

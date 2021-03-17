@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_2102a">
+    <formula>100*decode(
+			((HSDPAW.capable_dc_hsdpa_users_sum)),0,null, 
+
+			((HSDPAW.active_dc_hsdpa_users_2c_sum))
+			 / 
+			((HSDPAW.capable_dc_hsdpa_users_sum)))</formula>
+    <kpi_info>
+      <title><![CDATA[DC-HSDPA Two Carriers Usage Ratio, per CELL]]></title>
+      <use><![CDATA[The average number of active DC HSDPA users which used for transmission two carriers within same TTI  compared with the number of capable DC HSDPA users shows utilization of two carriers for DC-HSDPA.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (active_dc_hsdpa_users_2c_sum)
+&lt;br&gt;100 * ----------------------------------
+&lt;br&gt;       sum (capable_dc_hsdpa_users_sum)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[DC-HSDPA 2C UsgRatio,CELL]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

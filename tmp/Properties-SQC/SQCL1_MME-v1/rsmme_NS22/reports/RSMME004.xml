@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSMME NS22</report_version>
+    <release number="5.4.2-96" />
+    <min_obj_agg />
+    <valid-time-levels>day,hour,raw,whole_period,week</valid-time-levels>
+    <nw_tp />
+    <maxrows />
+    <header>RSMME004 - Users MME</header>
+    <csv_title>Users MME</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about amount of EPS users in ECM connected, ECM idle, EMM registered and EMM deregistered states on FLEXINS/MME level. Also provides information about location services, SRVCC handovers and overload control drop procedures.
+<br>Use case specific instructions:
+<br>- Note, peak values are applicable on FLEXINS level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2010/07/27 15:27:44.68 +0100</date>
+        <comment><![CDATA[Source: RSMME004.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Users MME</report-description>
+    <report-title>Users MME</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flns_5029b ui_name="Ave" chartType="bar" group="ECM-CONN users" />
+    <flns_5031a ui_name="Peak" group="ECM-CONN users" />
+    <flns_5032b ui_name="Ave" chartType="bar" group="ECM-IDLE users"  />
+    <flns_5034a ui_name="Peak" group="ECM-IDLE users" />
+    <flns_5035a ui_name="Ave" chartType="bar" group="EMM-REG users" report_drill="RSMME_USERS_MMDU" />
+    <flns_5025a ui_name="Peak" group="EMM-REG users" report_drill="RSMME_USERS_MMDU" />
+    <flns_5037a ui_name="Ave" chartType="bar" group="EMM-DEREG users" report_drill="RSMME_USERS_MMDU" />
+    <flns_5028a ui_name="Peak" group="EMM-DEREG users" report_drill="RSMME_USERS_MMDU" />
+    <flns_3170a ui_name="Att" chartType="bar" group="Prov Subsc Location" yAxis="2" />
+    <flns_3171a ui_name="Succ" group="Prov Subsc Location" />
+    <flns_3168a ui_name="Att" chartType="bar" group="Location Serv Req" yAxis="2" />
+    <flns_3169a ui_name="Succ" group="Location Serv Req" />
+    <flns_3142a ui_name="CS and PS" group="SRVCC HO to 3G successful" advancedChartType="column" />
+    <flns_3143a ui_name="CS only" group="SRVCC HO to 3G successful" advancedChartType="column" />
+    <flns_3144a ui_name="Ovld ctrl drop procs" chartType="bar" advancedChartType="column" group="Overload" yAxis="2"/>
+    <flns_3213a ui_name="Ovld ctrl drop procs ratio" group="Overload" />
+  </column_order>
+  <report_drill id="RSMME_USERS_MMDU" >
+  	<drill reportLevel="PLMN/FLEXINS" uri="jflx.web">
+		<param key="uiConf">
+			<string value="rsmme_NS22/ui_conf/rsmme_NS22_Network_Services_uiConf.xml"/>
+		</param>
+		<param key="reportLevel">
+			<string value="PLMN/FLEXINS/MME-MMDU"/>
+		</param>
+		<param key="report">
+			<string value="rsmme_NS22/reports/RSMME008.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to Users MMDU"/>
+		</param>
+	</drill>
+  </report_drill>
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5029b.xml#flns_5029b" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5031a.xml#flns_5031a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5032b.xml#flns_5032b" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5034a.xml#flns_5034a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5035a.xml#flns_5035a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5025a.xml#flns_5025a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5037a.xml#flns_5037a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_5028a.xml#flns_5028a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3170a.xml#flns_3170a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3171a.xml#flns_3171a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3168a.xml#flns_3168a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3169a.xml#flns_3169a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3142a.xml#flns_3142a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3143a.xml#flns_3143a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3144a.xml#flns_3144a" />
+  <kpi_ref ref="rsmme_NS22/kpis/flns_3213a.xml#flns_3213a" />
+</conf_file>
+

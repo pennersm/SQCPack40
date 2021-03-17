@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/MEGMGW.xml" />
+  <kpi name="msc_549b">
+    <formula>
+		decode( megmgw.tot_hand_transactions_inc_req, 0, null,
+			100 * (megmgw.tot_dupl_transactions_inc_req)
+			/ (megmgw.tot_hand_transactions_inc_req)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Duplicated Megaco transactions ratio in requests]]></title>
+      <use><![CDATA[This KPI presents the ratio of the duplicated Megaco transactions compared to all the transactions sent by the MGW]]></use>
+
+<use_experience><![CDATA[ 
+<br>Starting from M14.4, the counter&#039;s source aggregated tables do change.
+<br>
+<br>Duplicates are noticed in the receiving side if the transaction Identifier of the received transaction request matches with the transaction identifier of any recent response or outstanding transaction. This means that the MGW was not informed about the reception of its request, therefore it&#039;s repeated the transaction
+<br>LAST UPDATE: 17-11-2009
+<br>THEORETICAL SUMMARY LEVELS: MSC; MGWMNAME;MGW_ID
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC; MGWMNAME; MGW_ID
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): MEGACO measurement M354
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>
+      	<![CDATA[
+<br>        SUM( TOT_DUPL_TRANSACTIONS_INC_REQ ) 
+<br>100 * --------------------------------------------------
+<br>        SUM( TOT_HAND_TRANSACTIONS_INC_REQ ) 
+<br>
+<br>Use view(s):
+<br>RNS_PS_MEGMGW_&lt;Object&gt;_&lt;Time&gt;
+		]]>
+	  </formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_MEGMGW_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:57.870 +0000</date>
+          <comment><![CDATA[Source: RSMSC044.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Duplic Megaco trans ratio in req</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GREtun.xml"/>
+  <kpi name="flng_518b">
+    <formula>decode(
+			((GREtun.period_duration*60*1048576)),0,NULL, 
+
+			((8*(GREtun.GRE_TUN_S5_IPV4_BYTES_SENT + 
+			GREtun.GRE_TUN_S5_IPV6_BYTES_SENT)))
+			 / 
+			((GREtun.period_duration*60*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[S5 GRE tunneled data throughput sent]]></title>
+      <use><![CDATA[This KPI shows the amount of GRE tunneled data throughput sent to S5 interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(8 * (GRE_TUN_S5_IPV4_BYTES_SENT +
+&lt;br&gt;   GRE_TUN_S5_IPV6_BYTES_SENT) )
+&lt;br&gt;---------------------------------------
+&lt;br&gt;sum( period_duration * 60 * 1048576 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[Mbps]</unit>
+      <tables>PCOFNG_PS_GREtun_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[S5 GRE data thp sent]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

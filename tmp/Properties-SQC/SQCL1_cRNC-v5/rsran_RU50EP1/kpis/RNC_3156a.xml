@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU50EP1/counters/PKTCALL_ext.xml" />
+  <kpi name="RNC_3156a">
+    <formula>100*decode(
+			(pktcall.rx_packets_dscp_dl_tcp_ack_1 + 
+			pktcall.rx_packets_dscp_init_spi_1 + 
+			pktcall.rx_packets_dscp_a_1 + 
+			pktcall.rx_packets_dscp_b_1 + 
+			pktcall.rx_packets_dscp_c_1),0,null, 
+
+			(pktcall.rx_packets_dscp_c_1)
+			 / 
+			(pktcall.rx_packets_dscp_dl_tcp_ack_1 + 
+			pktcall.rx_packets_dscp_init_spi_1 + 
+			pktcall.rx_packets_dscp_a_1 + 
+			pktcall.rx_packets_dscp_b_1 + 
+			pktcall.rx_packets_dscp_c_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of HSDPA traffic marked as DSCP C]]></title>
+      <use><![CDATA[The percentage of received user plane packets from the Iu-PS interface with pre-defined DSCP marking C.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RX_PACKETS_DSCP_C)
+&lt;br&gt;/
+&lt;br&gt;SUM(RX_PACKETS_DSCP_DL_TCP_ACK +
+&lt;br&gt;RX_PACKETS_DSCP_INIT_SPI +
+&lt;br&gt;RX_PACKETS_DSCP_A +
+&lt;br&gt;RX_PACKETS_DSCP_B +
+&lt;br&gt;RX_PACKETS_DSCP_C)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:09:59.385 +0100</date>
+          <comment><![CDATA[Source: RSRAN091.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>% HS traf DSCP C</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

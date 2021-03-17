@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="msc_2183a">
+    <formula>decode(tc_ext.tcat_call_amount_3, 0, null, (100 * tc_ext.Tcat_ok_amount_1)/ tc_ext.tcat_call_amount_3 )</formula>
+    <kpi_info>
+      <title><![CDATA[Answered Call Ratio]]></title>
+      <use><![CDATA[Indicates the ratio of calls that have been answered. ]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat Id:
+<br>13 = IMSC HO INC = Incoming inter-MSC handovers 
+<br>15 = DEVICE ORIG = The call is originating from the MSC itself. Typically occurs in case of Selective Ringback Tone service, Parallel alerting, etc. 
+<br>16 = SCP ORIG = The call is initiated by the SCP. Typically occurs in case of CAMEL ph 3 operation (ICA) 
+<br>32 = 2G ORIG = call is originating from 2G radio access (Means the number of CM_SERVICE_REQUEST messages) 
+<br>34 = 3G ORIG = call is originating from 3G radio access (Means the number of CM_SERVICE_REQUEST messages) 
+<br>45 = INCNOHO = call is coming from trunk (means the number of IAM messages) 
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;     sum(tcat_ok_amount)
+&lt;br&gt;100 * ---------------------- 
+&lt;br&gt;     sum (tcat_call_amount) 
+&lt;br&gt; ;where traffic_category_id = 32, 34, 13,15, 16,45  
+&lt;br&gt; 
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_TC_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Answered Call Ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

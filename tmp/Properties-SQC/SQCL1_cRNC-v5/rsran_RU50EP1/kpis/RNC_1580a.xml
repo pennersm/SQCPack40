@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_1580a">
+    <formula>decode(
+			(pktcall.dch_upgr_req_64_ul + 
+			pktcall.dch_upgr_req_128_ul + 
+			pktcall.dch_upgr_req_256_ul + 
+			pktcall.dch_upgr_req_384_ul),0,null, 
+
+			(100*(pktcall.fail_rec_intera_dch_ul_ac + 
+			pktcall.fail_rec_bgr_dch_ul_ac)
+			 / 
+			(pktcall.dch_upgr_req_64_ul + 
+			pktcall.dch_upgr_req_128_ul + 
+			pktcall.dch_upgr_req_256_ul + 
+			pktcall.dch_upgr_req_384_ul)))</formula>
+    <kpi_info>
+      <title><![CDATA[NRT DCH Reconfiguration FR due to Admission Control - UL]]></title>
+      <use><![CDATA[This KPI provides information about the NRT DCH UL reconfiguration failure rate due to Admission Control]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(FAIL_REC_INTERA_DCH_UL_AC
+&lt;br&gt;+ FAIL_REC_BGR_DCH_UL_AC)
+&lt;br&gt;--------------------------
+&lt;br&gt;SUM(DCH_UPGR_REQ_64_UL
+&lt;br&gt;+ DCH_UPGR_REQ_128_UL 
+&lt;br&gt;+ DCH_UPGR_REQ_256_UL 
+&lt;br&gt;+ DCH_UPGR_REQ_384_UL)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>NRT DCH Rec FR UL AC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

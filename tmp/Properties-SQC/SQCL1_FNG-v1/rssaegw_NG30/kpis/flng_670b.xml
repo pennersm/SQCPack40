@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+    <temp_table_ref src="rssaegw/counters/DIAS6B.xml" />
+  <kpi name="flng_670b">
+	<formula>decode(
+				dias6b.dia_s6b_asr_aaa_recv,0,null,
+				100 * (dias6b.dia_s6b_asa_aaa_sent - dias6b.dia_s6b_asa_aaa_sent_no_succes)
+				/ 
+				dias6b.dia_s6b_asr_aaa_recv
+					)</formula>
+    <kpi_info>
+      <title><![CDATA[S6b ASR received from AAA server success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of Diameter Abort-Session-Request (ASR) messages received from the AAA server on S6b interface, i.e., the number of successful Abort-Session-Answer (ASA) messages sent to the AAA server when compared to the number of ASR messages received from the AAA server on S6b interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+	  <formula>&lt;br&gt;sum(DIA_S6B_ASA_AAA_SENT -
+&lt;br&gt;   DIA_S6B_ASA_AAA_SENT_NO_SUCCES)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(DIA_S6B_ASR_AAA_RECV)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DIAS6B_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/05/28 11:43:30.360 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW079.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S6b ASR rcv AAA SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

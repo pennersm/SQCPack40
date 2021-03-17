@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/GBSD.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUSD.xml"/>
+  <kpi name="sgsn_2039a">
+    <formula>decode(
+			((GBSD.avg_gtp_bytes_sent_ul_den*1048576)),0,NULL, 
+
+			((GBSD.avg_gtp_bytes_sent_ul_sum + 
+			4294967296*GBSD.avg_gtp_bytes_sent_ul_sum_of))
+			 / 
+			((GBSD.avg_gtp_bytes_sent_ul_den*1048576))) - 
+			decode(
+			((IUSD.iu_avg_gtp_bytes_ul_den*1048576)),0,NULL, 
+
+			((IUSD.iu_avg_gtp_bytes_ul_sum + 
+			4294967296*IUSD.iu_avg_gtp_bytes_ul_sum_ofl))
+			 / 
+			((IUSD.iu_avg_gtp_bytes_ul_den*1048576)))</formula>
+    <kpi_info>
+      <title><![CDATA[Gb UL GTP average data volume, SGSN]]></title>
+      <use><![CDATA[This KPI shows the uplink average GTP data volume on SGSN level for Gb interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (avg_gtp_bytes_sent_ul_sum + 4294967296 * avg_gtp_bytes_sent_ul_sum_of)
+&lt;br&gt;--------------------------------------------------------------------------- - sgsn_175a
+&lt;br&gt;                 sum (avg_gtp_bytes_sent_ul_den * 1048576)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[MB]</unit>
+      <tables>RSG_PS_GBSD_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUSD_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gb UL GTP avg data vol, SGSN]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

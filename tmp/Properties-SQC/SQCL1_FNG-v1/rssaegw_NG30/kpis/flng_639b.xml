@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <kpi name="flng_639b">
+    <formula>decode(gtpcv2.period_duration,0,null, 
+			(gtpcv2.gtpcv2_update_bear_req_sent + gtpcv2.gtpcv2_mod_bearer_req_recv + 
+			gtpcv2.gtpcv2_up_bearer_req_recv + 	gtpcv2.gtpcv2_modify_bearer_req_sent + 
+			gtpcv2.gtpcv2_bearer_resource_cmd_rec + gtpcv2.gtpcv2_mod_bearer_cmd_recv + gtpcv2.gtpcv2_mod_bearer_cmd_sent)
+			 / 
+			(gtpcv2.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS bearer modifications per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS bearer modification request procedures per second.
+      This KPI can be used to measure the signalling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPCV2_UPDATE_BEAR_REQ_SENT +
+&lt;br&gt;   GTPCV2_MOD_BEARER_REQ_RECV +
+&lt;br&gt;   GTPCV2_UP_BEARER_REQ_RECV +
+&lt;br&gt;   GTPCV2_MODIFY_BEARER_REQ_SENT +
+&lt;br&gt;   GTPCV2_BEARER_RESOURCE_CMD_REC +
+&lt;br&gt;   GTPCV2_MOD_BEARER_CMD_RECV +
+&lt;br&gt;   GTPCV2_MOD_BEARER_CMD_SENT)
+&lt;br&gt;-------------------------------------
+&lt;br&gt;sum(period_duration * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/09/25 16:16:10.341 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW081.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS bearer mod pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

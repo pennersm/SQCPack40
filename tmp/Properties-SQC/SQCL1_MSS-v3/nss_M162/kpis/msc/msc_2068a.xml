@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml"/>
+  <kpi name="msc_2068a">
+    <formula>100*decode(
+			((VLR1MSC.VOICE_PAGING_SGS_ATTEMPT)),0,0, 
+
+			((VLR1MSC.VOICE_PAGING_SGS_SUCCESS + 
+			VLR1MSC.VOICE_PAGING_SGS_FB_DIFF_MSS))
+			 / 
+			((VLR1MSC.VOICE_PAGING_SGS_ATTEMPT)))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Voice Paging Success Ratio]]></title>
+      <use><![CDATA[Ratio of successful paging procedures for voice calls using SGs interface (SGsAP-PAGING-REQUEST message is sent from MSS/VLR to MME).
+The following cases are considered as successful pagings:
+- CS FallBack case: Paging Response is received over Iu/A inter]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>          SUM( VOICE_PAGING_SGS_SUCCESS + VOICE_PAGING_SGS_FB_DIFF_MSS )
+&lt;br&gt;100 * ---------------------------------------------------------
+&lt;br&gt;          SUM( VOICE_PAGING_SGS_ATTEMPT )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_VLR1MSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[EPS Voice Paging SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

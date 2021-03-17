@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSG2G Combi-SGSN SG91</report_version>
+    <release number="5.9.2-64" />
+    <min_obj_agg />
+    <valid-time-levels>day,hour,raw,whole_period,week</valid-time-levels>
+    <nw_tp />
+    <maxrows />
+    <header>RSSG2G000 - 2G Overview</header>
+    <csv_title>2G Overview</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[<br>Report gives overall information about the 2G SGSN functions.
+
+	<br>Note, to see the full content of this report the optional feature code 3477 must be purchased and activated in the SGSN.
+	<br>Use case specific instructions:
+
+	<br>Run this report on PLMN or SGSN level, check the KPI values and go to more detailed reports on '2G Mobility and Session Management', '2G Traffic' or 'Common' subset for further troubleshooting.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/02/09 15:50:49.429 +0000</date>
+        <comment><![CDATA[Source: rssg2g000.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>2G Overview</report-description>
+    <report-title>2G Overview</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <sgsn_914a ui_name="Total" group="GTP data vol" report_drill="RSSG2G_2G_Traffic" />
+    <sgsn_912a ui_name="DL" group="GTP data vol" />
+    <sgsn_913a ui_name="UL" group="GTP data vol" />
+    <sgsn_2015a ui_name="DL" group="GTP data thp" />
+    <sgsn_2014a ui_name="UL" group="GTP data thp" />
+    <sgsn_915a ui_name="DL" group="GTP data share" />
+    <sgsn_916a ui_name="UL" group="GTP data share" />
+    <sgsn_512a ui_name="Att" group="Attach" chartType="bar" yAxis="2" />
+    <sgsn_511a ui_name="Succ" group="Attach" report_drill="RSSG2G_2G_Mobility_and_Session" />
+    <sgsn_514b ui_name="Att" group="RAU" chartType="bar" yAxis="2" />
+    <sgsn_513b ui_name="Succ" group="RAU" report_drill="RSSG2G_2G_Mobility_and_Session" />
+    <sgsn_536a ui_name="Att" group="PDP act" chartType="bar" yAxis="2" />
+    <sgsn_535a ui_name="Succ" group="PDP act" report_drill="RSSG2G_2G_Mobility_and_Session"/>
+    <sgsn_602b ui_name="Att" group="PDP deact" chartType="bar" yAxis="2" />
+    <res_sgsn324c ui_name="Succ" group="PDP deact" report_drill="RSSG2G_2G_Mobility_and_Session" />
+    <tra_sgsn318b ui_name="Att" group="MO SMS" chartType="bar" yAxis="2" />
+    <sgsn_472b ui_name="Succ" group="MO SMS" report_drill="RSSG2G_2G_SMS" />
+    <tra_sgsn331b ui_name="Att" group="MT SMS" chartType="bar" yAxis="2" />
+    <sgsn_473c ui_name="Succ" group="MT SMS" report_drill="RSSG2G_2G_SMS" />
+    <sgsn_691a ui_name="Ave attached users" group="" chartType="bar" yAxis="1" report_drill="RSSG2G_User" />
+  </column_order>
+  <report_drill id="RSSG2G_2G_Traffic" >
+	<drill uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_2G_Traffic_uiConf.xml"/>
+		</param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G001.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to 2G Traffic report"/>
+		</param>
+	</drill>
+  </report_drill>
+  <report_drill id="RSSG2G_2G_Mobility_and_Session" >
+	<drill uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_2G_Mobility_and_Session_management_uiConf.xml"/>
+		</param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G008.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to 2G Mobility and Session report"/>
+		</param>
+	</drill>
+  </report_drill>
+  <report_drill id="RSSG2G_2G_SMS" >
+	<drill uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_2G_Traffic_uiConf.xml"/>
+		</param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G002.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to 2G SMS report"/>
+		</param>
+	</drill>
+  </report_drill>
+  <report_drill id="RSSG2G_User" >
+	<drill uri="jflx.web">
+		<param key="uiConf">
+			<string value="rssg2g_SG91/ui_conf/rssg2g_SG91_Common_uiConf.xml"/>
+		</param>
+		<param key="report">
+			<string value="rssg2g_SG91/reports/RSSG2G023.xml"/>
+		</param>
+		<param key="drillReportName">
+			<string value="Drill to User report"/>
+		</param>
+	</drill>
+  </report_drill>
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_914a.xml#sgsn_914a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_912a.xml#sgsn_912a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_913a.xml#sgsn_913a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2015a.xml#sgsn_2015a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_2014a.xml#sgsn_2014a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_915a.xml#sgsn_915a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_916a.xml#sgsn_916a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_512a.xml#sgsn_512a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_511a.xml#sgsn_511a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_514b.xml#sgsn_514b" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_513b.xml#sgsn_513b" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_536a.xml#sgsn_536a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_535a.xml#sgsn_535a" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_602b.xml#sgsn_602b" />
+  <kpi_ref ref="rssg2g_SG91/kpis/res_sgsn324c.xml#res_sgsn324c" />
+  <kpi_ref ref="rssg2g_SG91/kpis/tra_sgsn318b.xml#tra_sgsn318b" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_472b.xml#sgsn_472b" />
+  <kpi_ref ref="rssg2g_SG91/kpis/tra_sgsn331b.xml#tra_sgsn331b" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_473c.xml#sgsn_473c" />
+  <kpi_ref ref="rssg2g_SG91/kpis/sgsn_691a.xml#sgsn_691a" />
+</conf_file>
+

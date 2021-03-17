@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<info>
+		<min_obj_agg />
+		<header />
+		<addon_sorting />
+	</info>
+	<temp_table name="DSRR_ext" meas_level="PLMN/FING/FNODE/GTPCV2/DSRR" type="PM" master="yes" pragma="pcofng" create="yes">
+		<counters>
+			<counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+			<counter alias="GTPCV2_DEL_SESS_RESP_RECV">SUM(GTPCV2_DEL_SESS_RESP_RECV)</counter>
+			<!-- Auxiliary Counters -->
+			<counter alias="GTPCV2_DEL_SESS_RESP_RECV_ALL">MAX(GTPCV2_DEL_SESS_RESP_RECV_ALL)</counter>
+			<counter alias="GTPCV2_DEL_SESS_RESP_RECV_16">SUM(decode(dsrr_id,'16',gtpcv2_del_sess_resp_recv,0))</counter>
+		</counters>
+		<table_name>
+			<![CDATA[
+( SELECT 
+		dsrr.*,
+		GTPCV2_DEL_SESS_RESP_RECV_ALL,
+		GTPCV2_DEL_SESS_RESP_RECV_16A
+FROM
+	pcofng_ps_dsrr_dsrr_{TIME_AGG} dsrr,
+	(
+		SELECT 
+			fing_id, fnode_id, 
+			period_start_time,
+			SUM(GTPCV2_DEL_SESS_RESP_RECV) GTPCV2_DEL_SESS_RESP_RECV_ALL,
+			SUM(DECODE(DSRR_ID,'16',GTPCV2_DEL_SESS_RESP_RECV,0)) GTPCV2_DEL_SESS_RESP_RECV_16A
+		FROM
+			 pcofng_ps_dsrr_dsrr_{TIME_AGG}
+		WHERE
+			period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+			period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+		GROUP BY
+			fing_id, fnode_id, period_start_time
+	) fnode_level
+WHERE
+	dsrr.fing_id = fnode_level.fing_id AND fnode_level.fnode_id = dsrr.fnode_id and
+	dsrr.period_start_time = fnode_level.period_start_time AND
+	dsrr.period_start_time >= TO_DATE('#start_timestamp#', 'yyyy/mm/dd hh24:mi:ss') AND 
+	dsrr.period_start_time < TO_DATE('#end_timestamp#', 'yyyy/mm/dd hh24:mi:ss')
+)
+			]]>
+		</table_name>
+		<alias_name>DSRR_ext</alias_name>
+	</temp_table>
+	<kpi name="period_duration">
+		<formula>DSRR_ext.period_duration</formula>
+		<kpi_info>
+			<title>period_duration</title>
+			<use>Duration of the measurement period in minutes.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+			<unit />
+			<tables>pcofng_ps_dsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>period_duration</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_DEL_SESS_RESP_RECV">
+		<formula>DSRR_ext.GTPCV2_DEL_SESS_RESP_RECV</formula>
+		<kpi_info>
+			<title>GTPCV2_DEL_SESS_RESP_RECV</title>
+			<use>This counter contains the number of received Delete Session 
+				responses by cause code &lt;br/&gt;
+				UPDATED: Updated when Delete Session response is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(GTPCV2_DEL_SESS_RESP_RECV)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_dsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_DEL_SESS_RESP_RECV (m3021c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<!-- Auxiliary Counters -->
+	<kpi name="GTPCV2_DEL_SESS_RESP_RECV_ALL">
+		<formula>DSRR_ext.GTPCV2_DEL_SESS_RESP_RECV_ALL</formula>
+		<kpi_info>
+			<title>GTPCV2_DEL_SESS_RESP_RECV</title>
+			<use>This counter contains the number of received Delete Session 
+				responses by all cause code &lt;br/&gt;
+				UPDATED: Updated when Delete Session response is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>MAX(GTPCV2_DEL_SESS_RESP_RECV)</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_dsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_DEL_SESS_RESP_RECV_ALL (m3021c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+	<kpi name="GTPCV2_DEL_SESS_RESP_RECV_16">
+		<formula>DSRR_ext.GTPCV2_DEL_SESS_RESP_RECV_16</formula>
+		<kpi_info>
+			<title>GTPCV2_DEL_SESS_RESP_RECV_16</title>
+			<use>This counter contains the number of received Delete Session 
+				responses by cause code 16.&lt;br/&gt;
+				UPDATED: Updated when Delete Session response is received.</use>
+			<open_questions />
+			<use_experience />
+			<known_problems />
+			<pm_class />
+			<formula>SUM(DECODE(DSRR_ID,16,GTPCV2_DEL_SESS_RESP_RECV,0))</formula>
+			<unit>no</unit>
+			<tables>pcofng_ps_dsrr_{OBJ_AGG}_{TIME_AGG}</tables>
+		</kpi_info>
+		<kpi_alias>GTPCV2_DEL_SESS_RESP_RECV_16 (m3021c0001)</kpi_alias>
+		<kpi_format>float:8</kpi_format>
+		<kpi_mark />
+		<area_level />
+	</kpi>
+</conf_file>

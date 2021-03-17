@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/ATMPERF.xml" />
+  <kpi name="RNC_5219a">
+    <formula>100*decode(
+			(atmperf.i_clp1_drop + 
+			atmperf.i_ppd_drop + 
+			atmperf.i_epd_drop + 
+			atmperf.i_clp0_drop + 
+			atmperf.i_policing_drop + 
+			atmperf.i_err_bram + 
+			atmperf.i_utopia_err + 
+			atmperf.i_err_crc + 
+			atmperf.i_err_header + 
+			atmperf.i_transmit_to_fabric),0,null, 
+
+			(atmperf.i_clp1_drop + 
+			atmperf.i_ppd_drop + 
+			atmperf.i_epd_drop + 
+			atmperf.i_clp0_drop)
+			 / 
+			(atmperf.i_clp1_drop + 
+			atmperf.i_ppd_drop + 
+			atmperf.i_epd_drop + 
+			atmperf.i_clp0_drop + 
+			atmperf.i_policing_drop + 
+			atmperf.i_err_bram + 
+			atmperf.i_utopia_err + 
+			atmperf.i_err_crc + 
+			atmperf.i_err_header + 
+			atmperf.i_transmit_to_fabric))</formula>
+    <kpi_info>
+      <title><![CDATA[ATM discarded cells ingress due to congestion]]></title>
+      <use><![CDATA[ATM cells dropped, due to interface unit internal congestion. Ingress direction.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *sum (I_CLP1_DROP+
+&lt;br&gt;I_PPD_DROP+
+&lt;br&gt;I_EPD_DROP+
+&lt;br&gt;I_CLP0_DROP)
+&lt;br&gt;/
+&lt;br&gt;sum (I_CLP1_DROP+
+&lt;br&gt;I_PPD_DROP+
+&lt;br&gt;I_EPD_DROP+
+&lt;br&gt;I_CLP0_DROP+
+&lt;br&gt;I_POLICING_DROP+
+&lt;br&gt;I_ERR_BRAM+
+&lt;br&gt;I_UTOPIA_ERR+
+&lt;br&gt;I_ERR_CRC+
+&lt;br&gt;I_ERR_HEADER+
+&lt;br&gt;I_TRANSMIT_TO_FABRIC)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_ATMPERF_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.556 +0100</date>
+          <comment><![CDATA[Source: RSRAN068.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>ATM dis cells ing due con</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

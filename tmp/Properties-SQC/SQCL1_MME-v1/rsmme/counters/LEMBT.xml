@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.0;NS1.0 CD4;NS1.0 CD2 M293 LEMBT measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.0;NS1.0 CD4;NS1.0 CD2 M293 LEMBT measurement dump</csv_title>
+    <report-description>LAN EMB Load Measurement(LEMBT)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <LANEMB_PEAK_RATE />
+    <LANEMB_LOAD_RATE />
+    <LANEMB_PEAK_TIME_IN_SEC/>
+  </column_order>
+  <!--<temp_table name="LEMBT" meas_level="PLMN/FLEXINS_A1" type="PM" master="yes" pragma="pcofns" create="yes">-->
+  <temp_table name="LEMBT" meas_level="PLMN/FLEXINS/MME-UNIT/MME-PIU/MME-LIF/MME-TRA" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="LANEMB_PEAK_RATE">MAX(LANEMB_PEAK_RATE)</counter>
+      <counter alias="LANEMB_LOAD_RATE">AVG(LANEMB_LOAD_RATE)</counter>
+      <counter alias="LANEMB_PEAK_TIME_IN_SEC">SUM(LANEMB_PEAK_TIME_IN_SEC)</counter>
+    </counters>
+    <table_name>pcofns_ps_lembt_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LEMBT</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LEMBT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_lembt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LANEMB_PEAK_RATE">
+    <formula>LEMBT.LANEMB_PEAK_RATE</formula>
+    <kpi_info>
+      <title>LANEMB_PEAK_RATE</title>
+      <use>Highest peak load rate.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(LANEMB_PEAK_RATE)</formula>
+      <unit>%</unit>
+      <tables>pcofns_ps_lembt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LANEMB_PEAK_RATE (M293B2C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LANEMB_LOAD_RATE">
+    <formula>LEMBT.LANEMB_LOAD_RATE</formula>
+    <kpi_info>
+      <title>LANEMB_LOAD_RATE</title>
+      <use>Average load rate.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(LANEMB_LOAD_RATE)</formula>
+      <unit>%</unit>
+      <tables>pcofns_ps_lembt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LANEMB_LOAD_RATE (M293B2C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="LANEMB_PEAK_TIME_IN_SEC">
+    <formula>LEMBT.LANEMB_PEAK_TIME_IN_SEC</formula>
+    <kpi_info>
+      <title>LANEMB_PEAK_TIME_IN_SEC</title>
+      <use>The time of the highest peak load rate, the time of day in ASCII and seconds from the report start time in XML.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(LANEMB_PEAK_TIME_IN_SEC)</formula>
+      <unit>Time</unit>
+      <tables>pcofns_ps_lembt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LANEMB_PEAK_TIME_IN_SEC (M293B2C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

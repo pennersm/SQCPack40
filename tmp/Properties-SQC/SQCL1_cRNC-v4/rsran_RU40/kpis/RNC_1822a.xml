@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1822a">
+    <formula>decode(
+			(servlev.rab_stp_att_cs_voice),0,null, 
+
+			(100*(servlev.rab_stp_fail_cs_voice_lic_1)
+			 / 
+			(servlev.rab_stp_att_cs_voice)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup FR for CS Voice due to Lic Exceed]]></title>
+      <use><![CDATA[Percentage of RAB setup failures for CS voice calls caused by AMR capacity license exceeded]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * 
+&lt;br&gt;sum(RAB_STP_FAIL_CS_VOICE_LIC)
+&lt;br&gt;-----
+&lt;br&gt;RNC_346a</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RAB stp FR CS Voice Lic</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

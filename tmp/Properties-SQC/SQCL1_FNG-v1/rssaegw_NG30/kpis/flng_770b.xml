@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CPU_ext.xml"/>
+  <kpi name="flng_770b">
+    <formula>decode(CPU_ext.AVG_CPU_USAGE_LINUX_SAB01,0,NULL,CPU_ext.AVG_CPU_USAGE_LINUX_SAB01)</formula>
+    <kpi_info>
+      <title><![CDATA[Average SAB CPU usage, Linux cores]]></title>
+      <use><![CDATA[This KPI shows the average CPU usage (load) of Service Aware Blade (SAB) Linux cores which handle the signaling (control plane).
+Core id 0,1 are the Linux cores which handle the signaling.
+The "fast path" or "simple executive - SE" cores, which handle the user plane, are Core id 2-15. ]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>avg( CASE WHEN FNODE_ID LIKE 'SAB%_%' THEN decode(cpu_id,0-1,AVG_CPU_USAGE,NULL) ELSE NULL END )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CPU_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg SAB CPU usage, Linux]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

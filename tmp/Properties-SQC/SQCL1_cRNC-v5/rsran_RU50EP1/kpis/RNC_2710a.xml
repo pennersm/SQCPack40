@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/OPSTA.xml" />
+  <kpi name="RNC_2710a">
+    <formula>decode(
+			(1000*opsta.period_duration*60),0,null, 
+
+			(opsta.ps_r99_dch_ul_data_vol_op*8)
+			 / 
+			(1000*opsta.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[PS R99 DCH Throughput UL OP]]></title>
+      <use><![CDATA[PS R99 DCH throughput based on  MAC-d PDU data transferred in the RT PS DCH and NRT DCH in the Uplink direction during the measurement interval.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum ( PS_R99_DCH_UL_DATA_VOL_OP * 8)  
+&lt;br&gt;-------------------------- 
+&lt;br&gt;sum ( 1000 * PERIOD_DURATION * 60 )</formula>
+      <unit>[kbit/s]</unit>
+      <tables>nokrww_ps_OPSTA_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/06/10 13:26:17.445 +0100</date>
+          <comment><![CDATA[Source: RSRAN130.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>OP PS R99 DCH thp UL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

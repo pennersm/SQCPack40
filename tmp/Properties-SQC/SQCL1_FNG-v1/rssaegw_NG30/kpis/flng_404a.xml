@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/CIDFRS_ext.xml" />
+  <kpi name="flng_404a">
+    <formula>decode(
+			((GTPCV2.GTPCV2_CRE_IND_DATAFW_REQ_RECV)),0,NULL, 
+
+			((CIDFRS_ext.GTPCV2_CRE_IND_D_RES_SENT_16))
+			 / 
+			((GTPCV2.GTPCV2_CRE_IND_DATAFW_REQ_RECV)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Indirect Data Forward received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 create indirect data forward requests received, i.e., the number of create indirect data forward response messages sent with cause code 'Request Accepted' when compared to the number of create indirect data forward request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum(decode(cidfrs_id,('16' or 'cs_1_16'),b.GTPCV2_CRE_IND_DATAFW_RES_SENT,0)) ;Request accepted
+&lt;br&gt;------------------------------------------------------------------------------------------------ *100 
+&lt;br&gt;sum(a.GTPCV2_CRE_IND_DATAFW_REQ_RECV)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s): 
+&lt;br&gt;a = GTP-C v2 
+&lt;br&gt;b = GTP-C v2 Create Indirect Data Forwarding Response sent  
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_CIDFRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Ind Data FW rcv SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

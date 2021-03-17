@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/IWC.xml"/>
+  <kpi name="cds_606a">
+    <formula>100*decode(
+			(iwc.iwf_calltype_calls),0,null, 
+
+			iwc.iwf_calltype_online
+			 / 
+			(iwc.iwf_calltype_calls))</formula>
+    <kpi_info>
+      <title><![CDATA[Successful synchronisations in data calls]]></title>
+      <use><![CDATA[Ratio of successful synchronisations between data terminals. This counter indicates the amount of connections where the user data may have been transmitted.
+	  <br>This KPI is similar to msc_606a. New KPI ID reference (CDS NE). This new KPI ID reference is to to be used starting from M15.1 report sets. ]]></use>
+
+<use_experience><![CDATA[ 
+<br>Valid for data calls only. And furthermore it is running in CDS so can work only in R4 architecture! In R99 architecture you have to use the data service unit measurement.
+<br>IWF as hardware can be in MSC as well, not in MSS. In that case the Data service unit measurement measures the same info what IWF does.
+<br>If customer has CDS in their network, than in CDS the IWF measurement is running. And if customer has no CDS, than DSU measurement is needed to measure the data calls.
+<br>Not valid for MSS nor GCS. 
+<br>
+<br>PUBLISHED: M12
+<br>THEORETICAL SUMMARY LEVELS: MSC; CDS; CALLTYPE
+<br>RECOMMENDED SUMMARY LEVELS: MSC; CDS
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): IWF measurement (M311)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;      Sum (IWF_CALLTYPE_ONLINE)
+&lt;br&gt;100* ------------------- 
+&lt;br&gt;      Sum (IWF_CALLTYPE_CALLS)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_IWC_CDS_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_iwc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Successful synchronisations in data calls]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

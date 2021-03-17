@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 S3CEMEAS NBCEL measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 S3CEMEAS NBCEL measurement dump</csv_title>
+    <report-description>NodeB Cell</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <numberOfReceivingPreambles />
+    <prachCrciFailures />
+    <prachMessages />
+    <prachUsageRatio />
+    <sccpchUsageRatio />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="NBCEL" meas_level="PLMN/RNC/WBTS/WCEL3" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="numberOfReceivingPreambles">SUM(numberOfReceivingPreambles)</counter>
+      <counter alias="prachCrciFailures">SUM(prachCrciFailures)</counter>
+      <counter alias="prachMessages">SUM(prachMessages)</counter>
+      <counter alias="prachUsageRatio">AVG(prachUsageRatio)</counter>
+      <counter alias="sccpchUsageRatio">AVG(sccpchUsageRatio)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>NBCEL</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>NBCEL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="numberOfReceivingPreambles">
+    <formula>NBCEL.numberOfReceivingPreambles</formula>
+    <kpi_info>
+      <title>numberOfReceivingPreambles</title>
+      <use>The number of preambles received on the specified PRACH. UPDATED: This counter is sampled with 10 second interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(numberOfReceivingPreambles)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>numberOfReceivingPreambles (numberOfReceivingPreambles)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="prachCrciFailures">
+    <formula>NBCEL.prachCrciFailures</formula>
+    <kpi_info>
+      <title>prachCrciFailures</title>
+      <use>The number of CRCI failures on received PRACH messages. UPDATED: When PRACH message with CRCI failure is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(prachCrciFailures)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>prachCrciFailures (prachCrciFailures)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="prachMessages">
+    <formula>NBCEL.prachMessages</formula>
+    <kpi_info>
+      <title>prachMessages</title>
+      <use>The number of PRACH messages received on PRACH. UPDATED: When PRACH message is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(prachMessages)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>prachMessages (prachMessages)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="prachUsageRatio">
+    <formula>NBCEL.prachUsageRatio</formula>
+    <kpi_info>
+      <title>prachUsageRatio</title>
+      <use>The PRACH usage ratio. UPDATED: This counter is sampled with 10 second interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(prachUsageRatio)</formula>
+      <unit>Percentage</unit>
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>prachUsageRatio (prachUsageRatio)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="sccpchUsageRatio">
+    <formula>NBCEL.sccpchUsageRatio</formula>
+    <kpi_info>
+      <title>sccpchUsageRatio</title>
+      <use>The SCCPCH usage ratio. UPDATED: This counter is sampled with 10 second interval.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(sccpchUsageRatio)</formula>
+      <unit>Percentage</unit>
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sccpchUsageRatio (sccpchUsageRatio)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>NBCEL.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_nbcel_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

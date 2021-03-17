@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ROU.xml"/>
+  <kpi name="msc_741a">
+    <formula>100*decode(
+			(rou.route_attempt - 
+			rou.route_ura - 
+			rou.route_congrel),0,null, 
+
+			((rou.route_congrel)
+			 / 
+			(rou.route_attempt - 
+			rou.route_ura - 
+			rou.route_congrel)))</formula>
+    <kpi_info>
+      <title><![CDATA[Calls with offered routes and cleared due to congestion ratio]]></title>
+      <use><![CDATA[This KPI tells you the % of calls that have been offered to a set of routes (one destination) in the routing procedure, and have been cleared due to congestion. The summation has to be done for all routes belonging to the destination being measured.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum (ROUTE_CONGREL)
+&lt;br&gt;100 *  ------------------------------------------------------------------
+&lt;br&gt;          sum (ROUTE_ATTEMPT - ROUTE_URA - ROUTE_CONGREL)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_ROU_{obj_agg}_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_rou_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Calls with offered routes and cleared due to congestion ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

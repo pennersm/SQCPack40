@@ -1,0 +1,388 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M208 SLAMSC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M208 SLAMSC measurement dump</csv_title>
+    <report-description>MTP signalling link availability measurement(SLAMSC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <LINK_TYPE/>
+    <DUR_OF_UNAVAIL/>
+    <DUR_OF_UNAVAIL_LINK_FAILURE/>
+    <DUR_OF_UNAVAIL_LOCAL_BLOCKING/>
+    <DUR_OF_UNAVAIL_REM_PROC_OUTAGE/>
+    <DUR_OF_INHIBIT_LOC_MANAG_ACT/>
+    <DUR_OF_INHIBIT_REM_MANAG_ACT/>
+    <DUR_OF_LOCAL_BUSY/>
+    <LOCAL_MANUAL_CHANGEOVERS/>
+    <REMOTE_INITIATIVE_CHANGEOVERS/>
+    <REM_PROC_OUTAGE_START/>
+    <REM_PROC_OUTAGE_STOP/>
+    <LOC_MANAG_INHIBIT/>
+    <LOC_MANAG_UNINHIBITED/>
+    <REM_INHIBIT/>
+    <REM_UNINHIBITED/>
+    <DUR_OF_LOCAL_BUSY_ATM/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/SLN/SNET/SPC/SLSN" name="SLAMSC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="LINK_TYPE" symmetrical="true">MAX(LINK_TYPE)</counter>
+      <counter alias="DUR_OF_UNAVAIL" symmetrical="true">SUM(DUR_OF_UNAVAIL)</counter>
+      <counter alias="DUR_OF_UNAVAIL_LINK_FAILURE" symmetrical="true">SUM(DUR_OF_UNAVAIL_LINK_FAILURE)</counter>
+      <counter alias="DUR_OF_UNAVAIL_LOCAL_BLOCKING" symmetrical="true">SUM(DUR_OF_UNAVAIL_LOCAL_BLOCKING)</counter>
+      <counter alias="DUR_OF_UNAVAIL_REM_PROC_OUTAGE" symmetrical="true">SUM(DUR_OF_UNAVAIL_REM_PROC_OUTAGE)</counter>
+      <counter alias="DUR_OF_INHIBIT_LOC_MANAG_ACT" symmetrical="true">SUM(DUR_OF_INHIBIT_LOC_MANAG_ACT)</counter>
+      <counter alias="DUR_OF_INHIBIT_REM_MANAG_ACT" symmetrical="true">SUM(DUR_OF_INHIBIT_REM_MANAG_ACT)</counter>
+      <counter alias="DUR_OF_LOCAL_BUSY" symmetrical="true">SUM(DUR_OF_LOCAL_BUSY)</counter>
+      <counter alias="LOCAL_MANUAL_CHANGEOVERS" symmetrical="true">SUM(LOCAL_MANUAL_CHANGEOVERS)</counter>
+      <counter alias="REMOTE_INITIATIVE_CHANGEOVERS" symmetrical="true">SUM(REMOTE_INITIATIVE_CHANGEOVERS)</counter>
+      <counter alias="REM_PROC_OUTAGE_START" symmetrical="true">SUM(REM_PROC_OUTAGE_START)</counter>
+      <counter alias="REM_PROC_OUTAGE_STOP" symmetrical="true">SUM(REM_PROC_OUTAGE_STOP)</counter>
+      <counter alias="LOC_MANAG_INHIBIT" symmetrical="true">SUM(LOC_MANAG_INHIBIT)</counter>
+      <counter alias="LOC_MANAG_UNINHIBITED" symmetrical="true">SUM(LOC_MANAG_UNINHIBITED)</counter>
+      <counter alias="REM_INHIBIT" symmetrical="true">SUM(REM_INHIBIT)</counter>
+      <counter alias="REM_UNINHIBITED" symmetrical="true">SUM(REM_UNINHIBITED)</counter>
+      <counter alias="DUR_OF_LOCAL_BUSY_ATM" symmetrical="true">SUM(DUR_OF_LOCAL_BUSY_ATM)</counter>
+    </counters>
+    <table_name>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SLAMSC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SLAMSC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LINK_TYPE">
+    <formula>SLAMSC.LINK_TYPE</formula>
+    <kpi_info>
+      <title>LINK_TYPE</title>
+      <use>Link type (0=TDM, 1=ATM)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(LINK_TYPE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LINK_TYPE (M208B1C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_UNAVAIL">
+    <formula>SLAMSC.DUR_OF_UNAVAIL</formula>
+    <kpi_info>
+      <title>DUR_OF_UNAVAIL</title>
+      <use>Duration of signalling link unavailability for any reason (2.1 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_UNAVAIL)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_UNAVAIL (M208B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_UNAVAIL_LINK_FAILURE">
+    <formula>SLAMSC.DUR_OF_UNAVAIL_LINK_FAILURE</formula>
+    <kpi_info>
+      <title>DUR_OF_UNAVAIL_LINK_FAILURE</title>
+      <use>Duration of signalling link unavailability due to link failure (2.7 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_UNAVAIL_LINK_FAILURE)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_UNAVAIL_LINK_FAILURE (M208B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_UNAVAIL_LOCAL_BLOCKING">
+    <formula>SLAMSC.DUR_OF_UNAVAIL_LOCAL_BLOCKING</formula>
+    <kpi_info>
+      <title>DUR_OF_UNAVAIL_LOCAL_BLOCKING</title>
+      <use>Duration of signalling link unavailability due to local blocking (2.8 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_UNAVAIL_LOCAL_BLOCKING)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_UNAVAIL_LOCAL_BLOCKING (M208B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_UNAVAIL_REM_PROC_OUTAGE">
+    <formula>SLAMSC.DUR_OF_UNAVAIL_REM_PROC_OUTAGE</formula>
+    <kpi_info>
+      <title>DUR_OF_UNAVAIL_REM_PROC_OUTAGE</title>
+      <use>Duration of signalling link unavailability due to remote processor outage (2.9 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_UNAVAIL_REM_PROC_OUTAGE)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_UNAVAIL_REM_PROC_OUTAGE (M208B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_INHIBIT_LOC_MANAG_ACT">
+    <formula>SLAMSC.DUR_OF_INHIBIT_LOC_MANAG_ACT</formula>
+    <kpi_info>
+      <title>DUR_OF_INHIBIT_LOC_MANAG_ACT</title>
+      <use>Duration of signalling link inhibitiondue to local management actions (2.5 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_INHIBIT_LOC_MANAG_ACT)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_INHIBIT_LOC_MANAG_ACT (M208B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_INHIBIT_REM_MANAG_ACT">
+    <formula>SLAMSC.DUR_OF_INHIBIT_REM_MANAG_ACT</formula>
+    <kpi_info>
+      <title>DUR_OF_INHIBIT_REM_MANAG_ACT</title>
+      <use>Duration of signalling link inhibitiondue to remote management actions (2.6 in ITU-T Q.752) (seconds)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_INHIBIT_REM_MANAG_ACT)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_INHIBIT_REM_MANAG_ACT (M208B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_LOCAL_BUSY">
+    <formula>SLAMSC.DUR_OF_LOCAL_BUSY</formula>
+    <kpi_info>
+      <title>DUR_OF_LOCAL_BUSY</title>
+      <use>Duration of local busy (number of SIBs). (2.15in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_LOCAL_BUSY)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_LOCAL_BUSY (M208B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LOCAL_MANUAL_CHANGEOVERS">
+    <formula>SLAMSC.LOCAL_MANUAL_CHANGEOVERS</formula>
+    <kpi_info>
+      <title>LOCAL_MANUAL_CHANGEOVERS</title>
+      <use>Local manual changeovers and changeoversdue to system recovery actions (2.2 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LOCAL_MANUAL_CHANGEOVERS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOCAL_MANUAL_CHANGEOVERS (M208B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REMOTE_INITIATIVE_CHANGEOVERS">
+    <formula>SLAMSC.REMOTE_INITIATIVE_CHANGEOVERS</formula>
+    <kpi_info>
+      <title>REMOTE_INITIATIVE_CHANGEOVERS</title>
+      <use>Remote initiative changeovers (2.3 in ITU-TQ.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REMOTE_INITIATIVE_CHANGEOVERS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REMOTE_INITIATIVE_CHANGEOVERS (M208B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REM_PROC_OUTAGE_START">
+    <formula>SLAMSC.REM_PROC_OUTAGE_START</formula>
+    <kpi_info>
+      <title>REM_PROC_OUTAGE_START</title>
+      <use>Start of remote processor outage (2.10in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REM_PROC_OUTAGE_START)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REM_PROC_OUTAGE_START (M208B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REM_PROC_OUTAGE_STOP">
+    <formula>SLAMSC.REM_PROC_OUTAGE_STOP</formula>
+    <kpi_info>
+      <title>REM_PROC_OUTAGE_STOP</title>
+      <use>Stop of remote processor outage (2.11in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REM_PROC_OUTAGE_STOP)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REM_PROC_OUTAGE_STOP (M208B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LOC_MANAG_INHIBIT">
+    <formula>SLAMSC.LOC_MANAG_INHIBIT</formula>
+    <kpi_info>
+      <title>LOC_MANAG_INHIBIT</title>
+      <use>Local management inhibit (2.13 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LOC_MANAG_INHIBIT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOC_MANAG_INHIBIT (M208B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="LOC_MANAG_UNINHIBITED">
+    <formula>SLAMSC.LOC_MANAG_UNINHIBITED</formula>
+    <kpi_info>
+      <title>LOC_MANAG_UNINHIBITED</title>
+      <use>Local management uninhibit (2.14 in ITU-TQ.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(LOC_MANAG_UNINHIBITED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>LOC_MANAG_UNINHIBITED (M208B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REM_INHIBIT">
+    <formula>SLAMSC.REM_INHIBIT</formula>
+    <kpi_info>
+      <title>REM_INHIBIT</title>
+      <use>Start of remote inhibition (2.18 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REM_INHIBIT)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REM_INHIBIT (M208B2C14)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="REM_UNINHIBITED">
+    <formula>SLAMSC.REM_UNINHIBITED</formula>
+    <kpi_info>
+      <title>REM_UNINHIBITED</title>
+      <use>End of remote inhibition (2.19 in ITU-T Q.752)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(REM_UNINHIBITED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>REM_UNINHIBITED (M208B2C15)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DUR_OF_LOCAL_BUSY_ATM">
+    <formula>SLAMSC.DUR_OF_LOCAL_BUSY_ATM</formula>
+    <kpi_info>
+      <title>DUR_OF_LOCAL_BUSY_ATM</title>
+      <use>Duration of local busy (ATM) (2.15 in ITU-TQ.752).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(DUR_OF_LOCAL_BUSY_ATM)</formula>
+      <unit>sec</unit>
+      <tables>RNS_PS_SLAMSC{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DUR_OF_LOCAL_BUSY_ATM (M208B2C16)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

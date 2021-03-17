@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LISHO.xml" />
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_1086a">
+    <formula>decode( (lisho.isys_ho_utran_srvcc_succ + nvl(lisho.isys_ho_geran_srvcc_succ,0)),0,null, 
+			(lepsb.erab_in_session_time_qci1)
+			 / 
+			(lisho.isys_ho_utran_srvcc_succ + nvl(lisho.isys_ho_geran_srvcc_succ,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[Handover interval for Inter system HO with SRVCC]]></title>
+      <use><![CDATA[Average interval between Inter system Handovers with SRVCC]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM(ERAB_IN_SESSION_TIME_QCI1)
+&lt;br&gt;------------------------------------------------------------
+&lt;br&gt;SUM(ISYS_HO_UTRAN_SRVCC_SUCC + ISYS_HO_GERAN_SRVCC_SUCC)</formula>
+      <unit>[Seconds]</unit>
+      <tables>NOKLTE_PS_LISHO_{OBJ_AGG}_{TIME_AGG},NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/10/02 17:11:26.636 +0100</date>
+          <comment><![CDATA[Source: RSLTE052.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Interv IRAT HO w/ SRVCC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

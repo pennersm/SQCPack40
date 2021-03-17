@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IpV6Stat IPV6S measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IpV6Stat IPV6S measurement dump</csv_title>
+    <report-description>Collects the IPv6 statistics for each node. The measurement type collects data on IPv6 packets every 30 seconds. The data is measured on per-node level. It collects information on the IPv6 packets that are entering and exiting the nodes. The data collected is not affected by licensing of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IPV6_IN_RECEIVES />
+    <IPV6_REASSEMBLY_OK />
+    <IPV6_IN_DELIVERS />
+    <IPV6_OUT_FORWARDED_DATAGRAMS />
+    <IPV6_IN_ADDRESS_ERRORS />
+    <IPV6_IN_NOROUTES />
+    <IPV6_OUT_REQUESTS />
+    <IPV6_OUT_DISCARDS />
+    <IPV6_OUT_NOROUTES />
+    <IPV6_FRAGMENT_OK />
+    <IPV6_FRAGMENT_CREATES />
+    <IPV6_FRAGMENT_FAILS />
+    <IPV6_IN_TOO_BIG_ERRORS />
+    <IPV6_IN_TRUNCATED_PACKETS />
+    <IPV6_REASSEMBLY_REQUIRED />
+    <IPV6_IN_MULTICAST_PACKETS />
+    <IPV6_OUT_MULTICAST_PACKETS />
+  </column_order>
+  <temp_table name="IPV6S" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>IPV6S</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="IPV6_IN_RECEIVES">SUM(IPV6_IN_RECEIVES)</counter>
+      <counter alias="IPV6_REASSEMBLY_OK">SUM(IPV6_REASSEMBLY_OK)</counter>
+      <counter alias="IPV6_IN_DELIVERS">SUM(IPV6_IN_DELIVERS)</counter>
+      <counter alias="IPV6_OUT_FORWARDED_DATAGRAMS">SUM(IPV6_OUT_FORWARDED_DATAGRAMS)</counter>
+      <counter alias="IPV6_IN_ADDRESS_ERRORS">SUM(IPV6_IN_ADDRESS_ERRORS)</counter>
+      <counter alias="IPV6_IN_NOROUTES">SUM(IPV6_IN_NOROUTES)</counter>
+      <counter alias="IPV6_OUT_REQUESTS">SUM(IPV6_OUT_REQUESTS)</counter>
+      <counter alias="IPV6_OUT_DISCARDS">SUM(IPV6_OUT_DISCARDS)</counter>
+      <counter alias="IPV6_OUT_NOROUTES">SUM(IPV6_OUT_NOROUTES)</counter>
+      <counter alias="IPV6_FRAGMENT_OK">SUM(IPV6_FRAGMENT_OK)</counter>
+      <counter alias="IPV6_FRAGMENT_CREATES">SUM(IPV6_FRAGMENT_CREATES)</counter>
+      <counter alias="IPV6_FRAGMENT_FAILS">SUM(IPV6_FRAGMENT_FAILS)</counter>
+      <counter alias="IPV6_IN_TOO_BIG_ERRORS">SUM(IPV6_IN_TOO_BIG_ERRORS)</counter>
+      <counter alias="IPV6_IN_TRUNCATED_PACKETS">SUM(IPV6_IN_TRUNCATED_PACKETS)</counter>
+      <counter alias="IPV6_REASSEMBLY_REQUIRED">SUM(IPV6_REASSEMBLY_REQUIRED)</counter>
+      <counter alias="IPV6_IN_MULTICAST_PACKETS">SUM(IPV6_IN_MULTICAST_PACKETS)</counter>
+      <counter alias="IPV6_OUT_MULTICAST_PACKETS">SUM(IPV6_OUT_MULTICAST_PACKETS)</counter>
+    </counters>
+    <table_name>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPV6S</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>IPV6S.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_RECEIVES">
+    <formula>IPV6S.IPV6_IN_RECEIVES</formula>
+    <kpi_info>
+      <title>IPV6_IN_RECEIVES</title>
+      <use>The total number of received IPv6 datagrams. UPDATED: When a datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_RECEIVES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_RECEIVES (m2073c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_REASSEMBLY_OK">
+    <formula>IPV6S.IPV6_REASSEMBLY_OK</formula>
+    <kpi_info>
+      <title>IPV6_REASSEMBLY_OK</title>
+      <use>The total number of IP datagrams successfully reassembled. UPDATED: When IP datagrams are successfully reassembled.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_REASSEMBLY_OK)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_REASSEMBLY_OK (m2073c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_DELIVERS">
+    <formula>IPV6S.IPV6_IN_DELIVERS</formula>
+    <kpi_info>
+      <title>IPV6_IN_DELIVERS</title>
+      <use>The total number of input datagrams successfully delivered. UPDATED: When a datagram is successfully delivered.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_DELIVERS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_DELIVERS (m2073c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_OUT_FORWARDED_DATAGRAMS">
+    <formula>IPV6S.IPV6_OUT_FORWARDED_DATAGRAMS</formula>
+    <kpi_info>
+      <title>IPV6_OUT_FORWARDED_DATAGRAMS</title>
+      <use>The total number of output datagrams which this entity received and forwarded to their final destinations. UPDATED: When a datagram is forwarded to their final destinations.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_OUT_FORWARDED_DATAGRAMS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_OUT_FORWARDED_DATAGRAMS (m2073c0004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_ADDRESS_ERRORS">
+    <formula>IPV6S.IPV6_IN_ADDRESS_ERRORS</formula>
+    <kpi_info>
+      <title>IPV6_IN_ADDRESS_ERRORS</title>
+      <use>The total number of datagrams chosen to be discarded because the IP address in their IP header destination field was not a valid address. UPDATED: When an invalid address datagram is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_ADDRESS_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_ADDRESS_ERRORS (m2073c0005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_NOROUTES">
+    <formula>IPV6S.IPV6_IN_NOROUTES</formula>
+    <kpi_info>
+      <title>IPV6_IN_NOROUTES</title>
+      <use>The total number of packets that could not be forwarded because the local host does not have a valid route. UPDATED: When a datagram is discarded because there is no route to transmit.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_NOROUTES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_NOROUTES (m2073c0006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_OUT_REQUESTS">
+    <formula>IPV6S.IPV6_OUT_REQUESTS</formula>
+    <kpi_info>
+      <title>IPV6_OUT_REQUESTS</title>
+      <use>The total number of IPv6 datagrams generated in the system, not forwarded. UPDATED: When a datagram is successfully sent locally.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_OUT_REQUESTS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_OUT_REQUESTS (m2073c0007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_OUT_DISCARDS">
+    <formula>IPV6S.IPV6_OUT_DISCARDS</formula>
+    <kpi_info>
+      <title>IPV6_OUT_DISCARDS</title>
+      <use>The total number of output datagrams chosen to be discarded due to resource shortage. UPDATED: When a datagram is discarded due to resource shortage.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_OUT_DISCARDS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_OUT_DISCARDS (m2073c0008)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_OUT_NOROUTES">
+    <formula>IPV6S.IPV6_OUT_NOROUTES</formula>
+    <kpi_info>
+      <title>IPV6_OUT_NOROUTES</title>
+      <use>The number of input datagrams discarded because no route could be found to transmit them to their destination. UPDATED: When a datagram is discarded because there is no route to transmit.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_OUT_NOROUTES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_OUT_NOROUTES (m2073c0009)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_FRAGMENT_OK">
+    <formula>IPV6S.IPV6_FRAGMENT_OK</formula>
+    <kpi_info>
+      <title>IPV6_FRAGMENT_OK</title>
+      <use>The total number of outgoing IP datagrams that have been successfully fragmented at this entity. UPDATED: When IP datagrams are successfully fragmented at this entity.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_FRAGMENT_OK)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_FRAGMENT_OK (m2073c0010)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_FRAGMENT_CREATES">
+    <formula>IPV6S.IPV6_FRAGMENT_CREATES</formula>
+    <kpi_info>
+      <title>IPV6_FRAGMENT_CREATES</title>
+      <use>The total number of outgoing datagram fragments that have been generated as a result of fragmentation at this entity. UPDATED: When datagram fragments are generated as a result of fragmentation at this entity.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_FRAGMENT_CREATES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_FRAGMENT_CREATES (m2073c0011)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_FRAGMENT_FAILS">
+    <formula>IPV6S.IPV6_FRAGMENT_FAILS</formula>
+    <kpi_info>
+      <title>IPV6_FRAGMENT_FAILS</title>
+      <use>The total number of sent datagrams which could not be successfully fragmented. UPDATED: When datagrams are not fragmented.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_FRAGMENT_FAILS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_FRAGMENT_FAILS (m2073c0012)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_TOO_BIG_ERRORS">
+    <formula>IPV6S.IPV6_IN_TOO_BIG_ERRORS</formula>
+    <kpi_info>
+      <title>IPV6_IN_TOO_BIG_ERRORS</title>
+      <use>The total number of packets that cannot be forwarded because they would need to be fragmented. UPDATED: When a datagram is to be fragmented.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_TOO_BIG_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_TOO_BIG_ERRORS (m2073c0013)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_TRUNCATED_PACKETS">
+    <formula>IPV6S.IPV6_IN_TRUNCATED_PACKETS</formula>
+    <kpi_info>
+      <title>IPV6_IN_TRUNCATED_PACKETS</title>
+      <use>The total number of packets truncated (that is, it does not include a full IP header). UPDATED: When a packet is truncated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_TRUNCATED_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_TRUNCATED_PACKETS (m2073c0014)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_REASSEMBLY_REQUIRED">
+    <formula>IPV6S.IPV6_REASSEMBLY_REQUIRED</formula>
+    <kpi_info>
+      <title>IPV6_REASSEMBLY_REQUIRED</title>
+      <use>The total number of packets for which reassembly was required UPDATED: When reassembly of a packet is required.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_REASSEMBLY_REQUIRED)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_REASSEMBLY_REQUIRED (m2073c0015)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_IN_MULTICAST_PACKETS">
+    <formula>IPV6S.IPV6_IN_MULTICAST_PACKETS</formula>
+    <kpi_info>
+      <title>IPV6_IN_MULTICAST_PACKETS</title>
+      <use>The total number of received multicast packets. UPDATED: When a multicast packet is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_IN_MULTICAST_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_IN_MULTICAST_PACKETS (m2073c0016)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IPV6_OUT_MULTICAST_PACKETS">
+    <formula>IPV6S.IPV6_OUT_MULTICAST_PACKETS</formula>
+    <kpi_info>
+      <title>IPV6_OUT_MULTICAST_PACKETS</title>
+      <use>The total number of transmitted multicast packets. UPDATED: When a multicast packet is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IPV6_OUT_MULTICAST_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_ipv6s_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IPV6_OUT_MULTICAST_PACKETS (m2073c0017)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

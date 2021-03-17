@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW032 - PMIP BRI cause code</header>
+    <csv_title>PMIP BRI cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about PMIP Binding Revocation Acknowledgement (BRA) responses sent/received per cause code on S5/S2 PMIP interface.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Binding Revocation Indication' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2010/11/23 14:57:22.97 +0000</date>
+        <comment><![CDATA[Source: RSSAEGW032.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>PMIP BRI cause code</report-description>
+    <report-title>PMIP BRI cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_275a ui_name="Att" group="sent" master-group="Binding Revocation Ack" chartType="bar" yAxis="2" />
+    <flng_276a ui_name="Ratio" group="sent" master-group="Binding Revocation Ack" />
+    <flng_279a ui_name="Att" group="rcvd" master-group="Binding Revocation Ack" chartType="bar" yAxis="2" />
+    <flng_280a ui_name="Ratio" group="rcvd" master-group="Binding Revocation Ack" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/PMIPRESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_275a">
+    <formula>(PMIPRESP.pmip_bra_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Ack responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of PMIPv6 Binding Revocation Acknowledgement (BRA) responses sent by S-GW node per cause code.
+BRA Response sent: 
+- S5/S8 interface (SGW -&gt; PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (pmip_bra_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_BRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMIP BRA resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_276a">
+    <formula>decode(
+			((PMIPRESP.pmip_bra_resp_sent_all)),0,NULL, 
+
+			((PMIPRESP.pmip_bra_resp_sent))
+			 / 
+			((PMIPRESP.pmip_bra_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Ack responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 Binding Revocation Acknowledgement (BRA) responses sent for a specific cause code when compared to total number of PMIP Binding Revocation Acknowledgement (BRA) responses messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(brs_id,'x',PMIP_BRA_RESP_SENT,0))  ;BRS for cause code x
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_BRA_RESP_SENT)  ;all BRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_BRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP BRA resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_279a">
+    <formula>(PMIPRESP.pmip_bra_resp_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Ack responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of PMIPv6 Binding Revocation Acknowledgement (BRA) responses received by P-GW node per cause code.
+BRA Response received: 
+- S5/S8 interface (SGW -&gt; PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (pmip_bra_resp_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_BRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMIP BRA resp rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_280a">
+    <formula>decode(
+			((PMIPRESP.pmip_bra_resp_recv_all)),0,NULL, 
+
+			((PMIPRESP.pmip_bra_resp_recv))
+			 / 
+			((PMIPRESP.pmip_bra_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Ack responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of PMIPv6 Binding Revocation Acknowledgement (BRA) responses received for a specific cause code when compared to total number of PMIP Binding Revocation Acknowledgement (BRA) responses messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(brr_id,'x',PMIP_BRA_RESP_RECV,0))  ;BRR for cause code x
+&lt;br&gt;--------------------------------------------------------------------- *100
+&lt;br&gt;sum(PMIP_BRA_RESP_RECV)  ;all BRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_BRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[PMIP BRA resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

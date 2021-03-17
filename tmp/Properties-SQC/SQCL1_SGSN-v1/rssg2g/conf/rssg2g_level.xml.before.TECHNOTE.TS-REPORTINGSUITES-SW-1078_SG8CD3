@@ -1,0 +1,1483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf>
+  <level name="SGSN" rank="25">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="SGSN" column="co_gid" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select
+				sgsn.co_gid, nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') name
+			from
+				utp_common_objects sgsn
+			where
+				sgsn.co_oc_id=463 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="PAPU" rank="35">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <id-components>
+        <id level="PAPU" column="co_gid" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select
+				papu.co_gid, nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')') name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu
+			where
+			    sgsn.co_oc_id=463 and
+				papu.co_parent_gid = sgsn.co_gid and
+				papu.co_oc_id=462 and
+				#object_filter#
+			order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="IPPU" rank="36">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="IPPU" column="ippu_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+                sgsn.co_gid sgsn_gid,
+                p1.ippu_id ippu_id,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.ippu_id name
+            from
+                utp_common_objects sgsn,
+                RSG_PD_IPPU_OBJECTS p1
+            where
+                
+                sgsn.co_gid = p1.sgsn_gid and
+                #object_filter#
+            order by 3]]></sql>
+    </processor>
+  </level>
+    <level name="TC" rank="37">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="TC" column="tc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.tc_id tc_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||
+				decode(p1.tc_id,
+					'0','background',
+					'1','interactive THP 1',
+					'2','interactive THP 2',
+					'3','interactive THP 3',
+					'4','streaming',
+					'5','conversational',
+					p1.tc_id
+				) name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_TC_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+      <level name="BC" rank="38">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="BC" column="bc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.bc_id bc_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||
+				decode(p1.bc_id,
+					'0','32 kbps',
+					'1','64 kbps',
+					'2','136 kbps',
+					'3','256 kbps',
+					'4','512 kbps',
+					'5','1 Mbps',
+					'6','1,5 Mbps',
+					'7','2 Mbps',
+					'8','4 Mbps',
+					'9','6 Mbps',
+					'10','8 Mbps',
+					'11','12 Mbps',
+					'12','16 Mbps',
+					'13','21 Mbps',
+					'14','28 Mbps',
+                	'15','42 Mbps',
+					'16','46 Mbps',
+					'17','84 Mbps',
+					'18','168 Mbps',
+                	p1.bc_id
+            	) name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_BC_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="UNIT_SGSN" rank="45">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="UNIT_SGSN" column="unit_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.unit_id unit_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.unit_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_UNIT_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+
+   <level name="UNIT1_SGSN" rank="45">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="UNIT1_SGSN" column="unt_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+        		p1.unt_id unt_id,
+        		nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.unt_id name
+      		from
+      			utp_common_objects sgsn,
+        		RSG_PD_UNT_OBJECTS  p1
+      		where
+        		sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+      		order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="PIU_SGSN" rank="46">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PIU_SGSN" column="piu_id" />
+      </id-components>
+      <filter-attribute>p1.piu_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.piu_id piu_id,
+        p1.piu_id name
+      from
+        RSG_PD_PIU_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  
+    <level name="INF_SGSN" rank="47">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INF_SGSN" column="inf_id" />
+      </id-components>
+      <filter-attribute>p1.inf_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.inf_id inf_id,
+        p1.inf_id name
+      from
+        RSG_PD_INF_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+    <level name="ET_SGSN" rank="45">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ET_SGSN" column="et_id" />
+      </id-components>
+      <filter-attribute>p1.et_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.et_id et_id,
+        p1.et_id name
+      from
+        RSG_PD_ET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>  
+  <level name="INTERFACE_SGSN" rank="47">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="INTERFACE_SGSN" column="interface_id" />
+      </id-components>
+      <filter-attribute>p1.interface_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.interface_id interface_id,
+        p1.interface_id name
+      from
+        RSG_PD_INTERFACE_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="VLAN_SGSN" rank="47">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="VLAN_SGSN" column="vlan_id" />
+      </id-components>
+      <filter-attribute>p1.vlan_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.vlan_id vlan_id,
+        p1.vlan_id name
+      from
+        RSG_PD_VLAN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="ATMPRG" rank="46">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="ATMPRG" column="atmprg_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.atmprg_id atmprg_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.atmprg_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_ATMPRG_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="SET" rank="55">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="SET" column="set_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.set_id set_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.set_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_SET_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="OBNAME" rank="65">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="OBNAME" column="obname_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.obname_id obname_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.obname_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_OBNAME_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="PHYTTP_SGSN" rank="75">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="PHYTTP_SGSN" column="phyttp_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.phyttp_id phyttp_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.phyttp_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_PHYTTP_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="PGI" rank="85">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="PGI" column="pgi_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.pgi_id pgi_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.pgi_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_PGI_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="RARAC" rank="95">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="RARAC" column="rarac_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.rarac_id rarac_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.rarac_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_RARAC_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="LAC_SGSN" rank="105">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="LAC_SGSN" column="lac_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.lac_id lac_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.lac_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_LAC_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="RAUTYPE" rank="115">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="RAUTYPE" column="rautype_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.rautype_id rautype_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.rautype_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_RAUTYPE_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="CU" rank="125">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="OBNAME" column="obname_id" />
+        <id level="CU" column="cu_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.obname_id obname_id,
+				p2.cu_id cu_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.obname_id||'/'||p2.cu_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_OBNAME_OBJECTS p1,
+				RSG_PD_CU_OBJECTS p2
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				p1.obname_id = p2.obname_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="NSEI_SGSN" rank="135">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="NSEI_SGSN" column="nse_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.nse_id nse_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.nse_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_NSE_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="NSEI_IPEPT" rank="136">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="NSEI_IPEPT" column="nsei2_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+                papu.co_gid papu_gid,
+                p1.nsei2_id nse_id,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.nsei2_id name
+            from
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                RSG_PD_NSEI2_OBJECTS p1
+            where
+                papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_oc_id=463 and
+                sgsn.co_gid= p1.sgsn_gid and
+                papu.co_object_instance=p1.papu_gid and
+                papu.co_oc_id=462 and
+                #object_filter#
+            order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="RARA" rank="145">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="RARAC" column="rarac_id" />
+        <id level="RARA" column="rara_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.rarac_id rarac_id,
+				p2.rara_id rara_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.rarac_id||'/'||p2.rara_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_RARAC_OBJECTS p1,
+				RSG_PD_RARA_OBJECTS p2
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.rarac_id = p2.rarac_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="RAC" rank="155">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="LAC_SGSN" column="lac_id" />
+        <id level="RAC" column="rac_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.lac_id lac_id,
+				p2.rac_id rac_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.lac_id||'/'||p2.rac_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_LAC_OBJECTS p1,
+				RSG_PD_RAC_OBJECTS p2
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.lac_id = p2.lac_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+    <level name="CI_SGSN" rank="157">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="LAC_SGSN" column="lac_id" />
+        <id level="RAC" column="rac_id" />
+        <id level="CI_SGSN" column="ci_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.lac_id lac_id,
+				p2.rac_id rac_id,
+				p3.ci_id ci_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.lac_id||'/'||p2.rac_id||'/'||p3.ci_id  name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_LAC_OBJECTS p1,
+				RSG_PD_RAC_OBJECTS p2,
+				RSG_PD_CI_OBJECTS p3
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.lac_id = p2.lac_id and
+				p2.lac_id= p3.lac_id AND
+				p2.rac_id = p3.rac_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+    </level>
+  <level name="RNC_SGSN" rank="165">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="RNC_SGSN" column="rnc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.rnc_id rnc_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||nvl(rnc.co_name, 'NN('||p1.rnc_id||')') name
+			from
+				utp_common_objects sgsn,
+				(select
+				co_object_instance,
+				co_name
+				from
+				utp_common_objects
+				where
+				co_oc_id=811
+				) rnc,
+				RSG_PD_RNC_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid = p1.sgsn_gid and
+				p1.rnc_id  = rnc.co_object_instance (+) and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+  <level name="RA1RA2" rank="175">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="RAUTYPE" column="rautype_id" />
+        <id level="RA1RA2" column="ra1ra2_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.rautype_id rautype_id,
+				p2.ra1ra2_id ra1ra2_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.rautype_id||'/'||p2.ra1ra2_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_RAUTYPE_OBJECTS p1,
+				RSG_PD_RA1RA2_OBJECTS p2
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.rautype_id = p2.rautype_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="NSVC" rank="185">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="NSEI_SGSN" column="nse_id" />
+        <id level="NSVC" column="nsvc_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.nse_id nse_id,
+				p2.nsvc_id nsvc_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.nse_id||'/'||p2.nsvc_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_NSE_OBJECTS p1,
+				RSG_PD_NSVC_OBJECTS p2
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.nse_id = p2.nse_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+  <level name="RAMCC" rank="195">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="LAC_SGSN" column="lac_id" />
+        <id level="RAC" column="rac_id" />
+        <id level="RAMCC" column="ramcc_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.lac_id lac_id,
+				p2.rac_id rac_id,
+				p3.ramcc_id ramcc_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.lac_id||'/'||p2.rac_id||'/'||p3.ramcc_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_LAC_OBJECTS p1,
+				RSG_PD_RAC_OBJECTS p2,
+				RSG_PD_RAMCC_OBJECTS p3
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.lac_id = p2.lac_id and
+				p2.rac_id = p3.rac_id and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="RA" rank="205">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="LAC_SGSN" column="lac_id" />
+        <id level="RAC" column="rac_id" />
+        <id level="RAMCC" column="ramcc_id" />
+        <id level="RA" column="ra_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.lac_id lac_id,
+				p2.rac_id rac_id,
+				p3.ramcc_id ramcc_id,
+				p4.ra_id ra_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.lac_id||'/'||p2.rac_id||'/'||p3.ramcc_id||'/'||p4.ra_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_LAC_OBJECTS p1,
+				RSG_PD_RAC_OBJECTS p2,
+				RSG_PD_RAMCC_OBJECTS p3,
+				RSG_PD_RA_OBJECTS p4
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				p1.lac_id = p2.lac_id and
+				p2.rac_id = p3.rac_id and
+				p3.ramcc_id = p4.ramcc_id and
+				#object_filter#
+			order by 6]]></sql>
+    </processor>
+  </level>
+  <level name="IPEPT" rank="215">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="PAPU" column="papu_gid" />
+        <id level="LUDP" column="ludp_id" />
+        <id level="LIP" column="lip_id" />
+        <id level="RIP" column="rip_id" />
+        <id level="IPEPT" column="ipept_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				papu.co_gid papu_gid,
+				p1.ludp_id ludp_id,
+				p2.lip_id lip_id,
+				p3.rip_id rip_id,
+				p4.ipept_id ipept_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.ludp_id||'/'||p2.lip_id||'/'||p3.rip_id||'/'||p4.ipept_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_LUDP_OBJECTS p1,
+				RSG_PD_LIP_OBJECTS p2,
+				RSG_PD_RIP_OBJECTS p3,
+				RSG_PD_IPEPT_OBJECTS p4
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				sgsn.co_gid= p1.sgsn_gid and
+				p1.ludp_id = p2.ludp_id and
+				p2.lip_id = p3.lip_id and
+				p3.rip_id = p4.rip_id and
+				#object_filter#
+			order by 6]]></sql>
+    </processor>
+  </level>
+    <level name="IURA" rank="220">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="PAPU" column="papu_gid" />
+        <id level="IURA" column="iura_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				papu.co_gid papu_gid,
+				p1.iura_id iura_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.iura_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_IURA_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+
+  <level name="IULAC" rank="222">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="PAPU" column="papu_gid" />
+        <id level="IURA" column="iura_id" />
+        <id level="IULAC" column="iulac_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				papu.co_gid papu_gid,
+				p1.iura_id iura_id,
+				p1.iulac_id iulac_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.iura_id||'/'||p1.iulac_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_IULAC_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+
+  <level name="IURAAC" rank="223">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="PAPU" column="papu_gid" />
+        <id level="IURA" column="iura_id" />
+        <id level="IULAC" column="iulac_id" />
+        <id level="IURAAC" column="iuraac_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				papu.co_gid papu_gid,
+				p1.iura_id iura_id,
+				p1.iulac_id iulac_id,
+				p1.iuraac_id iuraac_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.iura_id||'/'||p1.iulac_id||'/'||p1.iuraac_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_IURAAC_OBJECTS p1
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+
+  <level name="SA" rank="225">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="PAPU" column="papu_gid" />
+        <id level="IURA" column="iura_id" />
+        <id level="SA" column="sa_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				papu.co_gid papu_gid,
+				p1.iura_id iura_id,
+				p2.sa_id sa_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.iura_id||'/'||p2.sa_id name
+			from
+				utp_common_objects sgsn,
+				utp_common_objects papu,
+				RSG_PD_IURA_OBJECTS p1,
+				RSG_PD_SA_OBJECTS p2
+			where
+				papu.co_parent_gid = sgsn.co_gid and
+				sgsn.co_oc_id=463 and
+				papu.co_object_instance=p1.papu_gid and
+				papu.co_oc_id=462 and
+				sgsn.co_gid= p1.sgsn_gid and
+				p1.iura_id = p2.iura_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+
+
+  <level name="ACTC" rank="235">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="ACTC" column="actc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				p1.actc_id actc_id,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || 
+				decode(p1.actc_id,
+					'1','UTRAN',
+                    '2','GERAN',
+                    p1.actc_id 
+				) name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_ACTC_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+ <level name="PLTC" rank="240">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="ACTC" column="actc_id" />
+        <id level="PLTC" column="pltc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				p1.actc_id actc_id,
+				p1.pltc_id pltc_id,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || 
+				decode(p1.actc_id, 
+					'1','UTRAN',
+                    '2','GERAN',
+                    p1.actc_id
+                ) || '/' || 
+				decode(p1.pltc_id,
+					'0', 'ALL',
+                    '1', 'HOME',
+                    '2', 'ROAMING',
+                    '3', 'Specified PLMN',
+                    p1.pltc_id
+                ) name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_PLTC_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+
+
+ <level name="SPECMCC" rank="245">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="ACTC" column="actc_id" />
+        <id level="PLTC" column="pltc_id" />
+        <id level="SPECMCC" column="specmcc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				p1.actc_id actc_id,
+				p1.pltc_id pltc_id,
+				p1.specmcc_id specmcc_id,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || 
+				decode(p1.actc_id, 
+					'1','UTRAN',
+                    '2','GERAN',
+                    p1.actc_id
+                ) || '/' || 
+				decode(p1.pltc_id,
+					'0', 'ALL',
+                    '1', 'HOME',
+                    '2', 'ROAMING',
+                    '3', 'Specified PLMN',
+                    p1.pltc_id
+                ) || '/' || 
+                p1.specmcc_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_specmcc_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+  </level>
+
+ <level name="SPECMNC" rank="250">
+   <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="ACTC" column="actc_id" />
+        <id level="PLTC" column="pltc_id" />
+        <id level="SPECMCC" column="specmcc_id" />
+        <id level="SPECMNC" column="specmnc_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				p1.actc_id actc_id,
+				p1.pltc_id pltc_id,
+				p1.specmcc_id specmcc_id,
+				p1.specmnc_id specmnc_id,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || 
+				decode(p1.actc_id, 
+					'1','UTRAN',
+                    '2','GERAN',
+                    p1.actc_id
+                ) || '/' || 
+				decode(p1.pltc_id,
+					'0', 'ALL',
+                    '1', 'HOME',
+                    '2', 'ROAMING',
+                    '3', 'Specified PLMN',
+                    p1.pltc_id
+                ) || '/' || 
+				p1.specmcc_id || '/' || p1.specmnc_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_specmnc_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 6]]></sql>
+    </processor>
+  </level>
+
+
+   <level name="SSIF" rank="260">
+   <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+      	<id level="SGSN" column="sgsn_gid" />
+        <id level="SSIF" column="ssif_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+      			sgsn.co_gid sgsn_gid,
+				p1.ssif_id ssif_id,
+				NVL(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || p1.ssif_id  name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_SSIF_OBJECTS p1
+			where
+				sgsn.co_oc_id=463 and
+				sgsn.co_gid= p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+
+
+
+
+  <level name="BTS_SGSN" rank="230">
+		<processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+			<id-components>
+				<id level="BTS_SGSN" column="co_gid"/>
+			</id-components>
+			<filter-attribute>bts.co_gid</filter-attribute>
+			<name column="name"/>
+			<sql><![CDATA[
+				select
+					bts.co_gid co_gid,
+					nvl(bts.co_name, 'NN('||bts.co_gid||')') name
+				from
+					utp_common_objects bts
+				where
+					bts.co_oc_id = 4 and #object_filter#
+				order by bts.co_name nulls last
+			]]></sql>
+		</processor>
+	</level>
+
+	  <level name="INTERFACE_ID" rank="240">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="INTERFACE_ID" column="interface_id_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.interface_id_id interface_id_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.interface_id_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_INTERFACE_ID_OBJECTS p1
+			where
+
+				sgsn.co_gid = p1.sgsn_gid and
+				#object_filter#
+			order by 3]]></sql>
+    </processor>
+  </level>
+
+    <level name="VPI_SGSN" rank="250">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="INTERFACE_ID" column="interface_id_id" />
+        <id level="VPI_SGSN" column="vpi_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.interface_id_id interface_id_id,
+				p2.vpi_id vpi_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.interface_id_id||'/'||p2.vpi_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_INTERFACE_ID_OBJECTS p1,
+				RSG_PD_VPI_OBJECTS p2
+			where
+
+				sgsn.co_gid = p1.sgsn_gid and
+				p1.interface_id_id = p2.interface_id_id and
+				#object_filter#
+			order by 4]]></sql>
+    </processor>
+  </level>
+
+    <level name="VCI_SGSN" rank="260">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="INTERFACE_ID" column="interface_id_id" />
+        <id level="VPI_SGSN" column="vpi_id" />
+        <id level="VCI_SGSN" column="vci_id" />
+      </id-components>
+      <filter-attribute>sgsn.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+				sgsn.co_gid sgsn_gid,
+				p1.interface_id_id interface_id_id,
+				p2.vpi_id vpi_id,
+				p3.vci_id vci_id,
+				nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')')||'/'||p1.interface_id_id||'/'||p2.vpi_id||'/'||p3.vci_id name
+			from
+				utp_common_objects sgsn,
+				RSG_PD_INTERFACE_ID_OBJECTS p1,
+				RSG_PD_VPI_OBJECTS p2,
+				RSG_PD_VCI_OBJECTS p3
+			where
+
+				sgsn.co_gid = p1.sgsn_gid and
+				p1.interface_id_id = p2.interface_id_id and
+				p2.vpi_id = p3.vpi_id and
+				#object_filter#
+			order by 5]]></sql>
+    </processor>
+    </level>
+    <level name="SLN_SGSN" rank="270">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SLN_SGSN" column="sln_id" />
+      </id-components>
+      <filter-attribute>p1.sln_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.sln_id sln_id,
+        p1.sln_id name
+      from
+        RSG_PD_SLN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+  <level name="SNET_SGSN" rank="275">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SNET_SGSN" column="snet_id" />
+      </id-components>
+      <filter-attribute>p1.snet_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.snet_id snet_id,
+        p1.snet_id name
+      from
+        RSG_PD_SNET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="SIO_SGSN" rank="280">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SIO_SGSN" column="sio_id" />
+      </id-components>
+      <filter-attribute>p1.sio_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.sio_id sio_id,
+        p1.sio_id name
+      from
+        RSG_PD_SIO_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="SPC_SGSN" rank="280">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SNET_SGSN" column="snet_id" />
+        <id level="SPC_SGSN" column="spc_id" />
+      </id-components>
+      <filter-attribute>p1.spc_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.snet_id snet_id,
+        p1.spc_id spc_id,
+        p1.snet_id ||'/'|| p1.spc_id name
+      from
+        RSG_PD_SPC_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+     <level name="SLSN_SGSN" rank="285">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SLSN_SGSN" column="slsn_id" />
+      </id-components>
+      <filter-attribute>p1.slsn_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.slsn_id slsn_id,
+        p1.slsn_id name
+      from
+        RSG_PD_SLSN_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+   <level name="ASSOIND_SGSN" rank="295">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ASSOSET_SGSN" column="assoset_id" />
+        <id level="ASSOIND_SGSN" column="assoind_id" />
+      </id-components>
+      <filter-attribute>p1.assoind_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+            p1.assoset_id assoset_id,
+        p1.assoind_id assoind_id,
+         p1.assoset_id || '/' || p1.assoind_id name
+      from
+        RSG_PD_ASSOIND_OBJECTS  p1
+      where
+        #object_filter#
+      order by 3]]></sql>
+    </processor>
+  </level>
+
+  <level name="ASSOSET_SGSN" rank="290">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="ASSOSET_SGSN" column="assoset_id" />
+      </id-components>
+      <filter-attribute>p1.assoset_id</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+        p1.assoset_id assoset_id,
+        p1.assoset_id name
+      from
+        RSG_PD_ASSOSET_OBJECTS  p1
+      where
+        #object_filter#
+      order by 2]]></sql>
+    </processor>
+  </level>
+
+  <level name="IUMCC" rank="310">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="PAPU" column="papu_gid" />
+        <id level="IURA" column="iura_id" />
+        <id level="IULAC" column="iulac_id" />
+        <id level="IURAAC" column="iuraac_id" />
+        <id level="IUMCC" column="iumcc_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+                sgsn.co_gid sgsn_gid,
+                papu.co_gid papu_gid,
+                p1.iura_id iura_id,
+                p1.iulac_id iulac_id,
+                p1.iuraac_id iuraac_id,
+                p1.iumcc_id iumcc_id,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.iura_id||'/'||p1.iulac_id||'/'||p1.iuraac_id||'/'||p1.iumcc_id name
+            from
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                RSG_PD_IUMCC_OBJECTS p1
+            where
+                papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_oc_id=463 and
+                papu.co_object_instance=p1.papu_gid and
+                papu.co_oc_id=462 and
+                sgsn.co_gid= p1.sgsn_gid and
+                #object_filter#
+            order by 5]]></sql>
+    </processor>
+  </level>
+  <level name="IURAC" rank="320">
+    <processor class="com.nokia.oss.qengine.objectselection.BasicMemberRetriver">
+      <!-- The required number of levels will be generated starting with the next non-transient level -->
+      <id-components>
+        <id level="SGSN" column="sgsn_gid" />
+        <id level="PAPU" column="papu_gid" />
+        <id level="IURA" column="iura_id" />
+        <id level="IULAC" column="iulac_id" />
+        <id level="IURAAC" column="iuraac_id" />
+        <id level="IUMCC" column="iumcc_id" />
+        <id level="IURAC" column="iurac_id" />
+      </id-components>
+      <filter-attribute>papu.co_gid</filter-attribute>
+      <name column="name" />
+      <sql><![CDATA[select distinct
+                sgsn.co_gid sgsn_gid,
+                papu.co_gid papu_gid,
+                p1.iura_id iura_id,
+                p1.iulac_id iulac_id,
+                p1.iuraac_id iuraac_id,
+                p1.iumcc_id iumcc_id,
+                p1.iurac_id iurac_id,
+                nvl(sgsn.co_name, 'NN('||sgsn.co_gid||')') || '/' || nvl(papu.co_object_instance, 'NN('||papu.co_gid||')')||'/'||p1.iura_id||'/'||p1.iulac_id||'/'||p1.iuraac_id||'/'||p1.iumcc_id||'/'||p1.iurac_id name
+            from
+                utp_common_objects sgsn,
+                utp_common_objects papu,
+                RSG_PD_IURAC_OBJECTS p1
+            where
+                papu.co_parent_gid = sgsn.co_gid and
+                sgsn.co_oc_id=463 and
+                papu.co_object_instance=p1.papu_gid and
+                papu.co_oc_id=462 and
+                sgsn.co_gid= p1.sgsn_gid and
+                #object_filter#
+            order by 5]]></sql>
+    </processor>
+  </level>
+
+</object-conf>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_2117a">
+    <formula>100*decode(
+			((HSDPAW.denom_cpc_users)),0,null, 
+
+			((HSDPAW.active_dc_hsdpa_users_2c_sum + 
+			HSDPAW.active_dc_hsdpa_users_1c_sum))
+			 / 
+			((HSDPAW.denom_cpc_users)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average number of active DC HSDPA users]]></title>
+      <use><![CDATA[The average number of active DC HSDPA users using either 1 or 2 Carriers]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (active_dc_hsdpa_users_2c_sum + active_dc_hsdpa_users_1c_sum)
+&lt;br&gt;100 * -----------------------------------------------------------------
+&lt;br&gt;                            sum (denom_cpc_users)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg Act DC-HSDPA UE]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

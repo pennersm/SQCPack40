@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran/counters/IPROUT.xml" />
+  <kpi name="RNC_5051b">
+    <formula>decode(
+			(servlev.rab_act_rel_ps_strea_p_emp + 
+			servlev.rab_act_fail_ps_strea_iu + 
+			servlev.rab_act_fail_ps_strea_radio + 
+			servlev.rab_act_fail_ps_strea_bts + 
+			servlev.rab_act_fail_ps_strea_iur + 
+			servlev.rab_act_fail_ps_strea_rnc + 
+			servlev.rab_act_fail_ps_strea_trans_1 + 
+			servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_inter_trans_1 + 
+			servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_fail_ps_backg_ue + 
+			servlev.rab_act_fail_ps_backg_trans_1 + 
+			servlev.rab_act_fail_ps_inter_ue - 
+			servlev.rab_act_fail_ps_backg_pch - 
+			servlev.rab_act_fail_ps_int_pch),0,null, 
+
+			(iprout.in_data_ip_route_1*8/1000)
+			 / 
+			(servlev.rab_act_rel_ps_strea_p_emp + 
+			servlev.rab_act_fail_ps_strea_iu + 
+			servlev.rab_act_fail_ps_strea_radio + 
+			servlev.rab_act_fail_ps_strea_bts + 
+			servlev.rab_act_fail_ps_strea_iur + 
+			servlev.rab_act_fail_ps_strea_rnc + 
+			servlev.rab_act_fail_ps_strea_trans_1 + 
+			servlev.rab_act_fail_ps_inter_iu + 
+			servlev.rab_act_fail_ps_inter_radio + 
+			servlev.rab_act_fail_ps_inter_bts + 
+			servlev.rab_act_fail_ps_inter_iur + 
+			servlev.rab_act_fail_ps_inter_rnc + 
+			servlev.rab_act_fail_ps_inter_trans_1 + 
+			servlev.rab_act_fail_ps_backg_iu + 
+			servlev.rab_act_fail_ps_backg_radio + 
+			servlev.rab_act_fail_ps_backg_bts + 
+			servlev.rab_act_fail_ps_backg_iur + 
+			servlev.rab_act_fail_ps_backg_rnc + 
+			servlev.rab_act_fail_ps_backg_ue + 
+			servlev.rab_act_fail_ps_backg_trans_1 + 
+			servlev.rab_act_fail_ps_inter_ue - 
+			servlev.rab_act_fail_ps_backg_pch - 
+			servlev.rab_act_fail_ps_int_pch))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu-PS data volume per drop - IP based]]></title>
+      <use><![CDATA[The average Volume per drop for Packet Switched Data. This is the user perspective, so the pre-emptions and UE causes are also counted in as failures]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(sum(IN_DATA_IP_ROUTE * 8 / 1000) 
+&lt;br&gt;/ 
+&lt;br&gt;sum(RAB_ACT_REL_PS_STREA_P_EMP
+&lt;br&gt;+ RAB_ACT_FAIL_PS_STREA_IU
+&lt;br&gt;+ RAB_ACT_FAIL_PS_STREA_RADIO
+&lt;br&gt;+ RAB_ACT_FAIL_PS_STREA_BTS
+&lt;br&gt;+ RAB_ACT_FAIL_PS_STREA_IUR
+&lt;br&gt;+ RAB_ACT_FAIL_PS_STREA_RNC
+&lt;br&gt;+ RAB_ACT_FAIL_PS_STREA_TRANS
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_IU
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_RADIO
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_BTS
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_IUR
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_RNC
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_TRANS
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_IU
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_RADIO
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_BTS
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_IUR
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_RNC
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_UE
+&lt;br&gt;+ RAB_ACT_FAIL_PS_BACKG_TRANS
+&lt;br&gt;+ RAB_ACT_FAIL_PS_INTER_UE
+&lt;br&gt;- RAB_ACT_FAIL_PS_BACKG_PCH
+&lt;br&gt;- RAB_ACT_FAIL_PS_INT_PCH))</formula>
+      <unit>[Mbit/dropped RAB]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg},nokrww_ps_IPROUT_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/01/19 16:21:33.164 +0000</date>
+          <comment><![CDATA[Source: RSRAN000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Iu-PS DV per drop IPbased</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <temp_table_ref src="rsran_RU40/counters/IPROUT_ext.xml" />
+</conf_file>
+

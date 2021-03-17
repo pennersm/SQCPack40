@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/MGWTCV_ext.xml" />
+  <kpi name="msc_778b">
+    <formula>decode(
+			(mgwtcv_ext.mgwtcat_call_attempts_1),0,null, 
+
+			(100*(mgwtcv_ext.mgwtcat_call_attempts_ans_1)
+			 / 
+			(mgwtcv_ext.mgwtcat_call_attempts_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[VMGW call answer ratio]]></title>
+      <use><![CDATA[Call answer ratio per virtual MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;         Sum (MGWTCAT_CALL_ATTEMPTS_ANSWERED)
+&lt;br&gt;100 * -----------------------------------
+&lt;br&gt;         Sum (MGWTCAT_CALL_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;;where traffic_category_id in (0, 1, 4, 5, 6)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_MGWTCV_{obj_agg}_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_mgwtcv_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[VMGW call answer ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

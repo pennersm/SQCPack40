@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/STM1.xml" />
+  <kpi name="RNC_252a">
+    <formula>decode(
+			(stm1.period_duration*60),0,null, 
+
+			100*(stm1.ne_path3_uas)
+			 / 
+			(stm1.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[NE_PATH3_UAS_RATIO]]></title>
+      <use><![CDATA[The Ratio of  UAS to total seconds in available time at the Near End (ITU-TG.826).A period of unavailable time begins at the start of ten consecutive severelyerrored second (SES) events. These ten seconds are considered to be partof unavailable time. A new period of available time begins at the start of tenconsecutive non-SES events. These ten seconds are considered to be partof available time.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(NE_PATH3_UAS) / (PERIOD_DURATION * 60 ))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_stm1_unitid_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[NE_PATH3_UAS_RATIO]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

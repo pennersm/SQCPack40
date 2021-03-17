@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml"/>
+  <kpi name="flng_377a">
+    <formula>decode(
+			((GTPCV2.gtpcv2_recv_echo_req)),0,NULL, 
+
+			((GTPCV2.gtpcv2_sent_echo_resp))
+			 / 
+			((GTPCV2.gtpcv2_recv_echo_req)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[GTP-C v2 Echo Response/Request ratio, SGSN/MME initiated]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 Echo Responses sent as response to SGSN/MME initiated GTP-C v2 Echo Requests messages.
+GTP path management messaging is used between network elements to check if a peer element is alive and the indication of a potential problem is the mismatch between Echo Request/Response massages.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtpcv2_sent_echo_resp)
+&lt;br&gt;--------------------------- * 100
+&lt;br&gt;sum (gtpcv2_recv_echo_req)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCV2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[GTPCv2 Echo Re r,SGSN/MME]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

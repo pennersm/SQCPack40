@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml"/>
+  <kpi name="sgsn_2096a">
+    <formula>decode(
+			((IUSM.IU_SUCC_PDP_CON_MOD + 
+			IUSM.IU_FAIL_PDP_CON_MOD)),0,NULL, 
+
+			((IUSM.IU_SUCC_PDP_CON_MOD))
+			 / 
+			((IUSM.IU_SUCC_PDP_CON_MOD + 
+			IUSM.IU_FAIL_PDP_CON_MOD)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Iu PDP context modification success ratio, e2e]]></title>
+      <use><![CDATA[This KPI shows the success ratio of total PDP context modification procedures from Iu interface.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(IU_SUCC_PDP_CON_MOD)
+&lt;br&gt;--------------------------- *100
+&lt;br&gt;sum(IU_SUCC_PDP_CON_MOD +
+&lt;br&gt;   IU_FAIL_PDP_CON_MOD)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_IUSM_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Iu PDP mod SR, e2e]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

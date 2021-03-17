@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GV24_ext.xml" />
+  <kpi name="flng_536a">
+    <formula>100*decode(GV24_ext.CRE_SESS_RESP_SENT_S4_ALL,0,null,
+	(
+	 GV24_ext.GTPCV2_CRE_SESS_RESP_SENT_S4
+	 /
+	 GV24_ext.CRE_SESS_RESP_SENT_S4_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S4 Create Session responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent on S4 interface for a specific cause code when compared to total number of GTP-C v2 create session response messages sent on S4 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv24_id,&amp;#039;x&amp;#039;,GTPCV2_CRE_SESS_RESP_SENT_S4,0))  ;GV24 for cause code x
+&lt;br&gt;--------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_SENT_S4)  ;all GV24&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.272 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW064.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S4 Cre Sess resp sent rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

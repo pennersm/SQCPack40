@@ -1,0 +1,230 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M137 ROUTDM measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M137 ROUTDM measurement dump</csv_title>
+    <report-description>Field reporting of routing components measurement(ROUTDM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <ROUT_MATCH_CALLS/>
+    <ROUT_GAPPED_CALLS/>
+    <ROUT_BOUND_RATE/>
+    <ROUT_TOKEN_BANK/>
+    <ROUT_GCR/>
+    <ROUT_DX_ERROR/>
+    <ROUT_PERM_ATTR_DATA_CHANGED/>
+    <ROUT_IN_CALLS/>
+    <!--<ROUTDM_PERIOD_DURATION/>-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/DMODE1" name="ROUTDM" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="ROUT_MATCH_CALLS" symmetrical="true">SUM(ROUT_MATCH_CALLS)</counter>
+      <counter alias="ROUT_GAPPED_CALLS" symmetrical="true">SUM(ROUT_GAPPED_CALLS)</counter>
+      <counter alias="ROUT_BOUND_RATE" symmetrical="true">AVG(ROUT_BOUND_RATE)</counter>
+      <counter alias="ROUT_TOKEN_BANK" object-formula="SUM(ROUT_TOKEN_BANK)" time-alias="ROUT_TOKEN_BANK" time-formula="AVG(ROUT_TOKEN_BANK)">SUM(ROUT_TOKEN_BANK)</counter>
+      <counter alias="ROUT_GCR" symmetrical="true">AVG(ROUT_GCR)</counter>
+      <counter alias="ROUT_DX_ERROR" symmetrical="true">SUM(ROUT_DX_ERROR)</counter>
+      <counter alias="ROUT_PERM_ATTR_DATA_CHANGED" symmetrical="true">AVG(ROUT_PERM_ATTR_DATA_CHANGED)</counter>
+      <counter alias="ROUT_IN_CALLS" symmetrical="true">SUM(ROUT_IN_CALLS)</counter>
+      <!--<counter alias="ROUTDM_PERIOD_DURATION" object-formula="avg(period_duration)" time-alias="ROUTDM_PERIOD_DURATION" time-formula="sum(period_duration)">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ROUTDM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ROUTDM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_MATCH_CALLS">
+    <formula>ROUTDM.ROUT_MATCH_CALLS</formula>
+    <kpi_info>
+      <title>ROUT_MATCH_CALLS</title>
+      <use>Number of successful events.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUT_MATCH_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_MATCH_CALLS (M137B3C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_GAPPED_CALLS">
+    <formula>ROUTDM.ROUT_GAPPED_CALLS</formula>
+    <kpi_info>
+      <title>ROUT_GAPPED_CALLS</title>
+      <use>Number of gapped events.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUT_GAPPED_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_GAPPED_CALLS (M137B3C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_BOUND_RATE">
+    <formula>ROUTDM.ROUT_BOUND_RATE</formula>
+    <kpi_info>
+      <title>ROUT_BOUND_RATE</title>
+      <use>The highest possible passed call rate (persecond) for a gapping gate (0...9999).</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ROUT_BOUND_RATE)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_BOUND_RATE (M137B3C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_TOKEN_BANK">
+    <formula>ROUTDM.ROUT_TOKEN_BANK</formula>
+    <kpi_info>
+      <title>ROUT_TOKEN_BANK</title>
+      <use>Token bank size (0...65280)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(ROUT_TOKEN_BANK)">SUM(ROUT_TOKEN_BANK)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_TOKEN_BANK (M137B3C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_GCR">
+    <formula>ROUTDM.ROUT_GCR</formula>
+    <kpi_info>
+      <title>ROUT_GCR</title>
+      <use>Percentage ratio (0...100.0%)of gapped events to the total number of events.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ROUT_GCR)</formula>
+      <unit>%</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_GCR (M137B3C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_DX_ERROR">
+    <formula>ROUTDM.ROUT_DX_ERROR</formula>
+    <kpi_info>
+      <title>ROUT_DX_ERROR</title>
+      <use>Message status field includes error code.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUT_DX_ERROR)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_DX_ERROR (M137B3C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ROUT_PERM_ATTR_DATA_CHANGED">
+    <formula>ROUTDM.ROUT_PERM_ATTR_DATA_CHANGED</formula>
+    <kpi_info>
+      <title>ROUT_PERM_ATTR_DATA_CHANGED</title>
+      <use>Tag appears with value 1 when the permanentdata of the attribute has been changed during result accumulation
+period</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ROUT_PERM_ATTR_DATA_CHANGED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_PERM_ATTR_DATA_CHANGED (M137B3C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!--
+  <kpi name="ROUTDM_PERIOD_DURATION">
+    <formula>ROUTDM.ROUTDM_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>ROUTDM_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUTDM_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+  <kpi name="ROUT_IN_CALLS">
+    <formula>ROUTDM.ROUT_IN_CALLS</formula>
+    <kpi_info>
+      <title>ROUT_IN_CALLS</title>
+      <use>Number of events.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ROUT_IN_CALLS)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_routdm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ROUT_IN_CALLS (M137B3C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_101b">
+    <formula>decode(
+			(cellres.prxtot_denom_0 + 
+			cellres.prxtot_denom_1 + 
+			cellres.prxtot_denom_2 + 
+			cellres.prxtot_denom_3 + 
+			cellres.prxtot_denom_4),0,null, 
+
+			10*log(10,(((0.001*power(10,(( - 
+			112 + 
+			(cellres.ave_prxtot_class_0
+			 / 
+			10))
+			 / 
+			10)))*(cellres.prxtot_denom_0) + 
+
+			(0.001*power(10,(( - 
+			112 + 
+			(cellres.ave_prxtot_class_1
+			 / 
+			10))
+			 / 
+			10)))*(cellres.prxtot_denom_1) + 
+
+			(0.001*power(10,(( - 
+			112 + 
+			(cellres.ave_prxtot_class_2
+			 / 
+			10))
+			 / 
+			10)))*(cellres.prxtot_denom_2) + 
+
+			(0.001*power(10,(( - 
+			112 + 
+			(cellres.ave_prxtot_class_3
+			 / 
+			10))
+			 / 
+			10)))*(cellres.prxtot_denom_3) +
+ 
+			(0.001*power(10,(( - 
+			112 + 
+			(cellres.ave_prxtot_class_4
+			 / 
+			10))
+			 / 
+			10)))*(cellres.prxtot_denom_4))
+			 / 
+			(cellres.prxtot_denom_0 + 
+			cellres.prxtot_denom_1 + 
+			cellres.prxtot_denom_2 + 
+			cellres.prxtot_denom_3 + 
+			cellres.prxtot_denom_4))
+			 / 
+			0.001))</formula>
+    <kpi_info>
+      <title><![CDATA[Average uplink load (in dBm)]]></title>
+      <use><![CDATA[Average load in uplink direction]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      112 + 0.1 * (AVG
+&lt;br&gt;         (( AVE_PRXTOT_CLASS_0 * PRXTOT_DENOM_0 
+&lt;br&gt;          + AVE_PRXTOT_CLASS_1 * PRXTOT_DENOM_1 
+&lt;br&gt;          + AVE_PRXTOT_CLASS_2 * PRXTOT_DENOM_2 
+&lt;br&gt;          + AVE_PRXTOT_CLASS_3 * PRXTOT_DENOM_3 
+&lt;br&gt;          + AVE_PRXTOT_CLASS_4 * PRXTOT_DENOM_4) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;          ( PRXTOT_DENOM_0 
+&lt;br&gt;          + PRXTOT_DENOM_1 
+&lt;br&gt;          + PRXTOT_DENOM_2 
+&lt;br&gt;          + PRXTOT_DENOM_3 
+&lt;br&gt;          + PRXTOT_DENOM_4)))</formula>
+      <unit>[dBm]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average uplink load (in dBm)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

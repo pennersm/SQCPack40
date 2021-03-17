@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 PSN_IP PSN measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 PSN_IP PSN measurement dump</csv_title>
+    <report-description>AXC PSN tunnel IP measurement (M5214)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <unknownPwHdr15 />
+    <pwPacketsRecv15 />
+    <pwPacketsTransm15 />
+  </column_order>
+  <temp_table name="PSN" meas_level="PLMN/RNC/WBTS/AXC/PWNE/PWTIP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="unknownPwHdr15" timeagg="SUM(unknownPwHdr15)">SUM(unknownPwHdr15)</counter>
+      <counter alias="pwPacketsRecv15" timeagg="SUM(pwPacketsRecv15)">SUM(pwPacketsRecv15)</counter>
+      <counter alias="pwPacketsTransm15" timeagg="SUM(pwPacketsTransm15)">SUM(pwPacketsTransm15)</counter>
+    </counters>
+    <table_name>nokaxc_ps_psn_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PSN</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PSN.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_psn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="unknownPwHdr15">
+    <formula>PSN.unknownPwHdr15</formula>
+    <kpi_info>
+      <title>unknownPwHdr15</title>
+      <use>The number of Ethernet frames received, which Pseudowire header is not configured or has a reserved value. UPDATED:The counter is incremented every second by the amount of ethernet frames received by the interface, which were discarded as they contain an invalid pseudowire header (MPLS shim).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(unknownPwHdr15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_psn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>unknownPwHdr15 (M5214C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="pwPacketsRecv15">
+    <formula>PSN.pwPacketsRecv15</formula>
+    <kpi_info>
+      <title>pwPacketsRecv15</title>
+      <use>Number of received packets on a tunnel. UPDATED:The counter is incremented every second by the amount of packets received via the pseudowire tunnel.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(pwPacketsRecv15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_psn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>pwPacketsRecv15 (M5214C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="pwPacketsTransm15">
+    <formula>PSN.pwPacketsTransm15</formula>
+    <kpi_info>
+      <title>pwPacketsTransm15</title>
+      <use>Number of transmitted packets on a tunnel. UPDATED: The counter is incremented every second by the amount of packets transmitted via the pseudowire tunnel.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(pwPacketsTransm15)</formula>
+      <unit>Integer number</unit>
+      <tables>nokaxc_ps_psn_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>pwPacketsTransm15 (M5214C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

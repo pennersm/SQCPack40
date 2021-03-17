@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSMSC M162 Report Set</report_version>
+    <release number="8.1.2-64"/>
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSMSC073 - Call setup time and success - MSC</header>
+    <csv_title>Call setup time and success - MSC</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+
+    <help_text><![CDATA[
+    <br>This report shows the success and failures call setup attempts details (MSC level analysis).
+    <br>
+    <br>Object level:
+    <br>PLMN->MSC
+    <br>
+    <br>Measurements:
+    <br>M386: Call setup time and success measurement 
+    <br>       
+	<br>This report has the following drill definitions:
+	<br>- From msc_2306a KPI to RSMSC040 report
+	<br>- From msc_2307a KPI to RSMSC040 report
+	<br>- From msc_2308a KPI to RSMSC040 report
+	<br>- From msc_2309a KPI to RSMSC040 report
+    ]]></help_text>
+
+    <report-description>Call setup time and success - MSC</report-description>
+    <report-title>Call setup time and success - MSC</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <msc_404a ui_name="Succ call ratio" master-group="" group="SUCCESS" />
+    <M386B2C3 ui_name="Succ setup" master-group="" chartType="bar" group="SUCCESS" yAxis="2"/>
+ 
+    <M386B2C4 ui_name="Succ setup (Long-PRFILE)" chartType="bar" master-group="SUCCESS" group="LONG SETUP" yAxis="2"/>
+    <M386B2C2 ui_name="Long setup time" master-group="SUCCESS" group="LONG SETUP" />
+
+    <M386B2C5 ui_name="Shortest succ setup time" master-group="SUCCESS" group="TIME" />
+    <M386B2C6 ui_name="Longest succ setup time" master-group="SUCCESS" group="TIME" />
+    <M386B2C7 ui_name="Avg call setup time (succ)" master-group="SUCCESS" group="TIME" />
+    
+    <msc_2123c ui_name="Succ Ratio" master-group="SUCCESS" group="CSFB" />
+    <msc_2125a ui_name="Succ Avg Time" master-group="SUCCESS" group="CSFB" yAxis="2"/>
+
+    <msc_2306a ui_name="NORMAL Fail rto" master-group="" group="FAILURES"  report_drill="RSMSC_CLEAR_CODES"/>
+    <msc_2307a ui_name="INTERNAL Fail rto" master-group="" group="FAILURES"  report_drill="RSMSC_CLEAR_CODES"/>
+    <msc_2308a ui_name="EXTERNAL Fail rto" master-group="" group="FAILURES"  report_drill="RSMSC_CLEAR_CODES"/>
+    <msc_2309a ui_name="SUBSCRIBER Fail rto" master-group="" group="FAILURES"  report_drill="RSMSC_CLEAR_CODES"/>
+
+    
+    <M386B2C8 ui_name="Fail call setup" master-group="" group="NORM FAIL" />
+    <M386B2C10 ui_name="Failed call setup (Long-PRFILE)" master-group="" group="NORM FAIL" />
+    <msc_406b ui_name="Avg weighted unsucc setup time" master-group="NORM FAIL" group="TIME" />
+    <M386B2C11 ui_name="Longest call setup" master-group="NORM FAIL" group="TIME" />
+    <M386B2C12 ui_name="Avg call setup time (fail)" master-group="NORM FAIL" group="TIME" />
+    
+    <M386B2C13 ui_name="Fail call setup" master-group="" group="INT FAIL" />
+    <M386B2C15 ui_name="Fail call setup (Long-PRFILE)" master-group="" group="INT FAIL" />
+    <M386B2C16 ui_name="Longest call setup time - conn" master-group="INT FAIL" group="TIME" />
+    <M386B2C17 ui_name="Avg time dur int released conn" master-group="INT FAIL" group="TIME" />
+    
+    <M386B2C18 ui_name="Fail call setup" master-group="" group="EXT FAIL" />
+    <M386B2C20 ui_name="Fail call setup (Long-PRFILE)" master-group="" group="EXT FAIL" />
+    <M386B2C21 ui_name="Longest call setup time - release conn" master-group="EXT FAIL" group="TIME" />
+    <M386B2C22 ui_name="Avg call setup time - dur ext rel conn" master-group="EXT FAIL" group="TIME" />
+    
+    <M386B2C23 ui_name="Fail  call setup" master-group="" group="SUBS FAIL" />
+    <M386B2C25 ui_name="Failed call setup (Long-PRFILE)" master-group="" group="SUBS FAIL" />
+    <M386B2C26 ui_name="Longest call setup time - subs fail rel conn" master-group="SUBS FAIL" group="TIME" />
+    <M386B2C27 ui_name="Avg call setup time - subs rel conn" master-group="SUBS FAIL" group="TIME" />
+  </column_order>
+
+  <!-- Drills configuration -->  
+  <report_drill id="RSMSC_CLEAR_CODES" >
+        <drill reportLevel="PLMN/MSC" uri="jflx.web">
+            <param key="uiConf">
+                <string value="nss_M162/ui_conf/nss_M162_msc_traffic_uiConf.xml"/>
+            </param>
+			<param key="reportLevel">
+				<string value="PLMN/MSC/CC_NSS"/>
+			</param>
+            <param key="report">
+                <string value="nss_M162/reports/msc/RSMSC040.xml"/>
+            </param>
+            <param key="drillReportName">
+                <string value="Drill to Traffic by clear codes report"/>
+            </param>
+        </drill>
+  </report_drill>
+
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_404a.xml#msc_404a" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C3.xml#M386B2C3" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C4.xml#M386B2C4" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C2.xml#M386B2C2" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C5.xml#M386B2C5" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C6.xml#M386B2C6" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C7.xml#M386B2C7" />
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2123c.xml#msc_2123c" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2125a.xml#msc_2125a" />
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2306a.xml#msc_2306a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2307a.xml#msc_2307a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2308a.xml#msc_2308a" />
+  <kpi_ref ref="nss_M162/kpis/msc/msc_2309a.xml#msc_2309a" />
+
+  <kpi_ref ref="nss_M162/kpis/msc/msc_406b.xml#msc_406b" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C8.xml#M386B2C8" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C10.xml#M386B2C10" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C11.xml#M386B2C11" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C12.xml#M386B2C12" />
+  
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C13.xml#M386B2C13" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C15.xml#M386B2C15" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C16.xml#M386B2C16" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C17.xml#M386B2C17" />
+  
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C18.xml#M386B2C18" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C20.xml#M386B2C20" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C21.xml#M386B2C21" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C22.xml#M386B2C22" />
+  
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C23.xml#M386B2C23" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C25.xml#M386B2C25" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C26.xml#M386B2C26" />
+  <kpi_ref ref="nss_M162/kpis/msc/M386B2C27.xml#M386B2C27" />
+</conf_file>
+

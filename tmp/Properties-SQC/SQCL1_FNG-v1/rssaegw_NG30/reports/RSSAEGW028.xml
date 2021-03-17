@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW028 - Delete Session cause code</header>
+    <csv_title>Delete Session cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v2 delete session response messages sent/received per cause code on S11/S4 and S5/S8 interfaces.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Delete Session Request' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/04/18 15:24:42.265 +0100</date>
+        <comment><![CDATA[Source: RSSAEGW028.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Delete Session cause code</report-description>
+    <report-title>Delete Session cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_133a ui_name="Att" group="sent (S11/S4 and S5/S8)" master-group="Del Session resp" chartType="bar" yAxis="2" />
+    <flng_134a ui_name="Ratio" group="sent (S11/S4 and S5/S8)" master-group="Del Session resp" />
+    <flng_137a ui_name="Att" group="rcvd (S5/S8)" master-group="Del Session resp" chartType="bar" yAxis="2" />
+    <flng_138a ui_name="Ratio" group="rcvd (S5/S8)" master-group="Del Session resp" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCV2RESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_133a">
+    <formula>(GTPCV2RESP.gtpcv2_del_sess_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Session responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 delete session responses sent per cause code.
+Delete Session Response sent: 
+- S11/S4 interface (MME/SGSN &gt;- SGW)
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpcv2_del_sess_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Session resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_134a">
+    <formula>decode(
+			((GTPCV2RESP.gtpcv2_del_sess_resp_sent_all)),0,NULL, 
+
+			((GTPCV2RESP.gtpcv2_del_sess_resp_sent))
+			 / 
+			((GTPCV2RESP.gtpcv2_del_sess_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Session responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete session responses sent for a specific cause code when compared to total number of GTP-C v2 delete session response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(dsrs_id,'x',GTPCV2_DEL_SESS_RESP_SENT,0))  ;DSRS for cause code x
+&lt;br&gt;----------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DEL_SESS_RESP_SENT)  ;all DSRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Del Sess resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_137a">
+    <formula>(GTPCV2RESP.gtpcv2_del_sess_resp_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Session responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 delete session responses received per cause code.
+Delete Session Response received: 
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpcv2_del_sess_resp_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DSRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del Session resp rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_138a">
+    <formula>decode(
+			((GTPCV2RESP.gtpcv2_del_sess_resp_recv_all)),0,NULL, 
+
+			((GTPCV2RESP.gtpcv2_del_sess_resp_recv))
+			 / 
+			((GTPCV2RESP.gtpcv2_del_sess_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete Session responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 delete session responses received for a specific cause code when compared to total number of GTP-C v2 delete session response messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(dsrr_id,'x',GTPCV2_DEL_SESS_RESP_RECV,0))  ;DSRR for cause code x
+&lt;br&gt;----------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_DEL_SESS_RESP_RECV)  ;all DSRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DSRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Del Sess resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

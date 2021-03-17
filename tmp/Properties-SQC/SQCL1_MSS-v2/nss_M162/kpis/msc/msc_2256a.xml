@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="msc_2256a">
+    <formula>decode (tc_ext.tcat_call_amount_52, 0,  null, 100 * (tc_ext.Tcat_ok_amount_36 /  tc_ext.tcat_call_amount_52))</formula>
+    <kpi_info>
+      <title><![CDATA[SIP AS calls answer ratio]]></title>
+      <use><![CDATA[Answer ratio for SIP (ISC) calls, for the case when NVS is acting as IMS AS.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Traffic category:
+<br>78 = ISC ORIG = ISC originating traffic 
+<br>80 = ISC TERM = ISC terminating traffic 
+<br>
+<br>KPI CLASS: NVS
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;       sum (tcat_ok_amount)
+&lt;br&gt;100 *  ---------------------------------------------------------------
+&lt;br&gt;       sum (tcat_call_amount)
+&lt;br&gt;                            ;where traffic_category_id  in (78, 80)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_tc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[SIP AS call answ rto]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+ <temp_table_ref src="rsran_RU40/counters/WBTSHW_ext.xml" />
+
+  <kpi name="RNC_3209a">
+    <formula>decode(
+			wbtshw.avg_avail_ce,0,null, 
+
+			wbtshw.avg_avail_ce_1
+			 / 
+			wbtshw.avg_avail_ce)</formula>
+    <kpi_info>
+      <title><![CDATA[Number of Local Cell Group]]></title>
+      <use><![CDATA[In Flexi WCDMA BTS when baseband pooling is in use, counter is the average amount of Local Cell Group dedicated baseband pool CE capacity + total amount of CEs in common baseband pool - CEs used by other Local Cell groups from common baseband pool at the counter sampling moment.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;(SUM(AVG_AVAIL_CE)/
+&lt;br&gt;COUNT(DISTINCT PERIOD_START_TIME))
+&lt;br&gt;/
+&lt;br&gt;sum(wbtshw.avg_avail_ce)</formula>
+      <unit>[#]</unit>
+      <tables>nokrww_ps_WBTSHW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/18 10:20:53.299 +0100</date>
+          <comment><![CDATA[Source: RSRAN135.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Number of LCG</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

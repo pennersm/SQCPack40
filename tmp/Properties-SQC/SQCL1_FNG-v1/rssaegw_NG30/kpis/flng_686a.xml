@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPC.xml" />
+  <temp_table_ref src="rssaegw/counters/URS.xml" />
+  <kpi name="flng_686a">
+    <formula>decode(
+			GTPC.gtpc_update_req_recv,0,null,
+	
+			(URS.gtpc_update_resp_sent
+			/ 
+			GTPC.gtpc_update_req_recv))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Update PDP context response sent / request received ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 update PDP context response messages sent as response to the update PDP context request messages received (SGSN (or access network) initiated) (including retransmissions).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.GTPC_UPDATE_RESP_SENT)
+&lt;br&gt;----------------------------- *100
+&lt;br&gt;sum(a.GTPC_UPDATE_REQ_RECV)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v1 
+&lt;br&gt;b = GTP-C v1 Update Response sent</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_URS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:26.297 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW001.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Upd PDP resp sent/req rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

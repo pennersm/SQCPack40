@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RELOC2.xml" />
+  <kpi name="RNC_5009a">
+    <formula>100*decode(
+			(reloc2.srns_reloc_in_req_contr_sgsn + 
+			reloc2.inter_rnc_hho_req_sgsn),0,null, 
+
+			(reloc2.srns_reloc_compl_rnc_sgsn + 
+			reloc2.inter_hho_compl_in_rnc_sgsn)
+			 / 
+			(reloc2.srns_reloc_in_req_contr_sgsn + 
+			reloc2.inter_rnc_hho_req_sgsn))</formula>
+    <kpi_info>
+      <title><![CDATA[Relocation Success in Target RNC for PS]]></title>
+      <use><![CDATA[The Relocation success inside RAN including both &quot;UE not involved&quot; (SRNC Relocation) and &quot;UE involved&quot; (Inter HHO) cases.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(SRNS_RELOC_COMPL_RNC_SGSN +
+&lt;br&gt;INTER_HHO_COMPL_IN_RNC_SGSN)
+&lt;br&gt;/
+&lt;br&gt;sum(SRNS_RELOC_IN_REQ_CONTR_SGSN+
+&lt;br&gt;INTER_RNC_HHO_REQ_SGSN)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_RELOC2_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:54.775 +0100</date>
+          <comment><![CDATA[Source: RSRAN120.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Reloc succ trg RNC for PS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+
+

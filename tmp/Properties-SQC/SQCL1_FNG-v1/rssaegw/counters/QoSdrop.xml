@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 QoS_dl_drop_qci QoSdrop measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 QoS_dl_drop_qci QoSdrop measurement dump</csv_title>
+    <report-description>QoS donwlink drop QCI</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <QOS_DL_DROP_QCI />
+  </column_order>
+  <temp_table name="QoSdrop" meas_level="PLMN/FING/FNODE/QOS/QCI_2" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="QOS_DL_DROP_QCI" time-alias="QOS_DL_DROP_QCI" timeagg="SUM(QOS_DL_DROP_QCI)">SUM(QOS_DL_DROP_QCI)</counter>
+    </counters>
+    <table_name>pcofng_ps_qosdrop_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>QoSdrop</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>QoSdrop.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_qosdrop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="QOS_DL_DROP_QCI">
+    <formula>QoSdrop.QOS_DL_DROP_QCI</formula>
+    <kpi_info>
+      <title>QOS_DL_DROP_QCI</title>
+      <use>This counter contains the number of dropped downlink packets per QoS Class Identifier (QCI). UPDATED: Updated when a downlink packet matching a specific QCI is dropped.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(QOS_DL_DROP_QCI)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_qosdrop_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>QOS_DL_DROP_QCI (m3035c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

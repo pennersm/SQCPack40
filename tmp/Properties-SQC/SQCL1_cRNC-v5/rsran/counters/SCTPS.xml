@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>SCTPS (SCTP Statistics)</header>
+    <csv_title>SCTPS (SCTP Statistics)</csv_title>
+    <report-description>SCTP Statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <SCTP_CURRENT_ESTABLISHED/>
+    <SCTP_ACTIVE_ESTABLISHED/>
+    <SCTP_PASSIVE_ESTABLISHED/>
+    <SCTP_ABORTED/>
+    <SCTP_SHUTDOWN/>
+    <SCTP_OUT_OF_BLUE/>
+    <SCTP_CHECKSUM_ERRORS/>
+    <SCTP_OUT_CONTROL_CHUNKS/>
+    <SCTP_OUT_ORDER_CHUNKS/>
+    <SCTP_OUT_UNORDER_CHUNKS/>
+    <SCTP_IN_CONTROL_CHUNKS/>
+    <SCTP_IN_ORDER_CHUNKS/>
+    <SCTP_IN_UNORDER_CHUNKS/>
+    <SCTP_FRAGMENT_USER_MESSAGES/>
+    <SCTP_REASSEMBLED_USER_MESSAGES/>
+    <SCTP_OUT_SCTP_PACKETS/>
+    <SCTP_IN_SCTP_PACKETS/>
+    <SCTP_IN_PACKET_DISCARDS/>
+    <SCTP_IN_DATA_CHUNK_DISCARDS/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="SCTPS" omes_name="SctpStat" meas_level="PLMN/RSRAN-RNC/RSRAN-FPNODE" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>SCTPS</koala_meas_id>
+	<last_mo_level>RSRAN-RNC</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="SCTP_CURRENT_ESTABLISHED" time-alias="SCTP_CURRENT_ESTABLISHED" time-formula="AVG(SCTP_CURRENT_ESTABLISHED)" object-formula="SUM(SCTP_CURRENT_ESTABLISHED)">SUM(SCTP_CURRENT_ESTABLISHED)</counter>
+          <counter alias="SCTP_ACTIVE_ESTABLISHED" symmetrical="true">SUM(SCTP_ACTIVE_ESTABLISHED)</counter>
+          <counter alias="SCTP_PASSIVE_ESTABLISHED" symmetrical="true">SUM(SCTP_PASSIVE_ESTABLISHED)</counter>
+          <counter alias="SCTP_ABORTED" symmetrical="true">SUM(SCTP_ABORTED)</counter>
+          <counter alias="SCTP_SHUTDOWN" symmetrical="true">SUM(SCTP_SHUTDOWN)</counter>
+          <counter alias="SCTP_OUT_OF_BLUE" symmetrical="true">SUM(SCTP_OUT_OF_BLUE)</counter>
+          <counter alias="SCTP_CHECKSUM_ERRORS" symmetrical="true">SUM(SCTP_CHECKSUM_ERRORS)</counter>
+          <counter alias="SCTP_OUT_CONTROL_CHUNKS" symmetrical="true">SUM(SCTP_OUT_CONTROL_CHUNKS)</counter>
+          <counter alias="SCTP_OUT_ORDER_CHUNKS" symmetrical="true">SUM(SCTP_OUT_ORDER_CHUNKS)</counter>
+          <counter alias="SCTP_OUT_UNORDER_CHUNKS" symmetrical="true">SUM(SCTP_OUT_UNORDER_CHUNKS)</counter>
+          <counter alias="SCTP_IN_CONTROL_CHUNKS" symmetrical="true">SUM(SCTP_IN_CONTROL_CHUNKS)</counter>
+          <counter alias="SCTP_IN_ORDER_CHUNKS" symmetrical="true">SUM(SCTP_IN_ORDER_CHUNKS)</counter>
+          <counter alias="SCTP_IN_UNORDER_CHUNKS" symmetrical="true">SUM(SCTP_IN_UNORDER_CHUNKS)</counter>
+          <counter alias="SCTP_FRAGMENT_USER_MESSAGES" symmetrical="true">SUM(SCTP_FRAGMENT_USER_MESSAGES)</counter>
+          <counter alias="SCTP_REASSEMBLED_USER_MESSAGES" symmetrical="true">SUM(SCTP_REASSEMBLED_USER_MESSAGES)</counter>
+          <counter alias="SCTP_OUT_SCTP_PACKETS" symmetrical="true">SUM(SCTP_OUT_SCTP_PACKETS)</counter>
+          <counter alias="SCTP_IN_SCTP_PACKETS" symmetrical="true">SUM(SCTP_IN_SCTP_PACKETS)</counter>
+          <counter alias="SCTP_IN_PACKET_DISCARDS" symmetrical="true">SUM(SCTP_IN_PACKET_DISCARDS)</counter>
+          <counter alias="SCTP_IN_DATA_CHUNK_DISCARDS" symmetrical="true">SUM(SCTP_IN_DATA_CHUNK_DISCARDS)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>SCTPS</alias_name>
+    <ui_name>SCTP Statistics</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>SCTPS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_CURRENT_ESTABLISHED">
+    <formula>SCTPS.SCTP_CURRENT_ESTABLISHED</formula>
+    <kpi_info>
+      <title>SCTP_CURRENT_ESTABLISHED (M2067C1)</title>
+      <use>The number of associations for which the current state is either ESTABLISHED, SHUTDOWN-RECEIVED, or SHUTDOWN-PENDING. UPDATED: When the current state of an association becomes either ESTABLISHED, SHUTDOWN-RECEIVED, or SHUTDOWN-PENDING.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(SCTP_CURRENT_ESTABLISHED)">SUM(SCTP_CURRENT_ESTABLISHED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_CURRENT_ESTABLISHED (M2067C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_ACTIVE_ESTABLISHED">
+    <formula>SCTPS.SCTP_ACTIVE_ESTABLISHED</formula>
+    <kpi_info>
+      <title>SCTP_ACTIVE_ESTABLISHED (M2067C2)</title>
+      <use>The number of times the associations have made a direct transition to the ESTABLISHED state from the COOKIE-ECHOED state: COOKIE-ECHOED -&gt; ESTABLISHED. The upper layer initiated the association attempt. UPDATED: When the association made a direct transition to the ESTABLISHED state from the COOKIE-ECHOED state.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_ACTIVE_ESTABLISHED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_ACTIVE_ESTABLISHED (M2067C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_PASSIVE_ESTABLISHED">
+    <formula>SCTPS.SCTP_PASSIVE_ESTABLISHED</formula>
+    <kpi_info>
+      <title>SCTP_PASSIVE_ESTABLISHED (M2067C3)</title>
+      <use>The number of times the associations have made a direct transition to the ESTABLISHED state from the CLOSED state: CLOSED -&gt; ESTABLISHED. The remote endpoint initiated the association attempt. UPDATED: When an association has made a direct transition to the ESTABLISHED state from the CLOSED state.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_PASSIVE_ESTABLISHED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_PASSIVE_ESTABLISHED (M2067C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_ABORTED">
+    <formula>SCTPS.SCTP_ABORTED</formula>
+    <kpi_info>
+      <title>SCTP_ABORTED (M2067C4)</title>
+      <use>The number of times the associations have made a direct transition to the CLOSED state from any state using the primitive 'ABORT': AnyState --Abort--&gt; CLOSED. Ungraceful termination of the association. UPDATED: When an association have made a direct transition to the CLOSED state from any state using the primitive 'ABORT'.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_ABORTED)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_ABORTED (M2067C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_SHUTDOWN">
+    <formula>SCTPS.SCTP_SHUTDOWN</formula>
+    <kpi_info>
+      <title>SCTP_SHUTDOWN (M2067C5)</title>
+      <use>The number of times the associations have made a direct transition to the CLOSED state from either the SHUTDOWN-SENT state or the SHUTDOWN-ACK-SENT state. Graceful termination of the association. UPDATED: When an association has made a direct transition to the CLOSED state from either the SHUTDOWN-SENT state or the SHUTDOWN-ACK-SENT state.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_SHUTDOWN)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_SHUTDOWN (M2067C5)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_OUT_OF_BLUE">
+    <formula>SCTPS.SCTP_OUT_OF_BLUE</formula>
+    <kpi_info>
+      <title>SCTP_OUT_OF_BLUE (M2067C6)</title>
+      <use>The number of out of the blue packets received by the host. An out of the blue packet is an SCTP packet correctly formed, including the proper checksum, but for which the receiver was unable to identify an appropriate association. UPDATED: When an out of the blue packet is received by the host.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_OUT_OF_BLUE)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_OUT_OF_BLUE (M2067C6)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_CHECKSUM_ERRORS">
+    <formula>SCTPS.SCTP_CHECKSUM_ERRORS</formula>
+    <kpi_info>
+      <title>SCTP_CHECKSUM_ERRORS (M2067C7)</title>
+      <use>The number of SCTP packets received with an invalid checksum. UPDATED: When an SCTP packet received with an invalid checksum.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_CHECKSUM_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_CHECKSUM_ERRORS (M2067C7)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_OUT_CONTROL_CHUNKS">
+    <formula>SCTPS.SCTP_OUT_CONTROL_CHUNKS</formula>
+    <kpi_info>
+      <title>SCTP_OUT_CONTROL_CHUNKS (M2067C8)</title>
+      <use>The number of SCTP control chunks sent (retransmissions are not included). Control chunks are those chunks different from DATA. UPDATED: When an SCTP control chunk is sent.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_OUT_CONTROL_CHUNKS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_OUT_CONTROL_CHUNKS (M2067C8)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_OUT_ORDER_CHUNKS">
+    <formula>SCTPS.SCTP_OUT_ORDER_CHUNKS</formula>
+    <kpi_info>
+      <title>SCTP_OUT_ORDER_CHUNKS (M2067C9)</title>
+      <use>The number of SCTP ordered data chunks sent (retransmissions are not included). UPDATED: When an SCTP ordered data chunk is sent.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_OUT_ORDER_CHUNKS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_OUT_ORDER_CHUNKS (M2067C9)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_OUT_UNORDER_CHUNKS">
+    <formula>SCTPS.SCTP_OUT_UNORDER_CHUNKS</formula>
+    <kpi_info>
+      <title>SCTP_OUT_UNORDER_CHUNKS (M2067C10)</title>
+      <use>The number of SCTP unordered chunks (data chunks in which the U-bit is set to 1) sent (retransmissions are not included). UPDATED: When an SCTP unordered chunk is sent.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_OUT_UNORDER_CHUNKS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_OUT_UNORDER_CHUNKS (M2067C10)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_IN_CONTROL_CHUNKS">
+    <formula>SCTPS.SCTP_IN_CONTROL_CHUNKS</formula>
+    <kpi_info>
+      <title>SCTP_IN_CONTROL_CHUNKS (M2067C11)</title>
+      <use>The number of SCTP control chunks received (no duplicate chunks included). UPDATED: When an SCTP control chunk is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_IN_CONTROL_CHUNKS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_IN_CONTROL_CHUNKS (M2067C11)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_IN_ORDER_CHUNKS">
+    <formula>SCTPS.SCTP_IN_ORDER_CHUNKS</formula>
+    <kpi_info>
+      <title>SCTP_IN_ORDER_CHUNKS (M2067C12)</title>
+      <use>The number of SCTP ordered data chunks received (no duplicate chunks included). UPDATED: When an SCTP ordered data chunk is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_IN_ORDER_CHUNKS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_IN_ORDER_CHUNKS (M2067C12)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_IN_UNORDER_CHUNKS">
+    <formula>SCTPS.SCTP_IN_UNORDER_CHUNKS</formula>
+    <kpi_info>
+      <title>SCTP_IN_UNORDER_CHUNKS (M2067C13)</title>
+      <use>The number of SCTP unordered chunks (data chunks in which the U-bit is set to 1) received (no duplicate chunks included). UPDATED: When an SCTP unordered chunk is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_IN_UNORDER_CHUNKS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_IN_UNORDER_CHUNKS (M2067C13)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_FRAGMENT_USER_MESSAGES">
+    <formula>SCTPS.SCTP_FRAGMENT_USER_MESSAGES</formula>
+    <kpi_info>
+      <title>SCTP_FRAGMENT_USER_MESSAGES (M2067C14)</title>
+      <use>The number of user messages that have to be fragmented because of the MTU. UPDATED: When a user message has to be fragmented because of the MTU.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_FRAGMENT_USER_MESSAGES)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_FRAGMENT_USER_MESSAGES (M2067C14)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_REASSEMBLED_USER_MESSAGES">
+    <formula>SCTPS.SCTP_REASSEMBLED_USER_MESSAGES</formula>
+    <kpi_info>
+      <title>SCTP_REASSEMBLED_USER_MESSAGES (M2067C15)</title>
+      <use>The number of user messages reassembled after conversion into DATA chunks. UPDATED: When a user message is reassembled after conversion into DATA chunks.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_REASSEMBLED_USER_MESSAGES)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_REASSEMBLED_USER_MESSAGES (M2067C15)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_OUT_SCTP_PACKETS">
+    <formula>SCTPS.SCTP_OUT_SCTP_PACKETS</formula>
+    <kpi_info>
+      <title>SCTP_OUT_SCTP_PACKETS (M2067C16)</title>
+      <use>The number of SCTP packets sent. Retransmitted DATA chunks are included. UPDATED: When an SCTP packet is sent.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_OUT_SCTP_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_OUT_SCTP_PACKETS (M2067C16)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_IN_SCTP_PACKETS">
+    <formula>SCTPS.SCTP_IN_SCTP_PACKETS</formula>
+    <kpi_info>
+      <title>SCTP_IN_SCTP_PACKETS (M2067C17)</title>
+      <use>The number of SCTP packets received. Duplicates and invalid packets are included. UPDATED: When an SCTP packet is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_IN_SCTP_PACKETS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_IN_SCTP_PACKETS (M2067C17)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_IN_PACKET_DISCARDS">
+    <formula>SCTPS.SCTP_IN_PACKET_DISCARDS</formula>
+    <kpi_info>
+      <title>SCTP_IN_PACKET_DISCARDS (M2067C18)</title>
+      <use>The number of SCTP packets has been discarded for various reasons, such as invalid checksums, length, stale cookie, and use of multicast/broadcast addresses. UPDATED: When an SCTP packet has been discarded for various reasons, such as invalid checksums, length, stale cookie, and use of multicast/broadcast addresses.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_IN_PACKET_DISCARDS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_IN_PACKET_DISCARDS (M2067C18)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SCTP_IN_DATA_CHUNK_DISCARDS">
+    <formula>SCTPS.SCTP_IN_DATA_CHUNK_DISCARDS</formula>
+    <kpi_info>
+      <title>SCTP_IN_DATA_CHUNK_DISCARDS (M2067C19)</title>
+      <use>The number of SCTP data chunk has been discarded due to one of the four errors: data chunk with invalid stream identifier (BAD_STREAM), data chunk with a high TSN (HIGH_TSN), data chunk is a duplicate (DUP_TSN), or does not fit in the receive window (IGNORE_TSN). UPDATED: When an SCTP data chunk has been discarded due to one of the four errors: data chunk with invalid stream identifier (BAD_STREAM), data chunk with a high TSN (HIGH_TSN), data chunk is a duplicate (DUP_TSN), or does not fit in the receive window (IGNORE_TSN).
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SCTP_IN_DATA_CHUNK_DISCARDS)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SCTP_IN_DATA_CHUNK_DISCARDS (M2067C19)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>SCTPS.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_sctps_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

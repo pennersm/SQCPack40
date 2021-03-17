@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IURA.xml"/>
+  <kpi name="sgsn_2280a">
+    <formula>decode(
+			((IURA.period_duration*60)),0,NULL,((IURA.RAB_SETUP_ATTEMPTS + 
+			IURA.RAB_MODIFICATION_ATTEMPTS))
+			 / 
+			((IURA.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB assignments per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of RAB attempted to setup and modify to RNC per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( RAB_SETUP_ATTEMPTS + 
+&lt;br&gt;   RAB_MODIFICATION_ATTEMPTS )
+&lt;br&gt;--------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_IURA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[RAB assignments pr sec]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

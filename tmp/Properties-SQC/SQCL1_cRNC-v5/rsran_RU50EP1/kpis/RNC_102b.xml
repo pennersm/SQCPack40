@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_102b">
+    <formula>decode(
+			(cellres.ptxtot_denom_0 + 
+			cellres.ptxtot_denom_1 + 
+			cellres.ptxtot_denom_2 + 
+			cellres.ptxtot_denom_3 + 
+			cellres.ptxtot_denom_4),0,null, 
+
+			10*log(10,(((0.001*power(10,((cellres.ave_ptxtot_class_0
+			 / 
+			100)
+			 / 
+			10)))*(cellres.ptxtot_denom_0) +
+ 
+			(0.001*power(10,((cellres.ave_ptxtot_class_1
+			 / 
+			100)
+			 / 
+			10)))*(cellres.ptxtot_denom_1) + 
+
+			(0.001*power(10,((cellres.ave_ptxtot_class_2
+			 / 
+			100)
+			 / 
+			10)))*(cellres.ptxtot_denom_2) + 
+
+			(0.001*power(10,((cellres.ave_ptxtot_class_3
+			 / 
+			100)
+			 / 
+			10)))*(cellres.ptxtot_denom_3) + 
+
+			(0.001*power(10,((cellres.ave_ptxtot_class_4
+			 / 
+			100)
+			 / 
+			10)))*(cellres.ptxtot_denom_4))
+			 / 
+			(cellres.ptxtot_denom_0 + 
+			cellres.ptxtot_denom_1 + 
+			cellres.ptxtot_denom_2 + 
+			cellres.ptxtot_denom_3 + 
+			cellres.ptxtot_denom_4))
+			 / 
+			0.001))</formula>
+    <kpi_info>
+      <title><![CDATA[Average DL load (in dBm)]]></title>
+      <use><![CDATA[Average transmitted downlink power [dBm] shows the downlink loading of a cell over the reporting period. This measurement is based on Cell Resource Measurement, where the total transmitted power of a cell is measured.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      AVG (
+&lt;br&gt;            (AVE_PTXTOT_CLASS_0* PTXTOT_DENOM_0 
+&lt;br&gt;           + AVE_PTXTOT_CLASS_1*PTXTOT_DENOM_1 
+&lt;br&gt;           + AVE_PTXTOT_CLASS_2*PTXTOT_DENOM_2 
+&lt;br&gt;           + AVE_PTXTOT_CLASS_3*PTXTOT_DENOM_3 
+&lt;br&gt;           + AVE_PTXTOT_CLASS_4*PTXTOT_DENOM_4) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;            (PTXTOT_DENOM_0
+&lt;br&gt;            +PTXTOT_DENOM_1
+&lt;br&gt;            +PTXTOT_DENOM_2
+&lt;br&gt;            +PTXTOT_DENOM_3
+&lt;br&gt;            +PTXTOT_DENOM_4) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;            100))</formula>
+      <unit>[dBm]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average DL load (in dBm)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

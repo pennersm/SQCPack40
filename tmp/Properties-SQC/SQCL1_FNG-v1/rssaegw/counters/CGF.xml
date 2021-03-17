@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 CGF CGF measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 CGF CGF measurement dump</csv_title>
+    <report-description>Cdr statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CDR_COLLECTOR_CDR_FILES />
+    <CDR_COLLECTOR_LOST_CDRS />
+    <CDR_COLLECTOR_DISKALARM_UP />
+    <CDR_COLLECTOR_DISKALARM_DOWN />
+  </column_order>
+  <temp_table name="CGF" meas_level="PLMN/FING/FNODE/CDR" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CDR_COLLECTOR_CDR_FILES" time-alias="CDR_COLLECTOR_CDR_FILES" timeagg="SUM(CDR_COLLECTOR_CDR_FILES)">SUM(CDR_COLLECTOR_CDR_FILES)</counter>
+      <counter alias="CDR_COLLECTOR_LOST_CDRS" time-alias="CDR_COLLECTOR_LOST_CDRS" timeagg="AVG(CDR_COLLECTOR_LOST_CDRS)">SUM(CDR_COLLECTOR_LOST_CDRS)</counter>
+      <counter alias="CDR_COLLECTOR_DISKALARM_UP" time-alias="CDR_COLLECTOR_DISKALARM_UP" timeagg="SUM(CDR_COLLECTOR_DISKALARM_UP)">SUM(CDR_COLLECTOR_DISKALARM_UP)</counter>
+      <counter alias="CDR_COLLECTOR_DISKALARM_DOWN" time-alias="CDR_COLLECTOR_DISKALARM_DOWN" timeagg="SUM(CDR_COLLECTOR_DISKALARM_DOWN)">SUM(CDR_COLLECTOR_DISKALARM_DOWN)</counter>
+    </counters>
+    <table_name>pcofng_ps_cgf_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CGF</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CGF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_cgf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDR_COLLECTOR_CDR_FILES">
+    <formula>CGF.CDR_COLLECTOR_CDR_FILES</formula>
+    <kpi_info>
+      <title>CDR_COLLECTOR_CDR_FILES</title>
+      <use>This counter contains the number of CDR files generated. UPDATED: Updated when a CDR file is succesfully generated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDR_COLLECTOR_CDR_FILES)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_cgf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDR_COLLECTOR_CDR_FILES (m3002c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDR_COLLECTOR_LOST_CDRS">
+    <formula>CGF.CDR_COLLECTOR_LOST_CDRS</formula>
+    <kpi_info>
+      <title>CDR_COLLECTOR_LOST_CDRS</title>
+      <use>This counter contains the number of CDRs that are lost in internal charging gateway functionality. UPDATED: Updated when a CDR is lost due to a sequence number failure in internal process communication.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(CDR_COLLECTOR_LOST_CDRS)">SUM(CDR_COLLECTOR_LOST_CDRS)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_cgf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDR_COLLECTOR_LOST_CDRS (m3002c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDR_COLLECTOR_DISKALARM_UP">
+    <formula>CGF.CDR_COLLECTOR_DISKALARM_UP</formula>
+    <kpi_info>
+      <title>CDR_COLLECTOR_DISKALARM_UP</title>
+      <use>This counter contains the number of diskspace alarms raised. UPDATED: Updated when a diskspace alarm is raised.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDR_COLLECTOR_DISKALARM_UP)</formula>
+      <unit>Integer number</unit>
+      <tables>pcofng_ps_cgf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDR_COLLECTOR_DISKALARM_UP (m3002c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CDR_COLLECTOR_DISKALARM_DOWN">
+    <formula>CGF.CDR_COLLECTOR_DISKALARM_DOWN</formula>
+    <kpi_info>
+      <title>CDR_COLLECTOR_DISKALARM_DOWN</title>
+      <use>This counter contains the number of times the alarm 'DISKSPACE ALARM' is cleared. UPDATED: Updated when the alarm 'DISKSPACE ALARM' is cleared.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CDR_COLLECTOR_DISKALARM_DOWN)</formula>
+      <unit>No</unit>
+      <tables>pcofng_ps_cgf_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CDR_COLLECTOR_DISKALARM_DOWN (m3002c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

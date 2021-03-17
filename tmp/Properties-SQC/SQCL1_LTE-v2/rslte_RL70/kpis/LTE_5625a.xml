@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5625a">
+    <formula>100*decode(
+			(lepsb.erab_mod_att_qci5 + 
+			lepsb.erab_mod_att_qci6 + 
+			lepsb.erab_mod_att_qci7 + 
+			lepsb.erab_mod_att_qci8 + 
+			lepsb.erab_mod_att_qci9),0,null, 
+
+			lepsb.erab_mod_fail_timer
+			 / 
+			(lepsb.erab_mod_att_qci5 + 
+			lepsb.erab_mod_att_qci6 + 
+			lepsb.erab_mod_att_qci7 + 
+			lepsb.erab_mod_att_qci8 + 
+			lepsb.erab_mod_att_qci9))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB Modification Failure Ratio due to "Failure in the Radio Interface Procedure"]]></title>
+      <use><![CDATA[This KPI describes the ratio of E-RAB Modification Failures due to &quot;Failure in the Radio Interface Procedure&quot; related to all E-RAB modification attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(ERAB_MOD_FAIL_TIMER) / sum(ERAB_MOD_ATT_QCI5 + ERAB_MOD_ATT_QCI6 +ERAB_MOD_ATT_QCI7 + ERAB_MOD_ATT_QCI8 +ERAB_MOD_ATT_QCI9)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LEPSB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/10/29 14:05:36.91 +0000</date>
+          <comment><![CDATA[Source: RSLTE038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB mod FR R IF Proc</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

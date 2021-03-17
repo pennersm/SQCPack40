@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <kpi name="LTE_1124b">
+    <formula>100*decode(
+			(lcellr.tti_bundl_retention_short + lcellr.tti_bundl_retention_medium + lcellr.tti_bundl_retention_long),0,null, 
+
+			lcellr.tti_bundl_retention_medium
+			 / 
+			(lcellr.tti_bundl_retention_short + lcellr.tti_bundl_retention_medium + lcellr.tti_bundl_retention_long))</formula>
+    <kpi_info>
+      <title><![CDATA[Medium UE retention time in TTI Bundling mode]]></title>
+      <use><![CDATA[This kpi represents the ratio of UEs that are in TTI Bundling mode for a medium period of time. This time period is defined by a lower bound of  t1 seconds and an upper bound of t2 seconds, i.e. retention time in TTI Bundling mode: t1 = x =  t2 sec.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(TTI_BUNDL_RETENTION_MEDIUM)
+&lt;br&gt;/
+&lt;br&gt;sum(TTI_BUNDL_RETENTION_SHORT + TTI_BUNDL_RETENTION_MEDIUM + TTI_BUNDL_RETENTION_LONG)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLR_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/02/06 14:42:00.44 +0100</date>
+          <comment><![CDATA[Source: RSLTE017.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Medium UE time in TTI Bundling</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

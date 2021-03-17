@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_693b">
+    <formula>(
+       NVL(vlr1msc.mssearchattempts, 0)
+     + NVL(vlr1msc.pagingthroughaifattempts, 0)
+     + NVL(vlr1msc.pagingthroughsgsnattempts, 0)
+     + NVL(vlr1msc.alterpagingthroughsgsnsucc, 0))</formula>
+    <kpi_info>
+      <title><![CDATA[Initial Paging attempts  (MSC)]]></title>
+      <use><![CDATA[Initial Paging attempts  (MSC)]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>Previous &quot;a&quot; KPI version formula is theoreticaly correct (counter naming reference) but it is not in accordance with the real counter content. Right now, the counter  &quot;AlterPagingThroughSGSNAttempts&quot; provides the &quot;AlterPagingThroughSGSNSucc&quot; value. &quot;AlterPagingThroughSGSNAttempts&quot; and &quot;AlterPagingThroughSGSNSucc&quot; counters were swapped. Please refer to these counter details explanation. This &quot;b&quot; KPI version is a workaround solution that provides the mathematically correct values.
+		<br>
+		<br>PUBLISHED:  M12
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+		<br>
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+		<formula>&lt;br&gt;sum(
+		&lt;br&gt;       MSSearchAttempts
+		&lt;br&gt;     + PagingThroughAIFAttempts
+		&lt;br&gt;     + PagingThroughSGSNAttempts
+		&lt;br&gt;     + AlterPagingThroughSGSNSucc)
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_VLR1MSC_MSC_{TIME_AGG}, RNS_PS_VR1MCBH_MSC_{TIME_AGG}</formula>
+
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Init Paging att MSC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

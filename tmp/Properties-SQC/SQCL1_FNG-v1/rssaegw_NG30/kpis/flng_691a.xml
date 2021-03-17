@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GTPCV2.xml" />
+  <temp_table_ref src="rssaegw/counters/GV211.xml" />
+  <kpi name="flng_691a">
+    <formula>decode(
+			GTPCV2.gtpcv2_cre_sess_req_recv_s11,0,null,	
+	
+			(GV211.gtpcv2_cre_sess_resp_sent_s11
+			/ 
+			GTPCV2.gtpcv2_cre_sess_req_recv_s11))*100</formula>
+    <kpi_info>
+      <title><![CDATA[S11 Create Session response sent / request received ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of GTP-C v2 create session response messages sent on S11 interface as response to the create session request messages received (including retransmissions) on S11 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(b.GTPCV2_CRE_SESS_RESP_SENT_S11)
+&lt;br&gt;-------------------------------------- *100
+&lt;br&gt;sum(a.GTPCV2_CRE_SESS_REQ_RECV_S11)
+&lt;br&gt;
+&lt;br&gt;counters from measurement(s):
+&lt;br&gt;a = GTP-C v2
+&lt;br&gt;b = GTP-C v2 Create Session Response sent on S11 interface</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GV211_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:34:28.984 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW025.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S11 Cr Se rsp sent/rq rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

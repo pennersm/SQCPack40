@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_5011b">
+    <formula>decode(
+			(mmmt.eps_path_switch_x2_succ + nvl(mmmt.eps_x2ho_sgw_chg_succ,0) + mmmt.eps_path_switch_x2_fail),0,NULL,
+			100*(mmmt.eps_path_switch_x2_succ + nvl(mmmt.eps_x2ho_sgw_chg_succ,0))
+			/ 
+		(mmmt.eps_path_switch_x2_succ + nvl(mmmt.eps_x2ho_sgw_chg_succ,0) + mmmt.eps_path_switch_x2_fail))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Intra MME Handover with X2 success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of EPS intra MME handover with X2 interface procedures.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(EPS_PATH_SWITCH_X2_SUCC +
+&lt;br&gt;   EPS_X2HO_SGW_CHG_SUCC)
+&lt;br&gt;-------------------------------- *100
+&lt;br&gt;sum(EPS_PATH_SWITCH_X2_SUCC +
+&lt;br&gt;   EPS_X2HO_SGW_CHG_SUCC + 
+&lt;br&gt;   EPS_PATH_SWITCH_X2_FAIL)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/10/03 16:27:30.748 +0100</date>
+          <comment><![CDATA[Source: RSMME000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Intra MME HO X2 SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

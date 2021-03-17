@@ -1,0 +1,190 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M397 HLRSZV measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M397 HLRSZV measurement dump</csv_title>
+    <report-description>HLR, Sz interface (HLRSZV)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <HLR_SZ_OPERATION_SUCC/>
+    <HLR_SZ_OPERATION_DURATION_X10/>
+    <HLR_SZ_OPERATION_FAIL/>
+    <HLR_SZ_TIMEOUT/>
+<!--    <HLR_CALLHANDLING />-->
+<!--    <HLR_MOBILITYMANAGEMENT />
+    <HL1HLR_PERIOD_DURATION/>-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/HLR/VIEWID" name="HLRSZV" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="HLR_SZ_OPERATION_SUCC" symmetrical="true">SUM(HLR_SZ_OPERATION_SUCC)</counter>
+      <counter alias="HLR_SZ_OPERATION_DURATION_X10" symmetrical="true">AVG(HLR_SZ_OPERATION_DURATION_X10)</counter>
+      <counter alias="HLR_SZ_OPERATION_FAIL" symmetrical="true">SUM(HLR_SZ_OPERATION_FAIL)</counter>
+      <counter alias="HLR_SZ_TIMEOUT" symmetrical="true">SUM(HLR_SZ_TIMEOUT)</counter>
+<!--      <counter alias="HLR_CALLHANDLING" timeagg="SUM(HLR_CALLHANDLING)">SUM(HLR_CALLHANDLING)</counter>-->
+<!--      <counter alias="HLR_MOBILITYMANAGEMENT" timeagg="SUM(HLR_MOBILITYMANAGEMENT)">SUM(HLR_MOBILITYMANAGEMENT)</counter>
+      <counter alias="HL1HLR_PERIOD_DURATION">AVG(period_duration)</counter>-->
+    </counters>
+    <table_name>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>HLRSZV</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>HLRSZV.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HLR_SZ_OPERATION_SUCC">
+    <formula>HLRSZV.HLR_SZ_OPERATION_SUCC</formula>
+    <kpi_info>
+      <title>HLR_SZ_OPERATION_SUCC</title>
+      <use>Indicates the number of successful operations  per view. Measured object: HLR / VIEWID UPDATED: In case of successful operation (return code is LDAP_SUCCESS) this counter is incremented by one</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HLR_SZ_OPERATION_SUCC)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HLR_SZ_OPERATION_SUCC (M397B1C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HLR_SZ_OPERATION_DURATION_X10">
+    <formula>HLRSZV.HLR_SZ_OPERATION_DURATION_X10</formula>
+    <kpi_info>
+      <title>HLR_SZ_OPERATION_DURATION_X10</title>
+      <use>Indicates the average duration of the successful operations in milliseconds per view. Value is multiplied by 10. Measured object: HLR / VIEWID UPDATED: It is updated when counter HLR_SZ_OPERATION_SUCC is incremented (average duration is calucated: all_OK_operation_duration divided by HLR_SZ_OPERATION_SUCC.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(HLR_SZ_OPERATION_DURATION_X10)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HLR_SZ_OPERATION_DURATION_X10 (M397B1C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HLR_SZ_OPERATION_FAIL">
+    <formula>HLRSZV.HLR_SZ_OPERATION_FAIL</formula>
+    <kpi_info>
+      <title>HLR_SZ_OPERATION_FAIL</title>
+      <use>Indicates the number of unsuccessful operations  per view Measured object: HLR / VIEWID UPDATED: In case of unsuccessful operation this counter is incremented by one.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HLR_SZ_OPERATION_FAIL)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HLR_SZ_OPERATION_FAIL (M397B1C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="HLR_SZ_TIMEOUT">
+    <formula>HLRSZV.HLR_SZ_TIMEOUT</formula>
+    <kpi_info>
+      <title>HLR_SZ_TIMEOUT</title>
+      <use>Indicates the number of cases when NSR does not answer within the time limit.Measured object: HLR / VIEWID UPDATED: When NSR does not answer on time, this counter is incremented by one.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(HLR_SZ_TIMEOUT)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HLR_SZ_TIMEOUT (M397B1C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+<!--  <kpi name="HLR_CALLHANDLING">-->
+<!--    <formula>HLRSZV.HLR_CALLHANDLING</formula>-->
+<!--    <kpi_info>-->
+<!--      <title>HLR_CALLHANDLING</title>-->
+<!--      <use>Database transaction related to incomingcall handling, such as fetching and updating the subscriber data.-->
+<!--In mobile-terminating call, the counter is increased by one.</use>-->
+<!--      <open_questions />-->
+<!--      <use_experience />-->
+<!--      <known_problems />-->
+<!--      <pm_class />-->
+<!--      <formula>SUM(HLR_CALLHANDLING)</formula>-->
+<!--      <unit>No</unit>-->
+<!--      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>-->
+<!--    </kpi_info>-->
+<!--    <kpi_alias>HLR_CALLHANDLING (M83B6C1)</kpi_alias>-->
+<!--    <kpi_format>format %8.0f</kpi_format>-->
+<!--    <kpi_mark />-->
+<!--    <area_level />-->
+<!--  </kpi>-->
+<!--  <kpi name="HLR_MOBILITYMANAGEMENT">-->
+<!--    <formula>HLRSZV.HLR_MOBILITYMANAGEMENT</formula>-->
+<!--    <kpi_info>-->
+<!--      <title>HLR_MOBILITYMANAGEMENT</title>-->
+<!--      <use>Database transactions related to subscribermobility. In a subscriber location update the counter is increased by-->
+<!--one.</use>-->
+<!--      <open_questions />-->
+<!--      <use_experience />-->
+<!--      <known_problems />-->
+<!--      <pm_class />-->
+<!--      <formula>SUM(HLR_MOBILITYMANAGEMENT)</formula>-->
+<!--      <unit>No</unit>-->
+<!--      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>-->
+<!--    </kpi_info>-->
+<!--    <kpi_alias>HLR_MOBILITYMANAGEMENT (M83B6C2)</kpi_alias>-->
+<!--    <kpi_format>format %8.0f</kpi_format>-->
+<!--    <kpi_mark />-->
+<!--    <area_level />-->
+<!--  </kpi>
+  <kpi name="HL1HLR_PERIOD_DURATION">
+    <formula>HLRSZV.HL1HLR_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>HL1HLR_PERIOD_DURATION</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-agg="SUM">AVG(period_duration)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_hlrszv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HL1HLR_PERIOD_DURATION</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>-->
+</conf_file>

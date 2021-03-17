@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/DRR_ext.xml"/>
+  <kpi name="flng_119a">
+    <formula>decode(
+			((DRR_ext.gtpc_delete_resp_recv_all)),0,NULL, 
+
+			((DRR_ext.gtpc_delete_resp_recv))
+			 / 
+			((DRR_ext.gtpc_delete_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete PDP context responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 delete PDP context responses received for a specific cause code when compared to total number of GTP-C v1 delete PDP context response messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(drr_id,'x',GTPC_DELETE_RESP_RECV,0))  ;DRR for cause code x
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_DELETE_RESP_RECV)  ;all DRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Del PDP resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

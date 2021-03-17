@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <kpi name="LTE_951a">
+    <formula>100*decode(
+			(lcelld.pdcch_init_order_att + 
+			lcelld.pdcch_order_att),0,null, 
+
+			lcelld.pdcch_order_success
+			 / 
+			(lcelld.pdcch_init_order_att + 
+			lcelld.pdcch_order_att))</formula>
+    <kpi_info>
+      <title><![CDATA[PDCCH orders SR]]></title>
+      <use><![CDATA[This KPI describes success ratio for PDCCH orders.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum (PDCCH_ORDER_SUCCESS)
+&lt;br&gt;     -----------------------------
+&lt;br&gt;     sum ( PDCCH_INIT_ORDER_ATT +
+&lt;br&gt;           PDCCH_ORDER_ATT)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LCELLD_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/23 10:51:19.688 +0100</date>
+          <comment><![CDATA[Source: RSLTE018.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PDCCH orders SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

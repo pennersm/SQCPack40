@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 AUTISH2 measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 AUTISH2 measurement dump</csv_title>
+    <report-description>AutoDef Inter System Handover (RN4.0-&gt;)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <HO_ADJ_INTER_SYS_HHO_ATT />
+    <HO_ADJ_INTER_SYS_HHO_COMPL />
+    <RSSI_SUM />
+    <RSSI_DENOM />
+    <BSIC_VERIF_TIME />
+    <BSIC_DENOM />
+    <HO_CEL_INTER_SYS_HHO_ATT/>
+  </column_order>
+  <temp_table name="AUTISH2" meas_level="PLMN/RNC/DMNC1CELLPAIR" type="PM" master="yes" pragma="isho_oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">sum(period_duration)</counter>
+      <counter alias="HO_ADJ_INTER_SYS_HHO_ATT">SUM(HO_ADJ_INTER_SYS_HHO_ATT)</counter>
+      <counter alias="HO_ADJ_INTER_SYS_HHO_COMPL">SUM(HO_ADJ_INTER_SYS_HHO_COMPL)</counter>
+      <counter alias="RSSI_SUM">SUM(RSSI_SUM)</counter>
+      <counter alias="RSSI_DENOM">SUM(RSSI_DENOM)</counter>
+      <counter alias="BSIC_VERIF_TIME">SUM(BSIC_VERIF_TIME)</counter>
+      <counter alias="BSIC_DENOM">SUM(BSIC_DENOM)</counter>
+      <counter alias="HO_CEL_INTER_SYS_HHO_ATT">SUM(HO_CEL_INTER_SYS_HHO_ATT)</counter>
+    </counters>
+    <table_name>nokrww_ps_autish2_dmnc4_raw</table_name>
+    <alias_name>AUTISH2</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>AUTISH2.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HO_ADJ_INTER_SYS_HHO_ATT">
+    <formula>AUTISH2.HO_ADJ_INTER_SYS_HHO_ATT</formula>
+    <kpi_info>
+      <title>HO_ADJ_INTER_SYS_HHO_ATT</title>
+      <use>The number of outgoing inter system hard handover attempts. This counter is updated for a measurement object in which source and target cells are defined. If cells A and B are in the active set and inter-system hard handover to GSM cell C is attempted, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED: When the SRNC starts inter-system handover either by sending RANAP: RELOCATION REQUIRED to the core network (RT call) or RRC: CELL CHANGE ORDER FROM UTRAN to the UE (NRT call). This counter is not updated if the inter-system handover is prevented by an ongoing layer-3 procedure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HO_ADJ_INTER_SYS_HHO_ATT)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_ADJ_INTER_SYS_HHO_ATT (M1015C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="HO_ADJ_INTER_SYS_HHO_COMPL">
+    <formula>AUTISH2.HO_ADJ_INTER_SYS_HHO_COMPL</formula>
+    <kpi_info>
+      <title>HO_ADJ_INTER_SYS_HHO_COMPL</title>
+      <use>The number of completed outgoing inter system hard handovers. This counter is updated for a measurement object in which source and target cells are defined. If cells A and B were in the active set and inter-system hard handover to GSM cell C is successful, this counter is updated by 1 for objects (A,C) and (B,C). UPDATED:When SRNC receives RANAP:IU RELEASE COMMAND from core network after successful Inter System HHO.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HO_ADJ_INTER_SYS_HHO_COMPL)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>HO_ADJ_INTER_SYS_HHO_COMPL (M1015C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RSSI_SUM">
+    <formula>AUTISH2.RSSI_SUM</formula>
+    <kpi_info>
+      <title>RSSI_SUM</title>
+      <use>Sum of GSM RSSI values received from the UE in Inter-RAT measurement reports. This counter, divided by the denominator M1015C3, provides the average RSSI value.
+
+If the UE is in soft handover when the measurement report is received, the counter is updated separately for each cell in the active set, i.e. they are all considered as source-cells. UPDATED: When the RNC receives an Inter-RAT measurement report including an RSSI value.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RSSI_SUM)</formula>
+      <unit>RXLEV</unit>
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RSSI_SUM (M1015C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RSSI_DENOM">
+    <formula>AUTISH2.RSSI_DENOM</formula>
+    <kpi_info>
+      <title>RSSI_DENOM</title>
+      <use>The number of received Inter-RAT measurement reports with an RSSI value. This counter is used as a denominator for M1015C2 when calculating the average RSSI value. UPDATED: Updated by value 1 when an RSSI value is updated to counter M1015C2.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RSSI_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RSSI_DENOM (M1015C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="BSIC_VERIF_TIME">
+    <formula>AUTISH2.BSIC_VERIF_TIME</formula>
+    <kpi_info>
+      <title>BSIC_VERIF_TIME</title>
+      <use>Sum of BSIC verification times. This counter, divided by the denominator M1015C5 provides the average BSIC verification time.
+
+BSIC verification time is the elapsed time between measurement control (BSIC verification required) and the measurement report (BSIC verified). If verification is not received, then the counter is not updated. UPDATED: Updated when the measurement report (BSIC verified) is received after measurement control (BSIC verification required). If verification is not successful, then the counter is not updated.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(BSIC_VERIF_TIME)</formula>
+      <unit>ms</unit>
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>BSIC_VERIF_TIME (M1015C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="BSIC_DENOM">
+    <formula>AUTISH2.BSIC_DENOM</formula>
+    <kpi_info>
+      <title>BSIC_DENOM</title>
+      <use>The number of successful BSIC Verifications. This counter is used as a denominator for M1015C4 when calculating the average BSIC verification time. UPDATED: Updated by value 1 when the BSIC verification is successful.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(BSIC_DENOM)</formula>
+      <unit>Integer number</unit>
+      <tables>nokrww_ps_autish2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>BSIC_DENOM (M1015C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+      <kpi name="HO_CEL_INTER_SYS_HHO_ATT">
+    <formula>AUTISH2.HO_CEL_INTER_SYS_HHO_ATT</formula>
+    <kpi_info>
+      <title>HO_CEL_INTER_SYS_HHO_ATT</title>
+      <use></use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(HO_CEL_INTER_SYS_HHO_ATT)</formula>
+      <unit>No.</unit>
+      <tables>NOKRWW_PS_AUTISH2_DMNC4_RAW</tables>
+    </kpi_info>
+    <kpi_alias>HO_CEL_INTER_SYS_HHO_ATT</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

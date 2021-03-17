@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/SERVI_ext.xml"/>
+  <kpi name="msc_2239a">
+ 	<formula>
+	decode(
+	(nvl(servi_ext.mscssm_usage_44,0)),0,null, 
+	(100*
+	(nvl(servi_ext.mscssm_usage_45,0))
+	/
+	(nvl(servi_ext.mscssm_usage_44,0)) ) )
+	</formula>
+   <kpi_info>
+      <title><![CDATA[ST MESSAGE SR]]></title>
+      <use><![CDATA[Indicates SIP MESSAGE requests received in terminating NVS that were successfuly delivered, with or without encapsulated Short Message (RP-MT-DATA).]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+	  &lt;br&gt;SUM( MSCSSM_USAGE ) 
+	  &lt;br&gt;;WHERE service_id = 316(13CH), 317(13DH)
+	  &lt;br&gt;--------------------------------------------------- * 100 
+	  &lt;br&gt;SUM( MSCSSM_USAGE ) 
+	  &lt;br&gt;;WHERE service_id = 315(13BH), 136(88H) 
+&lt;br&gt;
+&lt;br&gt;Service Ids: 
+&lt;br&gt;STMA..13BH..315..ATT. ST ENC SMS MSG IN NVS 
+&lt;br&gt;STM...88H..136..SIP TERM MESSAGE DELIVERY 
+&lt;br&gt;STMS..13CH..316..SUCC ST MESSAGE IN NVS 
+&lt;br&gt;STMS..13DH..317..SUCC ST ENC SMS MSG IN NVS 
+
+
+&lt;br&gt;
+&lt;br&gt;
+</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_servi_service1_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[ST MESSAGE SR]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

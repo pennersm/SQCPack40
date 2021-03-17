@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_753b">
+    <formula>decode(
+			(vlr1msc.pagingthroughaifattempts + 
+			vlr1msc.mssearchattempts + 
+			vlr1msc.pagingthroughsgsnattempts),0,null, 
+
+			(100*(vlr1msc.prevented_paging)
+			 / 
+			(vlr1msc.pagingthroughaifattempts + 
+			vlr1msc.mssearchattempts + 
+			vlr1msc.pagingthroughsgsnattempts)))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging failure ratio due to paging prevention feature]]></title>
+      <use><![CDATA[Paging failure ratio due to paging prevention feature]]></use>
+
+<use_experience><![CDATA[ 
+<br>The counter &quot;PagingThroughAIFAttempts&quot; is in fact PAGING through CS DOMAIN ATTEMPTs. Please refer to the counter&#039;s comments.
+<br>PUBLISHED: M13.5
+<br>LAST UPDATE: 10-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): VLR measurement , part one (M82/52H)
+<br>
+<br>NOTES: This KPI includes counters from OPTIONAL feature. Optional: available only when the LAC based paging prevention feature is active.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                  sum (PREVENTED_PAGING) 
+&lt;br&gt;100 *   -------------------------------------------------------------------
+&lt;br&gt;             Sum (PagingThroughAIFAttempts + MSSearchAttempts + PagingThroughSGSNAttempts)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, RNS_PS_VR1MCBH _MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Paging failure ratio due to paging prevention feature]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

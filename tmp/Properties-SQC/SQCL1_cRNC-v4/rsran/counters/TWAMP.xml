@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_TWAMP TWAMP measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_TWAMP TWAMP measurement dump</csv_title>
+    <report-description>AXC TWAMP Statistics (M5223)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <avgRTT_15Min />
+    <maxRTT_15Min />
+    <minRTT_15Min />
+    <txMessages />
+    <lostTwampMessages />
+  </column_order>
+  <temp_table name="TWAMP" meas_level="PLMN/RNC/WBTS/AXC/TWAMP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="avgRTT_15Min" timeagg="AVG(avgRTT_15Min)">AVG(avgRTT_15Min)</counter>
+      <counter alias="maxRTT_15Min" timeagg="MAX(maxRTT_15Min)">MAX(maxRTT_15Min)</counter>
+      <counter alias="minRTT_15Min" timeagg="MIN(minRTT_15Min)">MIN(minRTT_15Min)</counter>
+      <counter alias="txMessages" timeagg="SUM(txMessages)">SUM(txMessages)</counter>
+      <counter alias="lostTwampMessages" timeagg="SUM(lostTwampMessages)">SUM(lostTwampMessages)</counter>
+    </counters>
+    <table_name>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>TWAMP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>TWAMP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="avgRTT_15Min">
+    <formula>TWAMP.avgRTT_15Min</formula>
+    <kpi_info>
+      <title>avgRTT_15Min</title>
+      <use>This is the calculated average Round trip time (RTT) for TWAMP messages that the AXC has sent to its remote peer during the last 15 minutes for this TWAMP session.  UPDATED: The counter is updated for every reply message to a TWAMP initiator message that the AXC has sent over this TWAMP session.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(avgRTT_15Min)</formula>
+      <unit>Microseconds</unit>
+      <tables>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>avgRTT_15Min (M5223C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="maxRTT_15Min">
+    <formula>TWAMP.maxRTT_15Min</formula>
+    <kpi_info>
+      <title>maxRTT_15Min</title>
+      <use>This is the maximum detected Round trip time (RTT) for TWAMP messages that the AXC has sent to its remote peer during the last 15 minutes. UPDATED: The counter is updated for every reply message to a TWAMP initiator message that the AXC has sent over this TWAMP session, for which a new maximum round trip time is detected.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(maxRTT_15Min)</formula>
+      <unit>Microseconds</unit>
+      <tables>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>maxRTT_15Min (M5223C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="minRTT_15Min">
+    <formula>TWAMP.minRTT_15Min</formula>
+    <kpi_info>
+      <title>minRTT_15Min</title>
+      <use>This is the minimum detected Round trip time (RTT) for TWAMP messages that the AXC has sent to its remote peer during the last 15 minutes. UPDATED: The counter is updated for every reply message to a TWAMP initiator message that the AXC has sent over this TWAMP session, for which a new minimum round trip time is detected.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(minRTT_15Min)</formula>
+      <unit>Microseconds</unit>
+      <tables>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>minRTT_15Min (M5223C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="txMessages">
+    <formula>TWAMP.txMessages</formula>
+    <kpi_info>
+      <title>txMessages</title>
+      <use>This is the number of transmitted TWAMP messages for the TWAMP session. UPDATED: The counter is updated for every transmitted TWAMP message for the session.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(txMessages)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>txMessages (M5223C8)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="lostTwampMessages">
+    <formula>TWAMP.lostTwampMessages</formula>
+    <kpi_info>
+      <title>lostTwampMessages</title>
+      <use>This is the number of measurements packets lost when no reply packet is received within timeout period or a reply-packet with different (higher) sequence number is received. UPDATED: The counter is updated for every lost TWAMP message for the session.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(lostTwampMessages)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_twamp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>lostTwampMessages (M5223C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

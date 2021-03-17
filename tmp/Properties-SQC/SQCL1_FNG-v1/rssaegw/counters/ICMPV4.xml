@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IcmpStat ICMPV4 measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG3.0;NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 IcmpStat ICMPV4 measurement dump</csv_title>
+    <report-description>Collects the ICMPv4 statistics for each node. The measurement type collects information every 30 seconds on the count of the ICMP packets and also the erroneous ICMP packets for IPv4 addresses. The data is measured on per-node level. The data collected is not affected by licensing of any specific feature.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <ICMPV4_IN_MESSAGES />
+    <ICMPV4_IN_ERRORS />
+    <ICMPV4_OUT_MESSAGES />
+  </column_order>
+  <temp_table name="ICMPV4" meas_level="PLMN/FING/FNODE" type="PM" master="yes" pragma="pcofng" create="yes">
+    <koala_meas_id_list>ICMPV4</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="ICMPV4_IN_MESSAGES">SUM(ICMPV4_IN_MESSAGES)</counter>
+      <counter alias="ICMPV4_IN_ERRORS">SUM(ICMPV4_IN_ERRORS)</counter>
+      <counter alias="ICMPV4_OUT_MESSAGES">SUM(ICMPV4_OUT_MESSAGES)</counter>
+    </counters>
+    <table_name>pcofng_ps_icmpv4_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>ICMPV4</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>ICMPV4.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_icmpv4_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ICMPV4_IN_MESSAGES">
+    <formula>ICMPV4.ICMPV4_IN_MESSAGES</formula>
+    <kpi_info>
+      <title>ICMPV4_IN_MESSAGES</title>
+      <use>The total number of received ICMPv4 messages. It includes those messages that are accounted by ICMPv4 in errors. UPDATED: When a message is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ICMPV4_IN_MESSAGES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_icmpv4_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ICMPV4_IN_MESSAGES (m2071c0001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ICMPV4_IN_ERRORS">
+    <formula>ICMPV4.ICMPV4_IN_ERRORS</formula>
+    <kpi_info>
+      <title>ICMPV4_IN_ERRORS</title>
+      <use>The total number of ICMPv4 messages are chosen to be dropped because of errors. UPDATED: When an erroneous message is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ICMPV4_IN_ERRORS)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_icmpv4_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ICMPV4_IN_ERRORS (m2071c0002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ICMPV4_OUT_MESSAGES">
+    <formula>ICMPV4.ICMPV4_OUT_MESSAGES</formula>
+    <kpi_info>
+      <title>ICMPV4_OUT_MESSAGES</title>
+      <use>The total number of transmitted ICMPv4 messages. UPDATED: When a message is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ICMPV4_OUT_MESSAGES)</formula>
+      <unit>#</unit>
+      <tables>pcofng_ps_icmpv4_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ICMPV4_OUT_MESSAGES (m2071c0003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

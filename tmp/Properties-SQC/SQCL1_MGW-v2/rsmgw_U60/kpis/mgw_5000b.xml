@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw_U60/counters/CONN_ext.xml" />
+  <kpi name="mgw_5000b">
+    <formula>conn_ext.sum_all_cas_peak</formula>
+    <kpi_info>
+      <title><![CDATA[Number of simultaneous contexts in MGW (U4 + U4.1)]]></title>
+      <use><![CDATA[Number of simultaneously active contexts in MGW as average from the reporting period. This formula gives the worst case figure if all different services would achieve peak value simultaneously, which is not necessarily the case.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;MAX( SUMoverISU( ALL_CAS_PEAK ) 
+&lt;br&gt;= 
+&lt;br&gt;MAX( SUM( ALL_CAS_PEAK ) ) 
+&lt;br&gt;;WHERE UNIT_TYPE = 335 
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s)</formula>
+      <unit>[#]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Simult contexts U4+U41</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

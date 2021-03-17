@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/RTPRTCM.xml" />
+  <kpi name="MGW_850a">
+    <formula>decode(
+			(rtprtcm.tpg_tcu_lost_rtp_packets + 
+			rtprtcm.tpg_tcu_received_rtp_packets),0,null, 
+
+			(100*(rtprtcm.tpg_tcu_received_rtp_packets)
+			 / 
+			(rtprtcm.tpg_tcu_lost_rtp_packets + 
+			rtprtcm.tpg_tcu_received_rtp_packets)))</formula>
+    <kpi_info>
+      <title><![CDATA[RTP data packet received ratio in MGW]]></title>
+      <use><![CDATA[Received ratio of received RTP data packets.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(TPG_TCU_RECEIVED_RTP_PACKETS )/ 
+&lt;br&gt;sum(TPG_TCU_LOST_RTP_PACKETS + TPG_TCU_RECEIVED_RTP_PACKETS)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_rtprtcm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RTP data packet received ratio in MGW]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

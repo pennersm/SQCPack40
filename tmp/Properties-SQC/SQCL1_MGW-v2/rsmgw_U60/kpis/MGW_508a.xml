@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TCPIP.xml" />
+  <kpi name="MGW_508a">
+    <formula>100*decode(
+			tcpip.tcps_sndtotal,0,null, 
+
+			(tcpip.tcps_sndrexmitpack)
+			 / 
+			tcpip.tcps_sndtotal)</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of retransmitted TCP segments]]></title>
+      <use><![CDATA[Percentage of retransmitted TCP segments]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(TCPS_SNDREXMITPACK) / sum(TCPS_SNDTOTAL )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_tcpip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Percentage of retransmitted TCP segments]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLR.xml" />
+  <kpi name="LTE_249b">
+    <formula>decode(
+			(lcellr.ul_prb_util_tti_level_1 + 
+			lcellr.ul_prb_util_tti_level_2 + 
+			lcellr.ul_prb_util_tti_level_3 + 
+			lcellr.ul_prb_util_tti_level_4 + 
+			lcellr.ul_prb_util_tti_level_5 + 
+			lcellr.ul_prb_util_tti_level_6 + 
+			lcellr.ul_prb_util_tti_level_7 + 
+			lcellr.ul_prb_util_tti_level_8 + 
+			lcellr.ul_prb_util_tti_level_9 + 
+			lcellr.ul_prb_util_tti_level_10),0,null, 
+
+			(lcellr.ul_prb_util_tti_level_1*10 + 
+			lcellr.ul_prb_util_tti_level_2*20 + 
+			lcellr.ul_prb_util_tti_level_3*30 + 
+			lcellr.ul_prb_util_tti_level_4*40 + 
+			lcellr.ul_prb_util_tti_level_5*50 + 
+			lcellr.ul_prb_util_tti_level_6*60 + 
+			lcellr.ul_prb_util_tti_level_7*70 + 
+			lcellr.ul_prb_util_tti_level_8*80 + 
+			lcellr.ul_prb_util_tti_level_9*90 + 
+			lcellr.ul_prb_util_tti_level_10*100)
+			 / 
+			(lcellr.ul_prb_util_tti_level_1 + 
+			lcellr.ul_prb_util_tti_level_2 + 
+			lcellr.ul_prb_util_tti_level_3 + 
+			lcellr.ul_prb_util_tti_level_4 + 
+			lcellr.ul_prb_util_tti_level_5 + 
+			lcellr.ul_prb_util_tti_level_6 + 
+			lcellr.ul_prb_util_tti_level_7 + 
+			lcellr.ul_prb_util_tti_level_8 + 
+			lcellr.ul_prb_util_tti_level_9 + 
+			lcellr.ul_prb_util_tti_level_10))</formula>
+    <kpi_info>
+      <title><![CDATA[% UL PRB Utilisation]]></title>
+      <use><![CDATA[This KPI provides the percentage of Physical Resource Block (PRB) utilisation per TTI in Uplink. The utilisation is defined by the percentage of used PRBs. ( The value of this KPI indicates that utilization of PRBs is between the KPI value and the KPI value less  10%. For example, if the KPI value is 20%, it means that PRB utilization was between 10% and 20%).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                 sum(UL_PRB_UTIL_TTI_LEVEL_1 *10 + UL_PRB_UTIL_TTI_LEVEL_2 *20 + UL_PRB_UTIL_TTI_LEVEL_3 *30 + UL_PRB_UTIL_TTI_LEVEL_4 *40 +  UL_PRB_UTIL_TTI_LEVEL_5 *50 + UL_PRB_UTIL_TTI_LEVEL_6 *60 + UL_PRB_UTIL_TTI_LEVEL_7 *70 + UL_PRB_UTIL_TTI_LEVEL_8 *80 + UL_PRB_UTIL_TTI_LEVEL_9 *90 + UL_PRB_UTIL_TTI_LEVEL_10 *100 )
+&lt;br&gt;                  -----------------------------------------------------------------
+&lt;br&gt;                  sum( UL_PRB_UTIL_TTI_LEVEL_1 + UL_PRB_UTIL_TTI_LEVEL_2 + UL_PRB_UTIL_TTI_LEVEL_3 + UL_PRB_UTIL_TTI_LEVEL_4 + UL_PRB_UTIL_TTI_LEVEL_5  + UL_PRB_UTIL_TTI_LEVEL_6 + UL_PRB_UTIL_TTI_LEVEL_7 + UL_PRB_UTIL_TTI_LEVEL_8 + UL_PRB_UTIL_TTI_LEVEL_9 + UL_PRB_UTIL_TTI_LEVEL_10 )</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LCELLR_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/07/31 12:01:59.354 +0100</date>
+          <comment><![CDATA[Source: RSLTE017.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Perc UL PRB Util</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

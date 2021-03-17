@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/PMIP.xml" />
+  <temp_table_ref src="rssaegw_NG30/counters/BRS_ext.xml" />
+  <kpi name="flng_274a">
+    <formula>decode( ((PMIP.pmip_recv_bri_requests)),0,NULL, ((BRS_ext.pmip_bra_resp_sent_0)) / ((PMIP.pmip_recv_bri_requests)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[PMIP Binding Revocation Indication received success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of PMIPv6 Binding Revocation Indication (BRI) requests received by S-GW node, i.e., the number of BRA response messages sent with cause code 'Request Accepted' when compared to the number of BRI request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(brs_id,'0',b.PMIP_BRA_RESP_SENT,0))) ;Request Accepted
+<br>-------------------------------------------------------------- *100
+<br>sum(a.PMIP_RECV_BRI_REQUESTS)
+<br>
+<br>counters from measurement(s): 
+<br>a = PMIP 
+<br>b = PMIP Binding Revocation Ack sent 
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_PMIP_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_BRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[PMIP BRI rcv SR]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ACHSPC.xml"/>
+  <kpi name="hlr_455a">
+    <formula>100*decode(
+			ACHSPC.NUMBEROFREQUESTS,0,null, 
+
+			(ACHSPC.NUMBEROFTRIPLETS + 
+			ACHSPC.NUMBEROFQUINTETS)
+			 / 
+			ACHSPC.NUMBEROFREQUESTS)</formula>
+    <kpi_info>
+      <title><![CDATA[Authentication triplets and quintets per authentication request - SPC analysis]]></title>
+      <use><![CDATA[The KPI indicates average number of triplets + quintets sent per authentication request. SPC analysis.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_525c KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: PLMN->HLR->SPC
+	  <br>KPI CLASS: Security
+	  <br>MEASUREMENT(S): AC measurement in HLR (M87)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;    sum(numberOfTriplets)
+&lt;br&gt;  + sum(numberOfQuintets)
+&lt;br&gt;------------------------------------------ * 100
+&lt;br&gt;  sum (numberOfRequests)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from views:
+&lt;br&gt;RNS_PS_ACHSPC_SPC3_{time_agg}}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_achspc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Auth TrpQts Per Auth Req SPC]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TRNCTC_ext.xml" />
+  <kpi name="msc_2300a">
+    <formula>
+		decode(trnctc_ext.bscrnc_calls_tcid_3,0,null,
+		
+		100* (trnctc_ext.bscrnc_pcalls_tcid_3)
+		/
+		(trnctc_ext.bscrnc_calls_tcid_3))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[3G Originating Outgoing Calls Setup SR per RNC.]]></title>
+      <use><![CDATA[Ratio of 3G originating outgoing calls for which the SETUP is complete. ]]></use>
+
+<use_experience><![CDATA[ 
+<br>Tcat_IDs:
+<br>  3 => ORIG-OUT    
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic Measurement per BSC/RNC (M399)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[<br>          sum(BSCRNC_PCALLS); where Tcat_ID=3
+<br>100 * ----------------------------------
+<br>          sum(BSCRNC_CALLS); where Tcat_ID=3
+<br>
+]]></formula>
+      <unit>[%]</unit>
+      <tables>RNS_P_TRNCTC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.776 +0000</date>
+          <comment><![CDATA[Source: RSMSC060.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>3G ORIG-OUT SETUP SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

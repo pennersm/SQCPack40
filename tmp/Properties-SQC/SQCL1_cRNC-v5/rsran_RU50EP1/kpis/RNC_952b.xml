@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_952b">
+    <formula>decode(
+			(celltp.period_duration),0,null, 
+
+			((celltp.nrt_edch_ul_data_vol)*8
+			 / 
+			(celltp.period_duration*1000000*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[HSUPA MAC-es average throughput at RNC]]></title>
+      <use><![CDATA[HSUPA MAC-es average throughput based on MAC-es PDUs in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(NRT_EDCH_UL_DATA_VOL) * 8
+&lt;br&gt;/
+&lt;br&gt;sum(PERIOD_DURATION)*1000000*60</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>nokrww_ps_celltp_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>HSUPA MAC-es avg thp RNC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

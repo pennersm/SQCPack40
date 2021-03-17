@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTERSHO.xml" />
+  <kpi name="RNC_792b">
+    <formula>decode(
+			(intersho.is_hho_w_cm_lb_prx_tot_rt + 
+			intersho.is_hho_w_cm_lb_ptx_tot_rt + 
+			intersho.is_hho_w_cm_lb_rsvr_sc_rt + 
+			intersho.is_hho_w_cm_lb_res_lim_rt + 
+			intersho.is_hho_wo_cm_lb_prx_tot_rt + 
+			intersho.is_hho_wo_cm_lb_ptx_tot_rt + 
+			intersho.is_hho_wo_cm_lb_rsvr_sc_rt + 
+			intersho.is_hho_wo_cm_lb_res_lim_rt),0,null, 
+
+			100 - 
+			100*(intersho.is_hho_nocell_lb_prx_tot_rt + 
+			intersho.is_hho_nocell_lb_ptx_tot_rt + 
+			intersho.is_hho_nocell_lb_rsvr_sc_rt + 
+			intersho.is_hho_nocell_lb_res_lim_rt)
+			 / 
+			(intersho.is_hho_w_cm_lb_prx_tot_rt + 
+			intersho.is_hho_w_cm_lb_ptx_tot_rt + 
+			intersho.is_hho_w_cm_lb_rsvr_sc_rt + 
+			intersho.is_hho_w_cm_lb_res_lim_rt + 
+			intersho.is_hho_wo_cm_lb_prx_tot_rt + 
+			intersho.is_hho_wo_cm_lb_ptx_tot_rt + 
+			intersho.is_hho_wo_cm_lb_rsvr_sc_rt + 
+			intersho.is_hho_wo_cm_lb_res_lim_rt))</formula>
+    <kpi_info>
+      <title><![CDATA[Cell found ratio for LB ISHO RT]]></title>
+      <use><![CDATA[The ratio of finding a good enough cell for Load Based ISHO RT after the measurement phase.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 - 100 *
+&lt;br&gt;sum( IS_HHO_NOCELL_LB_PRX_TOT_RT
+&lt;br&gt;   + IS_HHO_NOCELL_LB_PTX_TOT_RT
+&lt;br&gt;   + IS_HHO_NOCELL_LB_RSVR_SC_RT
+&lt;br&gt;   + IS_HHO_NOCELL_LB_RES_LIM_RT )
+&lt;br&gt;--------------------------------
+&lt;br&gt;sum( IS_HHO_W_CM_LB_PRX_TOT_RT
+&lt;br&gt;   + IS_HHO_W_CM_LB_PTX_TOT_RT
+&lt;br&gt;   + IS_HHO_W_CM_LB_RSVR_SC_RT
+&lt;br&gt;   + IS_HHO_W_CM_LB_RES_LIM_RT
+&lt;br&gt;   + IS_HHO_WO_CM_LB_PRX_TOT_RT
+&lt;br&gt;   + IS_HHO_WO_CM_LB_PTX_TOT_RT
+&lt;br&gt;   + IS_HHO_WO_CM_LB_RSVR_SC_RT
+&lt;br&gt;   + IS_HHO_WO_CM_LB_RES_LIM_RT )
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_intersho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cell found ratio for LB ISHO RT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

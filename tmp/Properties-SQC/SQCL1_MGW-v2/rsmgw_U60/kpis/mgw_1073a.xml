@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <kpi name="mgw_1073a">
+    <formula>decode(
+			(signtrc.ater_f_to_ater_e + 
+			signtrc.ater_wb_error),0,null, 
+
+			(100*(signtrc.ater_f_to_ater_e)
+			 / 
+			(signtrc.ater_f_to_ater_e + 
+			signtrc.ater_wb_error)))</formula>
+    <kpi_info>
+      <title><![CDATA[Successful codec modification from Ater-F to Ater-E ratio]]></title>
+      <use><![CDATA[Indicates success ratio of AMR-NB codec changes to AMR-WB codec in Ater interface]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;              SUM(ATER_F_TO_ATER_E )
+&lt;br&gt;100 * -----------------------------------------
+&lt;br&gt;      SUM(ATER_F_TO_ATER_E + ATER_WB_ERROR)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Codec Modf AMR-NB to AMR-WB SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

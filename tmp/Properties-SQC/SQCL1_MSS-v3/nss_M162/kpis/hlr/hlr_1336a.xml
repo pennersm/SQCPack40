@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/HL1HLR.xml" />
+  <temp_table_ref src="nss/counters/H1BS.xml" />
+  <kpi name="hlr_1336a">
+    <formula>
+    	decode( h1bs.HLR_SRIATTEMPT, 0, 0, 100 * (hl1hlr.PRN_RETRY_ATTEMPT/h1bs.HLR_SRIATTEMPT) )
+    </formula>
+    <kpi_info>
+      <title><![CDATA[SRI with PRN retry ratio]]></title>
+      <use><![CDATA[Indicates the percentage of SRI attempts that used the Provide Roaming Number (PRN) retry procedure.]]></use>
+      
+  	  <use_experience><![CDATA[
+	  <br>This KPI is similar to msc_1336a. New KPI ID reference. This new KPI ID reference is to to be used starting from M15.1 report sets. 
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: HLR
+	  <br>KPI CLASS: Mobility
+	  <br>MEASUREMENT(S): HLR measurement, part one (M83/53H) 
+	  <br>
+	  ]]></use_experience>      
+      
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;  SUM( PRN_RETRY_ATTEMPT ) 
+	  &lt;br&gt;---------------------- * 100
+	  &lt;br&gt; SUM( HLR_SRIATTEMPT ) 
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_HL1HLR_{OBJ_AGG}_{TIME_AGG},rns_ps_H1BS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SRI with PRN retry HLR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

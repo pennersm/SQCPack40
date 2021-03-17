@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/RRC.xml" />
+  <kpi name="RNC_3144a">
+    <formula>100 - 
+			100*decode(
+			(rrc.succ_high_peak_redir_mcrnc + 
+			rrc.succ_low_peak_redir_mcrnc + 
+			rrc.fail_redir_mcrnc),0,null, 
+
+			(rrc.fail_redir_mcrnc)
+			 / 
+			(rrc.succ_high_peak_redir_mcrnc + 
+			rrc.succ_low_peak_redir_mcrnc + 
+			rrc.fail_redir_mcrnc))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC connections redirection success ratio from IPA-RNC to mcRNC.]]></title>
+      <use><![CDATA[The success ratio of RRC connection requests handled by IPA-RNC that were redirected to co-siting mcRNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 - 100*SUM(FAIL_REDIR_MCRNC)
+&lt;br&gt;/
+&lt;br&gt;SUM(SUCC_HIGH_PEAK_REDIR_MCRNC + 
+&lt;br&gt;SUCC_LOW_PEAK_REDIR_MCRNC +
+&lt;br&gt;FAIL_REDIR_MCRNC)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_RRC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:09:51.651 +0100</date>
+          <comment><![CDATA[Source: RSRAN038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>RRC redir to mcRNC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,256 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M340 PLMNV measurement dump</header>
+    <csv_title>NSN NSS M15.0;M15.0IP;M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M340 PLMNV measurement dump</csv_title>
+    <report-description>VLR measurement, part n, subscribers per HLR(PLMNV)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <RSAVERAGE/>
+    <DATA_MISSING_IN_SUBSC_VALUES/>
+    <CANCEL_LOCATION/>
+    <SEND_ID/>
+    <AVG_NBR_ROAM_SUBS_2G/>
+    <AVG_NBR_ROAM_SUBS_3G/>
+    <AVG_NBR_ROAM_SUBS_UNKNOWN/>
+    <AVG_NBR_ROAM_SUBS_2G_DET/>
+    <AVG_NBR_ROAM_SUBS_3G_DET/>
+    <AVG_NBR_ROAM_SUBS_UNKNOWN_DET/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/PLMNNAME" name="PLMNV" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="RSAVERAGE" object-formula="SUM(RSAVERAGE)" time-alias="RSAVERAGE" time-formula="AVG(RSAVERAGE)">SUM(RSAVERAGE)</counter>
+      <counter alias="DATA_MISSING_IN_SUBSC_VALUES" symmetrical="true">AVG(DATA_MISSING_IN_SUBSC_VALUES)</counter>
+      <counter alias="CANCEL_LOCATION" symmetrical="true">SUM(CANCEL_LOCATION)</counter>
+      <counter alias="SEND_ID" symmetrical="true">SUM(SEND_ID)</counter>
+      <counter alias="AVG_NBR_ROAM_SUBS_2G" object-formula="SUM(AVG_NBR_ROAM_SUBS_2G)" time-alias="AVG_NBR_ROAM_SUBS_2G" time-formula="AVG(AVG_NBR_ROAM_SUBS_2G)">SUM(AVG_NBR_ROAM_SUBS_2G)</counter>
+      <counter alias="AVG_NBR_ROAM_SUBS_3G" object-formula="SUM(AVG_NBR_ROAM_SUBS_3G)" time-alias="AVG_NBR_ROAM_SUBS_3G" time-formula="AVG(AVG_NBR_ROAM_SUBS_3G)">SUM(AVG_NBR_ROAM_SUBS_3G)</counter>
+      <counter alias="AVG_NBR_ROAM_SUBS_UNKNOWN" object-formula="SUM(AVG_NBR_ROAM_SUBS_UNKNOWN)" time-alias="AVG_NBR_ROAM_SUBS_UNKNOWN" time-formula="AVG(AVG_NBR_ROAM_SUBS_UNKNOWN)">SUM(AVG_NBR_ROAM_SUBS_UNKNOWN)</counter>
+      <counter alias="AVG_NBR_ROAM_SUBS_2G_DET" object-formula="SUM(AVG_NBR_ROAM_SUBS_2G_DET)" time-alias="AVG_NBR_ROAM_SUBS_2G_DET" time-formula="AVG(AVG_NBR_ROAM_SUBS_2G_DET)">SUM(AVG_NBR_ROAM_SUBS_2G_DET)</counter>
+      <counter alias="AVG_NBR_ROAM_SUBS_3G_DET" object-formula="SUM(AVG_NBR_ROAM_SUBS_3G_DET)" time-alias="AVG_NBR_ROAM_SUBS_3G_DET" time-formula="AVG(AVG_NBR_ROAM_SUBS_3G_DET)">SUM(AVG_NBR_ROAM_SUBS_3G_DET)</counter>
+      <counter alias="AVG_NBR_ROAM_SUBS_UNKNOWN_DET" object-formula="SUM(AVG_NBR_ROAM_SUBS_UNKNOWN_DET)" time-alias="AVG_NBR_ROAM_SUBS_UNKNOWN_DET" time-formula="AVG(AVG_NBR_ROAM_SUBS_UNKNOWN_DET)">SUM(AVG_NBR_ROAM_SUBS_UNKNOWN_DET)</counter>
+    </counters>
+    <table_name>RNS_PS_PLMNV{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>PLMNV</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>PLMNV.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_PLMNV{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="RSAVERAGE">
+    <formula>PLMNV.RSAVERAGE</formula>
+    <kpi_info>
+      <title>RSAVERAGE</title>
+      <use>Average number of roaming subscribers during the reporting period. For the calculation of the average, the number of
+roaming subscribers is interrogated at five-minute intervals. The
+maximum number of different PLMN identifiers in a report is 40.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(RSAVERAGE)">SUM(RSAVERAGE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PLMNV{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RSAVERAGE (M340B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="DATA_MISSING_IN_SUBSC_VALUES">
+    <formula>PLMNV.DATA_MISSING_IN_SUBSC_VALUES</formula>
+    <kpi_info>
+      <title>DATA_MISSING_IN_SUBSC_VALUES</title>
+      <use>This line is printed if data transferfrom one or several VLRUs failed during one or more inquiries, that
+is, only a subset of the data could be collected. It means that
+the printed subscriber numbers per PLMN are not reliable. (The problem can
+be overloaded VLRUs, a VLRU startup.)CODING: Byte</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(DATA_MISSING_IN_SUBSC_VALUES)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PLMNV{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DATA_MISSING_IN_SUBSC_VALUES (M340B2C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CANCEL_LOCATION">
+    <formula>PLMNV.CANCEL_LOCATION</formula>
+    <kpi_info>
+      <title>CANCEL_LOCATION</title>
+      <use>The number of CancelLocation operationsreceived from the specific home PLMN.This counter is
+printed only with Feature 1627: Super-Charger.CODING:
+DW</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CANCEL_LOCATION)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PLMNV{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CANCEL_LOCATION (M340B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="SEND_ID">
+    <formula>PLMNV.SEND_ID</formula>
+    <kpi_info>
+      <title>SEND_ID</title>
+      <use>The number of SendIdentity operations receivedfrom the specific home PLMN.This counter is printed
+only with Feature 1627: Super-Charger.CODING: DW</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(SEND_ID)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_PLMNV{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>SEND_ID (M340B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_ROAM_SUBS_2G">
+    <formula>PLMNV.AVG_NBR_ROAM_SUBS_2G</formula>
+    <kpi_info>
+      <title>AVG_NBR_ROAM_SUBS_2G</title>
+      <use>Average number of roaming 2G subscribers during the reporting period. The measured object is the name of the PLMN where the measured values came from. This is the textual identifier of the roaming partner PLMN. There is a special PLMN name called &quot;UNKNOWN&quot; which means those HLR addresses and PLMNs where whether the HLR address or the PLMN index is not known.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_ROAM_SUBS_2G)">SUM(AVG_NBR_ROAM_SUBS_2G)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_plmnv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_ROAM_SUBS_2G (M340B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_ROAM_SUBS_3G">
+    <formula>PLMNV.AVG_NBR_ROAM_SUBS_3G</formula>
+    <kpi_info>
+      <title>AVG_NBR_ROAM_SUBS_3G</title>
+      <use>Average number of roaming 3G subscribers during the reporting period. The measured object is the name of the PLMN where the measured values came from. This is the textual identifier of the roaming partner PLMN. There is a special PLMN name called &quot;UNKNOWN&quot; which means those HLR addresses and PLMNs where whether the HLR address or the PLMN index is not known.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_ROAM_SUBS_3G)">SUM(AVG_NBR_ROAM_SUBS_3G)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_plmnv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_ROAM_SUBS_3G (M340B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_ROAM_SUBS_UNKNOWN">
+    <formula>PLMNV.AVG_NBR_ROAM_SUBS_UNKNOWN</formula>
+    <kpi_info>
+      <title>AVG_NBR_ROAM_SUBS_UNKNOWN</title>
+      <use>Average number of roaming unknown subscribers during the reporting period. The measured object is the name of the PLMN where the measured values came from. This is the textual identifier of the roaming partner PLMN. There is a special PLMN name called &quot;UNKNOWN&quot; which means those HLR addresses and PLMNs where whether the HLR address or the PLMN index is not known.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_ROAM_SUBS_UNKNOWN)">SUM(AVG_NBR_ROAM_SUBS_UNKNOWN)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_plmnv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_ROAM_SUBS_UNKNOWN (M340B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_ROAM_SUBS_2G_DET">
+    <formula>PLMNV.AVG_NBR_ROAM_SUBS_2G_DET</formula>
+    <kpi_info>
+      <title>AVG_NBR_ROAM_SUBS_2G_DET</title>
+      <use>Counts the average number of detached 2G subscribers per PLMN during the measurement period. Number of subscribers in the VLR is collected in every 5 minutes, and then at the end of the measurement period the average number of subscribers in the VLR is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_ROAM_SUBS_2G_DET)">SUM(AVG_NBR_ROAM_SUBS_2G_DET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_plmnv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_ROAM_SUBS_2G_DET (M340B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_ROAM_SUBS_3G_DET">
+    <formula>PLMNV.AVG_NBR_ROAM_SUBS_3G_DET</formula>
+    <kpi_info>
+      <title>AVG_NBR_ROAM_SUBS_3G_DET</title>
+      <use>Counts the average number of detached 3G subscribers per PLMN during the measurement period. Number of subscribers in the VLR is collected in every 5 minutes, and then at the end of the measurement period the average number of subscribers in the VLR is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_ROAM_SUBS_3G_DET)">SUM(AVG_NBR_ROAM_SUBS_3G_DET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_plmnv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_ROAM_SUBS_3G_DET (M340B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="AVG_NBR_ROAM_SUBS_UNKNOWN_DET">
+    <formula>PLMNV.AVG_NBR_ROAM_SUBS_UNKNOWN_DET</formula>
+    <kpi_info>
+      <title>AVG_NBR_ROAM_SUBS_UNKNOWN_DET</title>
+      <use>Counts the average number of subscribers per PLMN during the measurement period whose access can not be determined or are other than 2G/3G. SIP subscribers are counted as UNKNOWN. Number of subscribers in the VLR is collected in every 5 minutes, and then at the end of the measurement period the average number of subscribers in the VLR is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(AVG_NBR_ROAM_SUBS_UNKNOWN_DET)">SUM(AVG_NBR_ROAM_SUBS_UNKNOWN_DET)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_plmnv_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_NBR_ROAM_SUBS_UNKNOWN_DET (M340B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>   
+</conf_file>

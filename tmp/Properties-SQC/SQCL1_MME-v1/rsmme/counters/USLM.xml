@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS1.0 CD2 M52 USLM measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS1.0 CD2 M52 USLM measurement dump</csv_title>
+    <report-description>User SMMU Level Measurement(USLM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <EPS_EMM_REG_MIN_SMMU />
+	<EPS_EMM_REG_MAX_SMMU />
+	<EPS_EMM_REG_SUM_SMMU />
+	<EPS_EMM_REG_DENOM_SMMU />
+	<EPS_EMM_DEREG_MIN_SMMU />
+	<EPS_EMM_DEREG_MAX_SMMU />
+	<EPS_EMM_DEREG_SUM_SMMU />
+	<EPS_EMM_DEREG_DENOM_SMMU />
+  </column_order>
+  <temp_table name="USLM" meas_level="PLMN/FLEXINS/MME-SMMU" type="PM" master="yes" pragma="pcofns" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="EPS_EMM_REG_MIN_SMMU">MIN(EPS_EMM_REG_MIN_SMMU)</counter>
+      <counter alias="EPS_EMM_REG_MAX_SMMU">MAX(EPS_EMM_REG_MAX_SMMU)</counter>
+      <counter alias="EPS_EMM_REG_SUM_SMMU">SUM(EPS_EMM_REG_SUM_SMMU)</counter>
+      <counter alias="EPS_EMM_REG_DENOM_SMMU">SUM(EPS_EMM_REG_DENOM_SMMU)</counter>
+      <counter alias="EPS_EMM_DEREG_MIN_SMMU">MIN(EPS_EMM_DEREG_MIN_SMMU)</counter>
+      <counter alias="EPS_EMM_DEREG_MAX_SMMU">MAX(EPS_EMM_DEREG_MAX_SMMU)</counter>
+      <counter alias="EPS_EMM_DEREG_SUM_SMMU">SUM(EPS_EMM_DEREG_SUM_SMMU)</counter>
+      <counter alias="EPS_EMM_DEREG_DENOM_SMMU">SUM(EPS_EMM_DEREG_DENOM_SMMU)</counter>
+    </counters>
+    <table_name>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>USLM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>USLM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_REG_MIN_SMMU">
+    <formula>USLM.EPS_EMM_REG_MIN_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_REG_MIN_SMMU</title>
+      <use>The minimum number of users in EMM state EMM-REGISTERED per SMMU</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_EMM_REG_MIN_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_REG_MIN_SMMU (M52C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_REG_MAX_SMMU">
+    <formula>USLM.EPS_EMM_REG_MAX_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_REG_MAX_SMMU</title>
+      <use>The maximum number of users in EMM state EMM-REGISTERED per SMMU</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_EMM_REG_MAX_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_REG_MAX_SMMU (M52C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_REG_SUM_SMMU">
+    <formula>USLM.EPS_EMM_REG_SUM_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_REG_SUM_SMMU</title>
+      <use>The sum of sampled values for measuring the number of users in EMM-REGISTERED state per SMMU. This counter, divided by the denominator M52C003, provides the average number of users in EMM-REGISTERED state per SMMU</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_EMM_REG_SUM_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_REG_SUM_SMMU (M52C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_REG_DENOM_SMMU">
+    <formula>USLM.EPS_EMM_REG_DENOM_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_REG_DENOM_SMMU</title>
+      <use>The number of samples taken for the counter M52C002, used as a denominator for average calculation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_EMM_REG_DENOM_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_REG_DENOM_SMMU (M52C003)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_DEREG_MIN_SMMU">
+    <formula>USLM.EPS_EMM_DEREG_MIN_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_DEREG_MIN_SMMU</title>
+      <use>The minimum number of users in EMM state EMM-DEREGISTERED per SMMU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(EPS_EMM_DEREG_MIN_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_DEREG_MIN_SMMU (M52C004)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_DEREG_MAX_SMMU">
+    <formula>USLM.EPS_EMM_DEREG_MAX_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_DEREG_MAX_SMMU</title>
+      <use>The maximum number of users in EMM state EMM-DEREGISTERED per SMMU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(EPS_EMM_DEREG_MAX_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_DEREG_MAX_SMMU (M52C005)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_DEREG_SUM_SMMU">
+    <formula>USLM.EPS_EMM_DEREG_SUM_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_DEREG_SUM_SMMU</title>
+      <use>The sum of sampled values for measuring the number of users in EMM-DEREGISTERED state per SMMU. This counter, divided by the denominator M52C007, provides the average number of users in EMM-DEREGISTERED state per SMMU.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_EMM_DEREG_SUM_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_DEREG_SUM_SMMU (M52C006)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="EPS_EMM_DEREG_DENOM_SMMU">
+    <formula>USLM.EPS_EMM_DEREG_DENOM_SMMU</formula>
+    <kpi_info>
+      <title>EPS_EMM_DEREG_DENOM_SMMU</title>
+      <use>The number of samples taken for the counter M52C006, used as a denominator for average calculation.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(EPS_EMM_DEREG_DENOM_SMMU)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_uslm_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>EPS_EMM_DEREG_DENOM_SMMU (M52C007)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml">
+    <counters>
+      <counter alias="rnc_614c">sum(allo_hs_dsch_flow_int + 
+				allo_hs_dsch_flow_bgr + 
+				nvl(allo_hs_dsch_flow_str,0) + 
+				dch_sel_max_hsdpa_users_int + 
+				dch_sel_max_hsdpa_users_bgr + 
+				nvl(dch_sel_max_hsdpa_users_str,0) + 
+				dl_dch_sel_hsdpa_power_int + 
+				dl_dch_sel_hsdpa_power_bgr + 
+				nvl(dl_dch_sel_hsdpa_power_str,0) + 
+				rej_hs_dsch_ret_int + 
+				rej_hs_dsch_ret_bgr + 
+				nvl(rej_hs_dsch_ret_str,0) + 
+				setup_fail_rnc_hs_dsch_int + 
+				setup_fail_rnc_hs_dsch_bgr + 
+				nvl(setup_fail_rnc_hs_dsch_str,0) + 
+				setup_fail_ue_hs_dsch_int + 
+				setup_fail_ue_hs_dsch_bgr + 
+				nvl(setup_fail_ue_hs_dsch_str,0) + 
+				setup_fail_bts_hs_dsch_int + 
+				setup_fail_bts_hs_dsch_bgr + 
+				nvl(setup_fail_bts_hs_dsch_str,0) + 
+				setup_fail_iub_hs_total_int + 
+				setup_fail_iub_hs_total_bgr + 
+				nvl(setup_fail_iub_hs_total_str,0))</counter>
+    </counters>
+  </temp_table_ref>
+  <kpi name="RNC_665d">
+    <formula>decode(
+			(traffic.rnc_614c),0,null, 
+
+			(100*(traffic.setup_fail_iub_hs_total_int + 
+			traffic.setup_fail_iub_hs_total_bgr + 
+			traffic.setup_fail_iub_hs_total_str_1)
+			 / 
+			traffic.rnc_614c))</formula>
+    <kpi_info>
+      <title><![CDATA[HSDPA Access FR due to Iub]]></title>
+      <use><![CDATA[HSDPA access failure rate due to Iub originated problem.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum ( SETUP_FAIL_IUB_HS_TOTAL_INT
+&lt;br&gt;+ SETUP_FAIL_IUB_HS_TOTAL_BGR 
+&lt;br&gt;+ SETUP_FAIL_IUB_HS_TOTAL_STR )
+&lt;br&gt;-----------------
+&lt;br&gt;RNC_614c</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_traffic_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[HSDPA Access FR due to Iub]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/TRAFFIC_ext.xml" />
+</conf_file>
+

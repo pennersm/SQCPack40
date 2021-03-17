@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/URPL.xml"/>
+  <temp_table_ref src="rssaegw/counters/GTPU.xml"/>
+  <temp_table_ref src="rssaegw/counters/IPtra.xml"/>
+  <kpi name="flng_5016a">
+    <formula>decode(
+			((URPL.up_pkts_dropped + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_2g + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_3g + 
+			GTPU.gtpu_gpdu_pkts_recv_lte + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_unkn + 
+			IPtra.ipv4_tpdu_packets_received + 
+			IPtra.ipv6_tpdu_packets_received)),0,NULL, 
+
+			((GTPU.gtpu_gpdu_pkts_recv_rat_2g + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_3g + 
+			GTPU.gtpu_gpdu_pkts_recv_lte + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_unkn + 
+			IPtra.ipv4_tpdu_packets_received + 
+			IPtra.ipv6_tpdu_packets_received))
+			 / 
+			((URPL.up_pkts_dropped + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_2g + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_3g + 
+			GTPU.gtpu_gpdu_pkts_recv_lte + 
+			GTPU.gtpu_gpdu_pkts_recv_rat_unkn + 
+			IPtra.ipv4_tpdu_packets_received + 
+			IPtra.ipv6_tpdu_packets_received)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Packet forwarding success ratio]]></title>
+      <use><![CDATA[This KPI shows the success ratio of packet forwarding.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtpu_gpdu_pkts_recv_rat_2g + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_rat_3g + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_lte + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_rat_unkn + 
+&lt;br&gt;   ipv4_tpdu_packets_received + 
+&lt;br&gt;   ipv6_tpdu_packets_received)
+&lt;br&gt;------------------------------------ * 100
+&lt;br&gt;sum (up_pkts_dropped + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_rat_2g + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_rat_3g + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_lte + 
+&lt;br&gt;   gtpu_gpdu_pkts_recv_rat_unkn + 
+&lt;br&gt;   ipv4_tpdu_packets_received + 
+&lt;br&gt;   ipv6_tpdu_packets_received)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_URPL_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_GTPU_{OBJ_AGG}_{TIME_AGG}, PCOFNG_PS_IPtra_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Packet forwarding SR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/AALRR.xml" />
+  <kpi name="RNC_602a">
+    <formula>decode(
+			(aalrr.aal2_succeeded + 
+			aalrr.aal2_rejected + 
+			aalrr.res_ext_cap + 
+			aalrr.res_int_cap + 
+			aalrr.res_other),0,null, 
+
+			(100*((aalrr.aal2_succeeded)
+			 / 
+			(aalrr.aal2_succeeded + 
+			aalrr.aal2_rejected + 
+			aalrr.res_ext_cap + 
+			aalrr.res_int_cap + 
+			aalrr.res_other))))</formula>
+    <kpi_info>
+      <title><![CDATA[AAL2 connection reservation success rate]]></title>
+      <use><![CDATA[The transport resource request success ratio [%]. This KPI describes the average success rate of the transport resource reservation attempts for AAL2 type connections. The low success rate increases the number of unsuccessful RAB setups and requires further troubleshooting in transport layer.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *(sum(AAL2_SUCCEEDED)/sum(AAL2_SUCCEEDED+AAL2_REJECTED+RES_EXT_CAP+RES_INT_CAP+RES_OTHER))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_aalrr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[AAL2 connection reservation success rate]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

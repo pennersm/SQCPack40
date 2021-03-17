@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPQOS.xml" />
+  <kpi name="mgw_2015a">
+    <formula>
+decode(
+	ipqos.period_duration
+	,0,null,
+	8*(ipqos.ingress_received_bytes + ipqos.egress_sent_bytes)/ 
+	(10000*60*ipqos.period_duration)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IP Interface throughput PHB.]]></title>
+      <use><![CDATA[IP Interface throughput per hop behavior (PHB).]]></use>
+
+<use_experience><![CDATA[ 
+<br>Includes also data that was dropped in the IP packet scheduler.
+<br>
+<br>This KPI shall only run @ PHB level.
+<br>LAST UPDATE: 02-06-2010
+<br>THEORETICAL SUMMARY LEVELS: (PLMN) - (MGW) - (unit_type) - (unit_index) - (ip_if) &#150; (PHB)
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: (PLMN) - (MGW) - (unit_type) - (unit_index) - (ip_if) &#150; (PHB)
+<br>
+<br>RECOMMENDED TIME SUMMARY LEVELS: hour; day; dailyBH; week; weeklyBH
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): IP QoS Measurement
+<br>M567
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;     SUM( INGRESS_RECEIVED_BYTES + EGRESS_SENT_BYTES)
+&lt;br&gt;8 * ------------------------------
+&lt;br&gt;     10000 * SUM( 60 * PERIOD_DURATION )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>NOKMWW_PS_IPQOS_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/05/20 16:01:29.489 +0100</date>
+          <comment><![CDATA[Source: RSMGW056.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Int Throughput PHB</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/ATMVC.xml" />
+  <kpi name="mgw_1224a">
+    <formula>
+	decode(
+	(atmvc.vc_in_bw_uti_class_1 +
+	atmvc.vc_in_bw_uti_class_2 +
+	atmvc.vc_in_bw_uti_class_3 +
+	atmvc.vc_in_bw_uti_class_4 +
+	atmvc.vc_in_bw_uti_class_5),0,null,
+	100*(atmvc.vc_in_bw_uti_class_5)
+	/
+	(atmvc.vc_in_bw_uti_class_1 +
+	atmvc.vc_in_bw_uti_class_2 +
+	atmvc.vc_in_bw_uti_class_3 +
+	atmvc.vc_in_bw_uti_class_4 +
+	atmvc.vc_in_bw_uti_class_5))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Perc time where ATM VC ingress throughput is 88% of PCR or more]]></title>
+      <use><![CDATA[Percentage of time where the ATM VC ingress throughput was 88% or more of the configured bandwidth (Peak Cell Rate)..]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;             SUM(VC_IN_BW_UTI_CLASS_5) 
+&lt;br&gt;100 * ----------------------------------------  
+&lt;br&gt;             SUM(VC_IN_BW_UTI_CLASS_1+
+&lt;br&gt;VC_IN_BW_UTI_CLASS_2+
+&lt;br&gt;VC_IN_BW_UTI_CLASS_3+
+&lt;br&gt;VC_IN_BW_UTI_CLASS_4+
+&lt;br&gt;VC_IN_BW_UTI_CLASS_5)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_ATMVC_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.420 +0100</date>
+          <comment><![CDATA[Source: RSMGW019.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>ATM VC in thp&gt;=88%PCR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

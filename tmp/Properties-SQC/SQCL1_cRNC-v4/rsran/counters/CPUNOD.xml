@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 CpuUsage_node CPUNOD measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 CpuUsage_node CPUNOD measurement dump</csv_title>
+    <report-description>CPU Usage Node Level</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <MIN_CPU_USAGE_NODE />
+    <MAX_CPU_USAGE_NODE />
+    <AVG_CPU_USAGE_Node />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="CPUNOD" meas_level="PLMN/RNC/FPNODE" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="MIN_CPU_USAGE_NODE">MIN(MIN_CPU_USAGE_NODE)</counter>
+      <counter alias="MAX_CPU_USAGE_NODE">MAX(MAX_CPU_USAGE_NODE)</counter>
+      <counter alias="AVG_CPU_USAGE_Node">AVG(AVG_CPU_USAGE_Node)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_cpunod_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CPUNOD</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CPUNOD.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_cpunod_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_CPU_USAGE_NODE">
+    <formula>CPUNOD.MIN_CPU_USAGE_NODE</formula>
+    <kpi_info>
+      <title>MIN_CPU_USAGE_NODE</title>
+      <use>The minimum sampled CPU usage value during measurement interval on node level. UPDATED: CPU usage is sampled periodically.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_CPU_USAGE_NODE)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_cpunod_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_CPU_USAGE_NODE (M2007C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_CPU_USAGE_NODE">
+    <formula>CPUNOD.MAX_CPU_USAGE_NODE</formula>
+    <kpi_info>
+      <title>MAX_CPU_USAGE_NODE</title>
+      <use>The maximum sampled CPU usage value during measurement interval on node level. UPDATED: CPU usage is sampled periodically.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_CPU_USAGE_NODE)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_cpunod_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_CPU_USAGE_NODE (M2007C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE_Node">
+    <formula>CPUNOD.AVG_CPU_USAGE_Node</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE_Node</title>
+      <use>The average CPU usage value during measurement interval on node level. UPDATED: CPU usage is sampled periodically</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVG_CPU_USAGE_Node)</formula>
+      <unit>%</unit>
+      <tables>nokrww_ps_cpunod_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE_Node (M2007C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>CPUNOD.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_cpunod_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

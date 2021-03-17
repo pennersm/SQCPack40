@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_879c">
+    <formula>decode(
+			(signtrc.mgw_1002c),0,null, 
+
+			(100*(signtrc.g711_to_cat1_nb_atm + 
+			signtrc.cat1_to_g711_nb_atm + 
+			signtrc.g711_to_cat2_nb_atm + 
+			signtrc.cat2_to_g711_nb_atm + 
+			signtrc.g711_to_cat3_nb_atm + 
+			signtrc.cat3_to_g711_nb_atm + 
+			signtrc.cat1_to_cat2_nb_atm + 
+			signtrc.cat2_to_cat1_nb_atm + 
+			signtrc.cat1_to_cat3_nb_atm + 
+			signtrc.cat3_to_cat1_nb_atm + 
+			signtrc.cat2_to_cat3_nb_atm + 
+			signtrc.cat3_to_cat2_nb_atm + 
+			signtrc.inside_cat1_nb_atm + 
+			signtrc.inside_cat2_nb_atm + 
+			signtrc.inside_cat3_nb_atm)
+			 / 
+			signtrc.mgw_1002c))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful codec modification in Nb-ATM interface]]></title>
+      <use><![CDATA[Indicates share of successful codec modification in Nb-ATM interface of all successful codec modifications in measured MGW]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM (G711_TO_CAT1_NB_ATM + CAT1_TO_G711_NB_ATM + G711_TO_CAT2_NB_ATM +
+&lt;br&gt;           CAT2_TO_G711_NB_ATM + G711_TO_CAT3_NB_ATM + CAT3_TO_G711_NB_ATM + 
+&lt;br&gt;           CAT1_TO_CAT2_NB_ATM + CAT2_TO_CAT1_NB_ATM + CAT1_TO_CAT3_NB_ATM +
+&lt;br&gt;           CAT3_TO_CAT1_NB_ATM + CAT2_TO_CAT3_NB_ATM + CAT3_TO_CAT2_NB_ATM +
+&lt;br&gt;           INSIDE_CAT1_NB_ATM  + INSIDE_CAT2_NB_ATM  + INSIDE_CAT3_NB_ATM) 
+&lt;br&gt;100 * ---------------------------------------------------------------------
+&lt;br&gt;                                      mgw_1002c
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Shar Succ Codec Modf Nb ATM If</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

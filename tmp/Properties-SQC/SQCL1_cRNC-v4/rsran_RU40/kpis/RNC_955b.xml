@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_955b">
+    <formula>decode(
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr + 
+			pktcall.ps_att_hsdsch_edch_stre_1 + 
+			pktcall.ps_att_hsdsch_dch_stre_1 + 
+			pktcall.ps_att_dch_dch_stre_1),0,null, 
+
+			(100*(pktcall.ps_setup_fail_bts_int + 
+			pktcall.ps_setup_fail_bts_bgr + 
+			pktcall.ps_setup_fail_bts_stre_1)
+			 / 
+			(pktcall.ps_att_hsdsch_edch_int + 
+			pktcall.ps_att_hsdsch_edch_bgr + 
+			pktcall.ps_att_hsdsch_dch_int + 
+			pktcall.ps_att_hsdsch_dch_bgr + 
+			pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr + 
+			pktcall.ps_att_hsdsch_edch_stre_1 + 
+			pktcall.ps_att_hsdsch_dch_stre_1 + 
+			pktcall.ps_att_dch_dch_stre_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[PS Call Setup FR due to BTS]]></title>
+      <use><![CDATA[The percentage of packet call setup failures due to BTS for interactive, streaming and background traffic classes.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum ( PS_SETUP_FAIL_BTS_INT
+&lt;br&gt;+ PS_SETUP_FAIL_BTS_BGR 
+&lt;br&gt;+ PS_SETUP_FAIL_BTS_STRE)
+&lt;br&gt;-------------------------
+&lt;br&gt;RNC_930b</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_pktcall_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS Call stp FR due to BTS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/PKTCALL_ext.xml" />
+</conf_file>
+

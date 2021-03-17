@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW005 - Delete PDP Context cause code</header>
+    <csv_title>Delete PDP Context cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v1 delete PDP context response messages sent/received per cause code on Gn/Gp (GGSN  &lt;-&gt; SGSN) interface.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Delete PDP Context' procedures. 
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2010/11/23 14:57:19.644 +0000</date>
+        <comment><![CDATA[Source: RSSAEGW005.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Delete PDP Context cause code</report-description>
+    <report-title>Delete PDP Context cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_114a ui_name="Att" group="sent" master-group="Del PDP ctx resp" chartType="bar" yAxis="2" />
+    <flng_115a ui_name="Ratio" group="sent" master-group="Del PDP ctx resp" /> 
+    <flng_118a ui_name="Att" group="rcvd" master-group="Del PDP ctx resp" chartType="bar" yAxis="2" />
+    <flng_119a ui_name="Ratio" group="rcvd" master-group="Del PDP ctx resp" />
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCRESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_114a">
+    <formula>(GTPCRESP.gtpc_delete_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[Delete PDP context responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v1 delete PDP context responses sent per cause code.
+Delete PDP context Response sent:
+- Gn/Gp interface (SGSN &lt;- GGSN/Combined S-GW and P-GW with Gn interface)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpc_delete_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del PDP resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_115a">
+    <formula>decode(
+			((GTPCRESP.gtpc_delete_resp_sent_all)),0,NULL, 
+
+			((GTPCRESP.gtpc_delete_resp_sent))
+			 / 
+			((GTPCRESP.gtpc_delete_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete PDP context responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 delete PDP context responses sent for a specific cause code when compared to total number of GTP-C v1 delete PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(drs_id,'x',GTPC_DELETE_RESP_SENT,0))  ;DRS for cause code x
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_DELETE_RESP_SENT)  ;all DRS's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Del PDP resp sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_118a">
+    <formula>(GTPCRESP.gtpc_delete_resp_recv)</formula>
+    <kpi_info>
+      <title><![CDATA[Delete PDP context responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v1 delete PDP context responses received per cause code.
+Delete PDP context Response received:
+- Gn/Gp interface (SGSN -&gt; GGSN/Combined S-GW and P-GW with Gn interface)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpc_delete_resp_recv)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_DRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Del PDP resp rcv]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_119a">
+    <formula>decode(
+			((GTPCRESP.gtpc_delete_resp_recv_all)),0,NULL, 
+
+			((GTPCRESP.gtpc_delete_resp_recv))
+			 / 
+			((GTPCRESP.gtpc_delete_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Delete PDP context responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 delete PDP context responses received for a specific cause code when compared to total number of GTP-C v1 delete PDP context response messages received.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(decode(drr_id,'x',GTPC_DELETE_RESP_RECV,0))  ;DRR for cause code x
+&lt;br&gt;----------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_DELETE_RESP_RECV)  ;all DRR's
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_DRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Del PDP resp rcv ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>

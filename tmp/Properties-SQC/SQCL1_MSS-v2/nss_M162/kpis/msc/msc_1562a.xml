@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/UPD_ext.xml" />
+  <kpi name="msc_1562a">
+    <formula>
+		decode(upd_ext.upd_num_of_call_att_in+upd_ext.upd_num_of_call_att_out+upd_ext.upd_num_of_call_rej_in+upd_ext.upd_num_of_call_rej_out
+			, 0, null,
+			100 * (upd_ext.upd_num_of_call_att_in+upd_ext.upd_num_of_call_att_out)
+			/ (upd_ext.upd_num_of_call_att_in+upd_ext.upd_num_of_call_att_out+upd_ext.upd_num_of_call_rej_in+upd_ext.upd_num_of_call_rej_out)
+		)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[UPD Accepted calls ratio(IN+OUT)]]></title>
+      <use><![CDATA[Ratio of calls in the UPD that have been accepted by the MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;       SUM(UPD_NUM_OF_CALL_ATT_IN + UPD_NUM_OF_CALL_ATT_OUT)  
+&lt;br&gt;100 *  -------------------------------------------------------
+&lt;br&gt;       SUM(UPD_NUM_OF_CALL_ATT_IN + UPD_NUM_OF_CALL_ATT_OUT +
+&lt;br&gt;           UPD_NUM_OF_CALL_REJ_IN + UPD_NUM_OF_CALL_REJ_OUT)  
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED view(s)/table(s)</formula>
+      <unit>[%]</unit>
+      <tables>XMLNSS_PS_UPD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2009/12/17 15:54:58.135 +0000</date>
+          <comment><![CDATA[Source: RSMSC048.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>UPD Accept calls rto</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

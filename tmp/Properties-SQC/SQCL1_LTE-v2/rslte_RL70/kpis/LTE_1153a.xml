@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_1153a">
+    <formula>decode(
+			(lepsb.epc_eps_bear_rel_req_n_qci1 + 
+			lepsb.epc_eps_bear_rel_req_d_qci1 + 
+			lepsb.epc_eps_bear_rel_req_r_qci1 + 
+			lepsb.epc_eps_bear_rel_req_o_qci1 + 
+			lepsb.enb_eps_bear_rel_req_n_qci1 + 
+			lepsb.enb_eps_bear_rel_req_r_qci1 + 
+			lepsb.enb_eps_bear_rel_req_o_qci1 + 
+			lepsb.enb_eps_bear_rel_req_t_qci1 + 
+			lepsb.enb_eps_bear_rel_req_rd_qci1),0,null, 
+
+			lepsb.erab_in_session_time_qci1
+			 / 
+			(lepsb.epc_eps_bear_rel_req_n_qci1 + 
+			lepsb.epc_eps_bear_rel_req_d_qci1 + 
+			lepsb.epc_eps_bear_rel_req_r_qci1 + 
+			lepsb.epc_eps_bear_rel_req_o_qci1 + 
+			lepsb.enb_eps_bear_rel_req_n_qci1 + 
+			lepsb.enb_eps_bear_rel_req_r_qci1 + 
+			lepsb.enb_eps_bear_rel_req_o_qci1 + 
+			lepsb.enb_eps_bear_rel_req_t_qci1 + 
+			lepsb.enb_eps_bear_rel_req_rd_qci1))</formula>
+    <kpi_info>
+      <title><![CDATA[Average voice call duration]]></title>
+      <use><![CDATA[This KPI measures the average duration of a voice call.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(ERAB_IN_SESSION_TIME_QCI1)
+&lt;br&gt;/
+&lt;br&gt;sum (EPC_EPS_BEAR_REL_REQ_N_QCI1 + 
+&lt;br&gt;EPC_EPS_BEAR_REL_REQ_D_QCI1 + 
+&lt;br&gt;EPC_EPS_BEAR_REL_REQ_R_QCI1 + 
+&lt;br&gt;EPC_EPS_BEAR_REL_REQ_O_QCI1 + 
+&lt;br&gt;ENB_EPS_BEAR_REL_REQ_N_QCI1 + 
+&lt;br&gt;ENB_EPS_BEAR_REL_REQ_R_QCI1 + 
+&lt;br&gt;ENB_EPS_BEAR_REL_REQ_O_QCI1 +  
+&lt;br&gt;ENB_EPS_BEAR_REL_REQ_T_QCI1 + 
+&lt;br&gt;ENB_EPS_BEAR_REL_REQ_RD_QCI1)</formula>
+      <unit>[Seconds]</unit>
+      <tables>noklte_ps_LEPSB_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/14 10:15:40.336 +0000</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg voice call dur</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

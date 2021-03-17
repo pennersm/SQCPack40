@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_642b">
+    <formula>
+decode(tc_ext.TCAT_CALL_AMOUNT_30,0,null,
+	100 * tc_ext.tcat_call_amount_14 / tc_ext.TCAT_CALL_AMOUNT_30
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[SIP calls ratio]]></title>
+      <use><![CDATA[Ratio of all SIP calls]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>Traffic category:
+		<br>74 = SIP ORIG = SIP originating traffic
+		<br>76 = SIP INC = SIP incoming traffic
+		<br>
+		<br>Starting from M15.1 NE version, in the denominator related part, the KPI ID reference to be used is the msc_2155a and no longer the msc_570c.
+		<br>This change does not produce any impact into the KPI formula content/algorithm. This is just a KPI ID adjustment. 
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>&lt;br&gt;
+		&lt;br&gt; sum (tcat_call_amount);WHERE traffic_category_id IN (74, 76)
+		&lt;br&gt;------------------------------------------------------------- * 100
+		&lt;br&gt;             msc_2155a
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_TC_{OBJ_AGG}_{TIME_AGG}
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>SIP calls ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

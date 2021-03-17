@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUOV.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml" />
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml" />
+  <kpi name="sgsn_160a">
+    <formula>decode(
+			(iumm1.iu_succ_in_intra_papu_ra_upd + 
+			iumm1.iu_fail_in_intra_papu_ra_upd + 
+			iumm1.iu_succ_in_inter_papu_ra_upd + 
+			iumm1.iu_fail_in_inter_papu_ra_upd + 
+			iumm1.iu_succ_in_inter_sgsn_ra_upd + 
+			iumm1.iu_fail_in_inter_sgsn_ra_upd + 
+			iumm1.iu_succ_periodic_ra_upd + 
+			iumm1.iu_fail_periodic_ra_upd + 
+			iumm2.iu_succ_intra_papu_2g3g_isho + 
+			iumm2.iu_fail_intra_papu_2g3g_isho + 
+			iumm2.iu_succ_inter_papu_2g3g_isho + 
+			iumm2.iu_fail_inter_papu_2g3g_isho),0,NULL, 
+
+			(100*(iuov.rej_iu_ra_update_attempts_ep + 
+			iuov.rej_iu_ra_update_attempts)
+			 / 
+			(iumm1.iu_succ_in_intra_papu_ra_upd + 
+			iumm1.iu_fail_in_intra_papu_ra_upd + 
+			iumm1.iu_succ_in_inter_papu_ra_upd + 
+			iumm1.iu_fail_in_inter_papu_ra_upd + 
+			iumm1.iu_succ_in_inter_sgsn_ra_upd + 
+			iumm1.iu_fail_in_inter_sgsn_ra_upd + 
+			iumm1.iu_succ_periodic_ra_upd + 
+			iumm1.iu_fail_periodic_ra_upd + 
+			iumm2.iu_succ_intra_papu_2g3g_isho + 
+			iumm2.iu_fail_intra_papu_2g3g_isho + 
+			iumm2.iu_succ_inter_papu_2g3g_isho + 
+			iumm2.iu_fail_inter_papu_2g3g_isho)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu RAU requests not processed due to processor overload]]></title>
+      <use><![CDATA[This KPI shows the ratio of Iu RA update requests not processed due to processor overload when compared to all Iu RA update attempts.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(a.REJ_IU_RA_UPDATE_ATTEMPTS_EP + a.REJ_IU_RA_UPDATE_ATTEMPTS)
+&lt;br&gt;------------------------------------------------------------------------------------------------------ *100
+&lt;br&gt;sum(b.IU_SUCC_IN_INTRA_PAPU_RA_UPD + b.IU_FAIL_IN_INTRA_PAPU_RA_UPD +
+&lt;br&gt;     b.IU_SUCC_IN_INTER_PAPU_RA_UPD + b.IU_FAIL_IN_INTER_PAPU_RA_UPD +
+&lt;br&gt;     b.IU_SUCC_IN_INTER_SGSN_RA_UPD + b.IU_FAIL_IN_INTER_SGSN_RA_UPD +
+&lt;br&gt;     b.IU_SUCC_PERIODIC_RA_UPD + b.IU_FAIL_PERIODIC_RA_UPD +
+&lt;br&gt;     b.IU_SUCC_INTRA_PAPU_2G3G_ISHO + b.IU_FAIL_INTRA_PAPU_2G3G_ISHO +
+&lt;br&gt;     b.IU_SUCC_INTER_PAPU_2G3G_ISHO + b.IU_FAIL_INTER_PAPU_2G3G_ISHO)
+&lt;br&gt;
+&lt;br&gt;counters from table(s):
+&lt;br&gt;a = p_sgsn_iu_overload
+&lt;br&gt;b = p_sgsn_iu_mobility_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iuov_{obj_agg}_{time_agg}, rsg_ps_iumm1_{obj_agg}_{time_agg}, rsg_ps_iumm2_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu RAU requests not processed due to processor overload]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

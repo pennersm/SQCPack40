@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_pseudo_MPLS MPLS measurement dump</header>
+    <csv_title>Nokia Siemens AXC C6.0 EP1;C6.0;C5.5;C5.0;C3.0;C2.7;C2.6;C2.5;C2.1 AXC_pseudo_MPLS MPLS measurement dump</csv_title>
+    <report-description>AXC Pseudowire MPLS measurement (M5213)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <pwUnavSec_15 />
+    <pwSevErrSec_15 />
+    <pwPktLost_15 />
+  </column_order>
+  <temp_table name="MPLS" meas_level="PLMN/RNC/WBTS/AXC/PWNE/PWMP" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="pwUnavSec_15" timeagg="SUM(pwUnavSec_15)">SUM(pwUnavSec_15)</counter>
+      <counter alias="pwSevErrSec_15" timeagg="SUM(pwSevErrSec_15)">SUM(pwSevErrSec_15)</counter>
+      <counter alias="pwPktLost_15" timeagg="SUM(pwPktLost_15)">SUM(pwPktLost_15)</counter>
+    </counters>
+    <table_name>nokaxc_ps_mpls_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MPLS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MPLS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokaxc_ps_mpls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="pwUnavSec_15">
+    <formula>MPLS.pwUnavSec_15</formula>
+    <kpi_info>
+      <title>pwUnavSec_15</title>
+      <use>Unavailable Seconds (UAS):Counts the number of seconds for which the interface is unavailable. The interface is defined unavailable from either the beginning of 10 contiguous SES and/or a defect. An interface is available again after a 10-second absence of all defects and SES. While the interface is unavailable, the only count that is incremented is UAS. Defect: BFD down in the ingress or egress direction only. Standard: [G.826]. Updated : The counter is incremented for every second when the interface is in a period of unavailable time. Unavailable time starts when either a defect is active or at the beginning of 10 contiguous severely errored seconds (SES). Unavailable time ends at the beginning of 10 contiguous not severely errored secondsand the absence of all defects. The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(pwUnavSec_15)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_mpls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>pwUnavSec_15 (M5213C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="pwSevErrSec_15">
+    <formula>MPLS.pwSevErrSec_15</formula>
+    <kpi_info>
+      <title>pwSevErrSec_15</title>
+      <use>Severely Errored Seconds (SES):Counts the number of seconds that contain a defect. Defect: BFD down in the ingress or egress direction. SES are not incremented during Unavailable Seconds (UAS). Standard: [G.826]. The counter is incremented when a second contains a defect. The counter is not incremented during periods of unavailable time (UAS). The value of the counter is updated every second.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(pwSevErrSec_15)</formula>
+      <unit>Seconds</unit>
+      <tables>nokaxc_ps_mpls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>pwSevErrSec_15 (M5213C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="pwPktLost_15">
+    <formula>MPLS.pwPktLost_15</formula>
+    <kpi_info>
+      <title>pwPktLost_15</title>
+      <use>Based on pseudowire sequence numbers an estimation of the amount of lost packets shall be provided guided by RFC 4717. Rules for this packet loss counter: If (received seq no &gt; expected seq no) Counter = Counter + (received - expected). If (received seq nomber less or equal expected seq number) Counter remains unchanged. Updated : The counter is updated every second following below rules: If received seq no &gt; expected seq no) Counter = Counter + (received - expected). If (received seq nomber less or equal expected seq number) Counter remains unchanged.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(pwPktLost_15)</formula>
+      <unit>Packets</unit>
+      <tables>nokaxc_ps_mpls_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>pwPktLost_15 (M5213C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/PPLAC.xml"/>
+  <kpi name="msc_514a">
+    <formula>decode(
+			(pplac.pagingattemptperla),0,null, 
+
+			(pplac.pagingattemptwithimsisucc + 
+			pplac.pagingattemptwithimsifail + 
+			pplac.pagingattemptwithtmsisucc + 
+			pplac.pagingattemptwithtmsifail)
+			 / 
+			(pplac.pagingattemptperla))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging messages per paging attempt from VLR ratio]]></title>
+      <use><![CDATA[Average number of page messages to A and Iu interface per page from VLR]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;         sum(
+&lt;br&gt;              PagingAttemptWithIMSISucc
+&lt;br&gt;            + PagingAttemptWithIMSIFail
+&lt;br&gt;            + PagingAttemptWithTMSISucc
+&lt;br&gt;            + PagingAttemptWithTMSIFail)
+&lt;br&gt;   -----------------------------------------------------------
+&lt;br&gt;              PagingAttemptPerLA
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_MSCPPL_MSC_{time_agg} 
+&lt;br&gt;RNS_PS_PPLAC_MSC_{time_agg}
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_pplac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:3</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Paging messages per paging attempt from VLR ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

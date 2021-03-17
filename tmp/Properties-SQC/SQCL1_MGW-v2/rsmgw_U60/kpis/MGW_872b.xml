@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_872b">
+    <formula>decode(
+			(signtrc.mgw_1000b),0,null, 
+
+			(100*(signtrc.codec_g723_1)
+			 / 
+			signtrc.mgw_1000b))</formula>
+    <kpi_info>
+      <title><![CDATA[Usage ratio of G.723.1 codec]]></title>
+      <use><![CDATA[Indicates usage ratio of G.723.1 codec compared to usage of all codecs in measured MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(CODEC_G723_1)
+&lt;br&gt;100 * -----------------
+&lt;br&gt;         mgw_1000b
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Usg Rt of G 723 1 codec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_175b">
+    <formula>decode(
+			(servlev.rab_act_pss_gem_1psnrt64_64 + 
+			servlev.rab_act_pss_gem_1psnrt64_128 + 
+			servlev.rab_act_pss_gem_1psnrt64_384 + 
+			servlev.rab_act_pss_glm_1psnrt64_64 + 
+			servlev.rab_act_pss_glm_1psnrt64_128 + 
+			servlev.rab_act_pss_glm_1psnrt64_384 + 
+			servlev.rab_act_cs_conv_1psnrt64_64 + 
+			servlev.rab_act_cs_conv_1psnrt64_128 + 
+			servlev.rab_act_cs_conv_1psnrt64_384 + 
+			servlev.rab_fail_csconv_psnrt6464 + 
+			servlev.rab_fail_csconv_psnrt64128 + 
+			servlev.rab_fail_csconv_psnrt64384 + 
+			servlev.rab_fail_pss_gem_psnrt6464 + 
+			servlev.rab_fail_pss_gem_psnrt64128 + 
+			servlev.rab_fail_pss_gem_psnrt64384 + 
+			servlev.rab_fail_pss_glm_psnrt6464 + 
+			servlev.rab_fail_pss_glm_psnrt64128 + 
+			servlev.rab_fail_pss_glm_psnrt64384),0,null, 
+
+			100 - 
+			100*(servlev.rab_fail_csconv_psnrt6464 + 
+			servlev.rab_fail_csconv_psnrt64128 + 
+			servlev.rab_fail_csconv_psnrt64384 + 
+			servlev.rab_fail_pss_gem_psnrt6464 + 
+			servlev.rab_fail_pss_gem_psnrt64128 + 
+			servlev.rab_fail_pss_gem_psnrt64384 + 
+			servlev.rab_fail_pss_glm_psnrt6464 + 
+			servlev.rab_fail_pss_glm_psnrt64128 + 
+			servlev.rab_fail_pss_glm_psnrt64384)
+			 / 
+			(servlev.rab_act_pss_gem_1psnrt64_64 + 
+			servlev.rab_act_pss_gem_1psnrt64_128 + 
+			servlev.rab_act_pss_gem_1psnrt64_384 + 
+			servlev.rab_act_pss_glm_1psnrt64_64 + 
+			servlev.rab_act_pss_glm_1psnrt64_128 + 
+			servlev.rab_act_pss_glm_1psnrt64_384 + 
+			servlev.rab_act_cs_conv_1psnrt64_64 + 
+			servlev.rab_act_cs_conv_1psnrt64_128 + 
+			servlev.rab_act_cs_conv_1psnrt64_384 + 
+			servlev.rab_fail_csconv_psnrt6464 + 
+			servlev.rab_fail_csconv_psnrt64128 + 
+			servlev.rab_fail_csconv_psnrt64384 + 
+			servlev.rab_fail_pss_gem_psnrt6464 + 
+			servlev.rab_fail_pss_gem_psnrt64128 + 
+			servlev.rab_fail_pss_gem_psnrt64384 + 
+			servlev.rab_fail_pss_glm_psnrt6464 + 
+			servlev.rab_fail_pss_glm_psnrt64128 + 
+			servlev.rab_fail_pss_glm_psnrt64384))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Success Ratio, Multi RAB containing RT+NRT Service, from Network Perspective]]></title>
+      <use><![CDATA[RAB Success Ratio for Multi RAB containing RT +NRT Service [%] over the reporting period. Covers RAB Active Phase of a call. This KPI is based on Service Level Measurement [2].]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 - 100 * (
+&lt;br&gt;  sum( RAB_FAIL_CSCONV_PSNRT6464
+&lt;br&gt;  + RAB_FAIL_CSCONV_PSNRT64128
+&lt;br&gt;  + RAB_FAIL_CSCONV_PSNRT64384
+&lt;br&gt;  + RAB_FAIL_PSS_GEM_PSNRT6464
+&lt;br&gt;  + RAB_FAIL_PSS_GEM_PSNRT64128
+&lt;br&gt;  + RAB_FAIL_PSS_GEM_PSNRT64384
+&lt;br&gt;  + RAB_FAIL_PSS_GLM_PSNRT6464
+&lt;br&gt;  + RAB_FAIL_PSS_GLM_PSNRT64128
+&lt;br&gt;  + RAB_FAIL_PSS_GLM_PSNRT64384 )
+&lt;br&gt; ------------------------------------------------------------
+&lt;br&gt;  sum( RAB_ACT_PSS_GEM_1PSNRT64_64
+&lt;br&gt;  + RAB_ACT_PSS_GEM_1PSNRT64_128
+&lt;br&gt;  + RAB_ACT_PSS_GEM_1PSNRT64_384
+&lt;br&gt;  + RAB_ACT_PSS_GLM_1PSNRT64_64
+&lt;br&gt;  + RAB_ACT_PSS_GLM_1PSNRT64_128
+&lt;br&gt;  + RAB_ACT_PSS_GLM_1PSNRT64_384
+&lt;br&gt;  + RAB_ACT_CS_CONV_1PSNRT64_64
+&lt;br&gt;  + RAB_ACT_CS_CONV_1PSNRT64_128
+&lt;br&gt;  + RAB_ACT_CS_CONV_1PSNRT64_384
+&lt;br&gt;  + RAB_FAIL_CSCONV_PSNRT6464
+&lt;br&gt;  + RAB_FAIL_CSCONV_PSNRT64128
+&lt;br&gt;  + RAB_FAIL_CSCONV_PSNRT64384
+&lt;br&gt;  + RAB_FAIL_PSS_GEM_PSNRT6464
+&lt;br&gt;  + RAB_FAIL_PSS_GEM_PSNRT64128
+&lt;br&gt;  + RAB_FAIL_PSS_GEM_PSNRT64384
+&lt;br&gt;  + RAB_FAIL_PSS_GLM_PSNRT6464
+&lt;br&gt;  + RAB_FAIL_PSS_GLM_PSNRT64128
+&lt;br&gt;  + RAB_FAIL_PSS_GLM_PSNRT64384 )
+&lt;br&gt;  )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Success Ratio, Multi RAB containing RT+NRT Service, from Network Perspective]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

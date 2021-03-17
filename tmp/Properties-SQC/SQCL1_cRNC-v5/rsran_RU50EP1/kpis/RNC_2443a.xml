@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/INTSYSHO.xml" />
+  <kpi name="RNC_2443a">
+    <formula>100*decode(
+			(intsysho.if_hho_att_lb_capa_dl_nrt),0,null, 
+
+			(intsysho.condr_if_hho_lb_capa_dl_nrt)
+			 / 
+			(intsysho.if_hho_att_lb_capa_dl_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[RRC connections DR during LB IFHO due to CapaReqRejRateDL > LHOcapaReqRejRateDL by UEs with NRT]]></title>
+      <use><![CDATA[RRC connections drop ratio duringLoad Based inter-frequency handover due to CapaReqRejRateDL > LHOcapaReqRejRateDL success ratio - by UEs with non-real time connection]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(CONDR_IF_HHO_LB_CAPA_DL_NRT)
+&lt;br&gt;------------------------------------
+&lt;br&gt;SUM(IF_HHO_ATT_LB_CAPA_DL_NRT)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_INTSYSHO_{obj_agg}_{time_agg},nokrww_ps_INTSHORN_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:40.749 +0100</date>
+          <comment><![CDATA[Source: RSRAN049.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>LB IFHO Cap DL DR NRT</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CAPAUSE.xml" />
+  <kpi name="RNC_1562a">
+    <formula>decode(
+			(capause.amr_lic_capacity),0,null, 
+
+			(100*(capause.amr_average)
+			 / 
+			(capause.amr_lic_capacity)))</formula>
+    <kpi_info>
+      <title><![CDATA[AMR Call capacity usage ratio]]></title>
+      <use><![CDATA[This KPI provides information about the AMR call capacity usage ratio, by doing the comparison between the average number of AMR Calls against the Licensed AMR Call capacity in RNC.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* SUM(AMR_AVERAGE)
+&lt;br&gt;------------------------
+&lt;br&gt;SUM(AMR_LIC_CAPACITY)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_capause_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>AMR Call Cap Usg Ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

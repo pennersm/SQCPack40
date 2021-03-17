@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TCPIP.xml" />
+  <kpi name="MGW_509b">
+    <formula>100*decode(
+			(tcpip.tcps_connattempt + 
+			tcpip.tcps_accepts),0,null, 
+
+			(tcpip.tcps_connects
+			 / 
+			(tcpip.tcps_connattempt + 
+			tcpip.tcps_accepts)))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of successfully established TCP connections]]></title>
+      <use><![CDATA[Percentage of overall successfully established TCP connections (passive + active)]]></use>
+
+<use_experience><![CDATA[ 
+<br>BM
+<br>LAST UPDATE: 23-09-2008
+<br>THEORETICAL SUMMARY LEVELS: PLMN, MGW,Unit_type
+<br>RECOMMENDED TIME SUMMARY LEVELS: Total; day; dailyBH; hour
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): TCP/IP protocol measurement
+<br>M563
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum(TCPS_CONNECTS) /sum ( TCPS_CONNATTEMPT + TCPS_ACCEPTS )</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_tcpip_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Percentage of successfully established TCP connections]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

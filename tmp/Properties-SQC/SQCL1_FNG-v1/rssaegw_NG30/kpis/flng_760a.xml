@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/CSRS_ext.xml" />
+  <kpi name="flng_760a">
+    <formula>decode( 
+			((CSRS_ext.gtpcv2_cre_sess_resp_sent)),0,NULL, 
+	
+			(CSRS_ext.gtpcv2_cre_sess_resp_sent -
+			( CSRS_ext.gtpcv2_cre_sess_resp_sent_16 +
+			  CSRS_ext.gtpcv2_cre_sess_resp_sent_18 +
+			  CSRS_ext.gtpcv2_cre_sess_resp_sent_72 +
+			  CSRS_ext.gtpcv2_cre_sess_resp_sent_73 +
+			  CSRS_ext.gtpcv2_cre_sess_resp_sent_84 )) 
+			/ 
+			(CSRS_ext.gtpcv2_cre_sess_resp_sent))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses sent "others" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent with all other cause codes (16, 18, 72, 73 and 84 are excluded) when compared to total number of GTP-C v2 create session response messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(GTPCV2_CRE_SESS_RESP_SENT) -
+<br>	  ( sum(decode(csrs_id,('16' or 'cs_1_16'),GTPCV2_CRE_SESS_RESP_SENT,0)) +
+<br>	  	sum(decode(csrs_id,('18' or 'cs_1_18'),GTPCV2_CRE_SESS_RESP_SENT,0)) +
+<br>  		sum(decode(csrs_id,('72' or 'cs_1_72'),GTPCV2_CRE_SESS_RESP_SENT,0)) +
+<br>  		sum(decode(csrs_id,('73' or 'cs_1_73'),GTPCV2_CRE_SESS_RESP_SENT,0)) +
+<br>  		sum(decode(csrs_id,('84' or 'cs_1_84'),GTPCV2_CRE_SESS_RESP_SENT,0)) ) 
+<br>--------------------------------------------------------------------------- *100
+<br>sum(GTPCV2_CRE_SESS_RESP_SENT)
+<br>
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Cre Sess resp sent oth rat]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

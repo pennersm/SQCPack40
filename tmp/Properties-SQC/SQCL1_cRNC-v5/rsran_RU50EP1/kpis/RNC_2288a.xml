@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <kpi name="RNC_2288a">
+    <formula>100*decode(
+			(pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr),0,null, 
+
+			(pktcall.d_d_req_d_d_allo_int + 
+			pktcall.d_d_req_d_d_allo_bgr)
+			 / 
+			(pktcall.ps_att_dch_dch_int + 
+			pktcall.ps_att_dch_dch_bgr))</formula>
+    <kpi_info>
+      <title><![CDATA[R99 Setup Success Ratio from user perspective for NRT]]></title>
+      <use><![CDATA[R99 Setup Success Ratio for Interactive and Background Services [%] from user perspective over the reporting period.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*
+&lt;br&gt;sum(D_D_REQ_D_D_ALLO_INT + 
+&lt;br&gt;D_D_REQ_D_D_ALLO_BGR)
+&lt;br&gt;--------------------------
+&lt;br&gt;sum(PS_ATT_DCH_DCH_INT + 
+&lt;br&gt;PS_ATT_DCH_DCH_BGR)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:53.276 +0100</date>
+          <comment><![CDATA[Source: RSRAN101.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>R99 stp SR Usr</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

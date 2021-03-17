@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml">
+    <counters>
+      <!-- mob_vlr42b -->
+      <counter alias="mob_vlr42b">
+		sum(InterVLRHSGSMAttempt + 
+			InterVLRRSGSMAttempt)
+	  </counter>
+	  <!-- msc_435a -->
+      <counter alias="msc_435a">
+		sum(InterVLRHsumTSAttempt + 
+			InterVLRRsumTSAttempt)
+	  </counter>
+    </counters>
+  </temp_table_ref>
+  
+  <kpi name="msc_488b">
+    <formula>vlr1msc.mob_vlr42b +vlr1msc.msc_435a</formula>
+    <kpi_info>
+      <title><![CDATA[Inter-VLR LU attempts in the target VLR (GSM and UMTS)]]></title>
+      <use><![CDATA[Indicates the total amount of location updates between VLRs. For GSM and UMTS]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum (mob_vlr42b + msc_435a)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}, 
+&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[#]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Inter-VLR LU attempts in the target VLR (GSM and UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

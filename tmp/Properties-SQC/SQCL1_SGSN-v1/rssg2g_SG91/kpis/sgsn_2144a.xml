@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUMM2.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUMM1.xml"/>
+  <kpi name="sgsn_2144a">
+    <formula>decode(
+			((IUMM1.period_duration*60)),0,NULL,((IUMM2.IU_SUCC_INTER_PAPU_RE + 
+			IUMM2.IU_FAIL_INTER_PAPU_RE_SGSN + 
+			IUMM2.IU_FAIL_INTER_PAPU_RE_RNC + 
+			IUMM2.IU_FAIL_INTER_PAPU_RELOC_COLL))
+			 / 
+			((IUMM1.period_duration*60)))</formula>
+    <kpi_info>
+      <title><![CDATA[3G incoming Inter PAPU SRNS relocation requests per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of incoming 3G inter PAPU SRNS request procedures per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum( IU_SUCC_INTER_PAPU_RE + 
+&lt;br&gt;   IU_FAIL_INTER_PAPU_RE_SGSN + 
+&lt;br&gt;   IU_FAIL_INTER_PAPU_RE_RNC + 
+&lt;br&gt;   IU_FAIL_INTER_PAPU_RELOC_COLL )
+&lt;br&gt;------------------------------------
+&lt;br&gt;sum( PERIOD_DURATION * 60 )
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#/s]</unit>
+      <tables>RSG_PS_IUMM2_{OBJ_AGG}_{TIME_AGG}, RSG_PS_IUMM1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[3G in interPAP reloc /s]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

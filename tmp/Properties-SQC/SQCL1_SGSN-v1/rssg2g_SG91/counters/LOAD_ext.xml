@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN load measurement dump</header>
+    <csv_title>Nokia Siemens SGSN load measurement dump</csv_title>
+    <report-description>Load measurement(LOAD)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="load_ext" meas_level="PLMN/SGSN/CU" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+      <counter alias="ave_load_rate_den" symmetrical="true">SUM(ave_load_rate_den)</counter>
+      <counter alias="ave_load_rate_sum" symmetrical="true">SUM(ave_load_rate_sum)</counter>
+	  
+	  <!-- Auxiliary Counters -->
+	  <counter alias="ave_load_rate_den_papu" 
+			   time-alias="ave_load_rate_den_papu"
+			   time-formula="SUM(decode(substr(object_name,1,4),'PAPU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_papu)">
+			   SUM(decode(substr(object_name,1,4),'PAPU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_sum_papu"
+			   time-alias="ave_load_rate_sum_papu" 
+			   time-formula="SUM(decode(substr(object_name,1,4),'PAPU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_papu)">
+			   SUM(decode(substr(object_name,1,4),'PAPU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_den_smmu"
+			   time-alias="ave_load_rate_den_smmu"
+			   time-formula="SUM(decode(substr(object_name,1,4),'SMMU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_smmu)">
+			   SUM(decode(substr(object_name,1,4),'SMMU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>
+	  <counter alias="ave_load_rate_sum_smmu"
+			   time-alias="ave_load_rate_sum_smmu" 
+			   time-formula="SUM(decode(substr(object_name,1,4),'SMMU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_smmu)">
+			   SUM(decode(substr(object_name,1,4),'SMMU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_den_mchu"
+			   time-alias="ave_load_rate_den_mchu" 
+			   time-formula="SUM(decode(substr(object_name,1,4),'MCHU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_mchu)">
+			   SUM(decode(substr(object_name,1,4),'MCHU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>
+	  <counter alias="ave_load_rate_sum_mchu"
+			   time-alias="ave_load_rate_sum_mchu" 
+			   time-formula="SUM(decode(substr(object_name,1,4),'MCHU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_mchu)">
+			   SUM(decode(substr(object_name,1,4),'MCHU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_den_gbu"
+			   time-alias="ave_load_rate_den_gbu" 
+			   time-formula="SUM(decode(substr(object_name,1,3),'GBU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_gbu)">
+			   SUM(decode(substr(object_name,1,3),'GBU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_sum_gbu"
+			   time-alias="ave_load_rate_sum_gbu"
+			   time-formula="SUM(decode(substr(object_name,1,3),'GBU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_gbu)">
+			   SUM(decode(substr(object_name,1,3),'GBU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_den_ippu"
+			   time-alias="ave_load_rate_den_ippu"
+			   time-formula="SUM(decode(substr(object_name,1,4),'IPPU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_ippu)">
+			   SUM(decode(substr(object_name,1,4),'IPPU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_sum_ippu"
+			   time-alias="ave_load_rate_sum_ippu"
+			   time-formula="SUM(decode(substr(object_name,1,4),'IPPU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_ippu)">
+			   SUM(decode(substr(object_name,1,4),'IPPU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_den_omu"
+			   time-alias="ave_load_rate_den_omu"
+			   time-formula="SUM(decode(substr(object_name,1,3),'OMU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_omu)">
+			   SUM(decode(substr(object_name,1,3),'OMU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>	  
+      <counter alias="ave_load_rate_sum_omu"
+			   time-alias="ave_load_rate_sum_omu" 
+			   time-formula="SUM(decode(substr(object_name,1,3),'OMU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_omu)">			   
+			   SUM(decode(substr(object_name,1,3),'OMU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_den_mmdu"
+			   time-alias="ave_load_rate_den_mmdu"
+			   time-formula="SUM(decode(substr(object_name,1,4),'MMDU',decode(object_state,0,ave_load_rate_den,0),0))"
+			   object-formula="SUM(ave_load_rate_den_mmdu)">
+			   SUM(decode(substr(object_name,1,4),'MMDU',decode(object_state,0,ave_load_rate_den,0),0))
+	  </counter>
+      <counter alias="ave_load_rate_sum_mmdu"
+			   time-alias="ave_load_rate_sum_mmdu"
+			   time-formula="SUM(decode(substr(object_name,1,4),'MMDU',decode(object_state,0,ave_load_rate_sum,0),0))"
+			   object-formula="SUM(ave_load_rate_sum_mmdu)">
+			   SUM(decode(substr(object_name,1,4),'MMDU',decode(object_state,0,ave_load_rate_sum,0),0))
+	  </counter>
+    </counters>
+	
+	<table_name>rsg_ps_load_cu_{TIME_AGG}</table_name>
+    <alias_name>load_ext</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>load_ext.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)" >AVG(period_duration)</formula>
+      <unit />
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_den">
+    <formula>load_ext.ave_load_rate_den</formula>
+    <kpi_info>
+      <title>ave_load_rate_den</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ave_load_rate_den)</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum">
+    <formula>load_ext.ave_load_rate_sum</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(ave_load_rate_sum)</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+
+  <!-- Auxiliary Counters -->
+  <kpi name="ave_load_rate_den_papu">
+    <formula>load_ext.ave_load_rate_den_papu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_papu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'PAPU',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_papu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_papu">
+    <formula>load_ext.ave_load_rate_sum_papu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_papu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'PAPU',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_papu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="ave_load_rate_den_smmu">
+    <formula>load_ext.ave_load_rate_den_smmu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_smmu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'SMMU',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_smmu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_smmu">
+    <formula>load_ext.ave_load_rate_sum_smmu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_smmu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'SMMU',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_smmu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="ave_load_rate_den_mchu">
+    <formula>load_ext.ave_load_rate_den_mchu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_mchu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'MCHU',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_mchu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_mchu">
+    <formula>load_ext.ave_load_rate_sum_mchu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_mchu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'MCHU',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_mchu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="ave_load_rate_den_gbu">
+    <formula>load_ext.ave_load_rate_den_gbu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_gbu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,3),'GBU',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_gbu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_gbu">
+    <formula>load_ext.ave_load_rate_sum_gbu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_gbu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,3),'GBU',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_gbu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>  
+  <kpi name="ave_load_rate_den_ippu">
+    <formula>load_ext.ave_load_rate_den_ippu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_ippu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'IPPU',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_ippu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_ippu">
+    <formula>load_ext.ave_load_rate_sum_ippu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_ippu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'IPPU',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_ippu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_den_omu">
+    <formula>load_ext.ave_load_rate_den_omu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_omu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,3),'OMU',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_omu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_omu">
+    <formula>load_ext.ave_load_rate_sum_omu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_omu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,3),'OMU',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_omu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+    <kpi name="ave_load_rate_den_mmdu">
+    <formula>load_ext.ave_load_rate_den_mmdu</formula>
+    <kpi_info>
+      <title>ave_load_rate_den_mmdu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'mmdu',decode(object_state,0,ave_load_rate_den,0),0))</formula>
+      <unit>No.</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_den_mmdu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="ave_load_rate_sum_mmdu">
+    <formula>load_ext.ave_load_rate_sum_mmdu</formula>
+    <kpi_info>
+      <title>ave_load_rate_sum_mmdu</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(decode(substr(object_name,1,4),'mmdu',decode(object_state,0,ave_load_rate_sum,0),0))</formula>
+      <unit>%</unit>
+      <tables>rsg_ps_load_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ave_load_rate_sum_mmdu</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

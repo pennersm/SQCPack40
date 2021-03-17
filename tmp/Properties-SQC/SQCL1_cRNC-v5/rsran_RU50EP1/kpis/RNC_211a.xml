@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_211a">
+    <formula>decode(
+			(softho.cell_repl_fail_on_sho_nrt + 
+			softho.cell_repl_req_on_sho_for_nrt),0,null, 
+
+			100*(softho.cell_repl_fail_on_sho_nrt)
+			 / 
+			(softho.cell_repl_fail_on_sho_nrt + 
+			softho.cell_repl_req_on_sho_for_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of 1c events from all, NRT]]></title>
+      <use><![CDATA[Percentage of periodical reports from all reports triggered by event 1c (NW has not handled the first report sent by UE), NRT.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      100 * sum (CELL_REPL_FAIL_ON_SHO_NRT) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;          sum (CELL_REPL_FAIL_ON_SHO_NRT 
+&lt;br&gt;          + CELL_REPL_REQ_ON_SHO_FOR_NRT )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_softho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Ratio of 1c events from all, NRT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

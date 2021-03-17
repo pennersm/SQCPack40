@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/PTHR.xml" />
+  <kpi name="sgsn_598a">
+    <formula>decode(
+			(pthr.iu_avg_rab_amount_den),0,NULL, 
+
+			(pthr.iu_avg_rab_amount_sum
+			 / 
+			pthr.iu_avg_rab_amount_den))</formula>
+    <kpi_info>
+      <title><![CDATA[Average RABs, Traffic/Bearer Class]]></title>
+      <use><![CDATA[This KPI shows the average number of RABs per traffic/bearer class.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum( IU_AVG_RAB_AMOUNT_SUM )
+&lt;br&gt;-----------------------------------------------------------------
+&lt;br&gt;avg( IU_AVG_RAB_AMOUNT_DEN ) * count(distinct period_start_time)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_papu_throughput</formula>
+      <unit>[#]</unit>
+      <tables>rsg_ps_pthr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg RABs, TC/BC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LCELLD.xml" />
+  <temp_table_ref src="rslte_RL50/counters/OBJCOUNT.xml" />
+  <kpi name="LTE_5241a">
+    <formula>decode(
+			lcelld.denom_active_ue,0,null, 
+
+			lcelld.sum_active_ue
+			 / 
+			lcelld.denom_active_ue)*objcount.lncel_count</formula>
+    <kpi_info>
+      <title><![CDATA[Average number of active UEs]]></title>
+      <use><![CDATA[The average number of active UEs. A UE is active if at least a single non-GBR DRB has been successfully configured for it.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;SUM_ACTIVE_UE
+&lt;br&gt;/
+&lt;br&gt;DENOM_ACTIVE_UE</formula>
+      <unit>[#]</unit>
+      <tables>NOKLTE_PS_LCELLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/26 00:51:08.870 +0100</date>
+          <comment><![CDATA[Source: RSLTE027.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Avg act UE</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

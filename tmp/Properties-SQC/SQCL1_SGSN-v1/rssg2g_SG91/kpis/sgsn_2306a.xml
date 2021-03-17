@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/MOBMGMN2.xml"/>
+  <kpi name="sgsn_2306a">
+    <formula>decode(
+			((MOBMGMN2.SUCC_IN_RAU_MME_TO_2GSGSN + 
+			MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN)),0,NULL,((MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN))
+			 / 
+			((MOBMGMN2.SUCC_IN_RAU_MME_TO_2GSGSN + 
+			MOBMGMN2.FAIL_IN_RAU_MME_TO_2GSGSN)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[4G to 2G MME-SGSN RA update failure ratio, e2e]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of the incoming 4G to 2G MME to SGSN routing area updates over S3 interface. All failures caused by ME, MS and network are included.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(FAIL_IN_RAU_MME_TO_2GSGSN)
+&lt;br&gt;--------------------------------- *100
+&lt;br&gt;sum(SUCC_IN_RAU_MME_TO_2GSGSN + 
+&lt;br&gt;   FAIL_IN_RAU_MME_TO_2GSGSN)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_MOBMGMN2_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[4G2G MME-SGS RAU FR, e2e]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

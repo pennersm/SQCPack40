@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="/rsmgw/counters/RTPRTIP.xml" />
+  <kpi name="mgw_1097b">
+    <formula>decode(
+			(rtprtip.ipbr_lost_rtp_packets + 
+			rtprtip.ipbr_received_rtp_packets +
+			nvl(rtprtip.ipbr_rec_rtp_hc_packets,0)),0,null, 
+
+			(100*(rtprtip.ipbr_received_rtp_packets +
+			nvl(rtprtip.ipbr_rec_rtp_hc_packets,0))
+			 / 
+			(rtprtip.ipbr_lost_rtp_packets + 
+			rtprtip.ipbr_received_rtp_packets +
+			nvl(rtprtip.ipbr_rec_rtp_hc_packets,0))))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[RTP data packet received ratio for IP Based Route]]></title>
+      <use><![CDATA[RTP data packet received ratio for IP Based Route.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;                 SUM(IPBR_RECEIVED_RTP_PACKETS + IPBR_REC_RTP_HC_PACKETS)
+&lt;br&gt;100 *  ----------------------------------------------------------------------
+&lt;br&gt;       SUM(IPBR_LOST_RTP_PACKETS + IPBR_RECEIVED_RTP_PACKETS + IPBR_REC_RTP_HC_PACKETS)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>NOKMWW_PS_RTPRTIP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/09/06 15:37:14.556 +0100</date>
+          <comment><![CDATA[Source: RSMGW033b.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Rcv RTP pckt IP Based Route rt</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

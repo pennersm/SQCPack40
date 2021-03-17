@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNS NS2.2;NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M60 S11 measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNS NS2.2;NS2.1;NS2.0;NS1.0 CD4;NS1.0 CD2 M60 S11 measurement dump</csv_title>
+    <report-description>S11 Interface Measurement (S11)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <S11_GTP2_MSG_RCV />
+    <S11_GTP2_MSG_SENT />
+    <S11_GTP2_MSG_DECODE_FAIL />
+  </column_order>
+  <temp_table name="S11" meas_level="PLMN/FLEXINS" type="PM" master="yes" pragma="pcofns" create="yes">
+    <koala_meas_id_list>S11</koala_meas_id_list>
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="S11_GTP2_MSG_RCV">SUM(S11_GTP2_MSG_RCV)</counter>
+      <counter alias="S11_GTP2_MSG_SENT">SUM(S11_GTP2_MSG_SENT)</counter>
+      <counter alias="S11_GTP2_MSG_DECODE_FAIL">SUM(S11_GTP2_MSG_DECODE_FAIL)</counter>
+    </counters>
+    <table_name>pcofns_ps_s11_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>S11</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>S11.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofns_ps_s11_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="S11_GTP2_MSG_RCV">
+    <formula>S11.S11_GTP2_MSG_RCV</formula>
+    <kpi_info>
+      <title>S11_GTP2_MSG_RCV</title>
+      <use>Number of S11 messages received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S11_GTP2_MSG_RCV)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_s11_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S11_GTP2_MSG_RCV (M60C000)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="S11_GTP2_MSG_SENT">
+    <formula>S11.S11_GTP2_MSG_SENT</formula>
+    <kpi_info>
+      <title>S11_GTP2_MSG_SENT</title>
+      <use>Number of S11 messages sent.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S11_GTP2_MSG_SENT)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_s11_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S11_GTP2_MSG_SENT (M60C001)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="S11_GTP2_MSG_DECODE_FAIL">
+    <formula>S11.S11_GTP2_MSG_DECODE_FAIL</formula>
+    <kpi_info>
+      <title>S11_GTP2_MSG_DECODE_FAIL</title>
+      <use>Number of S11 messages with decoding failure.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(S11_GTP2_MSG_DECODE_FAIL)</formula>
+      <unit>#</unit>
+      <tables>pcofns_ps_s11_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>S11_GTP2_MSG_DECODE_FAIL (M60C002)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

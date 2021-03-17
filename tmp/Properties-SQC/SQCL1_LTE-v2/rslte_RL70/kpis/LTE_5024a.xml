@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5024a">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth),0,null, 
+
+			(lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth)
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth))</formula>
+    <kpi_info>
+      <title>E-UTRAN E-RAB Normal Release Ratio RAN View</title>
+      <use><![CDATA[This KPI describes the ratio of normally released E-RABs from RAN point of view.]]></use>
+      <formula><![CDATA[100*sum(ENB_EPS_BEARER_REL_REQ_NORM+  ENB_EPSBEAR_REL_REQ_RNL_REDIR+  EPC_EPS_BEARER_REL_REQ_NORM+  EPC_EPS_BEARER_REL_REQ_DETACH+  EPC_EPS_BEARER_REL_REQ_RNL+  EPC_EPS_BEARER_REL_REQ_OTH) / sum([EPC_EPS_BEARER_REL_REQ_NORM+  EPC_EPS_BEARER_REL_REQ_DETACH+  EPC_EPS_BEARER_REL_REQ_RNL+  EPC_EPS_BEARER_REL_REQ_OTH +  ENB_EPSBEAR_REL_REQ_RNL_REDIR+  ENB_EPS_BEARER_REL_REQ_NORM +  ENB_EPS_BEARER_REL_REQ_RNL+  ENB_EPS_BEARER_REL_REQ_TNL+  ENB_EPS_BEARER_REL_REQ_OTH)]]></formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_lepsb_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[omc]]></author>
+          <date>2010/10/21 10:38:17.326 +0100</date>
+          <comment />
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_alias>E-UTRAN E-RAB Normal Release Ratio RAN View</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

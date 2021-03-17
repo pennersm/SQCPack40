@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>IPCAC (IP CAC)</header>
+    <csv_title>IPCAC (IP CAC)</csv_title>
+    <report-description>768/300H IP CAC Measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <IP_ATTEMPTS />
+    <IP_RESERVED_AVG />
+    <IP_RESERVED_PEAK />
+    <IP_ATTS_REJECTED_EXT_IP_CAC />
+    <IP_ATTS_REJECTED_OTHER />
+  </column_order>
+  <temp_table name="IPCAC" meas_level="PLMN/RSMGW-MGW_A1" type="PM" master="yes" pragma="RSMGW" create="yes">
+    <koala_meas_id_list>IPCAC</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration"  time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)"  itk_id="period_duration">SUM(period_duration)</counter>
+          <counter alias="IP_ATTEMPTS"  symmetrical="true"  itk_id="IP_ATTEMPTS">SUM(IP_ATTEMPTS)</counter>
+          <counter alias="IP_RESERVED_AVG"  symmetrical="true"  itk_id="IP_RESERVED_AVG">AVG(IP_RESERVED_AVG)</counter>
+          <counter alias="IP_RESERVED_PEAK"  symmetrical="true"  itk_id="IP_RESERVED_PEAK">MAX(IP_RESERVED_PEAK)</counter>
+          <counter alias="IP_ATTS_REJECTED_EXT_IP_CAC"  symmetrical="true"  itk_id="IP_ATTS_REJECTED_EXT_IP_CAC">SUM(IP_ATTS_REJECTED_EXT_IP_CAC)</counter>
+          <counter alias="IP_ATTS_REJECTED_OTHER"  symmetrical="true"  itk_id="IP_ATTS_REJECTED_OTHER">SUM(IP_ATTS_REJECTED_OTHER)</counter>
+    </counters>
+    <table_name>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>IPCAC</alias_name>
+  </temp_table>
+  <kpi name="period_duration" itk_id="period_duration">
+    <formula>IPCAC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IP_ATTEMPTS" itk_id="IP_ATTEMPTS">
+    <formula>IPCAC.IP_ATTEMPTS</formula>
+    <kpi_info>
+      <title>IP_ATTEMPTS (M768C0)</title>
+      <use>The number of IP termination reservation attempts in MGW. This counter shows how many successful or unsuccessful IP termination reservation attempts have been made in MGW. When IP termination reservation request(H.248 AddReq) has been received in MGW.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IP_ATTEMPTS)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IP_ATTEMPTS (M768C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IP_RESERVED_AVG" itk_id="IP_RESERVED_AVG">
+    <formula>IPCAC.IP_RESERVED_AVG</formula>
+    <kpi_info>
+      <title>IP_RESERVED_AVG (M768C1)</title>
+      <use>The average value of simultaneously active IP terminations in MGW during one result accumulation period. Samples are taken from simultaneously active IP terminations count in every 20 seconds and average value is calculated at the end of each Result Accumulation Period.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(IP_RESERVED_AVG)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IP_RESERVED_AVG (M768C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IP_RESERVED_PEAK" itk_id="IP_RESERVED_PEAK">
+    <formula>IPCAC.IP_RESERVED_PEAK</formula>
+    <kpi_info>
+      <title>IP_RESERVED_PEAK (M768C2)</title>
+      <use>The highest number of simultaneously active IP terminations in MGW during one result accumulation period. When simultaneously active IP terminations count reaches new high value.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(IP_RESERVED_PEAK)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IP_RESERVED_PEAK (M768C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IP_ATTS_REJECTED_EXT_IP_CAC" itk_id="IP_ATTS_REJECTED_EXT_IP_CAC">
+    <formula>IPCAC.IP_ATTS_REJECTED_EXT_IP_CAC</formula>
+    <kpi_info>
+      <title>IP_ATTS_REJECTED_EXT_IP_CAC (M768C3)</title>
+      <use>The number of unsuccessful IP termination reservation attempts which have been rejected by External IP CAC( Connection Admission Control ) in MGW. When IP termination reservation attempt has been rejected by external IP CAC at MGW level limit.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IP_ATTS_REJECTED_EXT_IP_CAC)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IP_ATTS_REJECTED_EXT_IP_CAC (M768C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="IP_ATTS_REJECTED_OTHER" itk_id="IP_ATTS_REJECTED_OTHER">
+    <formula>IPCAC.IP_ATTS_REJECTED_OTHER</formula>
+    <kpi_info>
+      <title>IP_ATTS_REJECTED_OTHER (M768C4)</title>
+      <use>The number of unsuccessful IP termination reservation attempts which have been rejected by other reason than external IP CAC( Connection Admission Control ) in MGW. When IP termination reservation attempt has been rejected by other reason than IP CAC limit e.g. MGW has no internal resources, UP init procedure fails, IPBCP tunnelling negotiation fails.
+      </use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(IP_ATTS_REJECTED_OTHER)</formula>
+      <unit>No.</unit>
+      <tables>nokmww_ps_ipcac_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>IP_ATTS_REJECTED_OTHER (M768C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>

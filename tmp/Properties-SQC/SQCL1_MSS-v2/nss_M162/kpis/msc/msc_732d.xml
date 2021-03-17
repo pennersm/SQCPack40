@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_732d">
+    <formula>
+decode(tc_ext.tcat_traffx100_13,0,null,
+	100 * tc_ext.tcat_traffx100_15/100 / ((tc_ext.tcat_traffx100_13)/100)
+) 
+	</formula>
+    <kpi_info>
+      <title><![CDATA[INDA calls ratio - traf rel]]></title>
+      <use><![CDATA[Ratio of all INDA  calls in Erlangs ratio]]></use>
+
+		<use_experience><![CDATA[ 
+		<br>Tcat_ID:
+		<br>55 = INDA = Indirect Access service is used
+		<br>
+		<br>Starting from M15.1 NE version, in the denominator related part, the KPI ID reference to be used is the msc_2156a and no longer the msc_571c.
+		<br>This change does not produce any impact into the KPI formula content/algorithm. This is just a KPI ID adjustment.
+		<br> 
+		<br>RECOMMENDED SUMMARY LEVELS: MSC
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+		<br>
+		<br>NOTE1: This KPI includes counters from OPTIONAL feature; Traffic Category for INDA.
+		<br>NOTE2: This KPI replaces previous msc_732b.
+		<br>
+		<br>]]></use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+
+      	<formula>
+      	&lt;br&gt;
+      	&lt;br&gt;For Time level:
+      	&lt;br&gt;
+      	&lt;br&gt; AVG( tcat_traffx100/100 )
+		&lt;br&gt; ;WHERE traffic_category_id = 55
+		&lt;br&gt;--------------------------------- * 100
+		&lt;br&gt;           msc_2156a
+		&lt;br&gt;
+      	&lt;br&gt;For Object level:
+      	&lt;br&gt;
+      	&lt;br&gt; SUM( tcat_traffx100/100 )
+		&lt;br&gt; ;WHERE traffic_category_id = 55
+		&lt;br&gt;--------------------------------- * 100
+		&lt;br&gt;           msc_2156
+		&lt;br&gt;
+		&lt;br&gt;Counters from view(s):
+		&lt;br&gt;RNS_PS_TC_{Object}_{Time}
+		&lt;br&gt;
+		</formula>
+		
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>INDA calls traf ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1867B">
+    <formula>1000*decode(
+					(servlev.denom_rab_hld_tm_cs_voice),0,null, 
+
+					servlev.avg_rab_hld_tm_cs_voice
+					/ 
+					(servlev.denom_rab_hld_tm_cs_voice*100*60*60)
+						)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Average CS Voice traffic per call]]></title>
+      <use><![CDATA[This KPI provides information about the average CS Voice traffic per call.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      1000 * sum (avg_rab_hld_tm_cs_voice)
+&lt;br&gt;-------------------------------------------------
+&lt;br&gt;(sum (denom_rab_hld_tm_cs_voice) * 100 * 60 * 60)
+&lt;br&gt;</formula>
+      <unit>[Seconds]</unit>
+      <tables>nokrww_ps_SERVLEV_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:35.844 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CS Voice per call</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

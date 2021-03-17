@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_467b">
+    <formula>decode(
+			(vlr1msc.imsiattachgsmattempt + 
+			vlr1msc.imsiattachumtsattempt),0,null, 
+
+			(100*(vlr1msc.imsiattachgsmattempt + 
+			vlr1msc.imsiattachumtsattempt - 
+			vlr1msc.imsiattachgsmsucc - 
+			vlr1msc.imsiattachumtssucc)
+			 / 
+			(vlr1msc.imsiattachgsmattempt + 
+			vlr1msc.imsiattachumtsattempt)))</formula>
+    <kpi_info>
+      <title><![CDATA[Average IMSI attach failure ratio in the target VLR (GSM and UMTS)]]></title>
+      <use><![CDATA[Indicates the share of failed IMSI attaches. for GSM and UMTS]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;          sum(
+&lt;br&gt;              IMSIAttachGSMAttempt
+&lt;br&gt;            + IMSIAttachUMTSAttempt)
+&lt;br&gt;         -sum(
+&lt;br&gt;              IMSIAttachGSMSucc
+&lt;br&gt;            + IMSIAttachUMTSSucc)
+&lt;br&gt;   100* --------------------------------------------------
+&lt;br&gt;         sum(
+&lt;br&gt;              IMSIAttachGSMAttempt
+&lt;br&gt;            + IMSIAttachUMTSAttempt)
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_VLR1MSC_MSC_{time_agg}
+&lt;br&gt;RNS_PS_VR1MCBH_MSC_{time_agg}</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Average IMSI attach failure ratio in the target VLR (GSM and UMTS)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

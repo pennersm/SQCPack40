@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M661 M3UASGS measurement dump</header>
+    <csv_title>Nokia Siemens SGSN SG8.0;SG7.0;SG6.0;SG5.0 M661 M3UASGS measurement dump</csv_title>
+    <report-description>M3UA association set measurement(M3UASGS)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <M3UA_ASSO_SET_UNAVAILABLE_TIME />
+    <M3UA_ASSO_SET_UNAVAILABLE />
+    <!--M3UA_OCTETS_RECEIVED />
+    <M3UA_OCTETS_SENT /-->
+    <M3UASGI_PERIOD_DURATION />
+  </column_order>
+  <temp_table name="M3UASGS" meas_level="PLMN/SGSN/ASSOSET" type="PM" master="yes" pragma="rssg2g" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="M3UA_ASSO_SET_UNAVAILABLE_TIME" symmetrical="true">SUM(M3UA_ASSO_SET_UNAVAILABLE_TIME)</counter>
+      <counter alias="M3UA_ASSO_SET_UNAVAILABLE" symmetrical="true">SUM(M3UA_ASSO_SET_UNAVAILABLE)</counter>
+<!--      <counter alias="M3UA_OCTETS_RECEIVED" symmetrical="true">SUM(M3UA_OCTETS_RECEIVED)</counter>
+      <counter alias="M3UA_OCTETS_SENT" symmetrical="true">SUM(M3UA_OCTETS_SENT)</counter> -->
+      <counter alias="M3UASGI_PERIOD_DURATION" time-alias="M3UASGI_PERIOD_DURATION" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">AVG(period_duration)*count(distinct period_start_time)</counter>
+    </counters>
+    <table_name>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>M3UASGS</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>M3UASGS.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_ASSO_SET_UNAVAILABLE_TIME">
+    <formula>M3UASGS.M3UA_ASSO_SET_UNAVAILABLE_TIME</formula>
+    <kpi_info>
+      <title>M3UA_ASSO_SET_UNAVAILABLE_TIME</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_ASSO_SET_UNAVAILABLE_TIME)</formula>
+      <unit>sec</unit>
+      <tables>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_ASSO_SET_UNAVAILABLE_TIME (M661B2C1)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_ASSO_SET_UNAVAILABLE">
+    <formula>M3UASGS.M3UA_ASSO_SET_UNAVAILABLE</formula>
+    <kpi_info>
+      <title>M3UA_ASSO_SET_UNAVAILABLE</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_ASSO_SET_UNAVAILABLE)</formula>
+      <unit>No</unit>
+      <tables>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_ASSO_SET_UNAVAILABLE (M661B2C2)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <!-- kpi name="M3UA_OCTETS_RECEIVED">
+    <formula>M3UASGS.M3UA_OCTETS_RECEIVED</formula>
+    <kpi_info>
+      <title>M3UA_OCTETS_RECEIVED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_OCTETS_RECEIVED)</formula>
+      <unit>Byte</unit>
+      <tables>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_OCTETS_RECEIVED (M661B3C5)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="M3UA_OCTETS_SENT">
+    <formula>M3UASGS.M3UA_OCTETS_SENT</formula>
+    <kpi_info>
+      <title>M3UA_OCTETS_SENT</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(M3UA_OCTETS_SENT)</formula>
+      <unit>Byte</unit>
+      <tables>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UA_OCTETS_SENT (M661B3C6)</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi-->
+  <kpi name="M3UASGI_PERIOD_DURATION">
+    <formula>M3UASGS.M3UASGI_PERIOD_DURATION</formula>
+    <kpi_info>
+      <title>M3UASGI_PERIOD_DURATION</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)*count(distinct period_start_time)</formula>
+      <unit />
+      <tables>rsg_ps_m3uasgs_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>M3UASGI_PERIOD_DURATION</kpi_alias>
+    <kpi_format>float:8</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

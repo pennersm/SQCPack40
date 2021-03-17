@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_2017a">
+    <formula>decode(
+			(signtrc.mgw_1000b),0,null, 
+
+			(100*(signtrc.codec_g711_a_30)
+			 / 
+			(signtrc.mgw_1000b)))</formula>
+    <kpi_info>
+      <title><![CDATA[Usage ratio of G.711 a-law codec with 30 ms packetization period.]]></title>
+      <use><![CDATA[Usage ratio of G.711 a-law codec with 30 ms packetization period on Nb (SIP-I) and Mb interfaces.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( CODEC_G711_A_30 )
+&lt;br&gt;--------------------------------------------- x 100
+&lt;br&gt;                  mgw_1000b
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Usg Rt of G711 alaw 30ms</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

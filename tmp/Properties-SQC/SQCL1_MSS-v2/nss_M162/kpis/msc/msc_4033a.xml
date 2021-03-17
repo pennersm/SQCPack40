@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml" />
+  <kpi name="msc_4033a">
+    <formula>
+decode(TC_ext.tcat_call_amount_43 ,0,null,
+	100 * ( TC_ext.tcat_ok_amount_28 / TC_ext.tcat_call_amount_43 )
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[MTC Data Calls Success Ratio]]></title>
+      <use><![CDATA[Provides the ratio of the number of answered calls in relation to the number of attempts for Data services.]]></use>
+
+<use_experience><![CDATA[ 
+<br>TCat_IDs:
+<br>   102 = DATA TERM 2G -> 2G terminating CS data call
+<br>   104 = DATA TERM 3G -> 3G terminating CS data call
+<br>
+<br>Starting from M14.6, the 3G traffic also includes I-HSPA traffic.
+<br>PUBLISHED: M14.3
+<br>LAST UPDATE: 04-03-2010
+<br>THEORETICAL SUMMARY LEVELS: MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: KPI includes both 2G + 3G data call analysis.
+<br>This NSN KPI is partially compliant with ex-S &quot;MTC Data Calls Success Ratio&quot; KPI.
+<br>This KPI makes an overall data service analysis but does not provide a service by service detailed analysis.
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;           SUM( TCAT_OK_AMOUNT ) 
+&lt;br&gt;              ;WHERE TCat_ID = 102, 104
+&lt;br&gt;100 *  ----------------------------
+&lt;br&gt;           SUM( TCAT_CALL_AMOUNT )
+&lt;br&gt;              ;WHERE TCat_ID = 102, 104
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MTC data calls SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

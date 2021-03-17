@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <kpi name="LTE_5238b">
+    <formula>100*decode(
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			nvl(lepsb.pre_empt_gbr_bearer,0) + 
+			nvl(lepsb.pre_empt_non_gbr_bearer,0)),0,null, 
+
+			lepsb.epc_eps_bearer_rel_req_oth
+			 / 
+			(lepsb.epc_eps_bearer_rel_req_norm + 
+			lepsb.epc_eps_bearer_rel_req_detach + 
+			lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_epsbear_rel_req_rnl_redir + 
+			lepsb.enb_eps_bearer_rel_req_norm + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth + 
+			nvl(lepsb.pre_empt_gbr_bearer,0) + 
+			nvl(lepsb.pre_empt_non_gbr_bearer,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB Drop Ratio per Cause OTH EPC]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific E-RAB drop (abnormal]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(EPC_EPS_BEARER_REL_REQ_OTH) /
+&lt;br&gt;sum(EPC_EPS_BEARER_REL_REQ_NORM+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_DETACH+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_RNL+
+&lt;br&gt;EPC_EPS_BEARER_REL_REQ_OTH +
+&lt;br&gt;ENB_EPSBEAR_REL_REQ_RNL_REDIR+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_NORM+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_RNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_TNL+
+&lt;br&gt;ENB_EPS_BEARER_REL_REQ_OTH+
+&lt;br&gt;PRE_EMPT_GBR_BEARER + 
+&lt;br&gt;PRE_EMPT_NON_GBR_BEARER)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LEPSB_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/12/21 14:59:08.810 +0000</date>
+          <comment><![CDATA[Source: RSLTE037.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB DR OTH EPC</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

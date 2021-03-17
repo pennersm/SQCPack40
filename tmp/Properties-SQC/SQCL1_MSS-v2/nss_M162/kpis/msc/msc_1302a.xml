@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/PPLAC.xml" />
+  <kpi name="msc_1302a">
+    <formula>decode(
+		(pplac.voice_paging_per_lac_attempt),0,null, 
+		(100*( pplac.voice_paging_per_lac_success )/
+      ( pplac.voice_paging_per_lac_attempt )))</formula>
+    <kpi_info>
+      <title><![CDATA[Paging for voice success ratio, per LAC]]></title>
+      <use><![CDATA[Indicates the success ratio of paging attempts for voice service per LAC]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( VOICE_PAGING_PER_LAC_SUCCESS )
+&lt;br&gt;100 * ---------------------------------
+&lt;br&gt;      SUM( VOICE_PAGING_PER_LAC_ATTEMPT )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_pplac_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Pag per LAC SR - voice</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

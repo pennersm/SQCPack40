@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SOFTHO.xml" />
+  <kpi name="RNC_197a">
+    <formula>decode(
+			(softho.succ_updates_on_sho_for_nrt - 
+			softho.cell_del_req_on_sho_for_nrt + 
+			softho.unsucc_updates_on_sho_nrt),0,null, 
+
+			100*(softho.succ_updates_on_sho_for_nrt - 
+			softho.cell_del_req_on_sho_for_nrt)
+			 / 
+			(softho.succ_updates_on_sho_for_nrt - 
+			softho.cell_del_req_on_sho_for_nrt + 
+			softho.unsucc_updates_on_sho_nrt))</formula>
+    <kpi_info>
+      <title><![CDATA[Soft HO Update Success Rate Add and Repl, NRT]]></title>
+      <use><![CDATA[Success rate for active set updates which are started by reporting events 1a and 1c (Addition and Replacement). Note that this formula is only estimation with the assumption that all active set updates started by event 1b (Deletion) are successful, NRT.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      100 * ( 
+&lt;br&gt;          ( SUCC_UPDATES_ON_SHO_FOR_NRT 
+&lt;br&gt;          - CELL_DEL_REQ_ON_SHO_FOR_NRT ) 
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;           (SUCC_UPDATES_ON_SHO_FOR_NRT 
+&lt;br&gt;          - CELL_DEL_REQ_ON_SHO_FOR_NRT 
+&lt;br&gt;          + UNSUCC_UPDATES_ON_SHO_NRT ) )</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_softho_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Soft HO Update Success Rate Add and Repl, NRT]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

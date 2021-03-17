@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/TRAFFIC.xml" />
+  <kpi name="RNC_2304a">
+    <formula>100*decode(
+			(traffic.allo_cm_hsupa_ifho + 
+			traffic.rej_cm_hsupa_ifho),0,null, 
+
+			(traffic.allo_cm_hsupa_ifho)
+			 / 
+			(traffic.allo_cm_hsupa_ifho + 
+			traffic.rej_cm_hsupa_ifho))</formula>
+    <kpi_info>
+      <title><![CDATA[CM allocation SR for HSUPA triggered by IFHO]]></title>
+      <use><![CDATA[The success ratio of compressed mode allocation requests for HSUPA users triggered by inter-frequency measurements]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(ALLO_CM_HSUPA_IFHO)
+&lt;br&gt;-------------------------
+&lt;br&gt;SUM(ALLO_CM_HSUPA_IFHO + REJ_CM_HSUPA_IFHO)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_TRAFFIC_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/09/08 16:39:45.895 +0100</date>
+          <comment><![CDATA[Source: RSRAN070.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>CM HSUPA IFHO req SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
+

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/HO1.xml"/>
+    <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="mob_msc70c">
+    <formula>decode(
+			tc_ext.tcat_call_amount_19,0,null, 
+
+			( 
+				nvl(ho1.intraMscIntraGsmOk,0) +
+				nvl(ho1.intraMscGsmToUmtsOk,0) +
+				nvl(ho1.intraMscUmtsToGsmOk,0) +
+				nvl(ho1.intraMscIntraUmtsOk,0) +
+				nvl(ho1.INTRA_IHSPA_IHSPA_SUCC,0) +
+				nvl(ho1.INTRA_GSM_IHSPA_SUCC,0) +
+				nvl(ho1.INTRA_IHSPA_GSM_SUCC,0) +
+				nvl(ho1.INTRA_UMTS_IHSPA_SUCC,0) +
+				nvl(ho1.INTRA_IHSPA_UMTS_SUCC,0) +
+				nvl(ho1.InterPlmnIntraMscIntraGsmOk,0) +
+				nvl(ho1.InterPlmnIntraMscGsmToUmtsOk,0) +
+				nvl(ho1.InterPlmnIntraMscUmtsToGsmOk ,0) +
+				nvl(ho1.InterPlmnIntraMscIntraUmtsOk,0) +
+				nvl(ho1.INTRP_INTRA_GSM_IHSPA_SUCC,0) +
+				nvl(ho1.INTRP_INTRA_IHSPA_GSM_SUCC,0) +
+				nvl(ho1.INTRP_INTRA_UMTS_IHSPA_SUCC,0) +
+				nvl(ho1.INTRP_INTRA_IHSPA_UMTS_SUCC,0) +
+				nvl(ho1.INTRP_INTRA_IHSPA_IHSPA_SUCC,0) +
+				nvl(ho1.intraMscIntraGsmNok,0) +
+				nvl(ho1.intraMscGsmToUmtsNok ,0) +
+				nvl(ho1.intraMscUmtsToGsmNok,0) +
+				nvl(ho1.intraMscIntraUmtsNok,0) +
+				nvl(ho1.INTRA_GSM_IHSPA_FAIL,0) +
+				nvl(ho1.INTRA_IHSPA_GSM_FAIL,0) +
+				nvl(ho1.INTRA_UMTS_IHSPA_FAIL,0) +
+				nvl(ho1.INTRA_IHSPA_UMTS_FAIL,0) +
+				nvl(ho1.INTRA_IHSPA_IHSPA_FAIL,0) +
+				nvl(ho1.InterPlmnIntraMscIntraGsmNok,0) +
+				nvl(ho1.InterPlmnIntraMscGsmToUmtsNok ,0) +
+				nvl(ho1.InterPlmnIntraMscUmtsToGsmNok,0) +
+				nvl(ho1.InterPlmnIntraMscIntraUmtsNok,0) +
+				nvl(ho1.INTRP_INTRA_GSM_IHSPA_FAIL,0) +
+				nvl(ho1.INTRP_INTRA_IHSPA_GSM_FAIL,0) +
+				nvl(ho1.INTRP_INTRA_UMTS_IHSPA_FAIL,0) +
+				nvl(ho1.INTRP_INTRA_IHSPA_UMTS_FAIL,0) +
+				nvl(ho1.INTRP_INTRA_IHSPA_IHSPA_FAIL,0) 
+			) 
+			 / 
+			tc_ext.tcat_call_amount_19)</formula>
+    <kpi_info>
+      <title><![CDATA[Intra-MSC HO attempts / Call (excluding intra-BSC + intra-RNC + intra I-HSPA (MTC, MOC))]]></title>
+      <use><![CDATA[Indicates the number of intra-MSC handover attempts during the call (MOC and MTC). InterPLMN intraMSC are also included. Starting from M14.6, I-HSPA calls are also counted.]]></use>
+
+<use_experience><![CDATA[ 
+<br>Traffic Category:
+<br>22 = AIR-IF CALLS = Calls with an AIR Interface
+<br>
+<br>Starting from M14.6, I-HSPA calls are also counted.
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 17-05-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC->TCAT
+<br>
+<br>KPI CLASS: Mobility
+<br>MEASUREMENT(S): Handover measurement  part 1 (M81/51H)
+<br>+
+<br>Traffic category measurement (M20/14H)
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+&lt;br&gt;      SUM( 
+&lt;br&gt;          a.intraMscIntraGsmOk 
+&lt;br&gt;        + a.intraMscGsmToUmtsOk 
+&lt;br&gt;        + a.intraMscUmtsToGsmOk  
+&lt;br&gt;        + a.intraMscIntraUmtsOk 
+&lt;br&gt;        + a.INTRA_IHSPA_IHSPA_SUCC 
+&lt;br&gt;        + a.INTRA_GSM_IHSPA_SUCC 
+&lt;br&gt;        + a.INTRA_IHSPA_GSM_SUCC 
+&lt;br&gt;        + a.INTRA_UMTS_IHSPA_SUCC 
+&lt;br&gt;        + a.INTRA_IHSPA_UMTS_SUCC 
+&lt;br&gt;        + a.InterPlmnIntraMscIntraGsmOk 
+&lt;br&gt;        + a.InterPlmnIntraMscGsmToUmtsOk 
+&lt;br&gt;        + a.InterPlmnIntraMscUmtsToGsmOk  
+&lt;br&gt;        + a.InterPlmnIntraMscIntraUmtsOk 
+&lt;br&gt;        + a.INTRP_INTRA_GSM_IHSPA_SUCC 
+&lt;br&gt;        + a.INTRP_INTRA_IHSPA_GSM_SUCC 
+&lt;br&gt;        + a.INTRP_INTRA_UMTS_IHSPA_SUCC 
+&lt;br&gt;        + a.INTRP_INTRA_IHSPA_UMTS_SUCC 
+&lt;br&gt;        + a.INTRP_INTRA_IHSPA_IHSPA_SUCC 
+&lt;br&gt;        + a.intraMscIntraGsmNok 
+&lt;br&gt;        + a.intraMscGsmToUmtsNok  
+&lt;br&gt;        + a.intraMscUmtsToGsmNok 
+&lt;br&gt;        + a.intraMscIntraUmtsNok 
+&lt;br&gt;        + a.INTRA_GSM_IHSPA_FAIL 
+&lt;br&gt;        + a.INTRA_IHSPA_GSM_FAIL 
+&lt;br&gt;        + a.INTRA_UMTS_IHSPA_FAIL 
+&lt;br&gt;        + a.INTRA_IHSPA_UMTS_FAIL 
+&lt;br&gt;        + a.INTRA_IHSPA_IHSPA_FAIL 
+&lt;br&gt;        + a.InterPlmnIntraMscIntraGsmNok 
+&lt;br&gt;        + a.InterPlmnIntraMscGsmToUmtsNok  
+&lt;br&gt;        + a.InterPlmnIntraMscUmtsToGsmNok 
+&lt;br&gt;        + a.InterPlmnIntraMscIntraUmtsNok 
+&lt;br&gt;        + a.INTRP_INTRA_GSM_IHSPA_FAIL 
+&lt;br&gt;        + a.INTRP_INTRA_IHSPA_GSM_FAIL 
+&lt;br&gt;        + a.INTRP_INTRA_UMTS_IHSPA_FAIL 
+&lt;br&gt;        + a.INTRP_INTRA_IHSPA_UMTS_FAIL 
+&lt;br&gt;        + a.INTRP_INTRA_IHSPA_IHSPA_FAIL ) 
+&lt;br&gt;100 * -------------------------------------------------------------------------------------                                                          
+&lt;br&gt;          sum(b.tcat_call_amount)
+&lt;br&gt;
+&lt;br&gt;   ;where b.traffic_category_id=22
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s) :
+&lt;br&gt;a = RNS_PS_HO1_MSC_{time_agg} or  RNS_PS_HO1BH_MSC_{time_agg}
+&lt;br&gt;b = RNS_PS_TC_{obj_agg}_{time_agg}
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ho1_{obj_agg}_{time_agg}, rnc_ps_tc_tcat1_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Intra-MSC HO attempts / Call (excluding intra-BSC + intra-RNC + intra I-HSPA (MTC, MOC))]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

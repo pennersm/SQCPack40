@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/SESMGMNT.xml"/>
+  <temp_table_ref src="rssg2g/counters/OVERLOAD.xml"/>
+  <kpi name="sgsn_157b">
+    <formula>decode(
+			((sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.FAIL_MO_PDP_CONT_ACT_GEN + 
+			overload.rej_pdp_cont_act_attempts)),0,NULL,((overload.rej_pdp_cont_act_attempts))
+			 / 
+			((sesmgmnt.succ_mo_pdp_context_act + 
+			sesmgmnt.FAIL_MO_PDP_CONT_ACT_GEN + 
+			overload.rej_pdp_cont_act_attempts)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Gb PDP context activation attempts not processed due to processor overload ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Gb PDP context activation attempts not processed due to processor overload when compared to all Gb PDP context activation attempts. ]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(a.REJ_PDP_CONT_ACT_ATTEMPTS)
+&lt;br&gt;----------------------------------------------------------- *100
+&lt;br&gt;sum(b.SUCC_MO_PDP_CONTEXT_ACT + b.FAIL_MO_PDP_CONT_ACT_GEN +
+&lt;br&gt;   a.REJ_PDP_CONT_ACT_ATTEMPTS)
+&lt;br&gt;
+&lt;br&gt;Counters from table(s): 
+&lt;br&gt;a = p_sgsn_overload
+&lt;br&gt;b = p_sgsn_session_management
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>RSG_PS_sesmgmnt_{OBJ_AGG}_{TIME_AGG}, RSG_PS_overload_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Gb PDP act att no proc ovld]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

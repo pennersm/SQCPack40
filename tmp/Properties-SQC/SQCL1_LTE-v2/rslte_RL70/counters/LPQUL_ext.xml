@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia LNBTS LN7.0 LTE_Pwr_and_Qual_UL LPQUL measurement dump</header>
+    <csv_title>Nokia LNBTS LN7.0 LTE_Pwr_and_Qual_UL LPQUL measurement dump</csv_title>
+    <report-description>LTE Power and Quality UL measurement (M8005) measures UL connection quality related measurements.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <temp_table name="LPQUL_ext" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <counters>
+	<!-- PLease note: decode function to filter out zero values has been changed to use to_number(NULL) instead of NULL.
+	Using just NULL, the decode would return a string which leads to wrong result of MIN/MAX function	-->
+      <counter alias="RSSI_PUCCH_MIN">MIN(DECODE(RSSI_PUCCH_MIN,0,to_number(NULL),RSSI_PUCCH_MIN))</counter>
+      <counter alias="RSSI_PUCCH_MAX">MAX(DECODE(RSSI_PUCCH_MAX,0,to_number(NULL),RSSI_PUCCH_MAX))</counter>
+      <counter alias="RSSI_PUCCH_AVG">ROUND(10*LOG(10,(AVG(POWER(10,(DECODE(RSSI_PUCCH_AVG,0,to_number(NULL),RSSI_PUCCH_AVG)/10))/1000))*1000),3)</counter>
+      <counter alias="RSSI_PUSCH_MIN">MIN(DECODE(RSSI_PUSCH_MIN,0,to_number(NULL),RSSI_PUSCH_MIN))</counter>
+      <counter alias="RSSI_PUSCH_MAX">MAX(DECODE(RSSI_PUSCH_MAX,0,to_number(NULL),RSSI_PUSCH_MAX))</counter>
+      <counter alias="RSSI_PUSCH_AVG">ROUND(10*LOG(10,(AVG(POWER(10,(DECODE(RSSI_PUSCH_AVG,0,to_number(NULL),RSSI_PUSCH_AVG)/10))/1000))*1000),3)</counter>
+
+      <counter alias="SINR_PUCCH_MIN">MIN(DECODE(SINR_PUCCH_MIN,0,to_number(NULL),SINR_PUCCH_MIN))</counter>
+      <counter alias="SINR_PUCCH_MAX">MAX(DECODE(SINR_PUCCH_MAX,0,to_number(NULL),SINR_PUCCH_MAX))</counter>
+      <counter alias="SINR_PUCCH_AVG">ROUND(10*LOG(10,(AVG(POWER(10,(DECODE(SINR_PUCCH_AVG,0,to_number(NULL),SINR_PUCCH_AVG)/10))/1000))*1000),3)</counter>
+      <counter alias="SINR_PUSCH_MIN">MIN(DECODE(SINR_PUSCH_MIN,0,to_number(NULL),SINR_PUSCH_MIN))</counter>
+      <counter alias="SINR_PUSCH_MAX">MAX(DECODE(SINR_PUSCH_MAX,0,to_number(NULL),SINR_PUSCH_MAX))</counter>
+      <counter alias="SINR_PUSCH_AVG">ROUND(10*LOG(10,(AVG(POWER(10,(DECODE(SINR_PUSCH_AVG,0,to_number(NULL),SINR_PUSCH_AVG)/10))/1000))*1000),3)</counter>
+      
+    </counters>
+    <table_name>noklte_ps_lpqul_mnc1_raw</table_name>
+    <alias_name>LPQUL_ext</alias_name>
+  </temp_table>
+</conf_file>
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 MTP_Traf_UP MTPTUP measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 MTP_Traf_UP MTPTUP measurement dump</csv_title>
+    <report-description>MTP Signalling Traffic of User Parts</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <RECEIVED_OCTETS />
+    <TRANSMITTED_OCTETS />
+  </column_order>
+  <temp_table name="MTPTUP" meas_level="PLMN/RNC/SNET/SIO" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="RECEIVED_OCTETS">SUM(RECEIVED_OCTETS)</counter>
+      <counter alias="TRANSMITTED_OCTETS">SUM(TRANSMITTED_OCTETS)</counter>
+    </counters>
+    <table_name>nokrww_ps_mtptup_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>MTPTUP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>MTPTUP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_mtptup_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RECEIVED_OCTETS">
+    <formula>MTPTUP.RECEIVED_OCTETS</formula>
+    <kpi_info>
+      <title>RECEIVED_OCTETS</title>
+      <use>Number of SIF and SIO received with given SIO, 6.3 in ITU-T Q.752.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(RECEIVED_OCTETS)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptup_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RECEIVED_OCTETS (M214B2C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="TRANSMITTED_OCTETS">
+    <formula>MTPTUP.TRANSMITTED_OCTETS</formula>
+    <kpi_info>
+      <title>TRANSMITTED_OCTETS</title>
+      <use>Number of SIF and SIO transmitted with given SIO, 6.3 in ITU-T Q.752</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(TRANSMITTED_OCTETS)</formula>
+      <unit>byte</unit>
+      <tables>nokrww_ps_mtptup_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>TRANSMITTED_OCTETS (M214B2C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/IPROUT.xml" />
+  <kpi name="mgw_2007a">
+    <formula>
+decode(iprout.period_duration
+	,0,null,
+	8*iprout.in_data_ip_route
+ 	/ 
+	((60*iprout.period_duration)*1000)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[IP throughput - Ingress]]></title>
+      <use><![CDATA[Ingress IP throughput. This KPI provides the IP datagram throughput received from IP route (ingress). Includes both the payload and IP datagram header bytes.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM( IN_DATA_IP_ROUTE )
+&lt;br&gt;8 * ----------------------------------
+&lt;br&gt;     SUM( 60 * PERIOD_DURATION ) * 1000
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[Mbit/s]</unit>
+      <tables>NOKMWW_PS_IPROUT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/05/20 16:01:29.443 +0100</date>
+          <comment><![CDATA[Source: RSMGW055.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP thrput Ingress</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

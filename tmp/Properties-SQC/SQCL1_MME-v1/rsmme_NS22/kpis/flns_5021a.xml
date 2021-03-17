@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SMMT.xml"/>
+  <kpi name="flns_5021a">
+    <formula>decode(
+			((SMMT.eps_def_bearer_act_succ + 
+			SMMT.eps_def_bearer_act_fail)),0,NULL, 
+
+			((SMMT.eps_def_bearer_act_fail))
+			 / 
+			((SMMT.eps_def_bearer_act_succ + 
+			SMMT.eps_def_bearer_act_fail)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Default EPS Bearer activation failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of Default EPS Bearer context activation procedures.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>             sum (eps_def_bearer_act_fail)
+&lt;br&gt;------------------------------------------------------- * 100
+&lt;br&gt;sum (eps_def_bearer_act_succ + eps_def_bearer_act_fail)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_SMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Def EPS Bearer act FR]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/SIPMSC.xml"/>
+  <kpi name="msc_2036a">
+    <formula>(SIPMSC.no_response_from_unit + 
+SIPMSC.data_provider_restarted + 
+SIPMSC.stu_restarted)</formula>
+    <kpi_info>
+      <title><![CDATA[M402 measure sample data quality indicator]]></title>
+      <use><![CDATA[This KPI gives an indication about the quality of the data provided by the M402 measure during the time sample period. If the KPI > 0, the supplied data is not reliable.]]></use>
+
+<use_experience><![CDATA[ 
+<br>If the KPI > 0, the M402 measure supplied data is not reliable.
+<br>
+<br>Reasons for the data non-reability:
+<br>NO_RESPONSE_FROM_UNIT => problems with CM/CMM unit did occur
+<br>DATA_PROVIDER_RESTARTED => CM/CMM unit or inside program block restart
+<br>STU_RESTARTED => STU unit or inside program block restart
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 11-03-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): SIP SLA Measurement (M402/192H)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (no_response_from_unit + data_provider_restarted + stu_restarted)
+&lt;br&gt;
+&lt;br&gt;Use Aggregated tables</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_SIPMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Data Qlty M402]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

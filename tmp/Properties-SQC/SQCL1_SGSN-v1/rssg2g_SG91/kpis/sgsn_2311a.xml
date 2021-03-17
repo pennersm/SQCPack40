@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g_SG91/counters/LOAD_ext.xml" />
+  <kpi name="sgsn_2311a">
+    <formula>decode(
+			(load_ext.ave_load_rate_den_ippu),0,NULL, 
+
+			(load_ext.ave_load_rate_sum_ippu)
+			 / 
+			(load_ext.ave_load_rate_den_ippu))</formula>
+    <kpi_info>
+      <title><![CDATA[Average IPPU CPU load]]></title>
+      <use><![CDATA[This KPI shows the average CPU load rate of the IPPU unit processor (spare units are excluded).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum( decode(OBJECT_NAME,'IPPU',
+&lt;br&gt;decode(OBJECT_STATE,'0',ave_load_rate_sum,0),0) ) ;(OBJECT_NAME=IPPU AND OBJECT_STATE=0)
+&lt;br&gt;----------------------------------------------------------------------------------------
+&lt;br&gt;sum( decode(OBJECT_NAME,'IPPU',
+&lt;br&gt;decode(OBJECT_STATE,'0',ave_load_rate_den,0),0) ) ;(OBJECT_NAME=IPPU AND OBJECT_STATE=0)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_load_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Avg IPPU CPU load]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

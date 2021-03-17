@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FSTP measurement dump (FTM STP statistics)</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FSTP measurement dump (FTM STP statistics)</csv_title>
+    <report-description>FTM STP statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <txRstpBpdus />
+    <rxRstpBpdus />
+    <portStateTransitions />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FSTP" meas_level="PLMN/RNC/WBTS/FTM/RSTP/STPORT" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="txRstpBpdus">SUM(txRstpBpdus)</counter>
+      <counter alias="rxRstpBpdus">SUM(rxRstpBpdus)</counter>
+      <counter alias="portStateTransitions">SUM(portStateTransitions)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fstp_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FSTP</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FSTP.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fstp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="txRstpBpdus">
+    <formula>FSTP.txRstpBpdus</formula>
+    <kpi_info>
+      <title>txRstpBpdus</title>
+      <use>The BTS shall count the number of transmitted RSTP BPDUs for each RSTP-enabled port. UPDATED: The counter is incremented whenever a RSTP BPDU is transmitted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(txRstpBpdus)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fstp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>txRstpBpdus (M5130C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="rxRstpBpdus">
+    <formula>FSTP.rxRstpBpdus</formula>
+    <kpi_info>
+      <title>rxRstpBpdus</title>
+      <use>The BTS shall count the number of received RSTP BPDUs for each RSTP-enabled port. UPDATED: The counter is incremented whenever a RSTP BPDU is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(rxRstpBpdus)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fstp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>rxRstpBpdus (M5130C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="portStateTransitions">
+    <formula>FSTP.portStateTransitions</formula>
+    <kpi_info>
+      <title>portStateTransitions</title>
+      <use>The BTS shall count the number of port state transitions for each RSTP-enabled port and for each configured spanning tree.  UPDATED: The counter is incremented for transitions to state Discarding or to state Forwarding. Transitions to state Learning and temporary transitions to Discarding during proposal-agreement signaling shall not be counted.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(portStateTransitions)</formula>
+      <unit>#</unit>
+      <tables>nokrww_ps_fstp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>portStateTransitions (M5130C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FSTP.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fstp_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

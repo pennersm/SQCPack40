@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SGSM.xml" />
+  <kpi name="flns_3109a">
+    <formula>decode(
+			(sgsm.period_duration*60),0,null, 
+
+			(sgsm.sgsap_uplink_succ + 
+			sgsm.sgsap_uplink_fail + 
+			sgsm.sgsap_downlink_succ + 
+			sgsm.sgsap_downlink_fail)
+			 / 
+			(sgsm.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS SMS Delivery per second]]></title>
+      <use><![CDATA[This KPI shows the capacity of delivering/sending SGsAP unitdata packets per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SGSAP_UPLINK_SUCC +  
+&lt;br&gt;   SGSAP_UPLINK_FAIL +
+&lt;br&gt;   SGSAP_DOWNLINK_SUCC +  
+&lt;br&gt;   SGSAP_DOWNLINK_FAIL)
+&lt;br&gt;--------------------------- 
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_SGSM_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:36:02.116 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS SMS Delivery pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

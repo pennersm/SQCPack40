@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/CGR.xml" />
+  <temp_table_ref src="nss_M162/counters/msc/CGR_ext.xml" />
+  <kpi name="msc_2161a">
+    <formula>
+100*decode(
+	CGR_ext.MSC612B_DEN, 0, NULL,
+	(nvl(CGR.CGRCGROUP_ERLANGS_IN_X_100/100,0)+nvl(CGR.CGRCGROUP_ERLANGS_OUT_X_100/100,0))
+	/
+	CGR_ext.MSC612B_DEN
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Carried traffic ratio - WOEX circuits comparison]]></title>
+      <use><![CDATA[Traffic load ratio for incoming and outgoing sides - comparisions analysis is made against available circuits (WOEX = working and executing circuits)]]></use>
+
+		<use_experience><![CDATA[
+		<br>This KPI is similar to msc_612d but it is to be used only for the MSC NE. This new KPI ID reference is to to be used starting from M15.1 report sets.
+		<br>
+		<br>In the BIdirectional circuits, the CGRCGROUP_NOF_WOEX_CRTS_IN + CGRCGROUP_NOF_WOEX_CRTS_OUT counters are both incremented. This leads to necessity to divide the numerator by 2 in case of BIdirectional circuits.
+		<br>
+		<br>NetAct pre-aggregation of the counters: (CGRCGROUP_ERLANGS_IN_x_100) + (CGRCGROUP_ERLANGS_OUT_x_100) + (CGRCGROUP_NOF_WOEX_CRTS_IN) + (CGRCGROUP_NOF_WOEX_CRTS_OUT) => TIME aggregated data defined as AVG and NETWORK/OBJECT aggregated data defined as SUM
+		<br>This KPI formula must have NVL protection in order to properly work with all kind of circuits and not only with BIdirectional ones. 
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC; CGRDIR
+		<br>KPI CLASS: Traffic
+		<br>MEASUREMENT(S): Circuit group measurement (16/10H)
+		<br>
+		<br>]]>
+		</use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      
+      	<formula>
+      	&lt;br&gt;For OBJECT and CGRDIR level =&gt; considering NetAct pre-aggregation level calculations:
+		&lt;br&gt; ( SUM( nvl(CGRCGROUP_ERLANGS_IN_x_100,0) + nvl(CGRCGROUP_ERLANGS_OUT_x_100,0) ) / 100 )
+		&lt;br&gt;---------------------------------------------------------------------------------- * 100
+		&lt;br&gt; ( SUM( nvl(CGRCGROUP_NOF_WOEX_CRTS_IN,0) + nvl(CGRCGROUP_NOF_WOEX_CRTS_OUT,0) ) / 100 / 2 )
+		&lt;br&gt;; When CGRDIR = 3 (BIdirectional)
+		&lt;br&gt;        +
+		&lt;br&gt; ( SUM( nvl(CGRCGROUP_ERLANGS_IN_x_100,0) + nvl(CGRCGROUP_ERLANGS_OUT_x_100,0) ) / 100 )
+		&lt;br&gt;------------------------------------------------------------------------------- * 100
+		&lt;br&gt; ( SUM( nvl(CGRCGROUP_NOF_WOEX_CRTS_IN,0) + nvl(CGRCGROUP_NOF_WOEX_CRTS_OUT,0) ) / 100 )
+		&lt;br&gt;; When CGRDIR = 1 or 2 (OUT or IN)
+		&lt;br&gt;
+		&lt;br&gt;
+		&lt;br&gt;For TIME and CGRDIR level =&gt; considering NetAct pre-aggregation level calculations:
+		&lt;br&gt; ( AVG( nvl(CGRCGROUP_ERLANGS_IN_x_100,0) + nvl(CGRCGROUP_ERLANGS_OUT_x_100,0) ) / 100 )
+		&lt;br&gt;---------------------------------------------------------------------------------- * 100
+		&lt;br&gt; ( AVG( nvl(CGRCGROUP_NOF_WOEX_CRTS_IN,0) + nvl(CGRCGROUP_NOF_WOEX_CRTS_OUT,0) ) / 100 / 2 )
+		&lt;br&gt;; When CGRDIR = 3 (BIdirectional)
+		&lt;br&gt;        +
+		&lt;br&gt; ( AVG( nvl(CGRCGROUP_ERLANGS_IN_x_100,0) + nvl(CGRCGROUP_ERLANGS_OUT_x_100,0) ) / 100 )
+		&lt;br&gt;------------------------------------------------------------------------------- * 100
+		&lt;br&gt; ( AVG( nvl(CGRCGROUP_NOF_WOEX_CRTS_IN,0) + nvl(CGRCGROUP_NOF_WOEX_CRTS_OUT,0) ) / 100 )
+		&lt;br&gt;; When CGRDIR = 1 or 2 (OUT or IN)
+		&lt;br&gt;
+		&lt;br&gt;Use view(s):
+		&lt;br&gt;RNS_PS_CGR_{OBJ_AGG}_{TIME_AGG}
+		&lt;br&gt;
+		&lt;br&gt;          ==========   XXXXXXXXXX  ==========
+		&lt;br&gt;
+		&lt;br&gt;** SQL test formula - proof of concept
+		&lt;br&gt;** Applicable to any object level for both TIME + OBJ domains
+		&lt;br&gt;** Formula based on RAW table data
+		&lt;br&gt;
+		&lt;br&gt;100*(SUM(nvl(CGRCGROUP_ERLANGS_IN_x_100,0)+nvl(CGRCGROUP_ERLANGS_OUT_x_100,0))/100/COUNT(DISTINCT period_start_time))/(SUM( NVL(CGRCGROUP_NOF_WOEX_CRTS_IN,0)+NVL(CGRCGROUP_NOF_WOEX_CRTS_OUT,0))/100/COUNT(DISTINCT period_start_time)/decode(cgr_dir_id,&amp;#039;3&amp;#039;,2,1)))
+		&lt;br&gt;
+		&lt;br&gt;NOTE: Decoding of  cgr_dir_id is made because in case of bidirectional circuit group (cgr_dir_id = 3) the nbr of circuits needs to be divided by 2.
+		&lt;br&gt;NOTE: This formula can not work on aggregated tables that miss cgr_dir_id.
+		</formula>
+
+      <unit>[%]</unit>
+      <tables>rns_ps_CGR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Carried traff ratio - WOEX</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

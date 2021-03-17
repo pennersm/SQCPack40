@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>FIPSE (FTM IP Security)</header>
+    <csv_title>FIPSE (FTM IP Security)</csv_title>
+    <report-description>FTM IP Security</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <ipsecSaNotFound/>
+    <receivedPacketMatchDefPol/>
+    <receivedPacketMatchBypassPol/>
+    <receivedPacketMatchDiscPol/>
+    <recvUnprotPacketMatchProtPol/>
+    <sentPacketMatchDefPol/>
+    <sentPacketBypassPol/>
+    <sentPacketMatchDiscPol/>
+    <failedSAEstablishments/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="FIPSE" omes_name="FTM_IP_Security" meas_level="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPSECC" type="PM" master="yes" pragma="RSRAN" create="yes">
+    <koala_meas_id>FIPSE</koala_meas_id>
+	<last_mo_level>RSRAN-WBTS</last_mo_level>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="ipsecSaNotFound" symmetrical="true">SUM(ipsecSaNotFound)</counter>
+          <counter alias="receivedPacketMatchDefPol" symmetrical="true">SUM(receivedPacketMatchDefPol)</counter>
+          <counter alias="receivedPacketMatchBypassPol" symmetrical="true">SUM(receivedPacketMatchBypassPol)</counter>
+          <counter alias="receivedPacketMatchDiscPol" symmetrical="true">SUM(receivedPacketMatchDiscPol)</counter>
+          <counter alias="recvUnprotPacketMatchProtPol" symmetrical="true">SUM(recvUnprotPacketMatchProtPol)</counter>
+          <counter alias="sentPacketMatchDefPol" symmetrical="true">SUM(sentPacketMatchDefPol)</counter>
+          <counter alias="sentPacketBypassPol" symmetrical="true">SUM(sentPacketBypassPol)</counter>
+          <counter alias="sentPacketMatchDiscPol" symmetrical="true">SUM(sentPacketMatchDiscPol)</counter>
+          <counter alias="failedSAEstablishments" symmetrical="true">SUM(failedSAEstablishments)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FIPSE</alias_name>
+    <ui_name>FTM IP Security</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FIPSE.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ipsecSaNotFound">
+    <formula>FIPSE.ipsecSaNotFound</formula>
+    <kpi_info>
+      <title>ipsecSaNotFound (M5138C0)</title>
+      <use>The number of received ESP or AH packets addressed to a local tunnel endpoint with a SPI which is not related to any existing IPsec SA. Note: AH packets are not supported by the system but should be included in this counter as by design an AH SA can not be found for this packets UPDATED: The counter is updated in case an ESP or AH packet addressed to a local tunnel endpoint with a SPI which is not related to any existing IPsec SA is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(ipsecSaNotFound)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ipsecSaNotFound (M5138C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="receivedPacketMatchDefPol">
+    <formula>FIPSE.receivedPacketMatchDefPol</formula>
+    <kpi_info>
+      <title>receivedPacketMatchDefPol (M5138C1)</title>
+      <use>The number of received packets, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that match the default policy but not matching any user defined policy. UPDATED: The counter is updated in case a packet, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that matches the default policy is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(receivedPacketMatchDefPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>receivedPacketMatchDefPol (M5138C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="receivedPacketMatchBypassPol">
+    <formula>FIPSE.receivedPacketMatchBypassPol</formula>
+    <kpi_info>
+      <title>receivedPacketMatchBypassPol (M5138C2)</title>
+      <use>The number of received packets, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that match a bypass policy. UPDATED: The counter is updated in case a packet, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that matches a bypass policy is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(receivedPacketMatchBypassPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>receivedPacketMatchBypassPol (M5138C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="receivedPacketMatchDiscPol">
+    <formula>FIPSE.receivedPacketMatchDiscPol</formula>
+    <kpi_info>
+      <title>receivedPacketMatchDiscPol (M5138C3)</title>
+      <use>The number of received packets, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that match a discard policy. Note: Discarded packets matching the default policy are not counted with this counter. UPDATED: The counter is updated in case a packet, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that matches a discard policy (but not the default policy) is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(receivedPacketMatchDiscPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>receivedPacketMatchDiscPol (M5138C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="recvUnprotPacketMatchProtPol">
+    <formula>FIPSE.recvUnprotPacketMatchProtPol</formula>
+    <kpi_info>
+      <title>recvUnprotPacketMatchProtPol (M5138C4)</title>
+      <use>The number of received unprotected packets (i.e not ESP or AH), either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint, that match a protect policy. UPDATED: The counter is updated in case a packet, either not addressed to a local tunnel endpoint or addressed to a local tunnel endpoint but not ESP or AH, that matches a protect policy is received.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(recvUnprotPacketMatchProtPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>recvUnprotPacketMatchProtPol (M5138C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="sentPacketMatchDefPol">
+    <formula>FIPSE.sentPacketMatchDefPol</formula>
+    <kpi_info>
+      <title>sentPacketMatchDefPol (M5138C9)</title>
+      <use>Number of outgoing packets matching the default policy. UPDATED: The counter is updated in case a packet which matches the default policy is transmitted.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(sentPacketMatchDefPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sentPacketMatchDefPol (M5138C9)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="sentPacketBypassPol">
+    <formula>FIPSE.sentPacketBypassPol</formula>
+    <kpi_info>
+      <title>sentPacketBypassPol (M5138C10)</title>
+      <use>Number of outgoing packets matching a bypass policy. UPDATED: The counter is updated in case a packet which matches the bypass policy is transmitted.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(sentPacketBypassPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sentPacketBypassPol (M5138C10)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="sentPacketMatchDiscPol">
+    <formula>FIPSE.sentPacketMatchDiscPol</formula>
+    <kpi_info>
+      <title>sentPacketMatchDiscPol (M5138C11)</title>
+      <use>Number of outgoing packets matching a discard policy. Note: Discarded packets matching the default policy are not counted with this counter. UPDATED: The counter is updated in case a packet is dropped because it matches the discard policy (but not the default policy)
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(sentPacketMatchDiscPol)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>sentPacketMatchDiscPol (M5138C11)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="failedSAEstablishments">
+    <formula>FIPSE.failedSAEstablishments</formula>
+    <kpi_info>
+      <title>failedSAEstablishments (M5138C12)</title>
+      <use>The number of failed SA establishments. UPDATED: The counter is updated in case of a failed SA establishment.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(failedSAEstablishments)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>failedSAEstablishments (M5138C12)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FIPSE.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>nokrww_ps_fipse_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

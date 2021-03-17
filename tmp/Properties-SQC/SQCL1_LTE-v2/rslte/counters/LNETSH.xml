@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>LNETSH (LTE Network Sharing)</header>
+    <csv_title>LNETSH (LTE Network Sharing)</csv_title>
+    <report-description>The measurement LTE Network Sharing (M8024) contains Network Sharing / MOCN (Multi-Operator Core Network) related PM counters (3GPP TS 23.251 Network Sharing). The PM counters are updated per cell. For MCC/MNC primary PLMN-Id shall be used. For MCC/MNC the PLMN-Id provided by the UE shall be used.</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <PDCP_SDU_DATAVOL_DL_PLMN/>
+    <PDCP_SDU_SDATAVOL_DL_PLMN/>
+    <PDCP_SDU_DATAVOL_UL_PLMN/>
+    <PDCP_SDU_SDATAVOL_UL_PLMN/>
+    <ACTIVE_UE_PLMN_AVG/>
+    <period_duration_sum/>
+  </column_order>
+  <temp_table name="LNETSH" meas_level="PLMN/RSLTE-MRBTS/RSLTE-LNBTS/RSLTE-LNCEL/RSLTE-MCC/RSLTE-MNC" type="PM" master="yes" pragma="RSLTE" create="yes">
+    <koala_meas_id_list>LNETSH</koala_meas_id_list>
+    <counters>
+          <counter alias="period_duration" time-alias="period_duration" time-formula="SUM(period_duration)" object-formula="AVG(period_duration)">SUM(period_duration)</counter>
+          <counter alias="PDCP_SDU_DATAVOL_DL_PLMN" symmetrical="true">SUM(PDCP_SDU_DATAVOL_DL_PLMN)</counter>
+          <counter alias="PDCP_SDU_SDATAVOL_DL_PLMN" symmetrical="true">SUM(PDCP_SDU_SDATAVOL_DL_PLMN)</counter>
+          <counter alias="PDCP_SDU_DATAVOL_UL_PLMN" symmetrical="true">SUM(PDCP_SDU_DATAVOL_UL_PLMN)</counter>
+          <counter alias="PDCP_SDU_SDATAVOL_UL_PLMN" symmetrical="true">SUM(PDCP_SDU_SDATAVOL_UL_PLMN)</counter>
+          <counter alias="ACTIVE_UE_PLMN_AVG" symmetrical="true">AVG(ACTIVE_UE_PLMN_AVG)</counter>
+          <counter alias="period_duration_sum" symmetrical="true">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LNETSH</alias_name>
+    <ui_name>LTE Network Sharing</ui_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LNETSH.period_duration</formula>
+    <kpi_info>
+      <title>period_duration (period_duration)</title>
+      <use>Duration of the measurement period in minutes.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="SUM(period_duration)">AVG(period_duration)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration (period_duration)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PDCP_SDU_DATAVOL_DL_PLMN">
+    <formula>LNETSH.PDCP_SDU_DATAVOL_DL_PLMN</formula>
+    <kpi_info>
+      <title>PDCP_SDU_DATAVOL_DL_PLMN (M8024C0)</title>
+      <use>For each PLMN, to which a UE can be connected (3GPP TS 23.251 Network Sharing), a PLMN-specific counter (PLMN-Identifier &lt;PLMN-ID&gt;) provides the PDCP SDU user data volume on the eUu interface in downlink for UEs which are connected to this PLMN. The UE informs the eNB during RRC connection setup to which PLMN the UE is connected. UPDATED: Transmission of a PDCP SDU on the eUu interface in downlink (eNB -&gt; UE) for UEs which are connected to a specific PLMN (with PLMN-Identifier &lt;PLMN-ID&gt;). Only PDCP SDUs for user data are taken into account; PDCP SDUs for Signaling data are not taken into account.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PDCP_SDU_DATAVOL_DL_PLMN)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDCP_SDU_DATAVOL_DL_PLMN (M8024C0)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PDCP_SDU_SDATAVOL_DL_PLMN">
+    <formula>LNETSH.PDCP_SDU_SDATAVOL_DL_PLMN</formula>
+    <kpi_info>
+      <title>PDCP_SDU_SDATAVOL_DL_PLMN (M8024C1)</title>
+      <use>For each PLMN, to which a UE can be connected (3GPP TS 23.251 Network Sharing), a PLMN-specific counter (PLMN-Identifier &lt;PLMN-ID&gt;) provides the PDCP SDU signaling data volume on the eUu interface in downlink for UEs which are connected to this PLMN. The UE informs the eNB during RRC connection setup to which PLMN the UE is connected. UPDATED: Transmission of a PDCP SDU on the eUu interface in downlink (eNB -&gt; UE) for UEs which are connected to a specific PLMN (with PLMN-Identifier &lt;PLMN-ID&gt;). Only PDCP SDUs for Signaling data are taken into account; PDCP SDUs for user data are not taken into account.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PDCP_SDU_SDATAVOL_DL_PLMN)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDCP_SDU_SDATAVOL_DL_PLMN (M8024C1)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PDCP_SDU_DATAVOL_UL_PLMN">
+    <formula>LNETSH.PDCP_SDU_DATAVOL_UL_PLMN</formula>
+    <kpi_info>
+      <title>PDCP_SDU_DATAVOL_UL_PLMN (M8024C2)</title>
+      <use>For each PLMN, to which a UE can be connected (3GPP TS 23.251 Network Sharing), a PLMN-specific counter (PLMN-Identifier &lt;PLMN-ID&gt;) provides the PDCP SDU user data volume on the eUu interface in uplink for UEs which are connected to this PLMN. The UE informs the eNB during RRC connection setup to which PLMN the UE is connected. UPDATED: Reception of a PDCP SDU on the eUu interface in uplink (UE -&gt; eNB) for UEs which are connected to a specific PLMN (with PLMN-Identifier &lt;PLMN-ID&gt;). Only PDCP SDUs for user data are taken into account; PDCP SDUs for Signaling data are not taken into account.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PDCP_SDU_DATAVOL_UL_PLMN)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDCP_SDU_DATAVOL_UL_PLMN (M8024C2)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="PDCP_SDU_SDATAVOL_UL_PLMN">
+    <formula>LNETSH.PDCP_SDU_SDATAVOL_UL_PLMN</formula>
+    <kpi_info>
+      <title>PDCP_SDU_SDATAVOL_UL_PLMN (M8024C3)</title>
+      <use>For each PLMN, to which a UE can be connected (3GPP TS 23.251 Network Sharing), a PLMN-specific counter (PLMN-Identifier &lt;PLMN-ID&gt;) provides the PDCP SDU signaling data volume on the eUu interface in uplink for UEs which are connected to this PLMN. The UE informs the eNB during RRC connection setup to which PLMN the UE is connected. UPDATED: Reception of a PDCP SDU on the eUu interface in uplink (UE -&gt; eNB) for UEs which are connected to a specific PLMN (with PLMN-Identifier &lt;PLMN-ID&gt;). Only PDCP SDUs for Signaling data are taken into account; PDCP SDUs for user data are not taken into account.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(PDCP_SDU_SDATAVOL_UL_PLMN)</formula>
+      <unit>byte</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>PDCP_SDU_SDATAVOL_UL_PLMN (M8024C3)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="ACTIVE_UE_PLMN_AVG">
+    <formula>LNETSH.ACTIVE_UE_PLMN_AVG</formula>
+    <kpi_info>
+      <title>ACTIVE_UE_PLMN_AVG (M8024C4)</title>
+      <use>For each PLMN, to which a UE can be connected (3GPP TS 23.251 Network Sharing), a PLMN-specific counter (PLMN-Identifier &lt;PLMN-ID&gt;) provides the average number of active UEs which are connected to this PLMN. The UE informs the eNB during RRC connection setup to which PLMN the UE is connected. A UE is active when a SRB (Signaling Radio Bearer) and at least one DRB (Data Radio Bearer) are established for the UE. UPDATED: eNB-internal average calculation of the number of active UEs which are connected to a PLMN (PLMN-Identifier &lt;PLMN-ID&gt;); the average is calculated as the arithmetical average over the measurement period.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(ACTIVE_UE_PLMN_AVG)</formula>
+      <unit>#</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>ACTIVE_UE_PLMN_AVG (M8024C4)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>LNETSH.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum (period_duration_sum)</title>
+      <use>Duration of the measurement period in minutes. Values summed up also in object dimension.
+      </use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>min</unit>
+      <tables>noklte_ps_lnetsh_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum (period_duration_sum)</kpi_alias>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

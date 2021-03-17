@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCCRS_ext.xml"/>
+  <kpi name="flng_753a">
+    <formula>decode(
+			((GTPCCRS_ext.gtpc_create_resp_sent)),0,NULL, 
+
+			(GTPCCRS_ext.gtpc_create_resp_sent -
+			(GTPCCRS_ext.gtpc_create_resp_sent_128 +
+			 GTPCCRS_ext.gtpc_create_resp_sent_199 +
+			 GTPCCRS_ext.gtpc_create_resp_sent_204 +
+			 GTPCCRS_ext.gtpc_create_resp_sent_209 +
+			 GTPCCRS_ext.gtpc_create_resp_sent_211))
+			 / 
+			(GTPCCRS_ext.gtpc_create_resp_sent))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create PDP context responses sent "others" ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v1 create PDP context responses sent with all other cause codes (128, 199, 204, 209 and 211 are excluded) when compared to total number of GTP-C v1 create PDP context response messages sent.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTPC_CREATE_RESP_SENT) -
+&lt;br&gt;( sum(decode(crs_id,'128',GTPC_CREATE_RESP_SENT,0)) + 
+&lt;br&gt;  sum(decode(crs_id,'199',GTPC_CREATE_RESP_SENT,0)) + 
+&lt;br&gt;  sum(decode(crs_id,'204',GTPC_CREATE_RESP_SENT,0)) + 
+&lt;br&gt;  sum(decode(crs_id,'209',GTPC_CREATE_RESP_SENT,0)) + 
+&lt;br&gt;  sum(decode(crs_id,'211',GTPC_CREATE_RESP_SENT,0)) )
+&lt;br&gt;------------------------------------------------------- *100
+&lt;br&gt;sum(GTPC_CREATE_RESP_SENT)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GTPCCRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Create PDP resp oth ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

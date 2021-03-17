@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LEPSB.xml" />
+  <temp_table_ref src="rslte/counters/LCELLT.xml" />
+  <kpi name="LTE_5812a">
+    <formula>decode(
+			(lcellt.pdcp_sdu_vol_ul + 
+			lcellt.pdcp_sdu_vol_dl),0,null, 
+
+			(1000000000*(lepsb.epc_eps_bearer_rel_req_rnl + 
+			lepsb.epc_eps_bearer_rel_req_oth + 
+			lepsb.enb_eps_bearer_rel_req_rnl + 
+			lepsb.enb_eps_bearer_rel_req_tnl + 
+			lepsb.enb_eps_bearer_rel_req_oth)
+			 / 
+			(lcellt.pdcp_sdu_vol_ul + 
+			lcellt.pdcp_sdu_vol_dl)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN E-RAB Drops per PDCP SDU volume, User Perspective]]></title>
+      <use><![CDATA[This KPI describes the amount of E-RAB drops per PDCP SDU volume from user
+perspective point of view.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;1000000000*sum (([EPC_EPS_BEARER_REL_REQ_RNL]+[EPC_EPS_BEARER_REL_REQ_OTH]+ 
+&lt;br&gt;[ENB_EPS_BEARER_REL_REQ_RNL] + [ENB_EPS_BEARER_REL_REQ_TNL] + [ENB_EPS_BEARER_REL_REQ_OTH]))
+&lt;br&gt;/
+&lt;br&gt;(sum([PDCP_SDU_VOL_UL]+[PDCP_SDU_VOL_DL])</formula>
+      <unit>#/GB</unit>
+      <tables>noklte_ps_LEPSB_{obj_agg}_{time_agg},noklte_ps_LCELLT_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-RAB Stp Drops per PDCP SDU, User</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

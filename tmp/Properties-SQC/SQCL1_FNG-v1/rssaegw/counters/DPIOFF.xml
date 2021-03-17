@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 DPI_Offloading DPIOFF measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 DPI_Offloading DPIOFF measurement dump</csv_title>
+    <report-description>Flexi NG DPI offloading measurement</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <DPI_OFFLOADING_UL_PACKETS />
+    <DPI_OFFLOADING_UL_BYTES />
+    <DPI_OFFLOADING_DL_PACKETS />
+    <DPI_OFFLOADING_DL_BYTES />
+  </column_order>
+  <temp_table name="DPIOFF" meas_level="PLMN/FING/FNODE/DPIOFF" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="DPI_OFFLOADING_UL_PACKETS" time-alias="DPI_OFFLOADING_UL_PACKETS" timeagg="SUM(DPI_OFFLOADING_UL_PACKETS)">SUM(DPI_OFFLOADING_UL_PACKETS)</counter>
+      <counter alias="DPI_OFFLOADING_UL_BYTES" time-alias="DPI_OFFLOADING_UL_BYTES" timeagg="SUM(DPI_OFFLOADING_UL_BYTES)">SUM(DPI_OFFLOADING_UL_BYTES)</counter>
+      <counter alias="DPI_OFFLOADING_DL_PACKETS" time-alias="DPI_OFFLOADING_DL_PACKETS" timeagg="SUM(DPI_OFFLOADING_DL_PACKETS)">SUM(DPI_OFFLOADING_DL_PACKETS)</counter>
+      <counter alias="DPI_OFFLOADING_DL_BYTES" time-alias="DPI_OFFLOADING_DL_BYTES" timeagg="SUM(DPI_OFFLOADING_DL_BYTES)">SUM(DPI_OFFLOADING_DL_BYTES)</counter>
+    </counters>
+    <table_name>pcofng_ps_dpioff_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>DPIOFF</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>DPIOFF.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_dpioff_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DPI_OFFLOADING_UL_PACKETS">
+    <formula>DPIOFF.DPI_OFFLOADING_UL_PACKETS</formula>
+    <kpi_info>
+      <title>DPI_OFFLOADING_UL_PACKETS</title>
+      <use>This counter contains the number of uplink packets that have been DPI offloaded. UPDATED: Updated when DPI offloading feature is applied to subscriber's uplink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DPI_OFFLOADING_UL_PACKETS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_dpioff_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DPI_OFFLOADING_UL_PACKETS (m3071c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DPI_OFFLOADING_UL_BYTES">
+    <formula>DPIOFF.DPI_OFFLOADING_UL_BYTES</formula>
+    <kpi_info>
+      <title>DPI_OFFLOADING_UL_BYTES</title>
+      <use>This counter contains the number of uplink bytes that have been DPI offloaded. UPDATED: Updated when DPI offloading feature is applied to subscriber's uplink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DPI_OFFLOADING_UL_BYTES)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_dpioff_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DPI_OFFLOADING_UL_BYTES (m3071c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DPI_OFFLOADING_DL_PACKETS">
+    <formula>DPIOFF.DPI_OFFLOADING_DL_PACKETS</formula>
+    <kpi_info>
+      <title>DPI_OFFLOADING_DL_PACKETS</title>
+      <use>This counter contains the number of downlink packets that have been DPI offloaded. UPDATED: Updated when DPI offloading feature is applied to subscriber's downlink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DPI_OFFLOADING_DL_PACKETS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_dpioff_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DPI_OFFLOADING_DL_PACKETS (m3071c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="DPI_OFFLOADING_DL_BYTES">
+    <formula>DPIOFF.DPI_OFFLOADING_DL_BYTES</formula>
+    <kpi_info>
+      <title>DPI_OFFLOADING_DL_BYTES</title>
+      <use>This counter contains the number of downlink bytes that have been DPI offloaded. UPDATED: Updated when DPI offloading feature is applied to subscriber's downlink traffic.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(DPI_OFFLOADING_DL_BYTES)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_dpioff_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>DPI_OFFLOADING_DL_BYTES (m3071c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

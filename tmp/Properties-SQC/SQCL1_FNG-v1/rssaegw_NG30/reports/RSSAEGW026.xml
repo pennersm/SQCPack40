@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <report_version>RSSAEGW GGSN/SAE-GW NG30</report_version>
+    <release number="5.6.2-70" />
+    <min_obj_agg />
+    <nw_tp />
+    <maxrows />
+    <header>RSSAEGW026 - Create Session cause code</header>
+    <csv_title>Create Session cause code</csv_title>
+    <obj_number />
+    <wrap_header />
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <nokia_kpi_help_file />
+    <external_kpi_help_file />
+    <help_text><![CDATA[This report gives information about GTP-C v2 create session response messages sent/received per cause code on S11/S4 and S5/S8 interfaces.
+<br>Use case specific instructions:
+<br>- This report can be used to troubleshoot the 'Create Session Request' messages;
+<br>- Note, 'Ratio' columns are applicable on cause code level only.]]></help_text>
+    <history>
+      <revision>
+        <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+        <date>2011/04/18 15:24:42.187 +0100</date>
+        <comment><![CDATA[Source: RSSAEGW026.xml]]></comment>
+      </revision>
+    </history>
+    <report-description>Create Session cause code</report-description>
+    <report-title>Create Session cause code</report-title>
+  </info>
+  <column_order>
+    <!--                                                                                                  -->
+    <!-- ====================================== List of kpi names ======================================  -->
+    <!--                                                                                                  -->
+    <flng_125a ui_name="Att" group="sent (S11/S4 and S5/S8)" master-group="Create Session resp" chartType="bar" yAxis="2" />
+    <flng_126a ui_name="Ratio" group="sent (S11/S4 and S5/S8)" master-group="Create Session resp" />
+    <flng_531a ui_name="Att" group="sent on S11" master-group="Create Session resp" chartType="bar" yAxis="2" />
+    <flng_532a ui_name="Ratio" group="sent on S11" master-group="Create Session resp" />
+    <flng_535a ui_name="Att" group="sent on S4" master-group="Create Session resp" chartType="bar" yAxis="2" />
+    <flng_536a ui_name="Ratio" group="sent on S4" master-group="Create Session resp" />
+    <flng_460a ui_name="Att" group="rcvd (S5/S8)" master-group="Create Session resp" chartType="bar" yAxis="2" />
+    <flng_461a ui_name="Ratio" group="rcvd (S5/S8)" master-group="Create Session resp" />
+    <flng_539a ui_name="Att" group="rcvd on S5" master-group="Create Session resp" chartType="bar" yAxis="2" />
+    <flng_540a ui_name="Ratio" group="rcvd on S5" master-group="Create Session resp"/>
+  </column_order>
+  <!--                                                                                                 -->
+  <!-- ========================================Measurement Data======================================  -->
+  <!--                                                                                                 -->
+  <temp_table_ref src="rssaegw_NG30/counters/GTPCV2RESP.xml" />  
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_125a">
+    <formula>(GTPCV2RESP.gtpcv2_cre_sess_resp_sent)</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 create session responses sent per cause code.
+Create Session Response sent: 
+- S11/S4 interface (MME/SGSN &lt;- SGW)
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum (gtpcv2_cre_sess_resp_sent)
+<br>
+<br>]]></formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_CSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Session resp sent]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_126a">
+    <formula>decode( ((GTPCV2RESP.gtpcv2_cre_sess_resp_sent_all)),0,NULL, ((GTPCV2RESP.gtpcv2_cre_sess_resp_sent)) / ((GTPCV2RESP.gtpcv2_cre_sess_resp_sent_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent for a specific cause code when compared to total number of GTP-C v2 create session response messages sent.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(csrs_id,'x',GTPCV2_CRE_SESS_RESP_SENT,0))  ;CSRS for cause code x
+<br>----------------------------------------------------------------------------- *100
+<br>sum(GTPCV2_CRE_SESS_RESP_SENT)  ;all CSRS's
+<br>
+<br>]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CSRS_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Sess resp sent ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_531a">
+    <formula>GTPCV2RESP.GTPCV2_CRE_SESS_RESP_SENT_S11</formula>
+    <kpi_info>
+      <title><![CDATA[S11 Create Session responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 create session responses sent on S11 interface (MME &lt;- SGW) per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_SENT_S11)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.241 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW063.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S11 Create Sess resp sent</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_532a">
+    <formula>100*decode(GTPCV2RESP.CRE_SESS_RESP_SENT_S11_ALL,0,null,
+	(
+	 GTPCV2RESP.GTPCV2_CRE_SESS_RESP_SENT_S11
+	 /
+	 GTPCV2RESP.CRE_SESS_RESP_SENT_S11_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S11 Create Session responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent on S11 interface for a specific cause code when compared to total number of GTP-C v2 create session response messages sent on S11 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv211_id,&amp;#039;x&amp;#039;,GTPCV2_CRE_SESS_RESP_SENT_S11,0))  ;GV211 for cause code x
+&lt;br&gt;----------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_SENT_S11)  ;all GV211&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.256 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW063.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S11 Cre Sess res sent rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_535a">
+    <formula>GTPCV2RESP.GTPCV2_CRE_SESS_RESP_SENT_S4</formula>
+    <kpi_info>
+      <title><![CDATA[S4 Create Session responses sent per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 create session responses sent on S4 interface (SGSN &lt;- SGW) per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_SENT_S4)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.272 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW064.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S4 Create Sess resp sent</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_536a">
+    <formula>100*decode(GTPCV2RESP.CRE_SESS_RESP_SENT_S4_ALL,0,null,
+	(
+	 GTPCV2RESP.GTPCV2_CRE_SESS_RESP_SENT_S4
+	 /
+	 GTPCV2RESP.CRE_SESS_RESP_SENT_S4_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S4 Create Session responses sent cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses sent on S4 interface for a specific cause code when compared to total number of GTP-C v2 create session response messages sent on S4 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv24_id,&amp;#039;x&amp;#039;,GTPCV2_CRE_SESS_RESP_SENT_S4,0))  ;GV24 for cause code x
+&lt;br&gt;--------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_SENT_S4)  ;all GV24&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.272 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW064.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S4 Cre Sess resp sent rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_460a">
+    <formula>(GTPCV2RESP.GTPCV2_CREATE_SESS_RESP_RECV)</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 create session responses received per cause code.
+Create Session Response received: 
+- S5/S8 interface (SGW &lt;- PGW)]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum(GTPCV2_CREATE_SESS_RESP_RECV)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>PCOFNG_PS_CSRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Create Session resp rcv]]></kpi_alias>
+    <area_level/>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_461a">
+    <formula>decode( ((GTPCV2RESP.gtpcv2_cr_sess_resp_recv_all)),0,NULL, ((GTPCV2RESP.gtpcv2_create_sess_resp_recv)) / ((GTPCV2RESP.gtpcv2_cr_sess_resp_recv_all)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Create Session responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses received for a specific cause code when compared to total number of GTP-C v2 create session response messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula><![CDATA[sum(decode(csrr_id,'x',GTPCV2_CREATE_SESS_RESP_RECV,0))  ;CSRR for cause code x 
+<br>---------------------------------------------------------------------------------------- *100 
+<br>sum(GTPCV2_CREATE_SESS_RESP_RECV)  ;all CSRR's 
+<br> 
+]]></formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_CSRR_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Create Sess resp rcv ratio]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_539a">
+    <formula>GTPCV2RESP.GTPCV2_CRE_SESS_RESP_RECV_S5</formula>
+    <kpi_info>
+      <title><![CDATA[S5 Create Session responses received per cause code]]></title>
+      <use><![CDATA[This KPI shows the number of GTP-C v2 create session responses received on S5 interface (SGW &lt;- PGW) per cause code.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_RECV_S5)</formula>
+      <unit>[#]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.303 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW065.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5 Create Sess resp rcv</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                                -->
+  <!-- ================================= Formula + help ============================================= -->
+  <!--                                                                                                -->
+  <kpi name="flng_540a">
+    <formula>100*decode(GTPCV2RESP.CRE_SESS_RESP_RECV_S5_ALL,0,null,
+	(
+	 GTPCV2RESP.GTPCV2_CRE_SESS_RESP_RECV_S5
+	 /
+	 GTPCV2RESP.CRE_SESS_RESP_RECV_S5_ALL))</formula>
+    <kpi_info>
+      <title><![CDATA[S5 Create Session responses received cause code ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of GTP-C v2 create session responses received on S5 interface for a specific cause code when compared to total number of GTP-C v2 create session response messages received on S5 interface.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(decode(gv25_id,&amp;#039;x&amp;#039;,GTPCV2_CRE_SESS_RESP_RECV_S5,0))  ;GV25 for cause code x
+&lt;br&gt;--------------------------------------------------------------------------------- *100
+&lt;br&gt;sum(GTPCV2_CRE_SESS_RESP_RECV_S5)  ;all GV25&amp;#039;s</formula>
+      <unit>[%]</unit>
+      <tables />
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2011/10/11 18:51:20.303 +0100</date>
+          <comment><![CDATA[Source: RSSAEGW065.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S5 Cre Sess resp rcv rat</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <!--                                                                                     -->
+  <!-- ================================= End ============================================= -->
+  <!-- 																					   -->
+</conf_file>
+

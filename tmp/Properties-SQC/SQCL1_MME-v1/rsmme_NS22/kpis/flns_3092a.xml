@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3092a">
+    <formula>decode(
+		(mmmt.eps_attach_succ + mmmt.eps_attach_fail),0,NULL,
+		100*mmmt.eps_attach_fail_esm_info_req
+			/ 
+		(mmmt.eps_attach_succ + mmmt.eps_attach_fail))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Attach ESM Info Request failure ratio]]></title>
+      <use><![CDATA[This KPI shows the failure ratio of EPS attach procedures due to an error related to the ESM information request procedure.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(EPS_ATTACH_FAIL_ESM_INFO_REQ)
+&lt;br&gt;---------------------------------- *100
+&lt;br&gt;sum(EPS_ATTACH_SUCC + 
+&lt;br&gt;   EPS_ATTACH_FAIL)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/10/03 16:27:30.923 +0100</date>
+          <comment><![CDATA[Source: RSMME001.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Attach EPS info req FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

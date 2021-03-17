@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/IUSM.xml" />
+  <kpi name="sgsn_54a">
+    <formula>decode(
+			(iusm.iu_succ_mo_pdp_con_act + 
+			iusm.iu_fail_mo_pdp_act_26 + 
+			iusm.iu_fail_mo_pdp_act_30 + 
+			iusm.iu_fail_mo_pdp_act_31 + 
+			iusm.iu_fail_mo_pdp_act_34 + 
+			iusm.iu_fail_mo_pdp_act_pro + 
+			iusm.iu_fail_mo_pdp_act_oth),0,NULL, 
+
+			(100*(iusm.iu_succ_mo_pdp_con_act)
+			 / 
+			(iusm.iu_succ_mo_pdp_con_act + 
+			iusm.iu_fail_mo_pdp_act_26 + 
+			iusm.iu_fail_mo_pdp_act_30 + 
+			iusm.iu_fail_mo_pdp_act_31 + 
+			iusm.iu_fail_mo_pdp_act_34 + 
+			iusm.iu_fail_mo_pdp_act_pro + 
+			iusm.iu_fail_mo_pdp_act_oth)))</formula>
+    <kpi_info>
+      <title><![CDATA[Iu PDP context activation success ratio (only 'technical failures' included)]]></title>
+      <use><![CDATA[This KPI measures the PDP context activation performance on Iu interface when subscription related failures such as wrong APN settings are excluded.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(IU_SUCC_MO_PDP_CON_ACT)
+&lt;br&gt;--------------------------------------------------------------------------------------------- * 100
+&lt;br&gt;sum(IU_SUCC_MO_PDP_CON_ACT + IU_FAIL_MO_PDP_ACT_26 + 
+&lt;br&gt;        IU_FAIL_MO_PDP_ACT_30 + IU_FAIL_MO_PDP_ACT_31 + 
+&lt;br&gt;        IU_FAIL_MO_PDP_ACT_34 + IU_FAIL_MO_PDP_ACT_PRO + 
+&lt;br&gt;        IU_FAIL_MO_PDP_ACT_OTH)
+&lt;br&gt;
+&lt;br&gt;counters from table(s): p_sgsn_iu_session_management</formula>
+      <unit>[%]</unit>
+      <tables>rsg_ps_iusm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Iu PDP context activation success ratio (only 'technical failures' included)]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

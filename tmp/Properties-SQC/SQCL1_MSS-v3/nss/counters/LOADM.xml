@@ -1,0 +1,255 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M117 LOADM measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M117 LOADM measurement dump</csv_title>
+    <report-description>Circuit group load observation measurement(LOADM)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CGRL_TOTAL_NUM_OF_CIRCUITS/>
+    <CGRL_AVG_NUM_OF_CIRCUITS_X10/>
+    <CGRL_FAILURE_RATE_PERCENT_X10/>
+    <CGRL_TIME_CONGEST_PERCENT_X10/>
+    <CGRL_NUM_OF_CALLS/>
+    <CGRL_INTERNAL_FAILURE/>
+    <CGRL_EXTERNAL_FAILURE/>
+    <CGRL_ERLANGS_X10/>
+    <CGRL_INVALID_RECORD/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/CGR/CGRNAME" name="LOADM" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CGRL_TOTAL_NUM_OF_CIRCUITS" symmetrical="true">SUM(CGRL_TOTAL_NUM_OF_CIRCUITS)</counter>
+      <counter alias="CGRL_AVG_NUM_OF_CIRCUITS_X10" object-formula="SUM(CGRL_AVG_NUM_OF_CIRCUITS_X10)" time-alias="CGRL_AVG_NUM_OF_CIRCUITS_X10" time-formula="AVG(CGRL_AVG_NUM_OF_CIRCUITS_X10)">SUM(CGRL_AVG_NUM_OF_CIRCUITS_X10)</counter>
+      <counter alias="CGRL_FAILURE_RATE_PERCENT_X10" symmetrical="true">AVG(CGRL_FAILURE_RATE_PERCENT_X10)</counter>
+      <counter alias="CGRL_TIME_CONGEST_PERCENT_X10" symmetrical="true">AVG(CGRL_TIME_CONGEST_PERCENT_X10)</counter>
+      <counter alias="CGRL_NUM_OF_CALLS" symmetrical="true">SUM(CGRL_NUM_OF_CALLS)</counter>
+      <counter alias="CGRL_INTERNAL_FAILURE" symmetrical="true">SUM(CGRL_INTERNAL_FAILURE)</counter>
+      <counter alias="CGRL_EXTERNAL_FAILURE" symmetrical="true">SUM(CGRL_EXTERNAL_FAILURE)</counter>
+      <counter alias="CGRL_ERLANGS_X10" object-formula="SUM(CGRL_ERLANGS_X10)" time-alias="CGRL_ERLANGS_X10" time-formula="AVG(CGRL_ERLANGS_X10)">SUM(CGRL_ERLANGS_X10)</counter>
+      <counter alias="CGRL_INVALID_RECORD" symmetrical="true">MAX(CGRL_INVALID_RECORD)</counter>
+    </counters>
+    <table_name>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>LOADM</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>LOADM.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_TOTAL_NUM_OF_CIRCUITS">
+    <formula>LOADM.CGRL_TOTAL_NUM_OF_CIRCUITS</formula>
+    <kpi_info>
+      <title>CGRL_TOTAL_NUM_OF_CIRCUITS</title>
+      <use>Number of circuits in the circuit group.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CGRL_TOTAL_NUM_OF_CIRCUITS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_TOTAL_NUM_OF_CIRCUITS (M117B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_AVG_NUM_OF_CIRCUITS_X10">
+    <formula>LOADM.CGRL_AVG_NUM_OF_CIRCUITS_X10</formula>
+    <kpi_info>
+      <title>CGRL_AVG_NUM_OF_CIRCUITS_X10</title>
+      <use>The average number of circuits (0.0...6553.5)available (in WO-EX state) in the circuit group. The average number
+is calculated in the marker unit by using a sampling procedure.
+The number of WO-EX circuits of each circuit group is updated on
+a counter. The total sum of a results accumulation period is divided
+by the number of the samples. The average number of WO-EX circuits
+during the results accumulation period is received as the result.
+The maximum AVECR value of a circuit group does not depend on the
+type of the circuit group (unidirectional or bidirectional).The
+maximum value is always the same as the number of circuits in the circuit
+group.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(CGRL_AVG_NUM_OF_CIRCUITS_X10)">SUM(CGRL_AVG_NUM_OF_CIRCUITS_X10)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_AVG_NUM_OF_CIRCUITS_X10 (M117B2C4)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_FAILURE_RATE_PERCENT_X10">
+    <formula>LOADM.CGRL_FAILURE_RATE_PERCENT_X10</formula>
+    <kpi_info>
+      <title>CGRL_FAILURE_RATE_PERCENT_X10</title>
+      <use>Call failure rate in percents (0.0...100.0). Thevalue is calculated by dividing the number of calls ended in internal or
+external failure by the total number of calls.Subscriber
+errors (clear codes C00H...FFFH) are not included in the total number
+nor in the number of error situations when the failure rate is calculated.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CGRL_FAILURE_RATE_PERCENT_X10)</formula>
+      <unit>%</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_FAILURE_RATE_PERCENT_X10 (M117B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_TIME_CONGEST_PERCENT_X10">
+    <formula>LOADM.CGRL_TIME_CONGEST_PERCENT_X10</formula>
+    <kpi_info>
+      <title>CGRL_TIME_CONGEST_PERCENT_X10</title>
+      <use>The time congestion percentage (0.0...100.0).The counting of time congestion is started when the last free circuit
+in a circuit group is reserved. The value indicates the proportion
+of time during which all circuits on the circuit group have been
+reserved within the observation period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CGRL_TIME_CONGEST_PERCENT_X10)</formula>
+      <unit>%</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_TIME_CONGEST_PERCENT_X10 (M117B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_NUM_OF_CALLS">
+    <formula>LOADM.CGRL_NUM_OF_CALLS</formula>
+    <kpi_info>
+      <title>CGRL_NUM_OF_CALLS</title>
+      <use>The total number of started calls (0...9999999)during the reporting period.The counter is updated
+when the circuit is reserved.Subscriber errors (clear
+codes C00H...FFFH) are not included.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CGRL_NUM_OF_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_NUM_OF_CALLS (M117B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_INTERNAL_FAILURE">
+    <formula>LOADM.CGRL_INTERNAL_FAILURE</formula>
+    <kpi_info>
+      <title>CGRL_INTERNAL_FAILURE</title>
+      <use>The number of call attempts (0...9999999) terminated in an internal error situation (clear codes 400H...7FFH),
+that is, an error in the home exchange. The counter
+is updated when the circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CGRL_INTERNAL_FAILURE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_INTERNAL_FAILURE (M117B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_EXTERNAL_FAILURE">
+    <formula>LOADM.CGRL_EXTERNAL_FAILURE</formula>
+    <kpi_info>
+      <title>CGRL_EXTERNAL_FAILURE</title>
+      <use>The number of call attempts (0...9999999) terminated in an external error situation (clear codes 800H...BFFH),
+that is, error on trunk circuit. The counter is updated
+when the circuit is released.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CGRL_EXTERNAL_FAILURE)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_EXTERNAL_FAILURE (M117B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_ERLANGS_X10">
+    <formula>LOADM.CGRL_ERLANGS_X10</formula>
+    <kpi_info>
+      <title>CGRL_ERLANGS_X10</title>
+      <use>The amount of traffic in Erlangs (0.0...99999.9), that is, the total seizure time of the object being measured in
+relation to the measurement period. All of the circuit reservation
+time is updated in the results accumulation period in which the
+circuit is released. For this reason remarkably large values in
+the ERLANGS field are possible in a case in which there are many
+calls that have started before the results accumulation period but
+that end in the results accumulation period.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(CGRL_ERLANGS_X10)">SUM(CGRL_ERLANGS_X10)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_ERLANGS_X10 (M117B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CGRL_INVALID_RECORD">
+    <formula>LOADM.CGRL_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>CGRL_INVALID_RECORD</title>
+      <use>Tag appears at the end of the given countergroup if the field value is 1.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CGRL_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_LOADM{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CGRL_INVALID_RECORD (M117B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

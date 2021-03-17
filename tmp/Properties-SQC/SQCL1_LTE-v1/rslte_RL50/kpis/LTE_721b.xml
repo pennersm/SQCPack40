@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LTRLD.xml" />
+  <kpi name="LTE_721b">
+    <formula>
+100*decode(
+		(ltrld.volume_x2_in_sig_data + ltrld.x2_data_vol_in_uplane) 
+		,0,null, 
+		(ltrld.x2_data_vol_in_uplane)
+		 / 		
+		(ltrld.volume_x2_in_sig_data + ltrld.x2_data_vol_in_uplane)
+)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Incoming User Data vs Siganlling on X2]]></title>
+      <use><![CDATA[Ratio between the User data and Signalling in incoming direction in X2]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 *     LTE_66a
+&lt;br&gt;      ----------------
+&lt;br&gt;      LTE_62a+ LTE_66a
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LTRLD_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:47.113 +0100</date>
+          <comment><![CDATA[Source: RSLTE006.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Incoming data balacing ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

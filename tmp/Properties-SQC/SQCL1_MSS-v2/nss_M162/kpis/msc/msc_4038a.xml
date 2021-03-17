@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLR1MSC.xml" />
+  <kpi name="msc_4038a">
+    <formula>
+    decode(
+		(vlr1msc.pagingthroughaifattempts +
+                         vlr1msc.mssearchattempts +
+                         vlr1msc.pagingthroughsgsnattempts +
+                         vlr1msc.alterpagingthroughsgsnsucc),0,null, 
+		(100*(1 - (( vlr1msc.mssearchsucc +
+                         vlr1msc.pagingthroughaifsucc +
+                         vlr1msc.pagingthroughsgsnsucc +
+                         vlr1msc.alterpagingthroughsgsnattempts )/
+               ( vlr1msc.pagingthroughaifattempts +
+                         vlr1msc.mssearchattempts +
+                         vlr1msc.pagingthroughsgsnattempts +
+                         vlr1msc.alterpagingthroughsgsnsucc ))
+             )
+        )
+    )
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Paging failure ratio]]></title>
+      <use><![CDATA[Indicates the failure ratio of paging procedures, including CS and PS domain and Alternate CS paging and MS search.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;               SUM( MSSearchSucc +
+&lt;br&gt;                         PagingThroughAIFSucc +
+&lt;br&gt;                         PagingThroughSGSNSucc +
+&lt;br&gt;                         AlterPagingThroughSGSNAttempts )
+&lt;br&gt;100 * (1 - -------------------------------------------------------------- )                          
+&lt;br&gt;               SUM( PagingThroughAIFAttempts +
+&lt;br&gt;                         MSSearchAttempts +
+&lt;br&gt;                         PagingThroughSGSNAttempts +
+&lt;br&gt;                         AlterPagingThroughSGSNSucc )
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_vlr1msc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Pag failure ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

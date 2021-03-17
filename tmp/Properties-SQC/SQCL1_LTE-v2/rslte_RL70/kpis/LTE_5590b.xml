@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_5590b">
+    <formula>100*decode(
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0)),0,null, 
+
+			(luest.sign_conn_estab_rej_emg + 
+			luest.sign_conn_estab_rej_mo_s +
+			luest.sign_conn_estab_rej_mo_d +
+			luest.sign_conn_estab_rej_mt +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0))
+			 / 
+			(luest.sign_conn_estab_att_mo_s + 
+			luest.sign_conn_estab_att_mt + 
+			luest.sign_conn_estab_att_mo_d + 
+			luest.sign_conn_estab_att_others + 
+			luest.sign_conn_estab_att_emg +
+			nvl(luest.sign_conn_estab_att_hiprio,0) + 
+			nvl(luest.sign_conn_estab_att_del_tol,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN RRC Connection Setup Failure Ratio per Cause RRC Connection Stp eNB Rej.]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific RRC connection setup failure cause related to all RRC connection requests.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(SIGN_CONN_ESTAB_REJ_EMG+SIGN_CONN_ESTAB_REJ_MO_S+SIGN_CONN_ESTAB_REJ_MO_D+SIGN_CONN_ESTAB_REJ_MT+SIGN_CONN_ESTAB_REJ_DEL_TOL+SIGN_CONN_ESTAB_REJ_HIPRIO)
+&lt;br&gt;/
+&lt;br&gt;sum(SIGN_CONN_ESTAB_ATT_MO_S +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_MT +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_MO_D +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_OTHERS +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_EMG +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_HIPRIO +
+&lt;br&gt;SIGN_CONN_ESTAB_ATT_DEL_TOL)</formula>
+      <unit>[%]</unit>
+      <tables>noklte_ps_LUEST_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2014/07/21 16:17:09.942 +0000</date>
+          <comment><![CDATA[Source: RSLTE038.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN RRC Con eNB Rej FR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/PKTCALL.xml" />
+  <temp_table_ref src="rsran/counters/CELLTP.xml" />
+  <kpi name="RNC_2776a">
+    <formula>decode(
+				(pktcall.hs_e_req_d_d_allo_int + 
+				pktcall.hs_e_req_d_d_allo_bgr + 
+				pktcall.hs_d_req_d_d_allo_int + 
+				pktcall.hs_d_req_d_d_allo_bgr + 
+				pktcall.d_d_req_d_d_allo_int + 
+				pktcall.d_d_req_d_d_allo_bgr + 
+				pktcall.hs_d_req_hs_d_allo_bgr + 
+				pktcall.hs_d_req_hs_d_allo_int + 
+				pktcall.hs_e_req_hs_d_allo_bgr + 
+				pktcall.hs_e_req_hs_d_allo_int + 
+				pktcall.hs_e_req_hs_e_allo_bgr + 
+				pktcall.hs_e_req_hs_e_allo_int),0,null, 
+
+				(celltp.hs_dsch_data_vol + 
+				celltp.nrt_dch_dl_data_vol)
+				/ 
+				(1000*(pktcall.hs_e_req_d_d_allo_int + 
+				pktcall.hs_e_req_d_d_allo_bgr + 
+				pktcall.hs_d_req_d_d_allo_int + 
+				pktcall.hs_d_req_d_d_allo_bgr + 
+				pktcall.d_d_req_d_d_allo_int + 
+				pktcall.d_d_req_d_d_allo_bgr + 
+				pktcall.hs_d_req_hs_d_allo_bgr + 
+				pktcall.hs_d_req_hs_d_allo_int + 
+				pktcall.hs_e_req_hs_d_allo_bgr + 
+				pktcall.hs_e_req_hs_d_allo_int + 
+				pktcall.hs_e_req_hs_e_allo_bgr + 
+				pktcall.hs_e_req_hs_e_allo_int))
+					)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[PS DL Data volume per session]]></title>
+      <use><![CDATA[CS Call DCH data volume in the downlink direction per session]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(HS_DSCH_DATA_VOL + 
+&lt;br&gt;NRT_DCH_DL_DATA_VOL)
+&lt;br&gt;/
+&lt;br&gt;(1000 * sum(HS_E_REQ_D_D_ALLO_INT +
+&lt;br&gt;HS_E_REQ_D_D_ALLO_BGR +
+&lt;br&gt;HS_D_REQ_D_D_ALLO_INT +
+&lt;br&gt;HS_D_REQ_D_D_ALLO_BGR +
+&lt;br&gt;D_D_REQ_D_D_ALLO_INT +
+&lt;br&gt;D_D_REQ_D_D_ALLO_BGR +
+&lt;br&gt;HS_D_REQ_HS_D_ALLO_BGR +
+&lt;br&gt;HS_D_REQ_HS_D_ALLO_INT +
+&lt;br&gt;HS_E_REQ_HS_D_ALLO_BGR +
+&lt;br&gt;HS_E_REQ_HS_D_ALLO_INT +
+&lt;br&gt;HS_E_REQ_HS_E_ALLO_BGR +
+&lt;br&gt;HS_E_REQ_HS_E_ALLO_INT))
+&lt;br&gt;</formula>
+      <unit>[kB]</unit>
+      <tables>nokrww_ps_PKTCALL_{obj_agg}_{time_agg},nokrww_ps_CELLTP_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/13 14:11:35.901 +0100</date>
+          <comment><![CDATA[Source: RSRAN132.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS DL D Vol sess</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

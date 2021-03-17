@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LUEST.xml" />
+  <kpi name="LTE_5220b">
+    <formula>decode(
+luest.enb_init_to_idle_norm_rel 
++luest.enb_init_to_idle_other
++luest.enb_init_to_idle_rnl 
++luest.epc_init_to_idle_detach 
++luest.epc_init_to_idle_other
++luest.epc_init_to_idle_rnl 
++luest.epc_init_to_idle_ue_norm_rel
++nvl(luest.pre_empt_ue_context_non_gbr,0),0,null,
+
+100*(luest.enb_init_to_idle_norm_rel 
++luest.epc_init_to_idle_detach
++luest.epc_init_to_idle_ue_norm_rel
++nvl(luest.pre_empt_ue_context_non_gbr,0))
+/ 
+(luest.enb_init_to_idle_norm_rel 
++luest.enb_init_to_idle_other
++luest.enb_init_to_idle_rnl 
++luest.epc_init_to_idle_detach 
++luest.epc_init_to_idle_other
++luest.epc_init_to_idle_rnl 
++luest.epc_init_to_idle_ue_norm_rel
++nvl(luest.pre_empt_ue_context_non_gbr,0)))</formula>
+    <kpi_info>
+      <title><![CDATA[E-UTRAN UE Transaction to ECM-IDLE State Success Ratio]]></title>
+      <use><![CDATA[This KPI describes the ratio of normal to all UE Transaction to ECM-IDLE State.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(ENB_INIT_TO_IDLE_NORM_REL +EPC_INIT_TO_IDLE_DETACH +EPC_INIT_TO_IDLE_UE_NORM_REL +PRE_EMPT_UE_CONTEXT_NON_GBR)
+&lt;br&gt;/ 
+&lt;br&gt;(ENB_INIT_TO_IDLE_NORM_REL +ENB_INIT_TO_IDLE_OTHER
++ENB_INIT_TO_IDLE_RNL +EPC_INIT_TO_IDLE_DETACH +EPC_INIT_TO_IDLE_OTHER
++EPC_INIT_TO_IDLE_RNL +EPC_INIT_TO_IDLE_UE_NORM_REL +PRE_EMPT_UE_CONTEXT_NON_GBR ) </formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LUEST_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/10/08 12:06:46.191 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>E-UTRAN UE Transact ECM-IDLE  SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

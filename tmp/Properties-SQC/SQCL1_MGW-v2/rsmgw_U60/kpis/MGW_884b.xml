@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/SIGNTRC.xml" />
+  <temp_table_ref src="rsmgw_U60/counters/SIGNTRC_ext.xml" />
+  <kpi name="MGW_884b">
+    <formula>decode(
+			(signtrc.mgw_1002b),0,null, 
+
+			(100*(signtrc.cat3_to_cat1_nb_ip + 
+			signtrc.cat3_to_cat1_mb + 
+			signtrc.cat3_to_cat1_nb_atm)
+			 / 
+			signtrc.mgw_1002b))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of successful codec modification from codec category 3 to codec category 1]]></title>
+      <use><![CDATA[Indicates share of successful codec modification from codec category 3 to codec category 1 of all successful codec modifications in measured MGW. Codec category 3 includes G.723.1, G.723.1A, G.729A, G.729AB, iLBC and AMR-NB codec for Mb-interface. Codec category 1 includes the following codecs: FR AMR, HR AMR, UMTS AMR, UMTS AMR2, GSM HR, GSM EFR and GSM FR.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      SUM(CAT3_TO_CAT1_NB_IP + CAT3_TO_CAT1_MB + CAT3_TO_CAT1_NB_ATM) 
+&lt;br&gt;100 * ---------------------------------------------------------------
+&lt;br&gt;                                mgw_1002b
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_signtrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Sh Suc Cod Mod CdcCat3 CdcCat1</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

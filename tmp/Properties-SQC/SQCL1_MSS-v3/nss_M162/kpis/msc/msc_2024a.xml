@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/TC_ext.xml"/>
+  <kpi name="msc_2024a">
+    <formula>
+decode(
+	tc_ext.tcat_call_amount_48,0,null,
+	100*tc_ext.tcat_ring_amount_19
+	/
+	tc_ext.tcat_call_amount_48
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Originating successful I-HSPA calls ratio]]></title>
+      <use><![CDATA[Originating successful I-HSPA calls ratio]]></use>
+
+<use_experience><![CDATA[ 
+<br>Traffic categories:
+<br>128 = I-HSPA ORIG = I-HSPA originating call
+<br>PUBLISHED: M14.6
+<br>LAST UPDATE: 28-05-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->TCAT
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Traffic category measurement (M20/14H)
+<br>
+<br>NOTES: In I-HSPA (rel. 1 + 2), the calls are handed over to 3G (CS enabling handover). Despite this HO, both (3G + I-HSPA) access update its RING counters.
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>
+&lt;br&gt;        SUM( tcat_ring_amount ) 
+&lt;br&gt;100 *  ----------------------------- 
+&lt;br&gt;        SUM( tcat_call_amount ) 
+&lt;br&gt;
+&lt;br&gt; ;WHERE traffic_category_id = 128 
+&lt;br&gt;
+&lt;br&gt;Use Aggregated tables</formula>
+      <unit>[%]</unit>
+      <tables>RNS_PS_TC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Orig suc IHSPA calls ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

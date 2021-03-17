@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 RuCpuMemUsage RuCpu measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG10CD8;NG10CD6;NG10CD4;NG10CD2 RuCpuMemUsage RuCpu measurement dump</csv_title>
+    <report-description>Flexi Platform recovery unit level CPU and memory usage statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CUM_ELAPSED_TIME />
+    <CUM_ELAPSED_UPTIME />
+    <UPTIME />
+    <CPU_USAGE />
+    <MIN_CPU_USAGE />
+    <MAX_CPU_USAGE />
+    <AVG_CPU_USAGE />
+    <CPU_USAGE_ELAPSED_USRTIME />
+    <CPU_USAGE_CUM_ELAPSED_SYSTIME />
+    <CPU_USAGE_CUM_ELAPSED_TIME />
+    <MEM_USAGE />
+    <MIN_MEMO_USAGE />
+    <MAX_MEMO_USAGE />
+    <RSS_USAGE />
+    <MIN_RSS_USAGE />
+    <MAX_RSS_USAGE />
+    <VM_USAGE />
+    <MIN_VM_USAGE />
+    <MAX_VM_USAGE />
+  </column_order>
+  <temp_table name="RuCpu" meas_level="PLMN/FING/FNODE/RU/PROC" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CUM_ELAPSED_TIME" time-alias="CUM_ELAPSED_TIME" timeagg="SUM(CUM_ELAPSED_TIME)">AVG(CUM_ELAPSED_TIME)</counter>
+      <counter alias="CUM_ELAPSED_UPTIME" time-alias="CUM_ELAPSED_UPTIME" timeagg="SUM(CUM_ELAPSED_UPTIME)">AVG(CUM_ELAPSED_UPTIME)</counter>
+      <counter alias="UPTIME" time-alias="UPTIME" timeagg="AVG(UPTIME)">AVG(UPTIME)</counter>
+      <counter alias="CPU_USAGE" time-alias="CPU_USAGE" timeagg="AVG(CPU_USAGE)">AVG(CPU_USAGE)</counter>
+      <counter alias="MIN_CPU_USAGE" time-alias="MIN_CPU_USAGE" timeagg="MIN(MIN_CPU_USAGE)">MIN(MIN_CPU_USAGE)</counter>
+      <counter alias="MAX_CPU_USAGE" time-alias="MAX_CPU_USAGE" timeagg="MAX(MAX_CPU_USAGE)">MAX(MAX_CPU_USAGE)</counter>
+      <counter alias="AVG_CPU_USAGE" time-alias="AVG_CPU_USAGE" timeagg="AVG(AVG_CPU_USAGE)">AVG(AVG_CPU_USAGE)</counter>
+      <counter alias="CPU_USAGE_ELAPSED_USRTIME" time-alias="CPU_USAGE_ELAPSED_USRTIME" timeagg="SUM(CPU_USAGE_ELAPSED_USRTIME)">AVG(CPU_USAGE_ELAPSED_USRTIME)</counter>
+      <counter alias="CPU_USAGE_CUM_ELAPSED_SYSTIME" time-alias="CPU_USAGE_CUM_ELAPSED_SYSTIME" timeagg="SUM(CPU_USAGE_CUM_ELAPSED_SYSTIME)">AVG(CPU_USAGE_CUM_ELAPSED_SYSTIME)</counter>
+      <counter alias="CPU_USAGE_CUM_ELAPSED_TIME" time-alias="CPU_USAGE_CUM_ELAPSED_TIME" timeagg="SUM(CPU_USAGE_CUM_ELAPSED_TIME)">AVG(CPU_USAGE_CUM_ELAPSED_TIME)</counter>
+      <counter alias="MEM_USAGE" time-alias="MEM_USAGE" timeagg="AVG(MEM_USAGE)">AVG(MEM_USAGE)</counter>
+      <counter alias="MIN_MEMO_USAGE" time-alias="MIN_MEMO_USAGE" timeagg="MIN(MIN_MEMO_USAGE)">MIN(MIN_MEMO_USAGE)</counter>
+      <counter alias="MAX_MEMO_USAGE" time-alias="MAX_MEMO_USAGE" timeagg="MAX(MAX_MEMO_USAGE)">MAX(MAX_MEMO_USAGE)</counter>
+      <counter alias="RSS_USAGE" time-alias="RSS_USAGE" timeagg="AVG(RSS_USAGE)">SUM(RSS_USAGE)</counter>
+      <counter alias="MIN_RSS_USAGE" time-alias="MIN_RSS_USAGE" timeagg="MIN(MIN_RSS_USAGE)">MIN(MIN_RSS_USAGE)</counter>
+      <counter alias="MAX_RSS_USAGE" time-alias="MAX_RSS_USAGE" timeagg="MAX(MAX_RSS_USAGE)">MAX(MAX_RSS_USAGE)</counter>
+      <counter alias="VM_USAGE" time-alias="VM_USAGE" timeagg="AVG(VM_USAGE)">SUM(VM_USAGE)</counter>
+      <counter alias="MIN_VM_USAGE" time-alias="MIN_VM_USAGE" timeagg="MIN(MIN_VM_USAGE)">MIN(MIN_VM_USAGE)</counter>
+      <counter alias="MAX_VM_USAGE" time-alias="MAX_VM_USAGE" timeagg="MAX(MAX_VM_USAGE)">MAX(MAX_VM_USAGE)</counter>
+    </counters>
+    <table_name>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>RuCpu</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>RuCpu.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CUM_ELAPSED_TIME">
+    <formula>RuCpu.CUM_ELAPSED_TIME</formula>
+    <kpi_info>
+      <title>CUM_ELAPSED_TIME</title>
+      <use>The total elapsed time (ms), can be used. For example for ratio calculations with CPU times.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="SUM(CUM_ELAPSED_TIME)">AVG(CUM_ELAPSED_TIME)</formula>
+      <unit>ms</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CUM_ELAPSED_TIME (m02003c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CUM_ELAPSED_UPTIME">
+    <formula>RuCpu.CUM_ELAPSED_UPTIME</formula>
+    <kpi_info>
+      <title>CUM_ELAPSED_UPTIME</title>
+      <use>The total elapsed recovery unit uptime (ms), can be used e.g. for ratio calculations with CPU times.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="SUM(CUM_ELAPSED_UPTIME)">AVG(CUM_ELAPSED_UPTIME)</formula>
+      <unit>ms</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CUM_ELAPSED_UPTIME (m02003c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="UPTIME">
+    <formula>RuCpu.UPTIME</formula>
+    <kpi_info>
+      <title>UPTIME</title>
+      <use>This gauge contains the uptime of the recovery unit (RU) in percentage (within 0 and 100 with values rounded to the next integer) during the reporting period between time T1 (beginning of the reporting period) and T2 (end of the reporting period). This is calculated using the formula: 100 - 100 * delta(m02003c0002)/delta(m02003c0001), where delta(X) = X(T2) - X(T1).</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(UPTIME)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>UPTIME (m02003c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPU_USAGE">
+    <formula>RuCpu.CPU_USAGE</formula>
+    <kpi_info>
+      <title>CPU_USAGE</title>
+      <use>This gauge contains the CPU usage % for the recovery unit. UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPU_USAGE (m02003c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_CPU_USAGE">
+    <formula>RuCpu.MIN_CPU_USAGE</formula>
+    <kpi_info>
+      <title>MIN_CPU_USAGE</title>
+      <use>Minimum CPU usage % for the recovery unit.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_CPU_USAGE (m02003c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_CPU_USAGE">
+    <formula>RuCpu.MAX_CPU_USAGE</formula>
+    <kpi_info>
+      <title>MAX_CPU_USAGE</title>
+      <use>Maximum CPU usage % for the recovery unit.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_CPU_USAGE (m02003c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="AVG_CPU_USAGE">
+    <formula>RuCpu.AVG_CPU_USAGE</formula>
+    <kpi_info>
+      <title>AVG_CPU_USAGE</title>
+      <use>This gauge contains the average CPU usage % for the recovery unit. Calculated from (m02003c00010 / m02003c0001) * 100. UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(AVG_CPU_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>AVG_CPU_USAGE (m02003c0007)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPU_USAGE_ELAPSED_USRTIME">
+    <formula>RuCpu.CPU_USAGE_ELAPSED_USRTIME</formula>
+    <kpi_info>
+      <title>CPU_USAGE_ELAPSED_USRTIME</title>
+      <use>Cumulative user CPU time (ms) for the RU.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="SUM(CPU_USAGE_ELAPSED_USRTIME)">AVG(CPU_USAGE_ELAPSED_USRTIME)</formula>
+      <unit>ms</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPU_USAGE_ELAPSED_USRTIME (m02003c0008)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPU_USAGE_CUM_ELAPSED_SYSTIME">
+    <formula>RuCpu.CPU_USAGE_CUM_ELAPSED_SYSTIME</formula>
+    <kpi_info>
+      <title>CPU_USAGE_CUM_ELAPSED_SYSTIME</title>
+      <use>Cumulative system CPU time (ms) for the RU.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="SUM(CPU_USAGE_CUM_ELAPSED_SYSTIME)">AVG(CPU_USAGE_CUM_ELAPSED_SYSTIME)</formula>
+      <unit>ms</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPU_USAGE_CUM_ELAPSED_SYSTIME (m02003c0009)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CPU_USAGE_CUM_ELAPSED_TIME">
+    <formula>RuCpu.CPU_USAGE_CUM_ELAPSED_TIME</formula>
+    <kpi_info>
+      <title>CPU_USAGE_CUM_ELAPSED_TIME</title>
+      <use>Total used CPU time for the RU. Calculated from local_m2003c0008 + local_m2003c0009, sum of user and system time.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="SUM(CPU_USAGE_CUM_ELAPSED_TIME)">AVG(CPU_USAGE_CUM_ELAPSED_TIME)</formula>
+      <unit>ms</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CPU_USAGE_CUM_ELAPSED_TIME (m02003c0010)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MEM_USAGE">
+    <formula>RuCpu.MEM_USAGE</formula>
+    <kpi_info>
+      <title>MEM_USAGE</title>
+      <use>This gauge contains the percentage of total memory used by the recovery unit. UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(MEM_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MEM_USAGE (m02003c0011)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_MEMO_USAGE">
+    <formula>RuCpu.MIN_MEMO_USAGE</formula>
+    <kpi_info>
+      <title>MIN_MEMO_USAGE</title>
+      <use>Minimum memory usage % of the RU.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_MEMO_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_MEMO_USAGE (m02003c0012)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_MEMO_USAGE">
+    <formula>RuCpu.MAX_MEMO_USAGE</formula>
+    <kpi_info>
+      <title>MAX_MEMO_USAGE</title>
+      <use>Maximum memory usage % of the RU.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_MEMO_USAGE)</formula>
+      <unit>%</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_MEMO_USAGE (m02003c0013)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="RSS_USAGE">
+    <formula>RuCpu.RSS_USAGE</formula>
+    <kpi_info>
+      <title>RSS_USAGE</title>
+      <use>This gauge contains the current physical memory usage (rss bytes) of the recovery unit. UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(RSS_USAGE)">SUM(RSS_USAGE)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>RSS_USAGE (m02003c0014)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_RSS_USAGE">
+    <formula>RuCpu.MIN_RSS_USAGE</formula>
+    <kpi_info>
+      <title>MIN_RSS_USAGE</title>
+      <use>Minimum physical memory usage (rss bytes) of the recovery unit.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_RSS_USAGE)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_RSS_USAGE (m02003c0015)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_RSS_USAGE">
+    <formula>RuCpu.MAX_RSS_USAGE</formula>
+    <kpi_info>
+      <title>MAX_RSS_USAGE</title>
+      <use>Maximum physical memory usage (rss bytes) of the recovery unit.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_RSS_USAGE)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_RSS_USAGE (m02003c0016)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="VM_USAGE">
+    <formula>RuCpu.VM_USAGE</formula>
+    <kpi_info>
+      <title>VM_USAGE</title>
+      <use>This gauge contains the current virtual memory usage (vsize bytes) of the recovery unit. UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula timeagg="AVG(VM_USAGE)">SUM(VM_USAGE)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>VM_USAGE (m02003c0017)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MIN_VM_USAGE">
+    <formula>RuCpu.MIN_VM_USAGE</formula>
+    <kpi_info>
+      <title>MIN_VM_USAGE</title>
+      <use>The minimum virtual memory usage (vsize bytes) of the recovery unit.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(MIN_VM_USAGE)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MIN_VM_USAGE (m02003c0018)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="MAX_VM_USAGE">
+    <formula>RuCpu.MAX_VM_USAGE</formula>
+    <kpi_info>
+      <title>MAX_VM_USAGE</title>
+      <use>The maximum virtual memory usage (vsize bytes) of the recovery unit.
+ UPDATED: Values are updated to PM system on demand, e.g. when queried from the UI or needed for measurement results.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(MAX_VM_USAGE)</formula>
+      <unit>byte</unit>
+      <tables>pcofng_ps_rucpu_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>MAX_VM_USAGE (m02003c0019)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

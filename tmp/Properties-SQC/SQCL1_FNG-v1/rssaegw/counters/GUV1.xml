@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTP_U_v1_access_statistics GUV1 measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 GTP_U_v1_access_statistics GUV1 measurement dump</csv_title>
+    <report-description>GTPU statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <GPDU_BYTES_RECV_UP_ACCESS_IF />
+    <GPDU_PKTS_RECV_UP_ACCESS_IF />
+    <GPDU_BYTES_SENT_UP_ACCESS_IF />
+    <GPDU_PKTS_SENT_UP_ACCESS_IF />
+  </column_order>
+  <temp_table name="GUV1" meas_level="PLMN/FING/FNODE/GTPU" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="GPDU_BYTES_RECV_UP_ACCESS_IF" time-alias="GPDU_BYTES_RECV_UP_ACCESS_IF" timeagg="SUM(GPDU_BYTES_RECV_UP_ACCESS_IF)">SUM(GPDU_BYTES_RECV_UP_ACCESS_IF)</counter>
+      <counter alias="GPDU_PKTS_RECV_UP_ACCESS_IF" time-alias="GPDU_PKTS_RECV_UP_ACCESS_IF" timeagg="SUM(GPDU_PKTS_RECV_UP_ACCESS_IF)">SUM(GPDU_PKTS_RECV_UP_ACCESS_IF)</counter>
+      <counter alias="GPDU_BYTES_SENT_UP_ACCESS_IF" time-alias="GPDU_BYTES_SENT_UP_ACCESS_IF" timeagg="SUM(GPDU_BYTES_SENT_UP_ACCESS_IF)">SUM(GPDU_BYTES_SENT_UP_ACCESS_IF)</counter>
+      <counter alias="GPDU_PKTS_SENT_UP_ACCESS_IF" time-alias="GPDU_PKTS_SENT_UP_ACCESS_IF" timeagg="SUM(GPDU_PKTS_SENT_UP_ACCESS_IF)">SUM(GPDU_PKTS_SENT_UP_ACCESS_IF)</counter>
+    </counters>
+    <table_name>pcofng_ps_guv1_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>GUV1</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>GUV1.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_guv1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GPDU_BYTES_RECV_UP_ACCESS_IF">
+    <formula>GUV1.GPDU_BYTES_RECV_UP_ACCESS_IF</formula>
+    <kpi_info>
+      <title>GPDU_BYTES_RECV_UP_ACCESS_IF</title>
+      <use>This counter contains the number of G-PDU bytes received on user plane access interfaces(S1-U, S4-U, IDFT). UPDATED: Updated when a G-PDU packet is received on user plane access interfaces.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GPDU_BYTES_RECV_UP_ACCESS_IF)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_guv1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GPDU_BYTES_RECV_UP_ACCESS_IF (m3066c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GPDU_PKTS_RECV_UP_ACCESS_IF">
+    <formula>GUV1.GPDU_PKTS_RECV_UP_ACCESS_IF</formula>
+    <kpi_info>
+      <title>GPDU_PKTS_RECV_UP_ACCESS_IF</title>
+      <use>This counter contains the number of G-PDU packets received on user plane access interfaces(S1-U, S4-U, IDFT). UPDATED: Updated when a G-PDU packet is received on user plane access interfaces.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GPDU_PKTS_RECV_UP_ACCESS_IF)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_guv1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GPDU_PKTS_RECV_UP_ACCESS_IF (m3066c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GPDU_BYTES_SENT_UP_ACCESS_IF">
+    <formula>GUV1.GPDU_BYTES_SENT_UP_ACCESS_IF</formula>
+    <kpi_info>
+      <title>GPDU_BYTES_SENT_UP_ACCESS_IF</title>
+      <use>This counter contains the number of G-PDU bytes sent on user plane access interfaces(S1-U, S4-U, IDFT). UPDATED: Updated when a G-PDU packet is sent on user plane access interfaces.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GPDU_BYTES_SENT_UP_ACCESS_IF)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_guv1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GPDU_BYTES_SENT_UP_ACCESS_IF (m3066c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="GPDU_PKTS_SENT_UP_ACCESS_IF">
+    <formula>GUV1.GPDU_PKTS_SENT_UP_ACCESS_IF</formula>
+    <kpi_info>
+      <title>GPDU_PKTS_SENT_UP_ACCESS_IF</title>
+      <use>This counter contains the number of G-PDU packets sent on user plane access interfaces(S1-U, S4-U, IDFT). UPDATED: Updated when a G-PDU packet is sent on user plane access interfaces.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(GPDU_PKTS_SENT_UP_ACCESS_IF)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_guv1_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>GPDU_PKTS_SENT_UP_ACCESS_IF (m3066c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

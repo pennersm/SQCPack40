@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELTPW.xml" />
+  <kpi name="RNC_3218a">
+    <formula>100*decode(celtpw.sample_alloc_hsdpa_all,0,null,
+	                   decode(celtpw.active_hsdpa_all,0,null,
+					      ((celtpw.alloc_hsdpa_all / celtpw.sample_alloc_hsdpa_all) - (celtpw.active_hsdpa_all / celtpw.sample_active_hsdpa_all)
+						  )
+						  /
+						  decode(celtpw.sample_alloc_hsdpa_all,0,null,
+						        celtpw.alloc_hsdpa_all / celtpw.sample_alloc_hsdpa_all
+							    )
+							)
+						)</formula>
+    <kpi_info>
+      <title><![CDATA[Average percentage of waiting HSDPA users]]></title>
+      <use><![CDATA[Average percentage of all waiting HSDPA users]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * ((sum(ALLOC_HSDPA_ALL)/sum(SAMPLE_ALLOC_HSDPA_ALL)) - sum(ACTIVE_HSDPA_ALL)/sum(SAMPLE_ACTIVE_HSDPA_ALL))
+&lt;br&gt;/
+&lt;br&gt;((sum(ALLOC_HSDPA_ALL)/sum(SAMPLE_ALLOC_HSDPA_ALL))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_CELTPW_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/11/29 05:32:41.884 +0000</date>
+          <comment><![CDATA[Source: RSRAN145.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Perc Waiting</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

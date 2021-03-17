@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+    <kpi name="RNC_97a">
+    <formula>100*(decode(
+			(servlev.rab_stp_att_cs_conv +
+			servlev.rab_stp_att_cs_strea +
+			servlev.rab_stp_att_ps_strea),0,null,
+
+			(servlev.rab_acc_comp_cs_conv +
+			servlev.rab_acc_comp_cs_strea +
+			servlev.rab_acc_comp_ps_strea)
+			 /
+			(servlev.rab_stp_att_cs_conv +
+			servlev.rab_stp_att_cs_strea +
+			servlev.rab_stp_att_ps_strea)))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB setup and access complete ratio, RT service other than voice]]></title>
+      <use><![CDATA[RAB Setup and Access Complete Ratio [%] for RT service excluding voice over the reporting period. Covers RAB Setup and Access phases]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;      100*SUM( RAB_ACC_COMP_CS_CONV
+&lt;br&gt;             + RAB_ACC_COMP_CS_STREA
+&lt;br&gt;             + RAB_ACC_COMP_PS_STREA)
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;          SUM (RAB_STP_ATT_CS_CONV
+&lt;br&gt;             + RAB_STP_ATT_CS_STREA
+&lt;br&gt;             + RAB_STP_ATT_PS_STREA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB setup and access complete ratio, RT service other than voice]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

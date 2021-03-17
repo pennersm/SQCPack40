@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/TRFOTFO.xml" />
+  <kpi name="MGW_750a">
+    <formula>decode(
+			(trfotfo.trfo_codec_mod + 
+			trfotfo.transcoding_codec_mod + 
+			trfotfo.g711_codec_mod),0,null, 
+
+			(100*(trfotfo.trfo_codec_mod)
+			 / 
+			(trfotfo.trfo_codec_mod + 
+			trfotfo.transcoding_codec_mod + 
+			trfotfo.g711_codec_mod)))</formula>
+    <kpi_info>
+      <title><![CDATA[Connection change to TrFO with codec modification ratio]]></title>
+      <use><![CDATA[Indicates the ratio of connection change to TrFO of all connection changes after codec modification between two audio/speech call terminations in MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(TRFO_CODEC_MOD)/ sum(TRFO_CODEC_MOD+TRANSCODING_CODEC_MOD+G711_CODEC_MOD)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_trfotfo_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Connection change to TrFO with codec modification ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

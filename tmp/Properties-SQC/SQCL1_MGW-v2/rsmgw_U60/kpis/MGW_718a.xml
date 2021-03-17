@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+<temp_table_ref src="rsmgw/counters/H248GR1.xml" />
+  <kpi name="MGW_718a">
+    <formula>decode(
+			(h248gr1.handled_transactions_req),0,null, 
+
+			(100*(h248gr1.dupl_transactions_req)
+			 / 
+			(h248gr1.handled_transactions_req)))</formula>
+    <kpi_info>
+      <title><![CDATA[Share of duplicate transactions]]></title>
+      <use><![CDATA[Share of duplicate transactions of all received transactions in MGW. MGW receives same transaction again.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100* sum( DUPL_TRANSACTIONS_REQ) / sum(HANDLED_TRANSACTIONS_REQ)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_h248gr1_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Share of duplicate transactions]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

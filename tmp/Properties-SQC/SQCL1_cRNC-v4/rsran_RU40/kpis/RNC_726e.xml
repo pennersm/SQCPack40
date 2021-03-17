@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/CELLRES_RAW.xml" />
+  <kpi name="RNC_726e">
+    <formula>cellresraw.rnc_726e</formula>
+    <kpi_info>
+      <title><![CDATA[Average number of simultaneous HSDPA users, during HSDPA usage]]></title>
+      <use><![CDATA[Average number of simultaenous HSDPA users in the target object during the reporting period.  This differs from the 'Average number of simultaeous HSDPA users' KPI so that the time when there are not HSDPA users in the cell is ignored.  This means that KPI shows the average number of simultaneous users when there has been at least 1 user in the cell (or higher level summary object).
+Errormargin +-1 user! With the formula you can never reach the maximum number of users.  Error margin and incapability to reach max falue is due to fact that the KPI is based on RAN Pis measuring the number of users in a step of two.
+KPI can be used to see how many users on average are using HSDPA services.  When observed over NW or certain area and sorted in ascending/descending order user can see the objects with highest/lowest HSDPA simultaenous users.  When lookíng over longer period of time, the trend how the number of HSDPA users is changing shall give operator important information about HSDPA evolution.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>SUM (DURA_HSDPA_USERS_1 + 2 * (DUR_HSDPA_USERS_1_OR_2 - DURA_HSDPA_USERS_1) + 
+&lt;br&gt;3 * DURA_HSDPA_USERS_3 + 4 * (DUR_HSDPA_USERS_3_OR_4 - DURA_HSDPA_USERS_3) + 
+&lt;br&gt;5.5 * DUR_HSDPA_USERS_5_OR_6 + 7.5 * DUR_HSDPA_USERS_7_OR_8 + 
+&lt;br&gt;9.5 * DUR_HSDPA_USERS_9_OR_10 + 11.5 * DUR_HSDPA_USERS_11_OR_12 + 
+&lt;br&gt;13.5 * DUR_HSDPA_USERS_13_OR_14 + 15.5 * DUR_HSDPA_USERS_15_OR_16 + 
+&lt;br&gt;18.5 * DURA_HSDPA_USERS_17_TO_20 + 22.5 * DURA_HSDPA_USERS_21_TO_24 + 
+&lt;br&gt;26.5 * DURA_HSDPA_USERS_25_TO_28 + 30.5 * DURA_HSDPA_USERS_29_TO_32 + 
+&lt;br&gt;34.5 * DURA_HSDPA_USERS_33_TO_36 + 38.5 * DURA_HSDPA_USERS_37_TO_40 + 
+&lt;br&gt;42.5 * DURA_HSDPA_USERS_41_TO_44 + 46.5 * DURA_HSDPA_USERS_45_TO_48 + 
+&lt;br&gt;50.5 * DURA_HSDPA_USERS_49_TO_52 + 54.5 * DURA_HSDPA_USERS_53_TO_56 + 
+&lt;br&gt;58.5 * DURA_HSDPA_USERS_57_TO_60 + 62.5 * DURA_HSDPA_USERS_61_TO_64 + 
+&lt;br&gt;68.5 * DURA_HSDPA_USERS_65_TO_72) 
+&lt;br&gt;----------------------------------------------------------------------------------------------------------------
+&lt;br&gt;SUM (DUR_HSDPA_USERS_1_OR_2 + DUR_HSDPA_USERS_3_OR_4 +
+&lt;br&gt;DUR_HSDPA_USERS_5_OR_6 + DUR_HSDPA_USERS_7_OR_8 + 
+&lt;br&gt;DUR_HSDPA_USERS_9_OR_10 + DUR_HSDPA_USERS_11_OR_12 + 
+&lt;br&gt;DUR_HSDPA_USERS_13_OR_14 + DUR_HSDPA_USERS_15_OR_16 +
+&lt;br&gt;DURA_HSDPA_USERS_17_TO_20 + DURA_HSDPA_USERS_21_TO_24 + 
+&lt;br&gt;DURA_HSDPA_USERS_25_TO_28 + DURA_HSDPA_USERS_29_TO_32 + 
+&lt;br&gt;DURA_HSDPA_USERS_33_TO_36 + DURA_HSDPA_USERS_37_TO_40 +
+&lt;br&gt;DURA_HSDPA_USERS_41_TO_44 + DURA_HSDPA_USERS_45_TO_48 + 
+&lt;br&gt;DURA_HSDPA_USERS_49_TO_52 + DURA_HSDPA_USERS_53_TO_56 + 
+&lt;br&gt;DURA_HSDPA_USERS_57_TO_60 + DURA_HSDPA_USERS_61_TO_64 +
+&lt;br&gt;DURA_HSDPA_USERS_65_TO_72)</formula>
+      <unit>[#]</unit>
+      <tables>NOKRWW_PS_CELLRES_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Av smlt HSDPA usr dur usg]]></kpi_alias>
+    <area_level />
+  </kpi>
+</conf_file>
+

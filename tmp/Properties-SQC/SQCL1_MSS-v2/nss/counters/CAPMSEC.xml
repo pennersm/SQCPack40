@@ -1,0 +1,128 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M200 CAPMSEC measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M200 CAPMSEC measurement dump</csv_title>
+    <report-description>CAP Measurement (CAPMSEC)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CAP_OC_EC_NUMBER/>
+    <!--<CAP_IOC1_SUM_STARTED />
+    <CAP_IOC2_SUM_STARTED />
+    <CAP_IOC3_SUM_STARTED />-->
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/SNET/SPC/SPCN/SUB/OC/EC" name="CAPMSEC" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CAP_OC_EC_NUMBER" symmetrical="true">SUM(CAP_OC_EC_NUMBER)</counter>
+      <!--<counter alias="CAP_IOC1_SUM_STARTED" timeagg="SUM(CAP_IOC1_SUM_STARTED)">SUM(CAP_IOC1_SUM_STARTED)</counter>
+      <counter alias="CAP_IOC2_SUM_STARTED" timeagg="SUM(CAP_IOC2_SUM_STARTED)">SUM(CAP_IOC2_SUM_STARTED)</counter>
+      <counter alias="CAP_IOC3_SUM_STARTED" timeagg="SUM(CAP_IOC3_SUM_STARTED)">SUM(CAP_IOC3_SUM_STARTED)</counter>-->
+    </counters>
+    <table_name>rns_ps_capmsec_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CAPMSEC</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CAPMSEC.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>rns_ps_capmsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CAP_OC_EC_NUMBER">
+    <formula>CAPMSEC.CAP_OC_EC_NUMBER</formula>
+    <kpi_info>
+      <title>CAP_OC_EC_NUMBER</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CAP_OC_EC_NUMBER)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_capmsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CAP_OC_EC_NUMBER (M200B9C1)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <!--<kpi name="CAP_IOC1_SUM_STARTED">
+    <formula>CAPMSEC.CAP_IOC1_SUM_STARTED</formula>
+    <kpi_info>
+      <title>CAP_IOC1_SUM_STARTED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CAP_IOC1_SUM_STARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_capmsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CAP_IOC1_SUM_STARTED (M200B1C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CAP_IOC2_SUM_STARTED">
+    <formula>CAPMSEC.CAP_IOC2_SUM_STARTED</formula>
+    <kpi_info>
+      <title>CAP_IOC2_SUM_STARTED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CAP_IOC2_SUM_STARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_capmsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CAP_IOC2_SUM_STARTED (M200B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CAP_IOC3_SUM_STARTED">
+    <formula>CAPMSEC.CAP_IOC3_SUM_STARTED</formula>
+    <kpi_info>
+      <title>CAP_IOC3_SUM_STARTED</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CAP_IOC3_SUM_STARTED)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_capmsec_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CAP_IOC3_SUM_STARTED (M200B3C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>-->
+</conf_file>

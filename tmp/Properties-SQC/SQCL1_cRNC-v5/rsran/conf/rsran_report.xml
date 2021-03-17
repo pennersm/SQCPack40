@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-conf version="$Revision: 1.27 $">
+  <report pragma="default">
+    <default-obj-drill-column>RNC name</default-obj-drill-column>
+    <column-to-hide>RNC_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("rnc".co_name, nvl("rnc".co_object_instance, 'NN('||"rnc".co_gid||')')) "RNC name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "rnc"
+				#tmp_meas_tables#
+			where
+				#first_tmp_table#.rnc_gid = "rnc".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSRAN-RNC">
+      <add-column id="DN" tooltip-ref="RNC Name">nvl("rnc".co_ext_dn, "rnc".co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-AGPSIF" add-on-sort="2,1,3,4" obj-drill-column="agpsif_id">
+      <add-column id="DN" tooltip-ref="agpsif_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/AGPSIF-'||#first_tmp_table#.agpsif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ASSNAME" add-on-sort="2,1,3,4" obj-drill-column="assname_id">
+      <add-column id="DN" tooltip-ref="assname_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ASSNAME-'||#first_tmp_table#.assname_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ASSNAME/RSRAN-ASSIND" add-on-sort="2,1,3,4" obj-drill-column="assind_id">
+      <add-column id="DN" tooltip-ref="assind_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ASSNAME-'||#first_tmp_table#.assname_id||'/ASSIND-'||#first_tmp_table#.assind_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-BUND" add-on-sort="2,1,3,4" obj-drill-column="bund_id">
+      <add-column id="DN" tooltip-ref="bund_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/BUND-'||#first_tmp_table#.bund_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID" add-on-sort="2,1,3,4" obj-drill-column="cid_id">
+      <add-column id="DN" tooltip-ref="cid_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-LAC" add-on-sort="2,1,3,4" obj-drill-column="lac_id">
+      <add-column id="DN" tooltip-ref="lac_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-LAC/RSRAN-CI" add-on-sort="2,1,3,4" obj-drill-column="ci_id">
+      <add-column id="DN" tooltip-ref="ci_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/CI-'||#first_tmp_table#.ci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-LAC/RSRAN-CI/RSRAN-DMCC-2" add-on-sort="2,1,3,4" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/CI-'||#first_tmp_table#.ci_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-LAC/RSRAN-CI/RSRAN-DMCC-2/RSRAN-DMNC-2" add-on-sort="2,1,3,4" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/CI-'||#first_tmp_table#.ci_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-RRNC-1" add-on-sort="2,1,3,4" obj-drill-column="rrnc_id">
+      <add-column id="DN" tooltip-ref="rrnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/RRNC-'||#first_tmp_table#.rrnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-RRNC-1/RSRAN-TCID-1" add-on-sort="2,1,3,4" obj-drill-column="tcid_id">
+      <add-column id="DN" tooltip-ref="tcid_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/RRNC-'||#first_tmp_table#.rrnc_id||'/TCID-'||#first_tmp_table#.tcid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-RRNC-1/RSRAN-TCID-1/RSRAN-DMCC" add-on-sort="2,1,3,4" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/RRNC-'||#first_tmp_table#.rrnc_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-CID/RSRAN-MCC-8/RSRAN-MNC-8/RSRAN-RRNC-1/RSRAN-TCID-1/RSRAN-DMCC/RSRAN-DMNC" add-on-sort="2,1,3,4" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/CID-'||#first_tmp_table#.cid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/RRNC-'||#first_tmp_table#.rrnc_id||'/TCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-DSCP-1" add-on-sort="2,1,3,4" obj-drill-column="dscp_id">
+      <add-column id="DN" tooltip-ref="dscp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/DSCP-'||#first_tmp_table#.dscp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-DSPP" add-on-sort="2,1,3,4" obj-drill-column="dspp_id">
+      <add-column id="DN" tooltip-ref="dspp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/DSPP-'||#first_tmp_table#.dspp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ENB-1" add-on-sort="2,1,3,4" obj-drill-column="enb_id">
+      <add-column id="DN" tooltip-ref="enb_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ENB-'||#first_tmp_table#.enb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ENB-1/RSRAN-RMSC-3" add-on-sort="2,1,3,4" obj-drill-column="rmsc_id">
+      <add-column id="DN" tooltip-ref="rmsc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ENB-'||#first_tmp_table#.enb_id||'/RMSC-'||#first_tmp_table#.rmsc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ENB-1/RSRAN-RMSC-3/RSRAN-RSGS-3" add-on-sort="2,1,3,4" obj-drill-column="rsgs_id">
+      <add-column id="DN" tooltip-ref="rsgs_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ENB-'||#first_tmp_table#.enb_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ENB-1/RSRAN-RMSC-3/RSRAN-RSGS-3/RSRAN-MCC-11" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ENB-'||#first_tmp_table#.enb_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ENB-1/RSRAN-RMSC-3/RSRAN-RSGS-3/RSRAN-MCC-11/RSRAN-MNC-11" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ENB-'||#first_tmp_table#.enb_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-FPNODE" add-on-sort="2,1,3,4" obj-drill-column="fpnode_id">
+      <add-column id="DN" tooltip-ref="fpnode_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/FPNODE-'||#first_tmp_table#.fpnode_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-FPNODE/RSRAN-FPASOC" add-on-sort="2,1,3,4" obj-drill-column="fpasoc_id">
+      <add-column id="DN" tooltip-ref="fpasoc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/FPNODE-'||#first_tmp_table#.fpnode_id||'/FPASOC-'||#first_tmp_table#.fpasoc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-FPNODE/RSRAN-FPCPU" add-on-sort="2,1,3,4" obj-drill-column="fpcpu_id">
+      <add-column id="DN" tooltip-ref="fpcpu_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/FPNODE-'||#first_tmp_table#.fpnode_id||'/FPCPU-'||#first_tmp_table#.fpcpu_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-FPNODE/RSRAN-FPIFC" add-on-sort="2,1,3,4" obj-drill-column="fpifc_id">
+      <add-column id="DN" tooltip-ref="fpifc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/FPNODE-'||#first_tmp_table#.fpnode_id||'/FPIFC-'||#first_tmp_table#.fpifc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-FPNODE/RSRAN-FPINST" add-on-sort="2,1,3,4" obj-drill-column="fpinst_id">
+      <add-column id="DN" tooltip-ref="fpinst_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/FPNODE-'||#first_tmp_table#.fpnode_id||'/FPINST-'||#first_tmp_table#.fpinst_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-FPNODE/RSRAN-FPINST/RSRAN-FPSSN" add-on-sort="2,1,3,4" obj-drill-column="fpssn_id">
+      <add-column id="DN" tooltip-ref="fpssn_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/FPNODE-'||#first_tmp_table#.fpnode_id||'/FPINST-'||#first_tmp_table#.fpinst_id||'/FPSSN-'||#first_tmp_table#.fpssn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-GRP" add-on-sort="2,1,3,4" obj-drill-column="grp_id">
+      <add-column id="DN" tooltip-ref="grp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/GRP-'||#first_tmp_table#.grp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS" add-on-sort="2,1,3,4" obj-drill-column="hos_id">
+      <add-column id="DN" tooltip-ref="hos_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID" add-on-sort="2,1,3,4" obj-drill-column="scid_id">
+      <add-column id="DN" tooltip-ref="scid_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-ENB" add-on-sort="2,1,3,4" obj-drill-column="enb_id">
+      <add-column id="DN" tooltip-ref="enb_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/ENB-'||#first_tmp_table#.enb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-ENB/RSRAN-ECEL" add-on-sort="2,1,3,4" obj-drill-column="ecel_id">
+      <add-column id="DN" tooltip-ref="ecel_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/ENB-'||#first_tmp_table#.enb_id||'/ECEL-'||#first_tmp_table#.ecel_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-ENB/RSRAN-ECEL/RSRAN-MCC-10" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/ENB-'||#first_tmp_table#.enb_id||'/ECEL-'||#first_tmp_table#.ecel_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-ENB/RSRAN-ECEL/RSRAN-MCC-10/RSRAN-MNC-10" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/ENB-'||#first_tmp_table#.enb_id||'/ECEL-'||#first_tmp_table#.ecel_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-HOT-1" add-on-sort="2,1,3,4" obj-drill-column="hot_id">
+      <add-column id="DN" tooltip-ref="hot_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-HOT-1/RSRAN-TRCID-1" add-on-sort="2,1,3,4" obj-drill-column="tcid_id">
+      <add-column id="DN" tooltip-ref="tcid_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TRCID-'||#first_tmp_table#.tcid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-HOT-1/RSRAN-TRCID-1/RSRAN-DMCC-1" add-on-sort="2,1,3,4" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TRCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-HOT-1/RSRAN-TRCID-1/RSRAN-DMCC-1/RSRAN-DMNC-1" add-on-sort="2,1,3,4" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/HOT-'||#first_tmp_table#.hot_id||'/TRCID-'||#first_tmp_table#.tcid_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-LAC-1" add-on-sort="2,1,3,4" obj-drill-column="lac_id">
+      <add-column id="DN" tooltip-ref="lac_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-LAC-1/RSRAN-CI-1" add-on-sort="2,1,3,4" obj-drill-column="ci_id">
+      <add-column id="DN" tooltip-ref="ci_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/CI-'||#first_tmp_table#.ci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-LAC-1/RSRAN-CI-1/RSRAN-DMCC-3" add-on-sort="2,1,3,4" obj-drill-column="dmcc_id">
+      <add-column id="DN" tooltip-ref="dmcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/CI-'||#first_tmp_table#.ci_id||'/DMCC-'||#first_tmp_table#.dmcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-LAC-1/RSRAN-CI-1/RSRAN-DMCC-3/RSRAN-DMNC-3" add-on-sort="2,1,3,4" obj-drill-column="dmnc_id">
+      <add-column id="DN" tooltip-ref="dmnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/LAC-'||#first_tmp_table#.lac_id||'/CI-'||#first_tmp_table#.ci_id||'/DMCC-'||#first_tmp_table#.dmcc_id||'/DMNC-'||#first_tmp_table#.dmnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOS/RSRAN-SCID/RSRAN-MCC-9/RSRAN-MNC-9/RSRAN-SCR" add-on-sort="2,1,3,4" obj-drill-column="scr_id">
+      <add-column id="DN" tooltip-ref="scr_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOS-'||#first_tmp_table#.hos_id||'/SCID-'||#first_tmp_table#.scid_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/SCR-'||#first_tmp_table#.scr_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT" add-on-sort="2,1,3,4" obj-drill-column="hot_id">
+      <add-column id="DN" tooltip-ref="hot_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT/RSRAN-MCC-4" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT/RSRAN-MCC-4/RSRAN-MNC-4" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT/RSRAN-RMSC-2" add-on-sort="2,1,3,4" obj-drill-column="rmsc_id">
+      <add-column id="DN" tooltip-ref="rmsc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id||'/RMSC-'||#first_tmp_table#.rmsc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT/RSRAN-RMSC-2/RSRAN-RSGS-2" add-on-sort="2,1,3,4" obj-drill-column="rsgs_id">
+      <add-column id="DN" tooltip-ref="rsgs_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT/RSRAN-RMSC-2/RSRAN-RSGS-2/RSRAN-MCC-7" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-HOT/RSRAN-RMSC-2/RSRAN-RSGS-2/RSRAN-MCC-7/RSRAN-MNC-7" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/HOT-'||#first_tmp_table#.hot_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IF" add-on-sort="2,1,3,4" obj-drill-column="if_id">
+      <add-column id="DN" tooltip-ref="if_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IF-'||#first_tmp_table#.if_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IF/RSRAN-VPI" add-on-sort="2,1,3,4" obj-drill-column="vpi_id">
+      <add-column id="DN" tooltip-ref="vpi_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IF-'||#first_tmp_table#.if_id||'/VPI-'||#first_tmp_table#.vpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IF/RSRAN-VPI/RSRAN-VCI" add-on-sort="2,1,3,4" obj-drill-column="vci_id">
+      <add-column id="DN" tooltip-ref="vci_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IF-'||#first_tmp_table#.if_id||'/VPI-'||#first_tmp_table#.vpi_id||'/VCI-'||#first_tmp_table#.vci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IF/RSRAN-VPI/RSRAN-VCI/RSRAN-RWB" add-on-sort="2,1,3,4" obj-drill-column="rwb_id">
+      <add-column id="DN" tooltip-ref="rwb_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IF-'||#first_tmp_table#.if_id||'/VPI-'||#first_tmp_table#.vpi_id||'/VCI-'||#first_tmp_table#.vci_id||'/RWB-'||#first_tmp_table#.rwb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IF/RSRAN-VPI/RSRAN-VCI/RSRAN-RWB/RSRAN-ALU" add-on-sort="2,1,3,4" obj-drill-column="alu_id">
+      <add-column id="DN" tooltip-ref="alu_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IF-'||#first_tmp_table#.if_id||'/VPI-'||#first_tmp_table#.vpi_id||'/VCI-'||#first_tmp_table#.vci_id||'/RWB-'||#first_tmp_table#.rwb_id||'/ALU-'||#first_tmp_table#.alu_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IMAGR" add-on-sort="2,1,3,4" obj-drill-column="imagr_id">
+      <add-column id="DN" tooltip-ref="imagr_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IMAGR-'||#first_tmp_table#.imagr_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IPROU" add-on-sort="2,1,3,4" obj-drill-column="iprou_id">
+      <add-column id="DN" tooltip-ref="iprou_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IPROU-'||#first_tmp_table#.iprou_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-IPROU/RSRAN-RWB-1" add-on-sort="2,1,3,4" obj-drill-column="rwb_id">
+      <add-column id="DN" tooltip-ref="rwb_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/IPROU-'||#first_tmp_table#.iprou_id||'/RWB-'||#first_tmp_table#.rwb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-MCC-5" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-MCC-5/RSRAN-MNC-5" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-NETC" add-on-sort="2,1,3,4" obj-drill-column="netc_id">
+      <add-column id="DN" tooltip-ref="netc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/NETC-'||#first_tmp_table#.netc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-NETC/RSRAN-SPC" add-on-sort="2,1,3,4" obj-drill-column="spc_id">
+      <add-column id="DN" tooltip-ref="spc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/NETC-'||#first_tmp_table#.netc_id||'/SPC-'||#first_tmp_table#.spc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-PHYTTP" add-on-sort="2,1,3,4" obj-drill-column="phyttp_id">
+      <add-column id="DN" tooltip-ref="phyttp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/PHYTTP-'||#first_tmp_table#.phyttp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RMSC" add-on-sort="2,1,3,4" obj-drill-column="rmsc_id">
+      <add-column id="DN" tooltip-ref="rmsc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RMSC-'||#first_tmp_table#.rmsc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RMSC/RSRAN-RSGS" add-on-sort="2,1,3,4" obj-drill-column="rsgs_id">
+      <add-column id="DN" tooltip-ref="rsgs_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RMSC/RSRAN-RSGS/RSRAN-MCC-2" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RMSC/RSRAN-RSGS/RSRAN-MCC-2/RSRAN-MNC-2" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-ROUTE" add-on-sort="2,1,3,4" obj-drill-column="route_id">
+      <add-column id="DN" tooltip-ref="route_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/ROUTE-'||#first_tmp_table#.route_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC" add-on-sort="2,1,3,4" obj-drill-column="rrnc_id">
+      <add-column id="DN" tooltip-ref="rrnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC/RSRAN-MCC-3" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC/RSRAN-MCC-3/RSRAN-MNC-3" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC/RSRAN-RMSC-1" add-on-sort="2,1,3,4" obj-drill-column="rmsc_id">
+      <add-column id="DN" tooltip-ref="rmsc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id||'/RMSC-'||#first_tmp_table#.rmsc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC/RSRAN-RMSC-1/RSRAN-RSGS-1" add-on-sort="2,1,3,4" obj-drill-column="rsgs_id">
+      <add-column id="DN" tooltip-ref="rsgs_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC/RSRAN-RMSC-1/RSRAN-RSGS-1/RSRAN-MCC-6" add-on-sort="2,1,3,4" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-RRNC/RSRAN-RMSC-1/RSRAN-RSGS-1/RSRAN-MCC-6/RSRAN-MNC-6" add-on-sort="2,1,3,4" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/RRNC-'||#first_tmp_table#.rrnc_id||'/RMSC-'||#first_tmp_table#.rmsc_id||'/RSGS-'||#first_tmp_table#.rsgs_id||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SAS" add-on-sort="2,1,3,4" obj-drill-column="sas_id">
+      <add-column id="DN" tooltip-ref="sas_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SAS-'||#first_tmp_table#.sas_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SERVT" add-on-sort="2,1,3,4" obj-drill-column="servt_id">
+      <add-column id="DN" tooltip-ref="servt_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SERVT-'||#first_tmp_table#.servt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SLN" add-on-sort="2,1,3,4" obj-drill-column="sln_id">
+      <add-column id="DN" tooltip-ref="sln_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SLN-'||#first_tmp_table#.sln_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SLN/RSRAN-SLT" add-on-sort="2,1,3,4" obj-drill-column="slt_id">
+      <add-column id="DN" tooltip-ref="slt_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SLT-'||#first_tmp_table#.slt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SLN/RSRAN-SLT/RSRAN-SNET" add-on-sort="2,1,3,4" obj-drill-column="snet_id">
+      <add-column id="DN" tooltip-ref="snet_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SLT-'||#first_tmp_table#.slt_id||'/SNET-'||#first_tmp_table#.snet_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SLN/RSRAN-SLT/RSRAN-SNET/RSRAN-SPCD" add-on-sort="2,1,3,4" obj-drill-column="spcd_id">
+      <add-column id="DN" tooltip-ref="spcd_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SLT-'||#first_tmp_table#.slt_id||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SLN/RSRAN-SLT/RSRAN-SNET/RSRAN-SPCD/RSRAN-SLSN" add-on-sort="2,1,3,4" obj-drill-column="slsn_id">
+      <add-column id="DN" tooltip-ref="slsn_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SLN-'||#first_tmp_table#.sln_id||'/SLT-'||#first_tmp_table#.slt_id||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id||'/SLSN-'||#first_tmp_table#.slsn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1" add-on-sort="2,1,3,4" obj-drill-column="snet_id">
+      <add-column id="DN" tooltip-ref="snet_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SIO" add-on-sort="2,1,3,4" obj-drill-column="sio_id">
+      <add-column id="DN" tooltip-ref="sio_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SIO-'||#first_tmp_table#.sio_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SIO/RSRAN-OPC" add-on-sort="2,1,3,4" obj-drill-column="opc_id">
+      <add-column id="DN" tooltip-ref="opc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SIO-'||#first_tmp_table#.sio_id||'/OPC-'||#first_tmp_table#.opc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SIO/RSRAN-OPC/RSRAN-DSPC" add-on-sort="2,1,3,4" obj-drill-column="dspc_id">
+      <add-column id="DN" tooltip-ref="dspc_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SIO-'||#first_tmp_table#.sio_id||'/OPC-'||#first_tmp_table#.opc_id||'/DSPC-'||#first_tmp_table#.dspc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SPCD-1" add-on-sort="2,1,3,4" obj-drill-column="spcd_id">
+      <add-column id="DN" tooltip-ref="spcd_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SPCD-1/RSRAN-SLSN-1" add-on-sort="2,1,3,4" obj-drill-column="slsn_id">
+      <add-column id="DN" tooltip-ref="slsn_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SPCD-'||#first_tmp_table#.spcd_id||'/SLSN-'||#first_tmp_table#.slsn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SSN" add-on-sort="2,1,3,4" obj-drill-column="ssn_id">
+      <add-column id="DN" tooltip-ref="ssn_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SSN-'||#first_tmp_table#.ssn_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SNET-1/RSRAN-SSN/RSRAN-SS" add-on-sort="2,1,3,4" obj-drill-column="ss_id">
+      <add-column id="DN" tooltip-ref="ss_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SNET-'||#first_tmp_table#.snet_id||'/SSN-'||#first_tmp_table#.ssn_id||'/SS-'||#first_tmp_table#.ss_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SP" add-on-sort="2,1,3,4" obj-drill-column="sp_id">
+      <add-column id="DN" tooltip-ref="sp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SP-'||#first_tmp_table#.sp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-SP/RSRAN-NET" add-on-sort="2,1,3,4" obj-drill-column="net_id">
+      <add-column id="DN" tooltip-ref="net_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/SP-'||#first_tmp_table#.sp_id||'/NET-'||#first_tmp_table#.net_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2" add-on-sort="2,1,3,4" obj-drill-column="tr_id">
+      <add-column id="DN" tooltip-ref="tr_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2/RSRAN-TRSUB-2" add-on-sort="2,1,3,4" obj-drill-column="trsub_id">
+      <add-column id="DN" tooltip-ref="trsub_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2/RSRAN-TRSUB-2/RSRAN-THP-2" add-on-sort="2,1,3,4" obj-drill-column="thp_id">
+      <add-column id="DN" tooltip-ref="thp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2/RSRAN-TRSUB-2/RSRAN-THP-2/RSRAN-RABDL-1" add-on-sort="2,1,3,4" obj-drill-column="rabdl_id">
+      <add-column id="DN" tooltip-ref="rabdl_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2/RSRAN-TRSUB-2/RSRAN-THP-2/RSRAN-RABDL-1/RSRAN-RABUL-1" add-on-sort="2,1,3,4" obj-drill-column="rabul_id">
+      <add-column id="DN" tooltip-ref="rabul_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2/RSRAN-TRSUB-2/RSRAN-THP-2/RSRAN-RABDL-1/RSRAN-RABUL-1/RSRAN-RBDL-1" add-on-sort="2,1,3,4" obj-drill-column="rbdl_id">
+      <add-column id="DN" tooltip-ref="rbdl_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id||'/RBDL-'||#first_tmp_table#.rbdl_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TR-2/RSRAN-TRSUB-2/RSRAN-THP-2/RSRAN-RABDL-1/RSRAN-RABUL-1/RSRAN-RBDL-1/RSRAN-RBUL-1" add-on-sort="2,1,3,4" obj-drill-column="rbul_id">
+      <add-column id="DN" tooltip-ref="rbul_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id||'/RBDL-'||#first_tmp_table#.rbdl_id||'/RBUL-'||#first_tmp_table#.rbul_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TWSES" add-on-sort="2,1,3,4" obj-drill-column="twses_id">
+      <add-column id="DN" tooltip-ref="twses_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TWSES-'||#first_tmp_table#.twses_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TWSES/RSRAN-SRCIP" add-on-sort="2,1,3,4" obj-drill-column="srcip_id">
+      <add-column id="DN" tooltip-ref="srcip_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TWSES-'||#first_tmp_table#.twses_id||'/SRCIP-'||#first_tmp_table#.srcip_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TWSES/RSRAN-SRCIP/RSRAN-DSTIP" add-on-sort="2,1,3,4" obj-drill-column="dstip_id">
+      <add-column id="DN" tooltip-ref="dstip_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TWSES-'||#first_tmp_table#.twses_id||'/SRCIP-'||#first_tmp_table#.srcip_id||'/DSTIP-'||#first_tmp_table#.dstip_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TWSES/RSRAN-SRCIP/RSRAN-DSTIP/RSRAN-DSTPOR" add-on-sort="2,1,3,4" obj-drill-column="dstpor_id">
+      <add-column id="DN" tooltip-ref="dstpor_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TWSES-'||#first_tmp_table#.twses_id||'/SRCIP-'||#first_tmp_table#.srcip_id||'/DSTIP-'||#first_tmp_table#.dstip_id||'/DSTPOR-'||#first_tmp_table#.dstpor_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TWSES/RSRAN-SRCIP/RSRAN-DSTIP/RSRAN-DSTPOR/RSRAN-DSCP" add-on-sort="2,1,3,4" obj-drill-column="dscp_id">
+      <add-column id="DN" tooltip-ref="dscp_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TWSES-'||#first_tmp_table#.twses_id||'/SRCIP-'||#first_tmp_table#.srcip_id||'/DSTIP-'||#first_tmp_table#.dstip_id||'/DSTPOR-'||#first_tmp_table#.dstpor_id||'/DSCP-'||#first_tmp_table#.dscp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-TWSES/RSRAN-SRCIP/RSRAN-DSTIP/RSRAN-DSTPOR/RSRAN-DSCP/RSRAN-PKTLEN" add-on-sort="2,1,3,4" obj-drill-column="pktlen_id">
+      <add-column id="DN" tooltip-ref="pktlen_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/TWSES-'||#first_tmp_table#.twses_id||'/SRCIP-'||#first_tmp_table#.srcip_id||'/DSTIP-'||#first_tmp_table#.dstip_id||'/DSTPOR-'||#first_tmp_table#.dstpor_id||'/DSCP-'||#first_tmp_table#.dscp_id||'/PKTLEN-'||#first_tmp_table#.pktlen_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UPTYPE" add-on-sort="2,1,3,4" obj-drill-column="uptype_id">
+      <add-column id="DN" tooltip-ref="uptype_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UPTYPE-'||#first_tmp_table#.uptype_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UTYPE" add-on-sort="2,1,3,4" obj-drill-column="utype_id">
+      <add-column id="DN" tooltip-ref="utype_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UTYPE-'||#first_tmp_table#.utype_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID" add-on-sort="2,1,3,4" obj-drill-column="unitid_id">
+      <add-column id="DN" tooltip-ref="unitid_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UTYPE-'||#first_tmp_table#.utype_id||'/UNITID-'||#first_tmp_table#.unitid_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID/RSRAN-ETHIF" add-on-sort="2,1,3,4" obj-drill-column="ethif_id">
+      <add-column id="DN" tooltip-ref="ethif_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UTYPE-'||#first_tmp_table#.utype_id||'/UNITID-'||#first_tmp_table#.unitid_id||'/ETHIF-'||#first_tmp_table#.ethif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID/RSRAN-IPIF" add-on-sort="2,1,3,4" obj-drill-column="ipif_id">
+      <add-column id="DN" tooltip-ref="ipif_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UTYPE-'||#first_tmp_table#.utype_id||'/UNITID-'||#first_tmp_table#.unitid_id||'/IPIF-'||#first_tmp_table#.ipif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID/RSRAN-IPIF/RSRAN-PHB" add-on-sort="2,1,3,4" obj-drill-column="phb_id">
+      <add-column id="DN" tooltip-ref="phb_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UTYPE-'||#first_tmp_table#.utype_id||'/UNITID-'||#first_tmp_table#.unitid_id||'/IPIF-'||#first_tmp_table#.ipif_id||'/PHB-'||#first_tmp_table#.phb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-UTYPE/RSRAN-UNITID/RSRAN-WAC" add-on-sort="2,1,3,4" obj-drill-column="wac_id">
+      <add-column id="DN" tooltip-ref="wac_id">nvl("rnc".co_ext_dn, "rnc".co_dn)||'/UTYPE-'||#first_tmp_table#.utype_id||'/UNITID-'||#first_tmp_table#.unitid_id||'/WAC-'||#first_tmp_table#.wac_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>WBTS name</default-obj-drill-column>
+    <column-to-hide>WBTS_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("rnc".co_name, nvl("rnc".co_object_instance, 'NN('||"rnc".co_gid||')')) "RNC name",
+				nvl("wbts".co_name, nvl("wbts".co_object_instance, 'NN('||"wbts".co_gid||')')) "WBTS name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "rnc",
+				utp_common_objects "wbts"
+				#tmp_meas_tables#
+			where
+				"wbts".co_parent_gid = "rnc".co_gid and
+				#first_tmp_table#.wbts_gid = "wbts".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS">
+      <add-column id="DN" tooltip-ref="WBTS Name">nvl("wbts".co_ext_dn, "wbts".co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FSM" add-on-sort="2,1,3,4,5" obj-drill-column="fsm_id">
+      <add-column id="DN" tooltip-ref="fsm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FSM-'||#first_tmp_table#.fsm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM" add-on-sort="2,1,3,4,5" obj-drill-column="ftm_id">
+      <add-column id="DN" tooltip-ref="ftm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-A2NE" add-on-sort="2,1,3,4,5" obj-drill-column="a2ne_id">
+      <add-column id="DN" tooltip-ref="a2ne_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/A2NE-'||#first_tmp_table#.a2ne_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-A2NE/RSRAN-A2ST" add-on-sort="2,1,3,4,5" obj-drill-column="a2st_id">
+      <add-column id="DN" tooltip-ref="a2st_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/A2NE-'||#first_tmp_table#.a2ne_id||'/A2ST-'||#first_tmp_table#.a2st_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-A2NE/RSRAN-A2ST/RSRAN-A2UT" add-on-sort="2,1,3,4,5" obj-drill-column="a2ut_id">
+      <add-column id="DN" tooltip-ref="a2ut_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/A2NE-'||#first_tmp_table#.a2ne_id||'/A2ST-'||#first_tmp_table#.a2st_id||'/A2UT-'||#first_tmp_table#.a2ut_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-CESIF" add-on-sort="2,1,3,4,5" obj-drill-column="cesif_id">
+      <add-column id="DN" tooltip-ref="cesif_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/CESIF-'||#first_tmp_table#.cesif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-CESIF/RSRAN-CESPWT" add-on-sort="2,1,3,4,5" obj-drill-column="cespwt_id">
+      <add-column id="DN" tooltip-ref="cespwt_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/CESIF-'||#first_tmp_table#.cesif_id||'/CESPWT-'||#first_tmp_table#.cespwt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-CESIF/RSRAN-CESPWT/RSRAN-CESPW" add-on-sort="2,1,3,4,5" obj-drill-column="cespw_id">
+      <add-column id="DN" tooltip-ref="cespw_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/CESIF-'||#first_tmp_table#.cesif_id||'/CESPWT-'||#first_tmp_table#.cespwt_id||'/CESPW-'||#first_tmp_table#.cespw_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-ETHLK" add-on-sort="2,1,3,4,5" obj-drill-column="ethlk_id">
+      <add-column id="DN" tooltip-ref="ethlk_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/ETHLK-'||#first_tmp_table#.ethlk_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO" add-on-sort="2,1,3,4,5" obj-drill-column="ipno_id">
+      <add-column id="DN" tooltip-ref="ipno_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IEIF" add-on-sort="2,1,3,4,5" obj-drill-column="ieif_id">
+      <add-column id="DN" tooltip-ref="ieif_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IEIF/RSRAN-IPPM-2" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IEIF/RSRAN-IVIF" add-on-sort="2,1,3,4,5" obj-drill-column="ivif_id">
+      <add-column id="DN" tooltip-ref="ivif_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IEIF/RSRAN-IVIF/RSRAN-IPPM-3" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IEIF/RSRAN-IVIF/RSRAN-PHBPM-3" add-on-sort="2,1,3,4,5" obj-drill-column="phpbm_id">
+      <add-column id="DN" tooltip-ref="phpbm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/IVIF-'||#first_tmp_table#.ivif_id||'/PHBPM-'||#first_tmp_table#.phpbm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IEIF/RSRAN-PHBPM-2" add-on-sort="2,1,3,4,5" obj-drill-column="phpbm_id">
+      <add-column id="DN" tooltip-ref="phpbm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IEIF-'||#first_tmp_table#.ieif_id||'/PHBPM-'||#first_tmp_table#.phpbm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-IPRM" add-on-sort="2,1,3,4,5" obj-drill-column="iprm_id">
+      <add-column id="DN" tooltip-ref="iprm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/IPRM-'||#first_tmp_table#.iprm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-TOPIK" add-on-sort="2,1,3,4,5" obj-drill-column="topik_id">
+      <add-column id="DN" tooltip-ref="topik_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/TOPIK-'||#first_tmp_table#.topik_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPNO/RSRAN-TWAMP" add-on-sort="2,1,3,4,5" obj-drill-column="twamp_id">
+      <add-column id="DN" tooltip-ref="twamp_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPNO-'||#first_tmp_table#.ipno_id||'/TWAMP-'||#first_tmp_table#.twamp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPSECC" add-on-sort="2,1,3,4,5" obj-drill-column="ipsecc_id">
+      <add-column id="DN" tooltip-ref="ipsecc_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPSECC-'||#first_tmp_table#.ipsecc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-IPSECC/RSRAN-SPPM" add-on-sort="2,1,3,4,5" obj-drill-column="sppm_id">
+      <add-column id="DN" tooltip-ref="sppm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/IPSECC-'||#first_tmp_table#.ipsecc_id||'/SPPM-'||#first_tmp_table#.sppm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-L2SWI" add-on-sort="2,1,3,4,5" obj-drill-column="l2swi_id">
+      <add-column id="DN" tooltip-ref="l2swi_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/L2SWI-'||#first_tmp_table#.l2swi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD" add-on-sort="2,1,3,4,5" obj-drill-column="oammd_id">
+      <add-column id="DN" tooltip-ref="oammd_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/OAMMD-'||#first_tmp_table#.oammd_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD/RSRAN-OAMMA" add-on-sort="2,1,3,4,5" obj-drill-column="oamma_id">
+      <add-column id="DN" tooltip-ref="oamma_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/OAMMD-'||#first_tmp_table#.oammd_id||'/OAMMA-'||#first_tmp_table#.oamma_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD/RSRAN-OAMMA/RSRAN-OAMMEP" add-on-sort="2,1,3,4,5" obj-drill-column="oammep_id">
+      <add-column id="DN" tooltip-ref="oammep_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/OAMMD-'||#first_tmp_table#.oammd_id||'/OAMMA-'||#first_tmp_table#.oamma_id||'/OAMMEP-'||#first_tmp_table#.oammep_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD/RSRAN-OAMMA/RSRAN-OAMMEP/RSRAN-OAMDM" add-on-sort="2,1,3,4,5" obj-drill-column="oamdm_id">
+      <add-column id="DN" tooltip-ref="oamdm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/OAMMD-'||#first_tmp_table#.oammd_id||'/OAMMA-'||#first_tmp_table#.oamma_id||'/OAMMEP-'||#first_tmp_table#.oammep_id||'/OAMDM-'||#first_tmp_table#.oamdm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-OAMMD/RSRAN-OAMMA/RSRAN-OAMMEP/RSRAN-OAMFLM" add-on-sort="2,1,3,4,5" obj-drill-column="oamflm_id">
+      <add-column id="DN" tooltip-ref="oamflm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/OAMMD-'||#first_tmp_table#.oammd_id||'/OAMMA-'||#first_tmp_table#.oamma_id||'/OAMMEP-'||#first_tmp_table#.oammep_id||'/OAMFLM-'||#first_tmp_table#.oamflm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-P3ML" add-on-sort="2,1,3,4,5" obj-drill-column="p3ml_id">
+      <add-column id="DN" tooltip-ref="p3ml_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/P3ML-'||#first_tmp_table#.p3ml_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-P3ML/RSRAN-IPPM-1" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/P3ML-'||#first_tmp_table#.p3ml_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-P3ML/RSRAN-PHBPM-1" add-on-sort="2,1,3,4,5" obj-drill-column="phpbm_id">
+      <add-column id="DN" tooltip-ref="phpbm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/P3ML-'||#first_tmp_table#.p3ml_id||'/PHBPM-'||#first_tmp_table#.phpbm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-P3SL" add-on-sort="2,1,3,4,5" obj-drill-column="p3sl_id">
+      <add-column id="DN" tooltip-ref="p3sl_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/P3SL-'||#first_tmp_table#.p3sl_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-P3SL/RSRAN-IPPM" add-on-sort="2,1,3,4,5" obj-drill-column="ippm_id">
+      <add-column id="DN" tooltip-ref="ippm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/P3SL-'||#first_tmp_table#.p3sl_id||'/IPPM-'||#first_tmp_table#.ippm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-P3SL/RSRAN-PHBPM" add-on-sort="2,1,3,4,5" obj-drill-column="phpbm_id">
+      <add-column id="DN" tooltip-ref="phpbm_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/P3SL-'||#first_tmp_table#.p3sl_id||'/PHBPM-'||#first_tmp_table#.phpbm_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-PPTT" add-on-sort="2,1,3,4,5" obj-drill-column="pptt_id">
+      <add-column id="DN" tooltip-ref="pptt_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/PPTT-'||#first_tmp_table#.pptt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-PWNE" add-on-sort="2,1,3,4,5" obj-drill-column="pwne_id">
+      <add-column id="DN" tooltip-ref="pwne_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/PWNE-'||#first_tmp_table#.pwne_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-PWNE/RSRAN-PWMP" add-on-sort="2,1,3,4,5" obj-drill-column="pwmp_id">
+      <add-column id="DN" tooltip-ref="pwmp_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/PWNE-'||#first_tmp_table#.pwne_id||'/PWMP-'||#first_tmp_table#.pwmp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-PWNE/RSRAN-PWTIP" add-on-sort="2,1,3,4,5" obj-drill-column="pwtip_id">
+      <add-column id="DN" tooltip-ref="pwtip_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/PWNE-'||#first_tmp_table#.pwne_id||'/PWTIP-'||#first_tmp_table#.pwtip_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-RSTP" add-on-sort="2,1,3,4,5" obj-drill-column="rstp_id">
+      <add-column id="DN" tooltip-ref="rstp_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/RSTP-'||#first_tmp_table#.rstp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-RSTP/RSRAN-STPORT" add-on-sort="2,1,3,4,5" obj-drill-column="stport_id">
+      <add-column id="DN" tooltip-ref="stport_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/RSTP-'||#first_tmp_table#.rstp_id||'/STPORT-'||#first_tmp_table#.stport_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-SVTT" add-on-sort="2,1,3,4,5" obj-drill-column="svtt_id">
+      <add-column id="DN" tooltip-ref="svtt_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/SVTT-'||#first_tmp_table#.svtt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-TCTT" add-on-sort="2,1,3,4,5" obj-drill-column="tctt_id">
+      <add-column id="DN" tooltip-ref="tctt_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TCTT-'||#first_tmp_table#.tctt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-TCTT/RSRAN-VPCT" add-on-sort="2,1,3,4,5" obj-drill-column="vpct_id">
+      <add-column id="DN" tooltip-ref="vpct_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TCTT-'||#first_tmp_table#.tctt_id||'/VPCT-'||#first_tmp_table#.vpct_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-TOPB" add-on-sort="2,1,3,4,5" obj-drill-column="topb_id">
+      <add-column id="DN" tooltip-ref="topb_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-TOPB/RSRAN-TOPF" add-on-sort="2,1,3,4,5" obj-drill-column="topf_id">
+      <add-column id="DN" tooltip-ref="topf_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/TOPB-'||#first_tmp_table#.topb_id||'/TOPF-'||#first_tmp_table#.topf_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-VPTT" add-on-sort="2,1,3,4,5" obj-drill-column="vptt_id">
+      <add-column id="DN" tooltip-ref="vptt_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/VPTT-'||#first_tmp_table#.vptt_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-FTM/RSRAN-VPTT/RSRAN-VCCT" add-on-sort="2,1,3,4,5" obj-drill-column="vcct_id">
+      <add-column id="DN" tooltip-ref="vcct_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/FTM-'||#first_tmp_table#.ftm_id||'/VPTT-'||#first_tmp_table#.vptt_id||'/VCCT-'||#first_tmp_table#.vcct_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-HWUNIT" add-on-sort="2,1,3,4,5" obj-drill-column="hwunit_id">
+      <add-column id="DN" tooltip-ref="hwunit_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/HWUNIT-'||#first_tmp_table#.hwunit_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-LCG" add-on-sort="2,1,3,4,5" obj-drill-column="lcg_id">
+      <add-column id="DN" tooltip-ref="lcg_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/LCG-'||#first_tmp_table#.lcg_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-MCC-1" add-on-sort="2,1,3,4,5" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-MCC-1/RSRAN-MNC-1" add-on-sort="2,1,3,4,5" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3CE" add-on-sort="2,1,3,4,5" obj-drill-column="s3ce_id">
+      <add-column id="DN" tooltip-ref="s3ce_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3CE-'||#first_tmp_table#.s3ce_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3E1" add-on-sort="2,1,3,4,5" obj-drill-column="s3e1_id">
+      <add-column id="DN" tooltip-ref="s3e1_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3E1-'||#first_tmp_table#.s3e1_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3E1/RSRAN-SVPI-1" add-on-sort="2,1,3,4,5" obj-drill-column="svpi_id">
+      <add-column id="DN" tooltip-ref="svpi_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3E1-'||#first_tmp_table#.s3e1_id||'/SVPI-'||#first_tmp_table#.svpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3E1/RSRAN-SVPI-1/RSRAN-SVCI-1" add-on-sort="2,1,3,4,5" obj-drill-column="svci_id">
+      <add-column id="DN" tooltip-ref="svci_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3E1-'||#first_tmp_table#.s3e1_id||'/SVPI-'||#first_tmp_table#.svpi_id||'/SVCI-'||#first_tmp_table#.svci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3IM" add-on-sort="2,1,3,4,5" obj-drill-column="s3im_id">
+      <add-column id="DN" tooltip-ref="s3im_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3IM-'||#first_tmp_table#.s3im_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3IM/RSRAN-SVPI" add-on-sort="2,1,3,4,5" obj-drill-column="svpi_id">
+      <add-column id="DN" tooltip-ref="svpi_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3IM-'||#first_tmp_table#.s3im_id||'/SVPI-'||#first_tmp_table#.svpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3IM/RSRAN-SVPI/RSRAN-SVCI" add-on-sort="2,1,3,4,5" obj-drill-column="svci_id">
+      <add-column id="DN" tooltip-ref="svci_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3IM-'||#first_tmp_table#.s3im_id||'/SVPI-'||#first_tmp_table#.svpi_id||'/SVCI-'||#first_tmp_table#.svci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3J1" add-on-sort="2,1,3,4,5" obj-drill-column="s3j1_id">
+      <add-column id="DN" tooltip-ref="s3j1_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3J1-'||#first_tmp_table#.s3j1_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3J1/RSRAN-SVPI-2" add-on-sort="2,1,3,4,5" obj-drill-column="svpi_id">
+      <add-column id="DN" tooltip-ref="svpi_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3J1-'||#first_tmp_table#.s3j1_id||'/SVPI-'||#first_tmp_table#.svpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3J1/RSRAN-SVPI-2/RSRAN-SVCI-2" add-on-sort="2,1,3,4,5" obj-drill-column="svci_id">
+      <add-column id="DN" tooltip-ref="svci_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3J1-'||#first_tmp_table#.s3j1_id||'/SVPI-'||#first_tmp_table#.svpi_id||'/SVCI-'||#first_tmp_table#.svci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3ST" add-on-sort="2,1,3,4,5" obj-drill-column="s3st_id">
+      <add-column id="DN" tooltip-ref="s3st_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3ST-'||#first_tmp_table#.s3st_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3ST/RSRAN-SVPI-3" add-on-sort="2,1,3,4,5" obj-drill-column="svpi_id">
+      <add-column id="DN" tooltip-ref="svpi_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3ST-'||#first_tmp_table#.s3st_id||'/SVPI-'||#first_tmp_table#.svpi_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-S3ST/RSRAN-SVPI-3/RSRAN-SVCI-3" add-on-sort="2,1,3,4,5" obj-drill-column="svci_id">
+      <add-column id="DN" tooltip-ref="svci_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/S3ST-'||#first_tmp_table#.s3st_id||'/SVPI-'||#first_tmp_table#.svpi_id||'/SVCI-'||#first_tmp_table#.svci_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-SCHED" add-on-sort="2,1,3,4,5" obj-drill-column="sched_id">
+      <add-column id="DN" tooltip-ref="sched_id">nvl("wbts".co_ext_dn, "wbts".co_dn)||'/SCHED-'||#first_tmp_table#.sched_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>WCEL name</default-obj-drill-column>
+    <column-to-hide>WCEL_GID</column-to-hide>
+    <default-add-on-sort>2,1,3,4,5</default-add-on-sort>
+    <sql-kpi><![CDATA[select
+				#time#,
+				nvl("rnc".co_name, nvl("rnc".co_object_instance, 'NN('||"rnc".co_gid||')')) "RNC name",
+				nvl("wbts".co_name, nvl("wbts".co_object_instance, 'NN('||"wbts".co_gid||')')) "WBTS name",
+				nvl("wcel".co_name, nvl("wcel".co_object_instance, 'NN('||"wcel".co_gid||')')) "WCEL name",
+				#keys#,
+				#kpis#
+			from
+				utp_common_objects "rnc",
+				utp_common_objects "wbts",
+				utp_common_objects "wcel"
+				#tmp_meas_tables#
+			where
+				"wbts".co_parent_gid = "rnc".co_gid and
+				"wcel".co_parent_gid = "wbts".co_gid and
+				#first_tmp_table#.wcel_gid = "wcel".co_gid
+				#tmp_table_joins#
+				#add_on_criteria#
+			order by
+				#add_on_sort#]]></sql-kpi>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL">
+      <add-column id="DN" tooltip-ref="WCEL Name">nvl("wcel".co_ext_dn, "wcel".co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC" add-on-sort="2,1,3,4,5,6" obj-drill-column="mcc_id">
+      <add-column id="DN" tooltip-ref="mcc_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC" add-on-sort="2,1,3,4,5,6" obj-drill-column="mnc_id">
+      <add-column id="DN" tooltip-ref="mnc_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR" add-on-sort="2,1,3,4,5,6" obj-drill-column="tr_id">
+      <add-column id="DN" tooltip-ref="tr_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB" add-on-sort="2,1,3,4,5,6" obj-drill-column="trsub_id">
+      <add-column id="DN" tooltip-ref="trsub_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-CHTYP" add-on-sort="2,1,3,4,5,6" obj-drill-column="chtyp_id">
+      <add-column id="DN" tooltip-ref="chtyp_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/CHTYP-'||#first_tmp_table#.chtyp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-THP" add-on-sort="2,1,3,4,5,6" obj-drill-column="thp_id">
+      <add-column id="DN" tooltip-ref="thp_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-THP/RSRAN-RABDL" add-on-sort="2,1,3,4,5,6" obj-drill-column="rabdl_id">
+      <add-column id="DN" tooltip-ref="rabdl_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-THP/RSRAN-RABDL/RSRAN-RABUL" add-on-sort="2,1,3,4,5,6" obj-drill-column="rabul_id">
+      <add-column id="DN" tooltip-ref="rabul_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-THP/RSRAN-RABDL/RSRAN-RABUL/RSRAN-RBDL" add-on-sort="2,1,3,4,5,6" obj-drill-column="rbdl_id">
+      <add-column id="DN" tooltip-ref="rbdl_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id||'/RBDL-'||#first_tmp_table#.rbdl_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-THP/RSRAN-RABDL/RSRAN-RABUL/RSRAN-RBDL/RSRAN-RBUL" add-on-sort="2,1,3,4,5,6" obj-drill-column="rbul_id">
+      <add-column id="DN" tooltip-ref="rbul_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id||'/RBDL-'||#first_tmp_table#.rbdl_id||'/RBUL-'||#first_tmp_table#.rbul_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-MCC/RSRAN-MNC/RSRAN-TR/RSRAN-TRSUB/RSRAN-THP/RSRAN-RABDL/RSRAN-RABUL/RSRAN-RBDL/RSRAN-RBUL/RSRAN-SDUBER" add-on-sort="2,1,3,4,5,6" obj-drill-column="sduber_error_id">
+      <add-column id="DN" tooltip-ref="sduber_error_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/MCC-'||#first_tmp_table#.mcc_id||'/MNC-'||#first_tmp_table#.mnc_id||'/TR-'||#first_tmp_table#.tr_id||'/TRSUB-'||#first_tmp_table#.trsub_id||'/THP-'||#first_tmp_table#.thp_id||'/RABDL-'||#first_tmp_table#.rabdl_id||'/RABUL-'||#first_tmp_table#.rabul_id||'/RBDL-'||#first_tmp_table#.rbdl_id||'/RBUL-'||#first_tmp_table#.rbul_id||'/SDUBER-'||#first_tmp_table#.sduber_error_id</add-column>
+    </report-level>
+    <report-level id="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL/RSRAN-OPERID" add-on-sort="2,1,3,4,5,6" obj-drill-column="operid_id">
+      <add-column id="DN" tooltip-ref="operid_id">nvl("wcel".co_ext_dn, "wcel".co_dn)||'/OPERID-'||#first_tmp_table#.operid_id</add-column>
+    </report-level>
+  </report>
+  <report pragma="default">
+    <default-obj-drill-column>MR Name</default-obj-drill-column>
+    <column-to-hide>MR_GID</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <report-level id="PLMN/MR_RSRAN-RNC">
+      <add-column id="DN" tooltip-ref="MR_RNC Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MR_RSRAN-WBTS">
+      <add-column id="DN" tooltip-ref="MR_WBTS Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <report-level id="PLMN/MR_RSRAN-WCEL">
+      <add-column id="DN" tooltip-ref="MR_WCEL Name">nvl(mr.co_ext_dn, mr.co_dn)</add-column>
+    </report-level>
+    <sql-kpi><![CDATA[select
+        #id_pivot#,
+        decode(nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')')),' ','NN ('||mr.co_gid||')',nvl(mr.co_name, nvl(mr.co_object_instance, 'NN ('||mr.co_gid||')'))) "MR Name",
+        #kpis#
+      from
+        utp_common_objects mr
+        #tmp_meas_tables#
+      where
+        mr.co_oc_id=109 and
+        #first_tmp_table#.mr_gid = mr.co_gid
+        #tmp_table_joins#
+        #add_on_criteria#
+      order by 2,1,3]]></sql-kpi>
+  </report>
+  <report pragma="default">
+    <column-to-hide>WS_DUMMY</column-to-hide>
+    <default-add-on-sort>2,1,3</default-add-on-sort>
+    <report-level id="PLMN/WS_RSRAN-RNC"/>
+    <report-level id="PLMN/WS_RSRAN-WBTS"/>
+    <report-level id="PLMN/WS_RSRAN-WCEL"/>
+    <sql-kpi><![CDATA[select
+        #id_pivot#,
+        1 WS_DUMMY,
+        #kpis#
+      from
+        dual
+        #tmp_meas_tables#
+      where
+        1=1
+        #tmp_table_joins#
+        #add_on_criteria#
+      order by
+        #add_on_sort#]]></sql-kpi>
+  </report>
+  <group name="PLMN/WS_RSRAN-RNC">
+    <supports>
+      <filter-level>RSRAN-RNC</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSRAN-RNC</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <group name="PLMN/WS_RSRAN-WBTS">
+    <supports>
+      <filter-level>RSRAN-WBTS</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSRAN-WBTS</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <group name="PLMN/WS_RSRAN-WCEL">
+    <supports>
+      <filter-level>RSRAN-WCEL</filter-level>
+    </supports>
+    <object-id-ref>ws_gid</object-id-ref>
+    <group-id-ref>WS_RSRAN-WCEL</group-id-ref>
+    <sql><![CDATA[select
+          w.setname ws, leg.la_co_gid ws_gid
+        from
+          w_manual_sets w,
+          utp_legacy leg
+        where
+          w.int_id = leg.la_int_id]]></sql>
+  </group>
+  <drill-conf>
+    <time-drill from="month" to="week"/>
+    <time-drill from="monthbh" to="weekbh"/>
+    <time-drill from="monthbh2" to="weekbh2"/>
+  </drill-conf>
+  <drill-conf>
+    <object-drill from="PLMN" to="PLMN/RSRAN-RNC"/>
+    <object-drill from="PLMN/MR_RSRAN-RNC" to="PLMN/RSRAN-RNC"/>
+    <object-drill from="PLMN/MR_RSRAN-WBTS" to="PLMN/RSRAN-RNC/RSRAN-WBTS"/>
+    <object-drill from="PLMN/MR_RSRAN-WCEL" to="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL"/>
+    <object-drill from="PLMN/WS_RSRAN-RNC" to="PLMN/RSRAN-RNC"/>
+    <object-drill from="PLMN/WS_RSRAN-WBTS" to="PLMN/RSRAN-RNC/RSRAN-WBTS"/>
+    <object-drill from="PLMN/WS_RSRAN-WCEL" to="PLMN/RSRAN-RNC/RSRAN-WBTS/RSRAN-WCEL"/>
+  </drill-conf>
+</object-conf>

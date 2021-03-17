@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_1931a">
+    <formula>decode(
+			(servlev.rab_stp_att_ps_strea + 
+			servlev.rab_stp_att_ps_inter + 
+			servlev.rab_stp_att_ps_backg),0,null, 
+
+			(100*(servlev.rab_stp_fail_ps_strea_frozbs + 
+			servlev.rab_stp_fail_ps_inter_frozbs + 
+			servlev.rab_stp_fail_ps_backg_frozbs)
+			 / 
+			(servlev.rab_stp_att_ps_strea + 
+			servlev.rab_stp_att_ps_inter + 
+			servlev.rab_stp_att_ps_backg)))</formula>
+    <kpi_info>
+      <title><![CDATA[PS RAB Setup FR due to Frozen BTS]]></title>
+      <use><![CDATA[This KPI provides info about the RAB setup failure rate for PS (NRT+RT) calls caused by Frozen BTS.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(RAB_STP_FAIL_PS_STREA_FROZBS
+&lt;br&gt;   + RAB_STP_FAIL_PS_INTER_FROZBS
+&lt;br&gt;   + RAB_STP_FAIL_PS_BACKG_FROZBS)
+&lt;br&gt;----------------------------------
+&lt;br&gt;sum(RAB_STP_ATT_PS_STREA
+&lt;br&gt;  + RAB_STP_ATT_PS_INTER
+&lt;br&gt;  + RAB_STP_ATT_PS_BACKG)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>PS RAB stp FR, FrzBTS</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

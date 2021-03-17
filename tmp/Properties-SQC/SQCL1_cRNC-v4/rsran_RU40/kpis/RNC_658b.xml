@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <kpi name="RNC_658b">
+    <formula>100*decode(
+			((SERVLEV.ue_supp_hsdsch_class_1_6 + 
+			SERVLEV.ue_supp_hsdsch_class_7_8 + 
+			SERVLEV.ue_supp_hsdsch_class_9_10 + 
+			SERVLEV.ue_supp_hsdsch_class_11_12 + 
+			servlev.ue_supp_hsdsch_class_13_14_1 + 
+			servlev.ue_supp_hsdsch_class_15_16_1 + 
+			servlev.ue_supp_hsdsch_class_17_18_1 + 
+			servlev.ue_supp_hsdsch_class_19_20_1 + 
+			servlev.ue_supp_hsdsch_class_21_22_1 + 
+			servlev.ue_supp_hsdsch_class_23_24_1)),0,null, 
+
+			((SERVLEV.ue_supp_hsdsch_class_9_10))
+			 / 
+			((SERVLEV.ue_supp_hsdsch_class_1_6 + 
+			SERVLEV.ue_supp_hsdsch_class_7_8 + 
+			SERVLEV.ue_supp_hsdsch_class_9_10 + 
+			SERVLEV.ue_supp_hsdsch_class_11_12 + 
+			servlev.ue_supp_hsdsch_class_13_14_1 + 
+			servlev.ue_supp_hsdsch_class_15_16_1 + 
+			servlev.ue_supp_hsdsch_class_17_18_1 + 
+			servlev.ue_supp_hsdsch_class_19_20_1 + 
+			servlev.ue_supp_hsdsch_class_21_22_1 + 
+			servlev.ue_supp_hsdsch_class_23_24_1)))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of Category 9-10 UE's]]></title>
+      <use><![CDATA[Percentage of category 9-10 UE's from all HSDPA capable UE's
+Different types of User Equipments are used in the network and the UE capability gives operator information which kinds of UE's are used in the network.  Different UE's behave differently in network and can utilize the available features in different way (e.g. whether UE can support 5, 10, or 15 codes, what is the UE buffer size, or the inter-TTI interval).  All the different capabilities are indirectly effecting the throughput (average and peak) seen by the network, so even network does have capabilities to higher bitrates, the UE might not be able to utilize it (and vice versa).]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>sum (ue_supp_hsdsch_class_9_10)
+&lt;br&gt;100 * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;      sum (ue_supp_hsdsch_class_1_6 + ue_supp_hsdsch_class_7_8 + ue_supp_hsdsch_class_9_10 + ue_supp_hsdsch_class_11_12 + ue_supp_hsdsch_class_13_14 + ue_supp_hsdsch_class_15_16 + ue_supp_hsdsch_class_17_18 + ue_supp_hsdsch_class_19_20 + ue_supp_hsdsch_class_21_22 + ue_supp_hsdsch_class_23_24)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_SERVLEV_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Perc of Category 9-10 UEs]]></kpi_alias>
+    <area_level />
+  </kpi>
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+</conf_file>
+

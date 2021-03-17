@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens RNC RN60_1 FTM_CESoPSN_PW FCESPW measurement dump</header>
+    <csv_title>Nokia Siemens RNC RN60_1 FTM_CESoPSN_PW FCESPW measurement dump</csv_title>
+    <report-description>FTM CES over PSN Pseudowire</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <CES_OutOfSyncPackets_PW />
+    <CES_LostPackets_PW />
+    <CES_LBit_Packets_PW />
+    <CES_LatePackets_PW />
+    <CES_EarlyPackets_PW />
+    <CES_MinDelay_PW />
+    <CES_MaxDelay_PW />
+    <CES_Avg_Delay_PW />
+    <period_duration_sum />
+  </column_order>
+  <temp_table name="FCESPW" meas_level="PLMN/RNC/WBTS/FTM/CESIF/CESPWT/CESPW" type="PM" master="yes" pragma="oss4ran" create="yes">
+    <counters>
+      <counter alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="CES_OutOfSyncPackets_PW">SUM(CES_OutOfSyncPackets_PW)</counter>
+      <counter alias="CES_LostPackets_PW">SUM(CES_LostPackets_PW)</counter>
+      <counter alias="CES_LBit_Packets_PW">SUM(CES_LBit_Packets_PW)</counter>
+      <counter alias="CES_LatePackets_PW">SUM(CES_LatePackets_PW)</counter>
+      <counter alias="CES_EarlyPackets_PW">SUM(CES_EarlyPackets_PW)</counter>
+      <counter alias="CES_MinDelay_PW">MIN(CES_MinDelay_PW)</counter>
+      <counter alias="CES_MaxDelay_PW">MAX(CES_MaxDelay_PW)</counter>
+      <counter alias="CES_Avg_Delay_PW">AVG(CES_Avg_Delay_PW)</counter>
+      <counter alias="period_duration_sum">SUM(period_duration_sum)</counter>
+    </counters>
+    <table_name>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>FCESPW</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>FCESPW.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_OutOfSyncPackets_PW">
+    <formula>FCESPW.CES_OutOfSyncPackets_PW</formula>
+    <kpi_info>
+      <title>CES_OutOfSyncPackets_PW</title>
+      <use>The counter counts all packets that arrived too late or too early in relation to the jitter buffer of the CES pseudowire. UPDATED: The counter counts all packets that arrived too late or too early in relation to the jitter buffer of the CES pseudowire.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CES_OutOfSyncPackets_PW)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_OutOfSyncPackets_PW (M5121C0)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_LostPackets_PW">
+    <formula>FCESPW.CES_LostPackets_PW</formula>
+    <kpi_info>
+      <title>CES_LostPackets_PW</title>
+      <use>The CES pseudowire function shall be capable to detect lost and misordered packets. The sequence number in the control word of each packet is used for these purposes. The pseudowire function shall reorder misordered packets. Misordered packets that cannot be reordered shall be discarded and treated as lost. This counter counts the number of lost packets over a CES pseudowire. UPDATED: The counter is updated for every packet that is declared to be lost over the pseudowire.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CES_LostPackets_PW)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_LostPackets_PW (M5121C1)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_LBit_Packets_PW">
+    <formula>FCESPW.CES_LBit_Packets_PW</formula>
+    <kpi_info>
+      <title>CES_LBit_Packets_PW</title>
+      <use>This counter counts the packets with the L-bit set to '1' over the pseudowire. UPDATED: The counter is updated for every packet that has the L-bit set to '1'</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CES_LBit_Packets_PW)</formula>
+      <unit>packets</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_LBit_Packets_PW (M5121C2)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_LatePackets_PW">
+    <formula>FCESPW.CES_LatePackets_PW</formula>
+    <kpi_info>
+      <title>CES_LatePackets_PW</title>
+      <use>The counter counts all packets for the CES pseudowire that arrived too late in relation to the jitter buffer. UPDATED: The counter is updated for very packet that arrived too late in relation to the jitter buffer.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CES_LatePackets_PW)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_LatePackets_PW (M5121C3)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_EarlyPackets_PW">
+    <formula>FCESPW.CES_EarlyPackets_PW</formula>
+    <kpi_info>
+      <title>CES_EarlyPackets_PW</title>
+      <use>The counter counts all packets that arrived too late in relation to the jitter buffer of the CES pseudowire. UPDATED: The counter is updated for very packet that arrived too early in relation to the jitter buffer.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(CES_EarlyPackets_PW)</formula>
+      <unit>Packets</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_EarlyPackets_PW (M5121C4)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_MinDelay_PW">
+    <formula>FCESPW.CES_MinDelay_PW</formula>
+    <kpi_info>
+      <title>CES_MinDelay_PW</title>
+      <use>This counter collects statistics for the minimum packet delay variation of CES packets for the pseudowire. The counter value is the minimum delay measured over all packets within the sampling period of 15 minutes. UPDATED: The counter is updated with the minimum delay value of all packets processed in the sampling period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MIN(CES_MinDelay_PW)</formula>
+      <unit>microseconds</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_MinDelay_PW (M5121C5)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_MaxDelay_PW">
+    <formula>FCESPW.CES_MaxDelay_PW</formula>
+    <kpi_info>
+      <title>CES_MaxDelay_PW</title>
+      <use>This counter collects statistics for the maximum packet delay variation of CES packets for the pseudowire. The counter value is the minimum delay measured over all packets within the sampling period of 15 minutes. UPDATED: The counter is updated with the maximum delay value of all packets processed in the sampling period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>MAX(CES_MaxDelay_PW)</formula>
+      <unit>microseconds</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_MaxDelay_PW (M5121C6)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="CES_Avg_Delay_PW">
+    <formula>FCESPW.CES_Avg_Delay_PW</formula>
+    <kpi_info>
+      <title>CES_Avg_Delay_PW</title>
+      <use>This counter collects statistics for packet delay variation average per pseudowire. The counter value is the average delay measured over all packets within the sampling period of 15 minutes. UPDATED: The counter is updated with the average delay of the packets processed in the sampling period.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(CES_Avg_Delay_PW)</formula>
+      <unit>microseconds</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CES_Avg_Delay_PW (M5121C7)</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="period_duration_sum">
+    <formula>FCESPW.period_duration_sum</formula>
+    <kpi_info>
+      <title>period_duration_sum</title>
+      <use />
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(period_duration_sum)</formula>
+      <unit>Min</unit>
+      <tables>nokrww_ps_fcespw_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration_sum</kpi_alias>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

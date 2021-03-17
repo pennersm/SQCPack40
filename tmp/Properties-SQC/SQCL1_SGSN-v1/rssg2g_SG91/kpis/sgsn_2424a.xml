@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssg2g/counters/DATA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IPDA.xml"/>
+  <temp_table_ref src="rssg2g/counters/IUDA.xml"/>
+  <kpi name="sgsn_2424a">
+    <formula>decode(
+			(DATA.gtp_packets_sent_in_ul + DATA.gtp_packets_sent_in_dl + 
+           (IPDA.IPPU_GTP_PACKETS_SENT_UL + IPDA.IPPU_GTP_PACKETS_DL +  
+           4294967296 * (IPDA.IPPU_GTP_PACKETS_SENT_UL_OFL + IPDA.IPPU_GTP_PACKETS_DL_OFL))) ,0,NULL, 
+
+			(DATA.gtp_data_in_bytes_sent_in_ul + DATA.gtp_data_in_bytes_sent_in_dl + 
+           IUDA.IU_GTP_BYTES_SENT_IN_UL + IUDA.IU_GTP_BYTES_SENT_IN_DL +  
+           4294967296 * (DATA.gtp_data_bytes_sent_in_ul_ofl + DATA.gtp_data_bytes_sent_in_dl_ofl + 
+           IUDA.IU_GTP_BYTES_SENT_IN_UL_OFL + IUDA.IU_GTP_BYTES_SENT_IN_DL_OFL)) 
+			 / 
+			(DATA.gtp_packets_sent_in_ul + DATA.gtp_packets_sent_in_dl + 
+           (IPDA.IPPU_GTP_PACKETS_SENT_UL + IPDA.IPPU_GTP_PACKETS_DL +  
+           4294967296 * (IPDA.IPPU_GTP_PACKETS_SENT_UL_OFL + IPDA.IPPU_GTP_PACKETS_DL_OFL))))</formula>
+    <kpi_info>
+      <title><![CDATA[Average size of all the packets passing through ATCA SGSN]]></title>
+      <use><![CDATA[This KPI shows the average size of all the packets passing through the ATCA SGSN.
+Use: The NSN capacity statement in general assumes packet size of 512 bytes and it also has a table that explains how to adjust the capacity statement if the packet size differs from 512 bytes. Therefore, when evaluating if the SGSN performance matches what we have promised the operator, it is needed to know the average packet size.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gtp_data_in_bytes_sent_in_ul + gtp_data_in_bytes_sent_in_dl + 
+&lt;br&gt;      IU_GTP_BYTES_SENT_IN_UL + IU_GTP_BYTES_SENT_IN_DL +  
+&lt;br&gt;      4294967296 * (gtp_data_bytes_sent_in_ul_ofl + gtp_data_bytes_sent_in_dl_ofl + 
+&lt;br&gt;      IU_GTP_BYTES_SENT_IN_UL_OFL + IU_GTP_BYTES_SENT_IN_DL_OFL)) 
+&lt;br&gt;----------------------------------------------------------------------------------
+&lt;br&gt;   sum (gtp_packets_sent_in_ul + gtp_packets_sent_in_dl + 
+&lt;br&gt;      (IPPU_GTP_PACKETS_SENT_UL + IPPU_GTP_PACKETS_DL +  
+&lt;br&gt;      4294967296 * (IPPU_GTP_PACKETS_SENT_UL_OFL + IPPU_GTP_PACKETS_DL_OFL))) 
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[B]</unit>
+      <tables>RSG_PS_DATA_{OBJ_AGG}_{TIME_AGG},RSG_PS_IPDA_{OBJ_AGG}_{TIME_AGG},RSG_PS_IUDA_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Avg size all pkt (ATCA)]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

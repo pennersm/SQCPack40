@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran_RU40/counters/ULOAD_ext.xml" />
+	<kpi name="RNC_1870a">
+		<formula>decode(uload_ext.icsu_unit_count-1,0,null,
+
+			(uload_ext.icsu_sum_average_load -
+			uload_ext.icsu_min_average_load)
+			/
+			(uload_ext.icsu_unit_count -1))
+		</formula>
+		<kpi_info>
+			<title><![CDATA[Average ICSU CPU load]]></title>
+			<use><![CDATA[RNC ICSU unit (unit_type = 329) CPU load, calculated with N+1 protected CPU load formula.
+
+FORMULA NOTES:
+M592C0 for unit_type = 329; unit_index = *;
+NUMBER_OF_UNITS - this parameter will be implemented as CONFIGURABLE value and needs to be set up by the operator.
+
+OFFICIAL NOTES: NUMBER_OF_UNITS - this parameter will be implemented as CONFIGURABLE value and needs to be set up by the operator]]></use>
+			<formula>SUM(all units)-MIN(all units) ) / (nb_units - 1)</formula>
+			<unit>[%]</unit>
+			<tables>nokrww_ps_uload_unitid_raw</tables>
+		</kpi_info>
+		<kpi_format>float:2</kpi_format>
+		<kpi_mark />
+		<kpi_alias>Avg ICSU CPU load</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>

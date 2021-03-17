@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/WBTSMON.xml" /> 
+  <kpi name="RNC_2750a">
+    <formula>
+    100*decode(
+			wbtsmon.lic_num_hsupa_users,0,null, 
+
+			wbtsmon.conf_hsupa_users
+			 / 
+			wbtsmon.lic_num_hsupa_users)
+    </formula>
+    <kpi_info>
+      <title><![CDATA[Configured number of HSUPA users ratio]]></title>
+      <use><![CDATA[Percentage of configured HSUPA users in reference to the licensed number of HSUPA users at BTS. ]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*SUM(CONF_HSUPA_USERS)  
+&lt;br&gt;------------------------- 
+&lt;br&gt;SUM(LIC_NUM_HSUPA_USERS) </formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_WBTSMON_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Config nr HSUPA usr R]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

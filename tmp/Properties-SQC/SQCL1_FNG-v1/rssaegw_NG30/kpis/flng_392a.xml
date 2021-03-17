@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rssaegw/counters/GREtun.xml"/>
+  <kpi name="flng_392a">
+    <formula>decode(
+			((GREtun.gre_tun_ipv4_bytes_sent + 
+			GREtun.gre_tun_ipv6_bytes_sent + 
+			GREtun.gre_tun_ipv4_bytes_received + 
+			GREtun.gre_tun_ipv6_bytes_received)),0,NULL, 
+
+			((GREtun.gre_tun_ipv4_bytes_sent + 
+			GREtun.gre_tun_ipv6_bytes_sent))
+			 / 
+			((GREtun.gre_tun_ipv4_bytes_sent + 
+			GREtun.gre_tun_ipv6_bytes_sent + 
+			GREtun.gre_tun_ipv4_bytes_received + 
+			GREtun.gre_tun_ipv6_bytes_received)))*100</formula>
+    <kpi_info>
+      <title><![CDATA[GRE tunneled traffic sent ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of sent GRE tunneled traffic when compared to total (received+sent) GRE tunneled traffic.
+This KPI can be used to check GRE tunneled traffic balancing in the interfaces.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>sum (gre_tun_ipv4_bytes_sent + 
+&lt;br&gt;   gre_tun_ipv6_bytes_sent)
+&lt;br&gt;---------------------------------- * 100
+&lt;br&gt;sum (gre_tun_ipv4_bytes_sent + 
+&lt;br&gt;   gre_tun_ipv6_bytes_sent + 
+&lt;br&gt;   gre_tun_ipv4_bytes_received + 
+&lt;br&gt;   gre_tun_ipv6_bytes_received)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNG_PS_GREtun_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[GRE tun traffic sent ratio]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

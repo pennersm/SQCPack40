@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/ACHDEST.xml"/>
+  <kpi name="hlr_454a">
+    <formula>100*decode(
+			ACHDEST.NUMBEROFREQUESTS,0,null, 
+
+			(ACHDEST.NUMBEROFTRIPLETS + 
+			ACHDEST.NUMBEROFQUINTETS)
+			 / 
+			ACHDEST.NUMBEROFREQUESTS)</formula>
+    <kpi_info>
+      <title><![CDATA[Authentication triplets and quintets per authentication request - DEST analysis]]></title>
+      <use><![CDATA[The KPI indicates average number of triplets + quintets sent per authentication request. DEST analysis.]]></use>
+
+	  <use_experience><![CDATA[
+	  <br>Similar with msc_525b KPI. A new hlr KPI ID reference is now being used.
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS:PLMN->HLR->DEST
+	  <br>KPI CLASS: Security
+	  <br>MEASUREMENT(S): AC measurement in HLR (M87)
+	  <br>
+	  <br>]]></use_experience>
+
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      
+		<formula>
+		&lt;br&gt;  SUM( numberOfTriplets )
+		&lt;br&gt;     + sum(numberOfQuintets )
+		&lt;br&gt;------------------------------------------ * 100
+		&lt;br&gt;  SUM( numberOfRequests )
+		&lt;br&gt;
+		&lt;br&gt;Counters from views:
+		&lt;br&gt;RNS_PS_ACHDEST_HLR_{time_agg}}
+		</formula>
+		
+      <unit>[#]</unit>
+      <tables>rns_ps_achdest_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Auth TrpQts Per AuthReq DEST]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

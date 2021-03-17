@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/IPROUT.xml" />
+  <kpi name="RNC_1794a">
+    <formula>decode(
+			(iprout.period_duration*iprout.committed_bit_rate_ip_route),0,null, 
+
+			(100*8*(iprout.out_data_ip_route)
+			 / 
+			(60*iprout.period_duration*iprout.committed_bit_rate_ip_route)))</formula>
+    <kpi_info>
+      <title><![CDATA[IP Iub traffic load - Downlink]]></title>
+      <use><![CDATA[This KPI provides information about the IP Iub traffic load in DL direction. It compares the DL traffic throughput against the available bandwith.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;               8* SUM( OUT_DATA_IP_ROUTE) 
+&lt;br&gt;100*  ------------------------------------------------------
+&lt;br&gt;          (SUM(60 * PERIOD_DURATION) *SUM(COMMITTED_BIT_RATE_IP_ROUTE))</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_iprout_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IP Iub traffic load DL</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+  <temp_table_ref src="rsran_RU50EP1/counters/IPROUT_ext.xml" />
+</conf_file>
+

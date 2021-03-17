@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/M3UAHI.xml" />
+  <kpi name="hlr_1270a">
+    <formula>decode(
+			(60*m3uahi.period_duration),0,null, 
+
+			(greatest(
+			(m3uahi.m3ua_sctp_packets_received),
+			(m3uahi.m3ua_sctp_packets_sent))
+			 / 
+			(60*m3uahi.period_duration)))</formula>
+    <kpi_info>
+      <title><![CDATA[Association Set packets per sec]]></title>
+      <use><![CDATA[Association Set packets per sec (packet/s)]]></use>
+
+	  <use_experience><![CDATA[ 
+	  <br>The associations of a single set are spread over several Signalling Units (SU). The relevant sum of traffic is between associations sharing the same SU, not over the association set (SUM for the rows with the same ASSOSET_ID).
+	  <br>KPI made of counters that are part of optional measurement M3UA statistics
+	  <br>PUBLISHED: M14.0
+	  <br>LAST UPDATE: 29-04-2010
+	  <br>
+	  <br>RECOMMENDED SUMMARY LEVELS: PLMN - MSC - ASSO_SETNAME
+	  <br>PLMN - HLR - ASSO_SETNAME
+	  <br>PLMN - SRR - ASSO_SETNAME
+	  <br>
+	  <br>KPI CLASS: Traffic
+	  <br>MEASUREMENT(S): M3UA association set measurement (M661)
+	  <br>
+	  <br>NOTES: SRR: not supported by NE but supported in the adaptation. 
+	  <br>
+	  <br>]]></use_experience>
+	  
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;&amp;#160;Max (
+	  &lt;br&gt;          Sum of ASSOSET_ID of ( m3ua_sctp_packets_received)&amp;#160;
+	  &lt;br&gt;        ,&amp;#160;Sum of ASSOSET_ID of ( m3ua_sctp_packets_sent)
+	  &lt;br&gt;         )
+	  &lt;br&gt;        / 60 * period_duration )
+	  &lt;br&gt;
+	  &lt;br&gt;Counters from view(s):
+	  &lt;br&gt;RNS_PS_M3UAMI_{obj_agg}_{time_agg}
+	  &lt;br&gt;RNS_PS_M3UAHI_{obj_agg}_{time_agg} 
+	  &lt;br&gt;RNS_PS_M3UASI_{obj_agg}_{time_agg}</formula>
+      <unit>pps</unit>
+      <tables>rns_ps_m3uahi_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Association Set packets per sec]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

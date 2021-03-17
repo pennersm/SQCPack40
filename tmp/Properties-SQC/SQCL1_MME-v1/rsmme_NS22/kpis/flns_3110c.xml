@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <temp_table_ref src="rsmme/counters/SGSM.xml" />
+  <kpi name="flns_3110c">
+    <formula>( decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_attach_succ + 
+			mmmt.eps_attach_fail)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			mmmt.eps_detach
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.intratau_wo_sgw_change_succ + 
+			mmmt.intratau_wo_sgw_change_fail +
+			mmmt.eps_periodic_tau_succ + 
+			mmmt.eps_periodic_tau_fail)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_inter_tau_og_succ + 
+			mmmt.eps_inter_tau_og_fail + 
+			mmmt.eps_cmb_inter_tau_succ + 
+			mmmt.eps_cmb_inter_tau_fail)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_path_switch_x2_succ + 
+			mmmt.eps_path_switch_x2_fail + 
+			mmmt.eps_s1ho_succ + 
+			mmmt.eps_s1ho_fail)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_to_3g_gn_isho_succ + 
+			mmmt.eps_to_3g_gn_isho_fail + 
+			mmmt.eps_to_3g_gn_isho_trgt_reje + 
+			mmmt.eps_to_3g_gn_isho_enb_cncl)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_paging_succ + 
+			mmmt.eps_paging_fail)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.eps_service_request_succ + 
+			mmmt.eps_service_request_fail)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(mmmt.period_duration*60),0,null, 
+
+			(mmmt.esr_mo_attempts + 
+			mmmt.esr_mt_attempts +
+			mmmt.ESR_MO_EMERGENCY_ATTEMPTS)
+			 / 
+			(mmmt.period_duration*60))
+
+			+
+
+			decode(
+			(sgsm.period_duration*60),0,null, 
+
+			(sgsm.sgsap_uplink_succ + 
+			sgsm.sgsap_uplink_fail + 
+			sgsm.sgsap_downlink_succ + 
+			sgsm.sgsap_downlink_fail)
+			 / 
+			(sgsm.period_duration*60)) )</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Transactions per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS transactions per second.
+This KPI can be used to measure the signaling transaction load/capacity.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;( flns_3100a +
+&lt;br&gt;  flns_3101a +
+&lt;br&gt;  flns_3102a +
+&lt;br&gt;  flns_3103a +
+&lt;br&gt;  flns_3104a +
+&lt;br&gt;  flns_3105a +
+&lt;br&gt;  flns_3106a +
+&lt;br&gt;  flns_3107a +
+&lt;br&gt;  flns_3108b +
+&lt;br&gt;  flns_3109a )</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG},PCOFNS_PS_SGSM_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/05/16 11:36:01.928 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Transactions pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

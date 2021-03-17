@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/HSDPAW.xml"/>
+  <kpi name="RNC_626c">
+    <formula>100*decode(
+			((500*60*hsdpaw.period_duration_sum)),0,null, 
+
+			((hsdpaw.hs_scch_pwr_dist_class_0 + 
+			hsdpaw.hs_scch_pwr_dist_class_1 + 
+			hsdpaw.hs_scch_pwr_dist_class_2 + 
+			hsdpaw.hs_scch_pwr_dist_class_3 + 
+			hsdpaw.hs_scch_pwr_dist_class_4 + 
+			hsdpaw.hs_scch_pwr_dist_class_5))
+			 / 
+			((500*60*hsdpaw.period_duration_sum)))</formula>
+    <kpi_info>
+      <title><![CDATA[Active HSDPA time share]]></title>
+      <use><![CDATA[The percentage of time with active HSDPA TTIs from the network perspective (sending data) during the measurement period.]]></use>
+      <use_experience/>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>      sum (hs_scch_pwr_dist_class_0 + hs_scch_pwr_dist_class_1 + hs_scch_pwr_dist_class_2 + hs_scch_pwr_dist_class_3 + hs_scch_pwr_dist_class_4 + hs_scch_pwr_dist_class_5)
+&lt;br&gt;100 * ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+&lt;br&gt;                                                                      sum (500 * 60 * period_duration_sum)
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>NOKRWW_PS_HSDPAW_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[Act HSDPA time share]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

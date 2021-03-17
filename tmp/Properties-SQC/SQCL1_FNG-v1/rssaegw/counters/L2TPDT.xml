@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <info>
+    <release number="jflx" />
+    <dst />
+    <implementation />
+    <min_obj_agg />
+    <maxrows>100</maxrows>
+    <header>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 L2TP_data L2TPDT measurement dump</header>
+    <csv_title>Nokia Siemens FlexiNG NG2.1;NG2.0;NG10CD8;NG10CD6;NG10CD4;NG10CD2 L2TP_data L2TPDT measurement dump</csv_title>
+    <report-description>NG10 L2TP data statistics</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting />
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file />
+    <nokia_counter_db_help_file />
+    <external_kpi_help_file />
+  </info>
+  <column_order>
+    <period_duration />
+    <L2TP_PKTS_DROPPED_UNK_BEARER />
+    <L2TP_PKTS_DROPPED_INV_PACKET />
+    <L2TP_UL_PKTS />
+    <L2TP_DL_PKTS />
+    <L2TP_DL_UP_VOL />
+    <L2TP_UL_UP_VOL />
+  </column_order>
+  <temp_table name="L2TPDT" meas_level="PLMN/FING/FNODE/L2TPDT" type="PM" master="yes" pragma="pcofng" create="yes">
+    <counters>
+      <counter alias="period_duration" time-alias="period_duration">AVG(period_duration)*COUNT(DISTINCT period_start_time)</counter>
+      <counter alias="L2TP_PKTS_DROPPED_UNK_BEARER" time-alias="L2TP_PKTS_DROPPED_UNK_BEARER" timeagg="SUM(L2TP_PKTS_DROPPED_UNK_BEARER)">SUM(L2TP_PKTS_DROPPED_UNK_BEARER)</counter>
+      <counter alias="L2TP_PKTS_DROPPED_INV_PACKET" time-alias="L2TP_PKTS_DROPPED_INV_PACKET" timeagg="SUM(L2TP_PKTS_DROPPED_INV_PACKET)">SUM(L2TP_PKTS_DROPPED_INV_PACKET)</counter>
+      <counter alias="L2TP_UL_PKTS" time-alias="L2TP_UL_PKTS" timeagg="SUM(L2TP_UL_PKTS)">SUM(L2TP_UL_PKTS)</counter>
+      <counter alias="L2TP_DL_PKTS" time-alias="L2TP_DL_PKTS" timeagg="SUM(L2TP_DL_PKTS)">SUM(L2TP_DL_PKTS)</counter>
+      <counter alias="L2TP_DL_UP_VOL" time-alias="L2TP_DL_UP_VOL" timeagg="SUM(L2TP_DL_UP_VOL)">SUM(L2TP_DL_UP_VOL)</counter>
+      <counter alias="L2TP_UL_UP_VOL" time-alias="L2TP_UL_UP_VOL" timeagg="SUM(L2TP_UL_UP_VOL)">SUM(L2TP_UL_UP_VOL)</counter>
+    </counters>
+    <table_name>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>L2TPDT</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>L2TPDT.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>AVG(period_duration)*COUNT(DISTINCT period_start_time)</formula>
+      <unit />
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="L2TP_PKTS_DROPPED_UNK_BEARER">
+    <formula>L2TPDT.L2TP_PKTS_DROPPED_UNK_BEARER</formula>
+    <kpi_info>
+      <title>L2TP_PKTS_DROPPED_UNK_BEARER</title>
+      <use>This counter contains the number of L2TP user plane packets dropped due to an unknown bearer. UPDATED: Updated when an L2TP user plane packet is dropped. The reason for dropping the packet is that the packet belongs to an unknown bearer.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(L2TP_PKTS_DROPPED_UNK_BEARER)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>L2TP_PKTS_DROPPED_UNK_BEARER (m3059c0001)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="L2TP_PKTS_DROPPED_INV_PACKET">
+    <formula>L2TPDT.L2TP_PKTS_DROPPED_INV_PACKET</formula>
+    <kpi_info>
+      <title>L2TP_PKTS_DROPPED_INV_PACKET</title>
+      <use>This counter contains the number of L2TP user plane packets dropped due to an invalid packet. UPDATED: Updated when an L2TP user plane packet is dropped due to an invalid packet.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(L2TP_PKTS_DROPPED_INV_PACKET)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>L2TP_PKTS_DROPPED_INV_PACKET (m3059c0002)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="L2TP_UL_PKTS">
+    <formula>L2TPDT.L2TP_UL_PKTS</formula>
+    <kpi_info>
+      <title>L2TP_UL_PKTS</title>
+      <use>This counter contains the number of uplink user plane packets which use L2TP. UPDATED: Updated when an uplink user plane packet which uses L2TP is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(L2TP_UL_PKTS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>L2TP_UL_PKTS (m3059c0003)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="L2TP_DL_PKTS">
+    <formula>L2TPDT.L2TP_DL_PKTS</formula>
+    <kpi_info>
+      <title>L2TP_DL_PKTS</title>
+      <use>This counter contains the number of downlink user plane packets which use L2TP. UPDATED: Updated when a downlink user plane packet which uses L2TP is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(L2TP_DL_PKTS)</formula>
+      <unit>packet</unit>
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>L2TP_DL_PKTS (m3059c0004)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="L2TP_DL_UP_VOL">
+    <formula>L2TPDT.L2TP_DL_UP_VOL</formula>
+    <kpi_info>
+      <title>L2TP_DL_UP_VOL</title>
+      <use>This counter contains the amount of downlink user plane data volume for data which uses L2TP. UPDATED: Updated when downlink user plane data which uses L2TP is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(L2TP_DL_UP_VOL)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>L2TP_DL_UP_VOL (m3059c0005)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+  <kpi name="L2TP_UL_UP_VOL">
+    <formula>L2TPDT.L2TP_UL_UP_VOL</formula>
+    <kpi_info>
+      <title>L2TP_UL_UP_VOL</title>
+      <use>This counter contains the amount of uplink user plane data volume for data which uses L2TP. UPDATED: Updated when uplink user plane data which uses L2TP is received.</use>
+      <open_questions />
+      <use_experience />
+      <known_problems />
+      <pm_class />
+      <formula>SUM(L2TP_UL_UP_VOL)</formula>
+      <unit>Bytes</unit>
+      <tables>pcofng_ps_l2tpdt_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>L2TP_UL_UP_VOL (m3059c0006)</kpi_alias>
+    <kpi_format>undef</kpi_format>
+    <kpi_mark />
+    <area_level />
+  </kpi>
+</conf_file>
+

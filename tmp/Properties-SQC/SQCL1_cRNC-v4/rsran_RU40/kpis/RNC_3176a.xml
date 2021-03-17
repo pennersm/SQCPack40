@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/FSEPS_ext.xml" />
+  <kpi name="RNC_3176a">
+    <formula>100*decode(
+			(fseps.receivedesppackets_1),0,null, 
+
+			(fseps.espcryptographicerrors)
+			 / 
+			(fseps.receivedesppackets_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Percentage of discarded ESP packets discarded due to cryptographic errors]]></title>
+      <use><![CDATA[The percentage of received ESP packets addressed to a local tunnel endpoint which are received with a SPI of an existing IPsec SA, the packets fit into the anti replay window but the packets could not be decrypted or authenticated correctly.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * SUM(espCryptographicErrors)
+&lt;br&gt;/
+&lt;br&gt;SUM(receivedESPpackets)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_FSEPS_{obj_agg}_{time_agg}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/06/16 18:10:01.175 +0100</date>
+          <comment><![CDATA[Source: RSRAN127.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Disc pkt crypt err</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

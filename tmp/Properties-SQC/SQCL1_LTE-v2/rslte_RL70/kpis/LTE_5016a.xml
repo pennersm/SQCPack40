@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rslte/counters/LS1AP.xml" />
+  <kpi name="LTE_5016a">
+    <formula>100*decode(
+			(ls1ap.s1_setup_fail_no_resp + 
+			ls1ap.s1_setup_fail_ind_by_mme),0,null, 
+
+			(ls1ap.s1_setup_fail_ind_by_mme)
+			 / 
+			(ls1ap.s1_setup_fail_no_resp + 
+			ls1ap.s1_setup_fail_ind_by_mme))</formula>
+    <kpi_info>
+      <title><![CDATA[S1 Setup Distribution Failure Ratio MME]]></title>
+      <use><![CDATA[This KPI describes the ratio of a specific S1 setup failure cause &quot;indication by MME&quot; related to all failed S1 setups.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*(S1_SETUP_FAIL_IND_BY_MME) / (S1_SETUP_FAIL_NO_RESP+
+&lt;br&gt;S1_SETUP_FAIL_IND_BY_MME)</formula>
+      <unit>[%]</unit>
+      <tables>NOKLTE_PS_LS1AP_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2010/08/03 17:59:22.880 +0100</date>
+          <comment><![CDATA[Source: RSLTE000.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>S1 stp FDR Mme</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

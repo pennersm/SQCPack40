@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<conf_file>
+  <temp_table_ref src="nss/counters/VLRNMSC.xml"/>
+  <kpi name="msc_2047b">
+    <formula>(VLRNMSC.REG_AVG_TOTAL)</formula>
+    <kpi_info>
+      <title><![CDATA[Total average number of subscriber @ MSC/VLR level. ENH_VLR Opt.]]></title>
+      <use><![CDATA[Average number of subscribers in the VLR during the result accumulation period. This KPI sums the subscribers that have triplet authentication vectors in VLR (2G), quintuplet authentication vectors in VLR (3G) and the ones that do not have authentication vectors in VLR. For the calculation of the average, the number of subscribers is interrogated at five-minute intervals. This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This KPI is only applicable if SIM_USIM_MEAS_PER_LAI is inactive and ENH_VLR_MEAS_PER_LAC is active.
+<br>
+<br>If both SIM_USIM_MEAS_PER_LAI and ENH_VLR_MEAS_PER_LAC FIFILE parameters are inactive please use msc_583a KPI.
+<br>
+<br>If SIM_USIM_MEAS_PER_LAI is active please use msc_2047a KPI.
+<br>
+<br>PUBLISHED: M16.0
+<br>LAST UPDATE: 28-10-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MSC
+<br>
+<br>KPI CLASS: Subscriber
+<br>MEASUREMENT(S): VLR measurement, part n (M80/50H)
+<br>
+<br>NOTES: This KPI includes optional features.
+<br>
+<br>]]></use_experience>
+       <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>For Object:
+&lt;br&gt;   SUM( REG_AVG_TOTAL )
+&lt;br&gt;
+&lt;br&gt;For Time:
+&lt;br&gt;   AVG( REG_AVG_TOTAL )
+&lt;br&gt;
+&lt;br&gt;Use AGGREGATED tables
+&lt;br&gt;
+&lt;br&gt;</formula>
+      <unit>[#]</unit>
+      <tables>RNS_PS_VLRNMSC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[AvgSubs VLR Off-On]]></kpi_alias>
+    <area_level/>
+  </kpi>
+</conf_file>

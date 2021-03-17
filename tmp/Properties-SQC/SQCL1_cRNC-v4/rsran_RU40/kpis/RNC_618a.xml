@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/SERVLEV.xml" />
+  <temp_table_ref src="rsran_RU40/counters/SERVLEV_ext.xml" />
+  <kpi name="RNC_618a">
+    <formula>100*decode(
+			(servlev.rab_stp_att_ps_strea_1 + 
+			servlev.rab_stp_att_cs_strea_1),0,null, 
+
+			(servlev.rab_acc_comp_ps_strea_1 + 
+			servlev.rab_acc_comp_cs_strea_1)
+			 / 
+			(servlev.rab_stp_att_ps_strea_1 + 
+			servlev.rab_stp_att_cs_strea_1))</formula>
+    <kpi_info>
+      <title><![CDATA[RAB Setup and Access Complete Ratio for Streaming]]></title>
+      <use><![CDATA[RAB Setup and Access Complete Ratio for Streaming calls.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100*sum(RAB_ACC_COMP_PS_STREA + RAB_ACC_COMP_CS_STREA)/ sum(RAB_STP_ATT_PS_STREA + RAB_STP_ATT_CS_STREA)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_servlev_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[RAB Setup Access Success Ratio for Streaming]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

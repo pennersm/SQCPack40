@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+	<temp_table_ref src="rsran/counters/ATMTCTT.xml" />
+	<kpi name="AXC_3a">
+		<formula>
+			decode((atmtctt.period_duration*60),0,null,(atmtctt.totcellsingress)/(atmtctt.period_duration*60))
+		</formula>
+		<kpi_info>
+			<title>
+				<![CDATA[Average ATM interface ingress traffic]]>
+			</title>
+			<use>
+				<![CDATA[Average ATM interface ingress traffic over 15 min measurement period]]>
+			</use>
+			<use_experience />
+			<known_problems />
+			<open_questions />
+			<pm_class />
+			<formula>
+				<![CDATA[<pre>
+sum (totCellsIngress)
+---------------------
+sum (PERIOD_DURATION * 60)
+				</pre>]]>
+			</formula>
+			<unit>[cell/s]</unit>
+			<tables>
+				nokaxc_ps_ATMTCTT_{obj_agg}_{time_agg},nokaxc_ps_ATMVCCT_{obj_agg}_{time_agg},nokaxc_ps_ATMVPCT_{obj_agg}_{time_agg}
+			</tables>
+		</kpi_info>
+		<kpi_format>float:0</kpi_format>
+		<kpi_mark />
+		<kpi_alias>
+			<![CDATA[Average ATM interface ingress traffic]]>
+		</kpi_alias>
+		<area_level>all</area_level>
+	</kpi>
+</conf_file>
+

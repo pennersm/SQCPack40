@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran_RU40/counters/RRC_ext.xml" />
+  <kpi name="RNC_705a">
+    <formula>100*decode(
+			(rrc.cell_update_att_due_cell_res_1 + 
+			rrc.cell_update_att_per_update_1 + 
+			rrc.cell_update_att_data_transm_1 + 
+			rrc.cell_update_att_paging_resp_1 + 
+			rrc.cell_upd_att_re_ent_s_area_1 + 
+			rrc.cell_update_att_r_link_fail_1 + 
+			rrc.cell_update_att_rlc_err_1),0,null, 
+
+			(rrc.cell_upd_att_re_ent_s_area_1 + 
+			rrc.cell_update_att_r_link_fail_1 + 
+			rrc.cell_update_att_rlc_err_1)
+			 / 
+			(rrc.cell_update_att_due_cell_res_1 + 
+			rrc.cell_update_att_per_update_1 + 
+			rrc.cell_update_att_data_transm_1 + 
+			rrc.cell_update_att_paging_resp_1 + 
+			rrc.cell_upd_att_re_ent_s_area_1 + 
+			rrc.cell_update_att_r_link_fail_1 + 
+			rrc.cell_update_att_rlc_err_1))</formula>
+    <kpi_info>
+      <title><![CDATA[Received Cell Update messages,  drops and coverage ratio]]></title>
+      <use><![CDATA[The ratio of received Cell Update messages with causes &quot;Re-entering Service Area&quot;, &quot;Radio Link Failure&quot; or &quot;RLC unrecoverable error&quot; to the total number of received Cell Update messages. This indicates problems with the coverage or the mobility.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;100 * sum(CELL_UPD_ATT_RE_ENT_S_AREA
+&lt;br&gt;      + CELL_UPDATE_ATT_R_LINK_FAIL
+&lt;br&gt;      + CELL_UPDATE_ATT_RLC_ERR)
+&lt;br&gt; ---------------------------------------------------------------
+&lt;br&gt;  sum(CELL_UPDATE_ATT_DUE_CELL_RES
+&lt;br&gt;      + CELL_UPDATE_ATT_PER_UPDATE
+&lt;br&gt;      + CELL_UPDATE_ATT_DATA_TRANSM
+&lt;br&gt;      + CELL_UPDATE_ATT_PAGING_RESP
+&lt;br&gt;      + CELL_UPD_ATT_RE_ENT_S_AREA
+&lt;br&gt;      + CELL_UPDATE_ATT_R_LINK_FAIL
+&lt;br&gt;      + CELL_UPDATE_ATT_RLC_ERR)
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_rrc_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Received Cell Update messages,  drops and coverage ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

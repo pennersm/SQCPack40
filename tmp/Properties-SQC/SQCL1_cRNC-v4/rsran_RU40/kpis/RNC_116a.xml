@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsran/counters/CELLRES.xml" />
+  <kpi name="RNC_116a">
+    <formula>decode(
+        power(10,((cellres.ave_ptx_rt_class_0/100)/10))+
+	    power(10,((cellres.ave_ptx_rt_class_1/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_2/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_3/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_4/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_0/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_1/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_2/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_3/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_4/100)/10)),10, 0,
+       100*
+       (power(10,((cellres.ave_ptx_rt_class_0/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_1/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_2/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_3/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_4/100)/10)))
+           /
+        (power(10,((cellres.ave_ptx_rt_class_0/100)/10))+
+	    power(10,((cellres.ave_ptx_rt_class_1/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_2/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_3/100)/10)) +
+	    power(10,((cellres.ave_ptx_rt_class_4/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_0/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_1/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_2/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_3/100)/10)) +
+	    power(10,((cellres.ave_ptx_nrt_class_4/100)/10))))</formula>
+    <kpi_info>
+      <title><![CDATA[Estimated RT ptx ratio]]></title>
+      <use><![CDATA[Percentage of  estimated RT traffic from all traffic in downlink direction]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt; 100 * Sum(AVE_PTX_RT_CLASS_0
+&lt;br&gt;          + AVE_PTX_RT_CLASS_1
+&lt;br&gt;          + AVE_PTX_RT_CLASS_2
+&lt;br&gt;          + AVE_PTX_RT_CLASS_3
+&lt;br&gt;          + AVE_PTX_RT_CLASS_4)
+&lt;br&gt;      ----------------------------------------
+&lt;br&gt;        Sum(AVE_PTX_RT_CLASS_0
+&lt;br&gt;          + AVE_PTX_RT_CLASS_1
+&lt;br&gt;          + AVE_PTX_RT_CLASS_2
+&lt;br&gt;          + AVE_PTX_RT_CLASS_3
+&lt;br&gt;          + AVE_PTX_RT_CLASS_4
+&lt;br&gt;          + AVE_PTX_NRT_CLASS_0
+&lt;br&gt;          + AVE_PTX_NRT_CLASS_1
+&lt;br&gt;          + AVE_PTX_NRT_CLASS_2
+&lt;br&gt;          + AVE_PTX_NRT_CLASS_3
+&lt;br&gt;          + AVE_PTX_NRT_CLASS_4)</formula>
+      <unit>[%]</unit>
+      <tables>nokrww_ps_cellres_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias><![CDATA[Estimated RT ptx ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

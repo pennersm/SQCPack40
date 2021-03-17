@@ -1,0 +1,313 @@
+<?xml version="1.0" ?><conf_file>
+  <info>
+    <release number="jflx"/>
+    <dst/>
+    <implementation/>
+    <min_obj_agg/>
+    <maxrows>100</maxrows>
+    <header>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M18 CNTL measurement dump</header>
+    <csv_title>NSN NSS M16.0;M16.0IP;M14.6;M14.6IP;M14.5;M14.5IP;M14.4;M14.4IP;M14.3;M14.3IP;M14.2;M14.2IP;M14.1;M14.1IP;M14.0;M14.0IP;M13.6;M13.6IP;M13.5;M13.5IP;M13.4;M13.4IP;M13.3;M13.3IP;M13.2;M13.2IP;M13.1;M13.1IP;M13;M13IP;M12;M12IP M18 CNTL measurement dump</csv_title>
+    <report-description>Control unit measurement(CNTL)</report-description>
+    <obj_number>20</obj_number>
+    <csv_rule>reuse</csv_rule>
+    <addon_sorting/>
+    <wrap_header>off</wrap_header>
+    <help_file>about_kpi_help.htm</help_file>
+    <nokia_counter_id_help_file/>
+    <nokia_counter_db_help_file/>
+    <external_kpi_help_file/>
+  </info>
+  <column_order>
+    <period_duration/>
+    <CNTL_CALLS/>
+    <CNTL_ACCEP/>
+    <CNTL_ANSW/>
+    <CNTL_SFAIL/>
+    <CNTL_IFAIL/>
+    <CNTL_EFAIL/>
+    <CNTL_ERLANGS/>
+    <CNTL_INVALID_RECORD/>
+    <CNTL_DATA_PROV_RESTARTED/>
+    <CNTL_AVG_CTX/>
+    <CNTL_PEAK_CTX/>
+  </column_order>
+  <temp_table create="yes" master="yes" meas_level="PLMN/MSC/UNIT1" name="CNTL" pragma="NSS" type="PM">
+    <counters>
+      <counter alias="period_duration" object-formula="avg(period_duration)" time-alias="period_duration" time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</counter>
+      <counter alias="CNTL_CALLS" symmetrical="true">SUM(CNTL_CALLS)</counter>
+      <counter alias="CNTL_ACCEP" symmetrical="true">SUM(CNTL_ACCEP)</counter>
+      <counter alias="CNTL_ANSW" symmetrical="true">SUM(CNTL_ANSW)</counter>
+      <counter alias="CNTL_SFAIL" symmetrical="true">SUM(CNTL_SFAIL)</counter>
+      <counter alias="CNTL_IFAIL" symmetrical="true">SUM(CNTL_IFAIL)</counter>
+      <counter alias="CNTL_EFAIL" symmetrical="true">SUM(CNTL_EFAIL)</counter>
+      <counter alias="CNTL_ERLANGS" object-formula="SUM(CNTL_ERLANGS)" time-alias="CNTL_ERLANGS" time-formula="AVG(CNTL_ERLANGS)">SUM(CNTL_ERLANGS)</counter>
+      <counter alias="CNTL_INVALID_RECORD" symmetrical="true">AVG(CNTL_INVALID_RECORD)</counter>
+      <counter alias="CNTL_DATA_PROV_RESTARTED" symmetrical="true">AVG(CNTL_DATA_PROV_RESTARTED)</counter>
+      <counter alias="CNTL_AVG_CTX" symmetrical="true">AVG(CNTL_AVG_CTX)</counter>
+      <counter alias="CNTL_PEAK_CTX" symmetrical="true">MAX(CNTL_PEAK_CTX)</counter>
+    </counters>
+    <table_name>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</table_name>
+    <alias_name>CNTL</alias_name>
+  </temp_table>
+  <kpi name="period_duration">
+    <formula>CNTL.period_duration</formula>
+    <kpi_info>
+      <title>period_duration</title>
+      <use>Duration of the measurement period in minutes.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="sum(period_duration)">avg(period_duration)*count(distinct period_start_time)</formula>
+      <unit>Min</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>period_duration</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_CALLS">
+    <formula>CNTL.CNTL_CALLS</formula>
+    <kpi_info>
+      <title>CNTL_CALLS</title>
+      <use>Number of call attempts (0...999999999).Thefield is updated when the circuit is released.The counter
+is updated during the following events:receiving the
+BSSAP RELEASE COMPLETE message from the BSC.receiving
+the RANAP Iu RELEASE COMPLETE message from the RNC.receiving
+the ISUP Release (terminating side) or the ISUP Release Complete (originating
+side) message from the preceding or following exchange.receiving
+BICC Release (terminating side) or BICC Release Complete (originating
+side) message from the preceding or following exchange.receiving
+SIP 4xx or 5xx or 6xx response on originating or SIP CANCEL or BYE
+request on terminating side from the preceding or following exchange.Update
+also happens when the inter-MSC handover occurs and when the signalling
+unit which handles the given circuit group is changed. It means
+that the BSSMAP HANDOVER COMPLETE message embedded to a MAP sendEndSignal
+operation is received from the neighbouring MSC.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CNTL_CALLS)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_CALLS (M18B2C2)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_ACCEP">
+    <formula>CNTL.CNTL_ACCEP</formula>
+    <kpi_info>
+      <title>CNTL_ACCEP</title>
+      <use>Number of successful call attempts (0...999999999), clear codes 0...3FF.The field is updated when the circuit
+is released.The counter is updated at the same time when
+the CALLS counter and the call is ended by clear code 0...3FF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CNTL_ACCEP)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_ACCEP (M18B2C3)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_ANSW">
+    <formula>CNTL.CNTL_ANSW</formula>
+    <kpi_info>
+      <title>CNTL_ANSW</title>
+      <use>The number of call attempts (0...999999999) that have reached the conversation state.The field
+is updated when the circuit is released.The counter
+is updated at the same time when the CALLS counter and the BSSAP
+CONNECT message is received from the BSC or the ISUP ANSWER message
+is received from the exchange.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CNTL_ANSW)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_ANSW (M18B2C5)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_SFAIL">
+    <formula>CNTL.CNTL_SFAIL</formula>
+    <kpi_info>
+      <title>CNTL_SFAIL</title>
+      <use>Number of call attempts (0...999999999) that have terminated in a subscriber error, clear codes C00...FFF.The
+field is updated when the circuit is released.The counter
+is updated at the same time when the CALLS counter and the call
+is ended by clear code C0...FFF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CNTL_SFAIL)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_SFAIL (M18B2C6)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_IFAIL">
+    <formula>CNTL.CNTL_IFAIL</formula>
+    <kpi_info>
+      <title>CNTL_IFAIL</title>
+      <use>Number of call attempts (0...999999999) that have terminated in an error in the home exchange, clear codes 400...7FF.The
+field is updated when the circuit is released.The counter
+is updated at the same time when the CALLS counter and the call
+is ended by clear code 400...7FF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CNTL_IFAIL)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_IFAIL (M18B2C7)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_EFAIL">
+    <formula>CNTL.CNTL_EFAIL</formula>
+    <kpi_info>
+      <title>CNTL_EFAIL</title>
+      <use>Number of call attempts (0...999999999) that have terminated in a trunk circuit error, clear codes 800...BFF.The
+field is updated when the circuit is released.The counter
+is updated at the same time when the CALLS counter and the call
+is ended by clear code 800...BFF.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>SUM(CNTL_EFAIL)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_EFAIL (M18B2C8)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_ERLANGS">
+    <formula>CNTL.CNTL_ERLANGS</formula>
+    <kpi_info>
+      <title>CNTL_ERLANGS</title>
+      <use>The amount of traffic handled by the controlunit in Erlangs (0.0...9999.9). That means the total reservation
+time of the object being measured in relation to the results accumulation
+period.The Erlangs are calculated from circuit seizure
+to circuit release.All of the circuit reservation time
+is updated in the results accumulation period in which the circuit
+is released. For this reason remarkably large values in the ERLANGS
+field are possible in a case in which there are many calls that have
+started before the results accumulation period but that end in the results
+accumulation period.The counter is updated at the same
+time as the CALLS counter. The Erlangs are calculated as follows:BSSAP
+- from ASSIGNEMENT REQUEST to RELEASE COMPLETERANAP
+- from RAB ASSIGNEMENT REQUEST to Iu RELEASE COMPLETEISUP
+- from IAM to RLC messageBICC - from IAM to RLC messageSIP
+-from INVITE to CANCEL or BYE request or 4xx or 5xx or 6xx responseIf
+inter-MSC handover happens, then the Erlang is calculated until/from BSSAP
+HANDOVER REQUIRED message.CODING: DW (value is multiplied
+by 100)</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula time-formula="AVG(CNTL_ERLANGS)">SUM(CNTL_ERLANGS)</formula>
+      <unit>Erl</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_ERLANGS (M18B2C9)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_INVALID_RECORD">
+    <formula>CNTL.CNTL_INVALID_RECORD</formula>
+    <kpi_info>
+      <title>CNTL_INVALID_RECORD</title>
+      <use>The tag appears at the end of the given countergroup with field value 1 when the actual record is invalid.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CNTL_INVALID_RECORD)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_INVALID_RECORD (M18B2C10)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_DATA_PROV_RESTARTED">
+    <formula>CNTL.CNTL_DATA_PROV_RESTARTED</formula>
+    <kpi_info>
+      <title>CNTL_DATA_PROV_RESTARTED</title>
+      <use>Tag appears with value 1 when the data providerin the signalling unit or signalling unit(s) is restarted during
+the period and data might not be reliable.</use>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CNTL_DATA_PROV_RESTARTED)</formula>
+      <unit>No</unit>
+      <tables>RNS_PS_CNTL{BH_SUF}_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_DATA_PROV_RESTARTED (M18B2C11)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_AVG_CTX">
+    <formula>CNTL.CNTL_AVG_CTX</formula>
+    <kpi_info>
+      <title>CNTL_AVG_CTX</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>AVG(CNTL_AVG_CTX)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_cntl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_AVG_CTX (M18B2C12)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+  <kpi name="CNTL_PEAK_CTX">
+    <formula>CNTL.CNTL_PEAK_CTX</formula>
+    <kpi_info>
+      <title>CNTL_PEAK_CTX</title>
+      <use/>
+      <open_questions/>
+      <use_experience/>
+      <known_problems/>
+      <pm_class/>
+      <formula>MAX(CNTL_PEAK_CTX)</formula>
+      <unit>No</unit>
+      <tables>rns_ps_cntl_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_alias>CNTL_PEAK_CTX (M18B2C13)</kpi_alias>
+    <kpi_format>format %8.0f</kpi_format>
+    <kpi_mark/>
+    <area_level/>
+  </kpi>
+</conf_file>

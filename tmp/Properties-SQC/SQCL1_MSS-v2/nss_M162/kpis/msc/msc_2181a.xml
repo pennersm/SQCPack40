@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="nss_M162/counters/msc/LULAC_ext.xml" />
+  <kpi name="msc_2181a">
+    <formula>
+decode(lulac_ext.INTER_VLR_LOC_UPDATE_ATTEMPT_2 + lulac_ext.IE_VLR_LU_REROUTE_2, 0, null,
+	100*(lulac_ext.INTER_VLR_LOC_UPDATE_SUCCESS_2)/
+	(lulac_ext.INTER_VLR_LOC_UPDATE_ATTEMPT_2 + lulac_ext.IE_VLR_LU_REROUTE_2)
+)
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Inter-VLR Location Update per LAC and 3G access type success ratio]]></title>
+      <use><![CDATA[The ratio of successful Inter-VLR location updates compared to all location updates of this type for the given LAC and 3G access type]]></use>
+
+		<use_experience><![CDATA[
+		<br>This KPI replaces previous msc_796b.
+		<br>
+		<br>NOTES:
+		<br>This KPI includes counters from OPTIONAL feature.
+		<br>Available if Location Update per LAC feature (FN552 = sales item L.3345) is bought and active.
+		<br>This KPI shall be used when the MOCN-3G feature (Multi-Operator Core Network) is present (FN1847 = Sales item L.1468).
+		<br>The counter IE_VLR_LU_REROUTE is only available for 3G and if the MOCN feature is present. In order to work, this functionality (L.1468) requires Multiple PLMN support for RNC node in MSS, provided with Feature 1325: RANAP and BSSAP in MSC Server. 
+		<br>
+		<br>RECOMMENDED SUMMARY LEVELS: MSC - (MCCM-MNCM) - LAC
+		<br>KPI CLASS: Mobility
+		<br>MEASUREMENT(S): VLR measurement, part n, location update per LAC (M240 / F0H)
+		<br>
+		<br>]]>
+		</use_experience>
+
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;  SUM( INTER_VLR_LOC_UPDATE_SUCCESS )
+&lt;br&gt;----------------------------------------------------------------- * 100
+&lt;br&gt; SUM( INTER_VLR_LOC_UPDATE_ATTEMPT + IE_VLR_LU_REROUTE )
+&lt;br&gt; 
+&lt;br&gt;; where ACCESS_TYPE &amp;quot;3G&amp;quot;
+&lt;br&gt;
+&lt;br&gt;Counters from NetAct AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_LULAC_{OBJ_AGG}_{TIME_AGG}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>IrVLR LU LAC 3G AccType SR</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

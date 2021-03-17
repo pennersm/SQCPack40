@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw_U60/counters/TPR_ext.xml" />
+
+  <kpi name="mgw_1195a">
+    <formula>decode(
+			(((tpr.mgw_1149a) + 
+			(tpr.many_terms_in_ctx))),0,null, 
+
+			(100*(tpr.many_terms_in_ctx)
+			 / 
+			((tpr.mgw_1149a) + 
+			(tpr.many_terms_in_ctx))))
+	</formula>
+    <kpi_info>
+      <title><![CDATA[Ratio of cumulative number of connections with more than two terminations in context of all connections]]></title>
+      <use><![CDATA[Indicates usage ratio of connections with more than two terminations compared to usage of all traffic profiles in measured MGW.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;            SUM(MANY_TERMS_IN_CTX) 
+&lt;br&gt;100 * ---------------------------------- 
+&lt;br&gt;      mgw_1149a + SUM(MANY_TERMS_IN_CTX)
+&lt;br&gt;
+&lt;br&gt;Counters from AGGREGATED view(s)</formula>
+      <unit>[%]</unit>
+      <tables>nokmww_ps_tpr_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>More than 2 term conn</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

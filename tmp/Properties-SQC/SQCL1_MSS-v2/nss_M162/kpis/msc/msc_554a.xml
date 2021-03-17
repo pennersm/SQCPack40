@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><conf_file>
+  <temp_table_ref src="nss/counters/IPATM.xml"/>
+  <kpi name="msc_554a">
+    <formula>100*(decode(
+			ipatm.aal2_call_amount,0,null, 
+
+			ipatm.aal2_success_calls
+			 / 
+			ipatm.aal2_call_amount))</formula>
+    <kpi_info>
+      <title><![CDATA[AAL2 calls between MGW1 and MGW2 success ratio]]></title>
+      <use><![CDATA[Ratio of successful AAL2 calls between MGW1 and MGW2. This KPI is valid with MSS and GCS network elements, not with MSC.]]></use>
+
+<use_experience><![CDATA[ 
+<br>This is only valid for MSS and GCS network elements (not for MSC).Success here means that the termination reservation was successful between the two MGW. Note: the objects are Virtual MGWs
+<br>PUBLISHED: M12
+<br>LAST UPDATE: 14-10-2010
+<br>THEORETICAL SUMMARY LEVELS: PLMN->MSC->MGWMNAME->NMGWNAME
+<br>
+<br>RECOMMENDED SUMMARY LEVELS: MGWMNAME->NMGWNAME
+<br>
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): IP and ATM measurement (M390)
+<br>
+<br>
+<br>]]></use_experience>
+      <known_problems/>
+      <open_questions/>
+      <pm_class/>
+      <formula>&lt;br&gt;          sum (AAL2_success_calls) 
+&lt;br&gt;100 * -------------------------------------    
+&lt;br&gt;          sum(AAL2_call_amount)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;Counters from view(s):
+&lt;br&gt;RNS_PS_IPATM_MSC_{time_agg}
+&lt;br&gt;</formula>
+      <unit>[%]</unit>
+      <tables>rns_ps_ipatm_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark/>
+    <kpi_alias><![CDATA[AAL2 calls between MGW1 and MGW2 success ratio]]></kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/MMMT.xml" />
+  <kpi name="flns_3102b">
+    <formula>decode(
+			(mmmt.period_duration),0,null, 
+            
+			(mmmt.intratau_wo_sgw_change_succ + 
+			nvl(mmmt.intramme_tau_sgw_chg_succ,0) + 
+			mmmt.intratau_wo_sgw_change_fail + 
+			mmmt.eps_periodic_tau_succ + 
+			mmmt.eps_periodic_tau_fail)
+			 / 
+			(mmmt.period_duration*60))</formula>
+    <kpi_info>
+      <title><![CDATA[EPS Intra MME TAU per second]]></title>
+      <use><![CDATA[This KPI shows the average amount of EPS intra MME Tracking Area Update procedures per second.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(INTRATAU_WO_SGW_CHANGE_SUCC + 
+&lt;br&gt;   INTRAMME_TAU_SGW_CHG_SUCC +
+&lt;br&gt;   INTRATAU_WO_SGW_CHANGE_FAIL +
+&lt;br&gt;   EPS_PERIODIC_TAU_SUCC +  
+&lt;br&gt;   EPS_PERIODIC_TAU_FAIL)
+&lt;br&gt;-------------------------------------- 
+&lt;br&gt;sum(PERIOD_DURATION * 60)</formula>
+      <unit>[#/s]</unit>
+      <tables>PCOFNS_PS_MMMT_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2012/10/03 16:27:32.48 +0100</date>
+          <comment><![CDATA[Source: RSMME015.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>EPS Intra MME TAU pr sec</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

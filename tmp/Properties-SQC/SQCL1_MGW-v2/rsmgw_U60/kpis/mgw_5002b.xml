@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmgw/counters/CONN.xml" />
+  <kpi name="mgw_5002b">
+    <formula>(conn.all_cas - 
+0.25*conn.all_vconn_cas)</formula>
+    <kpi_info>
+      <title><![CDATA[BHCA in MGW (dimensioning)]]></title>
+      <use><![CDATA[Busy hour call (context) attempts - dimensioning]]></use>
+
+<use_experience><![CDATA[
+<br> [ALL_CAS] + [ALL_VCONN_CAS] counters have its aggregation defined in the NetAct aggreated tables as SUM for both TIME + NETWORK/OBJECT level. We can take advantage of such aggregated table in the KPI formula.
+<br>
+<br>- RAW tables shall be used since this KPI uses BH criteria different from the one defined in NetAct.
+<br>- The data must be shown by hour level to get the BHCA. Use hourly measure activation period.
+<br>- UNIT TYPE 335 = ISU unit = Interface Control and Signalling Unit
+<br>- Please note that the M645 (Connection measurement) provides data per ISU unit level but the KPI is to be used per MGW level.
+<br>- Theoretical summary level: PLMN - MGW - UNIT_TYPE - UNIT_INDEX
+<br>- Please note that Master ISU has to be checked differently then Slave ISU.
+<br>LAST UPDATE: 07-01-2010
+<br>RECOMMENDED SUMMARY LEVELS: MGW
+<br>KPI CLASS: Traffic
+<br>MEASUREMENT(S): Connection Measurement
+<br>
+<br>]]></use_experience>
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;MAX( SUMoverISU( ALL_CAS - 0.25 * ALL_VCONN_CAS ) )
+&lt;br&gt;= 
+&lt;br&gt;MAX( SUM( ALL_CAS - 0.25 * ALL_VCONN_CAS ) )
+&lt;br&gt;;WHERE UNIT_TYPE = 335
+&lt;br&gt;
+&lt;br&gt;Counters from RAW view(s)</formula>
+      <unit>[#]</unit>
+      <tables>nokmww_ps_conn_{obj_agg}_{time_agg}</tables>
+    </kpi_info>
+    <kpi_format>float:0</kpi_format>
+    <kpi_mark />
+    <kpi_alias>MGW BHCA - dimensioning</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+

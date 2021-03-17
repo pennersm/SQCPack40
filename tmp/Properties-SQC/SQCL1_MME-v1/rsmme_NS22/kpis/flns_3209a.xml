@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf_file>
+  <temp_table_ref src="rsmme/counters/SONM.xml" />
+  <kpi name="flns_3209a">
+    <formula>decode(
+            (sonm.son_conf_tunnel_rec_with_req),0,null,
+            
+            (sonm.son_conf_tunnel_sent_with_repl
+            / 
+            sonm.son_conf_tunnel_rec_with_req))*100</formula>
+    <kpi_info>
+      <title><![CDATA[Target MME Configuration Tunnels Reply/Request ratio]]></title>
+      <use><![CDATA[This KPI shows the ratio of Configuration Tunnel Transfer reply messages sent when compared to the Configuration Tunnel Transfer request messages received.]]></use>
+      <use_experience />
+      <known_problems />
+      <open_questions />
+      <pm_class />
+      <formula>&lt;br&gt;sum(SON_CONF_TUNNEL_SENT_WITH_REPL)
+&lt;br&gt;------------------------------------ *100
+&lt;br&gt;sum(SON_CONF_TUNNEL_REC_WITH_REQ)</formula>
+      <unit>[%]</unit>
+      <tables>PCOFNS_PS_SONM_{OBJ_AGG}_{TIME_AGG}</tables>
+      <history>
+        <revision>
+          <author><![CDATA[JflxReportGeneratorFromEosflxApp]]></author>
+          <date>2013/04/04 00:43:44.793 +0100</date>
+          <comment><![CDATA[Source: RSMME019.xml]]></comment>
+        </revision>
+      </history>
+    </kpi_info>
+    <kpi_format>float:2</kpi_format>
+    <kpi_mark />
+    <kpi_alias>Target MME Config Tun Reply/Req ratio</kpi_alias>
+    <area_level>all</area_level>
+  </kpi>
+</conf_file>
+
